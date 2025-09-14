@@ -12,6 +12,7 @@ import {
 import { TherapistCard, TherapistData } from "@/components/discovery/therapist-card";
 import { TherapistDetailsSheet } from "@/components/discovery/therapist-details-sheet";
 import { FiltersDialog } from "@/components/discovery/filters-dialog";
+import { VideoOverlay } from "@/components/discovery/video-overlay";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useSwipeGestures } from "@/hooks/use-swipe-gestures";
 import { useAriaLive } from "@/hooks/use-aria-live";
@@ -64,6 +65,7 @@ export default function Discover() {
   const [viewedTherapists, setViewedTherapists] = React.useState<Set<string>>(new Set());
   const [favorites, setFavorites] = React.useState<Set<string>>(new Set());
   const [detailsOpen, setDetailsOpen] = React.useState(false);
+  const [videoOpen, setVideoOpen] = React.useState(false);
   const [selectedTherapist, setSelectedTherapist] = React.useState<TherapistData | null>(null);
   const [filtersOpen, setFiltersOpen] = React.useState(false);
   
@@ -110,6 +112,11 @@ export default function Discover() {
     setDetailsOpen(true);
   }, []);
 
+  const handleShowVideo = React.useCallback((therapist: TherapistData) => {
+    setSelectedTherapist(therapist);
+    setVideoOpen(true);
+  }, []);
+
   const handleReport = React.useCallback((therapist: TherapistData) => {
     console.log("Report therapist:", therapist.name);
     announce(`Reported ${therapist.name}`);
@@ -127,7 +134,7 @@ export default function Discover() {
     onPrevious: handlePrevious,
     onPass: handlePass,
     onSave: handleSave,
-    onShowDetails: handleShowDetails,
+    onShowDetails: currentTherapist?.video_url ? handleShowVideo : handleShowDetails,
     onOpenFilters: () => setFiltersOpen(true),
   });
 
@@ -191,12 +198,13 @@ export default function Discover() {
                   aria-selected="true"
                   className="h-full"
                 >
-                  <div ref={swipeRef} className="h-full">
+                  <div ref={swipeRef} className="h-full overflow-hidden">
                     <TherapistCard
                       therapist={currentTherapist}
                       onPass={handlePass}
                       onSave={handleSave}
                       onShowDetails={handleShowDetails}
+                      onShowVideo={handleShowVideo}
                       className="h-full"
                     />
                   </div>
@@ -251,7 +259,9 @@ export default function Discover() {
                         onPass={handlePass}
                         onSave={handleSave}
                         onShowDetails={handleShowDetails}
+                        onShowVideo={handleShowVideo}
                         showDetailsButton={false}
+                        showActionButtons={false}
                       />
                     </div>
                   </li>
@@ -367,6 +377,17 @@ export default function Discover() {
         onSave={handleSave}
         onReport={handleReport}
       />
+
+      {/* Video Overlay */}
+      {selectedTherapist?.video_url && (
+        <VideoOverlay
+          open={videoOpen}
+          onOpenChange={setVideoOpen}
+          videoUrl={selectedTherapist.video_url}
+          posterUrl={selectedTherapist.image}
+          title={selectedTherapist.name}
+        />
+      )}
 
       {/* Filters Dialog */}
       <FiltersDialog

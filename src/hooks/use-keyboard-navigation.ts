@@ -27,21 +27,11 @@ export function useKeyboardNavigation({
     if (!currentTherapist) return;
 
     switch (event.key) {
-      case 'ArrowRight':
-        event.preventDefault();
-        onNext();
-        break;
       case 'ArrowLeft':
-        event.preventDefault();
-        onPrevious();
-        break;
-      case 'x':
-      case 'X':
         event.preventDefault();
         onPass(currentTherapist);
         break;
-      case 'h':
-      case 'H':
+      case 'ArrowRight':
         event.preventDefault();
         onSave(currentTherapist);
         break;
