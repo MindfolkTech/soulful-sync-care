@@ -1,73 +1,92 @@
-# Welcome to your Lovable project
+# MindFolk - Personality-First Therapy Matching
 
-## Project info
+A beautiful, accessible web application for connecting clients with therapists through video profiles and personality-based matching.
 
-**URL**: https://lovable.dev/projects/a663f888-1889-41ef-9657-797190b4f3c9
+## ✨ Features
 
-## How can I edit this code?
+- **Personality-First Matching**: Advanced algorithm weighing compatibility factors
+- **Video Profiles**: 30-60s therapist introductions for authentic connections
+- **Free Chemistry Calls**: 15-minute sessions before committing
+- **WCAG 2.1 AA Compliant**: Fully accessible design
+- **Beautiful Design System**: Consistent UI using MindFolk Style Guide 2.3
 
-There are several ways of editing your application.
+## 🚀 Quick Start
 
-**Use Lovable**
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd mindfolk
+   ```
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/a663f888-1889-41ef-9657-797190b4f3c9) and start prompting.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Changes made via Lovable will be committed automatically to this repo.
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env.local
+   # Fill in your API keys
+   ```
 
-**Use your preferred IDE**
+4. **Start development server**
+   ```bash
+   npm run dev
+   ```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🏗️ Architecture
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **Frontend**: React 18 + Vite + TypeScript
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **State**: TanStack Query + Zustand
+- **Auth**: Clerk with RBAC (client/therapist/admin/support)
+- **Backend**: Supabase (Database, Storage, Edge Functions, Realtime)
+- **Video**: Daily.co (sessions) + Cloudflare Stream (profiles)
+- **Payments**: Stripe Connect + Billing
+- **Email/SMS**: Resend + Twilio
 
-Follow these steps:
+## 📁 Project Structure
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components + custom
+│   └── layout/         # Header, Footer, Container
+├── pages/              # Route components
+│   ├── public/         # Landing, auth, legal
+│   ├── client/         # Client dashboard & features
+│   ├── therapist/      # Therapist tools & analytics
+│   └── admin/          # Admin oversight & management
+├── lib/                # Utilities and core logic
+│   └── matching.ts     # Personality matching algorithm
+└── assets/             # Images and static files
 ```
 
-**Edit a file directly in GitHub**
+## 🎨 Design System
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Built with MindFolk Style Guide 2.3 featuring:
+- **Warm color palette**: Jovial Jade, Garden Green, Warm White
+- **Typography**: Crimson Pro (headings) + Helvetica Neue (body)
+- **Semantic tokens**: All colors, spacing, and typography defined systematically
+- **Accessibility**: 44px+ touch targets, proper contrast ratios
 
-**Use GitHub Codespaces**
+## 🧠 Matching Algorithm
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+The personality-first matching system weighs:
+- **Personality Compatibility** (40%): Communication style alignment
+- **Identity Affirming** (20%): Cultural and identity preferences
+- **Specialty Match** (20%): Therapeutic focus areas
+- **Modality Preferences** (15%): Treatment approach alignment
+- **Availability Fit** (5%): Schedule compatibility
 
-## What technologies are used for this project?
+## 🔧 Development
 
-This project is built with:
+- **Linting**: ESLint + TypeScript strict mode
+- **Formatting**: Prettier (configured)
+- **Components**: Custom shadcn/ui variants with design system tokens
+- **Forms**: React Hook Form + Zod validation
+- **Testing**: Unit tests for matching algorithm
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 📝 License
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/a663f888-1889-41ef-9657-797190b4f3c9) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Built for MindFolk therapy matching platform.
