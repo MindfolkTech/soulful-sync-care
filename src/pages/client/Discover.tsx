@@ -10,7 +10,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { TherapistCard, TherapistData } from "@/components/discovery/therapist-card";
-import { PortraitOverlay } from "@/components/ui/portrait-overlay";
 import { TherapistDetailsSheet } from "@/components/discovery/therapist-details-sheet";
 import { FiltersDialog } from "@/components/discovery/filters-dialog";
 import { VideoOverlay } from "@/components/discovery/video-overlay";
@@ -309,12 +308,10 @@ export default function Discover() {
                       Your browser does not support the video tag.
                     </video>
                   ) : (
-                    <PortraitOverlay
+                    <img
                       src={currentTherapist.image}
                       alt={`${currentTherapist.name} profile`}
-                      className="w-full h-full"
-                      clientPrefs={[]} // TODO: wire from assessment store
-                      personalityTags={currentTherapist.personality}
+                      className="w-full h-full object-cover"
                     />
                   )}
                 </div>
