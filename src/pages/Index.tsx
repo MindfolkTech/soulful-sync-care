@@ -33,27 +33,29 @@ export default function Index() {
       <main className="flex-1">
         {/* Hero Section */}
         <section 
-          className="py-12 lg:py-20"
+          className="py-[var(--space-xl)] lg:py-[var(--space-2xl)]"
           style={{ backgroundColor: "var(--warm-white)" }}
         >
           <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-5 space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-[var(--space-lg)] items-center">
+              <div className="lg:col-span-5 space-y-[var(--space-md)]">
                 <p 
-                  className="text-sm uppercase tracking-wide"
+                  className="uppercase tracking-wide"
                   style={{
                     fontFamily: "var(--font-secondary)",
-                    color: "var(--text-secondary)",
+                    color: "hsl(var(--text-secondary))",
+                    fontSize: "var(--text-xs)",
                   }}
                 >
                   Tired of therapist mismatches?
                 </p>
                 
                 <h1 
-                  className="text-3xl lg:text-5xl font-bold leading-tight"
+                  className="font-bold leading-tight"
                   style={{
                     fontFamily: "var(--font-primary)",
-                    color: "var(--jovial-jade)",
+                    color: "hsl(var(--jovial-jade))",
+                    fontSize: "var(--text-3xl)",
                     maxWidth: "14ch"
                   }}
                 >
@@ -61,22 +63,24 @@ export default function Index() {
                 </h1>
                 
                 <p 
-                  className="text-lg leading-relaxed"
+                  className="leading-relaxed"
                   style={{
                     fontFamily: "var(--font-secondary)",
-                    color: "var(--text-primary)",
+                    color: "hsl(var(--text-primary))",
+                    fontSize: "var(--text-lg)",
                   }}
                 >
                   Because everyone's mental health journey is different.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-[var(--space-sm)]">
                   <Button
                     size="lg"
-                    className="min-h-[var(--touch-target-min)] px-8"
+                    className="min-h-[var(--touch-target-min)] focus-visible:ring-2 focus-visible:ring-[var(--garden-green)] focus-visible:ring-offset-2"
                     style={{
-                      backgroundColor: "var(--btn-primary-bg)",
-                      color: "var(--btn-primary-text)",
+                      backgroundColor: "hsl(var(--btn-primary-bg))",
+                      color: "hsl(var(--btn-primary-text))",
+                      padding: "0 var(--space-lg)",
                     }}
                     asChild
                   >
@@ -85,11 +89,12 @@ export default function Index() {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="min-h-[var(--touch-target-min)] px-8"
+                    className="min-h-[var(--touch-target-min)] focus-visible:ring-2 focus-visible:ring-[var(--garden-green)] focus-visible:ring-offset-2"
                     style={{
                       backgroundColor: "transparent",
-                      color: "var(--btn-secondary-text)",
-                      borderColor: "var(--garden-green)",
+                      color: "hsl(var(--btn-secondary-text))",
+                      borderColor: "hsl(var(--garden-green))",
+                      padding: "0 var(--space-lg)",
                     }}
                     asChild
                   >
@@ -103,6 +108,7 @@ export default function Index() {
                   src="/images/master-landing-hero-option-a.png"
                   alt="Four diverse clients smiling, cropped into organic editorial shapes"
                   className="w-full h-auto drop-shadow-lg"
+                  style={{ borderRadius: "var(--radius-lg)" }}
                   loading="eager"
                   fetchPriority="high"
                 />
