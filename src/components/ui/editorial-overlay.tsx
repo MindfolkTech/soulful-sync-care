@@ -3,36 +3,36 @@ import { cn } from "@/lib/utils";
 
 type OverlayRule = "personality:warm" | "personality:calm" | "personality:direct" | "affinity:multilingual" | "default";
 
-const OVERLAY_CONFIGS: Record<OverlayRule, { fill: string; fillColor: string; line: string; lineColor: string }> = {
+const OVERLAY_CONFIGS: Record<OverlayRule, { clipPath: string; fillColor: string; line: string; lineColor: string }> = {
   "personality:warm": { 
-    fill: "fill-blobby", 
-    fillColor: "var(--soft-blush)", 
+    clipPath: "clip-blobby", 
+    fillColor: "hsl(var(--soft-blush))", 
     line: "line-spark", 
-    lineColor: "var(--elated-emerald)" 
+    lineColor: "hsl(var(--elated-emerald))" 
   },
   "personality:calm": { 
-    fill: "fill-oval", 
-    fillColor: "var(--soft-sage)", 
+    clipPath: "clip-oval", 
+    fillColor: "hsl(var(--soft-sage))", 
     line: "line-wave", 
-    lineColor: "var(--elated-emerald)" 
+    lineColor: "hsl(var(--elated-emerald))" 
   },
   "personality:direct": { 
-    fill: "fill-arch", 
-    fillColor: "var(--soft-blue)", 
+    clipPath: "clip-arch", 
+    fillColor: "hsl(var(--soft-blue))", 
     line: "line-brkt", 
-    lineColor: "var(--elated-emerald)" 
+    lineColor: "hsl(var(--elated-emerald))" 
   },
   "affinity:multilingual": { 
-    fill: "fill-oval", 
-    fillColor: "var(--soft-lavender)", 
+    clipPath: "clip-oval", 
+    fillColor: "hsl(var(--soft-lavender))", 
     line: "line-ul", 
-    lineColor: "var(--elated-emerald)" 
+    lineColor: "hsl(var(--elated-emerald))" 
   },
   "default": { 
-    fill: "fill-blobby", 
-    fillColor: "var(--soft-sage)", 
+    clipPath: "clip-blobby", 
+    fillColor: "hsl(var(--soft-sage))", 
     line: "line-spark", 
-    lineColor: "var(--elated-emerald)" 
+    lineColor: "hsl(var(--elated-emerald))" 
   },
 };
 
@@ -55,46 +55,42 @@ export function EditorialOverlay({
   return (
     <div 
       className={cn(
-        "relative overflow-hidden", 
-        "rounded-[var(--radius-lg)]",
+        "relative aspect-square overflow-hidden",
         className
       )}
-      style={{ borderRadius: "var(--radius-lg)" }}
       {...props}
     >
+      {/* Background fill */}
+      <div 
+        className="absolute inset-0"
+        style={{ backgroundColor: config.fillColor }}
+      />
+      
+      {/* Organically masked image */}
       <img 
         src={src} 
         alt={alt} 
-        className="block w-full h-full object-cover" 
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ 
+          clipPath: `url(#${config.clipPath})`,
+          WebkitClipPath: `url(#${config.clipPath})`
+        }}
       />
       
-      {/* Fill overlay */}
+      {/* Decorative line overlay */}
       <svg 
         className="absolute inset-0 pointer-events-none" 
-        style={{ opacity: 0.9, zIndex: 1 }}
-        aria-hidden="true"
-      >
-        <use 
-          href={`#${config.fill}`} 
-          fill={`hsl(${config.fillColor})`}
-        />
-      </svg>
-      
-      {/* Line overlay */}
-      <svg 
-        className="absolute inset-0 pointer-events-none transition-all duration-300 ease-in-out" 
         style={{ 
-          opacity: 0.8, 
-          zIndex: 2,
-          transition: "var(--motion-swipe)"
+          opacity: 0.7, 
+          zIndex: 2
         }}
         aria-hidden="true"
       >
         <use 
           href={`#${config.line}`} 
-          stroke={`hsl(${config.lineColor})`}
+          stroke={config.lineColor}
           fill="none" 
-          strokeWidth={2}
+          strokeWidth="2"
         />
       </svg>
     </div>
