@@ -6,7 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import celebrationIllustration from "@/assets/celebration-illustration.jpg";
 
 const assessmentSteps = [
@@ -56,12 +60,75 @@ const assessmentSteps = [
     ],
     type: "multiple-choice",
     maxOptions: 3
+  },
+  {
+    id: 5,
+    title: "A bit about you",
+    content: "Help us understand your background",
+    type: "demographics"
+  },
+  {
+    id: 6,
+    title: "What matters most to you?",
+    content: "Select your core values - choose up to 5",
+    options: [
+      "Personal growth and self-discovery",
+      "Strong relationships and connection",
+      "Career success and achievement",
+      "Family and community",
+      "Creativity and self-expression",
+      "Health and wellness",
+      "Financial security",
+      "Adventure and new experiences",
+      "Helping others and giving back",
+      "Spirituality and meaning"
+    ],
+    type: "multiple-choice",
+    maxOptions: 5
+  },
+  {
+    id: 7,
+    title: "Session preferences",
+    content: "How would you like to meet?",
+    options: [
+      "Video calls only",
+      "Phone calls only", 
+      "Either video or phone is fine",
+      "I'd prefer to start with phone calls"
+    ],
+    type: "single-choice"
+  },
+  {
+    id: 8,
+    title: "Previous therapy experience",
+    content: "Have you worked with a therapist before?",
+    options: [
+      "This is my first time",
+      "I've tried therapy once or twice", 
+      "I've had multiple therapy experiences",
+      "I'm currently seeing someone but looking for a change"
+    ],
+    type: "single-choice"
+  },
+  {
+    id: 9,
+    title: "Perfect! We're matching you now...",
+    content: "Based on your responses, we're finding therapists who are the best fit for you.",
+    subtitle: "This usually takes just a few seconds",
+    type: "completion"
   }
 ];
 
 export default function Assessment() {
   const [currentStep, setCurrentStep] = useState(1);
   const [responses, setResponses] = useState<Record<number, string[]>>({});
+  const [demographicData, setDemographicData] = useState({
+    age: "",
+    gender: "",
+    location: "",
+    timezone: ""
+  });
+  const [isMatching, setIsMatching] = useState(false);
 
   const handleOptionToggle = (stepId: number, option: string) => {
     const currentResponses = responses[stepId] || [];
@@ -78,6 +145,25 @@ export default function Assessment() {
         ...responses,
         [stepId]: [...currentResponses, option]
       });
+    }
+  };
+
+  const handleSingleChoice = (stepId: number, option: string) => {
+    setResponses({
+      ...responses,
+      [stepId]: [option]
+    });
+  };
+
+  const handleContinue = () => {
+    if (currentStep === 9) {
+      setIsMatching(true);
+      // Simulate matching process
+      setTimeout(() => {
+        window.location.href = "/client/discover";
+      }, 3000);
+    } else {
+      setCurrentStep(Math.min(assessmentSteps.length, currentStep + 1));
     }
   };
 
@@ -164,6 +250,115 @@ export default function Assessment() {
                     ))}
                   </div>
                 )}
+
+                {currentStepData?.type === "single-choice" && (
+                  <RadioGroup 
+                    value={(responses[currentStep] || [])[0]} 
+                    onValueChange={(value) => handleSingleChoice(currentStep, value)}
+                  >
+                    {currentStepData.options?.map((option) => (
+                      <div key={option} className="flex items-center space-x-3">
+                        <RadioGroupItem value={option} id={option} />
+                        <label 
+                          htmlFor={option}
+                          className="font-secondary text-text-primary cursor-pointer flex-1"
+                        >
+                          {option}
+                        </label>
+                      </div>
+                    ))}
+                  </RadioGroup>
+                )}
+
+                {currentStepData?.type === "demographics" && (
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="age">Age Range</Label>
+                        <Select value={demographicData.age} onValueChange={(value) => 
+                          setDemographicData({...demographicData, age: value})
+                        }>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select age range" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="18-25">18-25</SelectItem>
+                            <SelectItem value="26-35">26-35</SelectItem>
+                            <SelectItem value="36-45">36-45</SelectItem>
+                            <SelectItem value="46-55">46-55</SelectItem>
+                            <SelectItem value="56-65">56-65</SelectItem>
+                            <SelectItem value="65+">65+</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="gender">Gender Identity</Label>
+                        <Select value={demographicData.gender} onValueChange={(value) => 
+                          setDemographicData({...demographicData, gender: value})
+                        }>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select identity" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="woman">Woman</SelectItem>
+                            <SelectItem value="man">Man</SelectItem>
+                            <SelectItem value="non-binary">Non-binary</SelectItem>
+                            <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="location">Location (City, Country)</Label>
+                      <Input 
+                        id="location"
+                        placeholder="e.g. London, UK"
+                        value={demographicData.location}
+                        onChange={(e) => setDemographicData({...demographicData, location: e.target.value})}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="timezone">Preferred Session Times</Label>
+                      <Select value={demographicData.timezone} onValueChange={(value) => 
+                        setDemographicData({...demographicData, timezone: value})
+                      }>
+                        <SelectTrigger>
+                          <SelectValue placeholder="When works best?" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="morning">Morning (9am-12pm)</SelectItem>
+                          <SelectItem value="afternoon">Afternoon (12pm-5pm)</SelectItem>
+                          <SelectItem value="evening">Evening (5pm-8pm)</SelectItem>
+                          <SelectItem value="flexible">I'm flexible</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                )}
+
+                {currentStepData?.type === "completion" && (
+                  <div className="text-center space-y-6">
+                    <div className="w-16 h-16 mx-auto">
+                      {isMatching ? (
+                        <Loader2 className="w-16 h-16 animate-spin text-primary" />
+                      ) : (
+                        <div className="w-16 h-16 rounded-full bg-gradient-primary flex items-center justify-center">
+                          <div className="w-8 h-8 rounded-full bg-background" />
+                        </div>
+                      )}
+                    </div>
+                    {isMatching && (
+                      <div className="space-y-2">
+                        <p className="font-secondary text-text-secondary text-sm">
+                          Analyzing your preferences...
+                        </p>
+                        <p className="font-secondary text-text-secondary text-sm">
+                          Finding your perfect matches...
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -182,11 +377,11 @@ export default function Assessment() {
                   Skip for now
                 </Button>
                 <Button
-                  onClick={() => setCurrentStep(Math.min(assessmentSteps.length, currentStep + 1))}
-                  disabled={currentStep === assessmentSteps.length}
+                  onClick={handleContinue}
+                  disabled={currentStep === assessmentSteps.length || isMatching}
                 >
-                  Continue
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  {currentStep === 9 ? (isMatching ? "Matching..." : "Find My Therapists") : "Continue"}
+                  {!isMatching && <ArrowRight className="w-4 h-4 ml-2" />}
                 </Button>
               </div>
             </div>

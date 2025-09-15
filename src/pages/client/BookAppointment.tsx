@@ -8,11 +8,13 @@ import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { TimeSlotPicker } from "@/components/booking/time-slot-picker";
 import { useState } from "react";
 
 export default function BookAppointment() {
   const { id } = useParams();
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  const [selectedTime, setSelectedTime] = useState<string | undefined>();
   const [sessionType, setSessionType] = useState("chemistry-15");
   const [comments, setComments] = useState("");
 
@@ -31,6 +33,13 @@ export default function BookAppointment() {
   const timeSlots = [
     "09:00", "10:00", "11:00", "14:00", "15:00", "16:00"
   ];
+
+  const formatDisplayTime = (time: string): string => {
+    const [hours, minutes] = time.split(':').map(Number);
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const displayHour = hours > 12 ? hours - 12 : hours === 0 ? 12 : hours;
+    return `${displayHour}:${minutes.toString().padStart(2, '0')} ${period}`;
+  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -96,25 +105,13 @@ export default function BookAppointment() {
                   </CardContent>
                 </Card>
 
-                {/* Time Selection */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="font-primary">Select Time</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-3 gap-3">
-                      {timeSlots.map((time) => (
-                        <Button
-                          key={time}
-                          variant="outline"
-                          className="min-h-touch-min"
-                        >
-                          {time}
-                        </Button>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+{/* Time Selection */}
+                <TimeSlotPicker 
+                  selectedDate={selectedDate}
+                  selectedTime={selectedTime}
+                  onTimeSelect={setSelectedTime}
+                  therapistId={id}
+                />
 
                 {/* Comments */}
                 <Card>
@@ -178,7 +175,9 @@ export default function BookAppointment() {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-text-secondary">Time:</span>
-                        <span className="text-text-primary">10:00 AM</span>
+                        <span className="text-text-primary">
+                          {selectedTime ? formatDisplayTime(selectedTime) : "Not selected"}
+                        </span>
                       </div>
                       <div className="flex justify-between font-semibold border-t pt-2">
                         <span className="text-text-primary">Total:</span>
