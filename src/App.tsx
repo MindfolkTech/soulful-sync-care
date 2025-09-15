@@ -24,6 +24,8 @@ import Appointments from "./pages/client/Appointments";
 import Favorites from "./pages/client/Favorites";
 import Notifications from "./pages/client/Notifications";
 import Account from "./pages/client/Account";
+import Messages from "./pages/client/Messages";
+import Billing from "./pages/client/Billing";
 
 // Therapist pages
 import TherapistOnboarding from "./pages/therapist/Onboarding";
@@ -33,6 +35,11 @@ import TherapistBookings from "./pages/therapist/Bookings";
 import TherapistClients from "./pages/therapist/Clients";
 import TherapistAnalytics from "./pages/therapist/Analytics";
 import TherapistDashboard from "./pages/therapist/Dashboard";
+import TherapistMessages from "./pages/therapist/Messages";
+import TherapistPayouts from "./pages/therapist/Payouts";
+
+// Session pages
+import SessionRoom from "./pages/session/SessionRoom";
 
 // Admin pages
 import AdminOverview from "./pages/admin/Overview";
@@ -71,6 +78,8 @@ const App = () => (
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/billing" element={<Billing />} />
 
           {/* Therapist routes */}
           <Route path="/t/onboarding" element={<TherapistOnboarding />} />
@@ -80,6 +89,11 @@ const App = () => (
           <Route path="/t/clients" element={<TherapistClients />} />
           <Route path="/t/analytics" element={<TherapistAnalytics />} />
           <Route path="/t/dashboard" element={<TherapistDashboard />} />
+          <Route path="/t/messages" element={<TherapistMessages />} />
+          <Route path="/t/payouts" element={<TherapistPayouts />} />
+
+          {/* Session routes */}
+          <Route path="/session/:sessionId" element={<SessionRoom />} />
 
           {/* Admin routes */}
           <Route path="/admin/overview" element={<AdminOverview />} />
