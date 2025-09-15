@@ -103,12 +103,13 @@ export default function TherapistDashboard() {
                   size="sm" 
                   className="relative hover:bg-surface-accent transition-colors duration-200" 
                   aria-label="View alerts (3 new)"
+                  onClick={() => window.location.href = '/t/notifications'}
                 >
                   <Bell className="w-4 h-4 mr-2" aria-hidden="true" />
                   Alerts
-                  <Badge 
-                    variant="destructive" 
-                    className="absolute -top-2 -right-2 h-5 w-5 text-xs bg-error-bg text-error-text" 
+                  <Badge
+                    variant="destructive"
+                    className="absolute -top-2 -right-2 h-5 w-5 text-xs bg-error-bg text-error-text"
                     aria-label="3 new alerts"
                   >
                     3
@@ -119,6 +120,7 @@ export default function TherapistDashboard() {
                   size="sm" 
                   className="hover:bg-surface-accent transition-colors duration-200" 
                   aria-label="Customize dashboard"
+                  onClick={() => window.location.href = '/t/settings'}
                 >
                   <Settings className="w-4 h-4 mr-2" aria-hidden="true" />
                   Customize
@@ -194,6 +196,7 @@ export default function TherapistDashboard() {
                     size="sm" 
                     className="bg-btn-cta text-btn-cta-text hover:bg-surface-accent transition-colors duration-200" 
                     aria-label="Take action on urgent notification"
+                    onClick={() => window.location.href = '/t/clients'}
                   >
                     Take Action
                   </Button>

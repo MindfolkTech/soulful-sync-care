@@ -56,6 +56,9 @@ import AdminAudit from "./pages/admin/Audit";
 import AdminSupport from "./pages/admin/Support";
 import AdminTasks from "./pages/admin/Tasks";
 
+// Dev pages
+import ScreenshotCapturePage from "./pages/dev/ScreenshotCapture";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -113,6 +116,9 @@ const App = () => (
           <Route path="/admin/audit" element={<AdminAudit />} />
           <Route path="/admin/support" element={<AdminSupport />} />
           <Route path="/admin/tasks" element={<AdminTasks />} />
+
+          {/* Dev routes */}
+          <Route path="/dev/screenshots" element={<ScreenshotCapturePage />} />
 
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />

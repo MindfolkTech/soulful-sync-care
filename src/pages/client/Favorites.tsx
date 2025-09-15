@@ -291,7 +291,7 @@ export default function Favorites() {
                 <p className="font-secondary text-text-secondary mb-4">
                   Start discovering therapists and add them to your favorites
                 </p>
-                <Button onClick={() => window.location.href = '/client/discover'}>
+                <Button onClick={() => window.location.href = '/discover'}>
                   Discover Therapists
                 </Button>
               </div>

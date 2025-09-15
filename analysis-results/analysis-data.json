@@ -1,0 +1,601 @@
+{
+  "timestamp": "2025-09-15T23:10:35.475Z",
+  "totalRoutes": 20,
+  "successful": 20,
+  "failed": 0,
+  "analyses": [
+    {
+      "route": "/",
+      "name": "Landing Page",
+      "timestamp": "2025-09-15T23:10:20.894Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 97,
+          "issues": [
+            "1 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0.09999999962747097
+        },
+        "content": {
+          "textElements": 104,
+          "images": 8,
+          "links": 17,
+          "buttons": 1,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/therapist",
+      "name": "Therapist Landing",
+      "timestamp": "2025-09-15T23:10:21.980Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 97,
+          "issues": [
+            "1 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0
+        },
+        "content": {
+          "textElements": 93,
+          "images": 6,
+          "links": 18,
+          "buttons": 1,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/sign-in",
+      "name": "Sign In",
+      "timestamp": "2025-09-15T23:10:22.656Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 75,
+          "issues": [
+            "5 buttons missing aria labels",
+            "No H1 heading found"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0.10000000149011612
+        },
+        "content": {
+          "textElements": 51,
+          "images": 0,
+          "links": 14,
+          "buttons": 5,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/sign-up",
+      "name": "Sign Up",
+      "timestamp": "2025-09-15T23:10:23.361Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 72,
+          "issues": [
+            "6 buttons missing aria labels",
+            "No H1 heading found"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0
+        },
+        "content": {
+          "textElements": 57,
+          "images": 0,
+          "links": 16,
+          "buttons": 6,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/assessment",
+      "name": "Client Assessment",
+      "timestamp": "2025-09-15T23:10:24.073Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 75,
+          "issues": [
+            "5 buttons missing aria labels",
+            "No H1 heading found"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0
+        },
+        "content": {
+          "textElements": 50,
+          "images": 1,
+          "links": 13,
+          "buttons": 5,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/discover",
+      "name": "Discover Therapists",
+      "timestamp": "2025-09-15T23:10:25.348Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 94,
+          "issues": [
+            "2 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0.09999999962747097
+        },
+        "content": {
+          "textElements": 96,
+          "images": 4,
+          "links": 4,
+          "buttons": 14,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/favorites",
+      "name": "Client Favorites",
+      "timestamp": "2025-09-15T23:10:26.048Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 79,
+          "issues": [
+            "7 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0
+        },
+        "content": {
+          "textElements": 83,
+          "images": 3,
+          "links": 8,
+          "buttons": 11,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/appointments",
+      "name": "Client Appointments",
+      "timestamp": "2025-09-15T23:10:26.809Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 79,
+          "issues": [
+            "7 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0
+        },
+        "content": {
+          "textElements": 64,
+          "images": 1,
+          "links": 17,
+          "buttons": 7,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/messages",
+      "name": "Client Messages",
+      "timestamp": "2025-09-15T23:10:27.555Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 47,
+          "issues": [
+            "7 images missing alt text",
+            "6 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0
+        },
+        "content": {
+          "textElements": 106,
+          "images": 7,
+          "links": 0,
+          "buttons": 6,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": [
+            "1 elements with overflow hidden"
+          ]
+        }
+      }
+    },
+    {
+      "route": "/account",
+      "name": "Client Account",
+      "timestamp": "2025-09-15T23:10:28.289Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 79,
+          "issues": [
+            "7 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0
+        },
+        "content": {
+          "textElements": 60,
+          "images": 0,
+          "links": 13,
+          "buttons": 7,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/billing",
+      "name": "Client Billing",
+      "timestamp": "2025-09-15T23:10:28.981Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 58,
+          "issues": [
+            "14 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0.09999999962747097
+        },
+        "content": {
+          "textElements": 125,
+          "images": 0,
+          "links": 0,
+          "buttons": 14,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/t/onboarding",
+      "name": "Therapist Onboarding",
+      "timestamp": "2025-09-15T23:10:29.661Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 84,
+          "issues": [
+            "2 buttons missing aria labels",
+            "No H1 heading found"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0
+        },
+        "content": {
+          "textElements": 63,
+          "images": 0,
+          "links": 14,
+          "buttons": 5,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/t/dashboard",
+      "name": "Therapist Dashboard",
+      "timestamp": "2025-09-15T23:10:30.397Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 79,
+          "issues": [
+            "7 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0
+        },
+        "content": {
+          "textElements": 245,
+          "images": 0,
+          "links": 29,
+          "buttons": 10,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/t/clients",
+      "name": "Therapist Clients",
+      "timestamp": "2025-09-15T23:10:31.140Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 22,
+          "issues": [
+            "3 images missing alt text",
+            "21 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0
+        },
+        "content": {
+          "textElements": 132,
+          "images": 3,
+          "links": 13,
+          "buttons": 21,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/t/bookings",
+      "name": "Therapist Bookings",
+      "timestamp": "2025-09-15T23:10:31.881Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 56,
+          "issues": [
+            "1 images missing alt text",
+            "13 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0.09999999962747097
+        },
+        "content": {
+          "textElements": 107,
+          "images": 1,
+          "links": 13,
+          "buttons": 13,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/t/messages",
+      "name": "Therapist Messages",
+      "timestamp": "2025-09-15T23:10:32.607Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 19,
+          "issues": [
+            "9 images missing alt text",
+            "12 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0
+        },
+        "content": {
+          "textElements": 128,
+          "images": 9,
+          "links": 0,
+          "buttons": 12,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": [
+            "1 elements with overflow hidden"
+          ]
+        }
+      }
+    },
+    {
+      "route": "/t/analytics",
+      "name": "Therapist Analytics",
+      "timestamp": "2025-09-15T23:10:33.288Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 70,
+          "issues": [
+            "10 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0.10000000149011612
+        },
+        "content": {
+          "textElements": 132,
+          "images": 0,
+          "links": 13,
+          "buttons": 10,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/t/earnings",
+      "name": "Therapist Earnings",
+      "timestamp": "2025-09-15T23:10:33.983Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 88,
+          "issues": [
+            "4 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0
+        },
+        "content": {
+          "textElements": 143,
+          "images": 0,
+          "links": 22,
+          "buttons": 4,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/t/profile",
+      "name": "Therapist Profile",
+      "timestamp": "2025-09-15T23:10:34.752Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 60,
+          "issues": [
+            "2 images missing alt text",
+            "10 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0.10000000149011612
+        },
+        "content": {
+          "textElements": 133,
+          "images": 2,
+          "links": 13,
+          "buttons": 10,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    },
+    {
+      "route": "/t/tasks",
+      "name": "Therapist Tasks",
+      "timestamp": "2025-09-15T23:10:35.473Z",
+      "error": null,
+      "analysis": {
+        "accessibility": {
+          "score": 76,
+          "issues": [
+            "8 buttons missing aria labels"
+          ]
+        },
+        "performance": {
+          "loadTime": 0,
+          "domContentLoaded": 0
+        },
+        "content": {
+          "textElements": 133,
+          "images": 0,
+          "links": 6,
+          "buttons": 9,
+          "title": "soulful-sync-care",
+          "hasDescription": true
+        },
+        "visual": {
+          "issues": []
+        }
+      }
+    }
+  ]
+}

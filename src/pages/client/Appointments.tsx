@@ -106,15 +106,18 @@ export default function Appointments() {
                           <div className="flex items-center space-x-3">
                             {getStatusBadge(appointment.status)}
                             <div className="flex space-x-2">
-                              <Button size="sm">
+                              <Button size="sm" onClick={() => window.location.href = `/session/${appointment.id}`}>
                                 <Video className="w-4 h-4 mr-2" />
                                 Join
                               </Button>
-                              <Button size="sm" variant="outline">
+                              <Button size="sm" variant="outline" onClick={() => window.location.href = '/messages'}>
                                 <MessageCircle className="w-4 h-4 mr-2" />
                                 Message
                               </Button>
-                              <Button size="sm" variant="ghost">
+                              <Button size="sm" variant="ghost" onClick={() => {
+                                // TODO: Implement appointment options menu
+                                console.log("Show appointment options");
+                              }}>
                                 <MoreHorizontal className="w-4 h-4" />
                               </Button>
                             </div>
@@ -161,10 +164,13 @@ export default function Appointments() {
                           <div className="flex items-center space-x-3">
                             {getStatusBadge(appointment.status)}
                             <div className="flex space-x-2">
-                              <Button size="sm" variant="outline">
+                              <Button size="sm" variant="outline" onClick={() => window.location.href = `/therapists/${appointment.id}`}>
                                 Book Again
                               </Button>
-                              <Button size="sm" variant="outline">
+                              <Button size="sm" variant="outline" onClick={() => {
+                                // TODO: Implement review system
+                                console.log("Leave review for", appointment.therapist);
+                              }}>
                                 Leave Review
                               </Button>
                             </div>

@@ -212,10 +212,10 @@ export default function Assessment() {
                       className="w-48 h-48 mx-auto rounded-lg object-cover"
                     />
                     <div className="space-y-4">
-                      <Button size="lg" className="w-full">
+                      <Button size="lg" className="w-full" onClick={handleContinue}>
                         Start Your Journey
                       </Button>
-                      <Button variant="ghost" size="lg" className="w-full">
+                      <Button variant="ghost" size="lg" className="w-full" onClick={() => window.location.href = '/sign-in'}>
                         Log in
                       </Button>
                     </div>
@@ -227,7 +227,7 @@ export default function Assessment() {
                     <p className="font-secondary text-text-secondary">
                       We'll create your account during this assessment
                     </p>
-                    <Button size="lg" className="w-full">
+                    <Button size="lg" className="w-full" onClick={handleContinue}>
                       Continue
                     </Button>
                   </div>
@@ -475,7 +475,7 @@ export default function Assessment() {
                 )}
                 <Button
                   onClick={handleContinue}
-                  disabled={currentStep === assessmentSteps.length || isMatching}
+                  disabled={isMatching}
                 >
                   {currentStep === 9 ? (isMatching ? "Matching..." : "Start browsing therapists") : "Continue"}
                   {!isMatching && <ArrowRight className="w-4 h-4 ml-2" />}

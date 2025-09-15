@@ -413,7 +413,10 @@ export default function TherapistOnboarding() {
                         <p className="font-secondary text-text-muted text-sm">
                           Good lighting, neutral background recommended
                         </p>
-                        <Button variant="outline" className="mt-2">
+                        <Button variant="outline" className="mt-2" onClick={() => {
+                          // TODO: Implement file upload
+                          console.log("Upload profile photo");
+                        }}>
                           Choose File
                         </Button>
                       </div>
@@ -450,10 +453,13 @@ export default function TherapistOnboarding() {
                       <p className="font-secondary text-text-secondary text-sm mb-4">
                         Good lighting, clear audio, and authentic personality
                       </p>
-                      <Button>Start Recording</Button>
+                      <Button onClick={() => {
+                        // TODO: Implement video recording
+                        console.log("Start video recording");
+                      }}>Start Recording</Button>
                     </div>
 
-                    <Button variant="tertiary">Skip for now (you can add this later)</Button>
+                    <Button variant="tertiary" onClick={handleContinue}>Skip for now (you can add this later)</Button>
                   </div>
                 )}
 
@@ -472,7 +478,10 @@ export default function TherapistOnboarding() {
                       <div className="border rounded-lg p-4">
                         <Label className="font-secondary font-semibold">Government ID</Label>
                         <div className="mt-2">
-                          <Button variant="outline" size="sm">
+                          <Button variant="outline" size="sm" onClick={() => {
+                            // TODO: Implement ID upload
+                            console.log("Upload ID document");
+                          }}>
                             <Upload className="w-4 h-4 mr-2" />
                             Upload ID
                           </Button>
@@ -482,7 +491,10 @@ export default function TherapistOnboarding() {
                       <div className="border rounded-lg p-4">
                         <Label className="font-secondary font-semibold">Professional Registration Certificate</Label>
                         <div className="mt-2">
-                          <Button variant="outline" size="sm">
+                          <Button variant="outline" size="sm" onClick={() => {
+                            // TODO: Implement certificate upload
+                            console.log("Upload professional certificate");
+                          }}>
                             <Upload className="w-4 h-4 mr-2" />
                             Upload Certificate
                           </Button>

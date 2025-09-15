@@ -15,7 +15,13 @@
     "test:visual": "playwright test --config=playwright.config.ts",
     "test:visual:update": "playwright test --config=playwright.config.ts --update-snapshots",
     "test:visual:ui": "playwright test --ui",
-    "test:storybook": "test-storybook"
+    "test:storybook": "test-storybook",
+    "screenshots": "node scripts/capture-screenshots.js",
+    "screenshots:mobile": "node scripts/capture-screenshots.js mobile",
+    "screenshots:tablet": "node scripts/capture-screenshots.js tablet",
+    "screenshots:all": "node scripts/capture-screenshots.js all",
+    "analyze": "node scripts/simple-analyzer.js",
+    "analyze:full": "npm run analyze && npm run screenshots:all"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.47.0",
