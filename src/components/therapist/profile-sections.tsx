@@ -287,7 +287,7 @@ export function VideoUploadSection({ profile, onUpdate }: VideoUploadSectionProp
                 className="w-full h-48 object-cover"
                 controls={false}
               />
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20">
+              <div className="absolute inset-0 flex items-center justify-center bg-[--hover-overlay]">
                 <Button
                   variant="secondary"
                   size="lg"

@@ -66,7 +66,7 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
   return (
     <div className="space-y-4">
       <div className="relative">
-        <Search className="absolute left-3 top-3 h-4 w-4 text-text-secondary" />
+        <Search className="absolute left-3 top-3 h-4 w-4 text-garden-green" />
         <Input
           placeholder="Search tasks..."
           value={filters.search}
@@ -147,7 +147,7 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
         
         {hasActiveFilters && (
           <Button variant="tertiary" size="sm" onClick={clearFilters}>
-            <X className="h-4 w-4 mr-1" />
+            <X className="h-4 w-4 mr-1 text-garden-green" />
             Clear
           </Button>
         )}
@@ -159,7 +159,7 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
             <Badge key={status} variant="secondary" className="flex items-center gap-1">
               {statusOptions.find(s => s.value === status)?.label}
               <X 
-                className="h-3 w-3 cursor-pointer"
+                className="h-3 w-3 cursor-pointer text-garden-green"
                 onClick={() => onFiltersChange({
                   ...filters,
                   status: filters.status.filter(s => s !== status)
@@ -171,7 +171,7 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
             <Badge key={priority} variant="secondary" className="flex items-center gap-1">
               {priorityOptions.find(p => p.value === priority)?.label}
               <X 
-                className="h-3 w-3 cursor-pointer"
+                className="h-3 w-3 cursor-pointer text-garden-green"
                 onClick={() => onFiltersChange({
                   ...filters,
                   priority: filters.priority.filter(p => p !== priority)
@@ -183,7 +183,7 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
             <Badge key={flow} variant="secondary" className="flex items-center gap-1">
               {flowOptions[role].find(f => f.value === flow)?.label}
               <X 
-                className="h-3 w-3 cursor-pointer"
+                className="h-3 w-3 cursor-pointer text-garden-green"
                 onClick={() => onFiltersChange({
                   ...filters,
                   flow: filters.flow.filter(f => f !== flow)

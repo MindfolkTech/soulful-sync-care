@@ -58,6 +58,13 @@
     /* Progress & Motion */
     --progress-bar: 145 27% 35%; /* var(--garden-green) */
     
+    /* Overlay & Modal System */
+    --overlay-dark: 145 27% 15%; /* Dark overlay using brand green base */
+    --overlay-light: 145 23% 92%; /* Light overlay using surface accent */
+    --modal-backdrop: var(--overlay-dark) / 0.8; /* 80% opacity */
+    --video-overlay: var(--overlay-dark) / 0.6; /* 60% opacity */
+    --hover-overlay: var(--overlay-dark) / 0.2; /* 20% opacity */
+    
     /* Typography Tokens */
     --font-primary: 'Crimson Pro', Georgia, serif;
     --font-secondary: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;

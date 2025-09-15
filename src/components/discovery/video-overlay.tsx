@@ -84,18 +84,18 @@ export function VideoOverlay({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogOverlay className="bg-black/80 backdrop-blur-sm" />
+      <DialogOverlay className="bg-[--modal-backdrop] backdrop-blur-sm" />
       <DialogContent 
         className={cn(
           "w-full h-full md:h-auto md:max-w-4xl md:max-h-[85vh]",
-          "p-0 bg-black border-0",
+          "p-0 bg-[--overlay-dark] border-0",
           "focus:outline-none"
         )}
         aria-label={`Video introduction by ${title}`}
       >
         <div className="relative w-full h-full flex flex-col">
           {/* Video */}
-          <div className="relative flex-1 flex items-center justify-center bg-black">
+          <div className="relative flex-1 flex items-center justify-center bg-[--overlay-dark]">
             <video
               ref={videoRef}
               className="w-full h-full object-contain"
@@ -121,7 +121,7 @@ export function VideoOverlay({
               <Button
                 size="icon"
                 variant="ghost"
-                className="absolute inset-0 w-full h-full bg-black/20 hover:bg-black/30 rounded-none"
+                className="absolute inset-0 w-full h-full bg-[--hover-overlay] hover:bg-[--video-overlay] rounded-none"
                 onClick={handlePlayPause}
                 aria-label="Play video"
               >

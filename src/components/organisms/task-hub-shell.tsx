@@ -83,10 +83,10 @@ export function TaskHubShell({
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <Card className="p-4">
+      <div className="flex flex-wrap gap-4 mb-8">
+        <Card className="flex-1 min-w-[200px] p-4">
           <div className="flex items-center gap-3">
-            <ListTodo className="h-8 w-8 text-btn-primary" />
+            <ListTodo className="h-8 w-8 text-garden-green" />
             <div>
               <p className="text-2xl font-bold text-text-primary">{stats.total}</p>
               <p className="text-sm text-text-secondary">Total Tasks</p>
@@ -94,9 +94,9 @@ export function TaskHubShell({
           </div>
         </Card>
         
-        <Card className="p-4">
+        <Card className="flex-1 min-w-[200px] p-4">
           <div className="flex items-center gap-3">
-            <Clock className="h-8 w-8 text-btn-accent" />
+            <Clock className="h-8 w-8 text-garden-green" />
             <div>
               <p className="text-2xl font-bold text-text-primary">{stats.dueToday}</p>
               <p className="text-sm text-text-secondary">Due Today</p>
@@ -104,9 +104,9 @@ export function TaskHubShell({
           </div>
         </Card>
         
-        <Card className="p-4">
+        <Card className="flex-1 min-w-[200px] p-4">
           <div className="flex items-center gap-3">
-            <AlertTriangle className="h-8 w-8 text-destructive" />
+            <AlertTriangle className="h-8 w-8 text-garden-green" />
             <div>
               <p className="text-2xl font-bold text-text-primary">{stats.overdue}</p>
               <p className="text-sm text-text-secondary">Overdue</p>
@@ -114,9 +114,9 @@ export function TaskHubShell({
           </div>
         </Card>
         
-        <Card className="p-4">
+        <Card className="flex-1 min-w-[200px] p-4">
           <div className="flex items-center gap-3">
-            <CheckCircle className="h-8 w-8 text-success" />
+            <CheckCircle className="h-8 w-8 text-garden-green" />
             <div>
               <p className="text-2xl font-bold text-text-primary">{stats.completed}</p>
               <p className="text-sm text-text-secondary">Completed</p>
@@ -161,8 +161,8 @@ export function TaskHubShell({
           </TabsTrigger>
         </TabsList>
 
-        <div className="grid lg:grid-cols-4 gap-8">
-          <div className="lg:col-span-1">
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="lg:w-64 flex-shrink-0">
             <TaskFilters
               filters={filters}
               onFiltersChange={setFilters}
@@ -170,7 +170,7 @@ export function TaskHubShell({
             />
           </div>
           
-          <div className="lg:col-span-3">
+          <div className="flex-1 min-w-0">
             <TabsContent value="all">
               <TaskList
                 tasks={tabTasks}

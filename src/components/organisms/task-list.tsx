@@ -84,7 +84,7 @@ export function TaskList({ tasks, filters, loading, error, onRetry, role }: Task
   if (error) {
     return (
       <div className="text-center py-12">
-        <AlertCircle className="mx-auto h-12 w-12 text-destructive mb-4" />
+        <AlertCircle className="mx-auto h-12 w-12 text-garden-green mb-4" />
         <h3 className="text-lg font-medium text-text-primary mb-2">Error loading tasks</h3>
         <p className="text-text-secondary mb-4">{error}</p>
         {onRetry && (
@@ -101,7 +101,7 @@ export function TaskList({ tasks, filters, loading, error, onRetry, role }: Task
     
     return (
       <div className="text-center py-12">
-        <ListTodo className="mx-auto h-12 w-12 text-text-secondary mb-4" />
+        <ListTodo className="mx-auto h-12 w-12 text-garden-green mb-4" />
         <h3 className="text-lg font-medium text-text-primary mb-2">
           {hasFilters ? "No matching tasks" : "No tasks yet"}
         </h3>

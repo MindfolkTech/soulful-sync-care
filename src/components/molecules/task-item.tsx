@@ -55,13 +55,13 @@ export function TaskItem({ task, selected, onSelect, showBulkSelect }: TaskItemP
             <div className="flex items-center gap-2 flex-shrink-0">
               {isOverdue && (
                 <Badge variant="destructive" className="flex items-center gap-1">
-                  <AlertTriangle className="h-3 w-3" />
+                  <AlertTriangle className="h-3 w-3 text-garden-green" />
                   Overdue
                 </Badge>
               )}
               {isDueToday && !isOverdue && (
                 <Badge variant="secondary" className="flex items-center gap-1">
-                  <Clock className="h-3 w-3" />
+                  <Clock className="h-3 w-3 text-garden-green" />
                   Due today
                 </Badge>
               )}

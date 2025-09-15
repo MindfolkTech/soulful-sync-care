@@ -29,7 +29,7 @@ export function SLABadge({ slaMinutes, className }: SLABadgeProps) {
         className
       )}
     >
-      <Clock className="h-3 w-3" />
+      <Clock className="h-3 w-3 text-garden-green" />
       {timeText}
     </Badge>
   );

@@ -205,7 +205,7 @@ export default function TherapistOnboarding() {
 
                     <div className="space-y-2">
                       <Label htmlFor="headshot">Professional Headshot (Required)</Label>
-                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                      <div className="border-2 border-dashed border-[--border] rounded-lg p-6 text-center">
                         <Upload className="w-8 h-8 mx-auto text-text-muted mb-2" />
                         <p className="font-secondary text-text-secondary">
                           Upload a professional headshot
@@ -240,7 +240,7 @@ export default function TherapistOnboarding() {
                       </div>
                     </div>
 
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-8">
+                    <div className="border-2 border-dashed border-[--border] rounded-lg p-8">
                       <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
                         <Upload className="w-8 h-8 text-primary" />
                       </div>
