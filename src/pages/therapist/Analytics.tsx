@@ -239,7 +239,7 @@ export default function TherapistAnalytics() {
                           <span className="font-secondary text-text-secondary">Chemistry Calls</span>
                           <div className="flex items-center space-x-2">
                             <span className="font-secondary font-semibold text-text-primary">28</span>
-                            <div className="w-20 h-2 bg-gray-200 rounded-full">
+                            <div className="w-20 h-2 bg-surface-accent rounded-full">
                               <div className="w-3/4 h-2 bg-primary rounded-full"></div>
                             </div>
                           </div>
@@ -249,7 +249,7 @@ export default function TherapistAnalytics() {
                           <span className="font-secondary text-text-secondary">Full Sessions</span>
                           <div className="flex items-center space-x-2">
                             <span className="font-secondary font-semibold text-text-primary">15</span>
-                            <div className="w-20 h-2 bg-gray-200 rounded-full">
+                            <div className="w-20 h-2 bg-surface-accent rounded-full">
                               <div className="w-1/2 h-2 bg-success rounded-full"></div>
                             </div>
                           </div>

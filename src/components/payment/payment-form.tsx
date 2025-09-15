@@ -212,7 +212,7 @@ export function PaymentForm({
             className={errors.cardNumber ? "border-red-500" : ""}
           />
           {errors.cardNumber && (
-            <p className="text-xs text-red-500 mt-1 flex items-center gap-1">
+            <p className="text-xs text-error-foreground mt-1 flex items-center gap-1">
               <AlertCircle className="h-3 w-3" />
               {errors.cardNumber}
             </p>
@@ -256,7 +256,7 @@ export function PaymentForm({
           </div>
         </div>
         {errors.expiry && (
-          <p className="text-xs text-red-500 flex items-center gap-1">
+          <p className="text-xs text-error-foreground flex items-center gap-1">
             <AlertCircle className="h-3 w-3" />
             {errors.expiry}
           </p>
@@ -273,7 +273,7 @@ export function PaymentForm({
             className={errors.name ? "border-red-500" : ""}
           />
           {errors.name && (
-            <p className="text-xs text-red-500 mt-1 flex items-center gap-1">
+            <p className="text-xs text-error-foreground mt-1 flex items-center gap-1">
               <AlertCircle className="h-3 w-3" />
               {errors.name}
             </p>
@@ -292,7 +292,7 @@ export function PaymentForm({
             className={errors.email ? "border-red-500" : ""}
           />
           {errors.email && (
-            <p className="text-xs text-red-500 mt-1 flex items-center gap-1">
+            <p className="text-xs text-error-foreground mt-1 flex items-center gap-1">
               <AlertCircle className="h-3 w-3" />
               {errors.email}
             </p>

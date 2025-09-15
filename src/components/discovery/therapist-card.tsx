@@ -68,9 +68,23 @@ export function TherapistCard({
       )}
       style={{ padding: "16px" }}
     >
+      {/* Personality/Identity Chips Row - Above Media per Style Guide */}
+      <div className="flex flex-wrap gap-1 mb-3">
+        {therapist.personality.slice(0, 2).map((trait) => (
+          <Tag key={trait} category="personality" size="sm">
+            {trait}
+          </Tag>
+        ))}
+        {therapist.specialties.slice(0, 1).map((specialty) => (
+          <Tag key={specialty} category="specialty" size="sm">
+            {specialty}
+          </Tag>
+        ))}
+      </div>
+
       {/* Portrait Media Area with Play Overlay */}
       <div 
-        className="relative w-full aspect-[3/4] rounded-lg overflow-hidden bg-gray-100 cursor-pointer group"
+        className="relative w-full aspect-[3/4] rounded-lg overflow-hidden bg-surface-accent cursor-pointer group"
         onClick={handleMediaClick}
       >
         {/* Image */}
@@ -154,20 +168,6 @@ export function TherapistCard({
         >
           {therapist.name}
         </h2>
-
-        {/* Personality/Identity Chips Row */}
-        <div className="flex flex-wrap gap-1">
-          {therapist.personality.slice(0, 2).map((trait) => (
-            <Tag key={trait} category="personality" size="sm">
-              {trait}
-            </Tag>
-          ))}
-          {therapist.specialties.slice(0, 1).map((specialty) => (
-            <Tag key={specialty} category="specialty" size="sm">
-              {specialty}
-            </Tag>
-          ))}
-        </div>
 
         {/* Location + One-liner Row */}
         <div className="text-sm text-text-secondary font-secondary">

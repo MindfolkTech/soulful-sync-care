@@ -45,7 +45,7 @@ export function TherapistDetailsSheet({
               {therapist.name}
             </SheetTitle>
             <SheetClose asChild>
-              <Button variant="ghost" size="icon" aria-label="Close details">
+              <Button variant="tertiary" size="icon" aria-label="Close details">
                 <X className="h-4 w-4" />
               </Button>
             </SheetClose>
@@ -54,7 +54,7 @@ export function TherapistDetailsSheet({
 
         <div className="flex-1 overflow-y-auto space-y-6 pb-20">
           {/* Video Section */}
-          <div className="aspect-video rounded-lg overflow-hidden bg-gray-100">
+          <div className="aspect-video rounded-lg overflow-hidden bg-surface-accent">
             {therapist.video_url ? (
               <video
                 ref={videoRef}
@@ -176,7 +176,7 @@ export function TherapistDetailsSheet({
               Save
             </Button>
             <Button 
-              variant="ghost" 
+              variant="tertiary" 
               size="icon"
               onClick={() => onReport(therapist)}
               aria-label="Report therapist"

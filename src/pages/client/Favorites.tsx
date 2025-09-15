@@ -105,7 +105,7 @@ export default function Favorites() {
                             <Button
                               size="sm"
                               variant="ghost"
-                              className="text-red-500 hover:text-red-600 hover:bg-red-50"
+                              className="text-error-foreground hover:text-error-foreground/80 hover:bg-error/10"
                             >
                               <Heart className="w-4 h-4 fill-current" />
                             </Button>

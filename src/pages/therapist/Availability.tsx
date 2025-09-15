@@ -100,7 +100,7 @@ export default function TherapistAvailability() {
                         <span className="font-secondary text-text-secondary text-sm">Booked</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+                        <div className="w-3 h-3 bg-surface-accent rounded-full"></div>
                         <span className="font-secondary text-text-secondary text-sm">Unavailable</span>
                       </div>
                     </div>
@@ -134,7 +134,7 @@ export default function TherapistAvailability() {
                                     ? "bg-primary hover:bg-primary/80"
                                     : isAvailable
                                     ? "bg-success/20 hover:bg-success/30 border-success/40"
-                                    : "bg-gray-100 hover:bg-gray-200"
+                                    : "bg-surface-accent hover:bg-surface-accent/80"
                                 }`}
                                 title={`${day} ${time} - ${
                                   isBooked ? "Booked" : isAvailable ? "Available" : "Unavailable"

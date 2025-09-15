@@ -373,7 +373,7 @@ export default function Assessment() {
               </Button>
 
               <div className="flex space-x-3">
-                <Button variant="ghost">
+                <Button variant="tertiary">
                   Skip for now
                 </Button>
                 <Button

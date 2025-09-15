@@ -293,7 +293,7 @@ export default function Discover() {
             {currentTherapist ? (
               <div className="space-y-6">
                 {/* Video Section */}
-                <div className="aspect-video rounded-lg overflow-hidden bg-gray-100">
+                <div className="aspect-video rounded-lg overflow-hidden bg-surface-accent">
                   {currentTherapist.video_url ? (
                     <video
                       className="w-full h-full object-cover"

@@ -253,7 +253,7 @@ export default function TherapistOnboarding() {
                       <Button>Start Recording</Button>
                     </div>
 
-                    <Button variant="ghost">Skip for now (you can add this later)</Button>
+                    <Button variant="tertiary">Skip for now (you can add this later)</Button>
                   </div>
                 )}
 

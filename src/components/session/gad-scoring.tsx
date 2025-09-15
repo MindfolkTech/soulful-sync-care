@@ -115,10 +115,10 @@ export function GADScoring({ clientId, sessionId }: GADScoringProps) {
           {isComplete && (
             <div className="mt-4 p-4 bg-muted/20 rounded-lg">
               <div className="flex items-center gap-2 mb-2">
-                {severity.level === "Severe" && <AlertTriangle className="h-4 w-4 text-red-500" />}
-                {severity.level === "Moderate" && <AlertTriangle className="h-4 w-4 text-yellow-500" />}
-                {severity.level === "Mild" && <CheckCircle2 className="h-4 w-4 text-blue-500" />}
-                {severity.level === "Minimal" && <CheckCircle2 className="h-4 w-4 text-green-500" />}
+                {severity.level === "Severe" && <AlertTriangle className="h-4 w-4 text-error-foreground" />}
+                {severity.level === "Moderate" && <AlertTriangle className="h-4 w-4 text-warning-foreground" />}
+                {severity.level === "Mild" && <CheckCircle2 className="h-4 w-4 text-info-foreground" />}
+                {severity.level === "Minimal" && <CheckCircle2 className="h-4 w-4 text-success-foreground" />}
                 <span className="font-medium">Assessment Result</span>
               </div>
               <p className="text-sm text-muted-foreground">{severity.description}</p>
@@ -206,12 +206,12 @@ export function GADScoring({ clientId, sessionId }: GADScoringProps) {
             </div>
             
             {/* Trend Analysis */}
-            <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+            <div className="mt-4 p-3 bg-info border border-info rounded-lg">
               <div className="flex items-center gap-2 mb-2">
-                <BarChart3 className="h-4 w-4 text-blue-600" />
-                <span className="font-medium text-blue-900 dark:text-blue-100">Trend Analysis</span>
+                <BarChart3 className="h-4 w-4 text-info-foreground" />
+                <span className="font-medium text-info-foreground">Trend Analysis</span>
               </div>
-              <p className="text-sm text-blue-800 dark:text-blue-200">
+              <p className="text-sm text-info-foreground">
                 {previousScores[0].score < previousScores[1].score 
                   ? "Scores show improvement over recent sessions. Continue current treatment approach."
                   : "Consider adjusting treatment plan based on recent score patterns."

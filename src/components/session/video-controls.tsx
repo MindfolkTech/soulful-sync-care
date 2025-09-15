@@ -29,7 +29,7 @@ export function VideoControls({
 }: VideoControlsProps) {
   const [isMuted, setIsMuted] = useState(false);
   const [isVideoOff, setIsVideoOff] = useState(false);
-  const [captionsEnabled, setCaptionsEnabled] = useState(false);
+  const [captionsEnabled, setCaptionsEnabled] = useState(true); // Style Guide 2.3: Captions ON by default
   const [isScreenSharing, setIsScreenSharing] = useState(false);
 
   const handleMuteToggle = () => {
