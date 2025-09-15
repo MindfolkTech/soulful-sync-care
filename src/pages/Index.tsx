@@ -5,20 +5,14 @@ import { Container } from "@/components/ui/container";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
-// Import hero images
-import heroImageA from "@/assets/Master landing - hero image option A.png";
-import clientHeroImage from "@/assets/Client - Hero image.png";
-import clientAutisticImage from "@/assets/Client - White female autistic 20s.png";
-import clientWhiteMaleImage from "@/assets/Client White male 20s lilac shirt.png";
-import therapistBlackFemaleImage from "@/assets/Therapist - black female 40s.png";
-import therapistNonbinaryImage from "@/assets/Therapist - white nonbinary 30s.png";
+// Images now served from public folder
 
 export default function Index() {
   React.useEffect(() => {
     const link = document.createElement("link");
     link.rel = "preload";
     link.as = "image";
-    link.href = heroImageA;
+    link.href = "/images/master-landing-hero-option-a.png";
     link.fetchPriority = "high";
     document.head.appendChild(link);
 
@@ -106,7 +100,7 @@ export default function Index() {
 
               <div className="lg:col-span-7">
                 <img
-                  src={heroImageA}
+                  src="/images/master-landing-hero-option-a.png"
                   alt="Four diverse clients smiling, cropped into organic editorial shapes"
                   className="w-full h-auto drop-shadow-lg"
                   loading="eager"
@@ -331,7 +325,7 @@ export default function Index() {
 
               <div className="text-center pt-8">
                 <img 
-                  src={clientHeroImage}
+                  src="/images/client-hero-image.png"
                   alt="Client portrait with soft editorial overlays"
                   className="w-72 h-auto mx-auto drop-shadow-md"
                   loading="lazy"
@@ -384,7 +378,7 @@ export default function Index() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
                 <div>
                   <img 
-                    src={clientAutisticImage}
+                    src="/images/client-white-female-autistic-20s.png"
                     alt="Young autistic woman in sage dungarees with dark green headphones, laughing"
                     className="w-full h-auto rounded-lg drop-shadow-lg"
                     loading="lazy"
@@ -400,7 +394,7 @@ export default function Index() {
                 </div>
                 <div>
                   <img 
-                    src={clientWhiteMaleImage}
+                    src="/images/client-white-male-20s-lilac-shirt.png"
                     alt="Young white male in lilac shirt, friendly and calm"
                     className="w-full h-auto rounded-lg drop-shadow-lg"
                     loading="lazy"
@@ -477,13 +471,13 @@ export default function Index() {
               
               <div className="lg:col-span-6 grid grid-cols-2 gap-4">
                 <img 
-                  src={therapistBlackFemaleImage}
+                  src="/images/therapist-black-female-40s.png"
                   alt="Experienced Black female therapist — calm, professional"
                   className="w-full h-auto rounded-lg drop-shadow-md"
                   loading="lazy"
                 />
                 <img 
-                  src={therapistNonbinaryImage}
+                  src="/images/therapist-white-nonbinary-30s.png"
                   alt="White nonbinary therapist in blazer — friendly and expressive"
                   className="w-full h-auto rounded-lg drop-shadow-md"
                   loading="lazy"
@@ -566,7 +560,7 @@ export default function Index() {
               
               <div className="pt-4">
                 <img 
-                  src={heroImageA}
+                  src="/images/master-landing-hero-option-a.png"
                   alt="Diverse clients collage"
                   className="w-48 h-auto mx-auto rounded-lg drop-shadow"
                   loading="lazy"
