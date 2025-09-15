@@ -123,22 +123,26 @@ export default function TherapistOnboarding() {
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
       
-      <main className="flex-1 py-8">
+      <main className="flex-1 py-8" role="main" aria-label="Therapist onboarding process">
         <Container>
           <div className="max-w-6xl mx-auto">
             {/* Progress Header */}
-            <div className="mb-8">
+            <div className="mb-8" role="region" aria-label="Onboarding progress">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-4">
-                  <Progress value={progress} className="h-2 flex-1" />
-                  <span className="text-sm text-text-secondary font-secondary whitespace-nowrap">
+                  <Progress 
+                    value={progress} 
+                    className="h-2 flex-1" 
+                    aria-label={`Progress: ${Math.round(progress)}% complete`}
+                  />
+                  <span className="text-sm text-text-secondary font-secondary whitespace-nowrap" aria-live="polite">
                     Step {currentStep} of {onboardingSteps.length}
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   {savedProgress && (
-                    <div className="flex items-center space-x-2 text-[var(--success-bg)]">
-                      <Save className="w-4 h-4" />
+                    <div className="flex items-center space-x-2 text-[var(--success-bg)]" role="status" aria-live="polite">
+                      <Save className="w-4 h-4" aria-hidden="true" />
                       <span className="text-sm font-secondary">Saved</span>
                     </div>
                   )}
@@ -146,6 +150,7 @@ export default function TherapistOnboarding() {
                     variant="outline" 
                     size="sm"
                     onClick={() => setShowPreview(!showPreview)}
+                    aria-label={showPreview ? "Hide preview" : "Show preview"}
                   >
                     <Eye className="w-4 h-4 mr-2" />
                     {showPreview ? 'Hide' : 'Show'} Preview
@@ -154,9 +159,9 @@ export default function TherapistOnboarding() {
               </div>
               
               {/* Step Tip */}
-              <div className="bg-[var(--surface-accent)] p-4 rounded-lg mb-6">
+              <div className="bg-[var(--surface-accent)] p-4 rounded-lg mb-6" role="region" aria-label="Step tip and example">
                 <div className="flex items-start space-x-3">
-                  <Lightbulb className="w-5 h-5 text-[var(--garden-green)] mt-0.5 flex-shrink-0" />
+                  <Lightbulb className="w-5 h-5 text-[var(--garden-green)] mt-0.5 flex-shrink-0" aria-hidden="true" />
                   <div>
                     <p className="font-secondary text-text-primary text-sm font-medium mb-1">
                       💡 Tip: {currentStepData?.tip}
@@ -173,12 +178,12 @@ export default function TherapistOnboarding() {
               {/* Main Content */}
               <div className="lg:col-span-2">
 
-            <Card className="min-h-[500px]">
+            <Card className="min-h-[500px]" role="region" aria-label={`Step ${currentStep} content`}>
               <CardHeader className="text-center">
-                <CardTitle className="font-primary text-2xl text-text-primary">
+                <CardTitle className="font-primary text-2xl text-text-primary" id={`step-${currentStep}-title`}>
                   {currentStepData?.title}
                 </CardTitle>
-                <p className="font-secondary text-text-secondary">
+                <p className="font-secondary text-text-secondary" id={`step-${currentStep}-subtitle`}>
                   {currentStepData?.subtitle}
                 </p>
               </CardHeader>
@@ -242,9 +247,11 @@ export default function TherapistOnboarding() {
                     <div className="space-y-2">
                       <Label htmlFor="experience">Years of Experience</Label>
                       <select 
+                        id="experience"
                         className="w-full p-2 border rounded-md bg-background"
                         value={profileData.experience}
                         onChange={(e) => setProfileData({...profileData, experience: e.target.value})}
+                        aria-describedby="experience-help"
                       >
                         <option value="">Select experience level</option>
                         <option value="0-2 years">0-2 years</option>
@@ -488,22 +495,24 @@ export default function TherapistOnboarding() {
               </CardContent>
             </Card>
 
-            <div className="flex justify-between mt-8">
+            <div className="flex justify-between mt-8" role="navigation" aria-label="Onboarding navigation">
               <Button
                 variant="outline"
                 onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
                 disabled={currentStep === 1}
+                aria-label="Go to previous step"
               >
-                <ArrowLeft className="w-4 h-4 mr-2" />
+                <ArrowLeft className="w-4 h-4 mr-2" aria-hidden="true" />
                 Back
               </Button>
 
               <Button
                 onClick={() => setCurrentStep(Math.min(onboardingSteps.length, currentStep + 1))}
                 disabled={currentStep === onboardingSteps.length}
+                aria-label={currentStep === onboardingSteps.length ? "Complete onboarding setup" : "Go to next step"}
               >
                 {currentStep === onboardingSteps.length ? "Complete Setup" : "Continue"}
-                <ArrowRight className="w-4 h-4 ml-2" />
+                <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
               </Button>
             </div>
               </div>

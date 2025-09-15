@@ -1,0 +1,15 @@
+{
+  "projectToken": "YOUR_CHROMATIC_PROJECT_TOKEN",
+  "buildScriptName": "build-storybook",
+  "exitOnceUploaded": true,
+  "exitZeroOnChanges": true,
+  "ignoreLastBuildOnBranch": "main",
+  "skip": "dependabot/**",
+  "externals": ["public/**"],
+  "delay": 300,
+  "diffThreshold": 0.2,
+  "threshold": 0.2,
+  "autoAcceptChanges": false,
+  "uploadTimeout": 120000,
+  "storybookBuildDir": "storybook-static"
+}

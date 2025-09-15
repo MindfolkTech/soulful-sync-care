@@ -95,32 +95,32 @@ export default function TherapistDashboard() {
                 </p>
               </div>
               <div className="flex items-center space-x-3">
-                <Button variant="outline" size="sm" className="relative">
-                  <Bell className="w-4 h-4 mr-2" />
+                <Button variant="outline" size="sm" className="relative" aria-label="View alerts (3 new)">
+                  <Bell className="w-4 h-4 mr-2" aria-hidden="true" />
                   Alerts
-                  <Badge variant="destructive" className="absolute -top-2 -right-2 h-5 w-5 text-xs">
+                  <Badge variant="destructive" className="absolute -top-2 -right-2 h-5 w-5 text-xs" aria-label="3 new alerts">
                     3
                   </Badge>
                 </Button>
-                <Button variant="outline" size="sm">
-                  <Settings className="w-4 h-4 mr-2" />
+                <Button variant="outline" size="sm" aria-label="Customize dashboard">
+                  <Settings className="w-4 h-4 mr-2" aria-hidden="true" />
                   Customize
                 </Button>
               </div>
             </div>
 
             {/* Urgent Notifications */}
-            <Card className="border-l-4 border-l-[var(--error-bg)] bg-[var(--error-bg)]">
+            <Card className="border-l-4 border-l-[var(--error-bg)] bg-[var(--error-bg)]" role="alert" aria-live="polite">
               <CardContent className="p-4">
                 <div className="flex items-center space-x-3">
-                  <AlertTriangle className="w-5 h-5 text-[var(--error-text)]" />
+                  <AlertTriangle className="w-5 h-5 text-[var(--error-text)]" aria-hidden="true" />
                   <div>
                     <p className="font-secondary font-semibold text-[var(--error-text)]">Attention Required</p>
                     <p className="font-secondary text-[var(--error-text)] text-sm">
                       Client A.R. has rescheduled 3 times - consider reaching out
                     </p>
                   </div>
-                  <Button size="sm" variant="outline" className="ml-auto">
+                  <Button size="sm" variant="outline" className="ml-auto" aria-label="Take action on urgent notification">
                     Take Action
                   </Button>
                 </div>
@@ -129,76 +129,77 @@ export default function TherapistDashboard() {
 
             {/* Enhanced Stats Overview */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="hover:shadow-lg transition-shadow" role="region" aria-label="Today's Sessions Statistics">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-secondary text-text-secondary text-sm">Today's Sessions</p>
-                      <p className="font-primary text-2xl font-bold text-text-primary">3</p>
+                      <p className="font-primary text-2xl font-bold text-text-primary" aria-label="3 sessions">3</p>
                       <p className="font-secondary text-[var(--success-bg)] text-xs flex items-center">
-                        <ArrowUp className="w-3 h-3 mr-1" />
+                        <ArrowUp className="w-3 h-3 mr-1" aria-hidden="true" />
                         +1 from yesterday
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-[var(--surface-accent)] rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-[var(--surface-accent)] rounded-lg flex items-center justify-center" aria-hidden="true">
                       <Calendar className="w-6 h-6 text-[var(--garden-green)]" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="hover:shadow-lg transition-shadow" role="region" aria-label="Client Retention Statistics">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-secondary text-text-secondary text-sm">Client Retention</p>
-                      <p className="font-primary text-2xl font-bold text-text-primary">{practiceMetrics.clientRetention}%</p>
+                      <p className="font-primary text-2xl font-bold text-text-primary" aria-label={`${practiceMetrics.clientRetention} percent`}>{practiceMetrics.clientRetention}%</p>
                       <p className="font-secondary text-[var(--success-bg)] text-xs flex items-center">
-                        <ArrowUp className="w-3 h-3 mr-1" />
+                        <ArrowUp className="w-3 h-3 mr-1" aria-hidden="true" />
                         +5% this month
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-[var(--surface-accent)] rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-[var(--surface-accent)] rounded-lg flex items-center justify-center" aria-hidden="true">
                       <Users className="w-6 h-6 text-[var(--garden-green)]" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="hover:shadow-lg transition-shadow" role="region" aria-label="Average Satisfaction Statistics">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-secondary text-text-secondary text-sm">Avg Satisfaction</p>
-                      <p className="font-primary text-2xl font-bold text-text-primary">{practiceMetrics.avgSatisfaction}</p>
-                      <div className="flex items-center space-x-1">
+                      <p className="font-primary text-2xl font-bold text-text-primary" aria-label={`${practiceMetrics.avgSatisfaction} out of 5`}>{practiceMetrics.avgSatisfaction}</p>
+                      <div className="flex items-center space-x-1" role="img" aria-label={`${practiceMetrics.avgSatisfaction} star rating`}>
                         {[...Array(5)].map((_, i) => (
                           <Star 
                             key={i} 
                             className={`w-3 h-3 ${i < Math.floor(practiceMetrics.avgSatisfaction) ? 'text-[var(--garden-green)] fill-current' : 'text-[var(--text-muted)]'}`} 
+                            aria-hidden="true"
                           />
                         ))}
                       </div>
                     </div>
-                    <div className="w-12 h-12 bg-[var(--surface-accent)] rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-[var(--surface-accent)] rounded-lg flex items-center justify-center" aria-hidden="true">
                       <Star className="w-6 h-6 text-[var(--garden-green)]" />
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="hover:shadow-lg transition-shadow" role="region" aria-label="Weekly Revenue Statistics">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-secondary text-text-secondary text-sm">This Week's Revenue</p>
-                      <p className="font-primary text-2xl font-bold text-text-primary">£{practiceMetrics.weeklyRevenue}</p>
+                      <p className="font-primary text-2xl font-bold text-text-primary" aria-label={`${practiceMetrics.weeklyRevenue} pounds`}>£{practiceMetrics.weeklyRevenue}</p>
                       <p className="font-secondary text-[var(--success-bg)] text-xs flex items-center">
-                        <ArrowUp className="w-3 h-3 mr-1" />
+                        <ArrowUp className="w-3 h-3 mr-1" aria-hidden="true" />
                         +15% from last week
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-[var(--surface-accent)] rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-[var(--surface-accent)] rounded-lg flex items-center justify-center" aria-hidden="true">
                       <DollarSign className="w-6 h-6 text-[var(--garden-green)]" />
                     </div>
                   </div>
