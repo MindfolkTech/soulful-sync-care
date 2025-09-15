@@ -45,8 +45,8 @@ const assessmentSteps = [
   },
   {
     id: 4,
-    title: "Ideal therapist communication style",
-    content: "Choose up to 3",
+    title: "I want my therapist to be...",
+    content: "Choose up to 3 that resonate with you",
     options: [
       "Empathetic and understanding",
       "Motivational and encouraging",
@@ -64,58 +64,35 @@ const assessmentSteps = [
   {
     id: 5,
     title: "A bit about you",
-    content: "Help us understand your background",
+    content: "Optional - helps us find therapists who understand your experience",
     type: "demographics"
   },
   {
     id: 6,
-    title: "What matters most to you?",
-    content: "Select your core values - choose up to 5",
-    options: [
-      "Personal growth and self-discovery",
-      "Strong relationships and connection",
-      "Career success and achievement",
-      "Family and community",
-      "Creativity and self-expression",
-      "Health and wellness",
-      "Financial security",
-      "Adventure and new experiences",
-      "Helping others and giving back",
-      "Spirituality and meaning"
-    ],
-    type: "multiple-choice",
-    maxOptions: 5
+    title: "It's important to me that my therapist is...",
+    content: "Optional - helps us find therapists who truly understand you",
+    type: "smart-values"
   },
   {
     id: 7,
-    title: "Session preferences",
-    content: "How would you like to meet?",
-    options: [
-      "Video calls only",
-      "Phone calls only", 
-      "Either video or phone is fine",
-      "I'd prefer to start with phone calls"
-    ],
-    type: "single-choice"
+    title: "Swipe to Connect",
+    content: "We'll show you therapists who match your preferences",
+    subtitle: "Swipe right to save to favourites, left to pass",
+    type: "explainer"
   },
   {
     id: 8,
-    title: "Previous therapy experience",
-    content: "Have you worked with a therapist before?",
-    options: [
-      "This is my first time",
-      "I've tried therapy once or twice", 
-      "I've had multiple therapy experiences",
-      "I'm currently seeing someone but looking for a change"
-    ],
-    type: "single-choice"
+    title: "Browse with freedom",
+    content: "Explore therapists at your own pace",
+    subtitle: "Click on a profile to learn more",
+    type: "explainer"
   },
   {
     id: 9,
-    title: "Perfect! We're matching you now...",
-    content: "Based on your responses, we're finding therapists who are the best fit for you.",
-    subtitle: "This usually takes just a few seconds",
-    type: "completion"
+    title: "We all change",
+    content: "Update filtering anytime and find new therapists that match your preferences",
+    subtitle: "Find the right therapist for you",
+    type: "final-explainer"
   }
 ];
 
@@ -123,12 +100,37 @@ export default function Assessment() {
   const [currentStep, setCurrentStep] = useState(1);
   const [responses, setResponses] = useState<Record<number, string[]>>({});
   const [demographicData, setDemographicData] = useState({
-    age: "",
-    gender: "",
-    location: "",
-    timezone: ""
+    primaryLanguage: "",
+    culturalIdentity: "",
+    genderIdentity: "",
+    ageGroup: "",
+    sexualOrientation: ""
   });
   const [isMatching, setIsMatching] = useState(false);
+
+  // Language options from PRD
+  const languageOptions = [
+    "Amharic", "Arabic", "Bengali / Sylheti", "British Sign Language (BSL)", "Bulgarian", "Burmese", "Cantonese", "Croatian", "Czech", "Danish", "Dutch", "English", "Farsi / Dari (Persian)", "Finnish", "French", "German", "Greek", "Gujarati", "Haitian Creole", "Hebrew", "Hindi", "Hungarian", "Igbo", "Italian", "Jamaican Patois (Creole)", "Kurdish", "Latvian", "Lithuanian", "Malay (Bahasa Melayu)", "Mandarin", "Mongolian", "Pashto", "Polish", "Portuguese", "Punjabi", "Romanian", "Russian", "Serbian", "Slovak", "Somali", "Spanish", "Swahili", "Swedish", "Tagalog / Filipino", "Tamil", "Thai", "Turkish", "Urdu", "Vietnamese", "Yoruba"
+  ];
+
+  // Smart values options based on demographics
+  const getSmartValuesOptions = () => {
+    const options = ["Neurodiversity affirming", "Trauma-informed and gentle"];
+    
+    if (demographicData.sexualOrientation && demographicData.sexualOrientation !== "Straight") {
+      options.push("LGBTQ+ friendly and affirming");
+    }
+    
+    if (demographicData.culturalIdentity && demographicData.culturalIdentity !== "British") {
+      options.push("Culturally sensitive and aware");
+    }
+    
+    if (demographicData.primaryLanguage && demographicData.primaryLanguage !== "English") {
+      options.push("Speaks my native language");
+    }
+    
+    return options;
+  };
 
   const handleOptionToggle = (stepId: number, option: string) => {
     const currentResponses = responses[stepId] || [];
@@ -271,67 +273,160 @@ export default function Assessment() {
                 )}
 
                 {currentStepData?.type === "demographics" && (
+                  <div className="space-y-6">
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="primaryLanguage">Primary language:</Label>
+                        <Select value={demographicData.primaryLanguage} onValueChange={(value) => 
+                          setDemographicData({...demographicData, primaryLanguage: value})
+                        }>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select language" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {languageOptions.map((lang) => (
+                              <SelectItem key={lang} value={lang}>{lang}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="culturalIdentity">Cultural identity:</Label>
+                        <Select value={demographicData.culturalIdentity} onValueChange={(value) => 
+                          setDemographicData({...demographicData, culturalIdentity: value})
+                        }>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select cultural identity" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="British">British</SelectItem>
+                            <SelectItem value="South Asian">South Asian</SelectItem>
+                            <SelectItem value="Black African">Black African</SelectItem>
+                            <SelectItem value="Black Caribbean">Black Caribbean</SelectItem>
+                            <SelectItem value="Mixed">Mixed</SelectItem>
+                            <SelectItem value="Other">Other</SelectItem>
+                            <SelectItem value="Prefer not to say">Prefer not to say</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="genderIdentity">Gender identity:</Label>
+                        <Select value={demographicData.genderIdentity} onValueChange={(value) => 
+                          setDemographicData({...demographicData, genderIdentity: value})
+                        }>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select gender identity" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Woman">Woman</SelectItem>
+                            <SelectItem value="Man">Man</SelectItem>
+                            <SelectItem value="Non-binary">Non-binary</SelectItem>
+                            <SelectItem value="Prefer not to say">Prefer not to say</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="ageGroup">Age group:</Label>
+                        <Select value={demographicData.ageGroup} onValueChange={(value) => 
+                          setDemographicData({...demographicData, ageGroup: value})
+                        }>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select age group" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="18–24">18–24</SelectItem>
+                            <SelectItem value="25–34">25–34</SelectItem>
+                            <SelectItem value="35–44">35–44</SelectItem>
+                            <SelectItem value="45–54">45–54</SelectItem>
+                            <SelectItem value="55+">55+</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="sexualOrientation">Sexual orientation:</Label>
+                        <Select value={demographicData.sexualOrientation} onValueChange={(value) => 
+                          setDemographicData({...demographicData, sexualOrientation: value})
+                        }>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select sexual orientation" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Straight">Straight</SelectItem>
+                            <SelectItem value="Gay">Gay</SelectItem>
+                            <SelectItem value="Lesbian">Lesbian</SelectItem>
+                            <SelectItem value="Bisexual">Bisexual</SelectItem>
+                            <SelectItem value="Prefer not to say">Prefer not to say</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-surface-accent p-4 rounded-lg">
+                      <p className="font-secondary text-text-secondary text-sm">
+                        This information is only used to help match you with compatible therapists
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {currentStepData?.type === "smart-values" && (
                   <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="age">Age Range</Label>
-                        <Select value={demographicData.age} onValueChange={(value) => 
-                          setDemographicData({...demographicData, age: value})
-                        }>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select age range" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="18-25">18-25</SelectItem>
-                            <SelectItem value="26-35">26-35</SelectItem>
-                            <SelectItem value="36-45">36-45</SelectItem>
-                            <SelectItem value="46-55">46-55</SelectItem>
-                            <SelectItem value="56-65">56-65</SelectItem>
-                            <SelectItem value="65+">65+</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="gender">Gender Identity</Label>
-                        <Select value={demographicData.gender} onValueChange={(value) => 
-                          setDemographicData({...demographicData, gender: value})
-                        }>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select identity" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="woman">Woman</SelectItem>
-                            <SelectItem value="man">Man</SelectItem>
-                            <SelectItem value="non-binary">Non-binary</SelectItem>
-                            <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
-                          </SelectContent>
-                        </Select>
+                    <div className="space-y-3">
+                      {getSmartValuesOptions().map((option) => (
+                        <div key={option} className="flex items-center space-x-3">
+                          <Checkbox
+                            id={option}
+                            checked={(responses[currentStep] || []).includes(option)}
+                            onCheckedChange={() => handleOptionToggle(currentStep, option)}
+                          />
+                          <label 
+                            htmlFor={option}
+                            className="font-secondary text-text-primary cursor-pointer flex-1"
+                          >
+                            {option}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {currentStepData?.type === "explainer" && (
+                  <div className="text-center space-y-6">
+                    <div className="space-y-4">
+                      <div className="text-left space-y-2 max-w-md mx-auto">
+                        <p className="font-secondary text-text-secondary text-sm">
+                          • Swipe right to save to favourites, left to pass
+                        </p>
+                        <p className="font-secondary text-text-secondary text-sm">
+                          • Book free 15-minute chemistry calls
+                        </p>
+                        <p className="font-secondary text-text-secondary text-sm">
+                          • Only pay for the sessions you book
+                        </p>
                       </div>
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="location">Location (City, Country)</Label>
-                      <Input 
-                        id="location"
-                        placeholder="e.g. London, UK"
-                        value={demographicData.location}
-                        onChange={(e) => setDemographicData({...demographicData, location: e.target.value})}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="timezone">Preferred Session Times</Label>
-                      <Select value={demographicData.timezone} onValueChange={(value) => 
-                        setDemographicData({...demographicData, timezone: value})
-                      }>
-                        <SelectTrigger>
-                          <SelectValue placeholder="When works best?" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="morning">Morning (9am-12pm)</SelectItem>
-                          <SelectItem value="afternoon">Afternoon (12pm-5pm)</SelectItem>
-                          <SelectItem value="evening">Evening (5pm-8pm)</SelectItem>
-                          <SelectItem value="flexible">I'm flexible</SelectItem>
-                        </SelectContent>
-                      </Select>
+                  </div>
+                )}
+
+                {currentStepData?.type === "final-explainer" && (
+                  <div className="text-center space-y-6">
+                    <div className="space-y-4">
+                      <div className="text-left space-y-2 max-w-md mx-auto">
+                        <p className="font-secondary text-text-secondary text-sm">
+                          • Click on a profile to learn more
+                        </p>
+                        <p className="font-secondary text-text-secondary text-sm">
+                          • Watch video introductions from therapists
+                        </p>
+                        <p className="font-secondary text-text-secondary text-sm">
+                          • Book free chemistry calls with your favourites
+                        </p>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -373,14 +468,16 @@ export default function Assessment() {
               </Button>
 
               <div className="flex space-x-3">
-                <Button variant="tertiary">
-                  Skip for now
-                </Button>
+                {(currentStep === 5 || currentStep === 6) && (
+                  <Button variant="tertiary">
+                    Skip this step
+                  </Button>
+                )}
                 <Button
                   onClick={handleContinue}
                   disabled={currentStep === assessmentSteps.length || isMatching}
                 >
-                  {currentStep === 9 ? (isMatching ? "Matching..." : "Find My Therapists") : "Continue"}
+                  {currentStep === 9 ? (isMatching ? "Matching..." : "Start browsing therapists") : "Continue"}
                   {!isMatching && <ArrowRight className="w-4 h-4 ml-2" />}
                 </Button>
               </div>

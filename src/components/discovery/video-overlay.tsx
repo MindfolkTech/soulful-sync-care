@@ -1,5 +1,5 @@
 import * as React from "react";
-import { X, Play, Pause, Volume2, VolumeX, Subtitles } from "lucide-react";
+import { X, Play, Pause, Volume2, VolumeX, Subtitles, Maximize2, Minimize2 } from "lucide-react";
 import { 
   Dialog,
   DialogContent,
@@ -26,6 +26,7 @@ export function VideoOverlay({
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [isMuted, setIsMuted] = React.useState(false);
   const [captionsEnabled, setCaptionsEnabled] = React.useState(true);
+  const [isFullscreen, setIsFullscreen] = React.useState(false);
   const videoRef = React.useRef<HTMLVideoElement>(null);
 
   const handlePlayPause = () => {
@@ -56,6 +57,20 @@ export function VideoOverlay({
     }
   };
 
+  const handleFullscreenToggle = () => {
+    if (!videoRef.current) return;
+    
+    if (!document.fullscreenElement) {
+      videoRef.current.requestFullscreen().then(() => {
+        setIsFullscreen(true);
+      });
+    } else {
+      document.exitFullscreen().then(() => {
+        setIsFullscreen(false);
+      });
+    }
+  };
+
   // Reset state when dialog opens
   React.useEffect(() => {
     if (open) {
@@ -81,6 +96,34 @@ export function VideoOverlay({
       video.removeEventListener('pause', handlePause);
     };
   }, [open]);
+
+  // Keyboard shortcuts
+  React.useEffect(() => {
+    if (!open) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Prevent default behavior for our shortcuts
+      if (e.code === 'Space' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        handlePlayPause();
+      } else if (e.code === 'KeyM' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        handleMuteToggle();
+      } else if (e.code === 'KeyC' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        handleCaptionsToggle();
+      } else if (e.code === 'KeyF' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        handleFullscreenToggle();
+      } else if (e.code === 'Escape') {
+        e.preventDefault();
+        onOpenChange(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [open, isPlaying, isMuted, captionsEnabled]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -132,6 +175,10 @@ export function VideoOverlay({
 
           {/* Controls */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[--overlay-dark]/80 to-transparent p-4">
+            {/* Keyboard shortcuts hint */}
+            <div className="text-xs text-white/70 mb-2 text-center">
+              Space: Play/Pause • M: Mute • C: Captions • F: Fullscreen • Esc: Close
+            </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Button
@@ -174,6 +221,20 @@ export function VideoOverlay({
                   aria-pressed={captionsEnabled}
                 >
                   <Subtitles className="h-5 w-5" />
+                </Button>
+
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={handleFullscreenToggle}
+                  className="text-white hover:bg-white/20"
+                  aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+                >
+                  {isFullscreen ? (
+                    <Minimize2 className="h-5 w-5" />
+                  ) : (
+                    <Maximize2 className="h-5 w-5" />
+                  )}
                 </Button>
               </div>
 

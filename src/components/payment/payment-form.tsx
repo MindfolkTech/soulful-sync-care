@@ -308,14 +308,14 @@ export function PaymentForm({
       </div>
 
       {/* Security Notice */}
-      <div className="p-3 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg">
+      <div className="p-3 bg-surface-accent border border-border rounded-lg">
         <div className="flex items-center gap-2">
-          <Lock className="h-4 w-4 text-green-600" />
-          <span className="text-sm font-medium text-green-900 dark:text-green-100">
+          <Lock className="h-4 w-4 text-success" />
+          <span className="text-sm font-medium text-success">
             Secure Payment
           </span>
         </div>
-        <p className="text-xs text-green-800 dark:text-green-200 mt-1">
+        <p className="text-xs text-text-secondary mt-1">
           Your payment information is encrypted and secure. We use industry-standard SSL encryption.
         </p>
       </div>

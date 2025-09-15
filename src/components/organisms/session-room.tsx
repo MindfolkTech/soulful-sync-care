@@ -62,9 +62,9 @@ const SessionRoom = React.forwardRef<HTMLDivElement, SessionRoomProps>(
           </div>
 
           {/* User Video (Picture-in-Picture) */}
-          <div className="absolute top-4 right-4 w-48 h-36 bg-gray-800 rounded-lg overflow-hidden">
+          <div className="absolute top-4 right-4 w-48 h-36 bg-surface-accent rounded-lg overflow-hidden">
             <div className="flex items-center justify-center h-full">
-              <div className="text-center text-white">
+              <div className="text-center text-text-primary">
                 <div className="w-16 h-16 bg-white/20 rounded-full mx-auto mb-2 flex items-center justify-center">
                   <span className="text-lg font-bold">You</span>
                 </div>
