@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Pages
 import Index from "./pages/Index";
+import TherapistLanding from "./pages/TherapistLanding";
 import NotFound from "./pages/NotFound";
 
 // Public pages
@@ -55,6 +56,7 @@ const App = () => (
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<Index />} />
+          <Route path="/therapist" element={<TherapistLanding />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/legal/terms" element={<Terms />} />
