@@ -34,21 +34,10 @@ export default function Index() {
       <Header />
       
       <main className="flex-1">
-        {/* Hero Section with Editorial Design */}
-        <section className="relative py-20 lg:py-32 overflow-hidden bg-surface-primary">
-          {/* Editorial Background Elements */}
-          <div className="absolute inset-0">
-            <EditorialOverlay 
-              shape="organic-2" 
-              decorative 
-              className="absolute top-10 right-10 w-96 h-96 opacity-10 rotate-12"
-            >
-              <img src={editorialElements} alt="" className="w-full h-full object-cover" />
-            </EditorialOverlay>
-          </div>
-          
+        {/* Hero Section - MindFolk Inspired */}
+        <section className="relative py-20 lg:py-32 overflow-hidden bg-background">
           <Container>
-            <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="space-y-8">
                 <h1 className="font-primary text-4xl lg:text-6xl font-bold text-text-primary leading-tight">
                   Find a therapist who truly gets you.
@@ -72,7 +61,11 @@ export default function Index() {
 
               <div className="relative">
                 <div className="relative max-w-lg mx-auto">
-                  <EditorialOverlay shape="blob" className="w-full aspect-[4/5]">
+                  <EditorialOverlay 
+                    shape="oval-soft" 
+                    background="peach"
+                    className="w-full aspect-[4/5]"
+                  >
                     <img 
                       src={heroPortrait} 
                       alt="Professional therapist in modern office" 
@@ -80,10 +73,10 @@ export default function Index() {
                     />
                   </EditorialOverlay>
                   
-                  {/* Floating editorial elements */}
-                  <div className="absolute -top-6 -right-6 w-20 h-20 bg-primary/10 rotate-12 rounded-2xl"></div>
-                  <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-tag-personality-bg rotate-45 rounded-xl"></div>
-                  <div className="absolute top-1/3 -right-8 w-2 h-12 bg-primary/60 rotate-12"></div>
+                  {/* Clean geometric accent elements */}
+                  <div className="absolute -top-6 -right-6 w-16 h-16 bg-orange-100 rounded-full opacity-60"></div>
+                  <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-purple-100 rounded-full opacity-80"></div>
+                  <div className="absolute top-1/4 -right-8 w-1 h-20 bg-green-100 rounded-full"></div>
                 </div>
               </div>
             </div>
@@ -171,17 +164,8 @@ export default function Index() {
           </Container>
         </section>
 
-        {/* Editorial Pull Quote */}
+        {/* Editorial Pull Quote - Clean Design */}
         <section className="py-16 lg:py-20 bg-surface-secondary relative overflow-hidden">
-          <div className="absolute inset-0">
-            <EditorialOverlay 
-              shape="organic-3" 
-              decorative 
-              className="absolute -left-20 top-10 w-64 h-64 opacity-5 -rotate-45"
-            >
-              <img src={therapistProfiles} alt="" className="w-full h-full object-cover" />
-            </EditorialOverlay>
-          </div>
           <Container>
             <div className="max-w-4xl mx-auto text-center relative z-10">
               <blockquote className="space-y-6">
@@ -236,27 +220,29 @@ export default function Index() {
                   </div>
                 </div>
                 <div className="relative lg:order-last">
-                  <EditorialCard 
-                    imageUrl={therapistProfiles} 
-                    alt="Therapist profiles interface" 
-                    className="overflow-hidden"
+                  <EditorialOverlay 
+                    shape="oval-wide" 
+                    background="sage"
+                    className="w-full max-w-md mx-auto"
                   >
-                    <EditorialOverlay shape="organic-2" className="absolute inset-0">
-                      <img src={therapistProfiles} alt="Therapist profiles" className="w-full h-full object-cover" />
-                    </EditorialOverlay>
+                    <img src={therapistProfiles} alt="Therapist profiles" className="w-full h-full object-cover" />
                     <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 space-y-1">
                       <h4 className="font-semibold text-text-primary text-sm">Dr. Alex Rivera</h4>
                       <p className="text-xs text-text-secondary">Anxiety • Trauma • EMDR</p>
                     </div>
-                  </EditorialCard>
+                  </EditorialOverlay>
                 </div>
               </div>
 
               {/* Step 2 - Right aligned */}
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className="relative lg:order-first">
-                  <EditorialOverlay shape="circle" className="w-full max-w-sm mx-auto aspect-square">
-                    <div className="bg-gradient-to-br from-tag-personality-bg to-tag-modality-bg w-full h-full flex flex-col items-center justify-center text-center p-8">
+                  <EditorialOverlay 
+                    shape="circle" 
+                    background="lavender"
+                    className="w-full max-w-sm mx-auto aspect-square"
+                  >
+                    <div className="w-full h-full flex flex-col items-center justify-center text-center p-8">
                       <Phone className="w-16 h-16 mb-4 text-primary" />
                       <h4 className="font-semibold text-text-primary mb-2 text-lg">15-min Chemistry Call</h4>
                       <p className="text-sm text-text-secondary">Free consultation included</p>
@@ -302,7 +288,11 @@ export default function Index() {
                   </div>
                 </div>
                 <div className="relative lg:order-last">
-                  <EditorialOverlay shape="organic-3" className="w-full max-w-sm mx-auto aspect-[4/3] bg-gradient-to-br from-primary/5 to-primary/15">
+                  <EditorialOverlay 
+                    shape="rounded-square" 
+                    background="cream"
+                    className="w-full max-w-sm mx-auto aspect-[4/3]"
+                  >
                     <div className="w-full h-full flex flex-col items-center justify-center text-center p-6">
                       <CheckCircle className="w-16 h-16 mb-4 text-primary" />
                       <h4 className="font-semibold text-text-primary mb-2">Session Booked!</h4>
