@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="fill-blobby" viewBox="0 0 400 400">
+    <path d="M350,210c0,80-70,140-150,140S50,310,50,220 110,50 210,50s140,80 140,160Z"/>
+  </symbol>
+  <symbol id="fill-oval" viewBox="0 0 400 400">
+    <ellipse cx="200" cy="200" rx="180" ry="150"/>
+  </symbol>
+  <symbol id="fill-arch" viewBox="0 0 400 400">
+    <path d="M40,300a160,160 0 1 1 320,0v50H40Z"/>
+  </symbol>
+
+  <symbol id="line-spark" viewBox="0 0 400 400">
+    <path d="M40,320 C130,260 270,140 360,80" vector-effect="non-scaling-stroke"/>
+  </symbol>
+  <symbol id="line-wave" viewBox="0 0 400 400">
+    <path d="M20,260 q60,-40 120,0 t120,0 t120,0" vector-effect="non-scaling-stroke"/>
+  </symbol>
+  <symbol id="line-brkt" viewBox="0 0 400 400">
+    <path d="M90,90 v220 M310,90 v220" vector-effect="non-scaling-stroke"/>
+  </symbol>
+  <symbol id="line-underline" viewBox="0 0 400 400">
+    <path d="M40,340 H360" vector-effect="non-scaling-stroke"/>
+  </symbol>
+</svg>
