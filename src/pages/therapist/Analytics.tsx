@@ -378,7 +378,7 @@ export default function TherapistAnalytics() {
                       <div className="flex items-center justify-between">
                         <span className="font-secondary text-text-secondary">Average Rating</span>
                         <div className="flex items-center space-x-1">
-                          <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          <Star className="w-4 h-4 fill-[var(--garden-green)] text-[var(--garden-green)]" />
                           <span className="font-secondary font-semibold text-text-primary">4.9</span>
                         </div>
                       </div>

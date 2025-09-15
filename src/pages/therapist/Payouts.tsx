@@ -191,14 +191,14 @@ export default function TherapistPayouts() {
                   </CardTitle>
                   <div className="flex gap-2">
                     <Button 
-                      variant={selectedPeriod === "current" ? "default" : "outline"} 
+                      variant={selectedPeriod === "current" ? "primary" : "outline"} 
                       size="sm"
                       onClick={() => setSelectedPeriod("current")}
                     >
                       Current Month
                     </Button>
                     <Button 
-                      variant={selectedPeriod === "last" ? "default" : "outline"} 
+                      variant={selectedPeriod === "last" ? "primary" : "outline"} 
                       size="sm"
                       onClick={() => setSelectedPeriod("last")}
                     >
@@ -209,22 +209,22 @@ export default function TherapistPayouts() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 bg-green-50 dark:bg-green-950/20 rounded-lg">
+                  <div className="p-4 bg-[var(--success-bg)] rounded-lg">
                     <div className="flex items-center gap-2 mb-2">
-                      <CheckCircle2 className="h-4 w-4 text-green-600" />
+                      <CheckCircle2 className="h-4 w-4 text-[var(--success-text)]" />
                       <span className="text-sm font-medium">Available for Payout</span>
                     </div>
-                    <div className="text-2xl font-bold text-green-700 dark:text-green-300">
+                    <div className="text-2xl font-bold text-[var(--success-text)]">
                       ${currentEarnings.available.toLocaleString()}
                     </div>
                   </div>
                   
-                  <div className="p-4 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg">
+                  <div className="p-4 bg-[var(--warning-bg)] rounded-lg">
                     <div className="flex items-center gap-2 mb-2">
-                      <Clock className="h-4 w-4 text-yellow-600" />
+                      <Clock className="h-4 w-4 text-[var(--warning-text)]" />
                       <span className="text-sm font-medium">Pending Sessions</span>
                     </div>
-                    <div className="text-2xl font-bold text-yellow-700 dark:text-yellow-300">
+                    <div className="text-2xl font-bold text-[var(--warning-text)]">
                       ${currentEarnings.pending.toLocaleString()}
                     </div>
                   </div>
@@ -397,10 +397,10 @@ export default function TherapistPayouts() {
                   </div>
                 </div>
                 
-                <div className="p-3 bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                <div className="p-3 bg-[var(--warning-bg)] border border-[var(--warning-bg)] rounded-lg">
                   <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-yellow-600" />
-                    <span className="font-medium text-yellow-900 dark:text-yellow-100">
+                    <Calendar className="h-4 w-4 text-[var(--warning-text)]" />
+                    <span className="font-medium text-[var(--warning-text)]">
                       Next Due: {taxInfo.nextDue}
                     </span>
                   </div>

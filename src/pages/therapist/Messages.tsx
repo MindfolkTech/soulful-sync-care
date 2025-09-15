@@ -188,10 +188,10 @@ export default function TherapistMessages() {
                           </h4>
                           <div className="flex items-center gap-1">
                             {thread.priority === "urgent" && (
-                              <AlertCircle className="h-3 w-3 text-red-500" />
+                              <AlertCircle className="h-3 w-3 text-[var(--error-text)]" />
                             )}
                             {thread.encrypted && (
-                              <Shield className="h-3 w-3 text-green-500" />
+                              <Shield className="h-3 w-3 text-[var(--success-bg)]" />
                             )}
                             {thread.unread > 0 && (
                               <Badge variant="default" className="text-xs px-2 py-0.5">
@@ -248,7 +248,7 @@ export default function TherapistMessages() {
                           </div>
                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <div className="flex items-center gap-1">
-                              <Shield className="h-3 w-3 text-green-500" />
+                              <Shield className="h-3 w-3 text-[var(--success-bg)]" />
                               Encrypted
                             </div>
                             <span>•</span>
