@@ -26,6 +26,7 @@ import Notifications from "./pages/client/Notifications";
 import Account from "./pages/client/Account";
 import Messages from "./pages/client/Messages";
 import Billing from "./pages/client/Billing";
+import ClientTasks from "./pages/client/Tasks";
 
 // Therapist pages
 import TherapistOnboarding from "./pages/therapist/Onboarding";
@@ -37,6 +38,7 @@ import TherapistAnalytics from "./pages/therapist/Analytics";
 import TherapistDashboard from "./pages/therapist/Dashboard";
 import TherapistMessages from "./pages/therapist/Messages";
 import TherapistPayouts from "./pages/therapist/Payouts";
+import TherapistTasks from "./pages/therapist/Tasks";
 
 // Session pages
 import SessionRoom from "./pages/session/SessionRoom";
@@ -51,6 +53,7 @@ import AdminFeatureFlags from "./pages/admin/FeatureFlags";
 import AdminWebhooks from "./pages/admin/Webhooks";
 import AdminAudit from "./pages/admin/Audit";
 import AdminSupport from "./pages/admin/Support";
+import AdminTasks from "./pages/admin/Tasks";
 
 const queryClient = new QueryClient();
 
@@ -80,6 +83,7 @@ const App = () => (
           <Route path="/account" element={<Account />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/billing" element={<Billing />} />
+          <Route path="/client/tasks" element={<ClientTasks />} />
 
           {/* Therapist routes */}
           <Route path="/t/onboarding" element={<TherapistOnboarding />} />
@@ -91,6 +95,7 @@ const App = () => (
           <Route path="/t/dashboard" element={<TherapistDashboard />} />
           <Route path="/t/messages" element={<TherapistMessages />} />
           <Route path="/t/payouts" element={<TherapistPayouts />} />
+          <Route path="/t/tasks" element={<TherapistTasks />} />
 
           {/* Session routes */}
           <Route path="/session/:sessionId" element={<SessionRoom />} />
@@ -105,6 +110,7 @@ const App = () => (
           <Route path="/admin/webhooks" element={<AdminWebhooks />} />
           <Route path="/admin/audit" element={<AdminAudit />} />
           <Route path="/admin/support" element={<AdminSupport />} />
+          <Route path="/admin/tasks" element={<AdminTasks />} />
 
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />

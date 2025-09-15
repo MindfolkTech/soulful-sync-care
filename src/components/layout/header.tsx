@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { TaskBadge } from "@/components/molecules/task-badge";
+import { Bell } from "lucide-react";
 
 export function Header() {
   return (
@@ -49,6 +51,17 @@ export function Header() {
           </nav>
 
           <div className="flex items-center space-x-3">
+            {/* Task notifications - shown when user is logged in */}
+            <TaskBadge count={3} role="client" />
+            
+            {/* Notifications */}
+            <Button variant="ghost" size="icon" className="relative">
+              <Bell className="h-5 w-5" />
+              <span className="absolute -top-1 -right-1 h-4 w-4 bg-destructive rounded-full flex items-center justify-center text-xs text-white">
+                2
+              </span>
+            </Button>
+            
             <Button 
               asChild
               style={{ 
