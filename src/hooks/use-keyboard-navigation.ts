@@ -46,7 +46,7 @@ export function useKeyboardNavigation({
         onOpenFilters();
         break;
     }
-  }, [therapists, currentIndex, onNext, onPrevious, onPass, onSave, onShowDetails, onOpenFilters]);
+  }, [therapists, currentIndex, onPass, onSave, onShowDetails, onOpenFilters]);
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);

@@ -2,7 +2,9 @@ import * as React from "react";
 import { X, Heart, ChevronDown, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
-import { Stack, HStack, Cluster } from "@/components/ui/stack";
+import { Stack } from "@/components/ui/stack";
+import { HStack } from "@/components/ui/hstack";
+import { Cluster } from "@/components/ui/cluster";
 import { VideoPlayer } from "@/components/ui/video-player";
 import { cn } from "@/lib/utils";
 

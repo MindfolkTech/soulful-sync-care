@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { TaskFilters as TaskFiltersType } from "@/types/tasks";
+import { TaskFilters as TaskFiltersType, TaskItem } from "@/types/tasks";
 import { Search, X } from "lucide-react";
 
 interface TaskFiltersProps {
@@ -79,10 +79,10 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
         <Select
           value=""
           onValueChange={(value) => {
-            if (!filters.status.includes(value as any)) {
+            if (!filters.status.includes(value as TaskItem['status'])) {
               onFiltersChange({
                 ...filters,
-                status: [...filters.status, value as any]
+                status: [...filters.status, value as TaskItem['status']]
               });
             }
           }}
@@ -102,10 +102,10 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
         <Select
           value=""
           onValueChange={(value) => {
-            if (!filters.priority.includes(value as any)) {
+            if (!filters.priority.includes(value as TaskItem['priority'])) {
               onFiltersChange({
                 ...filters,
-                priority: [...filters.priority, value as any]
+                priority: [...filters.priority, value as TaskItem['priority']]
               });
             }
           }}
@@ -125,10 +125,10 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
         <Select
           value=""
           onValueChange={(value) => {
-            if (!filters.flow.includes(value as any)) {
+            if (!filters.flow.includes(value as TaskItem['flow'])) {
               onFiltersChange({
                 ...filters,
-                flow: [...filters.flow, value as any]
+                flow: [...filters.flow, value as TaskItem['flow']]
               });
             }
           }}

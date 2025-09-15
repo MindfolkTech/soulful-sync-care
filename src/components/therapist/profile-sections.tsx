@@ -18,9 +18,24 @@ const SPECIALTIES = {
   "cultural-identity": ["LGBTQ+ affirmative", "Cultural competency", "Religious/spiritual", "Multilingual"]
 };
 
+interface TherapistProfile {
+  id: string;
+  name: string;
+  title: string;
+  bio: string;
+  specialties: string[];
+  languages: string[];
+  location: string;
+  rate: number;
+  availability: string[];
+  education: string[];
+  experience: string[];
+  certifications: string[];
+}
+
 interface BasicInfoSectionProps {
-  profile: any;
-  onUpdate: (updates: any) => void;
+  profile: TherapistProfile;
+  onUpdate: (updates: Partial<TherapistProfile>) => void;
 }
 
 export function BasicInfoSection({ profile, onUpdate }: BasicInfoSectionProps) {
@@ -105,8 +120,8 @@ export function BasicInfoSection({ profile, onUpdate }: BasicInfoSectionProps) {
 }
 
 interface SpecialtiesSectionProps {
-  profile: any;
-  onUpdate: (updates: any) => void;
+  profile: TherapistProfile;
+  onUpdate: (updates: Partial<TherapistProfile>) => void;
 }
 
 export function SpecialtiesSection({ profile, onUpdate }: SpecialtiesSectionProps) {
@@ -179,8 +194,8 @@ export function SpecialtiesSection({ profile, onUpdate }: SpecialtiesSectionProp
 }
 
 interface RatesAndPoliciesSectionProps {
-  profile: any;
-  onUpdate: (updates: any) => void;
+  profile: TherapistProfile;
+  onUpdate: (updates: Partial<TherapistProfile>) => void;
 }
 
 export function RatesAndPoliciesSection({ profile, onUpdate }: RatesAndPoliciesSectionProps) {
@@ -263,8 +278,8 @@ export function RatesAndPoliciesSection({ profile, onUpdate }: RatesAndPoliciesS
 }
 
 interface VideoUploadSectionProps {
-  profile: any;
-  onUpdate: (updates: any) => void;
+  profile: TherapistProfile;
+  onUpdate: (updates: Partial<TherapistProfile>) => void;
 }
 
 export function VideoUploadSection({ profile, onUpdate }: VideoUploadSectionProps) {

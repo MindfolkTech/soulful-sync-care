@@ -5,11 +5,16 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { Stack } from "@/components/ui/stack";
 import { cn } from "@/lib/utils";
 
+export interface AssessmentStepProps {
+  onNext: () => void;
+  onPrevious: () => void;
+}
+
 export interface AssessmentStep {
   id: string;
   title: string;
-  component: React.ComponentType<any>;
-  props?: Record<string, any>;
+  component: React.ComponentType<AssessmentStepProps>;
+  props?: Record<string, unknown>;
 }
 
 export interface AssessmentFlowProps extends React.HTMLAttributes<HTMLDivElement> {

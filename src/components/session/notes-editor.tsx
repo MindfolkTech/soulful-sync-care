@@ -243,7 +243,7 @@ export function NotesEditor({ sessionId, clientName }: NotesEditorProps) {
                     <div className="flex items-start gap-3">
                       <div className="flex items-center gap-2 mt-1">
                         {getTypeIcon(note.type)}
-                        <Badge variant={getTypeColor(note.type) as any} className="text-xs">
+                        <Badge variant={getTypeColor(note.type) as "default" | "secondary" | "destructive" | "outline"} className="text-xs">
                           {note.type}
                         </Badge>
                       </div>

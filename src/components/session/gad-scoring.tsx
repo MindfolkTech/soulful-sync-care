@@ -99,7 +99,7 @@ export function GADScoring({ clientId, sessionId }: GADScoringProps) {
               <p className="text-sm text-muted-foreground">Total Score</p>
             </div>
             <div className="text-center p-4 bg-muted/30 rounded-lg">
-              <Badge variant={severity.color as any} className="text-sm">
+              <Badge variant={severity.color as "default" | "secondary" | "destructive" | "outline"} className="text-sm">
                 {severity.level}
               </Badge>
               <p className="text-sm text-muted-foreground mt-1">Severity Level</p>
@@ -193,7 +193,7 @@ export function GADScoring({ clientId, sessionId }: GADScoringProps) {
                     <div className="flex items-center gap-3">
                       <Calendar className="h-4 w-4 text-muted-foreground" />
                       <span className="text-sm font-medium">{score.date}</span>
-                      <Badge variant={prevSeverity.color as any} className="text-xs">
+                      <Badge variant={prevSeverity.color as "default" | "secondary" | "destructive" | "outline"} className="text-xs">
                         {prevSeverity.level}
                       </Badge>
                     </div>

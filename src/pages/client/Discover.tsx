@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { TherapistCard, TherapistData } from "@/components/discovery/therapist-card";
+import { TherapistCard, TherapistData } from "@/components/molecules/therapist-card";
 import { TherapistDetailsSheet } from "@/components/discovery/therapist-details-sheet";
 import { FiltersDialog } from "@/components/discovery/filters-dialog";
 import { VideoOverlay } from "@/components/discovery/video-overlay";

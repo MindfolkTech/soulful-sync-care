@@ -13,9 +13,16 @@ import {
   AlertCircle
 } from "lucide-react";
 
+interface PaymentMethod {
+  id: string;
+  type: 'card' | 'bank_account';
+  last4: string;
+  brand?: string;
+}
+
 interface PaymentFormProps {
   onClose?: () => void;
-  onSuccess?: (paymentMethod: any) => void;
+  onSuccess?: (paymentMethod: PaymentMethod) => void;
   showPlanSelection?: boolean;
 }
 
