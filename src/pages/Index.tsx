@@ -1,82 +1,91 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { Card, CardContent } from "@/components/ui/card";
+import { EditorialCard } from "@/components/ui/editorial-card";
+import { EditorialOverlay } from "@/components/ui/editorial-overlay";
+import { SvgShapeDefinitions, LineDecoration } from "@/components/ui/svg-shapes";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { Card, CardContent } from "@/components/ui/card";
-import { EditorialOverlay } from "@/components/ui/editorial-overlay";
-import { EditorialCard } from "@/components/ui/editorial-card";
 import { 
   Heart, 
-  Video, 
+  MessageCircle, 
   Shield, 
-  Users, 
+  Star, 
   CheckCircle, 
-  Star,
-  Clock,
+  Clock, 
+  Users, 
+  Search,
+  Calendar,
   DollarSign,
+  Award,
+  BookOpen,
+  ArrowRight,
+  Phone,
+  Video,
   UserCheck,
   Eye,
-  Book,
-  Phone,
-  ArrowRight
+  Book
 } from "lucide-react";
 
-// Import editorial assets
+// Import all images
+import heroImage from "@/assets/hero-image.jpg";
 import heroPortrait from "@/assets/hero-portrait.jpg";
 import therapistProfiles from "@/assets/therapist-profiles.jpg";
 import editorialElements from "@/assets/editorial-elements.jpg";
 import resourceCovers from "@/assets/resource-covers.jpg";
+import celebrationIllustration from "@/assets/celebration-illustration.jpg";
 
 export default function Index() {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen" style={{ backgroundColor: "hsl(var(--background))" }}>
+      <SvgShapeDefinitions />
       <Header />
       
       <main className="flex-1">
-        {/* Hero Section - MindFolk Inspired */}
-        <section className="relative py-20 lg:py-32 overflow-hidden bg-background">
+        {/* Hero Section */}
+        <section className="relative py-20 lg:py-32" style={{ backgroundColor: "hsl(var(--peach-light))" }}>
           <Container>
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div className="space-y-8">
-                <h1 className="font-primary text-4xl lg:text-6xl font-bold text-text-primary leading-tight">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <h1 className="text-4xl lg:text-6xl font-primary font-bold leading-tight" style={{ color: "hsl(var(--text-primary))" }}>
                   Find a therapist who truly gets you.
                 </h1>
-                <p className="font-secondary text-lg lg:text-xl text-text-secondary leading-relaxed">
+                <p className="text-xl leading-relaxed font-secondary" style={{ color: "hsl(var(--text-body))" }}>
                   Choose from therapists who match your personality, culture, and needs — with free chemistry calls before committing.
                 </p>
-                
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="min-h-touch-comfort px-8" asChild>
+                  <Button size="lg" asChild className="min-h-[var(--touch-target-min)]" style={{ 
+                    backgroundColor: "hsl(var(--btn-primary-bg))", 
+                    color: "hsl(var(--btn-primary-text))" 
+                  }}>
                     <Link to="/browse">Find a Therapist</Link>
                   </Button>
-                  <Button variant="outline" size="lg" className="min-h-touch-comfort px-8" asChild>
-                    <Link to="#how-it-works">
-                      See How It Works
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Link>
+                  <Button variant="outline" size="lg" asChild className="min-h-[var(--touch-target-min)]" style={{ 
+                    backgroundColor: "hsl(var(--btn-secondary-bg))", 
+                    color: "hsl(var(--btn-secondary-text))",
+                    borderColor: "hsl(var(--btn-secondary-border))"
+                  }}>
+                    <Link to="#how-it-works">See How It Works</Link>
                   </Button>
                 </div>
               </div>
-
+              
               <div className="relative">
-                <div className="relative max-w-lg mx-auto">
-                  <EditorialOverlay 
-                    shape="oval-soft" 
-                    background="peach"
-                    className="w-full aspect-[4/5]"
-                  >
-                    <img 
-                      src={heroPortrait} 
-                      alt="Professional therapist in modern office" 
-                      className="w-full h-full object-cover"
-                    />
-                  </EditorialOverlay>
-                  
-                  {/* Clean geometric accent elements */}
-                  <div className="absolute -top-6 -right-6 w-16 h-16 bg-orange-100 rounded-full opacity-60"></div>
-                  <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-purple-100 rounded-full opacity-80"></div>
-                  <div className="absolute top-1/4 -right-8 w-1 h-20 bg-green-100 rounded-full"></div>
+                <EditorialOverlay
+                  rule="personality:warm"
+                  className="w-full max-w-md mx-auto aspect-[4/5]"
+                >
+                  <img
+                    src={heroPortrait}
+                    alt="Therapist portrait framed by soft editorial overlays"
+                    className="w-full h-full object-cover"
+                  />
+                </EditorialOverlay>
+                
+                {/* Simple editorial accents */}
+                <div className="absolute -top-2 -right-2">
+                  <LineDecoration type="spark" color="hsl(var(--accent-green))" />
                 </div>
               </div>
             </div>
@@ -221,8 +230,7 @@ export default function Index() {
                 </div>
                 <div className="relative lg:order-last">
                   <EditorialOverlay 
-                    shape="oval-wide" 
-                    background="sage"
+                    rule="personality:calm"
                     className="w-full max-w-md mx-auto"
                   >
                     <img src={therapistProfiles} alt="Therapist profiles" className="w-full h-full object-cover" />
@@ -238,8 +246,7 @@ export default function Index() {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className="relative lg:order-first">
                   <EditorialOverlay 
-                    shape="circle" 
-                    background="lavender"
+                    rule="personality:warm"
                     className="w-full max-w-sm mx-auto aspect-square"
                   >
                     <div className="w-full h-full flex flex-col items-center justify-center text-center p-8">
@@ -289,8 +296,7 @@ export default function Index() {
                 </div>
                 <div className="relative lg:order-last">
                   <EditorialOverlay 
-                    shape="rounded-square" 
-                    background="cream"
+                    rule="personality:direct"
                     className="w-full max-w-sm mx-auto aspect-[4/3]"
                   >
                     <div className="w-full h-full flex flex-col items-center justify-center text-center p-6">

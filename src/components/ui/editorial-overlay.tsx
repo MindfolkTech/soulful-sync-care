@@ -1,55 +1,39 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { SvgShape } from "./svg-shapes";
+
+// MindFolk Personality Rules for Editorial Overlays
+type PersonalityRule = "personality:warm" | "personality:calm" | "personality:direct" | "affinity:multilingual" | "default";
 
 interface EditorialOverlayProps extends React.HTMLAttributes<HTMLDivElement> {
-  shape?: "circle" | "oval-soft" | "oval-wide" | "rounded-square";
-  background?: "peach" | "sage" | "lavender" | "cream" | "none";
+  rule?: PersonalityRule;
+  shape?: "blobby" | "oval" | "arch";
+  fillColor?: string;
 }
 
-const EditorialOverlay = React.forwardRef<HTMLDivElement, EditorialOverlayProps>(
-  ({ className, shape = "circle", background = "none", children, ...props }, ref) => {
-    const getShapeClasses = (shapeType: string) => {
-      switch (shapeType) {
-        case "circle":
-          return "rounded-full aspect-square";
-        case "oval-soft":
-          return "rounded-[60%] aspect-[4/5]";
-        case "oval-wide":
-          return "rounded-[50%] aspect-[6/5]";
-        case "rounded-square":
-          return "rounded-3xl aspect-square";
-        default:
-          return "rounded-full aspect-square";
-      }
-    };
+const personalityRules = {
+  "personality:warm": { shape: "blobby" as const, fillColor: "hsl(var(--soft-blush))" },
+  "personality:calm": { shape: "oval" as const, fillColor: "hsl(var(--soft-sage))" },
+  "personality:direct": { shape: "arch" as const, fillColor: "hsl(var(--soft-blue))" },
+  "affinity:multilingual": { shape: "oval" as const, fillColor: "hsl(var(--soft-lavender))" },
+  "default": { shape: "blobby" as const, fillColor: "hsl(var(--soft-sage))" }
+};
 
-    const getBackgroundClasses = (bgType: string) => {
-      switch (bgType) {
-        case "peach":
-          return "bg-gradient-to-br from-orange-100 to-pink-100";
-        case "sage":
-          return "bg-gradient-to-br from-green-100 to-emerald-100";
-        case "lavender":
-          return "bg-gradient-to-br from-purple-100 to-violet-100";
-        case "cream":
-          return "bg-gradient-to-br from-amber-50 to-orange-50";
-        default:
-          return "";
-      }
-    };
+const EditorialOverlay = React.forwardRef<HTMLDivElement, EditorialOverlayProps>(
+  ({ className, rule = "default", shape, fillColor, children, ...props }, ref) => {
+    const config = personalityRules[rule];
+    const finalShape = shape || config.shape;
+    const finalFillColor = fillColor || config.fillColor;
 
     return (
-      <div
-        ref={ref}
-        className={cn(
-          "relative overflow-hidden",
-          getShapeClasses(shape),
-          getBackgroundClasses(background),
-          className
-        )}
-        {...props}
-      >
-        {children}
+      <div ref={ref} className={cn("relative", className)} {...props}>
+        <SvgShape
+          shape={finalShape}
+          fillColor={finalFillColor}
+          className="w-full h-full"
+        >
+          {children}
+        </SvgShape>
       </div>
     );
   }
