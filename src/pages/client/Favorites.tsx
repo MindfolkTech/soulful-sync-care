@@ -116,7 +116,7 @@ export default function Favorites() {
 
   const handleBookSession = (therapist: TherapistData) => {
     // Navigate to booking page
-    window.location.href = `/client/book-appointment/${therapist.id}`;
+    window.location.href = `/book/${therapist.id}`;
   };
 
   return (
@@ -140,7 +140,7 @@ export default function Favorites() {
           <Button 
             variant="outline" 
             size="sm"
-            onClick={() => window.location.href = '/client/discover'}
+            onClick={() => window.location.href = '/discover'}
             aria-label="Back to discovery"
           >
             <Filter className="w-4 h-4 mr-2" />
@@ -325,6 +325,7 @@ export default function Favorites() {
 
       {/* ARIA Live Region */}
       <div {...ariaLiveProps} />
+      <BottomNav />
     </div>
   );
 }

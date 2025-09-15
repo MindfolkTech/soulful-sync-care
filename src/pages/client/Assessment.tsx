@@ -162,7 +162,7 @@ export default function Assessment() {
       setIsMatching(true);
       // Simulate matching process
       setTimeout(() => {
-        window.location.href = "/client/discover";
+        window.location.href = "/discover";
       }, 3000);
     } else {
       setCurrentStep(Math.min(assessmentSteps.length, currentStep + 1));

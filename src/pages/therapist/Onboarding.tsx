@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
@@ -132,9 +132,15 @@ export default function TherapistOnboarding() {
             <div className="mb-8" role="region" aria-label="Onboarding progress">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-4 flex-1">
-                  <Progress 
-                    value={progress} 
-                    className="h-3 flex-1 bg-surface-accent rounded-full overflow-hidden" 
+                  <Button asChild variant="outline" size="sm" className="hover:bg-surface-accent">
+                    <Link to="/therapist">
+                      <ArrowLeft className="w-4 h-4 mr-2" />
+                      Back to Therapist Info
+                    </Link>
+                  </Button>
+                  <Progress
+                    value={progress}
+                    className="h-3 flex-1 bg-surface-accent rounded-full overflow-hidden"
                     aria-label={`Progress: ${Math.round(progress)}% complete`}
                   />
                   <span className="text-sm text-text-secondary font-helvetica whitespace-nowrap bg-surface px-3 py-1 rounded-full" aria-live="polite">

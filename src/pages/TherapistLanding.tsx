@@ -466,18 +466,34 @@ export default function TherapistLanding() {
                 Ready to meet clients who actually fit your style?
               </h2>
               
-              <Button
-                size="lg"
-                className="min-h-[var(--touch-target-min)] focus-visible:ring-2 focus-visible:ring-[var(--garden-green)] focus-visible:ring-offset-2"
-                style={{
-                  backgroundColor: "hsl(var(--btn-primary-bg))",
-                  color: "hsl(var(--btn-primary-text))",
-                  padding: "0 var(--space-lg)",
-                }}
-                asChild
-              >
-                <Link to="/therapist/signup">Get Started</Link>
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-[var(--space-sm)]">
+                <Button
+                  size="lg"
+                  className="min-h-[var(--touch-target-min)] focus-visible:ring-2 focus-visible:ring-[var(--garden-green)] focus-visible:ring-offset-2"
+                  style={{
+                    backgroundColor: "hsl(var(--btn-primary-bg))",
+                    color: "hsl(var(--btn-primary-text))",
+                    padding: "0 var(--space-lg)",
+                  }}
+                  asChild
+                >
+                  <Link to="/t/onboarding">Get Started</Link>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="min-h-[var(--touch-target-min)] focus-visible:ring-2 focus-visible:ring-[var(--garden-green)] focus-visible:ring-offset-2"
+                  style={{
+                    backgroundColor: "transparent",
+                    color: "hsl(var(--btn-secondary-text))",
+                    borderColor: "hsl(var(--garden-green))",
+                    padding: "0 var(--space-lg)",
+                  }}
+                  asChild
+                >
+                  <Link to="/t/dashboard">Sign In</Link>
+                </Button>
+              </div>
               
               <div className="pt-4">
                 <img
