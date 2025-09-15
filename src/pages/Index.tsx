@@ -4,6 +4,8 @@ import { Container } from "@/components/ui/container";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Card, CardContent } from "@/components/ui/card";
+import { EditorialOverlay } from "@/components/ui/editorial-overlay";
+import { EditorialCard } from "@/components/ui/editorial-card";
 import { 
   Heart, 
   Video, 
@@ -20,16 +22,33 @@ import {
   ArrowRight
 } from "lucide-react";
 
+// Import editorial assets
+import heroPortrait from "@/assets/hero-portrait.jpg";
+import therapistProfiles from "@/assets/therapist-profiles.jpg";
+import editorialElements from "@/assets/editorial-elements.jpg";
+import resourceCovers from "@/assets/resource-covers.jpg";
+
 export default function Index() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
       
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="relative py-20 lg:py-32 overflow-hidden">
+        {/* Hero Section with Editorial Design */}
+        <section className="relative py-20 lg:py-32 overflow-hidden bg-surface-primary">
+          {/* Editorial Background Elements */}
+          <div className="absolute inset-0">
+            <EditorialOverlay 
+              shape="organic-2" 
+              decorative 
+              className="absolute top-10 right-10 w-96 h-96 opacity-10 rotate-12"
+            >
+              <img src={editorialElements} alt="" className="w-full h-full object-cover" />
+            </EditorialOverlay>
+          </div>
+          
           <Container>
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
               <div className="space-y-8">
                 <h1 className="font-primary text-4xl lg:text-6xl font-bold text-text-primary leading-tight">
                   Find a therapist who truly gets you.
@@ -52,15 +71,13 @@ export default function Index() {
               </div>
 
               <div className="relative">
-                <div className="relative w-80 h-80 mx-auto">
-                  {/* Editorial portrait placeholder - organic shape */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-tag-personality-bg to-tag-modality-bg rounded-[60px] rotate-12 transform"></div>
-                  <div className="absolute inset-4 bg-tag-specialty-bg rounded-[50px] -rotate-6"></div>
-                  <div className="absolute inset-8 bg-surface rounded-[40px] rotate-3 shadow-lg"></div>
-                  {/* Editorial lines */}
-                  <div className="absolute top-6 right-6 w-16 h-1 bg-tag-personality-text rotate-45"></div>
-                  <div className="absolute bottom-6 left-6 w-12 h-1 bg-tag-modality-text -rotate-12"></div>
-                </div>
+                <EditorialOverlay shape="organic-1" className="w-full max-w-lg mx-auto">
+                  <img 
+                    src={heroPortrait} 
+                    alt="Professional therapist in modern office" 
+                    className="w-full h-auto object-cover"
+                  />
+                </EditorialOverlay>
               </div>
             </div>
           </Container>
@@ -147,10 +164,35 @@ export default function Index() {
           </Container>
         </section>
 
-        {/* How It Works */}
-        <section id="how-it-works" className="py-16 lg:py-24">
+        {/* Editorial Pull Quote */}
+        <section className="py-16 lg:py-20 bg-surface-secondary relative overflow-hidden">
+          <div className="absolute inset-0">
+            <EditorialOverlay 
+              shape="organic-3" 
+              decorative 
+              className="absolute -left-20 top-10 w-64 h-64 opacity-5 -rotate-45"
+            >
+              <img src={therapistProfiles} alt="" className="w-full h-full object-cover" />
+            </EditorialOverlay>
+          </div>
           <Container>
-            <div className="text-center space-y-4 mb-16">
+            <div className="max-w-4xl mx-auto text-center relative z-10">
+              <blockquote className="space-y-6">
+                <p className="font-primary text-2xl lg:text-4xl font-bold text-text-primary leading-relaxed italic">
+                  "The right therapeutic relationship can be life-changing. It's not just about credentials — it's about finding someone who truly understands your journey."
+                </p>
+                <footer className="font-secondary text-lg text-text-secondary">
+                  — Dr. Sarah Chen, Licensed Clinical Psychologist
+                </footer>
+              </blockquote>
+            </div>
+          </Container>
+        </section>
+
+        {/* How It Works - Zig-Zag Layout */}
+        <section id="how-it-works" className="py-16 lg:py-24 bg-background">
+          <Container>
+            <div className="text-center space-y-4 mb-20">
               <h2 className="font-primary text-3xl lg:text-5xl font-bold text-text-primary">
                 How It Works
               </h2>
@@ -159,46 +201,100 @@ export default function Index() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center space-y-6">
-                <div className="w-24 h-24 mx-auto bg-tag-personality-bg rounded-full flex items-center justify-center">
-                  <Video className="w-10 h-10 text-tag-personality-text" />
-                </div>
-                <div className="space-y-3">
-                  <h3 className="font-primary text-xl font-semibold text-text-primary">
-                    Step 1: Browse Profiles
-                  </h3>
-                  <p className="font-secondary text-text-secondary">
-                    Browse therapist profiles with intro videos, tags, and clear credentials.
+            <div className="space-y-20">
+              {/* Step 1 - Left aligned */}
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div className="space-y-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-lg">
+                      1
+                    </div>
+                    <h3 className="font-primary text-2xl lg:text-3xl font-bold text-text-primary">
+                      Browse Profiles
+                    </h3>
+                  </div>
+                  <p className="font-secondary text-lg text-text-secondary leading-relaxed">
+                    Search by specialty, approach, identity, and availability. See detailed profiles with photos, credentials, and personality insights.
                   </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 bg-tag-specialty-bg text-tag-specialty-text rounded-full text-sm font-medium">
+                      Anxiety Specialists
+                    </span>
+                    <span className="px-3 py-1 bg-tag-modality-bg text-tag-modality-text rounded-full text-sm font-medium">
+                      CBT & DBT
+                    </span>
+                    <span className="px-3 py-1 bg-tag-personality-bg text-tag-personality-text rounded-full text-sm font-medium">
+                      LGBTQ+ Affirming
+                    </span>
+                  </div>
+                </div>
+                <div className="relative lg:order-last">
+                  <EditorialCard imageUrl={therapistProfiles} alt="Therapist profiles interface">
+                    <div className="space-y-2">
+                      <h4 className="font-semibold text-text-primary">Dr. Alex Rivera</h4>
+                      <p className="text-sm text-text-secondary">Anxiety • Trauma • EMDR</p>
+                    </div>
+                  </EditorialCard>
                 </div>
               </div>
 
-              <div className="text-center space-y-6">
-                <div className="w-24 h-24 mx-auto bg-tag-modality-bg rounded-full flex items-center justify-center">
-                  <Phone className="w-10 h-10 text-tag-modality-text" />
+              {/* Step 2 - Right aligned */}
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div className="relative lg:order-first">
+                  <EditorialOverlay shape="organic-2" className="w-full">
+                    <div className="bg-gradient-to-br from-tag-personality-bg to-tag-modality-bg p-8 text-center">
+                      <Phone className="w-16 h-16 mx-auto mb-4 text-primary" />
+                      <h4 className="font-semibold text-text-primary mb-2">15-min Chemistry Call</h4>
+                      <p className="text-sm text-text-secondary">Free consultation included</p>
+                    </div>
+                  </EditorialOverlay>
                 </div>
-                <div className="space-y-3">
-                  <h3 className="font-primary text-xl font-semibold text-text-primary">
-                    Step 2: Chemistry Call
-                  </h3>
-                  <p className="font-secondary text-text-secondary">
-                    Book a free 15-minute chemistry call to see if you click.
+                <div className="space-y-6 lg:order-last">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-lg">
+                      2
+                    </div>
+                    <h3 className="font-primary text-2xl lg:text-3xl font-bold text-text-primary">
+                      Chemistry Call
+                    </h3>
+                  </div>
+                  <p className="font-secondary text-lg text-text-secondary leading-relaxed">
+                    Book a free 15-minute consultation to see if you click. No pressure, no commitment — just a chance to feel out the connection.
                   </p>
+                  <div className="flex items-center space-x-2 text-sm text-text-secondary">
+                    <CheckCircle className="w-4 h-4 text-primary" />
+                    <span>Free for all therapists</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="text-center space-y-6">
-                <div className="w-24 h-24 mx-auto bg-tag-specialty-bg rounded-full flex items-center justify-center">
-                  <DollarSign className="w-10 h-10 text-tag-specialty-text" />
-                </div>
-                <div className="space-y-3">
-                  <h3 className="font-primary text-xl font-semibold text-text-primary">
-                    Step 3: Pay Per Session
-                  </h3>
-                  <p className="font-secondary text-text-secondary">
-                    Pay only for the sessions you choose — no subscriptions.
+              {/* Step 3 - Left aligned */}
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div className="space-y-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-lg">
+                      3
+                    </div>
+                    <h3 className="font-primary text-2xl lg:text-3xl font-bold text-text-primary">
+                      Pay Per Session
+                    </h3>
+                  </div>
+                  <p className="font-secondary text-lg text-text-secondary leading-relaxed">
+                    Only pay for sessions you attend. No subscriptions, no commitments. Transparent pricing with insurance verification available.
                   </p>
+                  <div className="flex items-center space-x-2 text-sm text-text-secondary">
+                    <DollarSign className="w-4 h-4 text-primary" />
+                    <span>$120-180 per session average</span>
+                  </div>
+                </div>
+                <div className="relative lg:order-last">
+                  <EditorialCard className="bg-gradient-to-br from-primary/5 to-primary/10">
+                    <div className="text-center space-y-4">
+                      <CheckCircle className="w-16 h-16 mx-auto text-primary" />
+                      <h4 className="font-semibold text-text-primary">Session Booked!</h4>
+                      <p className="text-sm text-text-secondary">Your journey to better mental health starts here</p>
+                    </div>
+                  </EditorialCard>
                 </div>
               </div>
             </div>
