@@ -232,7 +232,7 @@ async function main() {
     const avgUIScore = aestheticAnalyses.length > 0 
       ? aestheticAnalyses.reduce((sum, a) => {
           const ui = a.analysis.aesthetic.uiBestPractices;
-          return sum + (ui.visualHierarchy.score + ui.spacing.score + ui.colorScheme.score + ui.typography.score + ui.layout.score) / 5;
+          return sum + (ui.visualClutter.score + ui.visualHierarchy.score + ui.spacing.score + ui.colorScheme.score + ui.typography.score + ui.layout.score + ui.responsiveDesign.score + ui.microInteractions.score) / 8;
         }, 0) / aestheticAnalyses.length 
       : 0;
 
@@ -292,7 +292,7 @@ async function main() {
       if (analysis.analysis.aesthetic) {
         const aesthetic = analysis.analysis.aesthetic;
         report.push(`- **Style Guide Compliance**: ${aesthetic.styleGuide.compliance.score}/100`);
-        report.push(`- **UI Best Practices**: ${((aesthetic.uiBestPractices.visualHierarchy.score + aesthetic.uiBestPractices.spacing.score + aesthetic.uiBestPractices.colorScheme.score + aesthetic.uiBestPractices.typography.score + aesthetic.uiBestPractices.layout.score) / 5).toFixed(1)}/100`);
+        report.push(`- **UI Best Practices**: ${((aesthetic.uiBestPractices.visualClutter.score + aesthetic.uiBestPractices.visualHierarchy.score + aesthetic.uiBestPractices.spacing.score + aesthetic.uiBestPractices.colorScheme.score + aesthetic.uiBestPractices.typography.score + aesthetic.uiBestPractices.layout.score + aesthetic.uiBestPractices.responsiveDesign.score + aesthetic.uiBestPractices.microInteractions.score) / 8).toFixed(1)}/100`);
         report.push(`- **UX Best Practices**: ${((aesthetic.uxBestPractices.informationArchitecture.score + aesthetic.uxBestPractices.usability.score + aesthetic.uxBestPractices.accessibility.score + aesthetic.uxBestPractices.mobileExperience.score) / 4).toFixed(1)}/100`);
         report.push(`- **Layout Pattern**: ${aesthetic.layoutPatterns.layoutType} (${aesthetic.layoutPatterns.complexity})`);
         report.push(`- **Detected Patterns**: ${aesthetic.layoutPatterns.detectedPatterns.join(', ')}`);
@@ -387,16 +387,19 @@ async function main() {
     const lowUIRoutes = successfulAnalyses.filter(a => {
       if (!a.analysis.aesthetic) return false;
       const ui = a.analysis.aesthetic.uiBestPractices;
-      const avgScore = (ui.visualHierarchy.score + ui.spacing.score + ui.colorScheme.score + ui.typography.score + ui.layout.score) / 5;
+      const avgScore = (ui.visualClutter.score + ui.visualHierarchy.score + ui.spacing.score + ui.colorScheme.score + ui.typography.score + ui.layout.score + ui.responsiveDesign.score + ui.microInteractions.score) / 8;
       return avgScore < 80;
     });
     if (lowUIRoutes.length > 0) {
       report.push('### 🎨 UI Best Practices Improvements');
+      report.push('- Reduce visual clutter and competing elements');
       report.push('- Improve visual hierarchy with proper heading structure');
       report.push('- Add more white space for better readability');
-      report.push('- Ensure consistent color usage');
-      report.push('- Implement proper typography scale');
+      report.push('- Ensure consistent color usage and harmony');
+      report.push('- Implement proper typography scale and pairing');
       report.push('- Use grid systems for better layout');
+      report.push('- Enhance responsive design with proper breakpoints');
+      report.push('- Add micro-interactions (hover effects, transitions, shadows)');
       report.push('');
     }
 
@@ -499,7 +502,7 @@ async function main() {
       console.log(`🎨 ${lowUIRoutes.length} routes need UI best practices improvements:`);
       lowUIRoutes.forEach(route => {
         const ui = route.analysis.aesthetic.uiBestPractices;
-        const avgScore = (ui.visualHierarchy.score + ui.spacing.score + ui.colorScheme.score + ui.typography.score + ui.layout.score) / 5;
+        const avgScore = (ui.visualClutter.score + ui.visualHierarchy.score + ui.spacing.score + ui.colorScheme.score + ui.typography.score + ui.layout.score + ui.responsiveDesign.score + ui.microInteractions.score) / 8;
         console.log(`   - ${route.name} (${avgScore.toFixed(1)}/100)`);
       });
     }

@@ -173,6 +173,51 @@ class AestheticAnalyzer {
 
   async analyzeUIBestPractices(page) {
     return await page.evaluate(() => {
+      // Visual Clutter Analysis
+      const visualClutter = {
+        score: 100,
+        elementDensity: false,
+        spacingIssues: false,
+        competingElements: false,
+        issues: []
+      };
+
+      // Calculate element density
+      const bodyRect = document.body.getBoundingClientRect();
+      const allElements = document.querySelectorAll('*:not(script, style, meta, link)');
+      const visibleElements = Array.from(allElements).filter(el => {
+        const rect = el.getBoundingClientRect();
+        const styles = getComputedStyle(el);
+        return rect.width > 0 && rect.height > 0 && 
+               styles.display !== 'none' && 
+               styles.visibility !== 'hidden' &&
+               styles.opacity !== '0';
+      });
+
+      const elementDensity = visibleElements.length / (bodyRect.width * bodyRect.height / 1000000); // elements per square megapixel
+      
+      if (elementDensity > 50) {
+        visualClutter.elementDensity = true;
+        visualClutter.issues.push(`High element density: ${elementDensity.toFixed(1)} elements per sq megapixel`);
+        visualClutter.score -= 15;
+      } else if (elementDensity < 5) {
+        visualClutter.issues.push(`Low element density: ${elementDensity.toFixed(1)} elements per sq megapixel - may appear sparse`);
+        visualClutter.score -= 5;
+      }
+
+      // Check for competing visual elements
+      const buttons = document.querySelectorAll('button, [role="button"]');
+      const links = document.querySelectorAll('a[href]');
+      const images = document.querySelectorAll('img');
+      const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      
+      const competingElements = buttons.length + links.length + images.length + headings.length;
+      if (competingElements > 20) {
+        visualClutter.competingElements = true;
+        visualClutter.issues.push(`Too many competing elements: ${competingElements} interactive/visual elements`);
+        visualClutter.score -= 10;
+      }
+
       // Visual Hierarchy Analysis
       const visualHierarchy = {
         score: 100,
@@ -183,8 +228,8 @@ class AestheticAnalyzer {
       };
 
       // Check heading structure
-      const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-      const headingLevels = Array.from(headings).map(h => parseInt(h.tagName.substring(1)));
+      const headingElements = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      const headingLevels = Array.from(headingElements).map(h => parseInt(h.tagName.substring(1)));
       
       if (headingLevels.length > 0) {
         visualHierarchy.headingStructure = true;
@@ -211,6 +256,28 @@ class AestheticAnalyzer {
         visualHierarchy.score -= 10;
       }
 
+      // Check for visual hierarchy conflicts
+      const h1Elements = document.querySelectorAll('h1');
+      if (h1Elements.length > 1) {
+        visualHierarchy.issues.push(`Multiple H1 headings (${h1Elements.length}) - should have only one`);
+        visualHierarchy.score -= 10;
+      }
+
+      // Check for competing font sizes
+      const fontSizeElements = document.querySelectorAll('*');
+      const fontSizes = new Set();
+      fontSizeElements.forEach(el => {
+        const styles = getComputedStyle(el);
+        if (styles.fontSize && styles.fontSize !== 'inherit') {
+          fontSizes.add(parseFloat(styles.fontSize));
+        }
+      });
+      
+      if (fontSizes.size > 8) {
+        visualHierarchy.issues.push(`Too many font sizes (${fontSizes.size}) - creates visual chaos`);
+        visualHierarchy.score -= 10;
+      }
+
       // Check emphasis (bold, italic, color)
       const emphasisElements = document.querySelectorAll('strong, b, em, i, [style*="font-weight"], [style*="color"]');
       if (emphasisElements.length > 0) {
@@ -227,7 +294,7 @@ class AestheticAnalyzer {
       };
 
       // Calculate white space ratio
-      const bodyRect = document.body.getBoundingClientRect();
+      const bodyRect2 = document.body.getBoundingClientRect();
       const contentElements = document.querySelectorAll('*:not(script, style, meta, link)');
       let contentArea = 0;
       
@@ -238,7 +305,7 @@ class AestheticAnalyzer {
         }
       });
 
-      const whiteSpaceRatio = 1 - (contentArea / (bodyRect.width * bodyRect.height));
+      const whiteSpaceRatio = 1 - (contentArea / (bodyRect2.width * bodyRect2.height));
       if (whiteSpaceRatio > 0.2) {
         spacing.whiteSpace = true;
       } else {
@@ -252,25 +319,104 @@ class AestheticAnalyzer {
         contrast: false,
         consistency: false,
         accessibility: false,
+        harmony: false,
         issues: []
       };
 
-      // Check color consistency
+      // Check color consistency and harmony
       const colors = new Set();
+      const colorValues = [];
       const elements = document.querySelectorAll('*');
       elements.forEach(el => {
         const styles = getComputedStyle(el);
         const color = styles.color;
         const backgroundColor = styles.backgroundColor;
-        if (color && color !== 'rgba(0, 0, 0, 0)') colors.add(color);
-        if (backgroundColor && backgroundColor !== 'rgba(0, 0, 0, 0)') colors.add(backgroundColor);
+        if (color && color !== 'rgba(0, 0, 0, 0)') {
+          colors.add(color);
+          colorValues.push(color);
+        }
+        if (backgroundColor && backgroundColor !== 'rgba(0, 0, 0, 0)') {
+          colors.add(backgroundColor);
+          colorValues.push(backgroundColor);
+        }
       });
 
       if (colors.size <= 5) {
         colorScheme.consistency = true;
       } else {
-        colorScheme.issues.push('Too many colors used');
+        colorScheme.issues.push(`Too many colors used: ${colors.size} different colors`);
         colorScheme.score -= 10;
+      }
+
+      // Check for color harmony issues
+      const rgbColors = colorValues.filter(color => color.startsWith('rgb')).map(color => {
+        const match = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+        if (match) {
+          return {
+            r: parseInt(match[1]),
+            g: parseInt(match[2]),
+            b: parseInt(match[3])
+          };
+        }
+        return null;
+      }).filter(Boolean);
+
+      if (rgbColors.length > 1) {
+        // Check for clashing colors (colors that are too similar or too contrasting)
+        let clashingPairs = 0;
+        for (let i = 0; i < rgbColors.length; i++) {
+          for (let j = i + 1; j < rgbColors.length; j++) {
+            const color1 = rgbColors[i];
+            const color2 = rgbColors[j];
+            const distance = Math.sqrt(
+              Math.pow(color1.r - color2.r, 2) +
+              Math.pow(color1.g - color2.g, 2) +
+              Math.pow(color1.b - color2.b, 2)
+            );
+            
+            // Colors too similar (distance < 30) or too contrasting (distance > 400)
+            if (distance < 30 || distance > 400) {
+              clashingPairs++;
+            }
+          }
+        }
+        
+        if (clashingPairs > 0) {
+          colorScheme.issues.push(`${clashingPairs} potentially clashing color pairs detected`);
+          colorScheme.score -= 15;
+        } else {
+          colorScheme.harmony = true;
+        }
+      }
+
+      // Check for accessibility contrast issues
+      const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, div');
+      let contrastIssues = 0;
+      textElements.forEach(el => {
+        const styles = getComputedStyle(el);
+        const color = styles.color;
+        const backgroundColor = styles.backgroundColor;
+        
+        // Simple contrast check (would need more sophisticated algorithm in real implementation)
+        if (color && backgroundColor && 
+            color !== 'rgba(0, 0, 0, 0)' && 
+            backgroundColor !== 'rgba(0, 0, 0, 0)') {
+          // This is a simplified check - real contrast calculation would be more complex
+          const colorBrightness = this.getBrightness(color);
+          const bgBrightness = this.getBrightness(backgroundColor);
+          const contrast = Math.abs(colorBrightness - bgBrightness);
+          
+          if (contrast < 50) { // Low contrast threshold
+            contrastIssues++;
+          }
+        }
+      });
+
+      if (contrastIssues > 0) {
+        colorScheme.issues.push(`${contrastIssues} potential contrast issues`);
+        colorScheme.score -= 10;
+      } else {
+        colorScheme.accessibility = true;
       }
 
       // Typography Analysis
@@ -279,23 +425,89 @@ class AestheticAnalyzer {
         readability: false,
         hierarchy: false,
         consistency: false,
+        pairing: false,
         issues: []
       };
 
       // Check font consistency
       const fontFamilies = new Set();
+      const fontWeights = new Set();
+      const lineHeights = new Set();
+      
       elements.forEach(el => {
         const styles = getComputedStyle(el);
         if (styles.fontFamily) {
           fontFamilies.add(styles.fontFamily);
+        }
+        if (styles.fontWeight) {
+          fontWeights.add(styles.fontWeight);
+        }
+        if (styles.lineHeight && styles.lineHeight !== 'normal') {
+          lineHeights.add(parseFloat(styles.lineHeight));
         }
       });
 
       if (fontFamilies.size <= 2) {
         typography.consistency = true;
       } else {
-        typography.issues.push('Too many font families');
+        typography.issues.push(`Too many font families: ${fontFamilies.size}`);
         typography.score -= 10;
+      }
+
+      // Check font weight variety
+      if (fontWeights.size > 4) {
+        typography.issues.push(`Too many font weights: ${fontWeights.size}`);
+        typography.score -= 5;
+      }
+
+      // Check line height consistency
+      if (lineHeights.size > 3) {
+        typography.issues.push(`Inconsistent line heights: ${lineHeights.size} different values`);
+        typography.score -= 5;
+      }
+
+      // Check for font pairing issues
+      const fontFamilyArray = Array.from(fontFamilies);
+      if (fontFamilyArray.length > 1) {
+        // Check if fonts are complementary (simplified check)
+        const hasSerif = fontFamilyArray.some(font => font.includes('serif') || font.includes('Times'));
+        const hasSansSerif = fontFamilyArray.some(font => font.includes('sans') || font.includes('Arial') || font.includes('Helvetica'));
+        
+        if (hasSerif && hasSansSerif) {
+          typography.pairing = true;
+        } else if (fontFamilyArray.length === 1) {
+          typography.pairing = true; // Single font is fine
+        } else {
+          typography.issues.push('Font pairing may not be optimal');
+          typography.score -= 5;
+        }
+      }
+
+      // Check readability issues
+      const textElements2 = document.querySelectorAll('p, span, div, h1, h2, h3, h4, h5, h6');
+      let readabilityIssues = 0;
+      
+      textElements2.forEach(el => {
+        const styles = getComputedStyle(el);
+        const fontSize = parseFloat(styles.fontSize);
+        const lineHeight = parseFloat(styles.lineHeight);
+        
+        // Check for very small text
+        if (fontSize < 12) {
+          readabilityIssues++;
+        }
+        
+        // Check for poor line height
+        if (lineHeight < 1.2 || lineHeight > 2.0) {
+          readabilityIssues++;
+        }
+      });
+
+      if (readabilityIssues > 0) {
+        typography.issues.push(`${readabilityIssues} readability issues (small text or poor line height)`);
+        typography.score -= 10;
+      } else {
+        typography.readability = true;
       }
 
       // Layout Analysis
@@ -316,12 +528,106 @@ class AestheticAnalyzer {
         layout.score -= 15;
       }
 
+      // Responsive Design Quality Analysis
+      const responsiveDesign = {
+        score: 100,
+        breakpoints: false,
+        flexibleLayout: false,
+        touchFriendly: false,
+        issues: []
+      };
+
+      // Check for responsive breakpoints
+      const responsiveElements = document.querySelectorAll('[class*="sm:"], [class*="md:"], [class*="lg:"], [class*="xl:"], [style*="@media"]');
+      if (responsiveElements.length > 0) {
+        responsiveDesign.breakpoints = true;
+      } else {
+        responsiveDesign.issues.push('No responsive breakpoints detected');
+        responsiveDesign.score -= 20;
+      }
+
+      // Check for flexible layout elements
+      const flexElements = document.querySelectorAll('[style*="flex"], [class*="flex"]');
+      const gridElements2 = document.querySelectorAll('[style*="grid"], [class*="grid"]');
+      if (flexElements.length > 0 || gridElements2.length > 0) {
+        responsiveDesign.flexibleLayout = true;
+      } else {
+        responsiveDesign.issues.push('No flexible layout elements found');
+        responsiveDesign.score -= 15;
+      }
+
+      // Check touch target sizes
+      const touchElements = document.querySelectorAll('button, a, input, select, textarea, [role="button"]');
+      let smallTouchTargets = 0;
+      touchElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.width < 44 || rect.height < 44) {
+          smallTouchTargets++;
+        }
+      });
+
+      if (smallTouchTargets === 0) {
+        responsiveDesign.touchFriendly = true;
+      } else {
+        responsiveDesign.issues.push(`${smallTouchTargets} touch targets too small (< 44px)`);
+        responsiveDesign.score -= 10;
+      }
+
+      // Micro-interaction and Polish Analysis
+      const microInteractions = {
+        score: 100,
+        hoverEffects: false,
+        transitions: false,
+        shadows: false,
+        roundedCorners: false,
+        issues: []
+      };
+
+      // Check for hover effects
+      const hoverElements = document.querySelectorAll('[class*="hover:"], [style*=":hover"]');
+      if (hoverElements.length > 0) {
+        microInteractions.hoverEffects = true;
+      } else {
+        microInteractions.issues.push('No hover effects detected');
+        microInteractions.score -= 10;
+      }
+
+      // Check for transitions
+      const transitionElements = document.querySelectorAll('[style*="transition"], [class*="transition"]');
+      if (transitionElements.length > 0) {
+        microInteractions.transitions = true;
+      } else {
+        microInteractions.issues.push('No transition effects detected');
+        microInteractions.score -= 10;
+      }
+
+      // Check for shadows
+      const shadowElements = document.querySelectorAll('[style*="box-shadow"], [class*="shadow"]');
+      if (shadowElements.length > 0) {
+        microInteractions.shadows = true;
+      } else {
+        microInteractions.issues.push('No shadow effects detected');
+        microInteractions.score -= 5;
+      }
+
+      // Check for rounded corners
+      const roundedElements = document.querySelectorAll('[style*="border-radius"], [class*="rounded"]');
+      if (roundedElements.length > 0) {
+        microInteractions.roundedCorners = true;
+      } else {
+        microInteractions.issues.push('No rounded corners detected');
+        microInteractions.score -= 5;
+      }
+
       return {
+        visualClutter,
         visualHierarchy,
         spacing,
         colorScheme,
         typography,
-        layout
+        layout,
+        responsiveDesign,
+        microInteractions
       };
     });
   }
@@ -648,7 +954,7 @@ class AestheticAnalyzer {
     // Overall Aesthetic Score
     const overallScore = (
       styleGuide.compliance.score +
-      (uiBestPractices.visualHierarchy.score + uiBestPractices.spacing.score + uiBestPractices.colorScheme.score + uiBestPractices.typography.score + uiBestPractices.layout.score) / 5 +
+      (uiBestPractices.visualClutter.score + uiBestPractices.visualHierarchy.score + uiBestPractices.spacing.score + uiBestPractices.colorScheme.score + uiBestPractices.typography.score + uiBestPractices.layout.score + uiBestPractices.responsiveDesign.score + uiBestPractices.microInteractions.score) / 8 +
       (uxBestPractices.informationArchitecture.score + uxBestPractices.usability.score + uxBestPractices.accessibility.score + uxBestPractices.mobileExperience.score) / 4 +
       competitorAnalysis.visualAppeal.score
     ) / 4;
@@ -672,11 +978,14 @@ class AestheticAnalyzer {
 
     // UI Best Practices
     report.push('## 🎨 UI Best Practices Analysis');
+    report.push(`- **Visual Clutter**: ${uiBestPractices.visualClutter.score}/100`);
     report.push(`- **Visual Hierarchy**: ${uiBestPractices.visualHierarchy.score}/100`);
     report.push(`- **Spacing**: ${uiBestPractices.spacing.score}/100`);
     report.push(`- **Color Scheme**: ${uiBestPractices.colorScheme.score}/100`);
     report.push(`- **Typography**: ${uiBestPractices.typography.score}/100`);
     report.push(`- **Layout**: ${uiBestPractices.layout.score}/100`);
+    report.push(`- **Responsive Design**: ${uiBestPractices.responsiveDesign.score}/100`);
+    report.push(`- **Micro-interactions**: ${uiBestPractices.microInteractions.score}/100`);
     report.push('');
 
     // UX Best Practices
@@ -756,6 +1065,20 @@ class AestheticAnalyzer {
     }
 
     return report.join('\n');
+  }
+
+  // Helper function to calculate color brightness
+  getBrightness(color) {
+    if (color.startsWith('rgb')) {
+      const match = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+      if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        return (r * 299 + g * 587 + b * 114) / 1000;
+      }
+    }
+    return 128; // Default brightness
   }
 }
 
