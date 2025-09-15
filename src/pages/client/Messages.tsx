@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { MessageThread } from "@/components/messaging/message-thread";
 import { MessageInput } from "@/components/messaging/message-input";
+import { Container } from "@/components/ui/container";
 import { 
   Search, 
   Plus, 
@@ -49,7 +50,7 @@ export default function Messages() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container max-w-7xl mx-auto p-6">
+      <Container size="xl">
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-3xl font-bold mb-2">Messages</h1>
@@ -201,7 +202,7 @@ export default function Messages() {
             )}
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

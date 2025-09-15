@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PaymentForm } from "@/components/payment/payment-form";
+import { Container } from "@/components/ui/container";
 import { 
   CreditCard, 
   Calendar, 
@@ -97,7 +98,7 @@ export default function Billing() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container max-w-6xl mx-auto p-6">
+      <Container size="xl">
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-3xl font-bold mb-2">Billing & Payments</h1>
@@ -379,7 +380,7 @@ export default function Billing() {
             </div>
           </div>
         )}
-      </div>
+      </Container>
     </div>
   );
 }
