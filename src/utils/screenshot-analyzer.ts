@@ -267,8 +267,7 @@ export class ScreenshotAnalyzer {
 
       // Capture screenshot
       const screenshot = await page.screenshot({
-        fullPage: true,
-        quality: 90
+        fullPage: true
       });
 
       // Perform analysis
@@ -508,7 +507,7 @@ export class ScreenshotAnalyzer {
       if (smallFontCount > fontSizes.length * 0.3) {
         readability = 'poor'; // Too many small fonts
       }
-      
+
       return {
         fontSizes: fontSizes.sort((a, b) => a - b),
         fontFamilies: [...new Set(fontFamilies)],
@@ -1304,8 +1303,24 @@ export class ScreenshotAnalyzer {
       // Count different types of elements
       const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, div, li');
       const images = document.querySelectorAll('img');
-      const buttons = document.querySelectorAll('button, [role="button"]');
-      const links = document.querySelectorAll('a');
+      const buttons = document.querySelectorAll('button, [role="button"], input[type="button"], input[type="submit"]');
+      
+      // Count links but exclude footer links
+      const allLinks = document.querySelectorAll('a');
+      const links = Array.from(allLinks).filter(link => {
+        // Check if link is in footer by traversing up the DOM tree
+        let element = link.parentElement;
+        while (element && element !== document.body) {
+          if (element.tagName === 'FOOTER' || 
+              element.getAttribute('role') === 'contentinfo' ||
+              element.classList.contains('footer')) {
+            return false; // This is a footer link, exclude it
+          }
+          element = element.parentElement;
+        }
+        return true; // Not a footer link, include it
+      });
+      
       const inputs = document.querySelectorAll('input, textarea, select');
       
       // Research-based Feature Congestion Measure (Rosenholtz et al., 2005)
