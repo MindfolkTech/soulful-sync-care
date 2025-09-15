@@ -7,20 +7,13 @@ import { Footer } from "@/components/layout/footer";
 import { DecorativeShapes } from "@/components/ui/decorative-shapes";
 import { TestimonialCarousel } from "@/components/ui/testimonial-carousel";
 
-// Hero + Image Assets
-import masterHeroA from "@/assets/Master landing - hero image option A.png";
-import clientHeroImage from "@/assets/Client - Hero image.png";
-import clientAutistic20s from "@/assets/Client - White female autistic 20s.png";
-import clientWhiteMale20s from "@/assets/Client White male 20s lilac shirt.png";
-import therapistBlackFemale40s from "@/assets/Therapist - black female 40s.png";
-import therapistWhiteNonbinary30s from "@/assets/Therapist - white nonbinary 30s.png";
 
 export default function Index() {
   React.useEffect(() => {
     const link = document.createElement("link");
     link.rel = "preload";
     link.as = "image";
-    link.href = masterHeroA;
+    link.href = "/images/master-landing-hero-option-a.png";
     link.fetchPriority = "high";
     document.head.appendChild(link);
 
@@ -97,7 +90,7 @@ export default function Index() {
               <div className="relative md:order-2 flex-1">
                 <DecorativeShapes variant="lines" className="opacity-30" />
                 <img
-                  src={masterHeroA}
+                  src="/images/master-landing-hero-option-a.png"
                   alt="Four diverse clients in organic editorial shapes on warm cream background"
                   className="w-full h-auto"
                   loading="eager"
@@ -260,7 +253,7 @@ export default function Index() {
             {/* Client Hero Image */}
             <div className="text-center">
               <img 
-                src={clientHeroImage}
+                src="/images/client-hero-image.png"
                 alt="Client portrait with soft editorial overlays"
                 className="w-64 h-auto mx-auto"
                 loading="lazy"
@@ -304,7 +297,7 @@ export default function Index() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
                 <img 
-                  src={clientAutistic20s}
+                  src="/images/client-white-female-autistic-20s.png"
                   alt="Young autistic woman in sage dungarees with dark green headphones"
                   className="w-full h-auto"
                   loading="lazy"
@@ -312,7 +305,7 @@ export default function Index() {
               </div>
               <div className="text-center">
                 <img 
-                  src={clientWhiteMale20s}
+                  src="/images/client-white-male-20s-lilac-shirt.png"
                   alt="Young white male in lilac shirt, friendly and calm"
                   className="w-full h-auto"
                   loading="lazy"
@@ -320,7 +313,7 @@ export default function Index() {
               </div>
               <div className="text-center">
                 <img 
-                  src={therapistBlackFemale40s}
+                  src="/images/therapist-black-female-40s.png"
                   alt="Black Caribbean woman in cultural dress, warm and approachable"
                   className="w-full h-auto"
                   loading="lazy"
@@ -387,13 +380,13 @@ export default function Index() {
 
               <div className="grid grid-cols-2 gap-4">
                 <img 
-                  src={therapistBlackFemale40s}
+                  src="/images/therapist-black-female-40s.png"
                   alt="Experienced Black female therapist — calm and professional"
                   className="w-full h-auto"
                   loading="lazy"
                 />
                 <img 
-                  src={therapistWhiteNonbinary30s}
+                  src="/images/therapist-white-nonbinary-30s.png"
                   alt="White nonbinary therapist in blazer — friendly and expressive"
                   className="w-full h-auto"
                   loading="lazy"
