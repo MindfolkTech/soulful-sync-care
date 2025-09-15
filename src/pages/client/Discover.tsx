@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { TherapistCard, TherapistData } from "@/components/discovery/therapist-card";
 import { PortraitOverlay } from "@/components/ui/portrait-overlay";
+import { useAssessmentStore } from "@/hooks/use-assessment-store";
 import { TherapistDetailsSheet } from "@/components/discovery/therapist-details-sheet";
 import { FiltersDialog } from "@/components/discovery/filters-dialog";
 import { VideoOverlay } from "@/components/discovery/video-overlay";
@@ -71,6 +72,7 @@ export default function Discover() {
   const [filtersOpen, setFiltersOpen] = React.useState(false);
   
   const { announce, ariaLiveProps } = useAriaLive();
+  const { communication_preferences } = useAssessmentStore();
 
   const availableTherapists = mockTherapists.filter(t => !viewedTherapists.has(t.id));
   const currentTherapist = availableTherapists[currentIndex];
@@ -313,7 +315,7 @@ export default function Discover() {
                       src={currentTherapist.image}
                       alt={`${currentTherapist.name} profile`}
                       className="w-full h-full"
-                      clientPrefs={[]} // TODO: wire from assessment store
+                      clientPrefs={communication_preferences}
                       personalityTags={currentTherapist.personality}
                     />
                   )}

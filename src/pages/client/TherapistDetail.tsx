@@ -7,10 +7,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tag } from "@/components/ui/tag";
 import { Badge } from "@/components/ui/badge";
 import { PortraitOverlay } from "@/components/ui/portrait-overlay";
+import { useAssessmentStore } from "@/hooks/use-assessment-store";
 import { Star, Heart, Calendar, Play } from "lucide-react";
 
 export default function TherapistDetail() {
   const { id } = useParams();
+  const { communication_preferences } = useAssessmentStore();
 
   const therapist = {
     id: "1",
@@ -51,7 +53,7 @@ export default function TherapistDetail() {
                         src={therapist.image}
                         alt={`${therapist.name} profile`}
                         className="w-48 h-48 mx-auto md:mx-0"
-                        clientPrefs={[]} // TODO: wire from assessment store
+                        clientPrefs={communication_preferences}
                         personalityTags={therapist.personality}
                       />
                       {therapist.videoUrl && (
