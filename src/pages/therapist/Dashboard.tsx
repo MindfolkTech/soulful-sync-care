@@ -110,13 +110,13 @@ export default function TherapistDashboard() {
             </div>
 
             {/* Urgent Notifications */}
-            <Card className="border-l-4 border-l-red-500 bg-red-50">
+            <Card className="border-l-4 border-l-[var(--error-bg)] bg-[var(--error-bg)]">
               <CardContent className="p-4">
                 <div className="flex items-center space-x-3">
-                  <AlertTriangle className="w-5 h-5 text-red-500" />
+                  <AlertTriangle className="w-5 h-5 text-[var(--error-text)]" />
                   <div>
-                    <p className="font-secondary font-semibold text-red-800">Attention Required</p>
-                    <p className="font-secondary text-red-700 text-sm">
+                    <p className="font-secondary font-semibold text-[var(--error-text)]">Attention Required</p>
+                    <p className="font-secondary text-[var(--error-text)] text-sm">
                       Client A.R. has rescheduled 3 times - consider reaching out
                     </p>
                   </div>
@@ -135,13 +135,13 @@ export default function TherapistDashboard() {
                     <div>
                       <p className="font-secondary text-text-secondary text-sm">Today's Sessions</p>
                       <p className="font-primary text-2xl font-bold text-text-primary">3</p>
-                      <p className="font-secondary text-success text-xs flex items-center">
+                      <p className="font-secondary text-[var(--success-bg)] text-xs flex items-center">
                         <ArrowUp className="w-3 h-3 mr-1" />
                         +1 from yesterday
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <Calendar className="w-6 h-6 text-primary" />
+                    <div className="w-12 h-12 bg-[var(--surface-accent)] rounded-lg flex items-center justify-center">
+                      <Calendar className="w-6 h-6 text-[var(--garden-green)]" />
                     </div>
                   </div>
                 </CardContent>
@@ -153,13 +153,13 @@ export default function TherapistDashboard() {
                     <div>
                       <p className="font-secondary text-text-secondary text-sm">Client Retention</p>
                       <p className="font-primary text-2xl font-bold text-text-primary">{practiceMetrics.clientRetention}%</p>
-                      <p className="font-secondary text-success text-xs flex items-center">
+                      <p className="font-secondary text-[var(--success-bg)] text-xs flex items-center">
                         <ArrowUp className="w-3 h-3 mr-1" />
                         +5% this month
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center">
-                      <Users className="w-6 h-6 text-success" />
+                    <div className="w-12 h-12 bg-[var(--surface-accent)] rounded-lg flex items-center justify-center">
+                      <Users className="w-6 h-6 text-[var(--garden-green)]" />
                     </div>
                   </div>
                 </CardContent>
@@ -175,13 +175,13 @@ export default function TherapistDashboard() {
                         {[...Array(5)].map((_, i) => (
                           <Star 
                             key={i} 
-                            className={`w-3 h-3 ${i < Math.floor(practiceMetrics.avgSatisfaction) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
+                            className={`w-3 h-3 ${i < Math.floor(practiceMetrics.avgSatisfaction) ? 'text-[var(--garden-green)] fill-current' : 'text-[var(--text-muted)]'}`} 
                           />
                         ))}
                       </div>
                     </div>
-                    <div className="w-12 h-12 bg-warning/10 rounded-lg flex items-center justify-center">
-                      <Star className="w-6 h-6 text-warning" />
+                    <div className="w-12 h-12 bg-[var(--surface-accent)] rounded-lg flex items-center justify-center">
+                      <Star className="w-6 h-6 text-[var(--garden-green)]" />
                     </div>
                   </div>
                 </CardContent>
@@ -193,13 +193,13 @@ export default function TherapistDashboard() {
                     <div>
                       <p className="font-secondary text-text-secondary text-sm">This Week's Revenue</p>
                       <p className="font-primary text-2xl font-bold text-text-primary">£{practiceMetrics.weeklyRevenue}</p>
-                      <p className="font-secondary text-success text-xs flex items-center">
+                      <p className="font-secondary text-[var(--success-bg)] text-xs flex items-center">
                         <ArrowUp className="w-3 h-3 mr-1" />
                         +15% from last week
                       </p>
                     </div>
-                    <div className="w-12 h-12 bg-info/10 rounded-lg flex items-center justify-center">
-                      <DollarSign className="w-6 h-6 text-info" />
+                    <div className="w-12 h-12 bg-[var(--surface-accent)] rounded-lg flex items-center justify-center">
+                      <DollarSign className="w-6 h-6 text-[var(--garden-green)]" />
                     </div>
                   </div>
                 </CardContent>
@@ -222,11 +222,11 @@ export default function TherapistDashboard() {
                   <CardContent className="space-y-4">
                     {upcomingAppointments.map((appointment) => (
                       <div key={appointment.id} className={`flex items-center justify-between p-4 border rounded-lg ${
-                        appointment.priority === 'high' ? 'border-red-200 bg-red-50' : 'border-gray-200'
+                        appointment.priority === 'high' ? 'border-[var(--error-bg)] bg-[var(--error-bg)]' : 'border-[var(--border)]'
                       }`}>
                         <div className="flex items-center space-x-4">
                           <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                            appointment.priority === 'high' ? 'bg-red-100' : 'bg-surface-accent'
+                            appointment.priority === 'high' ? 'bg-[var(--error-bg)]' : 'bg-[var(--surface-accent)]'
                           }`}>
                             <span className="font-secondary font-semibold text-text-primary text-sm">
                               {appointment.clientName}
@@ -290,14 +290,14 @@ export default function TherapistDashboard() {
                   <CardContent className="space-y-3">
                     {notifications.map((notification) => (
                       <div key={notification.id} className={`flex items-start space-x-3 p-3 rounded-lg ${
-                        notification.type === 'urgent' ? 'bg-red-50 border border-red-200' : 
-                        notification.type === 'success' ? 'bg-green-50 border border-green-200' : 
-                        'bg-blue-50 border border-blue-200'
+                        notification.type === 'urgent' ? 'bg-[var(--error-bg)] border border-[var(--error-bg)]' : 
+                        notification.type === 'success' ? 'bg-[var(--success-bg)] border border-[var(--success-bg)]' : 
+                        'bg-[var(--info-bg)] border border-[var(--info-bg)]'
                       }`}>
                         <notification.icon className={`w-4 h-4 mt-0.5 ${
-                          notification.type === 'urgent' ? 'text-red-500' : 
-                          notification.type === 'success' ? 'text-green-500' : 
-                          'text-blue-500'
+                          notification.type === 'urgent' ? 'text-[var(--error-text)]' : 
+                          notification.type === 'success' ? 'text-[var(--success-text)]' : 
+                          'text-[var(--info-text)]'
                         }`} />
                         <p className="font-secondary text-sm text-text-primary">
                           {notification.message}
@@ -375,7 +375,7 @@ export default function TherapistDashboard() {
                           <Progress value={client.progress} className="h-2" />
                           {client.satisfaction > 0 && (
                             <div className="flex items-center space-x-1">
-                              <Star className="w-3 h-3 text-yellow-400 fill-current" />
+                              <Star className="w-3 h-3 text-[var(--garden-green)] fill-current" />
                               <span className="text-xs text-text-secondary">{client.satisfaction}/5.0</span>
                             </div>
                           )}
