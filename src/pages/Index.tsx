@@ -7,9 +7,8 @@ import { Footer } from "@/components/layout/footer";
 import { DecorativeShapes } from "@/components/ui/decorative-shapes";
 import { TestimonialCarousel } from "@/components/ui/testimonial-carousel";
 
-// Import hero image with high priority
+// Hero + Image Assets
 import masterHeroA from "@/assets/Master landing - hero image option A.png";
-// Import other assets for lazy loading
 import clientHeroImage from "@/assets/Client - Hero image.png";
 import clientAutistic20s from "@/assets/Client - White female autistic 20s.png";
 import clientWhiteMale20s from "@/assets/Client White male 20s lilac shirt.png";
@@ -17,15 +16,14 @@ import therapistBlackFemale40s from "@/assets/Therapist - black female 40s.png";
 import therapistWhiteNonbinary30s from "@/assets/Therapist - white nonbinary 30s.png";
 
 export default function Index() {
-  // Preload hero image
   React.useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'image';
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
     link.href = masterHeroA;
-    link.fetchPriority = 'high';
+    link.fetchPriority = "high";
     document.head.appendChild(link);
-    
+
     return () => {
       if (document.head.contains(link)) {
         document.head.removeChild(link);
@@ -34,61 +32,61 @@ export default function Index() {
   }, []);
 
   return (
-    <div 
+    <div
       className="min-h-dvh grid grid-rows-[auto_1fr_auto] overflow-hidden"
       style={{ backgroundColor: "var(--warm-white)" }}
     >
       <Header />
-      
+
       <main className="flex-1">
+
         {/* Hero Section */}
-        <section 
-          className="py-12 lg:py-20 relative"
-          style={{ backgroundColor: "var(--warm-white)" }}
-        >
+        <section className="py-12 lg:py-20 relative">
           <Container className="px-6 md:px-8 lg:px-10">
             <div className="flex flex-col md:flex-row items-center gap-6">
-              {/* Hero Content */}
               <div className="max-w-xl space-y-6 md:order-1">
-                <h1 
+                <p
+                  className="text-sm uppercase tracking-wide"
+                  style={{
+                    fontFamily: "var(--font-secondary)",
+                    color: "var(--text-secondary)",
+                  }}
+                >
+                  Tired of therapist mismatches?
+                </p>
+                <h1
                   className="text-3xl lg:text-5xl font-bold leading-tight"
-                  style={{ 
+                  style={{
                     fontFamily: "var(--font-primary)",
-                    color: "var(--jovial-jade)"
+                    color: "var(--jovial-jade)",
                   }}
                 >
                   Find the right therapist <em><strong>for you</strong></em>.
                 </h1>
-                <p 
+                <p
                   className="text-lg leading-relaxed"
-                  style={{ 
+                  style={{
                     fontFamily: "var(--font-secondary)",
-                    color: "var(--text-primary)"
+                    color: "var(--text-primary)",
                   }}
                 >
                   Because everyone's mental health journey is different.
                 </p>
-                
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button 
-                    size="lg" 
+                  <Button
+                    size="lg"
                     className="min-h-touch-target px-8"
-                    style={{ 
-                      backgroundColor: "var(--btn-primary-bg)", 
-                      color: "var(--btn-primary-text)" 
+                    style={{
+                      backgroundColor: "var(--btn-primary-bg)",
+                      color: "var(--btn-primary-text)",
                     }}
                     asChild
                   >
-                    <Link 
-                      to="/assessment"
-                      aria-label="Start the 3-minute compatibility quiz"
-                    >
-                      Start Your Journey
-                    </Link>
+                    <Link to="/assessment">Start Your Journey</Link>
                   </Button>
-                  <Button 
-                    variant="outline" 
-                    size="lg" 
+                  <Button
+                    variant="outline"
+                    size="lg"
                     className="min-h-touch-target px-8 border-garden-green text-btn-secondary-text hover:bg-garden-green/10"
                     asChild
                   >
@@ -96,11 +94,9 @@ export default function Index() {
                   </Button>
                 </div>
               </div>
-
-              {/* Hero Image */}
               <div className="relative md:order-2 flex-1">
                 <DecorativeShapes variant="lines" className="opacity-30" />
-                <img 
+                <img
                   src={masterHeroA}
                   alt="Four diverse clients in organic editorial shapes on warm cream background"
                   className="w-full h-auto"
@@ -112,80 +108,37 @@ export default function Index() {
           </Container>
         </section>
 
-        {/* Why Compatibility Matters */}
-        <section 
-          className="py-16 lg:py-20 relative"
-          style={{ backgroundColor: "var(--surface)" }}
-        >
+        {/* Stats Section (moved up) */}
+        <section className="py-16 lg:py-20 relative" style={{ backgroundColor: "var(--surface)" }}>
           <DecorativeShapes variant="abstract" className="opacity-20" />
           <Container className="px-6 md:px-8 lg:px-10">
-            <h2 
-              className="text-2xl lg:text-4xl font-bold text-center mb-12"
-              style={{ 
-                fontFamily: "var(--font-primary)",
-                color: "var(--jovial-jade)"
-              }}
-            >
+            <h2 className="text-2xl lg:text-4xl font-bold text-center mb-12"
+                style={{
+                  fontFamily: "var(--font-primary)",
+                  color: "var(--jovial-jade)"
+                }}>
               Why compatibility matters
             </h2>
-            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center space-y-4">
-                <div 
-                  className="text-4xl lg:text-5xl font-bold"
-                  style={{ 
-                    fontFamily: "var(--font-primary)",
-                    color: "var(--jovial-jade)"
-                  }}
-                  aria-label="Average of six therapists to find a fit"
-                >
-                  6<span className="text-2xl">therapists</span>
+              {[
+                { stat: "6", label: "therapists", text: "On average it takes trying six therapists to find the right fit." },
+                { stat: "57%", label: "", text: "give up after 1–2 mismatches." },
+                { stat: "97%", label: "", text: "say comfort with the therapist is the #1 factor." }
+              ].map(({ stat, label, text }, i) => (
+                <div key={i} className="text-center space-y-4">
+                  <div className="text-4xl lg:text-5xl font-bold"
+                       style={{
+                         fontFamily: "var(--font-primary)",
+                         color: "var(--jovial-jade)"
+                       }}>
+                    {stat} {label && <span className="text-2xl">{label}</span>}
+                  </div>
+                  <p className="text-text-secondary leading-relaxed"
+                     style={{ fontFamily: "var(--font-secondary)" }}>
+                    {text}
+                  </p>
                 </div>
-                <p 
-                  className="text-text-secondary leading-relaxed"
-                  style={{ fontFamily: "var(--font-secondary)" }}
-                >
-                  On average it takes trying six therapists to find the right fit.
-                </p>
-              </div>
-
-              <div className="text-center space-y-4">
-                <div 
-                  className="text-4xl lg:text-5xl font-bold"
-                  style={{ 
-                    fontFamily: "var(--font-primary)",
-                    color: "var(--jovial-jade)"
-                  }}
-                  aria-label="Fifty-seven percent give up after one or two mismatches"
-                >
-                  57%
-                </div>
-                <p 
-                  className="text-text-secondary leading-relaxed"
-                  style={{ fontFamily: "var(--font-secondary)" }}
-                >
-                  give up after 1–2 mismatches.
-                </p>
-              </div>
-
-              <div className="text-center space-y-4">
-                <div 
-                  className="text-4xl lg:text-5xl font-bold"
-                  style={{ 
-                    fontFamily: "var(--font-primary)",
-                    color: "var(--jovial-jade)"
-                  }}
-                  aria-label="Ninety-seven percent say comfort is the top factor"
-                >
-                  97%
-                </div>
-                <p 
-                  className="text-text-secondary leading-relaxed"
-                  style={{ fontFamily: "var(--font-secondary)" }}
-                >
-                  say comfort with the therapist is the #1 factor.
-                </p>
-              </div>
+              ))}
             </div>
           </Container>
         </section>
@@ -464,8 +417,12 @@ export default function Index() {
                   cite: "18–24, non-binary"
                 },
                 {
-                  quote: "Meeting therapist-after-therapist to find a good fit was exhausting. Mindfolk fast-tracks that process.",
-                  cite: "35–50, female"
+                  quote: "I've been through so many therapists and this would have saved me a lot of time and heartache.",
+                  cite: "25–34, female"
+                },
+                {
+                  quote: "The video intros are genius. You can tell so much about someone's vibe in 30 seconds.",
+                  cite: "35–44, male"
                 }
               ]}
             />
@@ -474,53 +431,34 @@ export default function Index() {
 
         {/* Final CTA */}
         <section 
-          className="py-16 lg:py-20"
-          style={{ backgroundColor: "var(--btn-cta-bg)" }}
+          className="py-16 lg:py-20 text-center"
+          style={{ backgroundColor: "var(--jovial-jade)" }}
         >
           <Container className="px-6 md:px-8 lg:px-10">
-            <div className="text-center space-y-8">
-              <div className="space-y-4">
-                <h2 
-                  className="text-2xl lg:text-4xl font-bold"
-                  style={{ 
-                    fontFamily: "var(--font-primary)",
-                    color: "var(--jovial-jade)"
-                  }}
-                >
-                  Ready to find your fit?
-                </h2>
-                <p 
-                  className="text-lg text-text-secondary"
-                  style={{ fontFamily: "var(--font-secondary)" }}
-                >
-                  It takes less than 5 minutes to start.
-                </p>
-              </div>
-              
+            <div className="max-w-3xl mx-auto space-y-6">
+              <h2 
+                className="text-2xl lg:text-4xl font-bold text-white"
+                style={{ fontFamily: "var(--font-primary)" }}
+              >
+                Ready to find your therapist?
+              </h2>
+              <p 
+                className="text-lg text-white/90"
+                style={{ fontFamily: "var(--font-secondary)" }}
+              >
+                Take our 3-minute quiz and start swiping through therapist profiles today.
+              </p>
               <Button 
                 size="lg" 
-                className="min-h-touch-target px-8"
-                style={{ 
-                  backgroundColor: "var(--btn-primary-bg)", 
-                  color: "var(--btn-primary-text)" 
-                }}
+                className="min-h-touch-target px-8 bg-white text-jovial-jade hover:bg-white/90"
                 asChild
               >
-                <Link to="/assessment">Start My Journey</Link>
+                <Link to="/assessment">Start Your Journey</Link>
               </Button>
-
-              {/* Thumbnail image */}
-              <div className="text-center pt-6">
-                <img 
-                  src={masterHeroA}
-                  alt="Diverse clients collage"
-                  className="w-32 h-auto mx-auto opacity-60"
-                  loading="lazy"
-                />
-              </div>
             </div>
           </Container>
         </section>
+
       </main>
 
       <Footer />
