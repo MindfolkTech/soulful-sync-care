@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
@@ -70,6 +71,7 @@ const onboardingSteps = [
 ];
 
 export default function TherapistOnboarding() {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [showPreview, setShowPreview] = useState(false);
   const [savedProgress, setSavedProgress] = useState(false);
@@ -120,53 +122,56 @@ export default function TherapistOnboarding() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-warm-white flex flex-col">
       <Header />
       
       <main className="flex-1 py-8" role="main" aria-label="Therapist onboarding process">
         <Container>
           <div className="max-w-6xl mx-auto">
-            {/* Progress Header */}
+            {/* Enhanced Progress Header */}
             <div className="mb-8" role="region" aria-label="Onboarding progress">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-4">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4 flex-1">
                   <Progress 
                     value={progress} 
-                    className="h-2 flex-1" 
+                    className="h-3 flex-1 bg-surface-accent rounded-full overflow-hidden" 
                     aria-label={`Progress: ${Math.round(progress)}% complete`}
                   />
-                  <span className="text-sm text-text-secondary font-secondary whitespace-nowrap" aria-live="polite">
+                  <span className="text-sm text-text-secondary font-helvetica whitespace-nowrap bg-surface px-3 py-1 rounded-full" aria-live="polite">
                     Step {currentStep} of {onboardingSteps.length}
                   </span>
                 </div>
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center gap-3">
                   {savedProgress && (
-                    <div className="flex items-center space-x-2 text-[var(--success-bg)]" role="status" aria-live="polite">
+                    <div className="flex items-center gap-2 bg-success-bg text-success-text px-3 py-1 rounded-full" role="status" aria-live="polite">
                       <Save className="w-4 h-4" aria-hidden="true" />
-                      <span className="text-sm font-secondary">Saved</span>
+                      <span className="text-sm font-helvetica font-medium">Saved</span>
                     </div>
                   )}
                   <Button 
                     variant="outline" 
                     size="sm"
                     onClick={() => setShowPreview(!showPreview)}
+                    className="hover:bg-surface-accent transition-colors duration-200"
                     aria-label={showPreview ? "Hide preview" : "Show preview"}
                   >
-                    <Eye className="w-4 h-4 mr-2" />
+                    <Eye className="w-4 h-4 mr-2" aria-hidden="true" />
                     {showPreview ? 'Hide' : 'Show'} Preview
                   </Button>
                 </div>
               </div>
               
-              {/* Step Tip */}
-              <div className="bg-[var(--surface-accent)] p-4 rounded-lg mb-6" role="region" aria-label="Step tip and example">
-                <div className="flex items-start space-x-3">
-                  <Lightbulb className="w-5 h-5 text-[var(--garden-green)] mt-0.5 flex-shrink-0" aria-hidden="true" />
+              {/* Enhanced Step Tip */}
+              <div className="bg-surface-accent p-6 rounded-xl mb-8 shadow-sm border border-border" role="region" aria-label="Step tip and example">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 bg-garden-green rounded-full flex items-center justify-center flex-shrink-0">
+                    <Lightbulb className="w-5 h-5 text-white" aria-hidden="true" />
+                  </div>
                   <div>
-                    <p className="font-secondary text-text-primary text-sm font-medium mb-1">
+                    <p className="font-crimson text-jovial-jade text-base font-semibold mb-2">
                       💡 Tip: {currentStepData?.tip}
                     </p>
-                    <p className="font-secondary text-text-secondary text-sm">
+                    <p className="font-helvetica text-text-secondary text-sm leading-relaxed">
                       Example: {currentStepData?.example}
                     </p>
                   </div>
@@ -178,12 +183,12 @@ export default function TherapistOnboarding() {
               {/* Main Content */}
               <div className="lg:col-span-2">
 
-            <Card className="min-h-[500px]" role="region" aria-label={`Step ${currentStep} content`}>
-              <CardHeader className="text-center">
-                <CardTitle className="font-primary text-2xl text-text-primary" id={`step-${currentStep}-title`}>
+            <Card className="min-h-[500px] shadow-lg border-0" role="region" aria-label={`Step ${currentStep} content`}>
+              <CardHeader className="text-center pb-8">
+                <CardTitle className="font-crimson text-3xl text-jovial-jade mb-3" id={`step-${currentStep}-title`}>
                   {currentStepData?.title}
                 </CardTitle>
-                <p className="font-secondary text-text-secondary" id={`step-${currentStep}-subtitle`}>
+                <p className="font-helvetica text-text-secondary text-lg" id={`step-${currentStep}-subtitle`}>
                   {currentStepData?.subtitle}
                 </p>
               </CardHeader>
@@ -495,11 +500,12 @@ export default function TherapistOnboarding() {
               </CardContent>
             </Card>
 
-            <div className="flex justify-between mt-8" role="navigation" aria-label="Onboarding navigation">
+            <div className="flex justify-between mt-8 pt-6 border-t border-border" role="navigation" aria-label="Onboarding navigation">
               <Button
                 variant="outline"
                 onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
                 disabled={currentStep === 1}
+                className="hover:bg-surface-accent transition-colors duration-200 disabled:opacity-50"
                 aria-label="Go to previous step"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" aria-hidden="true" />
@@ -507,8 +513,16 @@ export default function TherapistOnboarding() {
               </Button>
 
               <Button
-                onClick={() => setCurrentStep(Math.min(onboardingSteps.length, currentStep + 1))}
+                onClick={() => {
+                  if (currentStep === onboardingSteps.length) {
+                    // Complete onboarding and navigate to dashboard
+                    navigate('/t/dashboard');
+                  } else {
+                    setCurrentStep(Math.min(onboardingSteps.length, currentStep + 1));
+                  }
+                }}
                 disabled={currentStep === onboardingSteps.length}
+                className="bg-garden-green hover:bg-elated-emerald text-white px-8 py-3 transition-all duration-200 disabled:opacity-50"
                 aria-label={currentStep === onboardingSteps.length ? "Complete onboarding setup" : "Go to next step"}
               >
                 {currentStep === onboardingSteps.length ? "Complete Setup" : "Continue"}

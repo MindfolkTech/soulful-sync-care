@@ -38,6 +38,7 @@ import TherapistAnalytics from "./pages/therapist/Analytics";
 import TherapistDashboard from "./pages/therapist/Dashboard";
 import TherapistMessages from "./pages/therapist/Messages";
 import TherapistPayouts from "./pages/therapist/Payouts";
+import TherapistEarnings from "./pages/therapist/Earnings";
 import TherapistTasks from "./pages/therapist/Tasks";
 
 // Session pages
@@ -95,6 +96,7 @@ const App = () => (
           <Route path="/t/dashboard" element={<TherapistDashboard />} />
           <Route path="/t/messages" element={<TherapistMessages />} />
           <Route path="/t/payouts" element={<TherapistPayouts />} />
+          <Route path="/t/earnings" element={<TherapistEarnings />} />
           <Route path="/t/tasks" element={<TherapistTasks />} />
 
           {/* Session routes */}
