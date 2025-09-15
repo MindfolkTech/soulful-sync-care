@@ -65,6 +65,17 @@
     --video-overlay: var(--overlay-dark) / 0.6; /* 60% opacity */
     --hover-overlay: var(--overlay-dark) / 0.2; /* 20% opacity */
     
+    /* Tag System Foreground Colors */
+    --tag-personality-foreground: var(--tag-personality-text);
+    --tag-modality-foreground: var(--tag-modality-text);
+    --tag-specialty-foreground: var(--tag-specialty-text);
+    --tag-language-foreground: var(--tag-language-text);
+    --tag-misc-foreground: var(--tag-misc-text);
+    
+    /* Success/Error Foreground */
+    --success-foreground: var(--success-text);
+    --error-foreground: var(--error-text);
+    
     /* Typography Tokens */
     --font-primary: 'Crimson Pro', Georgia, serif;
     --font-secondary: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;

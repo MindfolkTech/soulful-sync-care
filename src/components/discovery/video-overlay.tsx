@@ -131,7 +131,7 @@ export function VideoOverlay({
           </div>
 
           {/* Controls */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[--overlay-dark]/80 to-transparent p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Button

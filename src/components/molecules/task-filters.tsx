@@ -87,7 +87,7 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
             }
           }}
         >
-          <SelectTrigger className="w-32">
+          <SelectTrigger className="w-full sm:w-32">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
@@ -110,7 +110,7 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
             }
           }}
         >
-          <SelectTrigger className="w-32">
+          <SelectTrigger className="w-full sm:w-32">
             <SelectValue placeholder="Priority" />
           </SelectTrigger>
           <SelectContent>
@@ -133,7 +133,7 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
             }
           }}
         >
-          <SelectTrigger className="w-32">
+          <SelectTrigger className="w-full sm:w-32">
             <SelectValue placeholder="Flow" />
           </SelectTrigger>
           <SelectContent>

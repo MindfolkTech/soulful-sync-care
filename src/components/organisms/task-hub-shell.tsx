@@ -84,7 +84,7 @@ export function TaskHubShell({
 
       {/* Stats Cards */}
       <div className="flex flex-wrap gap-4 mb-8">
-        <Card className="flex-1 min-w-[200px] p-4">
+        <Card className="flex-1 min-w-0 p-4">
           <div className="flex items-center gap-3">
             <ListTodo className="h-8 w-8 text-garden-green" />
             <div>
@@ -94,7 +94,7 @@ export function TaskHubShell({
           </div>
         </Card>
         
-        <Card className="flex-1 min-w-[200px] p-4">
+        <Card className="flex-1 min-w-0 p-4">
           <div className="flex items-center gap-3">
             <Clock className="h-8 w-8 text-garden-green" />
             <div>
@@ -104,7 +104,7 @@ export function TaskHubShell({
           </div>
         </Card>
         
-        <Card className="flex-1 min-w-[200px] p-4">
+        <Card className="flex-1 min-w-0 p-4">
           <div className="flex items-center gap-3">
             <AlertTriangle className="h-8 w-8 text-garden-green" />
             <div>
@@ -114,7 +114,7 @@ export function TaskHubShell({
           </div>
         </Card>
         
-        <Card className="flex-1 min-w-[200px] p-4">
+        <Card className="flex-1 min-w-0 p-4">
           <div className="flex items-center gap-3">
             <CheckCircle className="h-8 w-8 text-garden-green" />
             <div>
@@ -161,8 +161,8 @@ export function TaskHubShell({
           </TabsTrigger>
         </TabsList>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          <div className="lg:w-64 flex-shrink-0">
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="w-full lg:w-64">
             <TaskFilters
               filters={filters}
               onFiltersChange={setFilters}
@@ -170,7 +170,7 @@ export function TaskHubShell({
             />
           </div>
           
-          <div className="flex-1 min-w-0">
+          <div className="flex-1">
             <TabsContent value="all">
               <TaskList
                 tasks={tabTasks}

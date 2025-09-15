@@ -17,15 +17,15 @@ interface TaskItemProps {
 }
 
 const priorityColors = {
-  low: "bg-surface-accent text-text-secondary",
-  medium: "bg-btn-secondary text-btn-secondary-foreground",
-  high: "bg-btn-accent text-btn-accent-foreground",
+  low: "bg-tag-misc text-tag-misc-foreground",
+  medium: "bg-tag-personality text-tag-personality-foreground", 
+  high: "bg-tag-modality text-tag-modality-foreground",
   urgent: "bg-destructive text-destructive-foreground"
 };
 
 const statusColors = {
-  todo: "bg-surface text-text-secondary",
-  in_progress: "bg-btn-accent text-btn-accent-foreground",
+  todo: "bg-tag-specialty text-tag-specialty-foreground",
+  in_progress: "bg-tag-language text-tag-language-foreground",
   blocked: "bg-destructive text-destructive-foreground",
   done: "bg-success text-success-foreground"
 };
