@@ -24,44 +24,16 @@ export const OVERLAY_RULES: Record<RuleKey, {
   _default:     { fill: "fill-oval",   fillColor: "--tag-modality-bg",    line: "line-wave" },
 };
 
-const COMMUNICATION_STYLE_MAP: Record<string, RuleKey> = {
-  "empathetic and understanding": "empathetic",
-  "empathetic": "empathetic",
-  "understanding": "empathetic",
-  "calm and process-focused": "calm",
-  "calm": "calm",
-  "process-focused": "calm",
-  "structured and goal-oriented": "structured", 
-  "structured": "structured",
-  "goal-oriented": "structured",
-  "exploratory and insight-based": "exploratory",
-  "exploratory": "exploratory",
-  "insight-based": "exploratory",
-  "pragmatic and problem solving": "pragmatic",
-  "pragmatic": "pragmatic",
-  "problem solving": "pragmatic",
-  "motivational and encouraging": "motivational",
-  "motivational": "motivational",
-  "encouraging": "motivational",
-  "gently challenging and direct": "direct",
-  "direct": "direct",
-  "challenging": "direct",
-  "flexible and adaptable": "flexible",
-  "flexible": "flexible",
-  "adaptable": "flexible",
-};
-
-export function normalizeTag(label: string): RuleKey | null {
-  const normalized = label.toLowerCase().trim();
-  return COMMUNICATION_STYLE_MAP[normalized] || null;
+export function normalizeTag(label: string) {
+  return label.toLowerCase().split(/[^\w]+/).find(Boolean) || "";
 }
 
 export function pickOverlay(
   clientPrefs: string[] | null,
   therapistTags: string[] | null
 ) {
-  const prefs = (clientPrefs || []).map(normalizeTag).filter(Boolean) as RuleKey[];
-  const tags = (therapistTags || []).map(normalizeTag).filter(Boolean) as RuleKey[];
+  const prefs = (clientPrefs || []).map(normalizeTag);
+  const tags  = (therapistTags || []).map(normalizeTag);
 
   const matched = OVERLAY_RULE_ORDER.filter(k => prefs.includes(k) && tags.includes(k));
   const primary: RuleKey = (matched[0] as RuleKey) || "_default";

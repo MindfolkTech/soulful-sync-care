@@ -3,7 +3,6 @@ import { X, Heart, ChevronDown, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
 import { PortraitOverlay } from "@/components/ui/portrait-overlay";
-import { useAssessmentStore } from "@/hooks/use-assessment-store";
 import { cn } from "@/lib/utils";
 
 export interface TherapistData {
@@ -42,7 +41,6 @@ export function TherapistCard({
   showDetailsButton = true,
   showActionButtons = true 
 }: TherapistCardProps) {
-  const { communication_preferences } = useAssessmentStore();
   
   const handleMediaClick = () => {
     if (therapist.video_url && onShowVideo) {
@@ -82,7 +80,7 @@ export function TherapistCard({
             src={therapist.image}
             alt={`${therapist.name} profile photo`}
             className="w-full h-full portrait"
-            clientPrefs={communication_preferences}
+            clientPrefs={[]} // TODO: wire from assessment store
             personalityTags={therapist.personality}
           />
         ) : therapist.video_url ? (
