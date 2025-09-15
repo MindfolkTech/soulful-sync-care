@@ -4,9 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { DecorativeShapes } from "@/components/ui/decorative-shapes";
 import { TestimonialCarousel } from "@/components/ui/testimonial-carousel";
-
+import { Heart, Video, MessageCircle, Shield, Users, Star, CheckCircle, Clock, Search, Calendar, DollarSign, Award, BookOpen, ArrowRight, Phone, UserCheck, Eye, Book } from "lucide-react";
 
 export default function Index() {
   React.useEffect(() => {
@@ -25,73 +24,46 @@ export default function Index() {
   }, []);
 
   return (
-    <div
-      className="min-h-dvh grid grid-rows-[auto_1fr_auto] overflow-hidden"
-      style={{ backgroundColor: "var(--warm-white)" }}
-    >
+    <div className="min-h-screen bg-background flex flex-col">
       <Header />
 
       <main className="flex-1">
-
         {/* Hero Section */}
-        <section className="py-12 lg:py-20 relative">
-          <Container className="px-6 md:px-8 lg:px-10">
-            <div className="flex flex-col md:flex-row items-center gap-6">
-              <div className="max-w-xl space-y-6 md:order-1">
-                <p
-                  className="text-sm uppercase tracking-wide"
-                  style={{
-                    fontFamily: "var(--font-secondary)",
-                    color: "var(--text-secondary)",
-                  }}
-                >
-                  Tired of therapist mismatches?
-                </p>
-                <h1
-                  className="text-3xl lg:text-5xl font-bold leading-tight"
-                  style={{
-                    fontFamily: "var(--font-primary)",
-                    color: "var(--jovial-jade)",
-                  }}
-                >
-                  Find the right therapist <em><strong>for you</strong></em>.
+        <section className="relative py-20 lg:py-32 overflow-hidden" style={{ backgroundColor: "hsl(var(--tag-personality))" }}>
+          <Container>
+            <div className="flex flex-col lg:flex-row gap-12 items-center">
+              <div className="space-y-6 flex-1">
+                <h1 className="text-4xl lg:text-6xl font-primary font-bold leading-tight" style={{ color: "hsl(var(--text-primary))" }}>
+                  Find a therapist who truly gets you.
                 </h1>
-                <p
-                  className="text-lg leading-relaxed"
-                  style={{
-                    fontFamily: "var(--font-secondary)",
-                    color: "var(--text-primary)",
-                  }}
-                >
-                  Because everyone's mental health journey is different.
+                <p className="text-xl leading-relaxed font-secondary" style={{ color: "hsl(var(--text-body))" }}>
+                  Choose from therapists who match your personality, culture, and needs — with free chemistry calls before committing.
                 </p>
+                
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button
-                    size="lg"
-                    className="min-h-touch-target px-8"
-                    style={{
-                      backgroundColor: "var(--btn-primary-bg)",
-                      color: "var(--btn-primary-text)",
-                    }}
-                    asChild
-                  >
-                    <Link to="/assessment">Start Your Journey</Link>
+                  <Button size="lg" asChild className="min-h-[var(--touch-target-min)]" style={{ 
+                    backgroundColor: "hsl(var(--btn-primary-bg))", 
+                    color: "hsl(var(--btn-primary-text))" 
+                  }}>
+                    <Link to="/assessment">Find a Therapist</Link>
                   </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="min-h-touch-target px-8 border-garden-green text-btn-secondary-text hover:bg-garden-green/10"
-                    asChild
-                  >
-                    <Link to="/therapist">For Therapists</Link>
+                  <Button variant="outline" size="lg" asChild className="min-h-[var(--touch-target-min)]" style={{ 
+                    backgroundColor: "hsl(var(--btn-secondary-bg))", 
+                    color: "hsl(var(--btn-secondary-text))",
+                    borderColor: "hsl(var(--btn-secondary-border))"
+                  }}>
+                    <Link to="#how-it-works">
+                      See How It Works
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Link>
                   </Button>
                 </div>
               </div>
-              <div className="relative md:order-2 flex-1">
-                <DecorativeShapes variant="lines" className="opacity-30" />
+
+              <div className="relative flex-1 max-w-md mx-auto">
                 <img
                   src="/images/master-landing-hero-option-a.png"
-                  alt="Four diverse clients in organic editorial shapes on warm cream background"
+                  alt="Professional therapist in modern office"
                   className="w-full h-auto"
                   loading="eager"
                   fetchPriority="high"
@@ -101,327 +73,282 @@ export default function Index() {
           </Container>
         </section>
 
-        {/* Statistics Section - Editorial Magazine Style */}
-        <section className="py-24 md:py-32 bg-tag-modality">
+        {/* Statistics Section */}
+        <section className="py-20 lg:py-32" style={{ backgroundColor: "hsl(var(--tag-modality))" }}>
           <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-              {/* Left Column - Editorial Content */}
-              <div className="space-y-12">
-                <div className="space-y-8">
-                  <h2 className="font-primary text-5xl md:text-6xl lg:text-7xl font-bold text-text-primary leading-[0.9]">
-                    Why compatibility 
-                    <em className="italic text-garden-green block">matters</em>
-                  </h2>
-                  <p className="font-secondary text-2xl md:text-3xl text-text-secondary leading-[1.3] font-light max-w-2xl">
-                    Research shows the therapeutic relationship is the strongest predictor of successful outcomes.
-                  </p>
-                </div>
+            <div className="flex flex-col lg:flex-row gap-16 items-center">
+              {/* Content Column */}
+              <div className="flex-1 space-y-8">
+                <h2 className="text-4xl lg:text-5xl font-primary font-bold leading-tight" style={{ color: "hsl(var(--text-primary))" }}>
+                  Why compatibility <em className="italic" style={{ color: "hsl(var(--tag-modality-foreground))" }}>matters</em>
+                </h2>
+                <p className="text-xl font-secondary leading-relaxed" style={{ color: "hsl(var(--text-body))" }}>
+                  Research shows the therapeutic relationship is the strongest predictor of successful outcomes.
+                </p>
                 
-                {/* Pull Quote */}
-                <blockquote className="border-l-4 border-jovial-jade pl-8 py-6 bg-surface/50 rounded-r-lg">
-                  <p className="font-primary text-2xl md:text-3xl italic text-text-primary leading-[1.2]">
+                <blockquote className="border-l-4 pl-6 py-4" style={{ borderColor: "hsl(var(--tag-modality-foreground))" }}>
+                  <p className="text-lg font-primary italic leading-relaxed" style={{ color: "hsl(var(--text-primary))" }}>
                     "The magic happens when you find someone who truly gets you."
                   </p>
-                  <cite className="font-secondary text-lg text-text-secondary mt-4 block not-italic">
+                  <cite className="text-sm font-secondary mt-2 block not-italic" style={{ color: "hsl(var(--text-secondary))" }}>
                     — Dr. Sarah Chen, Clinical Psychology
                   </cite>
                 </blockquote>
               </div>
 
-              {/* Right Column - Asymmetrical Stats */}
-              <div className="space-y-8">
-                <div className="bg-tag-specialty p-8 rounded-2xl text-right">
-                  <div className="text-7xl md:text-8xl font-primary font-bold text-tag-specialty-foreground mb-4">
-                    6
+              {/* Stats Column */}
+              <div className="flex-1">
+                <div className="flex flex-col gap-6">
+                  <div className="p-6 rounded-xl text-center" style={{ backgroundColor: "hsl(var(--tag-specialty))" }}>
+                    <div className="text-5xl font-primary font-bold mb-2" style={{ color: "hsl(var(--tag-specialty-foreground))" }}>6</div>
+                    <p className="text-sm font-secondary" style={{ color: "hsl(var(--tag-specialty-foreground) / 0.8)" }}>
+                      therapists on average to find the right fit
+                    </p>
                   </div>
-                  <p className="font-secondary text-xl text-tag-specialty-foreground/80 leading-relaxed">
-                    therapists on average to find the right fit
-                  </p>
-                </div>
-                
-                <div className="bg-tag-language p-8 rounded-2xl text-center -ml-8">
-                  <div className="text-7xl md:text-8xl font-primary font-bold text-tag-language-foreground mb-4">
-                    57%
+                  
+                  <div className="flex gap-6">
+                    <div className="flex-1 p-6 rounded-xl text-center" style={{ backgroundColor: "hsl(var(--tag-language))" }}>
+                      <div className="text-5xl font-primary font-bold mb-2" style={{ color: "hsl(var(--tag-language-foreground))" }}>57%</div>
+                      <p className="text-sm font-secondary" style={{ color: "hsl(var(--tag-language-foreground) / 0.8)" }}>
+                        give up after mismatches
+                      </p>
+                    </div>
+                    
+                    <div className="flex-1 p-6 rounded-xl text-center" style={{ backgroundColor: "hsl(var(--tag-misc))" }}>
+                      <div className="text-5xl font-primary font-bold mb-2" style={{ color: "hsl(var(--tag-misc-foreground))" }}>97%</div>
+                      <p className="text-sm font-secondary" style={{ color: "hsl(var(--tag-misc-foreground) / 0.8)" }}>
+                        value therapist comfort
+                      </p>
+                    </div>
                   </div>
-                  <p className="font-secondary text-xl text-tag-language-foreground/80 leading-relaxed">
-                    give up after 1-2 mismatches
-                  </p>
-                </div>
-                
-                <div className="bg-tag-misc p-8 rounded-2xl text-left ml-8">
-                  <div className="text-7xl md:text-8xl font-primary font-bold text-tag-misc-foreground mb-4">
-                    97%
-                  </div>
-                  <p className="font-secondary text-xl text-tag-misc-foreground/80 leading-relaxed">
-                    say therapist comfort is the #1 factor
-                  </p>
                 </div>
               </div>
             </div>
           </Container>
         </section>
 
-        {/* How It Works Section - Editorial Flow */}
-        <section className="py-24 md:py-32 bg-tag-specialty">
+        {/* How It Works Section */}
+        <section id="how-it-works" className="py-20 lg:py-32" style={{ backgroundColor: "hsl(var(--tag-specialty))" }}>
           <Container>
-            <div className="space-y-20">
-              {/* Section Header */}
-              <div className="text-center max-w-4xl mx-auto space-y-8">
-                <h2 className="font-primary text-5xl md:text-6xl lg:text-7xl font-bold text-text-primary leading-[0.9]">
-                  How it 
-                  <em className="italic text-tag-specialty-foreground block">works</em>
+            <div className="space-y-16">
+              <div className="text-center space-y-6">
+                <h2 className="text-4xl lg:text-5xl font-primary font-bold leading-tight" style={{ color: "hsl(var(--text-primary))" }}>
+                  How it <em className="italic" style={{ color: "hsl(var(--tag-specialty-foreground))" }}>works</em>
                 </h2>
-                <p className="font-secondary text-2xl md:text-3xl text-text-secondary leading-[1.3] font-light">
+                <p className="text-xl font-secondary" style={{ color: "hsl(var(--text-body))" }}>
                   Four simple steps to find your ideal therapeutic match.
                 </p>
               </div>
 
-              {/* Editorial Step Flow */}
-              <div className="space-y-16">
-                {/* Step 1 - Left Aligned */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-                  <div className="lg:col-span-2 space-y-6">
-                    <div className="flex items-center gap-6">
-                      <div className="w-16 h-16 bg-tag-personality rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-2xl font-bold text-tag-personality-foreground">1</span>
-                      </div>
-                      <h3 className="font-primary text-3xl md:text-4xl font-bold text-text-primary">
+              <div className="space-y-12">
+                {/* Step 1 */}
+                <div className="flex flex-col lg:flex-row gap-8 items-center">
+                  <div className="flex-1 flex items-start gap-6">
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "hsl(var(--tag-personality))" }}>
+                      <span className="text-lg font-bold" style={{ color: "hsl(var(--tag-personality-foreground))" }}>1</span>
+                    </div>
+                    <div className="space-y-3">
+                      <h3 className="text-2xl font-primary font-bold" style={{ color: "hsl(var(--text-primary))" }}>
                         Take our 3-minute quiz
                       </h3>
+                      <p className="font-secondary leading-relaxed" style={{ color: "hsl(var(--text-body))" }}>
+                        Tell us your goals and preferences to create your personalized profile.
+                      </p>
                     </div>
-                    <p className="font-secondary text-xl md:text-2xl text-text-secondary leading-relaxed pl-22">
-                      Tell us your goals and preferences to create your personalized profile.
-                    </p>
                   </div>
-                  <div className="text-center lg:text-right">
-                    <div className="inline-block bg-tag-personality/30 p-6 rounded-2xl">
-                      <span className="font-primary text-6xl text-tag-personality-foreground">01</span>
-                    </div>
+                  <div className="flex-shrink-0">
+                    <Search className="w-16 h-16" style={{ color: "hsl(var(--tag-personality-foreground))" }} />
                   </div>
                 </div>
 
-                {/* Step 2 - Right Aligned */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-                  <div className="text-center lg:text-left lg:order-1">
-                    <div className="inline-block bg-tag-modality/30 p-6 rounded-2xl">
-                      <span className="font-primary text-6xl text-tag-modality-foreground">02</span>
+                {/* Step 2 */}
+                <div className="flex flex-col lg:flex-row-reverse gap-8 items-center">
+                  <div className="flex-1 flex items-start gap-6">
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "hsl(var(--tag-modality))" }}>
+                      <span className="text-lg font-bold" style={{ color: "hsl(var(--tag-modality-foreground))" }}>2</span>
                     </div>
-                  </div>
-                  <div className="lg:col-span-2 space-y-6 lg:order-2">
-                    <div className="flex items-center gap-6 justify-end lg:flex-row-reverse">
-                      <div className="w-16 h-16 bg-tag-modality rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-2xl font-bold text-tag-modality-foreground">2</span>
-                      </div>
-                      <h3 className="font-primary text-3xl md:text-4xl font-bold text-text-primary text-right">
-                        Swipe therapist profiles
+                    <div className="space-y-3">
+                      <h3 className="text-2xl font-primary font-bold" style={{ color: "hsl(var(--text-primary))" }}>
+                        Browse therapist profiles
                       </h3>
+                      <p className="font-secondary leading-relaxed" style={{ color: "hsl(var(--text-body))" }}>
+                        Watch intro videos and see detailed profiles to find therapists you connect with.
+                      </p>
                     </div>
-                    <p className="font-secondary text-xl md:text-2xl text-text-secondary leading-relaxed text-right pr-22">
-                      Watch 30-60s intro videos to get a feel for their personality and approach.
-                    </p>
+                  </div>
+                  <div className="flex-shrink-0">
+                    <Video className="w-16 h-16" style={{ color: "hsl(var(--tag-modality-foreground))" }} />
                   </div>
                 </div>
 
-                {/* Step 3 - Left Aligned */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-                  <div className="lg:col-span-2 space-y-6">
-                    <div className="flex items-center gap-6">
-                      <div className="w-16 h-16 bg-tag-language rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="text-2xl font-bold text-tag-language-foreground">3</span>
-                      </div>
-                      <h3 className="font-primary text-3xl md:text-4xl font-bold text-text-primary">
+                {/* Step 3 */}
+                <div className="flex flex-col lg:flex-row gap-8 items-center">
+                  <div className="flex-1 flex items-start gap-6">
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "hsl(var(--tag-language))" }}>
+                      <span className="text-lg font-bold" style={{ color: "hsl(var(--tag-language-foreground))" }}>3</span>
+                    </div>
+                    <div className="space-y-3">
+                      <h3 className="text-2xl font-primary font-bold" style={{ color: "hsl(var(--text-primary))" }}>
                         Free chemistry calls
                       </h3>
+                      <p className="font-secondary leading-relaxed" style={{ color: "hsl(var(--text-body))" }}>
+                        Book 15-minute calls with your favorites to check the vibe — no commitment required.
+                      </p>
                     </div>
-                    <p className="font-secondary text-xl md:text-2xl text-text-secondary leading-relaxed pl-22">
-                      Book 15-minute calls with your favorites to check the vibe — no commitment required.
-                    </p>
                   </div>
-                  <div className="text-center lg:text-right">
-                    <div className="inline-block bg-tag-language/30 p-6 rounded-2xl">
-                      <span className="font-primary text-6xl text-tag-language-foreground">03</span>
-                    </div>
+                  <div className="flex-shrink-0">
+                    <Phone className="w-16 h-16" style={{ color: "hsl(var(--tag-language-foreground))" }} />
                   </div>
                 </div>
 
-                {/* Step 4 - Center Aligned */}
-                <div className="text-center space-y-8 bg-surface/50 p-12 rounded-3xl max-w-4xl mx-auto">
-                  <div className="flex items-center justify-center gap-6">
-                    <div className="w-20 h-20 bg-tag-misc rounded-full flex items-center justify-center">
-                      <span className="text-2xl font-bold text-tag-misc-foreground">4</span>
+                {/* Step 4 */}
+                <div className="text-center p-8 rounded-2xl" style={{ backgroundColor: "hsl(var(--surface) / 0.5)" }}>
+                  <div className="flex flex-col items-center gap-6 max-w-2xl mx-auto">
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: "hsl(var(--tag-misc))" }}>
+                      <span className="text-xl font-bold" style={{ color: "hsl(var(--tag-misc-foreground))" }}>4</span>
                     </div>
-                    <h3 className="font-primary text-3xl md:text-4xl font-bold text-text-primary">
+                    <h3 className="text-2xl font-primary font-bold" style={{ color: "hsl(var(--text-primary))" }}>
                       Only pay for sessions
                     </h3>
-                  </div>
-                  <p className="font-secondary text-xl md:text-2xl text-text-secondary leading-relaxed max-w-2xl mx-auto">
-                    No subscriptions. Switch therapists any time — no hard feelings.
-                  </p>
-                  <div className="pt-6">
-                    <Button size="lg" className="text-xl px-10 py-8 h-auto font-medium" asChild>
+                    <p className="font-secondary leading-relaxed" style={{ color: "hsl(var(--text-body))" }}>
+                      No subscriptions. Switch therapists any time — no hard feelings.
+                    </p>
+                    <Button size="lg" asChild className="mt-4">
                       <Link to="/assessment">Get Started Today</Link>
                     </Button>
                   </div>
                 </div>
               </div>
-
-              {/* Client Hero Image - Editorial Placement */}
-              <div className="text-center pt-8">
-                <img 
-                  src="/images/client-hero-image.png"
-                  alt="Client portrait with soft editorial overlays"
-                  className="w-72 h-auto mx-auto opacity-80"
-                  loading="lazy"
-                />
-              </div>
             </div>
           </Container>
         </section>
 
-        {/* For Clients Section - Editorial Layout */}
-        <section className="py-24 md:py-32 bg-tag-language">
+        {/* For Clients Section */}
+        <section className="py-20 lg:py-32" style={{ backgroundColor: "hsl(var(--tag-language))" }}>
           <Container>
-            <div className="space-y-20">
-              {/* Section Header - Asymmetrical */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-end">
-                <div className="space-y-8">
-                  <h2 className="font-primary text-5xl md:text-6xl lg:text-7xl font-bold text-text-primary leading-[0.9]">
-                    For 
-                    <em className="italic text-tag-language-foreground block">Clients</em>
+            <div className="space-y-12">
+              <div className="flex flex-col lg:flex-row gap-12 items-center">
+                <div className="flex-1 space-y-6">
+                  <h2 className="text-4xl lg:text-5xl font-primary font-bold leading-tight" style={{ color: "hsl(var(--text-primary))" }}>
+                    For <em className="italic" style={{ color: "hsl(var(--tag-language-foreground))" }}>Clients</em>
                   </h2>
-                  <div className="space-y-6">
-                    <p className="font-secondary text-2xl md:text-3xl text-text-secondary leading-[1.3] font-light">
-                      Find a therapist you click with.
-                    </p>
-                    <p className="font-secondary text-xl text-text-secondary leading-relaxed">
-                      See beyond credentials — discover personality, communication style, culture and identity. Save time, reduce stress, and avoid mismatched starts.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Editorial Grid - Asymmetrical */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <div className="lg:col-span-5">
-                  <img 
-                    src="/images/client-white-female-autistic-20s.png"
-                    alt="Young autistic woman in sage dungarees with dark green headphones"
-                    className="w-full h-auto rounded-2xl"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="lg:col-span-4 lg:col-start-7 lg:row-start-1">
-                  <img 
-                    src="/images/client-white-male-20s-lilac-shirt.png"
-                    alt="Young white male in lilac shirt, friendly and calm"
-                    className="w-full h-auto rounded-2xl"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="lg:col-span-3 lg:col-start-10 lg:row-start-1 flex items-end">
-                  <img 
-                    src="/images/therapist-black-female-40s.png"
-                    alt="Black Caribbean woman in cultural dress, warm and approachable"
-                    className="w-full h-auto rounded-2xl"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        {/* For Therapists Section - Editorial Two-Column */}
-        <section className="py-24 md:py-32 bg-tag-misc">
-          <Container>
-            <div className="space-y-20">
-              {/* Section Header */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-end">
-                <div className="lg:col-span-2 space-y-8">
-                  <h2 className="font-primary text-5xl md:text-6xl lg:text-7xl font-bold text-text-primary leading-[0.9]">
-                    For 
-                    <em className="italic text-tag-misc-foreground block">Therapists</em>
-                  </h2>
-                  <p className="font-secondary text-2xl md:text-3xl text-text-secondary leading-[1.3] font-light">
-                    Stand out by being yourself.
+                  <p className="text-xl font-secondary leading-relaxed" style={{ color: "hsl(var(--text-body))" }}>
+                    Find a therapist you click with.
+                  </p>
+                  <p className="font-secondary leading-relaxed" style={{ color: "hsl(var(--text-body))" }}>
+                    See beyond credentials — discover personality, communication style, culture and identity. Save time, reduce stress, and avoid mismatched starts.
                   </p>
                 </div>
+                
+                <div className="flex-1">
+                  <img 
+                    src="/images/client-hero-image.png"
+                    alt="Client portrait"
+                    className="w-full h-auto rounded-2xl"
+                    loading="lazy"
+                  />
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-                {/* Content Column */}
-                <div className="space-y-10">
-                  <h3 className="font-primary text-3xl md:text-4xl font-bold text-text-primary">
-                    Focus on what 
-                    <em className="italic">matters</em>
-                  </h3>
+              {/* Client Images */}
+              <div className="flex flex-wrap gap-6 justify-center">
+                <div className="flex-1 min-w-[250px] max-w-[300px]">
+                  <img 
+                    src="/images/client-white-female-autistic-20s.png"
+                    alt="Young autistic woman"
+                    className="w-full h-auto rounded-xl"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="flex-1 min-w-[250px] max-w-[300px]">
+                  <img 
+                    src="/images/client-white-male-20s-lilac-shirt.png"
+                    alt="Young white male"
+                    className="w-full h-auto rounded-xl"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* For Therapists Section */}
+        <section className="py-20 lg:py-32" style={{ backgroundColor: "hsl(var(--tag-misc))" }}>
+          <Container>
+            <div className="space-y-12">
+              <div className="flex flex-col lg:flex-row gap-12 items-center">
+                <div className="flex-1 space-y-6">
+                  <h2 className="text-4xl lg:text-5xl font-primary font-bold leading-tight" style={{ color: "hsl(var(--text-primary))" }}>
+                    For <em className="italic" style={{ color: "hsl(var(--tag-misc-foreground))" }}>Therapists</em>
+                  </h2>
+                  <p className="text-xl font-secondary leading-relaxed" style={{ color: "hsl(var(--text-body))" }}>
+                    Stand out by being yourself.
+                  </p>
                   
-                  <div className="space-y-8">
-                    <div className="flex items-start gap-6 bg-surface/50 p-6 rounded-xl">
-                      <div className="w-4 h-4 bg-tag-personality rounded-full mt-2 flex-shrink-0"></div>
-                      <p className="font-secondary text-xl text-text-secondary leading-relaxed">
+                  <div className="space-y-6">
+                    <div className="flex items-start gap-4 p-4 rounded-lg" style={{ backgroundColor: "hsl(var(--surface) / 0.5)" }}>
+                      <DollarSign className="w-6 h-6 mt-1 flex-shrink-0" style={{ color: "hsl(var(--tag-personality-foreground))" }} />
+                      <p className="font-secondary leading-relaxed" style={{ color: "hsl(var(--text-body))" }}>
                         Set your own rates, availability, and cancellation policy
                       </p>
                     </div>
-                    <div className="flex items-start gap-6 bg-surface/50 p-6 rounded-xl">
-                      <div className="w-4 h-4 bg-tag-modality rounded-full mt-2 flex-shrink-0"></div>
-                      <p className="font-secondary text-xl text-text-secondary leading-relaxed">
+                    <div className="flex items-start gap-4 p-4 rounded-lg" style={{ backgroundColor: "hsl(var(--surface) / 0.5)" }}>
+                      <UserCheck className="w-6 h-6 mt-1 flex-shrink-0" style={{ color: "hsl(var(--tag-modality-foreground))" }} />
+                      <p className="font-secondary leading-relaxed" style={{ color: "hsl(var(--text-body))" }}>
                         Attract pre-qualified clients who value your unique style
                       </p>
                     </div>
-                    <div className="flex items-start gap-6 bg-surface/50 p-6 rounded-xl">
-                      <div className="w-4 h-4 bg-tag-specialty rounded-full mt-2 flex-shrink-0"></div>
-                      <p className="font-secondary text-xl text-text-secondary leading-relaxed">
-                        All-in-one scheduling, payouts, and simple admin
+                    <div className="flex items-start gap-4 p-4 rounded-lg" style={{ backgroundColor: "hsl(var(--surface) / 0.5)" }}>
+                      <Shield className="w-6 h-6 mt-1 flex-shrink-0" style={{ color: "hsl(var(--tag-language-foreground))" }} />
+                      <p className="font-secondary leading-relaxed" style={{ color: "hsl(var(--text-body))" }}>
+                        Build genuine relationships before first sessions
                       </p>
                     </div>
                   </div>
                   
-                  <div className="pt-6">
-                    <Button size="lg" className="text-xl px-10 py-8 h-auto font-medium" asChild>
+                  <div className="pt-4">
+                    <Button size="lg" asChild>
                       <Link to="/therapist">Join as Therapist</Link>
                     </Button>
                   </div>
                 </div>
+                
+                <div className="flex-1">
+                  <img 
+                    src="/images/therapist-black-female-40s.png"
+                    alt="Black female therapist"
+                    className="w-full h-auto rounded-xl"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
 
-                {/* Images Column - Asymmetrical Grid */}
-                <div className="grid grid-cols-5 gap-4">
-                  <div className="col-span-3">
-                    <img 
-                      src="/images/therapist-black-female-40s.png"
-                      alt="Experienced Black female therapist — calm and professional"
-                      className="w-full h-auto rounded-2xl"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="col-span-2 col-start-4 row-start-1 pt-8">
-                    <img 
-                      src="/images/therapist-white-nonbinary-30s.png"
-                      alt="White nonbinary therapist in blazer — friendly and expressive"
-                      className="w-full h-auto rounded-2xl"
-                      loading="lazy"
-                    />
-                  </div>
+              <div className="flex flex-wrap gap-6 justify-center">
+                <div className="flex-1 min-w-[250px] max-w-[300px]">
+                  <img 
+                    src="/images/therapist-white-nonbinary-30s.png"
+                    alt="White nonbinary therapist"
+                    className="w-full h-auto rounded-xl"
+                    loading="lazy"
+                  />
                 </div>
               </div>
             </div>
           </Container>
         </section>
 
-        {/* Social Proof Section - Editorial Testimonials */}
-        <section className="py-24 md:py-32 bg-tag-specialty">
+        {/* Social Proof Section */}
+        <section className="py-20 lg:py-32" style={{ backgroundColor: "hsl(var(--tag-specialty))" }}>
           <Container>
-            <div className="space-y-16">
-              {/* Section Header */}
-              <div className="text-center space-y-8">
-                <h2 className="font-primary text-5xl md:text-6xl lg:text-7xl font-bold text-text-primary leading-[0.9]">
-                  What our 
-                  <em className="italic text-tag-specialty-foreground block">community says</em>
+            <div className="space-y-12">
+              <div className="text-center space-y-6">
+                <h2 className="text-4xl lg:text-5xl font-primary font-bold leading-tight" style={{ color: "hsl(var(--text-primary))" }}>
+                  What our <em className="italic" style={{ color: "hsl(var(--tag-specialty-foreground))" }}>community says</em>
                 </h2>
               </div>
               
-              {/* Editorial Testimonial Carousel */}
-              <div className="bg-surface/60 p-12 md:p-16 rounded-3xl">
+              <div className="p-8 rounded-2xl" style={{ backgroundColor: "hsl(var(--surface) / 0.6)" }}>
                 <TestimonialCarousel
                   items={[
                     {
@@ -443,35 +370,32 @@ export default function Index() {
           </Container>
         </section>
 
-        {/* Final CTA Section - Editorial Impact */}
-        <section className="py-24 md:py-32 bg-gradient-to-br from-tag-personality via-tag-modality to-tag-language relative overflow-hidden">
-          <DecorativeShapes variant="abstract" className="opacity-30" />
+        {/* Final CTA Section */}
+        <section className="py-20 lg:py-32" style={{ backgroundColor: "hsl(var(--tag-modality))" }}>
           <Container>
-            <div className="text-center space-y-16 relative z-10">
-              <div className="max-w-5xl mx-auto space-y-10">
-                <h2 className="font-primary text-5xl md:text-6xl lg:text-8xl font-bold text-text-primary leading-[0.9]">
-                  Ready to find your 
-                  <em className="italic text-jovial-jade block">therapist?</em>
+            <div className="text-center space-y-12">
+              <div className="max-w-4xl mx-auto space-y-6">
+                <h2 className="text-4xl lg:text-5xl font-primary font-bold leading-tight" style={{ color: "hsl(var(--text-primary))" }}>
+                  Ready to find your <em className="italic" style={{ color: "hsl(var(--tag-modality-foreground))" }}>therapist?</em>
                 </h2>
-                <p className="font-secondary text-2xl md:text-3xl text-text-secondary leading-[1.3] font-light max-w-3xl mx-auto">
-                  Take our 3-minute quiz and start swiping through therapist profiles today.
+                <p className="text-xl font-secondary leading-relaxed" style={{ color: "hsl(var(--text-body))" }}>
+                  Take our 3-minute quiz and start browsing therapist profiles today.
                 </p>
               </div>
               
-              {/* Editorial CTA Layout */}
-              <div className="bg-surface/80 backdrop-blur-sm p-12 md:p-16 rounded-3xl max-w-4xl mx-auto">
-                <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                  <Button size="lg" className="text-xl px-12 py-8 h-auto font-medium" asChild>
+              <div className="p-8 rounded-2xl max-w-2xl mx-auto" style={{ backgroundColor: "hsl(var(--surface) / 0.8)" }}>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <Button size="lg" asChild>
                     <Link to="/assessment">Start Your Journey</Link>
                   </Button>
-                  <div className="text-text-secondary font-secondary text-lg">or</div>
-                  <Button variant="outline" size="lg" className="text-xl px-12 py-8 h-auto font-medium border-2" asChild>
+                  <span className="text-sm font-secondary" style={{ color: "hsl(var(--text-secondary))" }}>or</span>
+                  <Button variant="outline" size="lg" asChild>
                     <Link to="/discover">Browse Therapists</Link>
                   </Button>
                 </div>
                 
-                <div className="mt-8 pt-8 border-t border-text-primary/20">
-                  <p className="font-secondary text-base text-text-muted font-medium tracking-wide">
+                <div className="mt-6 pt-6 border-t" style={{ borderColor: "hsl(var(--text-primary) / 0.2)" }}>
+                  <p className="text-sm font-secondary font-medium" style={{ color: "hsl(var(--text-secondary))" }}>
                     FREE TO START • NO COMMITMENT • 100% CONFIDENTIAL
                   </p>
                 </div>
