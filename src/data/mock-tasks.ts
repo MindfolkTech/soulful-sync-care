@@ -4,7 +4,7 @@ import { TaskItem } from "@/types/tasks";
 export const mockClientTasks: TaskItem[] = [
   {
     id: "c1",
-    title: "Complete Initial Assessment",
+    title: "Finish Your Assessment",
     role: "client",
     flow: "assessment",
     due: new Date(Date.now() + 24 * 60 * 60 * 1000), // Tomorrow
@@ -21,7 +21,7 @@ export const mockClientTasks: TaskItem[] = [
   },
   {
     id: "c2", 
-    title: "Book Chemistry Call with Dr. Sarah Chen",
+    title: "Book Free Call with Dr. Sarah Chen",
     role: "client",
     flow: "booking",
     due: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 1 week
@@ -38,7 +38,7 @@ export const mockClientTasks: TaskItem[] = [
   },
   {
     id: "c3",
-    title: "Leave Feedback for Last Session",
+    title: "Rate Your Last Session",
     role: "client", 
     flow: "session",
     due: new Date(Date.now() - 24 * 60 * 60 * 1000), // Yesterday (overdue)
@@ -55,7 +55,7 @@ export const mockClientTasks: TaskItem[] = [
   },
   {
     id: "c4",
-    title: "Enable SMS Notifications",
+    title: "Turn On Text Alerts",
     role: "client",
     flow: "assessment", 
     due: null,
@@ -71,7 +71,7 @@ export const mockClientTasks: TaskItem[] = [
   },
   {
     id: "c5",
-    title: "Session Feedback Submitted",
+    title: "Session Rating Done",
     role: "client",
     flow: "session",
     due: null,
@@ -90,7 +90,7 @@ export const mockClientTasks: TaskItem[] = [
 export const mockTherapistTasks: TaskItem[] = [
   {
     id: "t1",
-    title: "Submit Professional License Documentation",
+    title: "Upload Your License",
     role: "therapist",
     flow: "verification",
     due: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days
@@ -107,7 +107,7 @@ export const mockTherapistTasks: TaskItem[] = [
   },
   {
     id: "t2",
-    title: "Record Introduction Video",
+    title: "Make Intro Video",
     role: "therapist",
     flow: "verification",
     due: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days
@@ -124,7 +124,7 @@ export const mockTherapistTasks: TaskItem[] = [
   },
   {
     id: "t3",
-    title: "Complete Session Notes for Emma Johnson",
+    title: "Write Session Notes for Emma",
     role: "therapist",
     flow: "session",
     due: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2 hours
@@ -141,7 +141,7 @@ export const mockTherapistTasks: TaskItem[] = [
   },
   {
     id: "t4",
-    title: "Add Availability for Next Week",
+    title: "Set Next Week's Schedule",
     role: "therapist",
     flow: "booking",
     due: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days
@@ -158,7 +158,7 @@ export const mockTherapistTasks: TaskItem[] = [
   },
   {
     id: "t5",
-    title: "Review Chemistry Call Request",
+    title: "Check New Client Request",
     role: "therapist",
     flow: "booking",
     due: new Date(Date.now() + 6 * 60 * 60 * 1000), // 6 hours
@@ -175,7 +175,7 @@ export const mockTherapistTasks: TaskItem[] = [
   },
   {
     id: "t6",
-    title: "Configure Payout Method",
+    title: "Set Up Payments",
     role: "therapist",
     flow: "payouts",
     due: null,

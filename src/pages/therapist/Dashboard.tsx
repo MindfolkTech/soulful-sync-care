@@ -115,16 +115,6 @@ export default function TherapistDashboard() {
                     3
                   </Badge>
                 </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="hover:bg-surface-accent transition-colors duration-200" 
-                  aria-label="Customize dashboard"
-                  onClick={() => window.location.href = '/t/settings'}
-                >
-                  <Settings className="w-4 h-4 mr-2" aria-hidden="true" />
-                  Customize
-                </Button>
               </div>
             </div>
 
@@ -294,7 +284,6 @@ export default function TherapistDashboard() {
                       <Badge variant="outline" className="text-xs">
                         {upcomingAppointments.filter(a => a.priority === 'high').length} High Priority
                       </Badge>
-                      <Button variant="outline" size="sm">View All</Button>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -382,9 +371,6 @@ export default function TherapistDashboard() {
                         </p>
                       </div>
                     ))}
-                    <Button variant="outline" size="sm" className="w-full">
-                      View All Notifications
-                    </Button>
                   </CardContent>
                 </Card>
 
@@ -404,12 +390,6 @@ export default function TherapistDashboard() {
                       <Link to="/t/clients">
                         <Users className="w-4 h-4 mr-2" />
                         Manage Clients
-                      </Link>
-                    </Button>
-                    <Button asChild variant="outline" className="w-full justify-start hover:bg-surface-accent">
-                      <Link to="/t/analytics">
-                        <BarChart3 className="w-4 h-4 mr-2" />
-                        View Analytics
                       </Link>
                     </Button>
                     <Button asChild variant="outline" className="w-full justify-start hover:bg-surface-accent">
@@ -474,9 +454,6 @@ export default function TherapistDashboard() {
                         </div>
                       </div>
                     ))}
-                    <Button variant="outline" size="sm" className="w-full">
-                      View All Clients
-                    </Button>
                   </CardContent>
                 </Card>
               </div>
