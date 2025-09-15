@@ -33,14 +33,22 @@
     --btn-cta-bg: 134 23% 92%; /* #E6EEE9 */
     --btn-cta-text: 155 28% 28%; /* #305C45 */
     
+    /* Editorial Colors - Extended palette */
+    --peach-light: 22 100% 87%; /* #FFD9BE */
+    --peach-bold: 12 95% 74%; /* #FA9981 */
+    --soft-blush: 22 100% 92%; /* #FFE9D6 */
+    --soft-sage: 134 23% 92%; /* #E6EEE9 */
+    --soft-blue: 211 38% 93%; /* #E3ECF5 */
+    --soft-lavender: 267 55% 94%; /* #EDE6FA */
+    
     /* Tag System Colors */
-    --tag-personality-bg: 32 100% 92%; /* #FFE9D6 */
+    --tag-personality-bg: var(--soft-blush);
     --tag-personality-text: 155 28% 28%; /* #305C45 */
-    --tag-modality-bg: 134 23% 92%; /* #E6EEE9 */
+    --tag-modality-bg: var(--soft-sage);
     --tag-modality-text: 155 28% 28%; /* #305C45 */
-    --tag-specialty-bg: 211 38% 93%; /* #E3ECF5 */
+    --tag-specialty-bg: var(--soft-blue);
     --tag-specialty-text: 198 33% 17%; /* #20323A */
-    --tag-language-bg: 267 55% 94%; /* #EDE6FA */
+    --tag-language-bg: var(--soft-lavender);
     --tag-language-text: 155 28% 28%; /* #305C45 */
     --tag-misc-bg: 22 41% 92%; /* #F5E4DE */
     --tag-misc-text: 155 28% 28%; /* #305C45 */
