@@ -367,7 +367,7 @@ export default function Index() {
               </div>
               <div className="text-center">
                 <img 
-                  src={clientAutistic20s}
+                  src={therapistBlackFemale40s}
                   alt="Black Caribbean woman in cultural dress, warm and approachable"
                   className="w-full h-auto"
                   loading="lazy"
