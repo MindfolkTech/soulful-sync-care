@@ -21,16 +21,16 @@ export function Header() {
 
           <nav className="hidden md:flex items-center space-x-6">
             <Link 
-              to="/browse" 
+              to="/assessment" 
               className="text-text-secondary hover:text-text-primary transition-colors font-secondary"
             >
               Find a Therapist
             </Link>
             <Link 
-              to="/therapist" 
+              to="/therapist/signup" 
               className="text-text-secondary hover:text-text-primary transition-colors font-secondary"
             >
-              For Therapists
+              Join as Therapist
             </Link>
           </nav>
 
@@ -39,7 +39,7 @@ export function Header() {
               <Link to="/sign-in">Sign In</Link>
             </Button>
             <Button asChild>
-              <Link to="/signup">Get Started</Link>
+              <Link to="/assessment">Get Started</Link>
             </Button>
           </div>
         </div>

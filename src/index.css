@@ -6,36 +6,32 @@
 
 @layer base {
   :root {
-    /* MindFolk Theme Colors - Exact Match */
-    --background: 32 100% 97%; /* #FFF8F2 */
+    /* Core Brand Colors */
+    --jovial-jade: 155 28% 28%; /* #305C45 */
+    --garden-green: 145 27% 35%; /* #497557 */
+    --elated-emerald: 149 28% 32%; /* #3B674D */
+    
+    /* Surface & Background */
+    --warm-white: 32 100% 97%; /* #FFF8F2 */
     --surface: 0 0% 100%; /* #FFFFFF */
     --surface-accent: 134 23% 92%; /* #E8F0E9 */
-    --text-primary: 155 28% 28%; /* #305C45 */
-    --text-body: 145 23% 35%; /* #466749 */
+    
+    /* Text & Border */
+    --text-primary: 145 23% 35%; /* #466749 */
     --text-secondary: 220 13% 46%; /* #6B7280 */
+    --text-muted: 220 13% 46%; /* #6B7280 */
+    --text-dark: 0 0% 0%; /* #000000 */
     --border: 220 13% 91%; /* #E5E7EB */
-    --primary-green: 145 27% 35%; /* #497557 */
-    --accent-green: 149 28% 32%; /* #3B674D */
     
-    /* Pastel Overlay Colors */
-    --peach-light: 32 100% 87%; /* #FFD9BE */
-    --peach-bold: 14 88% 83%; /* #FA9981 */
-    --soft-blush: 32 100% 92%; /* #FFE9D6 */
-    --soft-sage: 134 23% 92%; /* #E6EEE9 */
-    --soft-blue: 211 38% 93%; /* #E3ECF5 */
-    --soft-lavender: 267 55% 94%; /* #EDE6FA */
-    
-    /* Button Theme */
+    /* Button Colors */
     --btn-primary-bg: 145 27% 35%; /* #497557 */
     --btn-primary-text: 0 0% 100%; /* #FFFFFF */
-    --btn-primary-hover: 149 28% 32%; /* #3B674D */
-    --btn-secondary-bg: 0 0% 100%; /* #FFFFFF */
+    --btn-secondary-bg: 0 0% 0%; /* transparent */
     --btn-secondary-text: 145 27% 35%; /* #497557 */
-    --btn-secondary-border: 145 27% 35%; /* #497557 */
-    --btn-secondary-hover: 134 23% 92%; /* #E6EEE9 */
     --btn-accent-bg: 32 100% 87%; /* #FFD9BE */
     --btn-accent-text: 155 28% 28%; /* #305C45 */
-    --btn-accent-hover: 32 100% 92%; /* #FFE9D6 */
+    --btn-cta-bg: 134 23% 92%; /* #E6EEE9 */
+    --btn-cta-text: 155 28% 28%; /* #305C45 */
     
     /* Tag System Colors */
     --tag-personality-bg: 32 100% 92%; /* #FFE9D6 */
