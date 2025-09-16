@@ -146,9 +146,9 @@ export default function Billing() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-3 bg-garden-green/10 border border-garden-green/20 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-garden-green" />
+                    <Calendar className="h-4 w-4 text-blue-600" />
                     <span className="text-sm font-medium">Next billing date</span>
                   </div>
                   <span className="text-sm">{subscription.nextBilling}</span>
@@ -327,14 +327,14 @@ export default function Billing() {
                 </div>
 
                 {subscription.addOnSessions > 0 && (
-                  <div className="p-3 bg-warning-bg border border-warning-bg rounded-lg">
+                  <div className="p-3 bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
                     <div className="flex items-center gap-2">
-                      <AlertTriangle className="h-4 w-4 text-warning-text" />
-                      <span className="font-medium text-warning-text">
+                      <AlertTriangle className="h-4 w-4 text-yellow-600" />
+                      <span className="font-medium text-yellow-900 dark:text-yellow-100">
                         Additional Sessions
                       </span>
                     </div>
-                    <p className="text-sm text-warning-text mt-1">
+                    <p className="text-sm text-yellow-800 dark:text-yellow-200 mt-1">
                       You've used {subscription.addOnSessions} additional sessions this month
                     </p>
                   </div>
@@ -362,7 +362,7 @@ export default function Billing() {
                     Due {subscription.nextBilling}
                   </p>
                   <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
-                    <CheckCircle2 className="h-3 w-3 text-success-bg" />
+                    <CheckCircle2 className="h-3 w-3 text-green-500" />
                     Auto-pay enabled
                   </div>
                 </div>

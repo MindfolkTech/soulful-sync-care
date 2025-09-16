@@ -10,7 +10,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "react-router-dom";
 import { SocialLogin } from "@/components/auth/social-login";
 import { AlertCircle, Eye, EyeOff } from "lucide-react";
-import celebrationIllustration from "@/assets/celebration-illustration.jpg";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -63,13 +62,6 @@ export default function SignUp() {
         <Container size="sm">
           <Card className="w-full max-w-md mx-auto">
             <CardHeader className="text-center">
-              <div className="mb-4">
-                <img 
-                  src={celebrationIllustration} 
-                  alt="Start your mental wellness journey"
-                  className="w-32 h-32 mx-auto rounded-lg object-cover"
-                />
-              </div>
               <CardTitle className="font-primary text-2xl">Get started</CardTitle>
               <CardDescription className="font-secondary">
                 Create your MindFolk account

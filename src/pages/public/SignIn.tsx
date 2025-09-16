@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 import { SocialLogin } from "@/components/auth/social-login";
 import { ForgotPasswordDialog } from "@/components/auth/forgot-password-dialog";
 import { AlertCircle } from "lucide-react";
-import celebrationIllustration from "@/assets/celebration-illustration.jpg";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -41,13 +40,6 @@ export default function SignIn() {
         <Container size="sm">
           <Card className="w-full max-w-md mx-auto">
             <CardHeader className="text-center">
-              <div className="mb-4">
-                <img 
-                  src={celebrationIllustration} 
-                  alt="Welcome back to your mental wellness journey"
-                  className="w-32 h-32 mx-auto rounded-lg object-cover"
-                />
-              </div>
               <CardTitle className="font-primary text-2xl">Welcome back</CardTitle>
               <CardDescription className="font-secondary">
                 Sign in to your MindFolk account
