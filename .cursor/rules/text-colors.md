@@ -145,3 +145,31 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Use **design tokens** only.
 - General warnings
 - Info messages
 - Help text
+
+## Dashboard-Specific Colors
+
+### Header Colors
+- **Logo text**: White (#FFFFFF) on `--jovial-jade` background
+- **Search placeholder**: `--text-muted` (#6B7280) on `--jovial-jade` background
+- **User avatar text**: White (#FFFFFF) on `--jovial-jade` background
+
+### Sidebar Colors
+- **Navigation text**: `--jovial-jade` (#305C45) on `--surface-accent` background
+- **Active navigation**: White (#FFFFFF) on `--jovial-jade` background
+- **Quick actions**: `--jovial-jade` (#305C45) on `--surface-accent` background
+
+### Widget Colors
+- **Widget titles**: `--jovial-jade` (#305C45) on `--surface` background
+- **Action links**: `--garden-green` (#497557) on `--surface` background
+- **Client names**: `--text-primary` (#466749) on `--surface` background
+- **Email addresses**: `--text-secondary` (#6B7280) on `--surface` background
+- **Times/dates**: `--text-secondary` (#6B7280) on `--surface` background
+
+### Status Badge Colors
+- **Active status**: White (#FFFFFF) on `--success-bg` (#497557)
+- **Inactive status**: `--text-black` (#000000) on `--warning-bg` (#fcbaaa)
+
+### Chart Colors
+- **Chart labels**: `--text-secondary` (#6B7280) on white background
+- **Central numbers**: `--jovial-jade` (#305C45) on white background
+- **Data points**: Orange (#ffd9be) with white centers
