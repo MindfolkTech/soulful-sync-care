@@ -113,7 +113,7 @@ export default function AdminUsers() {
       case "active":
         return "bg-success text-success-foreground";
       case "inactive":
-        return "bg-text-secondary text-white";
+        return "bg-text-secondary text-[--on-dark]";
       case "suspended":
         return "bg-destructive text-destructive-foreground";
     }
@@ -197,7 +197,7 @@ export default function AdminUsers() {
                     <Badge variant="secondary" className="bg-success text-success-foreground">
                       {activeUsers.length} Active
                     </Badge>
-                    <Badge variant="secondary" className="bg-text-secondary text-white">
+                    <Badge variant="secondary" className="bg-text-secondary text-[--on-dark]">
                       {inactiveUsers.length} Inactive
                     </Badge>
                     <Badge variant="secondary" className="bg-destructive text-destructive-foreground">

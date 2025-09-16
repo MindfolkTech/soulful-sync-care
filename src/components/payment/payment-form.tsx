@@ -186,7 +186,7 @@ export function PaymentForm({
                   <ul className="text-xs space-y-1">
                     {plan.features.map((feature, index) => (
                       <li key={index} className="flex items-center gap-1">
-                        <Check className="h-3 w-3 text-green-500" />
+                        <Check className="h-3 w-3 text-[--success-text]" />
                         {feature}
                       </li>
                     ))}
@@ -204,7 +204,7 @@ export function PaymentForm({
         <div className="flex items-center gap-2">
           <CreditCard className="h-5 w-5" />
           <h3 className="font-semibold">Payment Information</h3>
-          <Lock className="h-4 w-4 text-green-500 ml-auto" />
+          <Lock className="h-4 w-4 text-[--success-text] ml-auto" />
         </div>
 
         {/* Card Number */}

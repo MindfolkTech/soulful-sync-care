@@ -171,7 +171,7 @@ export default function TherapistOnboarding() {
               <div className="bg-surface-accent p-6 rounded-xl mb-8 shadow-sm border border-border" role="region" aria-label="Step tip and example">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 bg-garden-green rounded-full flex items-center justify-center flex-shrink-0">
-                    <Lightbulb className="w-5 h-5 text-white" aria-hidden="true" />
+                    <Lightbulb className="w-5 h-5 text-[--on-dark]" aria-hidden="true" />
                   </div>
                   <div>
                     <p className="font-crimson text-jovial-jade text-base font-semibold mb-2">
@@ -459,7 +459,7 @@ export default function TherapistOnboarding() {
                       }}>Start Recording</Button>
                     </div>
 
-                    <Button variant="tertiary" onClick={handleContinue}>Skip for now (you can add this later)</Button>
+                    <Button variant="tertiary" onClick={() => setCurrentStep(Math.min(onboardingSteps.length, currentStep + 1))}>Skip for now (you can add this later)</Button>
                   </div>
                 )}
 
@@ -523,7 +523,7 @@ export default function TherapistOnboarding() {
                 variant="outline"
                 onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
                 disabled={currentStep === 1}
-                className="hover:bg-surface-accent transition-colors duration-200 disabled:opacity-50"
+                className="hover:bg-[--surface-accent] transition-colors duration-200 disabled:opacity-50 min-h-[--touch-target-min]"
                 aria-label="Go to previous step"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" aria-hidden="true" />
@@ -539,8 +539,8 @@ export default function TherapistOnboarding() {
                     setCurrentStep(Math.min(onboardingSteps.length, currentStep + 1));
                   }
                 }}
-                disabled={currentStep === onboardingSteps.length}
-                className="bg-garden-green hover:bg-elated-emerald text-white px-8 py-3 transition-all duration-200 disabled:opacity-50"
+                disabled={false}
+                className="bg-[--garden-green] hover:bg-[--elated-emerald] text-[--on-dark] px-8 py-3 transition-all duration-200 disabled:opacity-50 min-h-[--touch-target-min]"
                 aria-label={currentStep === onboardingSteps.length ? "Complete onboarding setup" : "Go to next step"}
               >
                 {currentStep === onboardingSteps.length ? "Complete Setup" : "Continue"}

@@ -50,11 +50,11 @@ const getIconColor = (type: string) => {
     case "appointment":
       return "text-primary";
     case "message":
-      return "text-blue-500";
+      return "text-[--garden-green]";
     case "favorite":
-      return "text-red-500";
+      return "text-[--error-text]";
     case "booking":
-      return "text-green-500";
+      return "text-[--success-text]";
     default:
       return "text-text-muted";
   }

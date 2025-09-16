@@ -105,7 +105,7 @@ export function GADScoring({ clientId, sessionId }: GADScoringProps) {
               <p className="text-sm text-muted-foreground mt-1">Severity Level</p>
             </div>
             <div className="text-center p-4 bg-muted/30 rounded-lg">
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-2xl font-bold text-[--success-text]">
                 {Math.round((7 - questions.filter(q => q.score !== null).length) / 7 * 100)}%
               </div>
               <p className="text-sm text-muted-foreground">Progress</p>

@@ -168,7 +168,7 @@ export function VideoOverlay({
                 onClick={handlePlayPause}
                 aria-label="Play video"
               >
-                <Play className="h-16 w-16 text-white" />
+                <Play className="h-16 w-16 text-[--on-dark]" />
               </Button>
             )}
           </div>
@@ -176,7 +176,7 @@ export function VideoOverlay({
           {/* Controls */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[--overlay-dark]/80 to-transparent p-4">
             {/* Keyboard shortcuts hint */}
-            <div className="text-xs text-white/70 mb-2 text-center">
+            <div className="text-xs text-[--on-dark]/70 mb-2 text-center">
               Space: Play/Pause • M: Mute • C: Captions • F: Fullscreen • Esc: Close
             </div>
             <div className="flex items-center justify-between">
@@ -185,7 +185,7 @@ export function VideoOverlay({
                   size="icon"
                   variant="ghost"
                   onClick={handlePlayPause}
-                  className="text-white hover:bg-white/20"
+                  className="text-[--on-dark] hover:bg-[--surface]/20"
                   aria-label={isPlaying ? "Pause video" : "Play video"}
                 >
                   {isPlaying ? (
@@ -199,7 +199,7 @@ export function VideoOverlay({
                   size="icon"
                   variant="ghost"
                   onClick={handleMuteToggle}
-                  className="text-white hover:bg-white/20"
+                  className="text-[--on-dark] hover:bg-[--surface]/20"
                   aria-label={isMuted ? "Unmute video" : "Mute video"}
                 >
                   {isMuted ? (
@@ -214,8 +214,8 @@ export function VideoOverlay({
                   variant="ghost"
                   onClick={handleCaptionsToggle}
                   className={cn(
-                    "text-white hover:bg-white/20",
-                    captionsEnabled && "bg-white/20"
+                    "text-[--on-dark] hover:bg-[--surface]/20",
+                    captionsEnabled && "bg-[--surface]/20"
                   )}
                   aria-label={captionsEnabled ? "Disable captions" : "Enable captions"}
                   aria-pressed={captionsEnabled}
@@ -227,7 +227,7 @@ export function VideoOverlay({
                   size="icon"
                   variant="ghost"
                   onClick={handleFullscreenToggle}
-                  className="text-white hover:bg-white/20"
+                  className="text-[--on-dark] hover:bg-[--surface]/20"
                   aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
                 >
                   {isFullscreen ? (
@@ -242,7 +242,7 @@ export function VideoOverlay({
                 size="icon"
                 variant="ghost"
                 onClick={() => onOpenChange(false)}
-                className="text-white hover:bg-white/20"
+                className="text-[--on-dark] hover:bg-[--surface]/20"
                 aria-label="Close video"
               >
                 <X className="h-5 w-5" />

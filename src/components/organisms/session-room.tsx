@@ -45,8 +45,8 @@ const SessionRoom = React.forwardRef<HTMLDivElement, SessionRoomProps>(
           {/* Therapist Video */}
           <div className="absolute inset-0 bg-gradient-to-br from-garden-green to-elated-emerald">
             <div className="flex items-center justify-center h-full">
-              <div className="text-center text-white">
-                <div className="w-32 h-32 bg-white/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+              <div className="text-center text-[--on-dark]">
+                <div className="w-32 h-32 bg-[--surface]/20 rounded-full mx-auto mb-4 flex items-center justify-center">
                   <span className="text-4xl font-bold">
                     {therapistName.split(' ').map(n => n[0]).join('')}
                   </span>
@@ -65,7 +65,7 @@ const SessionRoom = React.forwardRef<HTMLDivElement, SessionRoomProps>(
           <div className="absolute top-4 right-4 w-48 h-36 bg-surface-accent rounded-lg overflow-hidden">
             <div className="flex items-center justify-center h-full">
               <div className="text-center text-text-primary">
-                <div className="w-16 h-16 bg-white/20 rounded-full mx-auto mb-2 flex items-center justify-center">
+                <div className="w-16 h-16 bg-[--surface]/20 rounded-full mx-auto mb-2 flex items-center justify-center">
                   <span className="text-lg font-bold">You</span>
                 </div>
                 <p className="text-xs">Your video</p>

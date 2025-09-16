@@ -10,6 +10,8 @@ alwaysApply: true
 Apply to all UI code (React/TSX/CSS/Tailwind). Ensure all color combinations meet accessibility standards and maintain visual harmony.
 🚫 No washed-out, low-contrast, or visually jarring color combinations.
 
+**Reference**: See `design-tokens.md` for complete token definitions and usage guidelines.
+
 ## Contrast Requirements (WCAG 2.1 AA)
 
 ### Minimum Contrast Ratios
@@ -31,7 +33,7 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure all color combinations mee
 --text-primary (#466749) on --warm-white (#FFF8F2)     /* 7.2:1 */
 --text-primary (#466749) on --surface (#FFFFFF)         /* 7.8:1 */
 --jovial-jade (#305C45) on --warm-white (#FFF8F2)      /* 8.1:1 */
---ink-slate (#20323A) on --soft-blue (#E3ECF5)          /* 11.2:1 */
+--ink-slate (#20323A) on --tag-specialty-bg (#E3ECF5)  /* 11.2:1 */
 
 /* Good contrast (4.5:1+) */
 --text-secondary (#6B7280) on --warm-white (#FFF8F2)    /* 4.8:1 */
@@ -46,18 +48,18 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure all color combinations mee
 --ink-slate (#20323A) + --on-dark (#FFFFFF)            /* 12.6:1 */
 
 /* Accent buttons */
---peach-100 (#ffd9be) + --jovial-jade (#305C45)        /* 5.8:1 */
---soft-blue (#E3ECF5) + --ink-slate (#20323A)           /* 11.2:1 */
+--btn-accent-bg (#ffd9be) + --btn-accent-text (#305C45) /* 5.8:1 */
+--tag-specialty-bg (#E3ECF5) + --tag-specialty-text (#20323A) /* 11.2:1 */
 ```
 
 ### Tag Combinations
 ```css
 /* High contrast tags */
---peach-100 (#ffe9d6) + --jovial-jade (#305C45)        /* 6.1:1 */
---sage-100 (#e6eee9) + --jovial-jade (#305C45)         /* 6.8:1 */
---soft-blue (#E3ECF5) + --ink-slate (#20323A)           /* 11.2:1 */
---lavender-100 (#ede6fa) + --jovial-jade (#305C45)      /* 6.4:1 */
---rose-100 (#f5e4de) + --jovial-jade (#305C45)         /* 6.2:1 */
+--tag-personality-bg (#ffd9be) + --tag-personality-text (#305C45) /* 6.1:1 */
+--tag-modality-bg (#e6eee9) + --tag-modality-text (#305C45)      /* 6.8:1 */
+--tag-specialty-bg (#E3ECF5) + --tag-specialty-text (#20323A)    /* 11.2:1 */
+--tag-language-bg (#ede6fa) + --tag-language-text (#305C45)      /* 6.4:1 */
+--tag-misc-bg (#f5e4de) + --tag-misc-text (#305C45)              /* 6.2:1 */
 ```
 
 ## Forbidden Low-Contrast Combinations
@@ -66,17 +68,17 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure all color combinations mee
 ```css
 /* Never use these - insufficient contrast */
 --text-muted (#6B7280) on --surface-accent (#E8F0E9)   /* 2.8:1 */
---text-secondary (#6B7280) on --sage-100 (#e6eee9)     /* 3.1:1 */
---jovial-jade (#305C45) on --sage-100 (#e6eee9)       /* 4.2:1 */
+--text-secondary (#6B7280) on --tag-modality-bg (#e6eee9) /* 3.1:1 */
+--jovial-jade (#305C45) on --tag-modality-bg (#e6eee9) /* 4.2:1 */
 --garden-green (#497557) on --surface-accent (#E8F0E9) /* 3.9:1 */
 ```
 
 ### ❌ Visually Jarring Combinations
 ```css
 /* Never use these - poor harmony */
---garden-green (#497557) + --peach-200 (#fcbaaa)      /* Clashing */
---jovial-jade (#305C45) + --lavender-100 (#ede6fa)    /* Poor contrast */
---ink-slate (#20323A) + --rose-100 (#f5e4de)          /* Too dark */
+--garden-green (#497557) + --warning-bg (#fcbaaa)     /* Clashing */
+--jovial-jade (#305C45) + --tag-language-bg (#ede6fa) /* Poor contrast */
+--ink-slate (#20323A) + --tag-misc-bg (#f5e4de)       /* Too dark */
 ```
 
 ## Color Harmony Principles
@@ -84,7 +86,7 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure all color combinations mee
 ### Analogous Harmony (Your Primary System)
 - **Green family**: `--jovial-jade`, `--garden-green`, `--elated-emerald`
 - **Warm neutrals**: `--warm-white`, `--surface`, `--surface-accent`
-- **Soft pastels**: `--peach-100`, `--sage-100`, `--soft-blue`, `--lavender-100`, `--rose-100`
+- **Soft pastels**: `--tag-personality-bg`, `--tag-modality-bg`, `--tag-specialty-bg`, `--tag-language-bg`, `--tag-misc-bg`
 
 ### Complementary Accents
 - **Peach (#ffd9be)** complements **green** for warmth
@@ -102,8 +104,8 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure all color combinations mee
 ### Detection Patterns
 ```regex
 /* Detect low contrast combinations */
-/(?:text-(?:muted|secondary).*bg-(?:surface-accent|sage-100))/i
-/(?:text-(?:jovial-jade|garden-green).*bg-(?:sage-100|surface-accent))/i
+/(?:text-(?:muted|secondary).*bg-(?:surface-accent|tag-modality-bg))/i
+/(?:text-(?:jovial-jade|garden-green).*bg-(?:tag-modality-bg|surface-accent))/i
 
 /* Detect washed-out combinations */
 /(?:bg-(?:#[f-f]{6}|#[e-e]{6}|#[d-d]{6}))/i  /* Very light backgrounds */
@@ -134,11 +136,11 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure all color combinations mee
 
 // High contrast buttons
 <Button className="bg-[--garden-green] text-[--on-dark]">Primary Action</Button>
-<Button className="bg-[--soft-blue] text-[--ink-slate]">Trust Action</Button>
+<Button className="bg-[--tag-specialty-bg] text-[--tag-specialty-text]">Trust Action</Button>
 
 // High contrast tags
-<Tag className="bg-[--peach-100] text-[--jovial-jade]">Personality</Tag>
-<Tag className="bg-[--soft-blue] text-[--ink-slate]">Specialty</Tag>
+<Tag className="bg-[--tag-personality-bg] text-[--tag-personality-text]">Personality</Tag>
+<Tag className="bg-[--tag-specialty-bg] text-[--tag-specialty-text]">Specialty</Tag>
 ```
 
 ### ❌ Poor Contrast Examples
@@ -147,10 +149,10 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure all color combinations mee
 <p className="text-[--text-muted] bg-[--surface-accent]">Washed out</p>
 
 // Wrong - insufficient contrast
-<Button className="bg-[--sage-100] text-[--text-secondary]">Hard to read</Button>
+<Button className="bg-[--tag-modality-bg] text-[--text-secondary]">Hard to read</Button>
 
 // Wrong - clashing colors
-<div className="bg-[--garden-green] text-[--peach-200]">Jarring</div>
+<div className="bg-[--garden-green] text-[--warning-bg]">Jarring</div>
 ```
 
 ## Implementation Guidelines

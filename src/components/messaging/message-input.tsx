@@ -231,7 +231,7 @@ export function MessageInput({
         {/* Encryption Notice */}
         <div className="px-3 pb-2">
           <div className="flex items-center gap-1 text-xs text-muted-foreground">
-            <Shield className="h-3 w-3 text-green-500" />
+            <Shield className="h-3 w-3 text-[--success-text]" />
             <span>Messages are end-to-end encrypted</span>
           </div>
         </div>

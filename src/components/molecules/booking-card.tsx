@@ -29,7 +29,7 @@ const statusColors = {
   upcoming: "bg-btn-accent text-btn-accent-foreground",
   completed: "bg-success text-success-foreground",
   cancelled: "bg-destructive text-destructive-foreground",
-  'no-show': "bg-text-secondary text-white"
+  'no-show': "bg-text-secondary text-[--on-dark]"
 };
 
 const typeLabels = {

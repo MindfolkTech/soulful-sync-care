@@ -83,7 +83,7 @@ export default function TherapistDetail() {
 
                       <div className="flex items-center justify-center md:justify-start space-x-4">
                         <div className="flex items-center space-x-1">
-                          <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                          <Star className="w-5 h-5 fill-[--warning-text] text-[--warning-text]" />
                           <span className="font-secondary font-semibold">
                             {therapist.rating}
                           </span>

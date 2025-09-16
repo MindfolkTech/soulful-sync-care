@@ -10,6 +10,8 @@ alwaysApply: true
 Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains core user flow elements and accessibility standards.
 🚫 No screens without essential navigation, progress, or flow continuity elements.
 
+**Reference**: See `design-tokens.md` for complete token definitions and usage guidelines.
+
 ## Core Flow Requirements
 
 ### Universal Screen Elements (Every Screen Must Have)
@@ -21,8 +23,8 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - **Exit/Logout** option accessible but not prominent
 
 #### 2. Accessibility & Touch Targets
-- **Minimum touch targets**: `var(--touch-target-min)` (44px) for all interactive elements
-- **Comfortable touch targets**: `var(--touch-target-comfort)` (56px) for primary actions
+- **Minimum touch targets**: `min-h-[--touch-target-min]` (44px) for all interactive elements
+- **Comfortable touch targets**: `min-h-[--touch-target-comfort]` (56px) for primary actions
 - **Focus indicators**: Visible focus rings on all interactive elements
 - **Keyboard navigation**: All flows must be keyboard accessible
 
@@ -30,7 +32,7 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - **Container wrapper**: All content wrapped in `<Container>` component
 - **Responsive padding**: `px-6 md:px-8 lg:px-10` for horizontal spacing
 - **Card padding**: `p-4 md:p-5 lg:p-6` for option cards and content blocks
-- **Vertical rhythm**: `gap-4` (headline/body), `gap-6` (section to primary CTA)
+- **Vertical rhythm**: `gap-4` (headline/body), `gap-6` (section → primary CTA)
 
 ## Client Journey: Assessment-First Discovery
 
@@ -40,22 +42,22 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 
 **Welcome & Value Proposition**
 - ✅ Hero illustration with diverse figures
-- ✅ Primary CTA: "Start Your Journey" (`var(--btn-primary-bg)` + `var(--btn-primary-text)`)
-- ✅ Secondary CTA: "Already have an account? Log In" (`var(--btn-accent-bg)` + `var(--garden-green)` border)
+- ✅ Primary CTA: "Start Your Journey" (`bg-[--btn-primary-bg]` + `text-[--btn-primary-text]`)
+- ✅ Secondary CTA: "Already have an account? Log In" (`bg-[--btn-accent-bg]` + `border-[--garden-green]`)
 - ✅ Container wrapper with responsive padding
 
 **Assessment Introduction**
-- ✅ Progress indicator: Step X of 4 (`var(--garden-green)` progress bar)
+- ✅ Progress indicator: Step X of 4 (`bg-[--garden-green]` progress bar)
 - ✅ Value explanation: "85% better compatibility when matched by personality"
-- ✅ Primary CTA: "Continue" (`var(--btn-primary-bg)` + `var(--btn-primary-text)`)
-- ✅ Tertiary CTA: "Skip for now" (`var(--btn-cta-bg)` + `var(--text-primary)`, softer emphasis)
+- ✅ Primary CTA: "Continue" (`bg-[--btn-primary-bg]` + `text-[--btn-primary-text]`)
+- ✅ Tertiary CTA: "Skip for now" (`bg-[--btn-cta-bg]` + `text-[--text-primary]`, softer emphasis)
 - ✅ Back button to previous step
 
 **Goal Selection (Multi-select cards)**
 - ✅ Progress indicator: X% complete
 - ✅ Multi-select cards with visual states:
-  - Unselected: `var(--surface)` background, `var(--border)` border
-  - Selected: `var(--surface-accent)` background, `var(--garden-green)` border
+  - Unselected: `bg-[--surface]` background, `border-[--border]` border
+  - Selected: `bg-[--surface-accent]` background, `border-[--garden-green]` border
 - ✅ Continue button (disabled until selection made)
 - ✅ Back button to previous step
 
@@ -74,9 +76,9 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - ✅ Full-screen video profile cards (mobile) or split view (desktop)
 - ✅ Video controls: Default paused with overlay play button, captions ON
 - ✅ Profile actions:
-  - Favorite: `var(--btn-accent-bg)` background with heart icon
+  - Favorite: `bg-[--btn-accent-bg]` background with heart icon
   - Skip: X icon with undo toast notification
-  - Info: `var(--btn-cta-bg)` background for detailed view
+  - Info: `bg-[--btn-cta-bg]` background for detailed view
 - ✅ Swipe gesture support with visual feedback
 - ✅ Loading states: Skeleton screens during content fetch
 
@@ -84,19 +86,19 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - ✅ Video section: 30-second introduction with custom controls
 - ✅ Bio section: Personality-focused description
 - ✅ Tag system (5 categories with proper colors):
-  - Personality: `var(--tag-personality-bg)` + `var(--tag-personality-text)`
-  - Modality: `var(--tag-modality-bg)` + `var(--tag-modality-text)`
-  - Specialty: `var(--tag-specialty-bg)` + `var(--tag-specialty-text)`
-  - Language: `var(--tag-language-bg)` + `var(--tag-language-text)`
-  - Misc/Identity: `var(--tag-misc-bg)` + `var(--tag-misc-text)`
+  - Personality: `bg-[--tag-personality-bg]` + `text-[--tag-personality-text]`
+  - Modality: `bg-[--tag-modality-bg]` + `text-[--tag-modality-text]`
+  - Specialty: `bg-[--tag-specialty-bg]` + `text-[--tag-specialty-text]`
+  - Language: `bg-[--tag-language-bg]` + `text-[--tag-language-text]`
+  - Misc/Identity: `bg-[--tag-misc-bg]` + `text-[--tag-misc-text]`
 - ✅ Availability preview: Next 3 available chemistry call slots
 - ✅ Rates: Clearly displayed session pricing
 - ✅ Back button to discovery interface
 
 **Chemistry Call Booking**
 - ✅ Calendar integration: Available 15-minute slots displayed
-- ✅ Primary CTA: "Book Chemistry Call" (`var(--btn-primary-bg)` background)
-- ✅ Secondary CTA: "Add to Favorites" (`var(--btn-accent-bg)` background)
+- ✅ Primary CTA: "Book Chemistry Call" (`bg-[--btn-primary-bg]` background)
+- ✅ Secondary CTA: "Add to Favorites" (`bg-[--btn-accent-bg]` background)
 - ✅ Automated reminders: Email + SMS confirmations
 - ✅ Back button to profile detail
 
@@ -141,6 +143,13 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - ✅ Income details widget: breakdown of sessions (happened / cancelled / rescheduled)
 - ✅ Business profile widget: performance overview + action prompts
 
+**All Therapist Pages (Dashboard Pattern)**
+- ✅ **Header Section**: `bg-[--jovial-jade]` background with logo, search, user avatar
+- ✅ **Sidebar Navigation**: `bg-[--surface-accent]` background with navigation items
+- ✅ **Main Content Area**: Consistent layout pattern across all pages
+- ✅ **Typography**: `font-[--font-primary]` for titles, `font-[--font-secondary]` for content
+- ✅ **Color System**: All pages must use design tokens consistently
+
 **Calendar Management**
 - ✅ Google/Outlook integration buttons
 - ✅ Toggle: List / Calendar view
@@ -171,6 +180,14 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - ✅ Document upload & status badges (Pending / Verified)
 - ✅ Compliance and profile activation workflow
 
+**Specific Therapist Page Requirements**
+- ✅ **Analytics Page**: Dashboard layout + analytics-specific widgets (KPIs, charts, improvements)
+- ✅ **Clients Page**: Dashboard layout + client management widgets (search, filters, client list)
+- ✅ **Bookings Page**: Dashboard layout + booking management widgets (calendar, appointment list, status tracking)
+- ✅ **Messages Page**: Dashboard layout + messaging widgets (conversation list, message thread, input)
+- ✅ **Profile Page**: Dashboard layout + profile management widgets (profile info, video upload, availability)
+- ✅ **Earnings Page**: Dashboard layout + earnings widgets (income charts, payout history, tax documents)
+
 ## Platform Integration Flows
 
 ### Flow 5: Cross-Platform Communication
@@ -181,11 +198,11 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - ✅ End-to-end encrypted chat between matched pairs
 - ✅ Message status indicators (sent, delivered, read)
 - ✅ File sharing with healthcare compliance
-- ✅ Send button with `var(--touch-target-comfort)` (56px)
+- ✅ Send button with `min-h-[--touch-target-comfort]` (56px)
 - ✅ Message styling:
-  - Sent: `var(--garden-green)` background
-  - Received: `var(--surface)` background
-- ✅ System messages: `var(--text-muted)` color for timestamps
+  - Sent: `bg-[--garden-green]` background
+  - Received: `bg-[--surface]` background
+- ✅ System messages: `text-[--text-muted]` color for timestamps
 
 **Notification Management**
 - ✅ Customizable notification preferences
@@ -217,27 +234,27 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 ## Typography Requirements
 
 ### Font Usage
-- ✅ Headings: `var(--font-primary)` (Crimson Pro, Georgia, serif)
-- ✅ Body text and UI labels: `var(--font-secondary)` (Helvetica Neue, Helvetica, Arial, sans-serif)
-- ✅ Therapist names and quotes: `var(--font-primary)`
-- ✅ Sender names in messages: `var(--font-primary)`
-- ✅ Form labels: `var(--font-secondary)`
-- ✅ Section headings: `var(--font-primary)`
+- ✅ Headings: `font-[--font-primary]` (Crimson Pro, Georgia, serif)
+- ✅ Body text and UI labels: `font-[--font-secondary]` (Helvetica Neue, Helvetica, Arial, sans-serif)
+- ✅ Therapist names and quotes: `font-[--font-primary]`
+- ✅ Sender names in messages: `font-[--font-primary]`
+- ✅ Form labels: `font-[--font-secondary]`
+- ✅ Section headings: `font-[--font-primary]`
 
 ## Color System Requirements
 
 ### Background System
-- ✅ App background: `var(--warm-white)`
-- ✅ Cards: `var(--surface)`
-- ✅ Selected states: `var(--surface-accent)`
-- ✅ Form inputs: `var(--surface)` background, `var(--border)` borders
+- ✅ App background: `bg-[--warm-white]`
+- ✅ Cards: `bg-[--surface]`
+- ✅ Selected states: `bg-[--surface-accent]`
+- ✅ Form inputs: `bg-[--surface]` background, `border-[--border]` borders
 
 ### Interactive Elements
-- ✅ Primary buttons: `var(--btn-primary-bg)` + `var(--btn-primary-text)`
-- ✅ Secondary buttons: transparent + `var(--garden-green)` border
-- ✅ Tertiary buttons: transparent + `var(--jovial-jade)` text
-- ✅ Accent buttons: `var(--btn-accent-bg)` + `var(--jovial-jade)` text
-- ✅ CTA buttons: `var(--btn-cta-bg)` + `var(--text-primary)` text
+- ✅ Primary buttons: `bg-[--btn-primary-bg]` + `text-[--btn-primary-text]`
+- ✅ Secondary buttons: transparent + `border-[--garden-green]`
+- ✅ Tertiary buttons: transparent + `text-[--jovial-jade]`
+- ✅ Accent buttons: `bg-[--btn-accent-bg]` + `text-[--jovial-jade]`
+- ✅ CTA buttons: `bg-[--btn-cta-bg]` + `text-[--text-primary]`
 
 ## Enforcement Rules
 
@@ -248,6 +265,8 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - ✅ Every screen must use Container wrapper
 - ✅ Every screen must have proper typography hierarchy
 - ✅ Every screen must have accessible focus indicators
+- ✅ Every therapist page must use dashboard layout pattern
+- ✅ Every admin page must use dashboard layout pattern
 
 ### Forbidden Patterns
 - ❌ Screens without navigation elements
@@ -256,44 +275,48 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - ❌ Content not wrapped in Container component
 - ❌ Inconsistent typography usage
 - ❌ Missing focus indicators on interactive elements
+- ❌ Therapist pages without dashboard layout pattern
+- ❌ Admin pages without dashboard layout pattern
+- ❌ Pages with inconsistent header/sidebar design
+- ❌ Pages using different color schemes than design tokens
 
 ## Examples
 
 ### ✅ Good Flow Implementation
 ```tsx
 // Therapist Dashboard with all required components
-<div className="min-h-screen bg-warm-white">
+<div className="min-h-screen bg-[--warm-white]">
   <Container>
     <div className="flex flex-col gap-6">
       {/* Morning Dashboard Overview */}
       <div className="flex items-center gap-4">
         <img src={avatar} alt="Therapist avatar" className="w-12 h-12 rounded-full" />
         <div>
-          <h1 className="font-crimson text-2xl text-jovial-jade">Good morning, Dr. Chen</h1>
-          <p className="font-helvetica text-text-secondary">Here's your practice overview</p>
+          <h1 className="font-[--font-primary] text-2xl text-[--jovial-jade]">Good morning, Dr. Chen</h1>
+          <p className="font-[--font-secondary] text-[--text-secondary]">Here's your practice overview</p>
         </div>
       </div>
       
       {/* Upcoming Appointments Widget */}
       <Card>
         <CardHeader>
-          <CardTitle className="font-crimson text-jovial-jade">Today's Sessions</CardTitle>
+          <CardTitle className="font-[--font-primary] text-[--jovial-jade]">Today's Sessions</CardTitle>
         </CardHeader>
         <CardContent>
           {upcomingSessions.map(session => (
             <div key={session.id} className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-surface-accent rounded-full flex items-center justify-center">
-                  <span className="font-helvetica text-text-primary text-sm">{session.clientInitials}</span>
+                <div className="w-10 h-10 bg-[--surface-accent] rounded-full flex items-center justify-center">
+                  <span className="font-[--font-secondary] text-[--text-primary] text-sm">{session.clientInitials}</span>
                 </div>
                 <div>
-                  <p className="font-helvetica text-text-primary">{session.type}</p>
-                  <p className="font-helvetica text-text-secondary text-sm">{session.time}</p>
+                  <p className="font-[--font-secondary] text-[--text-primary]">{session.type}</p>
+                  <p className="font-[--font-secondary] text-[--text-secondary] text-sm">{session.time}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 {session.canJoin && (
-                  <Button className="bg-garden-green text-white">
+                  <Button className="bg-[--garden-green] text-[--on-dark]">
                     <Video className="w-4 h-4 mr-2" />
                     JOIN NOW
                   </Button>
@@ -308,7 +331,7 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
       {/* Calendar Management */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="font-crimson text-jovial-jade">Calendar</CardTitle>
+          <CardTitle className="font-[--font-primary] text-[--jovial-jade]">Calendar</CardTitle>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm">Google</Button>
             <Button variant="outline" size="sm">Outlook</Button>
@@ -331,13 +354,12 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
       {/* Client Relationship Management */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="font-crimson text-jovial-jade">Client Directory</CardTitle>
+          <CardTitle className="font-[--font-primary] text-[--jovial-jade]">Client Directory</CardTitle>
           <div className="flex items-center gap-2">
             <input 
               type="search" 
               placeholder="Search clients..." 
-              className="px-3 py-2 border rounded-md"
-              style={{minHeight: '44px'}}
+              className="px-3 py-2 border rounded-md min-h-[--touch-target-min]"
             />
             <Button variant="outline" size="sm">Filter</Button>
           </div>
@@ -346,11 +368,11 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
           {clients.map(client => (
             <div key={client.id} className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-surface-accent rounded-full flex items-center justify-center">
-                  <span className="font-helvetica text-text-primary text-sm">{client.initials}</span>
+                <div className="w-10 h-10 bg-[--surface-accent] rounded-full flex items-center justify-center">
+                  <span className="font-[--font-secondary] text-[--text-primary] text-sm">{client.initials}</span>
                 </div>
                 <div>
-                  <p className="font-helvetica text-text-primary">{client.name}</p>
+                  <p className="font-[--font-secondary] text-[--text-primary]">{client.name}</p>
                   <Badge variant={client.status === 'Active' ? 'secondary' : 'outline'}>
                     {client.status}
                   </Badge>

@@ -1,26 +1,28 @@
 ﻿---
-description: Dashboard layout and widget requirements based on Figma design specifications
-globs: ["src/**/*.tsx", "src/pages/therapist/Dashboard.tsx"]
+description: Dashboard layout and widget requirements for therapist and admin sections based on Figma design specifications
+globs: ["src/pages/therapist/**/*.tsx", "src/pages/admin/**/*.tsx"]
 alwaysApply: true
 ---
 
-# Rule: Dashboard Layout  Figma Design Implementation
+# Rule: Dashboard Layout — Therapist & Admin Pattern (Figma Design Implementation)
 
 ## Scope
-Apply to all dashboard components (React/TSX/CSS/Tailwind). Ensure dashboard layout matches Figma design specifications exactly.
- No deviations from the 4-widget grid layout and component hierarchy.
+Apply to all therapist and admin pages (React/TSX/CSS/Tailwind). Ensure consistent dashboard layout across all management interfaces.
+🚫 No deviations from the dashboard layout pattern and component hierarchy.
+
+**Reference**: See `design-tokens.md` for complete token definitions and usage guidelines.
 
 ## Dashboard Layout Requirements
 
 ### Header Section (Mandatory)
-- **Mindfolk logo** - White text on dark green background (--jovial-jade)
+- **Mindfolk logo** - `text-[--on-dark]` on `bg-[--jovial-jade]` background
 - **Search bar** - "Search Clients" placeholder with magnifying glass icon
 - **User avatar** - Circular with initials, positioned top-right
-- **Background**: Full-width dark green header bar
+- **Background**: Full-width `bg-[--jovial-jade]` header bar
 
 ### Sidebar Navigation (Mandatory)
-- **Background**: Light grey (--surface-accent)
-- **Active state**: Dark green vertical bar + dark green text (--jovial-jade)
+- **Background**: `bg-[--surface-accent]`
+- **Active state**: `bg-[--jovial-jade]` vertical bar + `text-[--on-dark]`
 - **Navigation items**:
   - Dashboard (house icon) - currently active
   - My Clients (two-person icon)
@@ -42,7 +44,7 @@ Apply to all dashboard components (React/TSX/CSS/Tailwind). Ensure dashboard lay
   - Client avatars (circular with initials)
   - Full client names (not initials)
   - Date and time (Apr 21 10:00am - 10:30am format)
-  - Green "Join Now >" buttons for each appointment
+  - `bg-[--garden-green]` "Join Now >" buttons for each appointment
 - **Scrollable**: Vertical scrollbar if more than 3 appointments
 
 #### Widget 2: My Client Dashboard (Top Right)
@@ -52,7 +54,7 @@ Apply to all dashboard components (React/TSX/CSS/Tailwind). Ensure dashboard lay
   - Client avatars (circular with initials)
   - Full client names
   - Email addresses displayed
-  - Status badges: "Active" (green) / "Inactive" (orange)
+  - Status badges: "Active" (`bg-[--success-bg]`) / "Inactive" (`bg-[--warning-bg]`)
   - "EDIT" link next to each status
 
 #### Widget 3: Income Details (Bottom Left)
@@ -76,54 +78,54 @@ Apply to all dashboard components (React/TSX/CSS/Tailwind). Ensure dashboard lay
 ## Color Specifications
 
 ### Header Colors
-- **Background**: --jovial-jade (#305C45)
-- **Text**: White (#FFFFFF)
-- **Logo**: White text
+- **Background**: `bg-[--jovial-jade]`
+- **Text**: `text-[--on-dark]`
+- **Logo**: `text-[--on-dark]`
 
 ### Sidebar Colors
-- **Background**: --surface-accent (#E8F0E9)
-- **Text**: --jovial-jade (#305C45)
-- **Active state**: --jovial-jade background + white text
-- **Icons**: --jovial-jade (#305C45)
+- **Background**: `bg-[--surface-accent]`
+- **Text**: `text-[--jovial-jade]`
+- **Active state**: `bg-[--jovial-jade]` + `text-[--on-dark]`
+- **Icons**: `text-[--jovial-jade]`
 
 ### Widget Colors
-- **Background**: --surface (#FFFFFF)
-- **Borders**: --border (#E5E7EB)
-- **Titles**: --jovial-jade (#305C45)
-- **Action links**: --garden-green (#497557)
-- **Join buttons**: --garden-green background + white text
+- **Background**: `bg-[--surface]`
+- **Borders**: `border-[--border]`
+- **Titles**: `text-[--jovial-jade]`
+- **Action links**: `text-[--garden-green]`
+- **Join buttons**: `bg-[--garden-green]` + `text-[--on-dark]`
 - **Status badges**: 
-  - Active: --success-bg (#497557) + white text
-  - Inactive: --warning-bg (#fcbaaa) + black text
+  - Active: `bg-[--success-bg]` + `text-[--on-dark]`
+  - Inactive: `bg-[--warning-bg]` + `text-[--text-black]`
 
 ### Chart Colors
 - **Donut chart**: Orange, purple, green segments
-- **Line graph**: Orange line (--btn-accent-bg #ffd9be)
+- **Line graph**: Orange line (`bg-[--btn-accent-bg]`)
 
 ## Typography Requirements
 
 ### Headers
-- **Main title**: "Welcome Back, Sarah!" - ont-crimson, large size, --jovial-jade
-- **Widget titles**: ont-crimson, medium size, --jovial-jade
-- **Section labels**: ont-helvetica, small size, --text-secondary
+- **Main title**: "Welcome Back, Sarah!" - `font-[--font-primary]`, large size, `text-[--jovial-jade]`
+- **Widget titles**: `font-[--font-primary]`, medium size, `text-[--jovial-jade]`
+- **Section labels**: `font-[--font-secondary]`, small size, `text-[--text-secondary]`
 
 ### Content
-- **Client names**: ont-helvetica, medium size, --text-primary
-- **Email addresses**: ont-helvetica, small size, --text-secondary
-- **Times/dates**: ont-helvetica, small size, --text-secondary
-- **Action links**: ont-helvetica, small size, --garden-green
+- **Client names**: `font-[--font-secondary]`, medium size, `text-[--text-primary]`
+- **Email addresses**: `font-[--font-secondary]`, small size, `text-[--text-secondary]`
+- **Times/dates**: `font-[--font-secondary]`, small size, `text-[--text-secondary]`
+- **Action links**: `font-[--font-secondary]`, small size, `text-[--garden-green]`
 
 ## Interactive Elements
 
 ### Buttons
-- **Join Now**: --garden-green background, white text, rounded corners
-- **EDIT links**: --garden-green text, no background
-- **OPEN links**: --garden-green text with external link icon
+- **Join Now**: `bg-[--garden-green]`, `text-[--on-dark]`, rounded corners
+- **EDIT links**: `text-[--garden-green]`, no background
+- **OPEN links**: `text-[--garden-green]` with external link icon
 - **Status badges**: Rounded, colored backgrounds
 
 ### Touch Targets
-- **All buttons**: Minimum 44px height
-- **Action links**: Minimum 44px touch area
+- **All buttons**: `min-h-[--touch-target-min]` (44px)
+- **Action links**: `min-h-[--touch-target-min]` (44px)
 - **Client rows**: Full row clickable for selection
 
 ## Layout Specifications
@@ -140,6 +142,12 @@ Apply to all dashboard components (React/TSX/CSS/Tailwind). Ensure dashboard lay
 - **Internal padding**: Consistent padding within each widget
 - **Scrollable content**: Vertical scroll when content exceeds widget height
 
+## Token Usage Requirements
+- **Always use design tokens** instead of raw color values
+- **Follow design-tokens.md** for all token usage
+- **Use semantic token names** (e.g., `--on-dark`, not "white text")
+- **Reference design-tokens.md** for complete token definitions
+
 ## Accessibility Requirements
 
 ### ARIA Labels
@@ -153,12 +161,77 @@ Apply to all dashboard components (React/TSX/CSS/Tailwind). Ensure dashboard lay
 - **Focus indicators**: Visible focus rings
 - **Keyboard navigation**: All interactive elements accessible
 
-## Key Rules
+## Page-Specific Requirements
+
+### Therapist Dashboard Page (Reference Implementation)
 - **4-widget grid layout** is mandatory - no other arrangements
 - **Full client names** must be displayed, not just initials
 - **Color specifications** must match Figma exactly
 - **Action links** must have external link icons
 - **Charts** must use specified colors (orange, purple, green)
 - **Status badges** must use exact color combinations
+
+### Therapist Analytics Page
+- **MUST use dashboard layout** (header + sidebar + main content)
+- **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
+- **MUST use same colors** (all design tokens from design-tokens.md)
+- **MUST include analytics-specific widgets** (KPIs, charts, improvements)
+- **MUST follow same header pattern** (`bg-[--jovial-jade]` background with logo, search, avatar)
+- **MUST follow same sidebar pattern** (`bg-[--surface-accent]` background with navigation)
+
+### Therapist Clients Page
+- **MUST use dashboard layout** (header + sidebar + main content)
+- **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
+- **MUST use same colors** (all design tokens from design-tokens.md)
+- **MUST include client management widgets** (search, filters, client list)
+- **MUST follow same header pattern** (`bg-[--jovial-jade]` background with logo, search, avatar)
+- **MUST follow same sidebar pattern** (`bg-[--surface-accent]` background with navigation)
+
+### Therapist Bookings Page
+- **MUST use dashboard layout** (header + sidebar + main content)
+- **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
+- **MUST use same colors** (all design tokens from design-tokens.md)
+- **MUST include booking management widgets** (calendar, appointment list, status tracking)
+- **MUST follow same header pattern** (`bg-[--jovial-jade]` background with logo, search, avatar)
+- **MUST follow same sidebar pattern** (`bg-[--surface-accent]` background with navigation)
+
+### Therapist Messages Page
+- **MUST use dashboard layout** (header + sidebar + main content)
+- **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
+- **MUST use same colors** (all design tokens from design-tokens.md)
+- **MUST include messaging widgets** (conversation list, message thread, input)
+- **MUST follow same header pattern** (`bg-[--jovial-jade]` background with logo, search, avatar)
+- **MUST follow same sidebar pattern** (`bg-[--surface-accent]` background with navigation)
+
+### Therapist Profile Page
+- **MUST use dashboard layout** (header + sidebar + main content)
+- **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
+- **MUST use same colors** (all design tokens from design-tokens.md)
+- **MUST include profile management widgets** (profile info, video upload, availability)
+- **MUST follow same header pattern** (`bg-[--jovial-jade]` background with logo, search, avatar)
+- **MUST follow same sidebar pattern** (`bg-[--surface-accent]` background with navigation)
+
+### Therapist Earnings Page
+- **MUST use dashboard layout** (header + sidebar + main content)
+- **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
+- **MUST use same colors** (all design tokens from design-tokens.md)
+- **MUST include earnings widgets** (income charts, payout history, tax documents)
+- **MUST follow same header pattern** (`bg-[--jovial-jade]` background with logo, search, avatar)
+- **MUST follow same sidebar pattern** (`bg-[--surface-accent]` background with navigation)
+
+### Admin Pages (All)
+- **MUST use dashboard layout** (header + sidebar + main content)
+- **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
+- **MUST use same colors** (all design tokens from design-tokens.md)
+- **MUST include admin-specific widgets** (user management, system overview, moderation tools)
+- **MUST follow same header pattern** (`bg-[--jovial-jade]` background with logo, search, avatar)
+- **MUST follow same sidebar pattern** (`bg-[--surface-accent]` background with navigation)
+
+## Key Rules
+- **Dashboard layout pattern** is mandatory for all therapist and admin pages
 - **Typography hierarchy** must follow font specifications
 - **Touch targets** must meet accessibility requirements
+- **Color specifications** must match Figma exactly
+- **Header and sidebar** must be consistent across all pages
+- **Main content area** must follow dashboard layout principles
+- **All pages** must use design tokens consistently

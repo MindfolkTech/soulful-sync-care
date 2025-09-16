@@ -134,7 +134,7 @@ export function MessageThread({ threadId }: MessageThreadProps) {
             return (
               <div key={message.id} className="flex justify-center">
                 <div className="bg-muted/50 px-3 py-2 rounded-full flex items-center gap-2 text-xs text-muted-foreground">
-                  <Shield className="h-3 w-3 text-green-500" />
+                  <Shield className="h-3 w-3 text-[--success-text]" />
                   {message.content}
                 </div>
               </div>
@@ -209,7 +209,7 @@ export function MessageThread({ threadId }: MessageThreadProps) {
                     {message.timestamp}
                   </span>
                   {message.encrypted && (
-                    <Shield className="h-3 w-3 text-green-500" />
+                    <Shield className="h-3 w-3 text-[--success-text]" />
                   )}
                   {isTherapist && getDeliveryIcon(message.deliveryStatus)}
                 </div>

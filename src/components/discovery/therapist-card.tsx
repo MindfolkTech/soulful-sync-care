@@ -105,7 +105,7 @@ export function TherapistCard({
           </video>
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-garden-green to-elated-emerald flex items-center justify-center">
-            <span className="text-white font-primary font-bold text-4xl">
+            <span className="text-[--on-dark] font-primary font-bold text-4xl">
               {initials}
             </span>
           </div>
@@ -115,7 +115,7 @@ export function TherapistCard({
         {therapist.video_url && (
           <div className="absolute inset-0 bg-[--overlay-dark]/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
             <div className="bg-[--overlay-dark]/60 rounded-full p-4">
-              <Play className="h-8 w-8 text-white" />
+              <Play className="h-8 w-8 text-[--on-dark]" />
             </div>
           </div>
         )}

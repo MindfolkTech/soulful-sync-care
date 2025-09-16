@@ -10,7 +10,7 @@ export function Footer() {
             <div className="space-y-4">
               <div className="flex items-center space-x-2">
                 <div className="h-6 w-6 rounded-full bg-garden-green flex items-center justify-center">
-                  <span className="text-white font-primary font-bold text-sm">M</span>
+                  <span className="text-[--on-dark] font-primary font-bold text-sm">M</span>
                 </div>
                 <span className="font-primary font-bold text-lg text-text-primary">MindFolk</span>
               </div>

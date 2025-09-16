@@ -108,7 +108,7 @@ export function TherapistCard({
             />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-garden-green to-elated-emerald flex items-center justify-center">
-              <span className="text-white font-primary font-bold text-4xl">
+              <span className="text-[--on-dark] font-primary font-bold text-4xl">
                 {initials}
               </span>
             </div>

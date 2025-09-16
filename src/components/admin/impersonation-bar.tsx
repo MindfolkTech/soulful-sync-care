@@ -103,7 +103,7 @@ export function ImpersonationBar({
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center">
+                <div className="h-8 w-8 rounded-full bg-[--surface]/20 flex items-center justify-center">
                   <User className="h-4 w-4 text-warning-foreground" />
                 </div>
                 <div>
@@ -132,7 +132,7 @@ export function ImpersonationBar({
               <AlertDialogTrigger asChild>
                 <Button 
                   variant="outline" 
-                  className="bg-white/20 border-white/30 text-warning-foreground hover:bg-white/30"
+                  className="bg-[--surface]/20 border-[--surface]/30 text-warning-foreground hover:bg-[--surface]/30"
                 >
                   <LogOut className="h-4 w-4 mr-2" />
                   End Impersonation
@@ -220,7 +220,7 @@ function UserSearchDialog({ onSelectUser }: UserSearchDialogProps) {
       case "active":
         return "bg-success text-success-foreground";
       case "inactive":
-        return "bg-text-secondary text-white";
+        return "bg-text-secondary text-[--on-dark]";
       case "suspended":
         return "bg-destructive text-destructive-foreground";
     }

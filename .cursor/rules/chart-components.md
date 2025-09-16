@@ -4,11 +4,13 @@ globs: ["src/components/charts/**/*.tsx", "src/pages/therapist/Dashboard.tsx"]
 alwaysApply: true
 ---
 
-# Rule: Chart Components  Dashboard Data Visualization
+# Rule: Chart Components — Dashboard Data Visualization
 
 ## Scope
 Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match Figma design specifications and accessibility standards.
- No deviations from specified colors, layouts, or accessibility requirements.
+🚫 No deviations from specified colors, layouts, or accessibility requirements.
+
+**Reference**: See `design-tokens.md` for complete token definitions and usage guidelines.
 
 ## Chart Requirements
 
@@ -21,7 +23,7 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match Figm
 - **Animation**: Smooth transitions on data changes
 
 ### Line Graph (Business Profile Widget)
-- **Trend line**: Orange color (--btn-accent-bg #ffd9be)
+- **Trend line**: Orange color (`bg-[--btn-accent-bg]`)
 - **Y-axis labels**: 9k, 11k, 14k, 17k, 20k
 - **Title**: "Profile Views in the last year"
 - **Accessibility**: Screen reader friendly data points
@@ -31,18 +33,18 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match Figm
 ## Color Specifications
 
 ### Donut Chart Colors
-- **Completed sessions**: Orange (#ffd9be or similar)
-- **Cancelled sessions**: Purple (#ede6fa or similar)
-- **Rescheduled sessions**: Green (#e6eee9 or similar)
-- **Background**: Transparent or white
-- **Text**: --text-primary (#466749)
+- **Completed sessions**: `bg-[--btn-accent-bg]` (orange)
+- **Cancelled sessions**: `bg-[--tag-language-bg]` (purple)
+- **Rescheduled sessions**: `bg-[--tag-modality-bg]` (green)
+- **Background**: Transparent or `bg-[--surface]`
+- **Text**: `text-[--text-primary]`
 
 ### Line Graph Colors
-- **Trend line**: Orange (--btn-accent-bg #ffd9be)
-- **Grid lines**: Light grey (--border #E5E7EB)
-- **Axis labels**: --text-secondary (#6B7280)
-- **Background**: Transparent or white
-- **Data points**: Orange with white center
+- **Trend line**: `bg-[--btn-accent-bg]` (orange)
+- **Grid lines**: `border-[--border]` (light grey)
+- **Axis labels**: `text-[--text-secondary]`
+- **Background**: Transparent or `bg-[--surface]`
+- **Data points**: `bg-[--btn-accent-bg]` with `text-[--on-dark]` centers
 
 ## Accessibility Requirements
 

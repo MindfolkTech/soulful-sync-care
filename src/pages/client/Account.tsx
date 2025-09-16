@@ -214,8 +214,8 @@ export default function Account() {
                       <div className="space-y-3">
                         <div className="flex items-center justify-between p-4 border rounded-lg">
                           <div className="flex items-center space-x-3">
-                            <div className="w-8 h-6 bg-blue-600 rounded flex items-center justify-center">
-                              <span className="text-white text-xs font-bold">VISA</span>
+                            <div className="w-8 h-6 bg-[--garden-green] rounded flex items-center justify-center">
+                              <span className="text-[--on-dark] text-xs font-bold">VISA</span>
                             </div>
                             <div>
                               <p className="font-secondary font-semibold text-text-primary">

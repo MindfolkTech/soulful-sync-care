@@ -193,7 +193,7 @@ export default function Favorites() {
                 Upcoming Appointments
               </span>
             </div>
-            <Badge variant="default" className="bg-garden-green text-white">
+            <Badge variant="default" className="bg-[--garden-green] text-[--on-dark]">
               2 scheduled
             </Badge>
           </div>

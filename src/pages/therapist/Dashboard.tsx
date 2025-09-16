@@ -113,22 +113,25 @@ export default function TherapistDashboard() {
   return (
     <div className="min-h-screen bg-warm-white">
       {/* Header Section */}
-      <header className="bg-jovial-jade text-white px-6 py-4">
+      <header className="px-6 py-4" style={{ backgroundColor: 'hsl(var(--jovial-jade))', color: 'hsl(var(--btn-primary-text))' }}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <h1 className="font-crimson text-xl font-bold">Mindfolk</h1>
+            <h1 className="text-xl font-bold" style={{ fontFamily: 'var(--font-primary)', color: 'hsl(var(--btn-primary-text))' }}>Mindfolk</h1>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-text-muted" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" style={{ color: 'hsl(var(--text-muted))' }} />
               <input 
+                id="client-search"
+                name="clientSearch"
                 type="search" 
                 placeholder="Search Clients" 
-                className="pl-10 pr-4 py-2 bg-white text-text-primary rounded-md border-0 focus:ring-2 focus:ring-garden-green"
-                style={{minHeight: '44px'}}
+                className="pl-10 pr-4 py-2 bg-[--surface] rounded border-0 focus:ring-2 focus:ring-[--surface]/30 focus:outline-none min-h-[44px] w-64"
+                style={{ color: 'hsl(var(--text-primary))' }}
+                aria-label="Search clients"
               />
             </div>
           </div>
-          <div className="w-10 h-10 bg-surface-accent rounded-full flex items-center justify-center">
-            <span className="font-helvetica text-jovial-jade text-sm font-semibold">CT</span>
+          <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: 'hsl(var(--surface-accent))' }}>
+            <span className="text-sm font-semibold" style={{ fontFamily: 'var(--font-secondary)', color: 'hsl(var(--jovial-jade))' }}>CT</span>
           </div>
         </div>
       </header>
@@ -137,19 +140,19 @@ export default function TherapistDashboard() {
         {/* Sidebar Navigation */}
         <aside className="w-64 bg-surface-accent min-h-screen py-6">
           <nav className="space-y-2 px-4">
-            <div className="flex items-center gap-3 px-3 py-2 bg-jovial-jade text-white rounded-md">
+            <div className="flex items-center gap-3 px-3 py-2 bg-[--jovial-jade] text-[--on-dark] rounded-md">
               <Home className="w-5 h-5" />
               <span className="font-helvetica font-medium">Dashboard</span>
-            </div>
-            <Link to="/t/clients" className="flex items-center gap-3 px-3 py-2 text-jovial-jade hover:bg-jovial-jade hover:text-white rounded-md transition-colors">
+              </div>
+            <Link to="/t/clients" className="flex items-center gap-3 px-3 py-2 text-[--jovial-jade] hover:bg-[--jovial-jade] hover:text-[--on-dark] rounded-md transition-colors">
               <Users className="w-5 h-5" />
               <span className="font-helvetica">My Clients</span>
             </Link>
-            <Link to="/t/profile" className="flex items-center gap-3 px-3 py-2 text-jovial-jade hover:bg-jovial-jade hover:text-white rounded-md transition-colors">
+            <Link to="/t/profile" className="flex items-center gap-3 px-3 py-2 text-[--jovial-jade] hover:bg-[--jovial-jade] hover:text-[--on-dark] rounded-md transition-colors">
               <User className="w-5 h-5" />
               <span className="font-helvetica">My Profile</span>
             </Link>
-            <Link to="/t/analytics" className="flex items-center gap-3 px-3 py-2 text-jovial-jade hover:bg-jovial-jade hover:text-white rounded-md transition-colors">
+            <Link to="/t/analytics" className="flex items-center gap-3 px-3 py-2 text-[--jovial-jade] hover:bg-[--jovial-jade] hover:text-[--on-dark] rounded-md transition-colors">
               <BarChart3 className="w-5 h-5" />
               <span className="font-helvetica">Performance & Analytics</span>
             </Link>
@@ -165,7 +168,7 @@ export default function TherapistDashboard() {
                 <button className="block text-left text-jovial-jade hover:text-garden-green text-sm py-1">FAQ</button>
               </div>
             </div>
-            
+
             <div className="border-t border-border my-4"></div>
             
             <button className="flex items-center gap-3 px-3 py-2 text-jovial-jade hover:text-garden-green transition-colors">
@@ -209,13 +212,13 @@ export default function TherapistDashboard() {
                         <p className="font-helvetica text-text-secondary text-sm">{appointment.time}</p>
                       </div>
                     </div>
-                    <Button className="bg-garden-green text-white hover:bg-elated-emerald">
+                    <Button className="bg-[--garden-green] text-[--on-dark] hover:bg-[--elated-emerald]">
                       Join Now →
                     </Button>
                   </div>
                 ))}
-              </CardContent>
-            </Card>
+                  </CardContent>
+                </Card>
 
             {/* Widget 2: My Client Dashboard (Top Right) */}
             <Card className="h-full">
@@ -265,7 +268,7 @@ export default function TherapistDashboard() {
                     OPEN ANALYTICS
                     <ExternalLink className="w-4 h-4 ml-1" />
                   </Button>
-                </div>
+                    </div>
               </CardHeader>
               <CardContent>
                 <div className="mb-4">
@@ -308,23 +311,23 @@ export default function TherapistDashboard() {
                         aria-label="Rescheduled sessions: 15%"
                       />
                     </svg>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
 
             {/* Widget 4: My Business Profile (Bottom Right) */}
             <Card className="h-full">
-              <CardHeader className="flex flex-row items-center justify-between">
+                  <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className="font-crimson text-jovial-jade">My Business Profile</CardTitle>
                 <div className="flex items-center gap-2">
                   <Button variant="ghost" size="sm" className="text-garden-green">EDIT</Button>
                   <Button variant="ghost" size="sm" className="text-garden-green">
                     OPEN PROFILE
                     <ExternalLink className="w-4 h-4 ml-1" />
-                  </Button>
-                </div>
-              </CardHeader>
+                          </Button>
+                        </div>
+                  </CardHeader>
               <CardContent>
                 <div className="mb-4">
                   <h3 className="font-helvetica text-text-secondary text-sm mb-4">Profile Views in the last year</h3>
@@ -354,12 +357,12 @@ export default function TherapistDashboard() {
                       <circle cx="200" cy="100" r="4" fill="#ffd9be" aria-label="17k views" />
                       <circle cx="260" cy="80" r="4" fill="#ffd9be" aria-label="20k views" />
                     </svg>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                        </div>
+                      </div>
+                  </CardContent>
+                </Card>
           </div>
-        </main>
+      </main>
       </div>
     </div>
   );

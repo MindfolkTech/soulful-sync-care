@@ -156,7 +156,7 @@ export default function Discover() {
         <div className="flex h-full items-center justify-between px-6">
           <div className="flex items-center space-x-2">
             <div className="h-8 w-8 rounded-full bg-garden-green flex items-center justify-center">
-              <span className="text-white font-primary font-bold text-lg">M</span>
+              <span className="text-[--on-dark] font-primary font-bold text-lg">M</span>
             </div>
             <span className="font-primary font-bold text-xl text-text-primary">MindFolk</span>
           </div>

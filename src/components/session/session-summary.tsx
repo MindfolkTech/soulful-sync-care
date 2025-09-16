@@ -98,7 +98,7 @@ export function SessionSummary({
               <p className="text-sm text-muted-foreground">Objectives Met</p>
             </div>
             <div className="text-center p-4 bg-muted/30 rounded-lg">
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-2xl font-bold text-[--success-text]">
                 {sessionData.overallProgress}%
               </div>
               <p className="text-sm text-muted-foreground">Session Progress</p>
@@ -129,9 +129,9 @@ export function SessionSummary({
             {sessionData.objectives.map((objective, index) => (
               <div key={index} className="flex items-center gap-3 p-3 bg-muted/20 rounded-lg">
                 {objective.completed ? (
-                  <CheckCircle2 className="h-5 w-5 text-green-500" />
+                  <CheckCircle2 className="h-5 w-5 text-[--success-text]" />
                 ) : (
-                  <AlertCircle className="h-5 w-5 text-yellow-500" />
+                  <AlertCircle className="h-5 w-5 text-[--warning-text]" />
                 )}
                 <span className={objective.completed ? "line-through text-muted-foreground" : ""}>
                   {objective.text}

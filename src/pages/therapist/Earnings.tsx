@@ -125,7 +125,7 @@ export default function TherapistEarnings() {
                 </Button>
                 <Button 
                   size="sm"
-                  className="bg-garden-green hover:bg-elated-emerald text-white transition-colors duration-200"
+                  className="bg-[--garden-green] hover:bg-[--elated-emerald] text-[--on-dark] transition-colors duration-200"
                 >
                   Request Payout
                 </Button>
@@ -220,7 +220,7 @@ export default function TherapistEarnings() {
                             transaction.status === 'completed' ? 'bg-success-bg' : 'bg-warning-bg'
                           }`}>
                             {transaction.status === 'completed' ? (
-                              <CheckCircle2 className="w-5 h-5 text-white" />
+                              <CheckCircle2 className="w-5 h-5 text-[--on-dark]" />
                             ) : (
                               <Clock className="w-5 h-5 text-warning-text" />
                             )}
@@ -266,7 +266,7 @@ export default function TherapistEarnings() {
                           </div>
                         </div>
                         {method.isDefault && (
-                          <Badge className="bg-garden-green text-white">Default</Badge>
+                          <Badge className="bg-[--garden-green] text-[--on-dark]">Default</Badge>
                         )}
                       </div>
                     ))}

@@ -136,7 +136,7 @@ export default function TherapistPayouts() {
                   <p className="text-sm text-muted-foreground">This Month</p>
                   <p className="text-2xl font-bold">${earnings.currentMonth.total.toLocaleString()}</p>
                 </div>
-                <DollarSign className="h-8 w-8 text-green-500" />
+                <DollarSign className="h-8 w-8 text-[--success-text]" />
               </div>
             </CardContent>
           </Card>
@@ -148,7 +148,7 @@ export default function TherapistPayouts() {
                   <p className="text-sm text-muted-foreground">Sessions</p>
                   <p className="text-2xl font-bold">{earnings.currentMonth.sessions}</p>
                 </div>
-                <Users className="h-8 w-8 text-blue-500" />
+                <Users className="h-8 w-8 text-[--garden-green]" />
               </div>
             </CardContent>
           </Card>
@@ -160,7 +160,7 @@ export default function TherapistPayouts() {
                   <p className="text-sm text-muted-foreground">Hourly Rate</p>
                   <p className="text-2xl font-bold">${earnings.currentMonth.hourlyRate}</p>
                 </div>
-                <BarChart3 className="h-8 w-8 text-purple-500" />
+                <BarChart3 className="h-8 w-8 text-[--elated-emerald]" />
               </div>
             </CardContent>
           </Card>
@@ -172,7 +172,7 @@ export default function TherapistPayouts() {
                   <p className="text-sm text-muted-foreground">Available</p>
                   <p className="text-2xl font-bold">${earnings.currentMonth.available.toLocaleString()}</p>
                 </div>
-                <CheckCircle2 className="h-8 w-8 text-green-500" />
+                <CheckCircle2 className="h-8 w-8 text-[--success-text]" />
               </div>
             </CardContent>
           </Card>

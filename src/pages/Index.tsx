@@ -222,7 +222,7 @@ export default function Index() {
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div className="text-center space-y-4">
                   <div 
-                    className="w-12 h-12 rounded-full bg-garden-green text-white flex items-center justify-center text-xl font-bold mx-auto"
+                    className="w-12 h-12 rounded-full bg-[--garden-green] text-[--on-dark] flex items-center justify-center text-xl font-bold mx-auto"
                     style={{ backgroundColor: "var(--garden-green)" }}
                   >
                     1
@@ -249,7 +249,7 @@ export default function Index() {
                 
                 <div className="text-center space-y-4">
                   <div 
-                    className="w-12 h-12 rounded-full bg-garden-green text-white flex items-center justify-center text-xl font-bold mx-auto"
+                    className="w-12 h-12 rounded-full bg-[--garden-green] text-[--on-dark] flex items-center justify-center text-xl font-bold mx-auto"
                     style={{ backgroundColor: "var(--garden-green)" }}
                   >
                     2
@@ -276,7 +276,7 @@ export default function Index() {
                 
                 <div className="text-center space-y-4">
                   <div 
-                    className="w-12 h-12 rounded-full bg-garden-green text-white flex items-center justify-center text-xl font-bold mx-auto"
+                    className="w-12 h-12 rounded-full bg-[--garden-green] text-[--on-dark] flex items-center justify-center text-xl font-bold mx-auto"
                     style={{ backgroundColor: "var(--garden-green)" }}
                   >
                     3
@@ -303,7 +303,7 @@ export default function Index() {
                 
                 <div className="text-center space-y-4">
                   <div 
-                    className="w-12 h-12 rounded-full bg-garden-green text-white flex items-center justify-center text-xl font-bold mx-auto"
+                    className="w-12 h-12 rounded-full bg-[--garden-green] text-[--on-dark] flex items-center justify-center text-xl font-bold mx-auto"
                     style={{ backgroundColor: "var(--garden-green)" }}
                   >
                     4

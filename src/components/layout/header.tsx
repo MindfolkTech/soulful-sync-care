@@ -18,7 +18,7 @@ export function Header() {
               className="flex items-center space-x-2 text-text-primary hover:text-jovial-jade transition-colors"
             >
               <div className="h-8 w-8 rounded-full bg-garden-green flex items-center justify-center">
-                <span className="text-white font-primary font-bold text-lg">M</span>
+                <span className="text-[--on-dark] font-primary font-bold text-lg">M</span>
               </div>
               <span 
                 className="font-bold text-xl"
@@ -57,7 +57,7 @@ export function Header() {
             {/* Notifications */}
             <Button variant="ghost" size="icon" className="relative">
               <Bell className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 h-4 w-4 bg-destructive rounded-full flex items-center justify-center text-xs text-white">
+              <span className="absolute -top-1 -right-1 h-4 w-4 bg-destructive rounded-full flex items-center justify-center text-xs text-[--on-dark]">
                 2
               </span>
             </Button>
