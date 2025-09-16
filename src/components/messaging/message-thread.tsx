@@ -163,10 +163,10 @@ export function MessageThread({ threadId }: MessageThreadProps) {
                 }`}>
                   {message.type === "file" && message.attachment ? (
                     <div className="space-y-2">
-                      <p className="text-sm">{message.content}</p>
+                      <p className="text-sm font-secondary">{message.content}</p>
                       <div className={`p-3 rounded border ${
                         isTherapist 
-                          ? "border-primary-foreground/20 bg-primary-foreground/10" 
+                          ? "bg-primary/10 border-primary/20" 
                           : "border-border bg-background"
                       }`}>
                         <div className="flex items-center gap-3">
@@ -176,12 +176,12 @@ export function MessageThread({ threadId }: MessageThreadProps) {
                             {getFileIcon(message.attachment.type)}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className={`font-medium text-sm truncate ${
+                            <p className={`font-medium text-sm truncate font-secondary ${
                               isTherapist ? "text-primary-foreground" : "text-foreground"
                             }`}>
                               {message.attachment.name}
                             </p>
-                            <p className={`text-xs ${
+                            <p className={`text-xs font-secondary ${
                               isTherapist ? "text-primary-foreground/70" : "text-muted-foreground"
                             }`}>
                               {message.attachment.size}
@@ -198,7 +198,7 @@ export function MessageThread({ threadId }: MessageThreadProps) {
                       </div>
                     </div>
                   ) : (
-                    <p className="text-sm">{message.content}</p>
+                    <p className="text-sm font-secondary">{message.content}</p>
                   )}
                 </div>
                 

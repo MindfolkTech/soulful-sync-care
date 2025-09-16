@@ -51,10 +51,10 @@ const SessionRoom = React.forwardRef<HTMLDivElement, SessionRoomProps>(
                     {therapistName.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>
-                <h2 className="text-xl font-primary font-semibold">
+                <h2 className="text-xl font-primary font-semibold tracking-tight">
                   {therapistName}
                 </h2>
-                <p className="text-sm opacity-80">
+                <p className="text-sm text-text-secondary font-secondary">
                   {isConnected ? "Connected" : "Connecting..."}
                 </p>
               </div>

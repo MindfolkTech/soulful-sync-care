@@ -170,10 +170,10 @@ export function TherapistCard({
         </h2>
 
         {/* Location + One-liner Row */}
-        <div className="text-sm text-text-secondary font-secondary">
-          <p className="line-clamp-1">"{therapist.quote}"</p>
+        <div className="text-sm text-text-secondary font-secondary w-full">
+          <p className="line-clamp-1 italic">"{therapist.quote}"</p>
           {therapist.location && (
-            <p className="text-xs mt-1">{therapist.location}</p>
+            <p className="text-xs mt-1 text-text-muted">{therapist.location}</p>
           )}
         </div>
       </div>

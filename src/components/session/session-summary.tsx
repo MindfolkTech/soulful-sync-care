@@ -92,25 +92,25 @@ export function SessionSummary({
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center p-4 bg-muted/30 rounded-lg">
-              <div className="text-2xl font-bold text-primary">
+              <div className="text-6xl font-bold font-primary text-primary">
                 {completedObjectives}/{totalObjectives}
               </div>
-              <p className="text-sm text-muted-foreground">Objectives Met</p>
+              <p className="text-sm text-text-secondary font-secondary">Objectives Met</p>
             </div>
             <div className="text-center p-4 bg-muted/30 rounded-lg">
-              <div className="text-2xl font-bold text-[--success-text]">
+              <div className="text-6xl font-bold font-primary text-primary">
                 {sessionData.overallProgress}%
               </div>
-              <p className="text-sm text-muted-foreground">Session Progress</p>
+              <p className="text-sm text-text-secondary font-secondary">Session Progress</p>
             </div>
             <div className="text-center p-4 bg-muted/30 rounded-lg">
               <Badge 
                 variant={sessionData.riskAssessment === "low" ? "secondary" : "destructive"}
-                className="text-sm"
+                className="text-lg"
               >
                 {sessionData.riskAssessment.toUpperCase()} RISK
               </Badge>
-              <p className="text-sm text-muted-foreground mt-1">Risk Level</p>
+              <p className="text-sm text-text-secondary font-secondary mt-1">Risk Level</p>
             </div>
           </div>
         </CardContent>
@@ -234,8 +234,8 @@ export function SessionSummary({
         <CardContent className="p-4">
           <div className="flex justify-between items-center">
             <div>
-              <h3 className="font-medium">Session Documentation</h3>
-              <p className="text-sm text-muted-foreground">
+              <h3 className="font-medium font-primary">Session Documentation</h3>
+              <p className="text-sm text-text-secondary font-secondary">
                 Export or share this session summary
               </p>
             </div>

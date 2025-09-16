@@ -174,10 +174,10 @@ export default function TherapistOnboarding() {
                     <Lightbulb className="w-5 h-5 text-[--on-dark]" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="font-crimson text-jovial-jade text-base font-semibold mb-2">
+                    <p className="font-primary text-jovial-jade text-base font-semibold mb-2">
                       💡 Tip: {currentStepData?.tip}
                     </p>
-                    <p className="font-helvetica text-text-secondary text-sm leading-relaxed">
+                    <p className="font-secondary text-text-secondary text-sm leading-relaxed">
                       Example: {currentStepData?.example}
                     </p>
                   </div>
@@ -191,10 +191,10 @@ export default function TherapistOnboarding() {
 
             <Card className="min-h-[500px] shadow-lg border-0" role="region" aria-label={`Step ${currentStep} content`}>
               <CardHeader className="text-center pb-8">
-                <CardTitle className="font-crimson text-3xl text-jovial-jade mb-3" id={`step-${currentStep}-title`}>
+                <CardTitle className="font-primary text-2xl tracking-tight" id={`step-${currentStep}-title`}>
                   {currentStepData?.title}
                 </CardTitle>
-                <p className="font-helvetica text-text-secondary text-lg" id={`step-${currentStep}-subtitle`}>
+                <p className="font-secondary text-text-secondary text-lg" id={`step-${currentStep}-subtitle`}>
                   {currentStepData?.subtitle}
                 </p>
               </CardHeader>
@@ -447,7 +447,7 @@ export default function TherapistOnboarding() {
                       <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
                         <Upload className="w-8 h-8 text-primary" />
                       </div>
-                      <h4 className="font-secondary font-semibold text-text-primary mb-2">
+                      <h4 className="font-primary font-semibold text-text-primary mb-2">
                         Record your 30-60 second introduction
                       </h4>
                       <p className="font-secondary text-text-secondary text-sm mb-4">

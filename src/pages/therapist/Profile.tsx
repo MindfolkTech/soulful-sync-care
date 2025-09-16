@@ -150,7 +150,7 @@ export default function TherapistProfile() {
                           <Upload className="w-4 h-4 mr-2" />
                           Change Photo
                         </Button>
-                        <p className="text-sm text-text-muted mt-1">
+                        <p className="text-sm text-text-muted mt-1 font-secondary">
                           Professional headshot recommended
                         </p>
                       </div>
@@ -195,17 +195,17 @@ export default function TherapistProfile() {
                         rows={6}
                         defaultValue="I am a Clinical Psychologist with over 8 years of experience helping individuals navigate anxiety, depression, and trauma. My approach combines evidence-based therapies with a warm, empathetic style that creates a safe space for healing and growth."
                       />
-                      <p className="text-xs text-text-muted">287/400 words</p>
+                      <p className="text-xs text-text-muted font-secondary">287/400 words</p>
                     </div>
 
-                    <div className="space-y-2">
+                    <div className="space-y-1.5">
                       <Label htmlFor="quote">Client Quote (50-100 words)</Label>
                       <Textarea
                         id="quote"
                         rows={3}
                         defaultValue="I believe in creating a safe space where you can explore your authentic self and develop the tools you need to thrive."
                       />
-                      <p className="text-xs text-text-muted">76/100 words</p>
+                      <p className="text-xs text-text-muted font-secondary">76/100 words</p>
                     </div>
                   </CardContent>
                 </Card>

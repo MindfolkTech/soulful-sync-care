@@ -157,7 +157,7 @@ export default function TherapistAnalytics() {
                       {improvements.map((improvement, index) => (
                         <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
                           <div className="flex-1">
-                            <h4 className="font-secondary font-semibold text-text-primary text-sm">
+                            <h4 className="font-primary font-semibold text-text-primary text-sm">
                               {improvement.title}
                             </h4>
                             <p className="font-secondary text-text-secondary text-xs mt-1">

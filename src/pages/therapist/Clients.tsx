@@ -137,7 +137,7 @@ export default function TherapistClients() {
                         </Avatar>
                         <div>
                           <div className="flex items-center space-x-3 mb-1">
-                            <h3 className="font-secondary font-semibold text-text-primary">
+                            <h3 className="font-primary font-semibold text-text-primary">
                               Client {client.initials}
                             </h3>
                             {getStatusBadge(client.status)}

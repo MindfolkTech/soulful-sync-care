@@ -153,7 +153,7 @@ export function PaymentForm({
       {/* Plan Selection */}
       {showPlanSelection && (
         <div className="space-y-4">
-          <h3 className="font-semibold">Choose Your Plan</h3>
+          <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-50 mb-4">Choose Your Plan</h3>
           <div className="grid gap-3">
             {plans.map((plan) => (
               <Card 
@@ -168,7 +168,7 @@ export function PaymentForm({
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      <h4 className="font-medium">{plan.name}</h4>
+                      <h4 className="font-medium text-gray-900 dark:text-gray-50">{plan.name}</h4>
                       {plan.popular && (
                         <Badge variant="default" className="text-xs">
                           Popular
@@ -200,12 +200,9 @@ export function PaymentForm({
       )}
 
       {/* Payment Information */}
-      <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <CreditCard className="h-5 w-5" />
-          <h3 className="font-semibold">Payment Information</h3>
-          <Lock className="h-4 w-4 text-[--success-text] ml-auto" />
-        </div>
+      <div className="bg-white dark:bg-gray-950 rounded-lg shadow-md overflow-hidden">
+        <div className="p-6">
+          <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-50 mb-4">Payment Information</h3>
 
         {/* Card Number */}
         <div>
@@ -219,7 +216,7 @@ export function PaymentForm({
             className={errors.cardNumber ? "border-red-500" : ""}
           />
           {errors.cardNumber && (
-            <p className="text-xs text-error-foreground mt-1 flex items-center gap-1">
+            <p className="text-xs text-error-foreground mt-1 flex items-center gap-1 font-secondary">
               <AlertCircle className="h-3 w-3" />
               {errors.cardNumber}
             </p>
@@ -263,7 +260,7 @@ export function PaymentForm({
           </div>
         </div>
         {errors.expiry && (
-          <p className="text-xs text-error-foreground flex items-center gap-1">
+          <p className="text-xs text-destructive flex items-center gap-1 font-secondary">
             <AlertCircle className="h-3 w-3" />
             {errors.expiry}
           </p>
@@ -280,7 +277,7 @@ export function PaymentForm({
             className={errors.name ? "border-red-500" : ""}
           />
           {errors.name && (
-            <p className="text-xs text-error-foreground mt-1 flex items-center gap-1">
+            <p className="text-xs text-error-foreground mt-1 flex items-center gap-1 font-secondary">
               <AlertCircle className="h-3 w-3" />
               {errors.name}
             </p>
@@ -299,23 +296,24 @@ export function PaymentForm({
             className={errors.email ? "border-red-500" : ""}
           />
           {errors.email && (
-            <p className="text-xs text-error-foreground mt-1 flex items-center gap-1">
+            <p className="text-xs text-error-foreground mt-1 flex items-center gap-1 font-secondary">
               <AlertCircle className="h-3 w-3" />
               {errors.email}
             </p>
           )}
         </div>
       </div>
+      </div>
 
       {/* Security Notice */}
       <div className="p-3 bg-surface-accent border border-border rounded-lg">
-        <div className="flex items-center gap-2">
-          <Lock className="h-4 w-4 text-success" />
-          <span className="text-sm font-medium text-success">
+        <div className="flex items-center space-x-2 mt-4">
+          <Lock className="h-4 w-4 text-text-secondary" />
+          <span className="text-sm font-medium text-text-primary font-secondary">
             Secure Payment
           </span>
         </div>
-        <p className="text-xs text-text-secondary mt-1">
+        <p className="text-xs text-text-secondary mt-1 font-secondary">
           Your payment information is encrypted and secure. We use industry-standard SSL encryption.
         </p>
       </div>

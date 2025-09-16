@@ -150,10 +150,10 @@ export function MessageInput({
               )}
               
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate">
+                <p className="text-sm font-medium truncate font-secondary">
                   {attachedFile.file.name}
                 </p>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-muted-foreground font-secondary">
                   {formatFileSize(attachedFile.file.size)}
                 </p>
               </div>
@@ -181,10 +181,10 @@ export function MessageInput({
         onDragLeave={handleDragLeave}
       >
         {dragOver && (
-          <div className="absolute inset-0 bg-primary/10 border-2 border-dashed border-primary rounded-lg flex items-center justify-center z-10">
+          <div className="absolute inset-0 bg-primary/10 border-2 border-dashed border-primary flex items-center justify-center">
             <div className="text-center">
               <Paperclip className="h-8 w-8 text-primary mx-auto mb-2" />
-              <p className="text-primary font-medium">Drop files to attach</p>
+              <p className="text-primary font-medium font-secondary">Drop files to attach</p>
             </div>
           </div>
         )}

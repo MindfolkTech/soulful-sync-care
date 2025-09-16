@@ -64,10 +64,10 @@ export function BookingCard({
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2 mb-2">
             <div>
-              <h3 className="font-medium text-text-primary">
+              <h3 className="font-primary font-semibold text-text-primary">
                 {booking.therapistName}
               </h3>
-              <p className="text-sm text-text-secondary">
+              <p className="text-sm text-text-secondary font-secondary">
                 {typeLabels[booking.type]}
               </p>
             </div>
