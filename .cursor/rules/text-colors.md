@@ -170,7 +170,7 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Use **design tokens** only.
 
 ### Status Badge Colors
 - **Active status**: `text-[--on-dark]` on `bg-[--success-bg]`
-- **Inactive status**: `text-[--text-black]` on `bg-[--warning-bg]`
+- **Inactive status**: `text-[--ink-slate]` on `bg-[--warning-bg]`
 
 ### Chart Colors
 - **Chart labels**: `text-[--text-secondary]` on white background

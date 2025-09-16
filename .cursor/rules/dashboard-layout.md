@@ -96,11 +96,15 @@ Apply to all therapist and admin pages (React/TSX/CSS/Tailwind). Ensure consiste
 - **Join buttons**: `bg-[--garden-green]` + `text-[--on-dark]`
 - **Status badges**: 
   - Active: `bg-[--success-bg]` + `text-[--on-dark]`
-  - Inactive: `bg-[--warning-bg]` + `text-[--text-black]`
+  - Inactive: `bg-[--warning-bg]` + `text-[--ink-slate]`
 
-### Chart Colors
-- **Donut chart**: Orange, purple, green segments
-- **Line graph**: Orange line (`bg-[--btn-accent-bg]`)
+### Chart Colors (Aligned with chart-components.md)
+- **Donut chart segments**: 
+  - Completed: `bg-[--btn-accent-bg]` (orange)
+  - Cancelled: `bg-[--tag-language-bg]` (purple)  
+  - Rescheduled: `bg-[--tag-modality-bg]` (green)
+- **Line graph**: `bg-[--btn-accent-bg]` (orange trend line)
+- **Chart text**: `text-[--jovial-jade]` (central numbers), `text-[--text-secondary]` (labels)
 
 ## Typography Requirements
 
@@ -147,6 +151,8 @@ Apply to all therapist and admin pages (React/TSX/CSS/Tailwind). Ensure consiste
 - **Follow design-tokens.md** for all token usage
 - **Use semantic token names** (e.g., `--on-dark`, not "white text")
 - **Reference design-tokens.md** for complete token definitions
+- **Follow text-colors.md** for proper text color hierarchy (prefer `--ink-slate` over `--text-black`)
+- **Align with user-flows.md** specifications for all dashboard components
 
 ## Accessibility Requirements
 

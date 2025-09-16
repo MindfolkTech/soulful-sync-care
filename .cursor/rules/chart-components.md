@@ -1,71 +1,233 @@
 ﻿---
-description: Chart component requirements for dashboard widgets
-globs: ["src/components/charts/**/*.tsx", "src/pages/therapist/Dashboard.tsx"]
+description: Chart component requirements for dashboard widgets with detailed specifications from user-flows.md
+globs: ["src/components/charts/**/*.tsx", "src/pages/therapist/Dashboard.tsx", "src/pages/therapist/**/*.tsx"]
 alwaysApply: true
 ---
 
-# Rule: Chart Components — Dashboard Data Visualization
+# Rule: Chart Components — Dashboard Data Visualization (User-Flows Aligned)
 
 ## Scope
-Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match Figma design specifications and accessibility standards.
+Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user-flows.md specifications and accessibility standards.
 🚫 No deviations from specified colors, layouts, or accessibility requirements.
 
 **Reference**: See `design-tokens.md` for complete token definitions and usage guidelines.
+**Alignment**: This file implements chart requirements specified in `user-flows.md` sections.
 
-## Chart Requirements
+## Dashboard Widget Chart Requirements
 
-### Donut Chart (Income Details Widget)
-- **Central number**: Large, prominent display (e.g., "122")
-- **Color segments**: Orange, purple, green
-- **Legend**: Completed, Cancelled, Rescheduled
-- **Accessibility**: ARIA labels and alt text
-- **Size**: Proportional to widget container
-- **Animation**: Smooth transitions on data changes
+### Widget 3: Income Details - Donut Chart (Mandatory)
+- **Central number**: Large, prominent display (e.g., "122") - `text-[--jovial-jade]` color
+- **Chart type**: Donut chart with three segments
+- **Data representation**: Appointments breakdown (completed/cancelled/rescheduled sessions)
+- **Size**: Proportional to widget container, centered in widget
+- **Animation**: Smooth transitions on data changes with `--motion-progress`
+- **Accessibility**: ARIA labels, alt text, and data tables for screen readers
 
-### Line Graph (Business Profile Widget)
-- **Trend line**: Orange color (`bg-[--btn-accent-bg]`)
-- **Y-axis labels**: 9k, 11k, 14k, 17k, 20k
-- **Title**: "Profile Views in the last year"
-- **Accessibility**: Screen reader friendly data points
-- **Grid lines**: Subtle, non-distracting
-- **Animation**: Smooth line drawing on load
+#### Color Specifications (Exact Mapping)
+- **Completed sessions**: `bg-[--btn-accent-bg]` (#ffd9be - orange segment)
+- **Cancelled sessions**: `bg-[--tag-language-bg]` (#ede6fa - purple segment)  
+- **Rescheduled sessions**: `bg-[--tag-modality-bg]` (#e6eee9 - green segment)
+- **Central number**: `text-[--jovial-jade]` (#305C45)
+- **Legend text**: `text-[--text-secondary]` (#6B7280)
+- **Background**: `bg-[--surface]` (#FFFFFF)
 
-## Color Specifications
+#### Required Elements
+- **Section label**: "Appointments" - `font-[--font-secondary]`, `text-[--text-secondary]`
+- **Central number**: Large font size, `font-[--font-primary]`, `text-[--jovial-jade]`
+- **Legend**: Three items (Completed, Cancelled, Rescheduled) with color indicators
+- **Tooltip support**: Show exact numbers on hover/focus
 
-### Donut Chart Colors
-- **Completed sessions**: `bg-[--btn-accent-bg]` (orange)
-- **Cancelled sessions**: `bg-[--tag-language-bg]` (purple)
-- **Rescheduled sessions**: `bg-[--tag-modality-bg]` (green)
-- **Background**: Transparent or `bg-[--surface]`
-- **Text**: `text-[--text-primary]`
+### Widget 4: Business Profile - Line Graph (Mandatory)
+- **Chart type**: Line graph with upward trend
+- **Data range**: 9k to 20k profile views
+- **Time period**: "Profile Views in the last year"
+- **Animation**: Smooth line drawing on load with `--motion-swipe`
+- **Accessibility**: Screen reader friendly data points and trend description
 
-### Line Graph Colors
-- **Trend line**: `bg-[--btn-accent-bg]` (orange)
-- **Grid lines**: `border-[--border]` (light grey)
-- **Axis labels**: `text-[--text-secondary]`
-- **Background**: Transparent or `bg-[--surface]`
+#### Color Specifications (Exact Mapping)
+- **Trend line**: `bg-[--btn-accent-bg]` (#ffd9be - orange line)
 - **Data points**: `bg-[--btn-accent-bg]` with `text-[--on-dark]` centers
+- **Grid lines**: `border-[--border]` (#E5E7EB - subtle, non-distracting)
+- **Y-axis labels**: `text-[--text-secondary]` (#6B7280)
+- **Background**: `bg-[--surface]` (#FFFFFF)
+- **Title**: `text-[--text-secondary]` (#6B7280)
 
-## Accessibility Requirements
+#### Required Elements
+- **Section label**: "Profile Views in the last year" - `font-[--font-secondary]`, `text-[--text-secondary]`
+- **Y-axis labels**: 9k, 11k, 14k, 17k, 20k - `font-[--font-secondary]`, `text-[--text-secondary]`
+- **Trend line**: Orange color with smooth curves
+- **Data points**: Circular indicators at key points
+- **Grid lines**: Horizontal guidelines for readability
 
-### ARIA Labels
-- **Chart titles**: Descriptive headings
-- **Data values**: Screen reader accessible
-- **Color coding**: Alternative text descriptions
-- **Interactive elements**: Keyboard accessible
+## Chart Implementation Requirements
+
+### Touch Target Compliance
+- **Interactive elements**: `min-h-[--touch-target-min]` (44px)
+- **Data points**: `min-h-[--touch-target-min]` when clickable
+- **Legend items**: `min-h-[--touch-target-min]` for accessibility
+- **Tooltip triggers**: Meet touch target requirements
+
+### Responsive Design
+- **Mobile (320px-767px)**: 
+  - Single column chart layout
+  - Larger touch targets for data points
+  - Simplified legends below charts
+- **Tablet (768px-1023px)**: 
+  - Maintain aspect ratios
+  - Enhanced tooltips with more detail
+- **Desktop (1024px+)**: 
+  - Full chart detail display
+  - Hover interactions for additional data
+
+### Typography Requirements
+- **Chart titles**: `font-[--font-primary]` (Crimson Pro) - `text-[--jovial-jade]`
+- **Section labels**: `font-[--font-secondary]` (Helvetica Neue) - `text-[--text-secondary]`
+- **Data labels**: `font-[--font-secondary]` (Helvetica Neue) - `text-[--text-secondary]`
+- **Central numbers**: `font-[--font-primary]` (Crimson Pro) - `text-[--jovial-jade]`
+- **Legend text**: `font-[--font-secondary]` (Helvetica Neue) - `text-[--text-secondary]`
+
+## Accessibility Requirements (WCAG AA)
+
+### ARIA Labels and Descriptions
+- **Chart containers**: `role="img"` with descriptive `aria-label`
+- **Data values**: Screen reader accessible with `aria-describedby`
+- **Color coding**: Alternative text descriptions for each segment/point
+- **Interactive elements**: Keyboard accessible with proper focus indicators
+- **Trend descriptions**: Verbal explanation of data patterns
 
 ### Screen Reader Support
-- **Data tables**: Alternative to visual charts
-- **Descriptions**: Clear explanation of data
-- **Trends**: Verbal description of patterns
-- **Comparisons**: Relative value descriptions
+- **Data tables**: Hidden alternative tables for screen readers
+- **Descriptions**: Clear explanation of chart purpose and data
+- **Trends**: Verbal description of patterns (e.g., "Profile views increased from 9k to 20k")
+- **Comparisons**: Relative value descriptions (e.g., "Completed sessions: 85 out of 122 total")
+- **Navigation**: Logical tab order through interactive elements
+
+### Focus Management
+- **Keyboard navigation**: Tab through data points and interactive elements
+- **Focus indicators**: Visible focus rings meeting `--border` contrast requirements
+- **Skip links**: Allow users to skip complex chart interactions
+- **Focus trapping**: Proper focus management in chart tooltips/modals
+
+## Animation and Motion
+
+### Chart Animations
+- **Donut chart**: Segments animate in with `--motion-progress` (300ms ease-in-out)
+- **Line graph**: Line draws from left to right with `--motion-swipe` (200ms ease-in-out)
+- **Data points**: Fade in after line completion
+- **Hover states**: Smooth transitions on interactive elements
+
+### Reduced Motion Support
+- **Respect user preferences**: Check `prefers-reduced-motion` media query
+- **Alternative animations**: Instant display when motion is reduced
+- **Focus indicators**: Still provide visual feedback without animation
+
+## Error Handling and Loading States
+
+### Loading States
+- **Skeleton screens**: Show chart outline while data loads
+- **Loading indicators**: Spinner or progress bar for data fetching
+- **Graceful degradation**: Show basic data if chart library fails
+
+### Error States
+- **No data**: Clear message with `text-[--text-secondary]`
+- **Data errors**: User-friendly error messages
+- **Fallback content**: Text-based data when charts can't render
+
+## Integration with Dashboard Layout
+
+### Widget Container Requirements
+- **Background**: `bg-[--surface]` with `border-[--border]`
+- **Padding**: Consistent with other dashboard widgets
+- **Height**: Equal height with other widgets in the grid
+- **Scrolling**: Vertical scroll if chart content exceeds widget height
+
+### Header Integration
+- **Widget titles**: Match dashboard typography (`font-[--font-primary]`, `text-[--jovial-jade]`)
+- **Action links**: "EDIT" and "OPEN" links with `text-[--garden-green]`
+- **External link icons**: Consistent with other dashboard widgets
+
+## Testing Requirements
+
+### Accessibility Testing
+- **Screen reader testing**: Test with NVDA, JAWS, VoiceOver
+- **Keyboard navigation**: Verify all interactive elements are accessible
+- **Color contrast**: Verify all text meets WCAG AA standards (4.5:1)
+- **Focus indicators**: Ensure visible focus states on all interactive elements
+
+### Cross-Browser Testing
+- **Chart rendering**: Test in Chrome, Firefox, Safari, Edge
+- **Animation performance**: Verify smooth animations across browsers
+- **Touch interactions**: Test on mobile devices and tablets
+- **Responsive behavior**: Verify charts adapt to different screen sizes
+
+## Examples
+
+### ✅ Good Chart Implementation
+```tsx
+// Donut Chart for Income Details Widget
+<div className="bg-[--surface] p-4 rounded-lg border border-[--border]">
+  <div className="flex items-center justify-between mb-4">
+    <h3 className="font-[--font-primary] text-[--jovial-jade]">Income Details</h3>
+    <a href="#" className="text-[--garden-green] text-sm">EDIT</a>
+  </div>
+  <div className="flex items-center justify-between mb-2">
+    <span className="font-[--font-secondary] text-[--text-secondary] text-sm">Appointments</span>
+    <a href="#" className="text-[--garden-green] text-sm flex items-center">
+      OPEN ANALYTICS <ExternalLink className="ml-1 w-4 h-4" />
+    </a>
+  </div>
+  <div 
+    className="relative w-32 h-32 mx-auto mb-4"
+    role="img"
+    aria-label="Appointment breakdown: 85 completed, 22 cancelled, 15 rescheduled out of 122 total"
+  >
+    <DonutChart
+      data={[
+        { label: "Completed", value: 85, color: "bg-[--btn-accent-bg]" },
+        { label: "Cancelled", value: 22, color: "bg-[--tag-language-bg]" },
+        { label: "Rescheduled", value: 15, color: "bg-[--tag-modality-bg]" }
+      ]}
+      centerText="122"
+      centerTextClass="font-[--font-primary] text-2xl text-[--jovial-jade]"
+    />
+  </div>
+  <div className="space-y-2">
+    {data.map((item, index) => (
+      <div key={index} className="flex items-center justify-between text-sm">
+        <div className="flex items-center">
+          <div className={`w-3 h-3 rounded-full ${item.color} mr-2`} />
+          <span className="font-[--font-secondary] text-[--text-secondary]">{item.label}</span>
+        </div>
+        <span className="font-[--font-secondary] text-[--text-primary]">{item.value}</span>
+      </div>
+    ))}
+  </div>
+</div>
+```
+
+### ❌ Bad Chart Implementation
+```tsx
+// Wrong - missing accessibility, wrong colors, no design tokens
+<div className="bg-white p-4">
+  <h3 className="text-black">Income Details</h3>
+  <div className="w-32 h-32">
+    <DonutChart 
+      data={[
+        { label: "Done", value: 85, color: "#ff6b35" }, // Wrong: raw hex
+        { label: "Skip", value: 22, color: "purple" },  // Wrong: CSS color names
+        { label: "Move", value: 15, color: "green" }    // Wrong: generic names
+      ]}
+    />
+  </div>
+</div>
+```
 
 ## Key Rules
-- **Charts must be accessible** with proper ARIA labels
-- **Colors must match specifications** exactly
-- **Data must be real-time** and accurate
-- **Responsive design** for all screen sizes
-- **Animation must be smooth** and non-distracting
-- **Alternative text** required for all visual elements
-- **Keyboard navigation** for interactive charts
-- **Screen reader support** for all data
+- **Use design tokens exclusively** - no raw colors or CSS color names
+- **Follow user-flows.md specifications** exactly for widget charts
+- **Implement full accessibility** with ARIA labels and screen reader support
+- **Maintain consistent typography** using font tokens from design-tokens.md
+- **Provide responsive behavior** across all breakpoints
+- **Include smooth animations** with respect for reduced motion preferences
+- **Test thoroughly** for accessibility and cross-browser compatibility
+- **Integrate seamlessly** with dashboard layout patterns

@@ -11,6 +11,7 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure all color combinations mee
 🚫 No washed-out, low-contrast, or visually jarring color combinations.
 
 **Reference**: See `design-tokens.md` for complete token definitions and usage guidelines.
+**Alignment**: This file enforces contrast standards referenced in `user-flows.md` and `text-colors.md`.
 
 ## Contrast Requirements (WCAG 2.1 AA)
 
@@ -163,12 +164,14 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure all color combinations mee
 3. **Verify accessibility** - test with color blindness simulators
 4. **Check focus states** - ensure interactive elements are visible
 5. **Validate in context** - test on actual backgrounds and surfaces
+6. **Follow text-colors.md hierarchy** - prefer `--ink-slate` over `--text-black` for non-critical content
 
 ### Fallback Strategies
 - **Always provide text alternatives** for color-coded information
 - **Use icons alongside colors** for better accessibility
 - **Implement high contrast mode** for users who need it
 - **Test with real users** who have visual impairments
+- **Reference design-tokens.md** for all color token definitions
 
 ## Key Rules
 - **Minimum 4.5:1 contrast** for all text combinations

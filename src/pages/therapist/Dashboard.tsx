@@ -111,27 +111,26 @@ export default function TherapistDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-warm-white">
+    <div className="min-h-screen bg-[--warm-white]">
       {/* Header Section */}
-      <header className="px-6 py-4" style={{ backgroundColor: 'hsl(var(--jovial-jade))', color: 'hsl(var(--btn-primary-text))' }}>
+      <header className="bg-[--jovial-jade] text-[--btn-primary-text] px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <h1 className="text-xl font-bold" style={{ fontFamily: 'var(--font-primary)', color: 'hsl(var(--btn-primary-text))' }}>Mindfolk</h1>
+            <h1 className="font-[--font-primary] text-xl font-bold text-[--btn-primary-text]">Mindfolk</h1>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4" style={{ color: 'hsl(var(--text-muted))' }} />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[--text-muted]" />
               <input 
                 id="client-search"
                 name="clientSearch"
                 type="search" 
                 placeholder="Search Clients" 
-                className="pl-10 pr-4 py-2 bg-[--surface] rounded border-0 focus:ring-2 focus:ring-[--surface]/30 focus:outline-none min-h-[44px] w-64"
-                style={{ color: 'hsl(var(--text-primary))' }}
+                className="pl-10 pr-4 py-2 bg-white text-[--text-primary] rounded border-0 focus:ring-2 focus:ring-white/30 focus:outline-none min-h-[44px] w-64"
                 aria-label="Search clients"
               />
             </div>
           </div>
-          <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: 'hsl(var(--surface-accent))' }}>
-            <span className="text-sm font-semibold" style={{ fontFamily: 'var(--font-secondary)', color: 'hsl(var(--jovial-jade))' }}>CT</span>
+          <div className="w-10 h-10 bg-[--surface-accent] rounded-full flex items-center justify-center">
+            <span className="font-[--font-secondary] text-sm font-semibold text-[--jovial-jade]">CT</span>
           </div>
         </div>
       </header>
