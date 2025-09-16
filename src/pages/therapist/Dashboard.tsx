@@ -1,7 +1,4 @@
 import { Link } from "react-router-dom";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { TherapistNav } from "@/components/layout/therapist-nav";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,7 +8,6 @@ import {
   Calendar, 
   Users, 
   DollarSign, 
-  TrendingUp, 
   Clock, 
   Video, 
   Bell, 
@@ -22,47 +18,82 @@ import {
   Settings,
   Star,
   ArrowUp,
-  ArrowDown
+  ArrowDown,
+  ExternalLink,
+  Search,
+  Home,
+  User,
+  TrendingUp
 } from "lucide-react";
 
 export default function TherapistDashboard() {
   const upcomingAppointments = [
     {
       id: "1",
-      clientName: "J.D.",
+      clientName: "Deborah Young",
+      clientInitials: "DY",
       type: "Chemistry Call",
-      time: "2:00 PM",
-      duration: "15 min",
+      time: "Apr 21 10:00am - 10:30am",
+      duration: "30 min",
       status: "confirmed",
       priority: "high",
-      clientProgress: 75
+      canJoin: true
     },
     {
       id: "2", 
-      clientName: "M.S.",
+      clientName: "Lindsey Jacobs",
+      clientInitials: "LJ",
       type: "Therapy Session",
-      time: "4:00 PM",
-      duration: "60 min",
+      time: "Apr 21 10:30am - 11:00am",
+      duration: "30 min",
       status: "confirmed",
       priority: "medium",
-      clientProgress: 60
+      canJoin: true
     },
     {
       id: "3",
-      clientName: "A.R.",
+      clientName: "John Smith",
+      clientInitials: "JS",
       type: "Therapy Session", 
-      time: "6:00 PM",
-      duration: "60 min",
-      status: "pending",
+      time: "Apr 21 11:00am - 11:30am",
+      duration: "30 min",
+      status: "confirmed",
       priority: "high",
-      clientProgress: 25
+      canJoin: true
     }
   ];
 
   const recentClients = [
-    { id: "1", initials: "J.D.", status: "Active", lastSession: "2 days ago", progress: 75, satisfaction: 4.8 },
-    { id: "2", initials: "M.S.", status: "Active", lastSession: "1 week ago", progress: 60, satisfaction: 4.6 },
-    { id: "3", initials: "A.R.", status: "Pending", lastSession: "Never", progress: 25, satisfaction: 0 }
+    { 
+      id: "1", 
+      name: "Jessica Stewarts", 
+      initials: "JS", 
+      email: "Prabodhan@gmail.com", 
+      status: "Active", 
+      lastSession: "2 days ago", 
+      progress: 75, 
+      satisfaction: 4.8 
+    },
+    { 
+      id: "2", 
+      name: "Debbie Vectra", 
+      initials: "DV", 
+      email: "dv1092@gmail.com", 
+      status: "Active", 
+      lastSession: "1 week ago", 
+      progress: 60, 
+      satisfaction: 4.6 
+    },
+    { 
+      id: "3", 
+      name: "Paul Sung", 
+      initials: "PS", 
+      email: "p.sung0982@gmail.com", 
+      status: "Inactive", 
+      lastSession: "Never", 
+      progress: 25, 
+      satisfaction: 0 
+    }
   ];
 
   const notifications = [
@@ -80,412 +111,256 @@ export default function TherapistDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-warm-white flex flex-col">
-      <Header />
-      <TherapistNav />
-      
-      <main className="flex-1 py-8">
-        <Container>
-          <div className="space-y-8">
-            {/* Enhanced Header with Quick Actions */}
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="font-crimson text-3xl font-bold text-jovial-jade">
-                  Welcome back, Dr. Chen
-                </h1>
-                <p className="font-helvetica text-text-secondary mt-2">
-                  Here's what's happening with your practice today
-                </p>
-              </div>
-              <div className="flex items-center gap-3">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="relative hover:bg-surface-accent transition-colors duration-200" 
-                  aria-label="View alerts (3 new)"
-                  onClick={() => window.location.href = '/t/notifications'}
-                >
-                  <Bell className="w-4 h-4 mr-2" aria-hidden="true" />
-                  Alerts
-                  <Badge
-                    variant="destructive"
-                    className="absolute -top-2 -right-2 h-5 w-5 text-xs bg-error-bg text-error-text"
-                    aria-label="3 new alerts"
-                  >
-                    3
-                  </Badge>
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="hover:bg-surface-accent transition-colors duration-200" 
-                  aria-label="Customize dashboard"
-                  onClick={() => window.location.href = '/t/settings'}
-                >
-                  <Settings className="w-4 h-4 mr-2" aria-hidden="true" />
-                  Customize
-                </Button>
+    <div className="min-h-screen bg-warm-white">
+      {/* Header Section */}
+      <header className="bg-jovial-jade text-white px-6 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <h1 className="font-crimson text-xl font-bold">Mindfolk</h1>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-text-muted" />
+              <input 
+                type="search" 
+                placeholder="Search Clients" 
+                className="pl-10 pr-4 py-2 bg-white text-text-primary rounded-md border-0 focus:ring-2 focus:ring-garden-green"
+                style={{minHeight: '44px'}}
+              />
+            </div>
+          </div>
+          <div className="w-10 h-10 bg-surface-accent rounded-full flex items-center justify-center">
+            <span className="font-helvetica text-jovial-jade text-sm font-semibold">CT</span>
+          </div>
+        </div>
+      </header>
+
+      <div className="flex">
+        {/* Sidebar Navigation */}
+        <aside className="w-64 bg-surface-accent min-h-screen py-6">
+          <nav className="space-y-2 px-4">
+            <div className="flex items-center gap-3 px-3 py-2 bg-jovial-jade text-white rounded-md">
+              <Home className="w-5 h-5" />
+              <span className="font-helvetica font-medium">Dashboard</span>
+            </div>
+            <Link to="/t/clients" className="flex items-center gap-3 px-3 py-2 text-jovial-jade hover:bg-jovial-jade hover:text-white rounded-md transition-colors">
+              <Users className="w-5 h-5" />
+              <span className="font-helvetica">My Clients</span>
+            </Link>
+            <Link to="/t/profile" className="flex items-center gap-3 px-3 py-2 text-jovial-jade hover:bg-jovial-jade hover:text-white rounded-md transition-colors">
+              <User className="w-5 h-5" />
+              <span className="font-helvetica">My Profile</span>
+            </Link>
+            <Link to="/t/analytics" className="flex items-center gap-3 px-3 py-2 text-jovial-jade hover:bg-jovial-jade hover:text-white rounded-md transition-colors">
+              <BarChart3 className="w-5 h-5" />
+              <span className="font-helvetica">Performance & Analytics</span>
+            </Link>
+            
+            <div className="border-t border-border my-4"></div>
+            
+            <div className="px-3">
+              <h3 className="font-helvetica text-jovial-jade font-semibold text-sm mb-2">QUICK ACTIONS</h3>
+              <div className="space-y-1">
+                <button className="block text-left text-jovial-jade hover:text-garden-green text-sm py-1">Update pricing</button>
+                <button className="block text-left text-jovial-jade hover:text-garden-green text-sm py-1">Add a new video</button>
+                <button className="block text-left text-jovial-jade hover:text-garden-green text-sm py-1">Learn engagement boost</button>
+                <button className="block text-left text-jovial-jade hover:text-garden-green text-sm py-1">FAQ</button>
               </div>
             </div>
+            
+            <div className="border-t border-border my-4"></div>
+            
+            <button className="flex items-center gap-3 px-3 py-2 text-jovial-jade hover:text-garden-green transition-colors">
+              <span className="font-helvetica text-sm">Sign out</span>
+            </button>
+          </nav>
+        </aside>
 
-            {/* Quick Action Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Link to="/t/bookings" className="block">
-                <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer group">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-garden-green rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                        <Calendar className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-crimson text-lg font-semibold text-jovial-jade">Schedule Session</h3>
-                        <p className="font-helvetica text-sm text-text-secondary">Book your next appointment</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-              
-              <Link to="/t/messages" className="block">
-                <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer group">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-elated-emerald rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                        <MessageSquare className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-crimson text-lg font-semibold text-jovial-jade">View Messages</h3>
-                        <p className="font-helvetica text-sm text-text-secondary">2 unread messages</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-              
-              <Link to="/t/earnings" className="block">
-                <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer group">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-btn-accent rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                        <DollarSign className="w-6 h-6 text-btn-accent-text" />
-                      </div>
-                      <div>
-                        <h3 className="font-crimson text-lg font-semibold text-jovial-jade">Earnings</h3>
-                        <p className="font-helvetica text-sm text-text-secondary">£640 this week</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            </div>
+        {/* Main Content */}
+        <main className="flex-1 p-8">
+          <div className="mb-8">
+            <h1 className="font-crimson text-3xl font-bold text-jovial-jade mb-2">
+              Welcome Back, Sarah!
+            </h1>
+          </div>
 
-            {/* Enhanced Urgent Notifications */}
-            <Card className="border-l-4 border-l-warning-bg bg-warning-bg shadow-lg" role="alert" aria-live="polite">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-warning-bg rounded-full flex items-center justify-center">
-                    <AlertTriangle className="w-5 h-5 text-warning-text" aria-hidden="true" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-crimson font-semibold text-warning-text text-lg">Attention Required</p>
-                    <p className="font-helvetica text-warning-text text-sm mt-1">
-                      Client A.R. has rescheduled 3 times - consider reaching out
-                    </p>
-                  </div>
-                  <Button 
-                    size="sm" 
-                    className="bg-btn-cta text-btn-cta-text hover:bg-surface-accent transition-colors duration-200" 
-                    aria-label="Take action on urgent notification"
-                    onClick={() => window.location.href = '/t/clients'}
-                  >
-                    Take Action
+          {/* 4-Widget Grid Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            {/* Widget 1: Upcoming Appointments (Top Left) */}
+            <Card className="h-full">
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="font-crimson text-jovial-jade">Upcoming Appointments</CardTitle>
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" className="text-garden-green">EDIT</Button>
+                  <Button variant="ghost" size="sm" className="text-garden-green">
+                    OPEN CALENDAR
+                    <ExternalLink className="w-4 h-4 ml-1" />
                   </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-3 max-h-64 overflow-y-auto">
+                {upcomingAppointments.map(appointment => (
+                  <div key={appointment.id} className="flex items-center justify-between p-3 border rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-surface-accent rounded-full flex items-center justify-center">
+                        <span className="font-helvetica text-text-primary text-sm">{appointment.clientInitials}</span>
+                      </div>
+                      <div>
+                        <p className="font-helvetica text-text-primary">{appointment.clientName}</p>
+                        <p className="font-helvetica text-text-secondary text-sm">{appointment.time}</p>
+                      </div>
+                    </div>
+                    <Button className="bg-garden-green text-white hover:bg-elated-emerald">
+                      Join Now →
+                    </Button>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+
+            {/* Widget 2: My Client Dashboard (Top Right) */}
+            <Card className="h-full">
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="font-crimson text-jovial-jade">My Client Dashboard</CardTitle>
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" className="text-garden-green">EDIT</Button>
+                  <Button variant="ghost" size="sm" className="text-garden-green">
+                    OPEN CLIENTS
+                    <ExternalLink className="w-4 h-4 ml-1" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {recentClients.map(client => (
+                  <div key={client.id} className="flex items-center justify-between p-3 border rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-surface-accent rounded-full flex items-center justify-center">
+                        <span className="font-helvetica text-text-primary text-sm">{client.initials}</span>
+                      </div>
+                      <div>
+                        <p className="font-helvetica text-text-primary">{client.name}</p>
+                        <p className="font-helvetica text-text-secondary text-sm">{client.email}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge 
+                        variant={client.status === "Active" ? "secondary" : "outline"}
+                        className={client.status === "Active" ? "bg-success-bg text-success-text" : "bg-warning-bg text-warning-text"}
+                      >
+                        {client.status}
+                      </Badge>
+                      <Button variant="ghost" size="sm" className="text-garden-green">EDIT</Button>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+
+            {/* Widget 3: Income Details (Bottom Left) */}
+            <Card className="h-full">
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="font-crimson text-jovial-jade">Income Details</CardTitle>
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" className="text-garden-green">EDIT</Button>
+                  <Button variant="ghost" size="sm" className="text-garden-green">
+                    OPEN ANALYTICS
+                    <ExternalLink className="w-4 h-4 ml-1" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-4">
+                  <h3 className="font-helvetica text-text-secondary text-sm mb-4">Appointments</h3>
+                  <div className="relative w-full h-48 flex items-center justify-center">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="font-crimson text-4xl font-bold text-jovial-jade">122</span>
+                    </div>
+                    <svg className="w-full h-full transform -rotate-90">
+                      <circle
+                        cx="50%"
+                        cy="50%"
+                        r="40%"
+                        fill="none"
+                        stroke="#ffd9be"
+                        strokeWidth="8"
+                        strokeDasharray="60 40"
+                        aria-label="Completed sessions: 60%"
+                      />
+                      <circle
+                        cx="50%"
+                        cy="50%"
+                        r="40%"
+                        fill="none"
+                        stroke="#ede6fa"
+                        strokeWidth="8"
+                        strokeDasharray="25 75"
+                        strokeDashoffset="-60"
+                        aria-label="Cancelled sessions: 25%"
+                      />
+                      <circle
+                        cx="50%"
+                        cy="50%"
+                        r="40%"
+                        fill="none"
+                        stroke="#e6eee9"
+                        strokeWidth="8"
+                        strokeDasharray="15 85"
+                        strokeDashoffset="-85"
+                        aria-label="Rescheduled sessions: 15%"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Enhanced Stats Overview */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="hover:shadow-lg transition-all duration-300 group cursor-pointer" role="region" aria-label="Today's Sessions Statistics">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-helvetica text-text-secondary text-sm">Today's Sessions</p>
-                      <p className="font-crimson text-3xl font-bold text-jovial-jade mt-1" aria-label="3 sessions">3</p>
-                      <p className="font-helvetica text-success-bg text-xs flex items-center mt-2">
-                        <ArrowUp className="w-3 h-3 mr-1" aria-hidden="true" />
-                        +1 from yesterday
-                      </p>
-                    </div>
-                    <div className="w-14 h-14 bg-surface-accent rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200" aria-hidden="true">
-                      <Calendar className="w-7 h-7 text-garden-green" />
-                    </div>
+            {/* Widget 4: My Business Profile (Bottom Right) */}
+            <Card className="h-full">
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="font-crimson text-jovial-jade">My Business Profile</CardTitle>
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" className="text-garden-green">EDIT</Button>
+                  <Button variant="ghost" size="sm" className="text-garden-green">
+                    OPEN PROFILE
+                    <ExternalLink className="w-4 h-4 ml-1" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-4">
+                  <h3 className="font-helvetica text-text-secondary text-sm mb-4">Profile Views in the last year</h3>
+                  <div className="w-full h-48 p-4">
+                    <svg className="w-full h-full" viewBox="0 0 400 200">
+                      {/* Grid lines */}
+                      <defs>
+                        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E5E7EB" strokeWidth="1"/>
+                        </pattern>
+                      </defs>
+                      <rect width="100%" height="100%" fill="url(#grid)" />
+                      
+                      {/* Trend line */}
+                      <path
+                        d="M 20 160 L 80 140 L 140 120 L 200 100 L 260 80 L 320 60 L 380 40"
+                        fill="none"
+                        stroke="#ffd9be"
+                        strokeWidth="3"
+                        aria-label="Profile views trend: increasing from 9k to 20k"
+                      />
+                      
+                      {/* Data points */}
+                      <circle cx="20" cy="160" r="4" fill="#ffd9be" aria-label="9k views" />
+                      <circle cx="80" cy="140" r="4" fill="#ffd9be" aria-label="11k views" />
+                      <circle cx="140" cy="120" r="4" fill="#ffd9be" aria-label="14k views" />
+                      <circle cx="200" cy="100" r="4" fill="#ffd9be" aria-label="17k views" />
+                      <circle cx="260" cy="80" r="4" fill="#ffd9be" aria-label="20k views" />
+                    </svg>
                   </div>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-all duration-300 group cursor-pointer" role="region" aria-label="Client Retention Statistics">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-helvetica text-text-secondary text-sm">Client Retention</p>
-                      <p className="font-crimson text-3xl font-bold text-jovial-jade mt-1" aria-label={`${practiceMetrics.clientRetention} percent`}>{practiceMetrics.clientRetention}%</p>
-                      <p className="font-helvetica text-success-bg text-xs flex items-center mt-2">
-                        <ArrowUp className="w-3 h-3 mr-1" aria-hidden="true" />
-                        +5% this month
-                      </p>
-                    </div>
-                    <div className="w-14 h-14 bg-surface-accent rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200" aria-hidden="true">
-                      <Users className="w-7 h-7 text-garden-green" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-all duration-300 group cursor-pointer" role="region" aria-label="Average Satisfaction Statistics">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-helvetica text-text-secondary text-sm">Avg Satisfaction</p>
-                      <p className="font-crimson text-3xl font-bold text-jovial-jade mt-1" aria-label={`${practiceMetrics.avgSatisfaction} out of 5`}>{practiceMetrics.avgSatisfaction}</p>
-                      <div className="flex items-center space-x-1 mt-2" role="img" aria-label={`${practiceMetrics.avgSatisfaction} star rating`}>
-                        {[...Array(5)].map((_, i) => (
-                          <Star 
-                            key={i} 
-                            className={`w-4 h-4 ${i < Math.floor(practiceMetrics.avgSatisfaction) ? 'text-garden-green fill-current' : 'text-text-muted'}`} 
-                            aria-hidden="true"
-                          />
-                        ))}
-                      </div>
-                    </div>
-                    <div className="w-14 h-14 bg-surface-accent rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200" aria-hidden="true">
-                      <Star className="w-7 h-7 text-garden-green" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-all duration-300 group cursor-pointer" role="region" aria-label="Weekly Revenue Statistics">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-helvetica text-text-secondary text-sm">This Week's Revenue</p>
-                      <p className="font-crimson text-3xl font-bold text-jovial-jade mt-1" aria-label={`${practiceMetrics.weeklyRevenue} pounds`}>£{practiceMetrics.weeklyRevenue}</p>
-                      <p className="font-helvetica text-success-bg text-xs flex items-center mt-2">
-                        <ArrowUp className="w-3 h-3 mr-1" aria-hidden="true" />
-                        +15% from last week
-                      </p>
-                    </div>
-                    <div className="w-14 h-14 bg-surface-accent rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200" aria-hidden="true">
-                      <DollarSign className="w-7 h-7 text-garden-green" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="grid lg:grid-cols-3 gap-8">
-              {/* Enhanced Upcoming Appointments */}
-              <div className="lg:col-span-2">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between">
-                    <CardTitle className="font-primary">Today's Schedule</CardTitle>
-                    <div className="flex space-x-2">
-                      <Badge variant="outline" className="text-xs">
-                        {upcomingAppointments.filter(a => a.priority === 'high').length} High Priority
-                      </Badge>
-                      <Button variant="outline" size="sm">View All</Button>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {upcomingAppointments.map((appointment) => (
-                      <div key={appointment.id} className={`flex items-center justify-between p-4 border rounded-lg ${
-                        appointment.priority === 'high' ? 'border-[var(--error-bg)] bg-[var(--error-bg)]' : 'border-[var(--border)]'
-                      }`}>
-                        <div className="flex items-center space-x-4">
-                          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                            appointment.priority === 'high' ? 'bg-[var(--error-bg)]' : 'bg-[var(--surface-accent)]'
-                          }`}>
-                            <span className="font-secondary font-semibold text-text-primary text-sm">
-                              {appointment.clientName}
-                            </span>
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex items-center space-x-2">
-                              <p className="font-secondary font-semibold text-text-primary">
-                                {appointment.type}
-                              </p>
-                              {appointment.priority === 'high' && (
-                                <Badge variant="destructive" className="text-xs">High Priority</Badge>
-                              )}
-                            </div>
-                            <div className="flex items-center space-x-2 text-sm text-text-secondary mb-2">
-                              <Clock className="w-4 h-4" />
-                              <span>{appointment.time} • {appointment.duration}</span>
-                            </div>
-                            <div className="space-y-1">
-                              <div className="flex items-center justify-between text-xs">
-                                <span className="text-text-secondary">Progress</span>
-                                <span className="text-text-primary font-medium">{appointment.clientProgress}%</span>
-                              </div>
-                              <Progress value={appointment.clientProgress} className="h-2" />
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-center space-x-3">
-                          <Badge variant={appointment.status === 'confirmed' ? 'secondary' : 'outline'}>
-                            {appointment.status}
-                          </Badge>
-                          <Button size="sm" disabled={appointment.status !== 'confirmed'}>
-                            <Video className="w-4 h-4 mr-2" />
-                            Join
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                    
-                    {upcomingAppointments.length === 0 && (
-                      <div className="text-center py-8">
-                        <Calendar className="w-12 h-12 mx-auto text-text-muted mb-4" />
-                        <p className="font-secondary text-text-secondary">
-                          No appointments scheduled for today
-                        </p>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Enhanced Sidebar */}
-              <div className="space-y-6">
-                {/* Notifications Panel */}
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between">
-                    <CardTitle className="font-primary text-lg">Notifications</CardTitle>
-                    <Badge variant="destructive" className="text-xs">3 New</Badge>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    {notifications.map((notification) => (
-                      <div key={notification.id} className={`flex items-start space-x-3 p-3 rounded-lg ${
-                        notification.type === 'urgent' ? 'bg-[var(--error-bg)] border border-[var(--error-bg)]' : 
-                        notification.type === 'success' ? 'bg-[var(--success-bg)] border border-[var(--success-bg)]' : 
-                        'bg-[var(--info-bg)] border border-[var(--info-bg)]'
-                      }`}>
-                        <notification.icon className={`w-4 h-4 mt-0.5 ${
-                          notification.type === 'urgent' ? 'text-[var(--error-text)]' : 
-                          notification.type === 'success' ? 'text-[var(--success-text)]' : 
-                          'text-[var(--info-text)]'
-                        }`} />
-                        <p className="font-secondary text-sm text-text-primary">
-                          {notification.message}
-                        </p>
-                      </div>
-                    ))}
-                    <Button variant="outline" size="sm" className="w-full">
-                      View All Notifications
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                {/* Quick Actions */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="font-crimson text-jovial-jade">Quick Actions</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <Button asChild className="w-full justify-start bg-garden-green hover:bg-elated-emerald text-white">
-                      <Link to="/t/bookings">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        View Calendar
-                      </Link>
-                    </Button>
-                    <Button asChild variant="outline" className="w-full justify-start hover:bg-surface-accent">
-                      <Link to="/t/clients">
-                        <Users className="w-4 h-4 mr-2" />
-                        Manage Clients
-                      </Link>
-                    </Button>
-                    <Button asChild variant="outline" className="w-full justify-start hover:bg-surface-accent">
-                      <Link to="/t/analytics">
-                        <BarChart3 className="w-4 h-4 mr-2" />
-                        View Analytics
-                      </Link>
-                    </Button>
-                    <Button asChild variant="outline" className="w-full justify-start hover:bg-surface-accent">
-                      <Link to="/t/messages">
-                        <MessageSquare className="w-4 h-4 mr-2" />
-                        Messages
-                        <Badge variant="secondary" className="ml-auto text-xs">2</Badge>
-                      </Link>
-                    </Button>
-                    <Button asChild variant="outline" className="w-full justify-start hover:bg-surface-accent">
-                      <Link to="/t/earnings">
-                        <DollarSign className="w-4 h-4 mr-2" />
-                        Earnings
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                {/* Enhanced Client Status */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="font-primary">Client Progress</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {recentClients.map((client) => (
-                      <div key={client.id} className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-3">
-                            <div className="w-8 h-8 bg-surface-accent rounded-full flex items-center justify-center">
-                              <span className="font-secondary text-text-primary text-sm">
-                                {client.initials}
-                              </span>
-                            </div>
-                            <div>
-                              <p className="font-secondary text-text-primary text-sm">
-                                Client {client.initials}
-                              </p>
-                              <p className="font-secondary text-text-muted text-xs">
-                                {client.lastSession}
-                              </p>
-                            </div>
-                          </div>
-                          <Badge 
-                            variant={client.status === "Active" ? "secondary" : "outline"}
-                            className="text-xs"
-                          >
-                            {client.status}
-                          </Badge>
-                        </div>
-                        <div className="space-y-1">
-                          <div className="flex items-center justify-between text-xs">
-                            <span className="text-text-secondary">Progress</span>
-                            <span className="text-text-primary font-medium">{client.progress}%</span>
-                          </div>
-                          <Progress value={client.progress} className="h-2" />
-                          {client.satisfaction > 0 && (
-                            <div className="flex items-center space-x-1">
-                              <Star className="w-3 h-3 text-[var(--garden-green)] fill-current" />
-                              <span className="text-xs text-text-secondary">{client.satisfaction}/5.0</span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                    <Button variant="outline" size="sm" className="w-full">
-                      View All Clients
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-        </Container>
-      </main>
-
-      <Footer />
+        </main>
+      </div>
     </div>
   );
 }
