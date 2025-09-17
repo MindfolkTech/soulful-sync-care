@@ -9,11 +9,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-btn-primary text-btn-primary-foreground hover:bg-btn-primary/90",
-        secondary: "bg-transparent text-btn-secondary-foreground hover:bg-surface-accent border border-garden-green",
-        tertiary: "bg-transparent text-jovial-jade hover:bg-surface-accent",
-        accent: "bg-btn-accent text-btn-accent-foreground hover:bg-btn-accent/90",
-        cta: "bg-btn-cta text-btn-cta-foreground hover:bg-btn-cta/90",
+        primary: "bg-[--garden-green] text-[--btn-primary-text] hover:bg-[--garden-green]/90",
+        secondary: "bg-[--btn-secondary-bg] text-[--btn-secondary-text] hover:bg-surface-accent border border-[--garden-green]",
+        tertiary: "bg-transparent text-[--btn-tertiary-text] hover:bg-surface-accent",
+        accent: "bg-[--btn-accent-bg] text-[--btn-accent-text] hover:bg-[--btn-accent-bg]/90",
+        cta: "bg-[--btn-cta-bg] text-[--btn-cta-text] hover:bg-[--btn-cta-bg]/90",
         destructive: "bg-error text-error-foreground hover:bg-error/90",
         outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         ghost: "hover:bg-accent hover:text-accent-foreground",

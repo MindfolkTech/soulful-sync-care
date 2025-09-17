@@ -137,11 +137,12 @@ export function SessionCountdown({
 
       {showJoinButton || sessionStarted ? (
         <Button 
+          variant={showJoinButton ? "primary" : "secondary"}
           size="sm" 
           onClick={handleJoinSession}
           className={cn(
             "min-h-[--touch-target-min] font-secondary font-semibold",
-            showJoinButton && "bg-[--btn-primary-bg] text-[--btn-primary-text] hover:bg-[--btn-primary-bg]/90 animate-pulse"
+            showJoinButton && "animate-pulse"
           )}
           aria-label={`Join therapy session with ${therapistName}`}
         >

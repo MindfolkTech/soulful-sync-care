@@ -93,11 +93,8 @@ function AppointmentItem({ appointment }: { appointment: any }) {
         
         {showJoinNow ? (
           <Button 
+            variant="primary"
             onClick={handleJoinSession}
-            style={{ 
-              backgroundColor: "var(--btn-primary-bg)", 
-              color: "var(--btn-primary-text)" 
-            }}
             className="min-h-[--touch-target-min] font-secondary font-semibold animate-pulse"
             aria-label={`Join ${appointment.clientName}'s ${appointment.type}`}
           >
@@ -105,12 +102,8 @@ function AppointmentItem({ appointment }: { appointment: any }) {
           </Button>
         ) : (
           <Button 
-            variant="ghost"
-            style={{
-              backgroundColor: "var(--btn-secondary-bg)",
-              color: "var(--btn-secondary-text)"
-            }}
-            className="min-h-[--touch-target-min] font-secondary text-xs border border-border"
+            variant="secondary"
+            className="min-h-[--touch-target-min] font-secondary text-xs"
             disabled
           >
             Scheduled
@@ -217,9 +210,11 @@ export default function TherapistDashboard() {
                 Upcoming Appointments
               </h2>
               <div className="flex items-center gap-[--space-xs]">
-                <Button variant="ghost" size="sm" className="text-[--btn-secondary-text] text-xs px-2 min-h-[--touch-target-min]" aria-label="View all appointments">
-                  VIEW ALL
-                  <ExternalLink className="w-3 h-3 ml-1" />
+                <Button variant="ghost" size="sm" className="text-[--btn-secondary-text] text-xs px-2 min-h-[--touch-target-min]" asChild aria-label="View all appointments">
+                  <Link to="/t/bookings">
+                    VIEW ALL
+                    <ExternalLink className="w-3 h-3 ml-1" />
+                  </Link>
                 </Button>
               </div>
             </div>
