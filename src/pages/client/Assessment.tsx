@@ -202,23 +202,23 @@ export default function Assessment() {
           <div className="max-w-2xl mx-auto">
             <div className="mb-8">
               <Progress value={progress} className="h-2 mb-4" />
-              <p className="text-sm text-text-secondary font-secondary text-center">
+              <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary text-center">
                 Step {currentStep} of {assessmentSteps.length}
               </p>
             </div>
 
             <Card className="min-h-[400px]">
               <CardHeader className="text-center">
-                <h1 className="font-primary text-[--text-2xl] text-[--text-primary]">
+                <h1 className="font-primary text-[hsl(var(--text-2xl))] text-[hsl(var(--text-primary))]">
                   {currentStepData?.title}
                 </h1>
                 {currentStepData?.content && (
-                  <p className="font-secondary text-text-secondary mt-2">
+                  <p className="font-secondary text-[hsl(var(--text-secondary))] mt-2">
                     {currentStepData.content}
                   </p>
                 )}
                 {currentStepData?.subtitle && (
-                  <p className="font-secondary text-text-secondary text-sm mt-1">
+                  <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm mt-1">
                     {currentStepData.subtitle}
                   </p>
                 )}
@@ -245,7 +245,7 @@ export default function Assessment() {
 
                 {currentStepData?.type === "signup" && (
                   <div className="text-center space-y-4">
-                    <p className="font-secondary text-text-secondary">
+                    <p className="font-secondary text-[hsl(var(--text-secondary))]">
                       We'll create your account during this assessment
                     </p>
                     <Button size="lg" className="w-full" onClick={handleContinue}>
@@ -269,7 +269,7 @@ export default function Assessment() {
                         />
                         <label 
                           htmlFor={option}
-                          className="font-secondary text-text-primary cursor-pointer flex-1"
+                          className="font-secondary text-[hsl(var(--text-primary))] cursor-pointer flex-1"
                         >
                           {option}
                         </label>
@@ -288,7 +288,7 @@ export default function Assessment() {
                         <RadioGroupItem value={option} id={option} />
                         <label 
                           htmlFor={option}
-                          className="font-secondary text-text-primary cursor-pointer flex-1"
+                          className="font-secondary text-[hsl(var(--text-primary))] cursor-pointer flex-1"
                         >
                           {option}
                         </label>
@@ -394,8 +394,8 @@ export default function Assessment() {
                       </div>
                     </div>
                     
-                    <div className="bg-surface-accent p-4 rounded-lg">
-                      <p className="font-secondary text-text-secondary text-sm">
+                    <div className="bg-[hsl(var(--surface-accent))] p-4 rounded-lg">
+                      <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                         This information is only used to help match you with compatible therapists
                       </p>
                     </div>
@@ -414,7 +414,7 @@ export default function Assessment() {
                           />
                           <label 
                             htmlFor={option}
-                            className="font-secondary text-text-primary cursor-pointer flex-1"
+                            className="font-secondary text-[hsl(var(--text-primary))] cursor-pointer flex-1"
                           >
                             {option}
                           </label>
@@ -428,13 +428,13 @@ export default function Assessment() {
                   <div className="text-center space-y-6">
                     <div className="space-y-4">
                       <div className="text-left space-y-2 max-w-md mx-auto">
-                        <p className="font-secondary text-text-secondary text-sm">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                           • Swipe right to save to favourites, left to pass
                         </p>
-                        <p className="font-secondary text-text-secondary text-sm">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                           • Book free 15-minute chemistry calls
                         </p>
-                        <p className="font-secondary text-text-secondary text-sm">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                           • Only pay for the sessions you book
                         </p>
                       </div>
@@ -446,13 +446,13 @@ export default function Assessment() {
                   <div className="text-center space-y-6">
                     <div className="space-y-4">
                       <div className="text-left space-y-2 max-w-md mx-auto">
-                        <p className="font-secondary text-text-secondary text-sm">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                           • Click on a profile to learn more
                         </p>
-                        <p className="font-secondary text-text-secondary text-sm">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                           • Watch video introductions from therapists
                         </p>
-                        <p className="font-secondary text-text-secondary text-sm">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                           • Book free chemistry calls with your favourites
                         </p>
                       </div>
@@ -473,10 +473,10 @@ export default function Assessment() {
                     </div>
                     {isMatching && (
                       <div className="space-y-2">
-                        <p className="font-secondary text-text-secondary text-sm">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                           Analyzing your preferences...
                         </p>
-                        <p className="font-secondary text-text-secondary text-sm">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                           Finding your perfect matches...
                         </p>
                       </div>
@@ -523,20 +523,20 @@ export default function Assessment() {
           <div className="bg-background rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 space-y-6">
               <div className="text-center">
-                <h2 className="font-primary text-2xl font-bold text-text-primary mb-2">
+                <h2 className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))] mb-2">
                   Health Data Processing Consent
                 </h2>
-                <p className="font-secondary text-text-secondary">
+                <p className="font-secondary text-[hsl(var(--text-secondary))]">
                   We need your explicit consent to process sensitive health information
                 </p>
               </div>
 
               <div className="space-y-4">
-                <div className="p-4 bg-garden-green/10 border border-garden-green rounded-lg">
-                  <h3 className="font-primary font-semibold text-text-primary mb-2">
+                <div className="p-4 bg-[hsl(var(--garden-green))]/10 border border-[hsl(var(--garden-green))] rounded-lg">
+                  <h3 className="font-primary font-semibold text-[hsl(var(--text-primary))] mb-2">
                     What we'll collect:
                   </h3>
-                  <ul className="list-disc ml-6 space-y-1 text-sm font-secondary text-text-secondary">
+                  <ul className="list-disc ml-6 space-y-1 text-sm font-secondary text-[hsl(var(--text-secondary))]">
                     <li>Mental health concerns and symptoms</li>
                     <li>Therapy preferences and goals</li>
                     <li>Demographic information relevant to therapy</li>
@@ -545,10 +545,10 @@ export default function Assessment() {
                 </div>
 
                 <div className="p-4 bg-background border rounded-lg">
-                  <h3 className="font-primary font-semibold text-text-primary mb-2">
+                  <h3 className="font-primary font-semibold text-[hsl(var(--text-primary))] mb-2">
                     How we'll use it:
                   </h3>
-                  <ul className="list-disc ml-6 space-y-1 text-sm font-secondary text-text-secondary">
+                  <ul className="list-disc ml-6 space-y-1 text-sm font-secondary text-[hsl(var(--text-secondary))]">
                     <li>Match you with compatible therapists</li>
                     <li>Personalize your therapy experience</li>
                     <li>Ensure appropriate care and safety</li>
@@ -556,11 +556,11 @@ export default function Assessment() {
                   </ul>
                 </div>
 
-                <div className="p-4 bg-warning/10 border border-warning rounded-lg">
-                  <h3 className="font-primary font-semibold text-text-primary mb-2">
+                <div className="p-4 bg-[hsl(var(--warning-bg))]/10 border border-warning rounded-lg">
+                  <h3 className="font-primary font-semibold text-[hsl(var(--text-primary))] mb-2">
                     Your rights:
                   </h3>
-                  <ul className="list-disc ml-6 space-y-1 text-sm font-secondary text-text-secondary">
+                  <ul className="list-disc ml-6 space-y-1 text-sm font-secondary text-[hsl(var(--text-secondary))]">
                     <li>Withdraw consent at any time</li>
                     <li>Access and correct your data</li>
                     <li>Request data deletion</li>
@@ -577,7 +577,7 @@ export default function Assessment() {
                   onChange={(e) => setHealthDataConsent(e.target.checked)}
                   className="w-4 h-4"
                 />
-                <label htmlFor="health-consent" className="text-sm font-secondary text-text-primary">
+                <label htmlFor="health-consent" className="text-sm font-secondary text-[hsl(var(--text-primary))]">
                   I consent to the processing of my health data for therapy matching and service delivery. 
                   I understand I can withdraw this consent at any time in my account settings.
                 </label>

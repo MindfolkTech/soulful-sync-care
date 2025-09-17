@@ -186,7 +186,7 @@ export function PaymentForm({
                   <ul className="text-xs space-y-1">
                     {plan.features.map((feature, index) => (
                       <li key={index} className="flex items-center gap-1">
-                        <Check className="h-3 w-3 text-[--success-text]" />
+                        <Check className="h-3 w-3 text-[hsl(var(--success-text))]" />
                         {feature}
                       </li>
                     ))}

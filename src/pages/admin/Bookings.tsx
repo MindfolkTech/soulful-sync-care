@@ -14,7 +14,7 @@ export default function AdminBookings() {
               <CardTitle className="font-primary">Booking Management</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="font-secondary text-text-secondary">System-wide booking oversight and management.</p>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">System-wide booking oversight and management.</p>
             </CardContent>
           </Card>
         </Container>

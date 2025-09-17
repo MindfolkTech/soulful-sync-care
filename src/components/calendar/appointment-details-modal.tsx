@@ -55,10 +55,10 @@ export function AppointmentDetailsModal({
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'confirmed': return 'bg-[--success-bg] text-[--success-text]';
-      case 'pending': return 'bg-[--warning-bg] text-[--warning-text]';
-      case 'cancelled': return 'bg-[--error-bg] text-[--error-text]';
-      default: return 'bg-[--surface-accent] text-[--text-primary]';
+      case 'confirmed': return 'bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]';
+      case 'pending': return 'bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]';
+      case 'cancelled': return 'bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))]';
+      default: return 'bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-primary))]';
     }
   };
 
@@ -103,10 +103,10 @@ export function AppointmentDetailsModal({
               </AvatarFallback>
             </Avatar>
             <div>
-              <h3 className="font-secondary font-bold text-[--text-primary] text-lg">
+              <h3 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-lg">
                 {appointment.clientName}
               </h3>
-              <p className="font-secondary text-[--text-secondary] text-sm">
+              <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                 Active Member
               </p>
             </div>
@@ -114,7 +114,7 @@ export function AppointmentDetailsModal({
           <Button
             variant="ghost"
             size="sm"
-            className="text-[--text-secondary] hover:text-[--text-primary]"
+            className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))]"
             onClick={() => handleAction(() => onEdit(appointment))}
           >
             EDIT
@@ -124,7 +124,7 @@ export function AppointmentDetailsModal({
         <div className="space-y-6">
           {/* Session Info */}
           <div>
-            <h4 className="font-secondary text-[--text-secondary] text-sm mb-2">
+            <h4 className="font-secondary text-[hsl(var(--text-secondary))] text-sm mb-2">
               Upcoming session
             </h4>
             <div className="text-2xl font-bold text-orange-500 mb-1">
@@ -138,7 +138,7 @@ export function AppointmentDetailsModal({
                 hour12: true 
               })}
             </div>
-            <div className="flex items-center gap-2 text-[--text-secondary] text-sm">
+            <div className="flex items-center gap-2 text-[hsl(var(--text-secondary))] text-sm">
               <span>{appointment.duration}</span>
               <span>•</span>
               <span>{appointment.sessionTime.toLocaleDateString('en-US', { 
@@ -152,7 +152,7 @@ export function AppointmentDetailsModal({
           {/* Join Button */}
           {canJoinSession() && (
             <Button
-              className="w-full bg-[--garden-green] hover:bg-[--garden-green]/90 text-white font-secondary font-semibold py-3 text-base"
+              className="w-full bg-[hsl(var(--garden-green))] hover:bg-[hsl(var(--garden-green))]/90 text-white font-secondary font-semibold py-3 text-base"
               onClick={() => handleAction(() => onJoinSession(appointment.id))}
               disabled={isLoading}
             >
@@ -168,10 +168,10 @@ export function AppointmentDetailsModal({
             </div>
             
             <div>
-              <h5 className="font-secondary font-bold text-[--text-primary] mb-2">
+              <h5 className="font-secondary font-bold text-[hsl(var(--text-primary))] mb-2">
                 {appointment.type}
               </h5>
-              <p className="font-secondary text-[--text-secondary] text-sm">
+              <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                 {appointment.notes || "No additional notes for this session."}
               </p>
             </div>
@@ -187,8 +187,8 @@ export function AppointmentDetailsModal({
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="font-secondary font-bold text-[--text-primary]">CBT Therapy</div>
-                  <div className="font-secondary text-[--text-secondary] text-sm">Service</div>
+                  <div className="font-secondary font-bold text-[hsl(var(--text-primary))]">CBT Therapy</div>
+                  <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Service</div>
                 </div>
                 <Button variant="outline" size="sm" className="text-orange-500 border-orange-500">
                   ADD SERVICES +
@@ -207,10 +207,10 @@ export function AppointmentDetailsModal({
               <span className="font-secondary text-sm font-medium">Notifications</span>
             </div>
             
-            <div className="flex items-center justify-between p-3 bg-[--surface-accent] rounded-md">
+            <div className="flex items-center justify-between p-3 bg-[hsl(var(--surface-accent))] rounded-md">
               <div>
-                <div className="font-secondary font-bold text-[--text-primary]">Assessment form</div>
-                <div className="font-secondary text-[--text-secondary] text-sm">SEND REMINDER</div>
+                <div className="font-secondary font-bold text-[hsl(var(--text-primary))]">Assessment form</div>
+                <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">SEND REMINDER</div>
               </div>
               <Badge className="bg-orange-100 text-orange-700 border-orange-300">
                 Awaiting Signature
@@ -228,7 +228,7 @@ export function AppointmentDetailsModal({
               DISCARD
             </Button>
             <Button
-              className="flex-1 bg-[--garden-green] hover:bg-[--garden-green]/90 text-white font-secondary"
+              className="flex-1 bg-[hsl(var(--garden-green))] hover:bg-[hsl(var(--garden-green))]/90 text-white font-secondary"
               onClick={onClose}
             >
               SAVE

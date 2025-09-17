@@ -27,9 +27,9 @@ interface BookingCardProps {
 
 const statusColors = {
   upcoming: "bg-btn-accent text-btn-accent-foreground",
-  completed: "bg-success text-success-foreground",
-  cancelled: "bg-destructive text-destructive-foreground",
-  'no-show': "bg-text-secondary text-[--on-dark]"
+  completed: "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]",
+  cancelled: "bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))]",
+  'no-show': "bg-[hsl(var(--text-secondary))] text-[hsl(var(--on-dark))]"
 };
 
 const typeLabels = {
@@ -64,10 +64,10 @@ export function BookingCard({
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2 mb-2">
             <div>
-              <h3 className="font-primary font-semibold text-text-primary">
+              <h3 className="font-primary font-semibold text-[hsl(var(--text-primary))]">
                 {booking.therapistName}
               </h3>
-              <p className="text-sm text-text-secondary font-secondary">
+              <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary">
                 {typeLabels[booking.type]}
               </p>
             </div>
@@ -79,7 +79,7 @@ export function BookingCard({
             </Badge>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 text-sm text-text-secondary mb-3">
+          <div className="flex flex-wrap items-center gap-3 text-sm text-[hsl(var(--text-secondary))] mb-3">
             <div className="flex items-center gap-1">
               <Calendar className="h-4 w-4" />
               <span>{booking.date.toLocaleDateString()}</span>

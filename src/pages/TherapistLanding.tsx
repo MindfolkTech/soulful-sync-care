@@ -219,7 +219,7 @@ export default function TherapistLanding() {
               <div className="space-y-[var(--space-lg)]">
                 <div className="flex gap-[var(--space-sm)]">
                   <div 
-                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-[--on-dark] font-bold"
+                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-[hsl(var(--on-dark))] font-bold"
                     style={{ 
                       backgroundColor: "hsl(var(--garden-green))",
                       borderRadius: "var(--radius-avatar)"
@@ -253,7 +253,7 @@ export default function TherapistLanding() {
                 
                 <div className="flex gap-[var(--space-sm)]">
                   <div 
-                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-[--on-dark] font-bold"
+                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-[hsl(var(--on-dark))] font-bold"
                     style={{ 
                       backgroundColor: "hsl(var(--garden-green))",
                       borderRadius: "var(--radius-avatar)"
@@ -287,7 +287,7 @@ export default function TherapistLanding() {
                 
                 <div className="flex gap-[var(--space-sm)]">
                   <div 
-                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-[--on-dark] font-bold"
+                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-[hsl(var(--on-dark))] font-bold"
                     style={{ 
                       backgroundColor: "hsl(var(--garden-green))",
                       borderRadius: "var(--radius-avatar)"

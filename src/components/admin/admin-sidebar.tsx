@@ -99,11 +99,26 @@ export function AdminSidebar({ className = "" }: AdminSidebarProps) {
     <div className={`bg-surface border-r border-border transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'} ${className}`}>
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border">
-        {!isCollapsed && (
-          <div>
-            <h2 className="font-primary font-semibold text-text-primary">Admin Panel</h2>
-            <p className="font-secondary text-xs text-text-secondary">System Management</p>
-          </div>
+        {!isCollapsed ? (
+          <Link 
+            to="/" 
+            className="flex items-center space-x-2 text-text-primary hover:text-jovial-jade transition-colors"
+          >
+            <div className="h-8 w-8 rounded-full bg-garden-green flex items-center justify-center">
+              <span className="text-[hsl(var(--on-dark))] font-primary font-bold text-lg">M</span>
+            </div>
+            <span className="font-primary font-bold text-xl">Mindfolk</span>
+          </Link>
+        ) : (
+          <Link 
+            to="/" 
+            className="flex items-center justify-center"
+            aria-label="Go to Mindfolk homepage"
+          >
+            <div className="h-8 w-8 rounded-full bg-garden-green flex items-center justify-center">
+              <span className="text-[hsl(var(--on-dark))] font-primary font-bold text-lg">M</span>
+            </div>
+          </Link>
         )}
         <Button
           variant="ghost"

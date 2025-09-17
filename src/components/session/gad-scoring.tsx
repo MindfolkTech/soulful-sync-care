@@ -86,7 +86,7 @@ export function GADScoring({ clientId, sessionId }: GADScoringProps) {
           <CardTitle className="font-primary">
             GAD-7 Anxiety Assessment
           </CardTitle>
-          <p className="text-sm text-text-secondary font-secondary">
+          <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary">
             Generalized Anxiety Disorder Scale - Session {sessionId}
           </p>
         </CardHeader>
@@ -96,19 +96,19 @@ export function GADScoring({ clientId, sessionId }: GADScoringProps) {
               <div className="text-2xl font-bold font-primary text-primary">
                 {totalScore}/{maxScore}
               </div>
-              <p className="text-sm text-text-secondary font-secondary">Total Score</p>
+              <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary">Total Score</p>
             </div>
             <div className="text-center p-4 bg-muted/30 rounded-lg">
               <Badge variant={severity.color as "default" | "secondary" | "destructive" | "outline"} className="text-sm">
                 {severity.level}
               </Badge>
-              <p className="text-sm text-text-secondary font-secondary mt-1">Severity Level</p>
+              <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary mt-1">Severity Level</p>
             </div>
             <div className="text-center p-4 bg-muted/30 rounded-lg">
               <div className="text-2xl font-bold font-primary text-primary">
                 {Math.round((7 - questions.filter(q => q.score !== null).length) / 7 * 100)}%
               </div>
-              <p className="text-sm text-text-secondary font-secondary">Progress</p>
+              <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary">Progress</p>
             </div>
           </div>
           
@@ -116,12 +116,12 @@ export function GADScoring({ clientId, sessionId }: GADScoringProps) {
             <div className="mt-4 p-4 bg-muted/20 rounded-lg">
               <div className="flex items-center gap-2">
                 {severity.level === "Severe" && <AlertTriangle className="h-4 w-4 text-error-foreground" />}
-                {severity.level === "Moderate" && <AlertTriangle className="h-4 w-4 text-warning-foreground" />}
+                {severity.level === "Moderate" && <AlertTriangle className="h-4 w-4 text-[hsl(var(--warning-text))]" />}
                 {severity.level === "Mild" && <CheckCircle2 className="h-4 w-4 text-info-foreground" />}
-                {severity.level === "Minimal" && <CheckCircle2 className="h-4 w-4 text-success-foreground" />}
+                {severity.level === "Minimal" && <CheckCircle2 className="h-4 w-4 text-[hsl(var(--success-text))]" />}
                 <span className="font-medium font-primary">Assessment Result</span>
               </div>
-              <p className="text-sm text-text-secondary font-secondary">{severity.description}</p>
+              <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary">{severity.description}</p>
             </div>
           )}
         </CardContent>

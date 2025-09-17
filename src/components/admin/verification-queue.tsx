@@ -111,11 +111,11 @@ export function VerificationQueue() {
   const getStatusBadge = (status: TherapistApplication["status"]) => {
     switch (status) {
       case "pending":
-        return <Badge variant="secondary" className="bg-warning text-warning-foreground">Pending</Badge>;
+        return <Badge variant="secondary" className="bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]">Pending</Badge>;
       case "under_review":
         return <Badge variant="secondary" className="bg-info text-info-foreground">Under Review</Badge>;
       case "approved":
-        return <Badge variant="secondary" className="bg-success text-success-foreground">Approved</Badge>;
+        return <Badge variant="secondary" className="bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]">Approved</Badge>;
       case "rejected":
         return <Badge variant="destructive">Rejected</Badge>;
     }
@@ -139,11 +139,11 @@ export function VerificationQueue() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-primary text-[--text-2xl] text-[--text-primary]">Therapist Verification Queue</h1>
-          <p className="font-secondary text-[--text-secondary]">Review and process therapist applications</p>
+          <h1 className="font-primary text-[hsl(var(--text-2xl))] text-[hsl(var(--text-primary))]">Therapist Verification Queue</h1>
+          <p className="font-secondary text-[hsl(var(--text-secondary))]">Review and process therapist applications</p>
         </div>
         <div className="flex items-center gap-4">
-          <Badge variant="secondary" className="bg-warning text-warning-foreground">
+          <Badge variant="secondary" className="bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]">
             {pendingApplications.length} Pending
           </Badge>
           <Badge variant="secondary" className="bg-info text-info-foreground">
@@ -242,8 +242,8 @@ function ApplicationsList({
       <Card>
         <CardContent className="flex items-center justify-center py-12">
           <div className="text-center">
-            <FileText className="mx-auto h-12 w-12 text-text-secondary mb-4" />
-            <p className="font-secondary text-text-secondary">No applications in this category</p>
+            <FileText className="mx-auto h-12 w-12 text-[hsl(var(--text-secondary))] mb-4" />
+            <p className="font-secondary text-[hsl(var(--text-secondary))]">No applications in this category</p>
           </div>
         </CardContent>
       </Card>
@@ -270,39 +270,39 @@ function ApplicationsList({
               <TableRow key={application.id} role="row" aria-label={`Application from ${application.name}, status: ${application.status}`}>
                 <TableCell>
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-surface-accent flex items-center justify-center">
-                      <User className="h-5 w-5 text-text-primary" />
+                    <div className="h-10 w-10 rounded-full bg-[hsl(var(--surface-accent))] flex items-center justify-center">
+                      <User className="h-5 w-5 text-[hsl(var(--text-primary))]" />
                     </div>
                     <div>
-                      <h4 className="font-secondary font-bold text-text-primary">{application.name}</h4>
-                      <p className="font-secondary text-sm text-text-secondary">{application.email}</p>
+                      <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))]">{application.name}</h4>
+                      <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">{application.email}</p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <p className="font-secondary text-text-primary">{application.licenseNumber}</p>
+                  <p className="font-secondary text-[hsl(var(--text-primary))]">{application.licenseNumber}</p>
                 </TableCell>
                 <TableCell>
                   <div className="flex flex-wrap gap-1">
                     {application.specialties.slice(0, 2).map((specialty) => (
-                      <Badge key={specialty} variant="secondary" className="bg-tag-specialty text-tag-specialty-foreground">
+                      <Badge key={specialty} variant="secondary" className="bg-[hsl(var(--tag-specialty-bg))] text-[hsl(var(--tag-specialty-text))]">
                         {specialty}
                       </Badge>
                     ))}
                     {application.specialties.length > 2 && (
-                      <Badge variant="secondary" className="bg-tag-misc text-tag-misc-foreground">
+                      <Badge variant="secondary" className="bg-[hsl(var(--tag-misc-bg))] text-[hsl(var(--tag-misc-text))]">
                         +{application.specialties.length - 2}
                       </Badge>
                     )}
                   </div>
                 </TableCell>
                 <TableCell>
-                  <p className="font-secondary text-text-primary">{application.experience}</p>
+                  <p className="font-secondary text-[hsl(var(--text-primary))]">{application.experience}</p>
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-text-secondary" />
-                    <p className="font-secondary text-sm text-text-secondary">
+                    <Calendar className="h-4 w-4 text-[hsl(var(--text-secondary))]" />
+                    <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
                       {formatDate(application.submittedAt)}
                     </p>
                   </div>
@@ -328,7 +328,7 @@ function ApplicationsList({
                             variant="outline"
                             size="sm"
                             onClick={() => onApprove(application.id)}
-                            className="text-success hover:bg-success hover:text-success-foreground min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                            className="text-success hover:bg-[hsl(var(--success-bg))] hover:text-[hsl(var(--success-text))] min-h-[--touch-target-min] min-w-[--touch-target-min]"
                             aria-label={`Approve ${application.name}'s application`}
                           >
                             <CheckCircle className="h-4 w-4" />
@@ -337,7 +337,7 @@ function ApplicationsList({
                             variant="outline"
                             size="sm"
                             onClick={() => onReject(application.id)}
-                            className="text-destructive hover:bg-destructive hover:text-destructive-foreground min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                            className="text-destructive hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))] min-h-[--touch-target-min] min-w-[--touch-target-min]"
                             aria-label={`Reject ${application.name}'s application`}
                           >
                             <XCircle className="h-4 w-4" />
@@ -377,7 +377,7 @@ function ApplicationDetailsDialog({
     <Dialog open={!!application} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="font-primary text-text-primary">Application Details</DialogTitle>
+          <DialogTitle className="font-primary text-[hsl(var(--text-primary))]">Application Details</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-6">
@@ -389,31 +389,31 @@ function ApplicationDetailsDialog({
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary">Name</p>
-                  <h4 className="font-secondary font-bold text-text-primary">{application.name}</h4>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Name</p>
+                  <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))]">{application.name}</h4>
                 </div>
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary">Email</p>
-                  <p className="font-secondary font-medium text-text-primary">{application.email}</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Email</p>
+                  <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">{application.email}</p>
                 </div>
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary">License Number</p>
-                  <p className="font-secondary font-medium text-text-primary">{application.licenseNumber}</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">License Number</p>
+                  <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">{application.licenseNumber}</p>
                 </div>
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary">Experience</p>
-                  <p className="font-secondary font-medium text-text-primary">{application.experience}</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Experience</p>
+                  <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">{application.experience}</p>
                 </div>
               </div>
               <div>
-                <p className="font-secondary text-sm text-text-secondary mb-2">Status</p>
+                <p className="font-secondary text-sm text-[hsl(var(--text-secondary))] mb-2">Status</p>
                 {getStatusBadge(application.status)}
               </div>
               <div>
-                <p className="font-secondary text-sm text-text-secondary mb-2">Specialties</p>
+                <p className="font-secondary text-sm text-[hsl(var(--text-secondary))] mb-2">Specialties</p>
                 <div className="flex flex-wrap gap-2">
                   {application.specialties.map((specialty) => (
-                    <Badge key={specialty} variant="secondary" className="bg-tag-specialty text-tag-specialty-foreground">
+                    <Badge key={specialty} variant="secondary" className="bg-[hsl(var(--tag-specialty-bg))] text-[hsl(var(--tag-specialty-text))]">
                       {specialty}
                     </Badge>
                   ))}
@@ -429,12 +429,12 @@ function ApplicationDetailsDialog({
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 border border-border rounded-md">
+                <div className="flex items-center justify-between p-3 border border-[hsl(var(--border))] rounded-md">
                   <div className="flex items-center gap-3">
-                    <FileText className="h-5 w-5 text-text-secondary" />
+                    <FileText className="h-5 w-5 text-[hsl(var(--text-secondary))]" />
                     <div>
-                      <p className="font-secondary font-medium text-text-primary">Professional License</p>
-                      <p className="font-secondary text-sm text-text-secondary">{application.documents.license}</p>
+                      <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">Professional License</p>
+                      <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">{application.documents.license}</p>
                     </div>
                   </div>
                   <Button variant="outline" size="sm" className="min-h-[--touch-target-min]" aria-label={`View ${application.documents.license} document`}>
@@ -442,27 +442,27 @@ function ApplicationDetailsDialog({
                     View
                   </Button>
                 </div>
-                <div className="flex items-center justify-between p-3 border border-border rounded-md">
+                <div className="flex items-center justify-between p-3 border border-[hsl(var(--border))] rounded-md">
                   <div className="flex items-center gap-3">
-                    <FileText className="h-5 w-5 text-text-secondary" />
+                    <FileText className="h-5 w-5 text-[hsl(var(--text-secondary))]" />
                     <div>
-                      <p className="font-secondary font-medium text-text-primary">Insurance Certificate</p>
-                      <p className="font-secondary text-sm text-text-secondary">{application.documents.insurance}</p>
+                      <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">Insurance Certificate</p>
+                      <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">{application.documents.insurance}</p>
                     </div>
                   </div>
-                  <Button variant="ghost" size="sm" className="min-h-[--touch-target-min] min-w-[--touch-target-min] text-garden-green" aria-label="View insurance certificate document">
+                  <Button variant="ghost" size="sm" className="min-h-[--touch-target-min] min-w-[--touch-target-min] text-[hsl(var(--garden-green))]" aria-label="View insurance certificate document">
                     <Eye className="h-4 w-4" />
                   </Button>
                 </div>
-                <div className="flex items-center justify-between p-3 border border-border rounded-md">
+                <div className="flex items-center justify-between p-3 border border-[hsl(var(--border))] rounded-md">
                   <div className="flex items-center gap-3">
-                    <FileText className="h-5 w-5 text-text-secondary" />
+                    <FileText className="h-5 w-5 text-[hsl(var(--text-secondary))]" />
                     <div>
-                      <p className="font-secondary font-medium text-text-primary">Curriculum Vitae</p>
-                      <p className="font-secondary text-sm text-text-secondary">{application.documents.cv}</p>
+                      <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">Curriculum Vitae</p>
+                      <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">{application.documents.cv}</p>
                     </div>
                   </div>
-                  <Button variant="ghost" size="sm" className="min-h-[--touch-target-min] min-w-[--touch-target-min] text-garden-green" aria-label="View curriculum vitae document">
+                  <Button variant="ghost" size="sm" className="min-h-[--touch-target-min] min-w-[--touch-target-min] text-[hsl(var(--garden-green))]" aria-label="View curriculum vitae document">
                     <Eye className="h-4 w-4" />
                   </Button>
                 </div>
@@ -480,12 +480,12 @@ function ApplicationDetailsDialog({
                 {application.backgroundCheck ? (
                   <>
                     <CheckCircle className="h-5 w-5 text-success" />
-                    <p className="font-secondary text-text-primary">Background check completed</p>
+                    <p className="font-secondary text-[hsl(var(--text-primary))]">Background check completed</p>
                   </>
                 ) : (
                   <>
                     <XCircle className="h-5 w-5 text-destructive" />
-                    <p className="font-secondary text-text-primary">Background check pending</p>
+                    <p className="font-secondary text-[hsl(var(--text-primary))]">Background check pending</p>
                   </>
                 )}
               </div>
@@ -501,7 +501,7 @@ function ApplicationDetailsDialog({
                   onReject(application.id);
                   onClose();
                 }}
-                className="text-destructive hover:bg-destructive hover:text-destructive-foreground min-h-[--touch-target-min] max-w-[280px]"
+                className="text-destructive hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))] min-h-[--touch-target-min] max-w-[280px]"
                 aria-label={`Reject ${application.name}'s application permanently`}
               >
                 <XCircle className="h-4 w-4 mr-2" />
@@ -512,7 +512,7 @@ function ApplicationDetailsDialog({
                   onApprove(application.id);
                   onClose();
                 }}
-                className="bg-success text-success-foreground hover:bg-success/90 min-h-[--touch-target-min] max-w-[280px]"
+                className="bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))] hover:bg-[hsl(var(--success-bg))]/90 min-h-[--touch-target-min] max-w-[280px]"
                 aria-label={`Approve ${application.name}'s application and grant access`}
               >
                 <CheckCircle className="h-4 w-4 mr-2" />

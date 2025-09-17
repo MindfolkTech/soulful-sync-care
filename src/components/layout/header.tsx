@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { TaskBadge } from "@/components/molecules/task-badge";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Bell } from "lucide-react";
 
 export function Header() {
@@ -18,7 +19,7 @@ export function Header() {
               className="flex items-center space-x-2 text-text-primary hover:text-jovial-jade transition-colors"
             >
               <div className="h-8 w-8 rounded-full bg-garden-green flex items-center justify-center">
-                <span className="text-[--on-dark] font-primary font-bold text-lg">M</span>
+                <span className="text-[hsl(var(--on-dark))] font-primary font-bold text-lg">M</span>
               </div>
               <span 
                 className="font-bold text-xl"
@@ -54,6 +55,9 @@ export function Header() {
             {/* Task notifications - shown when user is logged in */}
             <TaskBadge count={3} role="client" />
             
+            {/* Theme Toggle */}
+            <ThemeToggle />
+            
             {/* Notifications */}
             <Button 
               variant="ghost" 
@@ -63,7 +67,7 @@ export function Header() {
             >
               <Link to="/notifications" aria-label="View notifications">
                 <Bell className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 h-4 w-4 bg-destructive rounded-full flex items-center justify-center text-xs text-[--on-dark]">
+                <span className="absolute -top-1 -right-1 h-4 w-4 bg-destructive rounded-full flex items-center justify-center text-xs text-[hsl(var(--on-dark))]">
                   2
                 </span>
               </Link>

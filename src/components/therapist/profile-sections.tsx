@@ -139,7 +139,7 @@ export function SpecialtiesSection({ profile, onUpdate }: SpecialtiesSectionProp
     <Card>
       <CardHeader>
         <CardTitle className="font-primary">Specialties & Areas of Focus</CardTitle>
-        <p className="text-sm text-text-secondary font-secondary">
+        <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary">
           Select up to 8 specialties that best describe your expertise
         </p>
       </CardHeader>
@@ -180,7 +180,7 @@ export function SpecialtiesSection({ profile, onUpdate }: SpecialtiesSectionProp
               <Button
                 variant="ghost"
                 size="sm"
-                className="ml-1 h-auto p-0 text-text-muted hover:text-text-primary"
+                className="ml-1 h-auto p-0 text-text-muted hover:text-[hsl(var(--text-primary))]"
                 onClick={() => handleSpecialtyToggle(specialty)}
               >
                 <X className="w-3 h-3" />
@@ -289,7 +289,7 @@ export function VideoUploadSection({ profile, onUpdate }: VideoUploadSectionProp
     <Card>
       <CardHeader>
         <CardTitle className="font-primary">Introduction Video</CardTitle>
-        <p className="text-sm text-text-secondary font-secondary">
+        <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary">
           Upload a 30-60 second video introducing yourself to potential clients
         </p>
       </CardHeader>
@@ -302,7 +302,7 @@ export function VideoUploadSection({ profile, onUpdate }: VideoUploadSectionProp
                 className="w-full h-48 object-cover"
                 controls={false}
               />
-              <div className="absolute inset-0 flex items-center justify-center bg-[--hover-overlay]">
+              <div className="absolute inset-0 flex items-center justify-center bg-[hsl(var(--hover-overlay))]">
                 <Button
                   variant="secondary"
                   size="lg"
@@ -330,7 +330,7 @@ export function VideoUploadSection({ profile, onUpdate }: VideoUploadSectionProp
           <div className="border-2 border-dashed border-border rounded-lg p-8 text-center">
             <Upload className="w-12 h-12 mx-auto text-text-muted mb-4" />
             <div className="space-y-2">
-              <p className="font-secondary text-sm text-text-primary">
+              <p className="font-secondary text-sm text-[hsl(var(--text-primary))]">
                 Click to upload your introduction video
               </p>
               <p className="font-secondary text-xs text-text-muted">

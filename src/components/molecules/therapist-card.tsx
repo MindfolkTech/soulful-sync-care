@@ -32,6 +32,7 @@ interface TherapistCardProps {
   className?: string;
   showDetailsButton?: boolean;
   showActionButtons?: boolean;
+  onKeyDown?: (e: React.KeyboardEvent) => void;
 }
 
 export function TherapistCard({ 
@@ -42,7 +43,8 @@ export function TherapistCard({
   onShowVideo,
   className,
   showDetailsButton = true,
-  showActionButtons = true 
+  showActionButtons = true,
+  onKeyDown
 }: TherapistCardProps) {
   
   const handleMediaClick = () => {
@@ -50,6 +52,12 @@ export function TherapistCard({
       onShowVideo(therapist);
     } else {
       onShowDetails(therapist);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (onKeyDown) {
+      onKeyDown(e);
     }
   };
 
@@ -66,8 +74,10 @@ export function TherapistCard({
       role="article"
       aria-labelledby={`therapist-name-${therapist.id}`}
       aria-label={`Therapist card. Swipe left to pass, right to save. Press Enter to open video.`}
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
       className={cn(
-        "relative w-full bg-surface rounded-lg shadow-sm border border-border overflow-hidden p-4",
+        "relative w-full bg-surface rounded-lg shadow-sm border border-border overflow-hidden p-4 focus:outline-none focus-visible:outline-2 focus-visible:outline-[hsl(var(--ring))] focus-visible:outline-offset-2",
         className
       )}
     >
@@ -108,7 +118,7 @@ export function TherapistCard({
             />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-garden-green to-elated-emerald flex items-center justify-center">
-              <span className="text-[--on-dark] font-primary font-bold text-4xl">
+              <span className="text-[hsl(var(--on-dark))] font-primary font-bold text-4xl">
                 {initials}
               </span>
             </div>

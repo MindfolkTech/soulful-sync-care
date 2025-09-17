@@ -40,7 +40,7 @@ export function DataProcessingNotice({
 
   const getColor = () => {
     switch (type) {
-      case 'collection': return 'bg-garden-green/10 border-garden-green';
+      case 'collection': return 'bg-[hsl(var(--garden-green))]/10 border-[hsl(var(--garden-green))]';
       case 'sharing': return 'bg-warning/10 border-warning';
       case 'storage': return 'bg-primary/10 border-primary';
       case 'analytics': return 'bg-surface-accent/10 border-surface-accent';
@@ -53,11 +53,11 @@ export function DataProcessingNotice({
         <div className="flex items-start gap-3">
           {getIcon()}
           <div className="flex-1 space-y-2">
-            <h4 className="font-primary font-semibold text-text-primary text-sm">
+            <h4 className="font-primary font-semibold text-[hsl(var(--text-primary))] text-sm">
               {getTitle()}
             </h4>
             
-            <div className="space-y-1 text-xs font-secondary text-text-secondary">
+            <div className="space-y-1 text-xs font-secondary text-[hsl(var(--text-secondary))]">
               <div>
                 <strong>Data types:</strong> {dataTypes.join(', ')}
               </div>

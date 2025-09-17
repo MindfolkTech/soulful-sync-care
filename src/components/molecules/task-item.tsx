@@ -17,17 +17,17 @@ interface TaskItemProps {
 }
 
 const priorityColors = {
-  low: "bg-tag-misc text-tag-misc-foreground",
-  medium: "bg-tag-personality text-tag-personality-foreground", 
+  low: "bg-[hsl(var(--tag-misc-bg))] text-[hsl(var(--tag-misc-text))]",
+  medium: "bg-[hsl(var(--tag-personality-bg))] text-[hsl(var(--tag-personality-text))]", 
   high: "bg-tag-modality text-tag-modality-foreground",
-  urgent: "bg-destructive text-destructive-foreground"
+  urgent: "bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))]"
 };
 
 const statusColors = {
-  todo: "bg-tag-specialty text-tag-specialty-foreground",
+  todo: "bg-[hsl(var(--tag-specialty-bg))] text-[hsl(var(--tag-specialty-text))]",
   in_progress: "bg-tag-language text-tag-language-foreground",
-  blocked: "bg-destructive text-destructive-foreground",
-  done: "bg-success text-success-foreground"
+  blocked: "bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))]",
+  done: "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]"
 };
 
 export function TaskItem({ task, selected, onSelect, showBulkSelect }: TaskItemProps) {
@@ -36,7 +36,7 @@ export function TaskItem({ task, selected, onSelect, showBulkSelect }: TaskItemP
 
   return (
     <Card className={cn(
-      "p-4 hover:bg-surface-accent transition-colors",
+      "p-4 hover:bg-[hsl(var(--surface-accent))] transition-colors",
       selected && "ring-2 ring-btn-primary"
     )}>
       <div className="flex items-start gap-3">
@@ -51,17 +51,17 @@ export function TaskItem({ task, selected, onSelect, showBulkSelect }: TaskItemP
         
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2 mb-2">
-            <h3 className="font-medium text-text-primary truncate">{task.title}</h3>
+            <h3 className="font-medium text-[hsl(var(--text-primary))] truncate">{task.title}</h3>
             <div className="flex items-center gap-2 flex-shrink-0">
               {isOverdue && (
                 <Badge variant="destructive" className="flex items-center gap-1">
-                  <AlertTriangle className="h-3 w-3 text-garden-green" />
+                  <AlertTriangle className="h-3 w-3 text-[hsl(var(--garden-green))]" />
                   Overdue
                 </Badge>
               )}
               {isDueToday && !isOverdue && (
                 <Badge variant="secondary" className="flex items-center gap-1">
-                  <Clock className="h-3 w-3 text-garden-green" />
+                  <Clock className="h-3 w-3 text-[hsl(var(--garden-green))]" />
                   Due today
                 </Badge>
               )}
@@ -93,7 +93,7 @@ export function TaskItem({ task, selected, onSelect, showBulkSelect }: TaskItemP
           </div>
 
           {task.due && (
-            <p className="text-sm text-text-secondary mb-3">
+            <p className="text-sm text-[hsl(var(--text-secondary))] mb-3">
               Due: {new Date(task.due).toLocaleDateString()}
             </p>
           )}

@@ -42,7 +42,7 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
   return (
     <div className="grid grid-rows-[auto_1fr] min-h-dvh overflow-hidden bg-background">
       {/* Header Section */}
-      <header className="row-start-1 bg-jovial-jade text-white relative z-50">
+      <header className="row-start-1 bg-[hsl(var(--jovial-jade))] text-white relative z-50">
         <Container className="py-4">
           <div className="flex items-center justify-between">
             {/* Left side - Menu, Logo, Search */}
@@ -77,10 +77,10 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
             {/* Right side - User avatar with profile link */}
             <Link 
               to="/t/profile" 
-              className="w-10 h-10 bg-surface-accent rounded-full flex items-center justify-center min-h-touch-min min-w-[2.5rem] hover:bg-white/10 transition-colors"
+              className="w-10 h-10 bg-[hsl(var(--surface-accent))] rounded-full flex items-center justify-center min-h-touch-min min-w-[2.5rem] hover:bg-white/10 transition-colors"
               aria-label="Go to profile settings"
             >
-              <span className="font-secondary text-sm font-semibold text-jovial-jade">CT</span>
+              <span className="font-secondary text-sm font-semibold text-[hsl(var(--jovial-jade))]">CT</span>
             </Link>
           </div>
         </Container>
@@ -91,7 +91,7 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
         {/* Sidebar Navigation - Collapsible on all screen sizes */}
         <aside className={`
           fixed lg:fixed inset-y-0 left-0 z-40
-          w-64 bg-surface-accent min-h-full
+          w-64 bg-[hsl(var(--surface-accent))] min-h-full
           transform transition-transform duration-300 ease-in-out
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
           overflow-hidden
@@ -113,8 +113,8 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
                     className={`
                       flex items-center gap-3 px-3 py-2 rounded-md transition-colors min-h-touch-min
                       ${isActive 
-                        ? 'bg-jovial-jade text-white' 
-                        : 'text-jovial-jade hover:bg-jovial-jade hover:text-white'
+                        ? 'bg-[hsl(var(--jovial-jade))] text-white' 
+                        : 'text-[hsl(var(--jovial-jade))] hover:bg-[hsl(var(--jovial-jade))] hover:text-white'
                       }
                     `}
                   >
@@ -124,17 +124,17 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
                 );
               })}
               
-              <div className="border-t border-border my-4"></div>
+              <div className="border-t border-[hsl(var(--border))] my-4"></div>
               
               {/* Quick Actions */}
               <div>
-                <h3 className="font-primary text-jovial-jade font-semibold text-sm mb-2">QUICK ACTIONS</h3>
+                <h3 className="font-primary text-[hsl(var(--jovial-jade))] font-semibold text-sm mb-2">QUICK ACTIONS</h3>
                 <div className="space-y-1">
                   {quickActions.map((action, index) => (
                     <Button 
                       key={index}
                       variant="ghost" 
-                      className="w-full justify-start font-secondary text-jovial-jade hover:bg-jovial-jade hover:text-white min-h-touch-min"
+                      className="w-full justify-start font-secondary text-[hsl(var(--jovial-jade))] hover:bg-[hsl(var(--jovial-jade))] hover:text-white min-h-touch-min"
                       aria-label={`Quick action: ${action}`}
                     >
                       <PlusCircle className="mr-2 h-4 w-4" />
@@ -146,8 +146,8 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
             </div>
 
             {/* Sign out at bottom */}
-            <div className="border-t border-border pt-4">
-              <button className="flex items-center gap-3 py-2 text-jovial-jade hover:text-garden-green transition-colors min-h-touch-min w-full justify-start" aria-label="Sign out of account">
+            <div className="border-t border-[hsl(var(--border))] pt-4">
+              <button className="flex items-center gap-3 py-2 text-[hsl(var(--jovial-jade))] hover:text-[hsl(var(--garden-green))] transition-colors min-h-touch-min w-full justify-start" aria-label="Sign out of account">
                 <span className="font-secondary text-sm">Sign out</span>
               </button>
             </div>
@@ -171,12 +171,12 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
             {(title || subtitle) && (
               <div className="mb-[--space-xl]">
                 {title && (
-                  <h2 className="font-primary text-[--text-3xl] font-bold text-[--jovial-jade] mb-[--space-xs]">
+                  <h2 className="font-primary text-[hsl(var(--text-3xl))] font-bold text-[hsl(var(--jovial-jade))] mb-[--space-xs]">
                     {title}
                   </h2>
                 )}
                 {subtitle && (
-                  <p className="font-secondary text-[--text-secondary]">
+                  <p className="font-secondary text-[hsl(var(--text-secondary))]">
                     {subtitle}
                   </p>
                 )}

@@ -176,7 +176,7 @@ export function ScreenshotCapture({ className }: ScreenshotCaptureProps) {
               </div>
               <Progress value={status.progress} className="h-2" />
               {status.currentRoute && (
-                <p className="text-sm text-text-secondary">
+                <p className="text-sm text-[hsl(var(--text-secondary))]">
                   Current: {status.currentRoute}
                 </p>
               )}
@@ -230,7 +230,7 @@ export function ScreenshotCapture({ className }: ScreenshotCaptureProps) {
                         <Download className="w-3 h-3" />
                       </Button>
                     </div>
-                    <p className="text-xs text-text-secondary mt-1 truncate">{name}</p>
+                    <p className="text-xs text-[hsl(var(--text-secondary))] mt-1 truncate">{name}</p>
                   </div>
                 ))}
               </div>

@@ -59,15 +59,15 @@ export default function SessionManagementDemo() {
   };
 
   return (
-    <div className="min-h-screen bg-[--warm-white] py-8">
+    <div className="min-h-screen bg-[hsl(var(--warm-white))] py-8">
       <Container>
         <div className="max-w-4xl mx-auto space-y-8">
           {/* Header */}
           <div className="text-center">
-            <h1 className="font-primary text-3xl font-bold text-[--text-primary] mb-4">
+            <h1 className="font-primary text-3xl font-bold text-[hsl(var(--text-primary))] mb-4">
               Session Management Demo
             </h1>
-            <p className="font-secondary text-[--text-secondary]">
+            <p className="font-secondary text-[hsl(var(--text-secondary))]">
               Live demonstration of countdown timers, reminder banners, and JOIN NOW functionality
             </p>
           </div>
@@ -75,41 +75,41 @@ export default function SessionManagementDemo() {
           {/* Stats */}
           <Card>
             <CardHeader>
-              <CardTitle className="font-primary text-[--jovial-jade]">
+              <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">
                 Reminder System Status
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="text-center">
-                  <div className="font-primary text-2xl font-bold text-[--text-primary]">
+                  <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">
                     {totalReminders}
                   </div>
-                  <div className="font-secondary text-sm text-[--text-secondary]">
+                  <div className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
                     Active Reminders
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="font-primary text-2xl font-bold text-[--garden-green]">
+                  <div className="font-primary text-2xl font-bold text-[hsl(var(--garden-green))]">
                     {hasUrgentReminders ? "YES" : "NO"}
                   </div>
-                  <div className="font-secondary text-sm text-[--text-secondary]">
+                  <div className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
                     Urgent (≤10 min)
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="font-primary text-2xl font-bold text-[--ink-slate]">
+                  <div className="font-primary text-2xl font-bold text-[hsl(var(--ink-slate))]">
                     {hasImmediateReminders ? "YES" : "NO"}
                   </div>
-                  <div className="font-secondary text-sm text-[--text-secondary]">
+                  <div className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
                     Immediate (≤5 min)
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="font-primary text-2xl font-bold text-[--text-primary]">
+                  <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">
                     {mostUrgentReminder ? "YES" : "NO"}
                   </div>
-                  <div className="font-secondary text-sm text-[--text-secondary]">
+                  <div className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
                     Most Urgent
                   </div>
                 </div>
@@ -120,7 +120,7 @@ export default function SessionManagementDemo() {
           {/* Active Reminder Banners */}
           {activeReminders.length > 0 && (
             <div className="space-y-4">
-              <h2 className="font-primary text-xl font-semibold text-[--text-primary]">
+              <h2 className="font-primary text-xl font-semibold text-[hsl(var(--text-primary))]">
                 Active Session Reminders
               </h2>
               {activeReminders.map((reminder) => (
@@ -139,7 +139,7 @@ export default function SessionManagementDemo() {
 
           {/* All Sessions with Countdowns */}
           <div className="space-y-4">
-            <h2 className="font-primary text-xl font-semibold text-[--text-primary]">
+            <h2 className="font-primary text-xl font-semibold text-[hsl(var(--text-primary))]">
               All Sessions (Live Countdowns)
             </h2>
             {sessions.map((session) => (
@@ -149,13 +149,13 @@ export default function SessionManagementDemo() {
                     {/* Session Info */}
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="font-primary text-lg font-semibold text-[--text-primary]">
+                        <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))]">
                           {session.therapistName}
                         </h3>
-                        <p className="font-secondary text-[--text-secondary]">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))]">
                           {session.sessionType === "chemistry" ? "Chemistry Call" : "Therapy Session"}
                         </p>
-                        <p className="font-secondary text-sm text-[--text-secondary] mt-1">
+                        <p className="font-secondary text-sm text-[hsl(var(--text-secondary))] mt-1">
                           Scheduled: {session.sessionTime.toLocaleString()}
                         </p>
                       </div>
@@ -165,7 +165,7 @@ export default function SessionManagementDemo() {
                     </div>
 
                     {/* Live Countdown */}
-                    <div className="pt-3 border-t border-[--border]">
+                    <div className="pt-3 border-t border-[hsl(var(--border))]">
                       <SessionCountdown
                         sessionTime={session.sessionTime}
                         sessionId={session.id}
@@ -182,17 +182,17 @@ export default function SessionManagementDemo() {
           {/* Instructions */}
           <Card>
             <CardHeader>
-              <CardTitle className="font-primary text-[--jovial-jade]">
+              <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">
                 How It Works
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="font-secondary font-semibold text-[--text-primary] mb-2">
+                  <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))] mb-2">
                     Countdown Logic
                   </h4>
-                  <ul className="font-secondary text-sm text-[--text-secondary] space-y-1">
+                  <ul className="font-secondary text-sm text-[hsl(var(--text-secondary))] space-y-1">
                     <li>• Shows "in X days/hours/minutes" for future sessions</li>
                     <li>• JOIN NOW button appears 10 minutes before session</li>
                     <li>• Button pulses and changes to urgent styling at 5 minutes</li>
@@ -200,10 +200,10 @@ export default function SessionManagementDemo() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-secondary font-semibold text-[--text-primary] mb-2">
+                  <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))] mb-2">
                     Reminder Banners
                   </h4>
-                  <ul className="font-secondary text-sm text-[--text-secondary] space-y-1">
+                  <ul className="font-secondary text-sm text-[hsl(var(--text-secondary))] space-y-1">
                     <li>• Show for sessions within 1 hour</li>
                     <li>• Escalating urgency at 10min and 5min marks</li>
                     <li>• Include preparation tips for immediate sessions</li>

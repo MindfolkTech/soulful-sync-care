@@ -50,11 +50,11 @@ const getIconColor = (type: string) => {
     case "appointment":
       return "text-primary";
     case "message":
-      return "text-[--garden-green]";
+      return "text-[hsl(var(--garden-green))]";
     case "favorite":
-      return "text-[--error-text]";
+      return "text-[hsl(var(--error-text))]";
     case "booking":
-      return "text-[--success-text]";
+      return "text-[hsl(var(--success-text))]";
     default:
       return "text-text-muted";
   }
@@ -70,10 +70,10 @@ export default function Notifications() {
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center justify-between mb-8">
               <div>
-                <h1 className="font-primary text-3xl font-bold text-text-primary">
+                <h1 className="font-primary text-3xl font-bold text-[hsl(var(--text-primary))]">
                   Notifications
                 </h1>
-                <p className="font-secondary text-text-secondary mt-2">
+                <p className="font-secondary text-[hsl(var(--text-secondary))] mt-2">
                   Stay updated on your appointments and messages
                 </p>
               </div>
@@ -88,10 +88,10 @@ export default function Notifications() {
                 <CardContent className="p-12 text-center space-y-4">
                   <Bell className="w-16 h-16 mx-auto text-text-muted" />
                   <div>
-                    <h3 className="font-primary text-lg font-semibold text-text-primary mb-2">
+                    <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))] mb-2">
                       No notifications
                     </h3>
-                    <p className="font-secondary text-text-secondary">
+                    <p className="font-secondary text-[hsl(var(--text-secondary))]">
                       You're all caught up! New notifications will appear here.
                     </p>
                   </div>
@@ -117,7 +117,7 @@ export default function Notifications() {
                           
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between mb-1">
-                              <h3 className="font-primary font-semibold text-text-primary">
+                              <h3 className="font-primary font-semibold text-[hsl(var(--text-primary))]">
                                 {notification.title}
                               </h3>
                               <div className="flex items-center space-x-2">
@@ -132,7 +132,7 @@ export default function Notifications() {
                               </div>
                             </div>
                             
-                            <p className="font-secondary text-text-secondary text-sm">
+                            <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                               {notification.message}
                             </p>
                           </div>

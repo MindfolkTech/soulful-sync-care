@@ -106,9 +106,9 @@ export function SessionReminderBanner({
     <Alert 
       className={cn(
         "border-l-4 mb-4 transition-all duration-300",
-        isImmediate && "border-l-[--error-bg] bg-[--error-bg]/10 animate-pulse",
-        isUrgent && !isImmediate && "border-l-[--garden-green] bg-[--surface-accent]",
-        !isUrgent && "border-l-[--info-bg] bg-[--info-bg]/10",
+        isImmediate && "border-l-[--error-bg] bg-[hsl(var(--error-bg))]/10 animate-pulse",
+        isUrgent && !isImmediate && "border-l-[--garden-green] bg-[hsl(var(--surface-accent))]",
+        !isUrgent && "border-l-[--info-bg] bg-[hsl(var(--info-bg))]/10",
         className
       )}
     >
@@ -118,17 +118,17 @@ export function SessionReminderBanner({
             {isUrgent ? (
               <Bell className={cn(
                 "w-4 h-4",
-                isImmediate ? "text-[--ink-slate]" : "text-[--garden-green]"
+                isImmediate ? "text-[hsl(var(--ink-slate))]" : "text-[hsl(var(--garden-green))]"
               )} />
             ) : (
-              <Clock className="w-4 h-4 text-[--text-secondary]" />
+              <Clock className="w-4 h-4 text-[hsl(var(--text-secondary))]" />
             )}
           </div>
           
           <div className="min-w-0 flex-1">
             <AlertDescription className="font-secondary text-sm">
               <div className="flex items-center gap-2 mb-2">
-                <span className="font-medium text-[--text-primary]">
+                <span className="font-medium text-[hsl(var(--text-primary))]">
                   {getBannerMessage()}
                 </span>
                 <Badge 
@@ -144,7 +144,7 @@ export function SessionReminderBanner({
               </div>
               
               {isUrgent && (
-                <p className="text-xs text-[--text-secondary] mb-3">
+                <p className="text-xs text-[hsl(var(--text-secondary))] mb-3">
                   Make sure you're in a quiet, private space with a stable internet connection.
                 </p>
               )}
@@ -159,7 +159,7 @@ export function SessionReminderBanner({
               onClick={handleJoinSession}
               className={cn(
                 "min-h-[--touch-target-min] font-secondary font-semibold",
-                isImmediate && "bg-[--garden-green] text-[--on-dark] hover:bg-[--garden-green]/90"
+                isImmediate && "bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))] hover:bg-[hsl(var(--garden-green))]/90"
               )}
             >
               <Video className="w-4 h-4 mr-2" />
@@ -171,7 +171,7 @@ export function SessionReminderBanner({
             variant="ghost"
             size="icon"
             onClick={handleDismiss}
-            className="h-6 w-6 text-[--text-muted] hover:text-[--text-primary]"
+            className="h-6 w-6 text-[hsl(var(--text-muted))] hover:text-[hsl(var(--text-primary))]"
             aria-label="Dismiss reminder"
           >
             <X className="w-4 h-4" />

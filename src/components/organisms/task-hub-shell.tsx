@@ -20,8 +20,8 @@ interface TaskHubShellProps {
 }
 
 const roleColors = {
-  client: "text-jovial-jade",
-  therapist: "text-garden-green", 
+  client: "text-[hsl(var(--jovial-jade))]",
+  therapist: "text-[hsl(var(--garden-green))]", 
   admin: "text-btn-accent-foreground"
 };
 
@@ -79,47 +79,47 @@ export function TaskHubShell({
         <h1 className={`text-3xl font-bold mb-2 ${roleColors[role]}`}>
           {title}
         </h1>
-        <p className="text-text-secondary text-lg">{subtitle}</p>
+        <p className="text-[hsl(var(--text-secondary))] text-lg">{subtitle}</p>
       </div>
 
       {/* Stats Cards */}
       <div className="flex flex-wrap gap-4 mb-8">
         <Card className="flex-1 min-w-0 p-4">
           <div className="flex items-center gap-3">
-            <ListTodo className="h-8 w-8 text-garden-green" />
+            <ListTodo className="h-8 w-8 text-[hsl(var(--garden-green))]" />
             <div>
-              <p className="text-2xl font-bold text-text-primary">{stats.total}</p>
-              <p className="text-sm text-text-secondary">Total Tasks</p>
+              <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{stats.total}</p>
+              <p className="text-sm text-[hsl(var(--text-secondary))]">Total Tasks</p>
             </div>
           </div>
         </Card>
         
         <Card className="flex-1 min-w-0 p-4">
           <div className="flex items-center gap-3">
-            <Clock className="h-8 w-8 text-garden-green" />
+            <Clock className="h-8 w-8 text-[hsl(var(--garden-green))]" />
             <div>
-              <p className="text-2xl font-bold text-text-primary">{stats.dueToday}</p>
-              <p className="text-sm text-text-secondary">Due Today</p>
+              <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{stats.dueToday}</p>
+              <p className="text-sm text-[hsl(var(--text-secondary))]">Due Today</p>
             </div>
           </div>
         </Card>
         
         <Card className="flex-1 min-w-0 p-4">
           <div className="flex items-center gap-3">
-            <AlertTriangle className="h-8 w-8 text-garden-green" />
+            <AlertTriangle className="h-8 w-8 text-[hsl(var(--garden-green))]" />
             <div>
-              <p className="text-2xl font-bold text-text-primary">{stats.overdue}</p>
-              <p className="text-sm text-text-secondary">Overdue</p>
+              <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{stats.overdue}</p>
+              <p className="text-sm text-[hsl(var(--text-secondary))]">Overdue</p>
             </div>
           </div>
         </Card>
         
         <Card className="flex-1 min-w-0 p-4">
           <div className="flex items-center gap-3">
-            <CheckCircle className="h-8 w-8 text-garden-green" />
+            <CheckCircle className="h-8 w-8 text-[hsl(var(--garden-green))]" />
             <div>
-              <p className="text-2xl font-bold text-text-primary">{stats.completed}</p>
-              <p className="text-sm text-text-secondary">Completed</p>
+              <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{stats.completed}</p>
+              <p className="text-sm text-[hsl(var(--text-secondary))]">Completed</p>
             </div>
           </div>
         </Card>

@@ -92,8 +92,8 @@ export default function ClientDetail() {
         <Container>
           <div className="space-y-6">
             <div>
-              <h1 className="font-primary text-3xl text-text-primary mb-2">{client.name}</h1>
-              <p className="font-secondary text-text-secondary">Client Profile & Session History</p>
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">{client.name}</h1>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Client Profile & Session History</p>
             </div>
       <Stack className="space-y-[--space-lg]">
         {/* Back Navigation */}
@@ -110,8 +110,8 @@ export default function ClientDetail() {
         <Card className="border-l-4 border-l-[--warning-bg]" style={{ backgroundColor: "var(--warning-bg)" }}>
           <CardContent className="p-[--space-md] flex items-center justify-between">
             <div className="flex items-center gap-[--space-sm]">
-              <Bell className="w-5 h-5 text-[--warning-text]" />
-              <span className="font-secondary text-[--warning-text]">
+              <Bell className="w-5 h-5 text-[hsl(var(--warning-text))]" />
+              <span className="font-secondary text-[hsl(var(--warning-text))]">
                 Reminder: You have an appointment on April 29th at 3pm (starting in 20 minutes)
               </span>
             </div>
@@ -217,14 +217,14 @@ export default function ClientDetail() {
                   </CardHeader>
                   <CardContent className="space-y-[--space-md]">
                     {client.recentNotes.map((note) => (
-                      <div key={note.id} className="border-b border-border pb-[--space-md] last:border-b-0">
+                      <div key={note.id} className="border-b border-[hsl(var(--border))] pb-[--space-md] last:border-b-0">
                         <div className="flex items-start justify-between mb-2">
                           <div className="flex items-center gap-[--space-sm]">
-                            <div className="w-6 h-6 rounded-full bg-[--surface-accent] flex items-center justify-center">
+                            <div className="w-6 h-6 rounded-full bg-[hsl(var(--surface-accent))] flex items-center justify-center">
                               {note.type === "consultation" ? (
-                                <Edit className="w-3 h-3 text-[--garden-green]" />
+                                <Edit className="w-3 h-3 text-[hsl(var(--garden-green))]" />
                               ) : (
-                                <TrendingUp className="w-3 h-3 text-[--garden-green]" />
+                                <TrendingUp className="w-3 h-3 text-[hsl(var(--garden-green))]" />
                               )}
                             </div>
                             <div>
@@ -244,7 +244,7 @@ export default function ClientDetail() {
                     
                     <Button 
                       variant="ghost" 
-                      className="w-full justify-center text-[--garden-green] min-h-[--touch-target-min]"
+                      className="w-full justify-center text-[hsl(var(--garden-green))] min-h-[--touch-target-min]"
                     >
                       <Plus className="w-4 h-4 mr-2" />
                       ADD ADDITIONAL NOTE
@@ -296,8 +296,8 @@ export default function ClientDetail() {
                     <Badge 
                       className={`text-xs ${
                         client.status === "Active" 
-                          ? "bg-[--success-bg] text-[--success-text]" 
-                          : "bg-[--warning-bg] text-[--warning-text]"
+                          ? "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]" 
+                          : "bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]"
                       }`}
                     >
                       {client.status.toUpperCase()}
@@ -346,7 +346,7 @@ export default function ClientDetail() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className="font-primary text-base">GAD SCORE</CardTitle>
-                <Button variant="ghost" size="sm" className="text-[--garden-green]">
+                <Button variant="ghost" size="sm" className="text-[hsl(var(--garden-green))]">
                   VIEW DETAILS
                 </Button>
               </CardHeader>

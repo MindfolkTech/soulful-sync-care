@@ -142,15 +142,15 @@ export function ScreenshotAnalysis({ className }: { className?: string }) {
   };
 
   const getAccessibilityColor = (score: number) => {
-    if (score >= 90) return 'text-[--success-bg]';
-    if (score >= 70) return 'text-[--warning-text]';
-    return 'text-[--error-text]';
+    if (score >= 90) return 'text-[hsl(var(--success-bg))]';
+    if (score >= 70) return 'text-[hsl(var(--warning-text))]';
+    return 'text-[hsl(var(--error-text))]';
   };
 
   const getPerformanceColor = (loadTime: number) => {
-    if (loadTime < 1000) return 'text-[--success-bg]';
-    if (loadTime < 3000) return 'text-[--warning-text]';
-    return 'text-[--error-text]';
+    if (loadTime < 1000) return 'text-[hsl(var(--success-bg))]';
+    if (loadTime < 3000) return 'text-[hsl(var(--warning-text))]';
+    return 'text-[hsl(var(--error-text))]';
   };
 
   const avgAccessibilityScore = results.length > 0 
@@ -207,7 +207,7 @@ export function ScreenshotAnalysis({ className }: { className?: string }) {
               </div>
               <Progress value={status.progress} className="h-2" />
               {status.currentRoute && (
-                <p className="text-sm text-text-secondary">
+                <p className="text-sm text-[hsl(var(--text-secondary))]">
                   Current: {status.currentRoute}
                 </p>
               )}
@@ -220,13 +220,13 @@ export function ScreenshotAnalysis({ className }: { className?: string }) {
               <Card>
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2">
-                    <Eye className="w-4 h-4 text-garden-green" />
+                    <Eye className="w-4 h-4 text-[hsl(var(--garden-green))]" />
                     <span className="font-medium">Accessibility</span>
                   </div>
                   <div className={`text-2xl font-bold mt-1 ${getAccessibilityColor(avgAccessibilityScore)}`}>
                     {avgAccessibilityScore.toFixed(1)}/100
                   </div>
-                  <div className="text-sm text-text-secondary">
+                  <div className="text-sm text-[hsl(var(--text-secondary))]">
                     Average score across {results.length} routes
                   </div>
                 </CardContent>
@@ -235,13 +235,13 @@ export function ScreenshotAnalysis({ className }: { className?: string }) {
               <Card>
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-elated-emerald" />
+                    <Clock className="w-4 h-4 text-[hsl(var(--elated-emerald))]" />
                     <span className="font-medium">Performance</span>
                   </div>
                   <div className={`text-2xl font-bold mt-1 ${getPerformanceColor(avgLoadTime)}`}>
                     {avgLoadTime.toFixed(0)}ms
                   </div>
-                  <div className="text-sm text-text-secondary">
+                  <div className="text-sm text-[hsl(var(--text-secondary))]">
                     Average load time
                   </div>
                 </CardContent>
@@ -250,13 +250,13 @@ export function ScreenshotAnalysis({ className }: { className?: string }) {
               <Card>
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2">
-                    <BarChart3 className="w-4 h-4 text-jovial-jade" />
+                    <BarChart3 className="w-4 h-4 text-[hsl(var(--jovial-jade))]" />
                     <span className="font-medium">Routes</span>
                   </div>
-                  <div className="text-2xl font-bold mt-1 text-jovial-jade">
+                  <div className="text-2xl font-bold mt-1 text-[hsl(var(--jovial-jade))]">
                     {results.length}
                   </div>
-                  <div className="text-sm text-text-secondary">
+                  <div className="text-sm text-[hsl(var(--text-secondary))]">
                     Successfully analyzed
                   </div>
                 </CardContent>
@@ -271,19 +271,19 @@ export function ScreenshotAnalysis({ className }: { className?: string }) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <AlertTriangle className="w-4 h-4 text-[--warning-text]" />
+                    <AlertTriangle className="w-4 h-4 text-[hsl(var(--warning-text))]" />
                     <span className="font-medium">Accessibility Issues</span>
                   </div>
-                  <div className="text-sm text-text-secondary">
+                  <div className="text-sm text-[hsl(var(--text-secondary))]">
                     {results.filter(r => r.accessibility.score < 80).length} routes need improvement
                   </div>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <TrendingDown className="w-4 h-4 text-[--error-text]" />
+                    <TrendingDown className="w-4 h-4 text-[hsl(var(--error-text))]" />
                     <span className="font-medium">Performance Issues</span>
                   </div>
-                  <div className="text-sm text-text-secondary">
+                  <div className="text-sm text-[hsl(var(--text-secondary))]">
                     {results.filter(r => r.performance.loadTime > 3000).length} routes are slow
                   </div>
                 </div>
@@ -301,31 +301,31 @@ export function ScreenshotAnalysis({ className }: { className?: string }) {
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="font-medium">{result.name}</div>
-                        <div className="text-sm text-text-secondary">{result.route}</div>
+                        <div className="text-sm text-[hsl(var(--text-secondary))]">{result.route}</div>
                       </div>
                       <div className="flex items-center gap-4">
                         <div className="text-center">
                           <div className={`text-sm font-medium ${getAccessibilityColor(result.accessibility.score)}`}>
                             {result.accessibility.score}/100
                           </div>
-                          <div className="text-xs text-text-secondary">A11y</div>
+                          <div className="text-xs text-[hsl(var(--text-secondary))]">A11y</div>
                         </div>
                         <div className="text-center">
                           <div className={`text-sm font-medium ${getPerformanceColor(result.performance.loadTime)}`}>
                             {result.performance.loadTime}ms
                           </div>
-                          <div className="text-xs text-text-secondary">Load</div>
+                          <div className="text-xs text-[hsl(var(--text-secondary))]">Load</div>
                         </div>
                         <div className="text-center">
-                          <div className="text-sm font-medium text-jovial-jade">
+                          <div className="text-sm font-medium text-[hsl(var(--jovial-jade))]">
                             {result.content.contentLength.buttons}
                           </div>
-                          <div className="text-xs text-text-secondary">Buttons</div>
+                          <div className="text-xs text-[hsl(var(--text-secondary))]">Buttons</div>
                         </div>
                       </div>
                     </div>
                     {result.accessibility.issues.length > 0 && (
-                      <div className="mt-2 text-sm text-[--warning-text]">
+                      <div className="mt-2 text-sm text-[hsl(var(--warning-text))]">
                         Issues: {result.accessibility.issues.join(', ')}
                       </div>
                     )}

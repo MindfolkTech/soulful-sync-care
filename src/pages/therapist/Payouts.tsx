@@ -124,8 +124,8 @@ export default function TherapistPayouts() {
         <Container>
           <div className="space-y-6">
             <div>
-              <h1 className="font-primary text-3xl text-text-primary mb-2">Earnings & Payouts</h1>
-              <p className="font-secondary text-text-secondary">Track your earnings, payouts, and financial performance</p>
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Earnings & Payouts</h1>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Track your earnings, payouts, and financial performance</p>
             </div>
 
         {/* Overview Cards */}
@@ -137,7 +137,7 @@ export default function TherapistPayouts() {
                   <p className="text-sm text-muted-foreground">This Month</p>
                   <p className="text-2xl font-bold">${earnings.currentMonth.total.toLocaleString()}</p>
                 </div>
-                <DollarSign className="h-8 w-8 text-[--success-text]" />
+                <DollarSign className="h-8 w-8 text-[hsl(var(--success-text))]" />
               </div>
             </CardContent>
           </Card>
@@ -149,7 +149,7 @@ export default function TherapistPayouts() {
                   <p className="text-sm text-muted-foreground">Sessions</p>
                   <p className="text-2xl font-bold">{earnings.currentMonth.sessions}</p>
                 </div>
-                <Users className="h-8 w-8 text-[--garden-green]" />
+                <Users className="h-8 w-8 text-[hsl(var(--garden-green))]" />
               </div>
             </CardContent>
           </Card>
@@ -161,7 +161,7 @@ export default function TherapistPayouts() {
                   <p className="text-sm text-muted-foreground">Hourly Rate</p>
                   <p className="text-2xl font-bold">${earnings.currentMonth.hourlyRate}</p>
                 </div>
-                <BarChart3 className="h-8 w-8 text-[--elated-emerald]" />
+                <BarChart3 className="h-8 w-8 text-[hsl(var(--elated-emerald))]" />
               </div>
             </CardContent>
           </Card>
@@ -173,7 +173,7 @@ export default function TherapistPayouts() {
                   <p className="text-sm text-muted-foreground">Available</p>
                   <p className="text-2xl font-bold">${earnings.currentMonth.available.toLocaleString()}</p>
                 </div>
-                <CheckCircle2 className="h-8 w-8 text-[--success-text]" />
+                <CheckCircle2 className="h-8 w-8 text-[hsl(var(--success-text))]" />
               </div>
             </CardContent>
           </Card>

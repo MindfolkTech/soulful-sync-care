@@ -19,14 +19,14 @@ export default function TherapistProfile() {
         <Container>
           <div className="space-y-6">
             <div>
-              <h1 className="font-primary text-3xl text-text-primary mb-2">Your Profile</h1>
-              <p className="font-secondary text-text-secondary">Manage how clients see you</p>
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Your Profile</h1>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Manage how clients see you</p>
             </div>
       <Stack className="space-y-8">
         {/* Profile Overview Card */}
         <Card>
           <CardHeader>
-            <CardTitle className="font-primary text-jovial-jade">Profile Overview</CardTitle>
+            <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Profile Overview</CardTitle>
           </CardHeader>
           <CardContent className="p-4 md:p-5 lg:p-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -37,7 +37,7 @@ export default function TherapistProfile() {
                     src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&h=300&fit=crop&crop=face" 
                     alt="Profile photo" 
                   />
-                  <AvatarFallback className="bg-surface-accent text-jovial-jade font-primary text-2xl">
+                  <AvatarFallback className="bg-surface-accent text-[hsl(var(--jovial-jade))] font-primary text-2xl">
                     CT
                   </AvatarFallback>
                 </Avatar>
@@ -104,7 +104,7 @@ export default function TherapistProfile() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
-              <CardTitle className="font-primary text-jovial-jade">Specializations</CardTitle>
+              <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Specializations</CardTitle>
             </CardHeader>
             <CardContent className="p-4 md:p-5 lg:p-6">
               <div className="space-y-4">
@@ -114,7 +114,7 @@ export default function TherapistProfile() {
                   <Tag variant="specialty">Relationship Counseling</Tag>
                   <Tag variant="specialty">Trauma Therapy</Tag>
                   <Tag variant="specialty">CBT</Tag>
-                  <Button variant="ghost" size="sm" className="min-h-[--touch-target-min] text-garden-green" aria-label="Edit your therapy specializations">
+                  <Button variant="ghost" size="sm" className="min-h-[--touch-target-min] text-[hsl(var(--garden-green))]" aria-label="Edit your therapy specializations">
                     <Edit className="w-3 h-3" />
                   </Button>
                 </Cluster>
@@ -124,7 +124,7 @@ export default function TherapistProfile() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="font-primary text-jovial-jade">Languages</CardTitle>
+              <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Languages</CardTitle>
             </CardHeader>
             <CardContent className="p-4 md:p-5 lg:p-6">
               <div className="space-y-4">
@@ -132,7 +132,7 @@ export default function TherapistProfile() {
                   <Tag variant="language">English</Tag>
                   <Tag variant="language">Spanish</Tag>
                   <Tag variant="language">French</Tag>
-                  <Button variant="ghost" size="sm" className="min-h-[--touch-target-min] text-garden-green" aria-label="Edit languages you speak">
+                  <Button variant="ghost" size="sm" className="min-h-[--touch-target-min] text-[hsl(var(--garden-green))]" aria-label="Edit languages you speak">
                     <Edit className="w-3 h-3" />
                   </Button>
                 </Cluster>
@@ -145,7 +145,7 @@ export default function TherapistProfile() {
         <Card>
           <CardHeader>
             <HStack className="justify-between">
-              <CardTitle className="font-primary text-jovial-jade">Video Introduction</CardTitle>
+              <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Video Introduction</CardTitle>
               <Badge variant="outline" className="bg-tag-personality text-tag-personality-foreground">
                 Recommended
               </Badge>
@@ -166,20 +166,20 @@ export default function TherapistProfile() {
                   </h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 bg-garden-green rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="w-1.5 h-1.5 bg-[hsl(var(--garden-green))] rounded-full mt-2 flex-shrink-0"></span>
                       Profiles with videos get 3x more bookings
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 bg-garden-green rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="w-1.5 h-1.5 bg-[hsl(var(--garden-green))] rounded-full mt-2 flex-shrink-0"></span>
                       Help clients feel more comfortable
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 bg-garden-green rounded-full mt-2 flex-shrink-0"></span>
+                      <span className="w-1.5 h-1.5 bg-[hsl(var(--garden-green))] rounded-full mt-2 flex-shrink-0"></span>
                       Show your personality and approach
                     </li>
                   </ul>
                 </div>
-                <Button className="bg-garden-green text-white hover:bg-elated-emerald min-h-[--touch-target-min]" aria-label="Upload introduction video to attract more clients">
+                <Button className="bg-[hsl(var(--garden-green))] text-white hover:bg-[hsl(var(--elated-emerald))] min-h-[--touch-target-min]" aria-label="Upload introduction video to attract more clients">
                   <Upload className="w-4 h-4 mr-2" />
                   Upload Video
                 </Button>
@@ -191,7 +191,7 @@ export default function TherapistProfile() {
         {/* Session Settings */}
         <Card>
           <CardHeader>
-            <CardTitle className="font-primary text-jovial-jade">Session Settings</CardTitle>
+            <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Session Settings</CardTitle>
           </CardHeader>
           <CardContent className="p-4 md:p-5 lg:p-6">
             <div className="space-y-6">
@@ -262,7 +262,7 @@ export default function TherapistProfile() {
         <Card>
           <CardHeader>
             <HStack className="justify-between">
-              <CardTitle className="font-primary text-jovial-jade">Profile Visibility</CardTitle>
+              <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Profile Visibility</CardTitle>
               <Button variant="outline" size="sm" className="min-h-[--touch-target-min]" aria-label="Preview how your profile appears to clients">
                 <Eye className="w-4 h-4 mr-2" />
                 Preview Profile
@@ -295,7 +295,7 @@ export default function TherapistProfile() {
           <Button variant="outline" className="min-h-[--touch-target-min]" aria-label="Cancel profile changes without saving">
             Cancel
           </Button>
-          <Button className="bg-garden-green text-white hover:bg-elated-emerald min-h-[--touch-target-min]" aria-label="Save all profile changes">
+          <Button className="bg-[hsl(var(--garden-green))] text-white hover:bg-[hsl(var(--elated-emerald))] min-h-[--touch-target-min]" aria-label="Save all profile changes">
             Save Changes
           </Button>
         </HStack>

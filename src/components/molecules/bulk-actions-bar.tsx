@@ -23,7 +23,7 @@ export function BulkActionsBar({
 
   return (
     <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
-      <div className="bg-surface border border-border rounded-lg shadow-lg p-4 flex items-center gap-3">
+      <div className="bg-surface border border-[hsl(var(--border))] rounded-lg shadow-lg p-4 flex items-center gap-3">
         <Badge variant="secondary" className="flex items-center gap-1">
           {selectedCount} selected
         </Badge>

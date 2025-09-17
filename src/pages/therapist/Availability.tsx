@@ -21,16 +21,16 @@ export default function TherapistAvailability() {
         <Container>
           <div className="space-y-6">
             <div>
-              <h1 className="font-primary text-3xl text-text-primary mb-2">Availability</h1>
-              <p className="font-secondary text-text-secondary">Set your working hours and availability</p>
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Availability</h1>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Set your working hours and availability</p>
             </div>
             <div className="space-y-8">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="font-primary text-3xl font-bold text-text-primary">
+                <h1 className="font-primary text-3xl font-bold text-[hsl(var(--text-primary))]">
                   Availability
                 </h1>
-                <p className="font-secondary text-text-secondary mt-2">
+                <p className="font-secondary text-[hsl(var(--text-secondary))] mt-2">
                   Set your regular schedule and manage appointments
                 </p>
               </div>
@@ -51,8 +51,8 @@ export default function TherapistAvailability() {
               <Card>
                 <CardContent className="p-6">
                   <div className="text-center">
-                    <p className="font-secondary text-text-secondary text-sm">This Week</p>
-                    <p className="font-primary text-2xl font-bold text-text-primary">18</p>
+                    <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">This Week</p>
+                    <p className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">18</p>
                     <p className="font-secondary text-text-muted text-xs">Available hours</p>
                   </div>
                 </CardContent>
@@ -60,7 +60,7 @@ export default function TherapistAvailability() {
               <Card>
                 <CardContent className="p-6">
                   <div className="text-center">
-                    <p className="font-secondary text-text-secondary text-sm">Booked</p>
+                    <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Booked</p>
                     <p className="font-primary text-2xl font-bold text-primary">12</p>
                     <p className="font-secondary text-text-muted text-xs">Sessions scheduled</p>
                   </div>
@@ -69,7 +69,7 @@ export default function TherapistAvailability() {
               <Card>
                 <CardContent className="p-6">
                   <div className="text-center">
-                    <p className="font-secondary text-text-secondary text-sm">Remaining</p>
+                    <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Remaining</p>
                     <p className="font-primary text-2xl font-bold text-success">6</p>
                     <p className="font-secondary text-text-muted text-xs">Open slots</p>
                   </div>
@@ -78,7 +78,7 @@ export default function TherapistAvailability() {
               <Card>
                 <CardContent className="p-6">
                   <div className="text-center">
-                    <p className="font-secondary text-text-secondary text-sm">Utilization</p>
+                    <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Utilization</p>
                     <p className="font-primary text-2xl font-bold text-warning">67%</p>
                     <p className="font-secondary text-text-muted text-xs">Of available hours</p>
                   </div>
@@ -95,24 +95,24 @@ export default function TherapistAvailability() {
                     <div className="flex items-center space-x-4">
                       <div className="flex items-center space-x-2">
                         <div className="w-3 h-3 bg-success rounded-full"></div>
-                        <span className="font-secondary text-text-secondary text-sm">Available</span>
+                        <span className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Available</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <div className="w-3 h-3 bg-primary rounded-full"></div>
-                        <span className="font-secondary text-text-secondary text-sm">Booked</span>
+                        <span className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Booked</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <div className="w-3 h-3 bg-surface-accent rounded-full"></div>
-                        <span className="font-secondary text-text-secondary text-sm">Unavailable</span>
+                        <span className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Unavailable</span>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent>
                     <div className="grid grid-cols-8 gap-2">
                       {/* Header */}
-                      <div className="font-secondary text-text-secondary text-sm p-2"></div>
+                      <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm p-2"></div>
                       {weekDays.map((day) => (
-                        <div key={day} className="font-secondary text-text-secondary text-sm p-2 text-center">
+                        <div key={day} className="font-secondary text-[hsl(var(--text-secondary))] text-sm p-2 text-center">
                           {day.slice(0, 3)}
                         </div>
                       ))}
@@ -120,7 +120,7 @@ export default function TherapistAvailability() {
                       {/* Time slots */}
                       {timeSlots.map((time) => (
                         <div key={time} className="contents">
-                          <div className="font-secondary text-text-secondary text-sm p-2 text-right">
+                          <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm p-2 text-right">
                             {time}
                           </div>
                           {weekDays.map((day) => {
@@ -160,7 +160,7 @@ export default function TherapistAvailability() {
                   <CardContent className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-secondary font-semibold text-text-primary text-sm">
+                        <p className="font-secondary font-semibold text-[hsl(var(--text-primary))] text-sm">
                           Auto-accept bookings
                         </p>
                         <p className="font-secondary text-text-muted text-xs">
@@ -172,7 +172,7 @@ export default function TherapistAvailability() {
 
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-secondary font-semibold text-text-primary text-sm">
+                        <p className="font-secondary font-semibold text-[hsl(var(--text-primary))] text-sm">
                           Buffer between sessions
                         </p>
                         <p className="font-secondary text-text-muted text-xs">
@@ -184,7 +184,7 @@ export default function TherapistAvailability() {
 
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-secondary font-semibold text-text-primary text-sm">
+                        <p className="font-secondary font-semibold text-[hsl(var(--text-primary))] text-sm">
                           Weekend availability
                         </p>
                         <p className="font-secondary text-text-muted text-xs">
@@ -227,7 +227,7 @@ export default function TherapistAvailability() {
                   <CardContent className="space-y-3">
                     <div className="flex items-center justify-between p-3 bg-warning/10 rounded-lg">
                       <div>
-                        <p className="font-secondary font-semibold text-text-primary text-sm">
+                        <p className="font-secondary font-semibold text-[hsl(var(--text-primary))] text-sm">
                           Holiday Block
                         </p>
                         <p className="font-secondary text-text-muted text-xs">

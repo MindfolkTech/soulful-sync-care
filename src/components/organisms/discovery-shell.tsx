@@ -18,7 +18,7 @@ const DiscoveryShell = React.forwardRef<HTMLDivElement, DiscoveryShellProps>(
         {...props}
       >
         {/* Fixed Header */}
-        <div className="fixed top-0 left-0 right-0 z-50 bg-warm-white border-b border-border">
+        <div className="fixed top-0 left-0 right-0 z-50 bg-warm-white border-b border-[hsl(var(--border))]">
           <Header />
         </div>
 
@@ -28,7 +28,7 @@ const DiscoveryShell = React.forwardRef<HTMLDivElement, DiscoveryShellProps>(
         </div>
 
         {/* Fixed Bottom Navigation */}
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-warm-white border-t border-border">
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-warm-white border-t border-[hsl(var(--border))]">
           <BottomNav />
         </div>
       </PageShell>

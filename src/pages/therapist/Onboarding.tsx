@@ -143,7 +143,7 @@ export default function TherapistOnboarding() {
                     className="h-3 flex-1 bg-surface-accent rounded-full overflow-hidden"
                     aria-label={`Progress: ${Math.round(progress)}% complete`}
                   />
-                  <span className="text-sm text-text-secondary font-secondary whitespace-nowrap bg-surface px-3 py-1 rounded-full" aria-live="polite">
+                  <span className="text-sm text-[hsl(var(--text-secondary))] font-secondary whitespace-nowrap bg-surface px-3 py-1 rounded-full" aria-live="polite">
                     Step {currentStep} of {onboardingSteps.length}
                   </span>
                 </div>
@@ -170,14 +170,14 @@ export default function TherapistOnboarding() {
               {/* Enhanced Step Tip */}
               <div className="bg-surface-accent p-6 rounded-xl mb-8 shadow-sm border border-border" role="region" aria-label="Step tip and example">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-garden-green rounded-full flex items-center justify-center flex-shrink-0">
-                    <Lightbulb className="w-5 h-5 text-[--on-dark]" aria-hidden="true" />
+                  <div className="w-10 h-10 bg-[hsl(var(--garden-green))] rounded-full flex items-center justify-center flex-shrink-0">
+                    <Lightbulb className="w-5 h-5 text-[hsl(var(--on-dark))]" aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="font-primary text-jovial-jade text-base font-semibold mb-2">
+                    <p className="font-primary text-[hsl(var(--jovial-jade))] text-base font-semibold mb-2">
                       💡 Tip: {currentStepData?.tip}
                     </p>
-                    <p className="font-secondary text-text-secondary text-sm leading-relaxed">
+                    <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm leading-relaxed">
                       Example: {currentStepData?.example}
                     </p>
                   </div>
@@ -191,10 +191,10 @@ export default function TherapistOnboarding() {
 
             <Card className="min-h-[500px] shadow-lg border-0" role="region" aria-label={`Step ${currentStep} content`}>
               <CardHeader className="text-center pb-8">
-                <h1 className="font-primary text-[--text-2xl] tracking-tight" id={`step-${currentStep}-title`}>
+                <h1 className="font-primary text-[hsl(var(--text-2xl))] tracking-tight" id={`step-${currentStep}-title`}>
                   {currentStepData?.title}
                 </h1>
-                <p className="font-secondary text-text-secondary text-lg" id={`step-${currentStep}-subtitle`}>
+                <p className="font-secondary text-[hsl(var(--text-secondary))] text-lg" id={`step-${currentStep}-subtitle`}>
                   {currentStepData?.subtitle}
                 </p>
               </CardHeader>
@@ -207,10 +207,10 @@ export default function TherapistOnboarding() {
                         <span className="text-primary-foreground font-primary font-bold text-xl">M</span>
                       </div>
                       <div className="space-y-2">
-                        <h3 className="font-primary text-lg font-semibold text-text-primary">
+                        <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))]">
                           Why join MindFolk?
                         </h3>
-                        <ul className="font-secondary text-text-secondary space-y-2 text-left max-w-md mx-auto">
+                        <ul className="font-secondary text-[hsl(var(--text-secondary))] space-y-2 text-left max-w-md mx-auto">
                           <li>• Compatibility-focused matching reduces early drop-off</li>
                           <li>• Control over your rates and schedule</li>
                           <li>• All-in-one practice management</li>
@@ -288,7 +288,7 @@ export default function TherapistOnboarding() {
                                 }
                               }}
                             />
-                            <label htmlFor={body} className="font-secondary text-text-primary">
+                            <label htmlFor={body} className="font-secondary text-[hsl(var(--text-primary))]">
                               {body}
                             </label>
                           </div>
@@ -317,7 +317,7 @@ export default function TherapistOnboarding() {
                                 }
                               }}
                             />
-                            <label htmlFor={modality} className="font-secondary text-text-primary text-sm">
+                            <label htmlFor={modality} className="font-secondary text-[hsl(var(--text-primary))] text-sm">
                               {modality}
                             </label>
                           </div>
@@ -345,7 +345,7 @@ export default function TherapistOnboarding() {
                                 }
                               }}
                             />
-                            <label htmlFor={specialty} className="font-secondary text-text-primary text-sm">
+                            <label htmlFor={specialty} className="font-secondary text-[hsl(var(--text-primary))] text-sm">
                               {specialty}
                             </label>
                           </div>
@@ -407,7 +407,7 @@ export default function TherapistOnboarding() {
                       <Label htmlFor="headshot">Professional Headshot (Required)</Label>
                       <div className="border-2 border-dashed border-[var(--border)] rounded-lg p-6 text-center">
                         <Upload className="w-8 h-8 mx-auto text-text-muted mb-2" />
-                        <p className="font-secondary text-text-secondary">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))]">
                           Upload a professional headshot
                         </p>
                         <p className="font-secondary text-text-muted text-sm">
@@ -427,30 +427,30 @@ export default function TherapistOnboarding() {
                 {currentStep === 5 && (
                   <div className="space-y-6 text-center">
                     <div className="space-y-4">
-                      <h3 className="font-primary text-lg font-semibold text-text-primary">
+                      <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))]">
                         Why video matters
                       </h3>
                       <div className="text-left space-y-2 max-w-md mx-auto">
-                        <p className="font-secondary text-text-secondary text-sm">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                           • 88% of clients believe videos help them find the right fit faster
                         </p>
-                        <p className="font-secondary text-text-secondary text-sm">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                           • 74% higher compatibility rates with video profiles
                         </p>
-                        <p className="font-secondary text-text-secondary text-sm">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                           • Reduces early session drop-offs
                         </p>
                       </div>
                     </div>
 
-                    <div className="border-2 border-dashed border-[--border] rounded-lg p-8">
+                    <div className="border-2 border-dashed border-[hsl(var(--border))] rounded-lg p-8">
                       <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
                         <Upload className="w-8 h-8 text-primary" />
                       </div>
-                      <h4 className="font-secondary font-semibold text-text-primary mb-2">
+                      <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))] mb-2">
                         Record your 30-60 second introduction
                       </h4>
-                      <p className="font-secondary text-text-secondary text-sm mb-4">
+                      <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm mb-4">
                         Good lighting, clear audio, and authentic personality
                       </p>
                       <Button onClick={() => {
@@ -466,10 +466,10 @@ export default function TherapistOnboarding() {
                 {currentStep === 6 && (
                   <div className="space-y-6">
                     <div className="space-y-4">
-                      <h3 className="font-primary text-lg font-semibold text-text-primary">
+                      <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))]">
                         Upload Verification Documents
                       </h3>
-                      <p className="font-secondary text-text-secondary">
+                      <p className="font-secondary text-[hsl(var(--text-secondary))]">
                         We'll verify your credentials within 24-48 hours
                       </p>
                     </div>
@@ -508,7 +508,7 @@ export default function TherapistOnboarding() {
                     </div>
 
                     <div className="bg-surface-accent p-4 rounded-lg">
-                      <p className="font-secondary text-text-secondary text-sm">
+                      <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                         <strong>During verification:</strong> You can schedule chemistry calls but not full sessions. 
                         Full access will be granted once verification is complete.
                       </p>
@@ -523,7 +523,7 @@ export default function TherapistOnboarding() {
                 variant="outline"
                 onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
                 disabled={currentStep === 1}
-                className="hover:bg-[--surface-accent] transition-colors duration-200 disabled:opacity-50 min-h-[--touch-target-min]"
+                className="hover:bg-[hsl(var(--surface-accent))] transition-colors duration-200 disabled:opacity-50 min-h-[--touch-target-min]"
                 aria-label="Go to previous step"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" aria-hidden="true" />
@@ -540,7 +540,7 @@ export default function TherapistOnboarding() {
                   }
                 }}
                 disabled={false}
-                className="bg-[--garden-green] hover:bg-[--elated-emerald] text-[--on-dark] px-8 py-3 transition-all duration-200 disabled:opacity-50 min-h-[--touch-target-min]"
+                className="bg-[hsl(var(--garden-green))] hover:bg-[hsl(var(--elated-emerald))] text-[hsl(var(--on-dark))] px-8 py-3 transition-all duration-200 disabled:opacity-50 min-h-[--touch-target-min]"
                 aria-label={currentStep === onboardingSteps.length ? "Complete onboarding setup" : "Go to next step"}
               >
                 {currentStep === onboardingSteps.length ? "Complete Setup" : "Continue"}
@@ -554,7 +554,7 @@ export default function TherapistOnboarding() {
                 <div className="lg:col-span-1">
                   <Card className="sticky top-8">
                     <CardHeader>
-                      <CardTitle className="font-primary text-lg text-text-primary flex items-center">
+                      <CardTitle className="font-primary text-lg text-[hsl(var(--text-primary))] flex items-center">
                         <Eye className="w-5 h-5 mr-2" />
                         Live Preview
                       </CardTitle>
@@ -574,13 +574,13 @@ export default function TherapistOnboarding() {
 
                         {/* Name and Title */}
                         <div className="text-center">
-                          <h3 className="font-primary text-lg font-semibold text-text-primary">
+                          <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))]">
                             {profileData.firstName && profileData.lastName 
                               ? `${profileData.firstName} ${profileData.lastName}` 
                               : 'Your Name'
                             }
                           </h3>
-                          <p className="font-secondary text-text-secondary text-sm">
+                          <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                             {profileData.title || 'Professional Title'}
                           </p>
                           {profileData.experience && (
@@ -593,7 +593,7 @@ export default function TherapistOnboarding() {
                         {/* Registrations */}
                         {profileData.registrations.length > 0 && (
                           <div className="space-y-2">
-                            <p className="font-secondary text-text-secondary text-xs font-medium">Registrations</p>
+                            <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs font-medium">Registrations</p>
                             <div className="flex flex-wrap gap-1">
                               {profileData.registrations.map((reg) => (
                                 <Badge key={reg} variant="secondary" className="text-xs">
@@ -607,7 +607,7 @@ export default function TherapistOnboarding() {
                         {/* Modalities */}
                         {profileData.modalities.length > 0 && (
                           <div className="space-y-2">
-                            <p className="font-secondary text-text-secondary text-xs font-medium">Approaches</p>
+                            <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs font-medium">Approaches</p>
                             <div className="flex flex-wrap gap-1">
                               {profileData.modalities.slice(0, 3).map((modality) => (
                                 <Badge key={modality} variant="outline" className="text-xs">
@@ -621,8 +621,8 @@ export default function TherapistOnboarding() {
                         {/* Bio Preview */}
                         {profileData.bio && (
                           <div className="space-y-2">
-                            <p className="font-secondary text-text-secondary text-xs font-medium">Bio Preview</p>
-                            <p className="font-secondary text-text-primary text-sm leading-relaxed">
+                            <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs font-medium">Bio Preview</p>
+                            <p className="font-secondary text-[hsl(var(--text-primary))] text-sm leading-relaxed">
                               {profileData.bio.length > 100 
                                 ? `${profileData.bio.substring(0, 100)}...` 
                                 : profileData.bio
@@ -634,8 +634,8 @@ export default function TherapistOnboarding() {
                         {/* Quote */}
                         {profileData.quote && (
                           <div className="space-y-2">
-                            <p className="font-secondary text-text-secondary text-xs font-medium">Quote</p>
-                            <blockquote className="font-primary text-text-primary text-sm italic">
+                            <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs font-medium">Quote</p>
+                            <blockquote className="font-primary text-[hsl(var(--text-primary))] text-sm italic">
                               "{profileData.quote}"
                             </blockquote>
                           </div>
@@ -644,7 +644,7 @@ export default function TherapistOnboarding() {
                         {/* Completion Status */}
                         <div className="pt-4 border-t border-[var(--border)]">
                           <div className="flex items-center justify-between text-xs">
-                            <span className="font-secondary text-text-secondary">Profile Complete</span>
+                            <span className="font-secondary text-[hsl(var(--text-secondary))]">Profile Complete</span>
                             <span className="font-secondary text-[var(--garden-green)] font-medium">
                               {Math.round((Object.values(profileData).filter(v => v && v !== "").length / Object.keys(profileData).length) * 100)}%
                             </span>

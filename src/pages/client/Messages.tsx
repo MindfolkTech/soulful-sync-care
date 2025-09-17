@@ -108,7 +108,7 @@ export default function Messages() {
                           </AvatarFallback>
                         </Avatar>
                         {thread.online && (
-                          <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[--success-text] border-2 border-background rounded-full"></div>
+                          <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[hsl(var(--success-text))] border-2 border-background rounded-full"></div>
                         )}
                       </div>
                       
@@ -119,7 +119,7 @@ export default function Messages() {
                           </h4>
                           <div className="flex items-center gap-1">
                             {thread.encrypted && (
-                              <Shield className="h-3 w-3 text-[--success-text]" />
+                              <Shield className="h-3 w-3 text-[hsl(var(--success-text))]" />
                             )}
                             {thread.unread > 0 && (
                               <Badge variant="default" className="text-xs px-2 py-0.5">
@@ -164,11 +164,11 @@ export default function Messages() {
                           </h3>
                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
                             <div className="flex items-center gap-1">
-                              <div className="w-2 h-2 bg-[--success-text] rounded-full"></div>
+                              <div className="w-2 h-2 bg-[hsl(var(--success-text))] rounded-full"></div>
                               Online
                             </div>
                             <div className="flex items-center gap-1">
-                              <Shield className="h-3 w-3 text-[--success-text]" />
+                              <Shield className="h-3 w-3 text-[hsl(var(--success-text))]" />
                               End-to-end encrypted
                             </div>
                           </div>
@@ -176,7 +176,7 @@ export default function Messages() {
                       </div>
                       
                       <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                        <CheckCircle2 className="h-3 w-3 text-[--success-text]" />
+                        <CheckCircle2 className="h-3 w-3 text-[hsl(var(--success-text))]" />
                         Verified therapist
                       </div>
                     </div>

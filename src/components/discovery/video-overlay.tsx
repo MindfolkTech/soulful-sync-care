@@ -127,18 +127,18 @@ export function VideoOverlay({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogOverlay className="bg-[--modal-backdrop] backdrop-blur-sm" />
+      <DialogOverlay className="bg-[hsl(var(--modal-backdrop))] backdrop-blur-sm" />
       <DialogContent 
         className={cn(
           "w-full h-full md:h-auto md:max-w-4xl md:max-h-[85vh]",
-          "p-0 bg-[--overlay-dark] border-0",
+          "p-0 bg-[hsl(var(--overlay-dark))] border-0",
           "focus:outline-none"
         )}
         aria-label={`Video introduction by ${title}`}
       >
         <div className="relative w-full h-full flex flex-col">
           {/* Video */}
-          <div className="relative flex-1 flex items-center justify-center bg-[--overlay-dark]">
+          <div className="relative flex-1 flex items-center justify-center bg-[hsl(var(--overlay-dark))]">
             <video
               ref={videoRef}
               className="w-full h-full object-contain"
@@ -164,11 +164,11 @@ export function VideoOverlay({
               <Button
                 size="icon"
                 variant="ghost"
-                className="absolute inset-0 w-full h-full bg-[--hover-overlay] hover:bg-[--video-overlay] rounded-none"
+                className="absolute inset-0 w-full h-full bg-[hsl(var(--hover-overlay))] hover:bg-[hsl(var(--video-overlay))] rounded-none"
                 onClick={handlePlayPause}
                 aria-label="Play video"
               >
-                <Play className="h-16 w-16 text-[--on-dark]" />
+                <Play className="h-16 w-16 text-[hsl(var(--on-dark))]" />
               </Button>
             )}
           </div>
@@ -176,7 +176,7 @@ export function VideoOverlay({
           {/* Controls */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[--overlay-dark]/80 to-transparent p-4">
             {/* Keyboard shortcuts hint */}
-            <div className="text-xs text-[--on-dark]/70 mb-2 text-center">
+            <div className="text-xs text-[hsl(var(--on-dark))]/70 mb-2 text-center">
               Space: Play/Pause • M: Mute • C: Captions • F: Fullscreen • Esc: Close
             </div>
             <div className="flex items-center justify-between">
@@ -185,7 +185,7 @@ export function VideoOverlay({
                   size="icon"
                   variant="ghost"
                   onClick={handlePlayPause}
-                  className="text-[--on-dark] hover:bg-[--surface]/20"
+                  className="text-[hsl(var(--on-dark))] hover:bg-[hsl(var(--surface))]/20"
                   aria-label={isPlaying ? "Pause video" : "Play video"}
                 >
                   {isPlaying ? (
@@ -199,7 +199,7 @@ export function VideoOverlay({
                   size="icon"
                   variant="ghost"
                   onClick={handleMuteToggle}
-                  className="text-[--on-dark] hover:bg-[--surface]/20"
+                  className="text-[hsl(var(--on-dark))] hover:bg-[hsl(var(--surface))]/20"
                   aria-label={isMuted ? "Unmute video" : "Mute video"}
                 >
                   {isMuted ? (
@@ -214,8 +214,8 @@ export function VideoOverlay({
                   variant="ghost"
                   onClick={handleCaptionsToggle}
                   className={cn(
-                    "text-[--on-dark] hover:bg-[--surface]/20",
-                    captionsEnabled && "bg-[--surface]/20"
+                    "text-[hsl(var(--on-dark))] hover:bg-[hsl(var(--surface))]/20",
+                    captionsEnabled && "bg-[hsl(var(--surface))]/20"
                   )}
                   aria-label={captionsEnabled ? "Disable captions" : "Enable captions"}
                   aria-pressed={captionsEnabled}
@@ -227,7 +227,7 @@ export function VideoOverlay({
                   size="icon"
                   variant="ghost"
                   onClick={handleFullscreenToggle}
-                  className="text-[--on-dark] hover:bg-[--surface]/20"
+                  className="text-[hsl(var(--on-dark))] hover:bg-[hsl(var(--surface))]/20"
                   aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
                 >
                   {isFullscreen ? (
@@ -242,7 +242,7 @@ export function VideoOverlay({
                 size="icon"
                 variant="ghost"
                 onClick={() => onOpenChange(false)}
-                className="text-[--on-dark] hover:bg-[--surface]/20"
+                className="text-[hsl(var(--on-dark))] hover:bg-[hsl(var(--surface))]/20"
                 aria-label="Close video"
               >
                 <X className="h-5 w-5" />

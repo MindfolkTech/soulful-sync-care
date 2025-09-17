@@ -36,10 +36,10 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
       >
         {showLabel && (
           <div className="flex justify-between items-center mb-2">
-            <span className="text-sm font-medium text-text-primary">
+            <span className="text-sm font-medium text-[hsl(var(--text-primary))]">
               {label || "Progress"}
             </span>
-            <span className="text-sm text-text-secondary">
+            <span className="text-sm text-[hsl(var(--text-secondary))]">
               {Math.round(percentage)}%
             </span>
           </div>
@@ -47,7 +47,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
         
         <div 
           className={cn(
-            "w-full bg-surface-accent rounded-full overflow-hidden",
+            "w-full bg-[hsl(var(--surface-accent))] rounded-full overflow-hidden",
             sizeClasses[size]
           )}
           role="progressbar"
@@ -57,7 +57,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
           aria-label={label || "Progress"}
         >
           <div
-            className="h-full bg-garden-green transition-progress rounded-full"
+            className="h-full bg-[hsl(var(--garden-green))] transition-progress rounded-full"
             style={{ width: `${percentage}%` }}
           />
         </div>

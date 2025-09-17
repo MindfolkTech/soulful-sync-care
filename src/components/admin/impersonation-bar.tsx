@@ -82,25 +82,25 @@ export function ImpersonationBar({}: ImpersonationBarProps = {}) {
 
   if (isImpersonating && impersonatedUser) {
     return (
-      <div className="fixed top-0 left-0 right-0 z-50 bg-warning border-b border-border">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-[hsl(var(--warning-bg))] border-b border-[hsl(var(--border))]">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <AlertTriangle className="h-5 w-5 text-warning-foreground" />
-                <span className="font-secondary font-semibold text-warning-foreground">
+                <AlertTriangle className="h-5 w-5 text-[hsl(var(--warning-text))]" />
+                <span className="font-secondary font-semibold text-[hsl(var(--warning-text))]">
                   ADMIN IMPERSONATION MODE
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded-full bg-[--surface]/20 flex items-center justify-center">
-                  <User className="h-4 w-4 text-warning-foreground" />
+                <div className="h-8 w-8 rounded-full bg-[hsl(var(--surface))]/20 flex items-center justify-center">
+                  <User className="h-4 w-4 text-[hsl(var(--warning-text))]" />
                 </div>
                 <div>
-                  <p className="font-secondary font-medium text-warning-foreground">
+                  <p className="font-secondary font-medium text-[hsl(var(--warning-text))]">
                     {impersonatedUser.name}
                   </p>
-                  <p className="font-secondary text-sm text-warning-foreground/80">
+                  <p className="font-secondary text-sm text-[hsl(var(--warning-text))]/80">
                     {impersonatedUser.email}
                   </p>
                 </div>
@@ -108,10 +108,10 @@ export function ImpersonationBar({}: ImpersonationBarProps = {}) {
                   variant="secondary" 
                   className={`${
                     impersonatedUser.role === 'therapist' 
-                      ? 'bg-tag-specialty text-tag-specialty-foreground'
+                      ? 'bg-[hsl(var(--tag-specialty-bg))] text-[hsl(var(--tag-specialty-text))]'
                       : impersonatedUser.role === 'client'
-                      ? 'bg-tag-personality text-tag-personality-foreground'
-                      : 'bg-tag-misc text-tag-misc-foreground'
+                      ? 'bg-[hsl(var(--tag-personality-bg))] text-[hsl(var(--tag-personality-text))]'
+                      : 'bg-[hsl(var(--tag-misc-bg))] text-[hsl(var(--tag-misc-text))]'
                   }`}
                 >
                   {impersonatedUser.role}
@@ -122,7 +122,7 @@ export function ImpersonationBar({}: ImpersonationBarProps = {}) {
               <AlertDialogTrigger asChild>
                 <Button 
                   variant="outline" 
-                  className="bg-[--surface]/20 border-[--surface]/30 text-warning-foreground hover:bg-[--surface]/30"
+                  className="bg-[hsl(var(--surface))]/20 border-[hsl(var(--surface))]/30 text-[hsl(var(--warning-text))] hover:bg-[hsl(var(--surface))]/30"
                 >
                   <LogOut className="h-4 w-4 mr-2" />
                   End Impersonation
@@ -154,10 +154,10 @@ export function ImpersonationBar({}: ImpersonationBarProps = {}) {
       <CardContent className="py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Shield className="h-5 w-5 text-text-primary" />
+            <Shield className="h-5 w-5 text-[hsl(var(--text-primary))]" />
             <div>
-              <h3 className="font-primary font-semibold text-text-primary">User Impersonation</h3>
-              <p className="font-secondary text-sm text-text-secondary">
+              <h3 className="font-primary font-semibold text-[hsl(var(--text-primary))]">User Impersonation</h3>
+              <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
                 View the platform from a user's perspective for support and testing
               </p>
             </div>
@@ -197,22 +197,22 @@ function UserSearchDialog({ onSelectUser }: UserSearchDialogProps) {
   const getRoleBadgeClass = (role: User["role"]) => {
     switch (role) {
       case "therapist":
-        return "bg-tag-specialty text-tag-specialty-foreground";
+        return "bg-[hsl(var(--tag-specialty-bg))] text-[hsl(var(--tag-specialty-text))]";
       case "client":
-        return "bg-tag-personality text-tag-personality-foreground";
+        return "bg-[hsl(var(--tag-personality-bg))] text-[hsl(var(--tag-personality-text))]";
       case "admin":
-        return "bg-tag-misc text-tag-misc-foreground";
+        return "bg-[hsl(var(--tag-misc-bg))] text-[hsl(var(--tag-misc-text))]";
     }
   };
 
   const getStatusBadgeClass = (status: User["status"]) => {
     switch (status) {
       case "active":
-        return "bg-success text-success-foreground";
+        return "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]";
       case "inactive":
-        return "bg-text-secondary text-[--on-dark]";
+        return "bg-[hsl(var(--text-secondary))] text-[hsl(var(--on-dark))]";
       case "suspended":
-        return "bg-destructive text-destructive-foreground";
+        return "bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))]";
     }
   };
 
@@ -231,7 +231,7 @@ function UserSearchDialog({ onSelectUser }: UserSearchDialogProps) {
         
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <Search className="h-4 w-4 text-text-secondary" />
+            <Search className="h-4 w-4 text-[hsl(var(--text-secondary))]" />
             <Input
               placeholder="Search by name or email..."
               value={searchQuery}
@@ -243,23 +243,23 @@ function UserSearchDialog({ onSelectUser }: UserSearchDialogProps) {
           <div className="max-h-96 overflow-y-auto space-y-2">
             {filteredUsers.length === 0 ? (
               <div className="text-center py-8">
-                <User className="mx-auto h-12 w-12 text-text-secondary mb-2" />
-                <p className="font-secondary text-text-secondary">No users found</p>
+                <User className="mx-auto h-12 w-12 text-[hsl(var(--text-secondary))] mb-2" />
+                <p className="font-secondary text-[hsl(var(--text-secondary))]">No users found</p>
               </div>
             ) : (
               filteredUsers.map((user) => (
                 <div
                   key={user.id}
-                  className="flex items-center justify-between p-4 border border-border rounded-md hover:bg-surface-accent cursor-pointer transition-colors"
+                  className="flex items-center justify-between p-4 border border-[hsl(var(--border))] rounded-md hover:bg-[hsl(var(--surface-accent))] cursor-pointer transition-colors"
                   onClick={() => handleSelectUser(user)}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-surface-accent flex items-center justify-center">
-                      <User className="h-5 w-5 text-text-primary" />
+                    <div className="h-10 w-10 rounded-full bg-[hsl(var(--surface-accent))] flex items-center justify-center">
+                      <User className="h-5 w-5 text-[hsl(var(--text-primary))]" />
                     </div>
                     <div>
-                      <h4 className="font-secondary font-bold text-text-primary">{user.name}</h4>
-                      <p className="font-secondary text-sm text-text-secondary">{user.email}</p>
+                      <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))]">{user.name}</h4>
+                      <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">{user.email}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -275,19 +275,19 @@ function UserSearchDialog({ onSelectUser }: UserSearchDialogProps) {
                     >
                       {user.status}
                     </Badge>
-                    <Eye className="h-4 w-4 text-text-secondary" />
+                    <Eye className="h-4 w-4 text-[hsl(var(--text-secondary))]" />
                   </div>
                 </div>
               ))
             )}
           </div>
 
-          <div className="bg-surface-accent p-4 rounded-md">
+          <div className="bg-[hsl(var(--surface-accent))] p-4 rounded-md">
             <div className="flex items-start gap-3">
               <AlertTriangle className="h-5 w-5 text-warning mt-0.5" />
               <div className="space-y-1">
-                <p className="font-secondary font-medium text-text-primary">Security Notice</p>
-                <p className="font-secondary text-sm text-text-secondary">
+                <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">Security Notice</p>
+                <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
                   All impersonation activities are logged and monitored. Only use this feature for legitimate support and testing purposes.
                 </p>
               </div>

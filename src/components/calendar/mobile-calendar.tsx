@@ -52,10 +52,10 @@ export function MobileCalendar({
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'confirmed': return 'bg-[--success-bg] text-[--success-text]';
-      case 'pending': return 'bg-[--warning-bg] text-[--warning-text]';
-      case 'cancelled': return 'bg-[--error-bg] text-[--error-text]';
-      default: return 'bg-[--surface-accent] text-[--text-primary]';
+      case 'confirmed': return 'bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]';
+      case 'pending': return 'bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]';
+      case 'cancelled': return 'bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))]';
+      default: return 'bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-primary))]';
     }
   };
 
@@ -99,7 +99,7 @@ export function MobileCalendar({
     <Card>
       <CardHeader className="p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
         <div className="flex items-center justify-between">
-          <CardTitle className="font-primary text-[--jovial-jade] text-sm md:text-base">
+          <CardTitle className="font-primary text-[hsl(var(--jovial-jade))] text-sm md:text-base">
             Today's Schedule
           </CardTitle>
           <div className="flex items-center gap-[--space-xs]">
@@ -130,21 +130,21 @@ export function MobileCalendar({
           onTouchEnd={handleTouchEnd}
         >
           {/* Date Header */}
-          <div className="text-center p-[--space-sm] bg-[--surface-accent] rounded-lg">
-            <h3 className="font-primary text-[--jovial-jade] text-lg">
+          <div className="text-center p-[--space-sm] bg-[hsl(var(--surface-accent))] rounded-lg">
+            <h3 className="font-primary text-[hsl(var(--jovial-jade))] text-lg">
               {currentDate.toLocaleDateString('en-US', { 
                 weekday: 'long', 
                 month: 'long', 
                 day: 'numeric' 
               })}
             </h3>
-            <p className="font-secondary text-[--text-secondary] text-sm">
+            <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
               {currentAppointments.length} appointment{currentAppointments.length !== 1 ? 's' : ''}
             </p>
           </div>
 
           {/* Swipe Instructions */}
-          <div className="flex items-center justify-center gap-[--space-sm] text-[--text-muted] text-xs">
+          <div className="flex items-center justify-center gap-[--space-sm] text-[hsl(var(--text-muted))] text-xs">
             <SwipeLeft className="w-4 h-4" />
             <span className="font-secondary">Swipe to change days</span>
             <SwipeRight className="w-4 h-4" />
@@ -158,12 +158,12 @@ export function MobileCalendar({
                 .map(appointment => (
                   <div 
                     key={appointment.id}
-                    className="flex items-center justify-between p-[--space-sm] border rounded-lg min-h-[--touch-target-comfort] cursor-pointer transition-colors hover:bg-[--surface-accent]"
+                    className="flex items-center justify-between p-[--space-sm] border rounded-lg min-h-[--touch-target-comfort] cursor-pointer transition-colors hover:bg-[hsl(var(--surface-accent))]"
                     onClick={() => onAppointmentClick(appointment)}
                   >
                     <div className="flex items-center gap-[--space-sm] min-w-0 flex-1">
-                      <div className="w-10 h-10 bg-[--surface-accent] rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="font-secondary text-[--text-primary] text-sm">
+                      <div className="w-10 h-10 bg-[hsl(var(--surface-accent))] rounded-full flex items-center justify-center flex-shrink-0">
+                        <span className="font-secondary text-[hsl(var(--text-primary))] text-sm">
                           {appointment.clientInitials}
                         </span>
                       </div>
@@ -173,14 +173,14 @@ export function MobileCalendar({
                         </h4>
                         <div className="flex items-center gap-[--space-xs]">
                           {getTypeIcon(appointment.type)}
-                          <span className="font-secondary text-[--text-secondary] text-xs">
+                          <span className="font-secondary text-[hsl(var(--text-secondary))] text-xs">
                             {appointment.type}
                           </span>
-                          <span className="font-secondary text-[--text-secondary] text-xs">
+                          <span className="font-secondary text-[hsl(var(--text-secondary))] text-xs">
                             • {appointment.duration}
                           </span>
                         </div>
-                        <p className="font-secondary text-[--text-secondary] text-xs">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs">
                           {formatTimeDisplay(appointment.sessionTime)}
                         </p>
                       </div>
@@ -194,7 +194,7 @@ export function MobileCalendar({
                   </div>
                 ))
             ) : (
-              <div className="text-center p-[--space-md] text-[--text-muted]">
+              <div className="text-center p-[--space-md] text-[hsl(var(--text-muted))]">
                 <Clock className="w-8 h-8 mx-auto mb-[--space-xs] opacity-50" />
                 <p className="font-secondary text-sm">
                   No appointments scheduled for this day

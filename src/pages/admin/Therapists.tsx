@@ -9,8 +9,8 @@ export default function AdminTherapists() {
         <Container>
           <div className="space-y-6">
             <div>
-              <h1 className="font-primary text-3xl text-text-primary mb-2">Therapist Management</h1>
-              <p className="font-secondary text-text-secondary">Review and verify therapist applications</p>
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Therapist Management</h1>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Review and verify therapist applications</p>
             </div>
             <VerificationQueue />
           </div>

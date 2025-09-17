@@ -40,8 +40,8 @@ export default function SignIn() {
         <Container size="sm">
           <Card className="w-full max-w-md mx-auto">
             <CardHeader className="text-center">
-              <h1 className="font-primary text-[--text-2xl]">Welcome back</h1>
-              <CardDescription className="font-secondary text-[--text-secondary]">
+              <h1 className="font-primary text-[hsl(var(--text-2xl))]">Welcome back</h1>
+              <CardDescription className="font-secondary text-[hsl(var(--text-secondary))]">
                 Sign in to your MindFolk account
               </CardDescription>
             </CardHeader>
@@ -82,7 +82,7 @@ export default function SignIn() {
                   />
                 </div>
                 
-                <Button type="submit" className="w-full min-h-[--touch-target-min]" aria-label="Sign in to account" disabled={isLoading}>
+                <Button type="submit" className="w-full min-h-touch-target" aria-label="Sign in to account" disabled={isLoading}>
                   {isLoading ? "Signing in..." : "Sign In"}
                 </Button>
               </form>

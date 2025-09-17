@@ -110,8 +110,8 @@ const SwipeCard = React.forwardRef<HTMLDivElement, SwipeCardProps>(
         {isDragging && (
           <>
             {dragOffset > 50 && (
-              <div className="absolute inset-0 flex items-center justify-center bg-success/20 rounded-lg">
-                <div className="flex items-center gap-2 text-success-foreground">
+              <div className="absolute inset-0 flex items-center justify-center bg-[hsl(var(--success-bg))]/20 rounded-lg">
+                <div className="flex items-center gap-2 text-[hsl(var(--success-text))]">
                   <Heart className="h-8 w-8" />
                   <span className="font-semibold">Save</span>
                 </div>

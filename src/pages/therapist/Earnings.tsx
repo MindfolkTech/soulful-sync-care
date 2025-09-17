@@ -87,8 +87,8 @@ export default function TherapistEarnings() {
         <Container>
           <div className="space-y-6">
             <div>
-              <h1 className="font-primary text-3xl text-text-primary mb-2">Earnings Dashboard</h1>
-              <p className="font-secondary text-text-secondary">Track your income and manage payouts</p>
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Earnings Dashboard</h1>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Track your income and manage payouts</p>
             </div>
       <Stack className="space-y-8">
         {/* Action Buttons */}
@@ -97,7 +97,7 @@ export default function TherapistEarnings() {
             <Download className="w-4 h-4 mr-2" />
             Export Report
           </Button>
-          <Button className="bg-garden-green text-white hover:bg-elated-emerald min-h-touch-min">
+          <Button className="bg-[hsl(var(--garden-green))] text-white hover:bg-[hsl(var(--elated-emerald))] min-h-touch-min">
             Request Payout
           </Button>
         </HStack>
@@ -163,10 +163,10 @@ export default function TherapistEarnings() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle className="font-primary text-jovial-jade">Earnings Trend</CardTitle>
+                  <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Earnings Trend</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center border-2 border-dashed border-border rounded-lg">
+                  <div className="h-64 flex items-center justify-center border-2 border-dashed border-[hsl(var(--border))] rounded-lg">
                     <div className="text-center">
                       <TrendingUp className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
                       <p className="font-secondary text-muted-foreground">Earnings chart would go here</p>
@@ -177,7 +177,7 @@ export default function TherapistEarnings() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle className="font-primary text-jovial-jade">Session Breakdown</CardTitle>
+                  <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Session Breakdown</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -216,19 +216,19 @@ export default function TherapistEarnings() {
           <TabsContent value="transactions" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle className="font-primary text-jovial-jade">Recent Transactions</CardTitle>
+                <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Recent Transactions</CardTitle>
               </CardHeader>
               <CardContent className="p-0">
                 <div className="space-y-0">
                   {recentTransactions.map((transaction, index) => (
                     <div 
                       key={transaction.id}
-                      className={`p-4 md:p-5 lg:p-6 ${index !== recentTransactions.length - 1 ? 'border-b border-border' : ''}`}
+                      className={`p-4 md:p-5 lg:p-6 ${index !== recentTransactions.length - 1 ? 'border-b border-[hsl(var(--border))]' : ''}`}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                            transaction.type === 'payout' ? 'bg-warning text-foreground' : 'bg-success text-white'
+                            transaction.type === 'payout' ? 'bg-[hsl(var(--warning-bg))] text-foreground' : 'bg-[hsl(var(--success-bg))] text-white'
                           }`}>
                             {transaction.type === 'payout' ? 
                               <Download className="w-4 h-4" /> : 
@@ -252,7 +252,7 @@ export default function TherapistEarnings() {
                           </p>
                           <Badge 
                             variant={transaction.status === 'completed' ? 'secondary' : 'outline'}
-                            className={transaction.status === 'completed' ? 'bg-success text-white' : ''}
+                            className={transaction.status === 'completed' ? 'bg-[hsl(var(--success-bg))] text-white' : ''}
                           >
                             {transaction.status}
                           </Badge>
@@ -269,7 +269,7 @@ export default function TherapistEarnings() {
             <Card>
               <CardHeader>
                 <HStack className="justify-between">
-                  <CardTitle className="font-primary text-jovial-jade">Payout Methods</CardTitle>
+                  <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Payout Methods</CardTitle>
                   <Button variant="outline" size="sm" className="min-h-touch-min">
                     Add Method
                   </Button>
@@ -288,7 +288,7 @@ export default function TherapistEarnings() {
                       </div>
                       <div className="flex items-center gap-2">
                         {method.isDefault && (
-                          <Badge variant="secondary" className="bg-success text-white">Default</Badge>
+                          <Badge variant="secondary" className="bg-[hsl(var(--success-bg))] text-white">Default</Badge>
                         )}
                         <Button variant="ghost" size="sm" className="min-h-touch-min">
                           Edit
@@ -304,7 +304,7 @@ export default function TherapistEarnings() {
           <TabsContent value="tax" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="font-primary text-jovial-jade">Tax Documents</CardTitle>
+                <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Tax Documents</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-center py-12">

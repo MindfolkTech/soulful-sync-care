@@ -44,7 +44,7 @@ function DayView({
     <div className="space-y-[--space-sm]">
       {/* Day Header */}
       <div className="text-center border-b pb-[--space-sm]">
-        <div className="font-primary text-[--jovial-jade] text-lg font-semibold">
+        <div className="font-primary text-[hsl(var(--jovial-jade))] text-lg font-semibold">
           {format(date, 'EEEE, MMMM do')}
         </div>
       </div>
@@ -59,7 +59,7 @@ function DayView({
               className="flex items-center gap-[--space-sm] min-h-[--touch-target-comfort]"
             >
               {/* Time Label */}
-              <div className="w-20 text-right font-secondary text-[--text-secondary] text-sm">
+              <div className="w-20 text-right font-secondary text-[hsl(var(--text-secondary))] text-sm">
                 {formatTimeDisplay(time)}
               </div>
               
@@ -68,8 +68,8 @@ function DayView({
                 className={cn(
                   "flex-1 min-h-[--touch-target-comfort] border rounded-[--radius-md] cursor-pointer transition-all duration-200",
                   appointment 
-                    ? "bg-[--surface-accent] border-[--garden-green] hover:bg-[--surface-accent]/90 shadow-sm" 
-                    : "border-[--border] hover:border-[--garden-green] hover:bg-[--surface-accent]/30"
+                    ? "bg-[hsl(var(--surface-accent))] border-[hsl(var(--garden-green))] hover:bg-[hsl(var(--surface-accent))]/90 shadow-sm" 
+                    : "border-[hsl(var(--border))] hover:border-[hsl(var(--garden-green))] hover:bg-[hsl(var(--surface-accent))]/30"
                 )}
                 onClick={() => appointment ? onAppointmentClick(appointment) : onTimeSlotClick(date, time)}
               >
@@ -78,7 +78,7 @@ function DayView({
                     <div className="flex items-center justify-between mb-[--space-xs]">
                       <div className="flex items-center gap-[--space-xs]">
                         {getTypeIcon(appointment.type)}
-                        <span className="font-secondary text-[--text-primary] text-sm font-medium">
+                        <span className="font-secondary text-[hsl(var(--text-primary))] text-sm font-medium">
                           {appointment.clientName}
                         </span>
                       </div>
@@ -86,13 +86,13 @@ function DayView({
                         {appointment.status}
                       </Badge>
                     </div>
-                    <div className="text-[--text-secondary] text-xs">
+                    <div className="text-[hsl(var(--text-secondary))] text-xs">
                       {appointment.duration}
                     </div>
                   </div>
                 ) : (
                   <div className="p-[--space-sm] flex items-center justify-center">
-                    <span className="font-secondary text-[--text-muted] text-sm">
+                    <span className="font-secondary text-[hsl(var(--text-muted))] text-sm">
                       Available
                     </span>
                   </div>
@@ -134,12 +134,12 @@ function WeekView({
           const isToday = day.toDateString() === new Date().toDateString();
           return (
             <div key={index} className="text-center">
-              <div className="font-secondary text-[--text-secondary] text-xs font-medium">
+              <div className="font-secondary text-[hsl(var(--text-secondary))] text-xs font-medium">
                 {format(day, 'EEE')}
               </div>
               <div className={cn(
                 "font-secondary text-sm font-semibold mt-1",
-                isToday ? "text-[--garden-green]" : "text-[--text-primary]"
+                isToday ? "text-[hsl(var(--garden-green))]" : "text-[hsl(var(--text-primary))]"
               )}>
                 {day.getDate()}
               </div>
@@ -153,7 +153,7 @@ function WeekView({
         {timeSlots.map(time => (
           <div key={time} className="grid grid-cols-8 gap-[--space-xs] items-center">
             {/* Time Column */}
-            <div className="w-20 text-right font-secondary text-[--text-secondary] text-xs py-[--space-xs]">
+            <div className="w-20 text-right font-secondary text-[hsl(var(--text-secondary))] text-xs py-[--space-xs]">
               {formatTimeDisplay(time)}
             </div>
             
@@ -166,8 +166,8 @@ function WeekView({
                   className={cn(
                     "min-h-[50px] border rounded-[--radius-sm] cursor-pointer transition-all duration-200",
                     appointment 
-                      ? "bg-[--surface-accent] border-[--garden-green] hover:bg-[--surface-accent]/90 shadow-sm" 
-                      : "border-[--border] hover:border-[--garden-green] hover:bg-[--surface-accent]/30"
+                      ? "bg-[hsl(var(--surface-accent))] border-[hsl(var(--garden-green))] hover:bg-[hsl(var(--surface-accent))]/90 shadow-sm" 
+                      : "border-[hsl(var(--border))] hover:border-[hsl(var(--garden-green))] hover:bg-[hsl(var(--surface-accent))]/30"
                   )}
                   onClick={() => appointment ? onAppointmentClick(appointment) : onTimeSlotClick(day, time)}
                 >
@@ -177,22 +177,22 @@ function WeekView({
                         <Badge className={cn("text-xs px-1 py-0.5", getStatusColor(appointment.status))}>
                           {appointment.status}
                         </Badge>
-                        <div className="text-[--garden-green]">
+                        <div className="text-[hsl(var(--garden-green))]">
                           {getTypeIcon(appointment.type)}
                         </div>
                       </div>
                       <div>
-                        <h4 className="font-secondary font-bold text-[--text-primary] text-xs truncate">
+                        <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-xs truncate">
                           {appointment.clientName}
                         </h4>
-                        <p className="font-secondary text-[--text-secondary] text-xs">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs">
                           {appointment.duration}
                         </p>
                       </div>
                     </div>
                   ) : (
                     <div className="h-full flex items-center justify-center">
-                      <span className="font-secondary text-[--text-muted] text-xs opacity-0 hover:opacity-100 transition-opacity">
+                      <span className="font-secondary text-[hsl(var(--text-muted))] text-xs opacity-0 hover:opacity-100 transition-opacity">
                         +
                       </span>
                     </div>
@@ -207,12 +207,12 @@ function WeekView({
       {/* Legend */}
       <div className="flex flex-wrap gap-[--space-sm] justify-center border-t pt-[--space-sm]">
         <div className="flex items-center gap-[--space-xs]">
-          <div className="w-3 h-3 border border-[--border] rounded-[--radius-sm]"></div>
-          <span className="font-secondary text-[--text-secondary] text-xs">Available</span>
+          <div className="w-3 h-3 border border-[hsl(var(--border))] rounded-[--radius-sm]"></div>
+          <span className="font-secondary text-[hsl(var(--text-secondary))] text-xs">Available</span>
         </div>
         <div className="flex items-center gap-[--space-xs]">
-          <div className="w-3 h-3 bg-[--surface-accent] border border-[--garden-green] rounded-[--radius-sm]"></div>
-          <span className="font-secondary text-[--text-secondary] text-xs">Booked</span>
+          <div className="w-3 h-3 bg-[hsl(var(--surface-accent))] border border-[hsl(var(--garden-green))] rounded-[--radius-sm]"></div>
+          <span className="font-secondary text-[hsl(var(--text-secondary))] text-xs">Booked</span>
         </div>
       </div>
     </div>
@@ -236,7 +236,7 @@ function MonthView({
     <div className="space-y-[--space-sm]">
       {/* Month Header */}
       <div className="text-center border-b pb-[--space-sm]">
-        <div className="font-primary text-[--jovial-jade] text-lg font-semibold">
+        <div className="font-primary text-[hsl(var(--jovial-jade))] text-lg font-semibold">
           {format(currentDate, 'MMMM yyyy')}
         </div>
       </div>
@@ -244,7 +244,7 @@ function MonthView({
       {/* Month Grid Header */}
       <div className="grid grid-cols-7 gap-[--space-xs] border-b pb-[--space-xs]">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-          <div key={day} className="text-center font-secondary text-[--text-secondary] text-xs font-medium p-[--space-xs]">
+          <div key={day} className="text-center font-secondary text-[hsl(var(--text-secondary))] text-xs font-medium p-[--space-xs]">
             {day}
           </div>
         ))}
@@ -262,17 +262,17 @@ function MonthView({
               key={index}
               className={cn(
                 "border rounded-[--radius-sm] p-[--space-xs] cursor-pointer transition-all duration-200 flex flex-col",
-                isCurrentMonth ? "border-[--border]" : "border-[--border]/30",
-                isToday && "bg-[--surface-accent] border-[--garden-green]",
-                "hover:border-[--garden-green] hover:bg-[--surface-accent]/30"
+                isCurrentMonth ? "border-[hsl(var(--border))]" : "border-[hsl(var(--border))]/30",
+                isToday && "bg-[hsl(var(--surface-accent))] border-[hsl(var(--garden-green))]",
+                "hover:border-[hsl(var(--garden-green))] hover:bg-[hsl(var(--surface-accent))]/30"
               )}
               onClick={() => onTimeSlotClick(day, '09:00')}
             >
               {/* Day Number */}
               <div className={cn(
                 "font-secondary text-xs font-medium mb-[--space-xs] text-center",
-                isCurrentMonth ? "text-[--text-primary]" : "text-[--text-muted]",
-                isToday && "text-[--garden-green] font-bold"
+                isCurrentMonth ? "text-[hsl(var(--text-primary))]" : "text-[hsl(var(--text-muted))]",
+                isToday && "text-[hsl(var(--garden-green))] font-bold"
               )}>
                 {day.getDate()}
               </div>
@@ -282,21 +282,21 @@ function MonthView({
                 {appointmentsForDay.slice(0, 2).map(appointment => (
                   <div 
                     key={appointment.id}
-                    className="bg-[--surface-accent] border border-[--garden-green] rounded-[--radius-sm] p-1 cursor-pointer hover:bg-[--surface-accent]/90 transition-colors"
+                    className="bg-[hsl(var(--surface-accent))] border border-[hsl(var(--garden-green))] rounded-[--radius-sm] p-1 cursor-pointer hover:bg-[hsl(var(--surface-accent))]/90 transition-colors"
                     onClick={(e) => {
                       e.stopPropagation();
                       onAppointmentClick(appointment);
                     }}
                   >
                     <div className="flex items-center gap-1">
-                      <div className="text-[--garden-green] flex-shrink-0">
+                      <div className="text-[hsl(var(--garden-green))] flex-shrink-0">
                         {getTypeIcon(appointment.type)}
                       </div>
-                      <span className="font-secondary text-[--text-primary] text-xs truncate">
+                      <span className="font-secondary text-[hsl(var(--text-primary))] text-xs truncate">
                         {appointment.clientName}
                       </span>
                     </div>
-                    <div className="font-secondary text-[--text-secondary] text-xs">
+                    <div className="font-secondary text-[hsl(var(--text-secondary))] text-xs">
                       {appointment.sessionTime.toLocaleTimeString('en-US', { 
                         hour: 'numeric', 
                         minute: '2-digit',
@@ -307,14 +307,14 @@ function MonthView({
                 ))}
                 {appointmentsForDay.length > 2 && (
                   <div className="text-center">
-                    <span className="font-secondary text-[--text-muted] text-xs">
+                    <span className="font-secondary text-[hsl(var(--text-muted))] text-xs">
                       +{appointmentsForDay.length - 2} more
                     </span>
                   </div>
                 )}
                 {appointmentsForDay.length === 0 && isCurrentMonth && (
                   <div className="flex-1 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                    <span className="font-secondary text-[--text-muted] text-xs">+</span>
+                    <span className="font-secondary text-[hsl(var(--text-muted))] text-xs">+</span>
                   </div>
                 )}
               </div>
@@ -326,12 +326,12 @@ function MonthView({
       {/* Legend */}
       <div className="flex flex-wrap gap-[--space-sm] justify-center border-t pt-[--space-sm]">
         <div className="flex items-center gap-[--space-xs]">
-          <div className="w-3 h-3 border border-[--border] rounded-[--radius-sm]"></div>
-          <span className="font-secondary text-[--text-secondary] text-xs">Available</span>
+          <div className="w-3 h-3 border border-[hsl(var(--border))] rounded-[--radius-sm]"></div>
+          <span className="font-secondary text-[hsl(var(--text-secondary))] text-xs">Available</span>
         </div>
         <div className="flex items-center gap-[--space-xs]">
-          <div className="w-3 h-3 bg-[--surface-accent] border border-[--garden-green] rounded-[--radius-sm]"></div>
-          <span className="font-secondary text-[--text-secondary] text-xs">Booked</span>
+          <div className="w-3 h-3 bg-[hsl(var(--surface-accent))] border border-[hsl(var(--garden-green))] rounded-[--radius-sm]"></div>
+          <span className="font-secondary text-[hsl(var(--text-secondary))] text-xs">Booked</span>
         </div>
       </div>
     </div>
@@ -415,10 +415,10 @@ export function InteractiveCalendar({
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'confirmed': return 'bg-[--success-bg] text-[--success-text]';
-      case 'pending': return 'bg-[--warning-bg] text-[--warning-text]';
-      case 'cancelled': return 'bg-[--error-bg] text-[--error-text]';
-      default: return 'bg-[--surface-accent] text-[--text-primary]';
+      case 'confirmed': return 'bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]';
+      case 'pending': return 'bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]';
+      case 'cancelled': return 'bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))]';
+      default: return 'bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-primary))]';
     }
   };
 
@@ -444,7 +444,7 @@ export function InteractiveCalendar({
     <Card>
       <CardHeader className="p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
         <div className="flex items-center justify-between">
-          <CardTitle className="font-primary text-[--jovial-jade] text-sm md:text-base">
+          <CardTitle className="font-primary text-[hsl(var(--jovial-jade))] text-sm md:text-base">
             Calendar View
           </CardTitle>
           <div className="flex items-center gap-[--space-xs]">

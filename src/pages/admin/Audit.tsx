@@ -14,7 +14,7 @@ export default function AdminAudit() {
               <CardTitle className="font-primary">Audit Logs</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="font-secondary text-text-secondary">System audit trails and compliance monitoring.</p>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">System audit trails and compliance monitoring.</p>
             </CardContent>
           </Card>
         </Container>

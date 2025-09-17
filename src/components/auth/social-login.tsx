@@ -44,7 +44,7 @@ export function SocialLogin({ mode }: SocialLoginProps) {
           <Separator className="w-full" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-text-muted font-secondary">
+          <span className="bg-background px-2 text-[hsl(var(--text-muted))] font-secondary">
             Or continue with email
           </span>
         </div>

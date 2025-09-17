@@ -68,10 +68,10 @@ export default function Account() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <div className="mb-8">
-              <h1 className="font-primary text-3xl font-bold text-text-primary">
+              <h1 className="font-primary text-3xl font-bold text-[hsl(var(--text-primary))]">
                 Account Settings
               </h1>
-              <p className="font-secondary text-text-secondary mt-2">
+              <p className="font-secondary text-[hsl(var(--text-secondary))] mt-2">
                 Manage your profile and preferences
               </p>
             </div>
@@ -147,10 +147,10 @@ export default function Account() {
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-secondary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                             Email Notifications
                           </h4>
-                          <p className="text-sm text-text-secondary">
+                          <p className="text-sm text-[hsl(var(--text-secondary))]">
                             Receive notifications via email
                           </p>
                         </div>
@@ -159,10 +159,10 @@ export default function Account() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-secondary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                             SMS Reminders
                           </h4>
-                          <p className="text-sm text-text-secondary">
+                          <p className="text-sm text-[hsl(var(--text-secondary))]">
                             Get text reminders for appointments
                           </p>
                         </div>
@@ -171,10 +171,10 @@ export default function Account() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-secondary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                             Push Notifications
                           </h4>
-                          <p className="text-sm text-text-secondary">
+                          <p className="text-sm text-[hsl(var(--text-secondary))]">
                             Receive push notifications in browser
                           </p>
                         </div>
@@ -183,10 +183,10 @@ export default function Account() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-secondary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                             Marketing Communications
                           </h4>
-                          <p className="text-sm text-text-secondary">
+                          <p className="text-sm text-[hsl(var(--text-secondary))]">
                             Receive updates about new features and offers
                           </p>
                         </div>
@@ -211,10 +211,10 @@ export default function Account() {
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-secondary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                             Profile Visibility
                           </h4>
-                          <p className="text-sm text-text-secondary">
+                          <p className="text-sm text-[hsl(var(--text-secondary))]">
                             Allow therapists to see your profile information
                           </p>
                         </div>
@@ -223,10 +223,10 @@ export default function Account() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-secondary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                             Data Analytics
                           </h4>
-                          <p className="text-sm text-text-secondary">
+                          <p className="text-sm text-[hsl(var(--text-secondary))]">
                             Help improve our service with anonymous usage data
                           </p>
                         </div>
@@ -235,10 +235,10 @@ export default function Account() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-secondary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                             Marketing Communications
                           </h4>
-                          <p className="text-sm text-text-secondary">
+                          <p className="text-sm text-[hsl(var(--text-secondary))]">
                             Receive newsletters, promotions, and service updates
                           </p>
                         </div>
@@ -247,10 +247,10 @@ export default function Account() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-secondary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                             Health Data Processing
                           </h4>
-                          <p className="text-sm text-text-secondary">
+                          <p className="text-sm text-[hsl(var(--text-secondary))]">
                             Process health data for therapy matching and care
                           </p>
                         </div>
@@ -259,10 +259,10 @@ export default function Account() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-secondary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                             Session Recording
                           </h4>
-                          <p className="text-sm text-text-secondary">
+                          <p className="text-sm text-[hsl(var(--text-secondary))]">
                             Allow session recordings for quality and training (with consent)
                           </p>
                         </div>
@@ -271,10 +271,10 @@ export default function Account() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-secondary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                             Research Participation
                           </h4>
-                          <p className="text-sm text-text-secondary">
+                          <p className="text-sm text-[hsl(var(--text-secondary))]">
                             Participate in anonymized research to improve therapy outcomes
                           </p>
                         </div>
@@ -283,11 +283,11 @@ export default function Account() {
                     </div>
 
                     <div className="pt-6 border-t space-y-4">
-                      <h4 className="font-secondary font-semibold text-text-primary">
+                      <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                         Consent Management
                       </h4>
                       <div className="p-4 bg-background border rounded-lg">
-                        <p className="text-sm font-secondary text-text-secondary mb-3">
+                        <p className="text-sm font-secondary text-[hsl(var(--text-secondary))] mb-3">
                           You can withdraw or modify your consent at any time. Changes will take effect immediately.
                         </p>
                         <div className="flex space-x-2">
@@ -300,7 +300,7 @@ export default function Account() {
                         </div>
                       </div>
 
-                      <h4 className="font-secondary font-semibold text-text-primary">
+                      <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                         Data Management
                       </h4>
                       <div className="flex space-x-4">
@@ -370,20 +370,20 @@ export default function Account() {
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div>
-                      <h4 className="font-secondary font-semibold text-text-primary mb-4">
+                      <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))] mb-4">
                         Payment Methods
                       </h4>
                       <div className="space-y-3">
                         <div className="flex items-center justify-between p-4 border rounded-lg">
                           <div className="flex items-center space-x-3">
-                            <div className="w-8 h-6 bg-[--garden-green] rounded flex items-center justify-center">
-                              <span className="text-[--on-dark] text-xs font-bold">VISA</span>
+                            <div className="w-8 h-6 bg-[hsl(var(--garden-green))] rounded flex items-center justify-center">
+                              <span className="text-[hsl(var(--on-dark))] text-xs font-bold">VISA</span>
                             </div>
                             <div>
-                              <p className="font-secondary font-semibold text-text-primary">
+                              <p className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                                 •••• •••• •••• 4242
                               </p>
-                              <p className="text-sm text-text-secondary">Expires 12/25</p>
+                              <p className="text-sm text-[hsl(var(--text-secondary))]">Expires 12/25</p>
                             </div>
                           </div>
                           <Button variant="outline" size="sm">Remove</Button>
@@ -395,19 +395,19 @@ export default function Account() {
                     </div>
 
                     <div>
-                      <h4 className="font-secondary font-semibold text-text-primary mb-4">
+                      <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))] mb-4">
                         Billing History
                       </h4>
                       <div className="space-y-3">
                         <div className="flex items-center justify-between p-4 border rounded-lg">
                           <div>
-                            <p className="font-secondary font-semibold text-text-primary">
+                            <p className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                               Session with Dr. Sarah Chen
                             </p>
-                            <p className="text-sm text-text-secondary">Jan 12, 2024</p>
+                            <p className="text-sm text-[hsl(var(--text-secondary))]">Jan 12, 2024</p>
                           </div>
                           <div className="text-right">
-                            <p className="font-secondary font-semibold text-text-primary">£80.00</p>
+                            <p className="font-secondary font-semibold text-[hsl(var(--text-primary))]">£80.00</p>
                             <Button variant="ghost" size="sm">Download</Button>
                           </div>
                         </div>

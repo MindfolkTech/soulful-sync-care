@@ -68,7 +68,7 @@ export function TaskList({ tasks, filters, loading, error, onRetry, role }: Task
     return (
       <div className="space-y-4">
         {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="p-4 border border-border rounded-lg">
+          <div key={i} className="p-4 border border-[hsl(var(--border))] rounded-lg">
             <Skeleton className="h-6 w-3/4 mb-2" />
             <Skeleton className="h-4 w-1/2 mb-3" />
             <div className="flex gap-2">
@@ -84,9 +84,9 @@ export function TaskList({ tasks, filters, loading, error, onRetry, role }: Task
   if (error) {
     return (
       <div className="text-center py-12">
-        <AlertCircle className="mx-auto h-12 w-12 text-garden-green mb-4" />
-        <h3 className="text-lg font-medium text-text-primary mb-2">Error loading tasks</h3>
-        <p className="text-text-secondary mb-4">{error}</p>
+        <AlertCircle className="mx-auto h-12 w-12 text-[hsl(var(--garden-green))] mb-4" />
+        <h3 className="text-lg font-medium text-[hsl(var(--text-primary))] mb-2">Error loading tasks</h3>
+        <p className="text-[hsl(var(--text-secondary))] mb-4">{error}</p>
         {onRetry && (
           <Button onClick={onRetry} variant="tertiary" className="min-h-[--touch-target-min]" aria-label="Retry loading tasks">
             Try again
@@ -101,11 +101,11 @@ export function TaskList({ tasks, filters, loading, error, onRetry, role }: Task
     
     return (
       <div className="text-center py-12">
-        <ListTodo className="mx-auto h-12 w-12 text-garden-green mb-4" />
-        <h3 className="text-lg font-medium text-text-primary mb-2">
+        <ListTodo className="mx-auto h-12 w-12 text-[hsl(var(--garden-green))] mb-4" />
+        <h3 className="text-lg font-medium text-[hsl(var(--text-primary))] mb-2">
           {hasFilters ? "No matching tasks" : "No tasks yet"}
         </h3>
-        <p className="text-text-secondary">
+        <p className="text-[hsl(var(--text-secondary))]">
           {hasFilters 
             ? "Try adjusting your filters to see more tasks."
             : "Tasks will appear here as you progress through the platform."
@@ -126,7 +126,7 @@ export function TaskList({ tasks, filters, loading, error, onRetry, role }: Task
               aria-label="Select all tasks"
               className="min-h-[--touch-target-min] min-w-[--touch-target-min]"
             />
-            <span className="text-sm text-text-secondary">
+            <span className="text-sm text-[hsl(var(--text-secondary))]">
               {selectedTasks.size > 0 
                 ? `${selectedTasks.size} of ${filteredTasks.length} selected`
                 : `${filteredTasks.length} tasks`

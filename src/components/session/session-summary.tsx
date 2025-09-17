@@ -95,13 +95,13 @@ export function SessionSummary({
               <div className="text-6xl font-bold font-primary text-primary">
                 {completedObjectives}/{totalObjectives}
               </div>
-              <p className="text-sm text-text-secondary font-secondary">Objectives Met</p>
+              <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary">Objectives Met</p>
             </div>
             <div className="text-center p-4 bg-muted/30 rounded-lg">
               <div className="text-6xl font-bold font-primary text-primary">
                 {sessionData.overallProgress}%
               </div>
-              <p className="text-sm text-text-secondary font-secondary">Session Progress</p>
+              <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary">Session Progress</p>
             </div>
             <div className="text-center p-4 bg-muted/30 rounded-lg">
               <Badge 
@@ -110,7 +110,7 @@ export function SessionSummary({
               >
                 {sessionData.riskAssessment.toUpperCase()} RISK
               </Badge>
-              <p className="text-sm text-text-secondary font-secondary mt-1">Risk Level</p>
+              <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary mt-1">Risk Level</p>
             </div>
           </div>
         </CardContent>
@@ -129,9 +129,9 @@ export function SessionSummary({
             {sessionData.objectives.map((objective, index) => (
               <div key={index} className="flex items-center gap-3 p-3 bg-muted/20 rounded-lg">
                 {objective.completed ? (
-                  <CheckCircle2 className="h-5 w-5 text-[--success-text]" />
+                  <CheckCircle2 className="h-5 w-5 text-[hsl(var(--success-text))]" />
                 ) : (
-                  <AlertCircle className="h-5 w-5 text-[--warning-text]" />
+                  <AlertCircle className="h-5 w-5 text-[hsl(var(--warning-text))]" />
                 )}
                 <span className={objective.completed ? "line-through text-muted-foreground" : ""}>
                   {objective.text}
@@ -235,7 +235,7 @@ export function SessionSummary({
           <div className="flex justify-between items-center">
             <div>
               <h3 className="font-medium font-primary">Session Documentation</h3>
-              <p className="text-sm text-text-secondary font-secondary">
+              <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary">
                 Export or share this session summary
               </p>
             </div>

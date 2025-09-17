@@ -93,7 +93,7 @@ export function BookingModal({
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle className="font-primary text-[--jovial-jade] text-lg">
+          <DialogTitle className="font-primary text-[hsl(var(--jovial-jade))] text-lg">
             Block Time
           </DialogTitle>
           <DialogDescription>
@@ -103,12 +103,12 @@ export function BookingModal({
         
         <div className="space-y-[--space-md]">
           {/* Selected Date & Time */}
-          <div className="p-[--space-md] bg-[--surface-accent] rounded-lg">
+          <div className="p-[--space-md] bg-[hsl(var(--surface-accent))] rounded-lg">
             <div className="flex items-center gap-[--space-sm] mb-[--space-xs]">
-              <Calendar className="w-4 h-4 text-[--garden-green]" />
-              <span className="font-secondary text-[--text-secondary] text-sm">Selected Time</span>
+              <Calendar className="w-4 h-4 text-[hsl(var(--garden-green))]" />
+              <span className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Selected Time</span>
             </div>
-            <p className="font-secondary text-[--text-primary] text-sm">
+            <p className="font-secondary text-[hsl(var(--text-primary))] text-sm">
               {formatDate(selectedDate)} at {formatTime(selectedTime)}
             </p>
           </div>
@@ -116,7 +116,7 @@ export function BookingModal({
           {/* Booking Form */}
           <div className="space-y-[--space-md]">
             <div>
-              <Label className="font-secondary text-[--text-primary] text-sm">
+              <Label className="font-secondary text-[hsl(var(--text-primary))] text-sm">
                 Title *
               </Label>
               <Input
@@ -128,7 +128,7 @@ export function BookingModal({
             </div>
 
             <div>
-              <Label className="font-secondary text-[--text-primary] text-sm">
+              <Label className="font-secondary text-[hsl(var(--text-primary))] text-sm">
                 Type
               </Label>
               <RadioGroup
@@ -138,19 +138,19 @@ export function BookingModal({
               >
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="personal" id="personal" />
-                  <Label htmlFor="personal" className="font-secondary text-[--text-primary] text-sm">
+                  <Label htmlFor="personal" className="font-secondary text-[hsl(var(--text-primary))] text-sm">
                     Personal Appointment
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="break" id="break" />
-                  <Label htmlFor="break" className="font-secondary text-[--text-primary] text-sm">
+                  <Label htmlFor="break" className="font-secondary text-[hsl(var(--text-primary))] text-sm">
                     Break Time
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="appointment" id="appointment" />
-                  <Label htmlFor="appointment" className="font-secondary text-[--text-primary] text-sm">
+                  <Label htmlFor="appointment" className="font-secondary text-[hsl(var(--text-primary))] text-sm">
                     Other Appointment
                   </Label>
                 </div>
@@ -159,7 +159,7 @@ export function BookingModal({
 
             <div className="grid grid-cols-2 gap-[--space-sm]">
               <div>
-                <Label className="font-secondary text-[--text-primary] text-sm">
+                <Label className="font-secondary text-[hsl(var(--text-primary))] text-sm">
                   Duration (minutes)
                 </Label>
                 <Input
@@ -173,7 +173,7 @@ export function BookingModal({
                 />
               </div>
               <div>
-                <Label className="font-secondary text-[--text-primary] text-sm">
+                <Label className="font-secondary text-[hsl(var(--text-primary))] text-sm">
                   End Time
                 </Label>
                 <Input
@@ -185,13 +185,13 @@ export function BookingModal({
                     return endTime.toTimeString().slice(0, 5);
                   })()}
                   disabled
-                  className="min-h-[--touch-target-min] font-secondary text-sm mt-[--space-xs] bg-[--surface-accent]"
+                  className="min-h-[--touch-target-min] font-secondary text-sm mt-[--space-xs] bg-[hsl(var(--surface-accent))]"
                 />
               </div>
             </div>
 
             <div>
-              <Label className="font-secondary text-[--text-primary] text-sm">
+              <Label className="font-secondary text-[hsl(var(--text-primary))] text-sm">
                 Notes (Optional)
               </Label>
               <Textarea
@@ -211,7 +211,7 @@ export function BookingModal({
                 onChange={(e) => setBookingData({ ...bookingData, recurring: e.target.checked })}
                 className="min-h-[--touch-target-min]"
               />
-              <Label htmlFor="recurring" className="font-secondary text-[--text-primary] text-sm">
+              <Label htmlFor="recurring" className="font-secondary text-[hsl(var(--text-primary))] text-sm">
                 Recurring weekly
               </Label>
             </div>

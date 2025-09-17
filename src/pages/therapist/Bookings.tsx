@@ -133,7 +133,7 @@ function BookingItem({ booking }: { booking: any }) {
             >
               <Avatar className="w-12 h-12">
                 <AvatarImage src={booking.clientAvatar} alt={booking.clientInitials} />
-                <AvatarFallback className="bg-surface-accent text-jovial-jade font-secondary font-semibold">
+                <AvatarFallback className="bg-surface-accent text-[hsl(var(--jovial-jade))] font-secondary font-semibold">
                   {booking.clientInitials}
                 </AvatarFallback>
               </Avatar>
@@ -330,8 +330,8 @@ export default function TherapistBookings() {
         <Container>
           <div className="space-y-6">
             <div>
-              <h1 className="font-primary text-3xl text-text-primary mb-2">Bookings & Schedule</h1>
-              <p className="font-secondary text-text-secondary">Manage your appointments and availability</p>
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Bookings & Schedule</h1>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Manage your appointments and availability</p>
             </div>
       <Stack className="space-y-[--space-lg]">
 

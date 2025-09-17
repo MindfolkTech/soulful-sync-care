@@ -98,7 +98,7 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
                   className="h-16 w-16 rounded-full bg-black/60 hover:bg-black/80"
                   aria-label="Play video"
                 >
-                  <Play className="h-8 w-8 text-[--on-dark] ml-1" />
+                  <Play className="h-8 w-8 text-[hsl(var(--on-dark))] ml-1" />
                 </Button>
               </div>
             )}
@@ -111,7 +111,7 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
                     size="icon"
                     variant="ghost"
                     onClick={handlePlayPause}
-                    className="h-8 w-8 text-[--on-dark] hover:bg-[--surface]/20"
+                    className="h-8 w-8 text-[hsl(var(--on-dark))] hover:bg-[hsl(var(--surface))]/20"
                     aria-label={isPlaying ? "Pause" : "Play"}
                   >
                     {isPlaying ? (
@@ -125,7 +125,7 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
                     size="icon"
                     variant="ghost"
                     onClick={handleMuteToggle}
-                    className="h-8 w-8 text-[--on-dark] hover:bg-[--surface]/20"
+                    className="h-8 w-8 text-[hsl(var(--on-dark))] hover:bg-[hsl(var(--surface))]/20"
                     aria-label={isMuted ? "Unmute" : "Mute"}
                   >
                     {isMuted ? (
@@ -141,7 +141,7 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
                     size="icon"
                     variant="ghost"
                     onClick={() => setShowCaptions(!showCaptions)}
-                    className="h-8 w-8 text-[--on-dark] hover:bg-[--surface]/20"
+                    className="h-8 w-8 text-[hsl(var(--on-dark))] hover:bg-[hsl(var(--surface))]/20"
                     aria-label={showCaptions ? "Hide captions" : "Show captions"}
                   >
                     <Captions className="h-4 w-4" />
@@ -151,7 +151,7 @@ const VideoPlayer = React.forwardRef<HTMLVideoElement, VideoPlayerProps>(
                     size="icon"
                     variant="ghost"
                     onClick={handleFullscreen}
-                    className="h-8 w-8 text-[--on-dark] hover:bg-[--surface]/20"
+                    className="h-8 w-8 text-[hsl(var(--on-dark))] hover:bg-[hsl(var(--surface))]/20"
                     aria-label="Fullscreen"
                   >
                     <Maximize className="h-4 w-4" />

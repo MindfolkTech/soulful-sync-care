@@ -132,8 +132,8 @@ export default function Favorites() {
       >
         <div className="flex h-full items-center justify-between px-6">
           <div className="flex items-center space-x-2">
-            <Heart className="h-6 w-6 text-garden-green" />
-            <span className="font-primary font-bold text-xl text-text-primary">Favorites</span>
+            <Heart className="h-6 w-6 text-[hsl(var(--garden-green))]" />
+            <span className="font-primary font-bold text-xl text-[hsl(var(--text-primary))]">Favorites</span>
             <Badge variant="secondary" className="ml-2">
               {favorites.length}
             </Badge>
@@ -165,7 +165,7 @@ export default function Favorites() {
         <div className="p-4 border-b bg-surface">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-text-secondary" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[hsl(var(--text-secondary))]" />
               <Input
                 placeholder="Search favorites..."
                 value={searchQuery}
@@ -191,12 +191,12 @@ export default function Favorites() {
         <div className="p-4 bg-surface-accent border-b">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Calendar className="h-5 w-5 text-garden-green" />
-              <span className="font-secondary font-medium text-text-primary">
+              <Calendar className="h-5 w-5 text-[hsl(var(--garden-green))]" />
+              <span className="font-secondary font-medium text-[hsl(var(--text-primary))]">
                 Upcoming Appointments
               </span>
             </div>
-            <Badge variant="default" className="bg-[--garden-green] text-[--on-dark]">
+            <Badge variant="default" className="bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))]">
               2 scheduled
             </Badge>
           </div>
@@ -223,15 +223,15 @@ export default function Favorites() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between">
                           <div>
-                            <h3 className="font-primary font-semibold text-text-primary text-lg">
+                            <h3 className="font-primary font-semibold text-[hsl(var(--text-primary))] text-lg">
                               {therapist.name}
                             </h3>
-                            <p className="font-secondary text-text-secondary text-sm">
+                            <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                               {therapist.title}
                             </p>
                             <div className="flex items-center gap-2 mt-1">
-                              <span className="text-sm text-text-secondary">⭐ {therapist.rating}</span>
-                              <span className="text-sm font-medium text-text-primary">
+                              <span className="text-sm text-[hsl(var(--text-secondary))]">⭐ {therapist.rating}</span>
+                              <span className="text-sm font-medium text-[hsl(var(--text-primary))]">
                                 {therapist.rate}
                               </span>
                             </div>
@@ -240,7 +240,7 @@ export default function Favorites() {
                             variant="ghost"
                             size="icon"
                             onClick={() => handleRemoveFavorite(therapist)}
-                            className="text-text-secondary hover:text-error min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                            className="text-[hsl(var(--text-secondary))] hover:text-error min-h-[--touch-target-min] min-w-[--touch-target-min]"
                             aria-label={`Remove ${therapist.name} from favorites`}
                           >
                             <Heart className="h-5 w-5 fill-current" />
@@ -257,7 +257,7 @@ export default function Favorites() {
                         </div>
 
                         {/* Quote */}
-                        <p className="font-secondary text-text-secondary text-sm mt-2 line-clamp-2">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm mt-2 line-clamp-2">
                           "{therapist.quote}"
                         </p>
 
@@ -275,7 +275,7 @@ export default function Favorites() {
                             variant="ghost"
                             size="sm"
                             onClick={() => therapist.video_url ? handleShowVideo(therapist) : handleShowDetails(therapist)}
-                            className="min-h-[--touch-target-min] text-garden-green"
+                            className="min-h-[--touch-target-min] text-[hsl(var(--garden-green))]"
                             aria-label={therapist.video_url ? `Watch introduction video from ${therapist.name}` : `View ${therapist.name}'s full profile`}
                           >
                             {therapist.video_url ? "📹" : "👁️"}
@@ -289,12 +289,12 @@ export default function Favorites() {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
-              <Heart className="h-16 w-16 text-text-secondary" />
+              <Heart className="h-16 w-16 text-[hsl(var(--text-secondary))]" />
               <div>
-                <h2 className="font-primary text-xl font-semibold text-text-primary mb-2">
+                <h2 className="font-primary text-xl font-semibold text-[hsl(var(--text-primary))] mb-2">
                   No favorites yet
                 </h2>
-                <p className="font-secondary text-text-secondary mb-4">
+                <p className="font-secondary text-[hsl(var(--text-secondary))] mb-4">
                   Start discovering therapists and add them to your favorites
                 </p>
                 <Button onClick={() => navigate('/discover')} className="min-h-[--touch-target-min]" aria-label="Go to therapist discovery page">

@@ -82,26 +82,26 @@ export function TherapistDetailsSheet({
           <div className="space-y-2">
             <div className="flex justify-between items-start">
               <div>
-                <h3 className="font-primary text-lg font-semibold text-text-primary">
+                <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))]">
                   {therapist.name}
                 </h3>
-                <p className="text-text-secondary font-secondary">{therapist.title}</p>
+                <p className="text-[hsl(var(--text-secondary))] font-secondary">{therapist.title}</p>
               </div>
               <div className="text-right">
-                <p className="font-semibold text-text-primary">{therapist.rate}</p>
-                <p className="text-sm text-text-secondary">per session</p>
+                <p className="font-semibold text-[hsl(var(--text-primary))]">{therapist.rate}</p>
+                <p className="text-sm text-[hsl(var(--text-secondary))]">per session</p>
               </div>
             </div>
           </div>
 
           {/* Quote */}
-          <blockquote className="font-secondary text-text-secondary italic border-l-4 border-surface-accent pl-4">
+          <blockquote className="font-secondary text-[hsl(var(--text-secondary))] italic border-l-4 border-surface-accent pl-4">
             "{therapist.quote}"
           </blockquote>
 
           {/* Specialties */}
           <div className="space-y-2">
-            <h4 className="font-secondary font-semibold text-text-primary">Specialties</h4>
+            <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">Specialties</h4>
             <div className="flex flex-wrap gap-2">
               {therapist.specialties.map((specialty) => (
                 <Tag key={specialty} category="specialty" size="sm">
@@ -113,7 +113,7 @@ export function TherapistDetailsSheet({
 
           {/* Personality */}
           <div className="space-y-2">
-            <h4 className="font-secondary font-semibold text-text-primary">Communication Style</h4>
+            <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">Communication Style</h4>
             <div className="flex flex-wrap gap-2">
               {therapist.personality.map((trait) => (
                 <Tag key={trait} category="personality" size="sm">
@@ -125,7 +125,7 @@ export function TherapistDetailsSheet({
 
           {/* Languages */}
           <div className="space-y-2">
-            <h4 className="font-secondary font-semibold text-text-primary">Languages</h4>
+            <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">Languages</h4>
             <div className="flex flex-wrap gap-2">
               {therapist.languages.map((lang) => (
                 <Tag key={lang} category="language" size="sm">
@@ -137,16 +137,16 @@ export function TherapistDetailsSheet({
 
           {/* Bio Section - Placeholder */}
           <div className="space-y-2">
-            <h4 className="font-secondary font-semibold text-text-primary">About</h4>
-            <p className="font-secondary text-text-secondary">
+            <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">About</h4>
+            <p className="font-secondary text-[hsl(var(--text-secondary))]">
               Bio and credentials information would be displayed here based on the therapist's profile data.
             </p>
           </div>
 
           {/* Availability Section - Placeholder */}
           <div className="space-y-2">
-            <h4 className="font-secondary font-semibold text-text-primary">Availability</h4>
-            <p className="font-secondary text-text-secondary">
+            <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">Availability</h4>
+            <p className="font-secondary text-[hsl(var(--text-secondary))]">
               Available scheduling information would be displayed here.
             </p>
           </div>

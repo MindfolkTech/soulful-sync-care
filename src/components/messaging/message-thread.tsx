@@ -134,7 +134,7 @@ export function MessageThread({ conversationId }: MessageThreadProps) {
             return (
               <div key={message.id} className="flex justify-center">
                 <div className="bg-muted/50 px-3 py-2 rounded-full flex items-center gap-2 text-xs text-muted-foreground">
-                  <Shield className="h-3 w-3 text-[--success-text]" />
+                  <Shield className="h-3 w-3 text-[hsl(var(--success-text))]" />
                   {message.content}
                 </div>
               </div>
@@ -167,7 +167,7 @@ export function MessageThread({ conversationId }: MessageThreadProps) {
                       <div className={`p-3 rounded border ${
                         isTherapist 
                           ? "bg-primary/10 border-primary/20" 
-                          : "border-border bg-background"
+                          : "border-[hsl(var(--border))] bg-background"
                       }`}>
                         <div className="flex items-center gap-3">
                           <div className={`p-2 rounded ${
@@ -209,7 +209,7 @@ export function MessageThread({ conversationId }: MessageThreadProps) {
                     {message.timestamp}
                   </span>
                   {message.encrypted && (
-                    <Shield className="h-3 w-3 text-[--success-text]" />
+                    <Shield className="h-3 w-3 text-[hsl(var(--success-text))]" />
                   )}
                   {isTherapist && getDeliveryIcon(message.deliveryStatus)}
                 </div>

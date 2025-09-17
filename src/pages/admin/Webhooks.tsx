@@ -14,7 +14,7 @@ export default function AdminWebhooks() {
               <CardTitle className="font-primary">Webhook Management</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="font-secondary text-text-secondary">Integration monitoring and webhook management.</p>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Integration monitoring and webhook management.</p>
             </CardContent>
           </Card>
         </Container>

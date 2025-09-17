@@ -30,7 +30,7 @@ export function DataMinimizationWarning({
   const getColor = () => {
     switch (type) {
       case 'optional': return 'bg-surface-accent/10 border-surface-accent';
-      case 'required': return 'bg-garden-green/10 border-garden-green';
+      case 'required': return 'bg-[hsl(var(--garden-green))]/10 border-[hsl(var(--garden-green))]';
       case 'sensitive': return 'bg-warning/10 border-warning';
     }
   };
@@ -61,16 +61,16 @@ export function DataMinimizationWarning({
           {getIcon()}
           <div className="flex-1 space-y-3">
             <div>
-              <h4 className="font-primary font-semibold text-text-primary text-sm">
+              <h4 className="font-primary font-semibold text-[hsl(var(--text-primary))] text-sm">
                 {getTitle()}
               </h4>
-              <p className="text-xs font-secondary text-text-secondary mt-1">
+              <p className="text-xs font-secondary text-[hsl(var(--text-secondary))] mt-1">
                 {getMessage()}
               </p>
             </div>
             
             {type === 'sensitive' && (
-              <div className="text-xs font-secondary text-text-secondary">
+              <div className="text-xs font-secondary text-[hsl(var(--text-secondary))]">
                 <p><strong>Your rights:</strong></p>
                 <ul className="list-disc ml-4 mt-1 space-y-1">
                   <li>Withdraw consent at any time</li>

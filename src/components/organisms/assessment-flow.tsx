@@ -56,13 +56,13 @@ const AssessmentFlow = React.forwardRef<HTMLDivElement, AssessmentFlowProps>(
         {...props}
       >
         {/* Progress Header */}
-        <div className="sticky top-0 z-10 bg-warm-white border-b border-border p-4">
+        <div className="sticky top-0 z-10 bg-warm-white border-b border-[hsl(var(--border))] p-4">
           <Stack spacing="sm">
             <div className="flex items-center justify-between">
-              <h1 className="text-lg font-primary font-semibold text-jovial-jade">
+              <h1 className="text-lg font-primary font-semibold text-[hsl(var(--jovial-jade))]">
                 {currentStepData.title}
               </h1>
-              <span className="text-sm text-text-secondary">
+              <span className="text-sm text-[hsl(var(--text-secondary))]">
                 {currentStep + 1} of {steps.length}
               </span>
             </div>
@@ -86,7 +86,7 @@ const AssessmentFlow = React.forwardRef<HTMLDivElement, AssessmentFlowProps>(
         </div>
 
         {/* Navigation Footer */}
-        <div className="sticky bottom-0 bg-warm-white border-t border-border p-4">
+        <div className="sticky bottom-0 bg-warm-white border-t border-[hsl(var(--border))] p-4">
           <div className="flex items-center justify-between">
             <Button
               variant="tertiary"

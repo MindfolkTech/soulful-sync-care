@@ -5,19 +5,19 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-garden-green focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--garden-green))] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        primary: "bg-[--garden-green] text-[--btn-primary-text] hover:bg-[--garden-green]/90",
-        secondary: "bg-[--btn-secondary-bg] text-[--btn-secondary-text] hover:bg-surface-accent border border-[--garden-green]",
-        tertiary: "bg-transparent text-[--btn-tertiary-text] hover:bg-surface-accent",
-        accent: "bg-[--btn-accent-bg] text-[--btn-accent-text] hover:bg-[--btn-accent-bg]/90",
-        cta: "bg-[--btn-cta-bg] text-[--btn-cta-text] hover:bg-[--btn-cta-bg]/90",
+        primary: "bg-[hsl(var(--garden-green))] text-[hsl(var(--btn-primary-text))] hover:bg-[hsl(var(--garden-green))]/90",
+        secondary: "bg-[hsl(var(--btn-secondary-bg))] text-[hsl(var(--btn-secondary-text))] hover:bg-[hsl(var(--surface-accent))] border border-[hsl(var(--garden-green))]",
+        tertiary: "bg-transparent text-[hsl(var(--btn-tertiary-text))] hover:bg-[hsl(var(--surface-accent))]",
+        accent: "bg-[hsl(var(--btn-accent-bg))] text-[hsl(var(--btn-accent-text))] hover:bg-[hsl(var(--btn-accent-bg))]/90",
+        cta: "bg-[hsl(var(--btn-cta-bg))] text-[hsl(var(--btn-cta-text))] hover:bg-[hsl(var(--btn-cta-bg))]/90",
         destructive: "bg-error text-error-foreground hover:bg-error/90",
         outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-garden-green underline-offset-4 hover:underline",
+        link: "text-[hsl(var(--garden-green))] underline-offset-4 hover:underline",
       },
       size: {
         default: "h-[--touch-target-min] px-[--space-md] py-[--space-sm]",

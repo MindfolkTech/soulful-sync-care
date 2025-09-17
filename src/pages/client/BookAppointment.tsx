@@ -50,10 +50,10 @@ export default function BookAppointment() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <div className="mb-8">
-              <h1 className="font-primary text-3xl font-bold text-text-primary mb-2">
+              <h1 className="font-primary text-3xl font-bold text-[hsl(var(--text-primary))] mb-2">
                 Book your session
               </h1>
-              <p className="font-secondary text-text-secondary">
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">
                 Schedule time with {therapist.name}
               </p>
             </div>
@@ -73,10 +73,10 @@ export default function BookAppointment() {
                           <RadioGroupItem value={type.id} id={type.id} />
                           <div className="flex-1">
                             <label htmlFor={type.id} className="cursor-pointer">
-                              <div className="font-secondary font-semibold text-text-primary">
+                              <div className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                                 {type.label}
                               </div>
-                              <div className="text-sm text-text-secondary">
+                              <div className="text-sm text-[hsl(var(--text-secondary))]">
                                 {type.description}
                               </div>
                             </label>
@@ -154,10 +154,10 @@ export default function BookAppointment() {
                         className="w-12 h-12 rounded-full object-cover"
                       />
                       <div>
-                        <div className="font-secondary font-semibold text-text-primary">
+                        <div className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                           {therapist.name}
                         </div>
-                        <div className="text-sm text-text-secondary">
+                        <div className="text-sm text-[hsl(var(--text-secondary))]">
                           {therapist.title}
                         </div>
                       </div>
@@ -165,23 +165,23 @@ export default function BookAppointment() {
 
                     <div className="space-y-2 text-sm font-secondary">
                       <div className="flex justify-between">
-                        <span className="text-text-secondary">Session:</span>
-                        <span className="text-text-primary">15-min Chemistry Call</span>
+                        <span className="text-[hsl(var(--text-secondary))]">Session:</span>
+                        <span className="text-[hsl(var(--text-primary))]">15-min Chemistry Call</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-text-secondary">Date:</span>
-                        <span className="text-text-primary">
+                        <span className="text-[hsl(var(--text-secondary))]">Date:</span>
+                        <span className="text-[hsl(var(--text-primary))]">
                           {selectedDate?.toLocaleDateString()}
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-text-secondary">Time:</span>
-                        <span className="text-text-primary">
+                        <span className="text-[hsl(var(--text-secondary))]">Time:</span>
+                        <span className="text-[hsl(var(--text-primary))]">
                           {selectedTime ? formatDisplayTime(selectedTime) : "Not selected"}
                         </span>
                       </div>
                       <div className="flex justify-between font-semibold border-t pt-2">
-                        <span className="text-text-primary">Total:</span>
+                        <span className="text-[hsl(var(--text-primary))]">Total:</span>
                         <span className="text-primary">Free</span>
                       </div>
                     </div>

@@ -19,8 +19,8 @@ const roleRoutes = {
 };
 
 const roleColors = {
-  client: "hover:bg-jovial-jade/10 text-jovial-jade",
-  therapist: "hover:bg-garden-green/10 text-garden-green", 
+  client: "hover:bg-[hsl(var(--jovial-jade))]/10 text-[hsl(var(--jovial-jade))]",
+  therapist: "hover:bg-[hsl(var(--garden-green))]/10 text-[hsl(var(--garden-green))]", 
   admin: "hover:bg-btn-accent/10 text-btn-accent"
 };
 

@@ -14,7 +14,7 @@ export default function AdminFeatureFlags() {
               <CardTitle className="font-primary">Feature Flags</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="font-secondary text-text-secondary">Feature flag management and A/B testing controls.</p>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Feature flag management and A/B testing controls.</p>
             </CardContent>
           </Card>
         </Container>

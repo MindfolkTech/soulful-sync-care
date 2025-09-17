@@ -14,7 +14,7 @@ export default function AdminSupport() {
               <CardTitle className="font-primary">Support Management</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="font-secondary text-text-secondary">Support ticket management and user assistance tools.</p>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Support ticket management and user assistance tools.</p>
             </CardContent>
           </Card>
         </Container>

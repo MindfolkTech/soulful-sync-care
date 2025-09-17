@@ -222,7 +222,7 @@ export default function Index() {
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div className="text-center space-y-4">
                   <div 
-                    className="w-12 h-12 rounded-full bg-[--garden-green] text-[--on-dark] flex items-center justify-center text-xl font-bold mx-auto"
+                    className="w-12 h-12 rounded-full bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))] flex items-center justify-center text-xl font-bold mx-auto"
                     style={{ backgroundColor: "var(--garden-green)" }}
                   >
                     1
@@ -249,7 +249,7 @@ export default function Index() {
                 
                 <div className="text-center space-y-4">
                   <div 
-                    className="w-12 h-12 rounded-full bg-[--garden-green] text-[--on-dark] flex items-center justify-center text-xl font-bold mx-auto"
+                    className="w-12 h-12 rounded-full bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))] flex items-center justify-center text-xl font-bold mx-auto"
                     style={{ backgroundColor: "var(--garden-green)" }}
                   >
                     2
@@ -276,7 +276,7 @@ export default function Index() {
                 
                 <div className="text-center space-y-4">
                   <div 
-                    className="w-12 h-12 rounded-full bg-[--garden-green] text-[--on-dark] flex items-center justify-center text-xl font-bold mx-auto"
+                    className="w-12 h-12 rounded-full bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))] flex items-center justify-center text-xl font-bold mx-auto"
                     style={{ backgroundColor: "var(--garden-green)" }}
                   >
                     3
@@ -303,7 +303,7 @@ export default function Index() {
                 
                 <div className="text-center space-y-4">
                   <div 
-                    className="w-12 h-12 rounded-full bg-[--garden-green] text-[--on-dark] flex items-center justify-center text-xl font-bold mx-auto"
+                    className="w-12 h-12 rounded-full bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))] flex items-center justify-center text-xl font-bold mx-auto"
                     style={{ backgroundColor: "var(--garden-green)" }}
                   >
                     4
@@ -437,7 +437,7 @@ export default function Index() {
                       color: "var(--text-primary)",
                     }}
                   >
-                    <div className="w-2 h-2 bg-garden-green rounded-full mt-2 flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[hsl(var(--garden-green))] rounded-full mt-2 flex-shrink-0"></div>
                     Set your own rates, availability, and cancellation policy.
                   </li>
                   <li 
@@ -447,7 +447,7 @@ export default function Index() {
                       color: "var(--text-primary)",
                     }}
                   >
-                    <div className="w-2 h-2 bg-garden-green rounded-full mt-2 flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[hsl(var(--garden-green))] rounded-full mt-2 flex-shrink-0"></div>
                     Attract pre-qualified clients who value your style.
                   </li>
                   <li 
@@ -457,7 +457,7 @@ export default function Index() {
                       color: "var(--text-primary)",
                     }}
                   >
-                    <div className="w-2 h-2 bg-garden-green rounded-full mt-2 flex-shrink-0"></div>
+                    <div className="w-2 h-2 bg-[hsl(var(--garden-green))] rounded-full mt-2 flex-shrink-0"></div>
                     All-in-one scheduling, payouts, and simple admin.
                   </li>
                 </ul>

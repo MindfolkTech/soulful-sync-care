@@ -158,9 +158,9 @@ export function ModerationTable() {
   const getSeverityBadge = (severity: FlaggedContent["severity"]) => {
     switch (severity) {
       case "low":
-        return <Badge variant="secondary" className="bg-success/20 text-success">Low</Badge>;
+        return <Badge variant="secondary" className="bg-[hsl(var(--success-bg))]/20 text-success">Low</Badge>;
       case "medium":
-        return <Badge variant="secondary" className="bg-warning/20 text-warning-foreground">Medium</Badge>;
+        return <Badge variant="secondary" className="bg-[hsl(var(--warning-bg))]/20 text-[hsl(var(--warning-text))]">Medium</Badge>;
       case "high":
         return <Badge variant="secondary" className="bg-error/20 text-error-foreground">High</Badge>;
       case "critical":
@@ -171,11 +171,11 @@ export function ModerationTable() {
   const getStatusBadge = (status: FlaggedContent["status"]) => {
     switch (status) {
       case "pending":
-        return <Badge variant="secondary" className="bg-warning text-warning-foreground">Pending</Badge>;
+        return <Badge variant="secondary" className="bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]">Pending</Badge>;
       case "reviewed":
         return <Badge variant="secondary" className="bg-info text-info-foreground">Reviewed</Badge>;
       case "approved":
-        return <Badge variant="secondary" className="bg-success text-success-foreground">Approved</Badge>;
+        return <Badge variant="secondary" className="bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]">Approved</Badge>;
       case "removed":
         return <Badge variant="destructive">Removed</Badge>;
     }
@@ -211,11 +211,11 @@ export function ModerationTable() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-primary text-2xl text-text-primary">Content Moderation</h2>
-          <p className="font-secondary text-text-secondary">Review and manage flagged content</p>
+          <h2 className="font-primary text-2xl text-[hsl(var(--text-primary))]">Content Moderation</h2>
+          <p className="font-secondary text-[hsl(var(--text-secondary))]">Review and manage flagged content</p>
         </div>
         <div className="flex items-center gap-4">
-          <Badge variant="secondary" className="bg-warning text-warning-foreground">
+          <Badge variant="secondary" className="bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]">
             {pendingContent.length} Pending Review
           </Badge>
           {selectedItems.length > 0 && (
@@ -245,7 +245,7 @@ export function ModerationTable() {
               
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="outline" size="sm" className="text-destructive hover:bg-destructive hover:text-destructive-foreground">
+                  <Button variant="outline" size="sm" className="text-destructive hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))]">
                     <Trash2 className="h-4 w-4 mr-2" />
                     Remove Selected ({selectedItems.length})
                   </Button>
@@ -259,7 +259,7 @@ export function ModerationTable() {
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={() => handleBulkAction("remove")} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                    <AlertDialogAction onClick={() => handleBulkAction("remove")} className="bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))] hover:bg-[hsl(var(--error-bg))]/90">
                       Remove All
                     </AlertDialogAction>
                   </AlertDialogFooter>
@@ -372,8 +372,8 @@ function ModerationTableView({
       <Card>
         <CardContent className="flex items-center justify-center py-12">
           <div className="text-center">
-            <Shield className="mx-auto h-12 w-12 text-text-secondary mb-4" />
-            <p className="font-secondary text-text-secondary">No content in this category</p>
+            <Shield className="mx-auto h-12 w-12 text-[hsl(var(--text-secondary))] mb-4" />
+            <p className="font-secondary text-[hsl(var(--text-secondary))]">No content in this category</p>
           </div>
         </CardContent>
       </Card>
@@ -417,15 +417,15 @@ function ModerationTableView({
                 <TableCell>
                   <div className="flex items-center gap-2">
                     {getTypeIcon(item.type)}
-                    <span className="font-secondary capitalize text-text-primary">{item.type}</span>
+                    <span className="font-secondary capitalize text-[hsl(var(--text-primary))]">{item.type}</span>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <p className="font-secondary text-text-primary">{item.reportedUser}</p>
-                  <p className="font-secondary text-xs text-text-secondary">by {item.reportedBy}</p>
+                  <p className="font-secondary text-[hsl(var(--text-primary))]">{item.reportedUser}</p>
+                  <p className="font-secondary text-xs text-[hsl(var(--text-secondary))]">by {item.reportedBy}</p>
                 </TableCell>
                 <TableCell>
-                  <p className="font-secondary text-text-primary">{item.reason}</p>
+                  <p className="font-secondary text-[hsl(var(--text-primary))]">{item.reason}</p>
                 </TableCell>
                 <TableCell>
                   {getSeverityBadge(item.severity)}
@@ -435,8 +435,8 @@ function ModerationTableView({
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-text-secondary" />
-                    <span className="font-secondary text-sm text-text-secondary">
+                    <Calendar className="h-4 w-4 text-[hsl(var(--text-secondary))]" />
+                    <span className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
                       {formatDate(item.reportedAt)}
                     </span>
                   </div>
@@ -456,7 +456,7 @@ function ModerationTableView({
                           variant="outline"
                           size="sm"
                           onClick={() => onApprove(item.id)}
-                          className="text-success hover:bg-success hover:text-success-foreground"
+                          className="text-success hover:bg-[hsl(var(--success-bg))] hover:text-[hsl(var(--success-text))]"
                         >
                           <CheckCircle className="h-4 w-4" />
                         </Button>
@@ -464,7 +464,7 @@ function ModerationTableView({
                           variant="outline"
                           size="sm"
                           onClick={() => onRemove(item.id)}
-                          className="text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                          className="text-destructive hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))]"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
@@ -533,38 +533,38 @@ function ContentDetailsDialog({
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary">Content Type</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Content Type</p>
                   <div className="flex items-center gap-2">
                     {getTypeIcon(content.type)}
-                    <p className="font-secondary font-medium text-text-primary capitalize">{content.type}</p>
+                    <p className="font-secondary font-medium text-[hsl(var(--text-primary))] capitalize">{content.type}</p>
                   </div>
                 </div>
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary">Reported User</p>
-                  <p className="font-secondary font-medium text-text-primary">{content.reportedUser}</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Reported User</p>
+                  <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">{content.reportedUser}</p>
                 </div>
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary">Reported By</p>
-                  <p className="font-secondary font-medium text-text-primary">{content.reportedBy}</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Reported By</p>
+                  <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">{content.reportedBy}</p>
                 </div>
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary">Report Date</p>
-                  <p className="font-secondary font-medium text-text-primary">{formatDate(content.reportedAt)}</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Report Date</p>
+                  <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">{formatDate(content.reportedAt)}</p>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary mb-2">Severity</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))] mb-2">Severity</p>
                   {getSeverityBadge(content.severity)}
                 </div>
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary mb-2">Status</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))] mb-2">Status</p>
                   {getStatusBadge(content.status)}
                 </div>
               </div>
               <div>
-                <p className="font-secondary text-sm text-text-secondary mb-2">Reason</p>
-                <p className="font-secondary font-medium text-text-primary">{content.reason}</p>
+                <p className="font-secondary text-sm text-[hsl(var(--text-secondary))] mb-2">Reason</p>
+                <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">{content.reason}</p>
               </div>
             </CardContent>
           </Card>
@@ -575,8 +575,8 @@ function ContentDetailsDialog({
               <CardTitle className="font-primary text-lg">Flagged Content</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="p-4 border border-border rounded-md bg-surface-accent">
-                <p className="font-secondary text-text-primary">{content.content}</p>
+              <div className="p-4 border border-[hsl(var(--border))] rounded-md bg-[hsl(var(--surface-accent))]">
+                <p className="font-secondary text-[hsl(var(--text-primary))]">{content.content}</p>
               </div>
             </CardContent>
           </Card>
@@ -590,20 +590,20 @@ function ContentDetailsDialog({
               <CardContent className="space-y-3">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="font-secondary text-sm text-text-secondary">Reviewed By</p>
-                    <p className="font-secondary font-medium text-text-primary">{content.reviewedBy}</p>
+                    <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Reviewed By</p>
+                    <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">{content.reviewedBy}</p>
                   </div>
                   <div>
-                    <p className="font-secondary text-sm text-text-secondary">Review Date</p>
-                    <p className="font-secondary font-medium text-text-primary">
+                    <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Review Date</p>
+                    <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">
                       {content.reviewedAt ? formatDate(content.reviewedAt) : "N/A"}
                     </p>
                   </div>
                 </div>
                 {content.notes && (
                   <div>
-                    <p className="font-secondary text-sm text-text-secondary mb-2">Notes</p>
-                    <p className="font-secondary text-text-primary">{content.notes}</p>
+                    <p className="font-secondary text-sm text-[hsl(var(--text-secondary))] mb-2">Notes</p>
+                    <p className="font-secondary text-[hsl(var(--text-primary))]">{content.notes}</p>
                   </div>
                 )}
               </CardContent>
@@ -618,7 +618,7 @@ function ContentDetailsDialog({
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary mb-2">Decision</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))] mb-2">Decision</p>
                   <Select value={moderationAction || ""} onValueChange={(value) => setModerationAction(value as "approve" | "remove")}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select moderation action" />
@@ -630,7 +630,7 @@ function ContentDetailsDialog({
                   </Select>
                 </div>
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary mb-2">Notes (Optional)</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))] mb-2">Notes (Optional)</p>
                   <Textarea
                     placeholder="Add notes about your moderation decision..."
                     value={moderationNotes}
@@ -646,8 +646,8 @@ function ContentDetailsDialog({
                     onClick={handleSubmitDecision}
                     disabled={!moderationAction}
                     className={moderationAction === "remove" 
-                      ? "bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                      : "bg-success text-success-foreground hover:bg-success/90"
+                      ? "bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))] hover:bg-[hsl(var(--error-bg))]/90"
+                      : "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))] hover:bg-[hsl(var(--success-bg))]/90"
                     }
                   >
                     {moderationAction === "approve" && <CheckCircle className="h-4 w-4 mr-2" />}

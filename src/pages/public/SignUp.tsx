@@ -80,8 +80,8 @@ export default function SignUp() {
         <Container size="sm">
           <Card className="w-full max-w-md mx-auto">
             <CardHeader className="text-center">
-              <h1 className="font-primary text-[--text-2xl]">Get started</h1>
-              <CardDescription className="font-secondary text-[--text-secondary]">
+              <h1 className="font-primary text-[hsl(var(--text-2xl))]">Get started</h1>
+              <CardDescription className="font-secondary text-[hsl(var(--text-secondary))]">
                 Create your MindFolk account
               </CardDescription>
             </CardHeader>
@@ -275,7 +275,7 @@ export default function SignUp() {
                   </div>
                 </div>
                 
-                <Button type="submit" className="w-full min-h-[--touch-target-min] max-w-[320px] mx-auto" aria-label="Create new account" disabled={isLoading}>
+                <Button type="submit" className="w-full min-h-touch-target max-w-[320px] mx-auto" aria-label="Create new account" disabled={isLoading}>
                   {isLoading ? "Creating account..." : "Create Account"}
                 </Button>
               </form>

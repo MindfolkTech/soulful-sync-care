@@ -20,11 +20,11 @@ interface TagFilterBarProps {
 }
 
 const categoryColors = {
-  speciality: "bg-jovial-jade/10 text-jovial-jade border-jovial-jade/20",
-  modality: "bg-garden-green/10 text-garden-green border-garden-green/20", 
+  speciality: "bg-[hsl(var(--jovial-jade))]/10 text-[hsl(var(--jovial-jade))] border-[hsl(var(--jovial-jade))]/20",
+  modality: "bg-[hsl(var(--garden-green))]/10 text-[hsl(var(--garden-green))] border-[hsl(var(--garden-green))]/20", 
   location: "bg-btn-accent/10 text-btn-accent border-btn-accent/20",
   availability: "bg-btn-secondary/10 text-btn-secondary-foreground border-btn-secondary/20",
-  default: "bg-surface-accent text-text-secondary border-border"
+  default: "bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-secondary))] border-[hsl(var(--border))]"
 };
 
 export function TagFilterBar({ 
@@ -41,7 +41,7 @@ export function TagFilterBar({
 
   return (
     <div className={cn("flex flex-wrap items-center gap-2 p-4 bg-surface border-b", className)}>
-      <div className="flex items-center gap-2 text-sm text-text-secondary">
+      <div className="flex items-center gap-2 text-sm text-[hsl(var(--text-secondary))]">
         <Filter className="h-4 w-4" />
         <span>Filters:</span>
       </div>
@@ -55,7 +55,7 @@ export function TagFilterBar({
               "cursor-pointer transition-all hover:scale-105 min-h-touch-target flex items-center gap-1",
               tag.selected 
                 ? categoryColors[tag.category as keyof typeof categoryColors] || categoryColors.default
-                : "hover:bg-surface-accent"
+                : "hover:bg-[hsl(var(--surface-accent))]"
             )}
             onClick={() => onTagToggle(tag.id)}
           >

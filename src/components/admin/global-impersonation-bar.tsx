@@ -28,7 +28,7 @@ export function GlobalImpersonationBar() {
         <PopoverTrigger asChild>
           <Button
             size="sm"
-            className="bg-warning text-warning-foreground hover:bg-warning/90 shadow-lg border border-warning-foreground/20"
+            className="bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))] hover:bg-[hsl(var(--warning-bg))]/90 shadow-lg border border-[hsl(var(--warning-text))]/20"
           >
             <Shield className="h-4 w-4 mr-2" />
             Admin Mode
@@ -48,14 +48,14 @@ export function GlobalImpersonationBar() {
 
                 {/* User Info */}
                 <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-surface-accent flex items-center justify-center">
-                    <User className="h-5 w-5 text-text-primary" />
+                  <div className="h-10 w-10 rounded-full bg-[hsl(var(--surface-accent))] flex items-center justify-center">
+                    <User className="h-5 w-5 text-[hsl(var(--text-primary))]" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-secondary font-medium text-text-primary text-sm">
+                    <p className="font-secondary font-medium text-[hsl(var(--text-primary))] text-sm">
                       {impersonatedUser.name}
                     </p>
-                    <p className="font-secondary text-xs text-text-secondary">
+                    <p className="font-secondary text-xs text-[hsl(var(--text-secondary))]">
                       {impersonatedUser.email}
                     </p>
                   </div>
@@ -63,10 +63,10 @@ export function GlobalImpersonationBar() {
                     variant="secondary" 
                     className={`text-xs ${
                       impersonatedUser.role === 'therapist' 
-                        ? 'bg-tag-specialty text-tag-specialty-foreground'
+                        ? 'bg-[hsl(var(--tag-specialty-bg))] text-[hsl(var(--tag-specialty-text))]'
                         : impersonatedUser.role === 'client'
-                        ? 'bg-tag-personality text-tag-personality-foreground'
-                        : 'bg-tag-misc text-tag-misc-foreground'
+                        ? 'bg-[hsl(var(--tag-personality-bg))] text-[hsl(var(--tag-personality-text))]'
+                        : 'bg-[hsl(var(--tag-misc-bg))] text-[hsl(var(--tag-misc-text))]'
                     }`}
                   >
                     {impersonatedUser.role}
@@ -75,7 +75,7 @@ export function GlobalImpersonationBar() {
 
                 {/* Quick Navigation */}
                 <div className="space-y-2">
-                  <p className="font-secondary text-xs text-text-secondary font-medium">Quick Navigation</p>
+                  <p className="font-secondary text-xs text-[hsl(var(--text-secondary))] font-medium">Quick Navigation</p>
                   
                   <div className="grid grid-cols-2 gap-2">
                     <Button 

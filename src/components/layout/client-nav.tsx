@@ -30,7 +30,7 @@ export function ClientNav() {
     <nav 
       role="navigation" 
       aria-label="Client navigation"
-      className="bg-surface border-b border-border"
+      className="bg-surface border-b border-[hsl(var(--border))]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex space-x-8">
@@ -42,11 +42,11 @@ export function ClientNav() {
                 to={href}
                 className={cn(
                   "flex items-center gap-2 px-3 py-4 text-sm font-medium transition-colors duration-200",
-                  "border-b-2 border-transparent hover:text-jovial-jade hover:border-garden-green",
+                  "border-b-2 border-transparent hover:text-[hsl(var(--jovial-jade))] hover:border-[hsl(var(--garden-green))]",
                   "min-h-touch-target focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
                   isActive 
-                    ? "text-jovial-jade border-garden-green" 
-                    : "text-text-secondary"
+                    ? "text-[hsl(var(--jovial-jade))] border-[hsl(var(--garden-green))]" 
+                    : "text-[hsl(var(--text-secondary))]"
                 )}
                 aria-label={label}
                 aria-current={isActive ? "page" : undefined}

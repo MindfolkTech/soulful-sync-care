@@ -86,10 +86,10 @@ export default function Appointments() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <div className="mb-8">
-              <h1 className="font-primary text-3xl font-bold text-text-primary">
+              <h1 className="font-primary text-3xl font-bold text-[hsl(var(--text-primary))]">
                 My Appointments
               </h1>
-              <p className="font-secondary text-text-secondary mt-2">
+              <p className="font-secondary text-[hsl(var(--text-secondary))] mt-2">
                 Manage your therapy sessions and chemistry calls
               </p>
             </div>
@@ -132,13 +132,13 @@ export default function Appointments() {
                               className="w-16 h-16 rounded-full object-cover"
                             />
                             <div className="flex-1 min-w-0">
-                              <h3 className="font-primary text-lg font-semibold text-[--text-primary]">
+                              <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))]">
                                 {appointment.therapist}
                               </h3>
-                              <p className="font-secondary text-[--text-secondary]">
+                              <p className="font-secondary text-[hsl(var(--text-secondary))]">
                                 {appointment.type} • {appointment.duration}
                               </p>
-                              <p className="font-secondary text-sm text-[--text-muted] mt-1">
+                              <p className="font-secondary text-sm text-[hsl(var(--text-muted))] mt-1">
                                 {appointment.sessionTime.toLocaleDateString('en-US', {
                                   weekday: 'long',
                                   month: 'long',
@@ -151,7 +151,7 @@ export default function Appointments() {
                               size="sm" 
                               variant="ghost" 
                               onClick={() => navigate('/messages')} 
-                              className="min-h-[--touch-target-min] text-[--garden-green]" 
+                              className="min-h-[--touch-target-min] text-[hsl(var(--garden-green))]" 
                               aria-label={`Send message to ${appointment.therapist}`}
                             >
                               <MessageCircle className="w-4 h-4" />
@@ -163,7 +163,7 @@ export default function Appointments() {
                             sessionTime={appointment.sessionTime}
                             sessionId={appointment.id}
                             therapistName={appointment.therapist}
-                            className="pt-3 border-t border-[--border]"
+                            className="pt-3 border-t border-[hsl(var(--border))]"
                           />
                         </div>
                       </CardContent>
@@ -187,13 +187,13 @@ export default function Appointments() {
                               className="w-16 h-16 rounded-full object-cover"
                             />
                             <div>
-                              <h3 className="font-primary text-lg font-semibold text-[--text-primary]">
+                              <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))]">
                                 {appointment.therapist}
                               </h3>
-                              <p className="font-secondary text-[--text-secondary]">
+                              <p className="font-secondary text-[hsl(var(--text-secondary))]">
                                 {appointment.type} • {appointment.duration}
                               </p>
-                              <div className="flex items-center space-x-4 mt-2 text-sm text-[--text-muted]">
+                              <div className="flex items-center space-x-4 mt-2 text-sm text-[hsl(var(--text-muted))]">
                                 <div className="flex items-center space-x-1">
                                   <Calendar className="w-4 h-4" />
                                   <span>{appointment.sessionTime.toLocaleDateString('en-US', {
@@ -222,7 +222,7 @@ export default function Appointments() {
                               <Button size="sm" variant="ghost" onClick={() => {
                                 // TODO: Implement review system
                                 console.log("Leave review for", appointment.therapist);
-                              }} className="min-h-[--touch-target-min] text-[--garden-green]" aria-label={`Leave review for ${appointment.therapist}`}>
+                              }} className="min-h-[--touch-target-min] text-[hsl(var(--garden-green))]" aria-label={`Leave review for ${appointment.therapist}`}>
                                 ⭐
                               </Button>
                             </div>
@@ -237,7 +237,7 @@ export default function Appointments() {
               <TabsContent value="cancelled" role="tabpanel" aria-labelledby="cancelled-tab">
                 <Card>
                   <CardContent className="p-12 text-center">
-                    <p className="font-secondary text-text-secondary">
+                    <p className="font-secondary text-[hsl(var(--text-secondary))]">
                       No cancelled appointments
                     </p>
                   </CardContent>

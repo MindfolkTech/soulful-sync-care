@@ -203,8 +203,8 @@ export default function TherapistDashboard() {
         <Container>
           <div className="space-y-6">
             <div>
-              <h1 className="font-primary text-3xl text-text-primary mb-2">Welcome Back, Sarah!</h1>
-              <p className="font-secondary text-text-secondary">Here's your professional dashboard overview</p>
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Welcome Back, Sarah!</h1>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Here's your professional dashboard overview</p>
             </div>
             
             {/* 4-Widget Grid Layout with ONE PAGE VIEWPORT RULE compliance */}
@@ -214,11 +214,11 @@ export default function TherapistDashboard() {
         <Card className="min-w-0 overflow-hidden flex flex-col h-full max-h-[calc(50vh-120px)]">
           <CardHeader className="flex-shrink-0 p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
             <div className="flex items-center justify-between">
-              <h2 className="font-primary text-jovial-jade text-sm md:text-base">
+              <h2 className="font-primary text-[hsl(var(--jovial-jade))] text-sm md:text-base">
                 Upcoming Appointments
               </h2>
               <div className="flex items-center gap-[--space-xs]">
-                <Button variant="ghost" size="sm" className="text-[--btn-secondary-text] text-xs px-2 min-h-[--touch-target-min]" asChild aria-label="View all appointments">
+                <Button variant="ghost" size="sm" className="text-[hsl(var(--btn-secondary-text))] text-xs px-2 min-h-[--touch-target-min]" asChild aria-label="View all appointments">
                   <Link to="/t/bookings">
                     VIEW ALL
                     <ExternalLink className="w-3 h-3 ml-1" />
@@ -240,11 +240,11 @@ export default function TherapistDashboard() {
         <Card className="min-w-0 overflow-hidden flex flex-col h-full max-h-[calc(50vh-120px)]">
           <CardHeader className="flex-shrink-0 p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
             <div className="flex items-center justify-between">
-              <h2 className="font-primary text-jovial-jade text-sm md:text-base">
+              <h2 className="font-primary text-[hsl(var(--jovial-jade))] text-sm md:text-base">
                 My Client Dashboard
               </h2>
               <div className="flex items-center gap-[--space-xs]">
-                <Button variant="ghost" size="sm" className="text-[--btn-secondary-text] text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="Manage client dashboard">
+                <Button variant="ghost" size="sm" className="text-[hsl(var(--btn-secondary-text))] text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="Manage client dashboard">
                   MANAGE
                   <ExternalLink className="w-3 h-3 ml-1" />
                 </Button>
@@ -282,9 +282,9 @@ export default function TherapistDashboard() {
         <Card className="min-w-0 overflow-hidden flex flex-col h-full max-h-[calc(50vh-120px)]">
           <CardHeader className="flex-shrink-0 p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
             <div className="flex items-center justify-between">
-              <h2 className="font-primary text-jovial-jade text-sm md:text-base">Income Details</h2>
+              <h2 className="font-primary text-[hsl(var(--jovial-jade))] text-sm md:text-base">Income Details</h2>
               <div className="flex items-center gap-[--space-xs]">
-                <Button variant="ghost" size="sm" className="text-[--btn-secondary-text] text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="View analytics dashboard">
+                <Button variant="ghost" size="sm" className="text-[hsl(var(--btn-secondary-text))] text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="View analytics dashboard">
                   VIEW
                   <ExternalLink className="w-3 h-3 ml-1" />
                 </Button>
@@ -296,7 +296,7 @@ export default function TherapistDashboard() {
               <h4 className="font-secondary text-muted-foreground text-xs mb-2">Appointments</h4>
               <div className="flex-1 min-h-0 flex items-center justify-center relative">
                 <div className="absolute inset-0 flex items-center justify-center z-10">
-                  <span className="font-primary text-2xl md:text-3xl font-bold text-jovial-jade">122</span>
+                  <span className="font-primary text-2xl md:text-3xl font-bold text-[hsl(var(--jovial-jade))]">122</span>
                 </div>
                 <svg className="w-full h-full max-w-[200px] max-h-[200px]" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Appointment breakdown chart showing 122 total appointments with completed, cancelled, and rescheduled segments">
                   <circle
@@ -341,9 +341,9 @@ export default function TherapistDashboard() {
         <Card className="min-w-0 overflow-hidden flex flex-col h-full max-h-[calc(50vh-120px)]">
           <CardHeader className="flex-shrink-0 p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
             <div className="flex items-center justify-between">
-              <h2 className="font-primary text-jovial-jade text-sm md:text-base">My Business Profile</h2>
+              <h2 className="font-primary text-[hsl(var(--jovial-jade))] text-sm md:text-base">My Business Profile</h2>
               <div className="flex items-center gap-[--space-xs]">
-                <Button variant="ghost" size="sm" className="text-[--btn-secondary-text] text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="Manage business profile">
+                <Button variant="ghost" size="sm" className="text-[hsl(var(--btn-secondary-text))] text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="Manage business profile">
                   MANAGE
                   <ExternalLink className="w-3 h-3 ml-1" />
                 </Button>

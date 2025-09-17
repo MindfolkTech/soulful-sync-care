@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ImpersonationProvider } from "@/contexts/impersonation-context";
 import { GlobalImpersonationBar } from "@/components/admin/global-impersonation-bar";
+import ErrorBoundary from "@/components/util/ErrorBoundary";
 
 // Pages
 import Index from "./pages/Index";
@@ -75,7 +76,8 @@ const App = () => (
       <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <ImpersonationProvider>
           <GlobalImpersonationBar />
-          <Routes>
+          <ErrorBoundary>
+            <Routes>
           {/* Public routes */}
           <Route path="/" element={<Index />} />
           <Route path="/therapist" element={<TherapistLanding />} />
@@ -132,7 +134,8 @@ const App = () => (
 
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
-        </Routes>
+            </Routes>
+          </ErrorBoundary>
         </ImpersonationProvider>
       </BrowserRouter>
     </TooltipProvider>

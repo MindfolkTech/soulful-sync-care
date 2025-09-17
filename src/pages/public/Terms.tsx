@@ -10,13 +10,13 @@ export default function Terms() {
       <main className="flex-1 py-16">
         <Container>
           <div className="max-w-4xl mx-auto prose prose-slate">
-            <h1 className="font-primary text-3xl font-bold text-text-primary mb-8">
+            <h1 className="font-primary text-3xl font-bold text-[hsl(var(--text-primary))] mb-8">
               Terms of Service
             </h1>
             
-            <div className="space-y-6 font-secondary text-text-secondary">
+            <div className="space-y-6 font-secondary text-[hsl(var(--text-secondary))]">
               <section>
-                <h2 className="font-primary text-xl font-semibold text-text-primary mb-4">
+                <h2 className="font-primary text-xl font-semibold text-[hsl(var(--text-primary))] mb-4">
                   1. Introduction
                 </h2>
                 <p>
@@ -26,7 +26,7 @@ export default function Terms() {
               </section>
 
               <section>
-                <h2 className="font-primary text-xl font-semibold text-text-primary mb-4">
+                <h2 className="font-primary text-xl font-semibold text-[hsl(var(--text-primary))] mb-4">
                   2. Service Description
                 </h2>
                 <p>
@@ -36,7 +36,7 @@ export default function Terms() {
               </section>
 
               <section>
-                <h2 className="font-primary text-xl font-semibold text-text-primary mb-4">
+                <h2 className="font-primary text-xl font-semibold text-[hsl(var(--text-primary))] mb-4">
                   3. User Responsibilities
                 </h2>
                 <p>
@@ -45,7 +45,7 @@ export default function Terms() {
               </section>
 
               <section>
-                <h2 className="font-primary text-xl font-semibold text-text-primary mb-4">
+                <h2 className="font-primary text-xl font-semibold text-[hsl(var(--text-primary))] mb-4">
                   4. Privacy and Data Protection
                 </h2>
                 <p>
@@ -55,7 +55,7 @@ export default function Terms() {
               </section>
 
               <section>
-                <h2 className="font-primary text-xl font-semibold text-text-primary mb-4">
+                <h2 className="font-primary text-xl font-semibold text-[hsl(var(--text-primary))] mb-4">
                   5. Contact
                 </h2>
                 <p>

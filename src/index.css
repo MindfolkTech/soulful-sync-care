@@ -2,20 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-/* MindFolk Design System v2.3 - WCAG 2.1 AA Compliant */
-
 @layer base {
   :root {
+    /* Focus Ring System */
+    --focus-ring: 0 0% 100% / 0; /* default noop */
+    
     /* Core Brand Colors */
     --jovial-jade: 155 28% 28%; /* #305C45 */
     --garden-green: 145 27% 35%; /* #497557 */
     --elated-emerald: 149 28% 32%; /* #3B674D */
-    
+
     /* Surface & Background */
     --warm-white: 32 100% 97%; /* #FFF8F2 */
     --surface: 0 0% 100%; /* #FFFFFF */
     --surface-accent: 134 23% 92%; /* #E8F0E9 */
-    
+
     /* Text & Border */
     --text-primary: 145 23% 35%; /* #466749 */
     --text-secondary: 220 13% 46%; /* #6B7280 */
@@ -24,7 +25,7 @@
     --on-dark: 0 0% 100%; /* #FFFFFF */
     --text-black: 0 0% 0%; /* #000000 */
     --border: 220 13% 91%; /* #E5E7EB */
-    
+
     /* Button Colors */
     --btn-primary-bg: 145 27% 35%; /* #497557 */
     --btn-primary-text: 0 0% 100%; /* #FFFFFF */
@@ -35,7 +36,7 @@
     --btn-accent-text: 155 28% 28%; /* #305C45 */
     --btn-cta-bg: 134 23% 92%; /* #e6eee9 */
     --btn-cta-text: 155 28% 28%; /* #305C45 */
-    
+
     /* Tag System Colors */
     --tag-personality-bg: 25 100% 87%; /* #ffd9be */
     --tag-personality-text: 155 28% 28%; /* #305C45 */
@@ -47,7 +48,7 @@
     --tag-language-text: 155 28% 28%; /* #305C45 */
     --tag-misc-bg: 22 41% 92%; /* #f5e4de */
     --tag-misc-text: 155 28% 28%; /* #305C45 */
-    
+
     /* System Message Colors */
     --success-bg: 145 27% 35%; /* #497557 */
     --success-text: 0 0% 100%; /* #FFFFFF */
@@ -57,31 +58,20 @@
     --error-text: 198 33% 17%; /* #20323A */
     --info-bg: 149 28% 32%; /* #3B674D */
     --info-text: 0 0% 100%; /* #FFFFFF */
-    
+
     /* Progress & Motion */
     --progress-bar: 145 27% 35%; /* var(--garden-green) */
-    
+
     /* Overlay & Modal System */
-    --overlay-dark: 145 27% 15%; /* Dark overlay using brand green base */
-    --overlay-light: 145 23% 92%; /* Light overlay using surface accent */
-    --modal-backdrop: var(--overlay-dark) / 0.8; /* 80% opacity */
-    --video-overlay: var(--overlay-dark) / 0.6; /* 60% opacity */
-    --hover-overlay: var(--overlay-dark) / 0.2; /* 20% opacity */
-    
-    /* Tag System Foreground Colors */
-    --tag-personality-foreground: var(--tag-personality-text);
-    --tag-modality-foreground: var(--tag-modality-text);
-    --tag-specialty-foreground: var(--tag-specialty-text);
-    --tag-language-foreground: var(--tag-language-text);
-    --tag-misc-foreground: var(--tag-misc-text);
-    
-    /* Success/Error Foreground */
-    --success-foreground: var(--success-text);
-    --error-foreground: var(--error-text);
-    
+    --overlay-dark: 145 27% 15%;
+    --overlay-light: 145 23% 92%;
+    --modal-backdrop: var(--overlay-dark) / 0.8;
+    --video-overlay: var(--overlay-dark) / 0.6;
+    --hover-overlay: var(--overlay-dark) / 0.2;
+
     /* Typography Tokens */
-    --font-primary: 'Crimson Pro', Georgia, serif;           /* Major headings (h1-h3), quotes, names */
-    --font-secondary: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; /* Minor headings (h4-h6), body/UI */
+    --font-primary: 'Crimson Pro', Georgia, serif;
+    --font-secondary: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
     --text-xs: clamp(0.75rem, 0.70rem + 0.25vw, 0.875rem);
     --text-sm: clamp(0.875rem, 0.80rem + 0.375vw, 1rem);
     --text-base: clamp(1rem, 0.90rem + 0.50vw, 1.125rem);
@@ -89,7 +79,7 @@
     --text-xl: clamp(1.25rem, 1.10rem + 0.75vw, 1.50rem);
     --text-2xl: clamp(1.5rem, 1.30rem + 1.00vw, 1.875rem);
     --text-3xl: clamp(1.875rem, 1.50rem + 1.875vw, 2.25rem);
-    
+
     /* Spacing Tokens */
     --touch-target-min: 44px;
     --touch-target-comfort: 56px;
@@ -99,7 +89,7 @@
     --space-lg: clamp(24px, 12px + 2vw, 32px);
     --space-xl: clamp(32px, 16px + 3vw, 48px);
     --space-2xl: clamp(48px, 24px + 4vw, 64px);
-    
+
     /* Border Radius */
     --radius-sm: 4px;
     --radius-md: 8px;
@@ -107,11 +97,11 @@
     --radius-xl: 16px;
     --radius-pill: 9999px;
     --radius-avatar: 50%;
-    
+
     /* Motion & Animation */
     --motion-progress: all 300ms ease-in-out;
     --motion-swipe: transform 200ms ease-in-out, opacity 200ms ease-in-out;
-    
+
     /* Shadcn compatibility mapping */
     --background: var(--warm-white);
     --foreground: var(--text-primary);
@@ -141,35 +131,66 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-  .dark {
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
 }
 
 @layer base {
-  * {
-    @apply border-border;
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; }
+  
+  /* High contrast mode */
+  :root[data-contrast="high"] {
+    --text-primary: 0 0% 0%; /* Pure black */
+    --text-secondary: 0 0% 20%; /* Dark gray */
+    --text-muted: 0 0% 30%; /* Medium gray */
+    --border: 0 0% 0%; /* Black borders */
+    --btn-primary-bg: 0 0% 0%; /* Black buttons */
+    --btn-primary-text: 0 0% 100%; /* White text */
+    --btn-secondary-bg: 0 0% 100%; /* White background */
+    --btn-secondary-text: 0 0% 0%; /* Black text */
+    --btn-tertiary-text: 0 0% 0%; /* Black text */
+    --btn-accent-bg: 0 0% 100%; /* White background */
+    --btn-accent-text: 0 0% 0%; /* Black text */
+    --btn-cta-bg: 0 0% 100%; /* White background */
+    --btn-cta-text: 0 0% 0%; /* Black text */
+    --ring: 0 0% 0%; /* Black focus rings */
   }
-
-  body {
-    @apply bg-background text-foreground;
+  
+  /* Dark mode */
+  .dark {
+    --background: 0 0% 3%; /* Very dark background */
+    --foreground: 0 0% 98%; /* Very light text */
+    --card: 0 0% 5%; /* Dark card background */
+    --card-foreground: 0 0% 98%; /* Light card text */
+    --popover: 0 0% 5%; /* Dark popover */
+    --popover-foreground: 0 0% 98%; /* Light popover text */
+    --primary: 0 0% 98%; /* Light primary */
+    --primary-foreground: 0 0% 3%; /* Dark primary text */
+    --secondary: 0 0% 8%; /* Dark secondary */
+    --secondary-foreground: 0 0% 98%; /* Light secondary text */
+    --muted: 0 0% 8%; /* Dark muted */
+    --muted-foreground: 0 0% 60%; /* Medium muted text */
+    --accent: 0 0% 8%; /* Dark accent */
+    --accent-foreground: 0 0% 98%; /* Light accent text */
+    --destructive: 0 62% 50%; /* Red destructive */
+    --destructive-foreground: 0 0% 98%; /* Light destructive text */
+    --input: 0 0% 8%; /* Dark input */
+    --ring: 0 0% 98%; /* Light ring */
   }
 }
 
 @layer utilities {
-  .font-primary {
-    font-family: var(--font-primary);
-  }
+  .font-primary { font-family: var(--font-primary); }
+  .font-secondary { font-family: var(--font-secondary); }
+
+  .min-h-touch-min{min-height:44px}
+.min-h-touch-target{min-height:56px}
+
+  /* Focus Ring System */
+  :root:has(body.user-keys) { --focus-ring: var(--ring); } /* show only when keyboard used */
   
-  .font-secondary {
-    font-family: var(--font-secondary);
+  .focus-visible-outline:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
   }
 }
 

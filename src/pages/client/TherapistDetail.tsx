@@ -64,7 +64,7 @@ export default function TherapistDetail() {
                     <div className="flex-1 space-y-4 text-center md:text-left">
                       <div>
                         <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
-                          <h1 className="font-primary text-3xl font-bold text-text-primary">
+                          <h1 className="font-primary text-3xl font-bold text-[hsl(var(--text-primary))]">
                             {therapist.name}
                           </h1>
                           {therapist.isVerified && (
@@ -73,7 +73,7 @@ export default function TherapistDetail() {
                             </Badge>
                           )}
                         </div>
-                        <p className="font-secondary text-text-secondary">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))]">
                           {therapist.title}
                         </p>
                         <p className="font-secondary text-sm text-text-muted">
@@ -83,20 +83,20 @@ export default function TherapistDetail() {
 
                       <div className="flex items-center justify-center md:justify-start space-x-4">
                         <div className="flex items-center space-x-1">
-                          <Star className="w-5 h-5 fill-[--warning-text] text-[--warning-text]" />
+                          <Star className="w-5 h-5 fill-[hsl(var(--warning-text))] text-[hsl(var(--warning-text))]" />
                           <span className="font-secondary font-semibold">
                             {therapist.rating}
                           </span>
-                          <span className="font-secondary text-text-secondary text-sm">
+                          <span className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                             ({therapist.reviewCount} reviews)
                           </span>
                         </div>
-                        <div className="font-secondary text-text-secondary">
+                        <div className="font-secondary text-[hsl(var(--text-secondary))]">
                           {therapist.experience} experience
                         </div>
                       </div>
 
-                      <blockquote className="font-secondary text-text-primary italic">
+                      <blockquote className="font-secondary text-[hsl(var(--text-primary))] italic">
                         "{therapist.quote}"
                       </blockquote>
                     </div>
@@ -107,10 +107,10 @@ export default function TherapistDetail() {
               {/* About */}
               <Card>
                 <CardContent className="p-6">
-                  <h2 className="font-primary text-xl font-semibold text-text-primary mb-4">
+                  <h2 className="font-primary text-xl font-semibold text-[hsl(var(--text-primary))] mb-4">
                     About
                   </h2>
-                  <p className="font-secondary text-text-secondary leading-relaxed">
+                  <p className="font-secondary text-[hsl(var(--text-secondary))] leading-relaxed">
                     {therapist.bio}
                   </p>
                 </CardContent>
@@ -120,7 +120,7 @@ export default function TherapistDetail() {
               <Card>
                 <CardContent className="p-6 space-y-6">
                   <div>
-                    <h3 className="font-primary text-lg font-semibold text-text-primary mb-3">
+                    <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))] mb-3">
                       Specialties
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -133,7 +133,7 @@ export default function TherapistDetail() {
                   </div>
 
                   <div>
-                    <h3 className="font-primary text-lg font-semibold text-text-primary mb-3">
+                    <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))] mb-3">
                       Therapeutic Approach
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -146,7 +146,7 @@ export default function TherapistDetail() {
                   </div>
 
                   <div>
-                    <h3 className="font-primary text-lg font-semibold text-text-primary mb-3">
+                    <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))] mb-3">
                       Communication Style
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -159,7 +159,7 @@ export default function TherapistDetail() {
                   </div>
 
                   <div>
-                    <h3 className="font-primary text-lg font-semibold text-text-primary mb-3">
+                    <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))] mb-3">
                       Languages
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -180,10 +180,10 @@ export default function TherapistDetail() {
               <Card className="sticky top-8">
                 <CardContent className="p-6 space-y-4">
                   <div className="text-center">
-                    <div className="font-primary text-2xl font-bold text-text-primary">
+                    <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">
                       {therapist.rate}
                     </div>
-                    <div className="font-secondary text-text-secondary text-sm">
+                    <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                       50-minute session
                     </div>
                   </div>
@@ -200,10 +200,10 @@ export default function TherapistDetail() {
                   </div>
 
                   <div className="pt-4 border-t">
-                    <h4 className="font-secondary font-semibold text-text-primary mb-2">
+                    <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))] mb-2">
                       Next Available
                     </h4>
-                    <div className="space-y-1 text-sm font-secondary text-text-secondary">
+                    <div className="space-y-1 text-sm font-secondary text-[hsl(var(--text-secondary))]">
                       {therapist.availability.map((slot, index) => (
                         <div key={index}>{slot}</div>
                       ))}

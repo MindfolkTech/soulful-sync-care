@@ -45,7 +45,7 @@ export function SwipeControls({
         size="icon"
         onClick={onPass}
         disabled={disabled}
-        className="h-14 w-14 rounded-full border-2 border-destructive/20 hover:border-destructive hover:bg-destructive/10"
+        className="min-h-touch-target min-w-touch-target rounded-full border-2 border-destructive/20 hover:border-destructive hover:bg-destructive/10"
         aria-label="Pass on this therapist"
       >
         <X className="h-6 w-6 text-destructive" />
@@ -67,7 +67,7 @@ export function SwipeControls({
         size="icon"
         onClick={onSave}
         disabled={disabled}
-        className="h-14 w-14 rounded-full border-2 border-jovial-jade/20 hover:border-jovial-jade hover:bg-jovial-jade/10"
+        className="min-h-touch-target min-w-touch-target rounded-full border-2 border-jovial-jade/20 hover:border-jovial-jade hover:bg-jovial-jade/10"
         aria-label="Save this therapist to favorites"
       >
         <Heart className="h-6 w-6 text-jovial-jade" />

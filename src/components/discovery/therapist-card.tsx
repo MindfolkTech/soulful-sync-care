@@ -105,7 +105,7 @@ export function TherapistCard({
           </video>
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-garden-green to-elated-emerald flex items-center justify-center">
-            <span className="text-[--on-dark] font-primary font-bold text-4xl">
+            <span className="text-[hsl(var(--on-dark))] font-primary font-bold text-4xl">
               {initials}
             </span>
           </div>
@@ -113,9 +113,9 @@ export function TherapistCard({
 
         {/* Play Overlay - only show if video exists */}
         {therapist.video_url && (
-          <div className="absolute inset-0 bg-[--overlay-dark]/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="bg-[--overlay-dark]/60 rounded-full p-4">
-              <Play className="h-8 w-8 text-[--on-dark]" />
+          <div className="absolute inset-0 bg-[hsl(var(--overlay-dark))]/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="bg-[hsl(var(--overlay-dark))]/60 rounded-full p-4">
+              <Play className="h-8 w-8 text-[hsl(var(--on-dark))]" />
             </div>
           </div>
         )}
@@ -156,21 +156,21 @@ export function TherapistCard({
         aria-label="Therapist information"
       >
         {/* Credentials + Price Row */}
-        <div className="flex justify-between items-center text-sm font-secondary text-text-secondary">
+        <div className="flex justify-between items-center text-sm font-secondary text-[hsl(var(--text-secondary))]">
           <span>{therapist.title}</span>
-          <span className="font-semibold text-text-primary">{therapist.rate}</span>
+          <span className="font-semibold text-[hsl(var(--text-primary))]">{therapist.rate}</span>
         </div>
 
         {/* Name Row */}
         <h2 
           id={`therapist-name-${therapist.id}`}
-          className="font-primary text-xl font-semibold text-text-primary leading-tight"
+          className="font-primary text-xl font-semibold text-[hsl(var(--text-primary))] leading-tight"
         >
           {therapist.name}
         </h2>
 
         {/* Location + One-liner Row */}
-        <div className="text-sm text-text-secondary font-secondary w-full">
+        <div className="text-sm text-[hsl(var(--text-secondary))] font-secondary w-full">
           <p className="line-clamp-1 italic">"{therapist.quote}"</p>
           {therapist.location && (
             <p className="text-xs mt-1 text-text-muted">{therapist.location}</p>
@@ -183,7 +183,7 @@ export function TherapistCard({
         <div className="mt-3 flex justify-center md:hidden">
           <button
             onClick={() => onShowDetails(therapist)}
-            className="flex items-center gap-1 text-sm text-text-secondary hover:text-text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-md px-2 py-1"
+            className="flex items-center gap-1 text-sm text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-md px-2 py-1"
             aria-label="More details"
           >
             <span>More details</span>

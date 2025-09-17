@@ -146,9 +146,9 @@ export default function Billing() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-3 bg-[--info-bg] border border-[--border] rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-[hsl(var(--info-bg))] border border-[hsl(var(--border))] rounded-lg">
                   <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-[--info-text]" />
+                    <Calendar className="h-4 w-4 text-[hsl(var(--info-text))]" />
                     <span className="text-sm font-medium">Next billing date</span>
                   </div>
                   <span className="text-sm">{subscription.nextBilling}</span>
@@ -324,14 +324,14 @@ export default function Billing() {
                 </div>
 
                 {subscription.addOnSessions > 0 && (
-                  <div className="p-3 bg-[--warning-bg] border border-[--border] rounded-lg">
+                  <div className="p-3 bg-[hsl(var(--warning-bg))] border border-[hsl(var(--border))] rounded-lg">
                     <div className="flex items-center gap-2">
-                      <AlertTriangle className="h-4 w-4 text-[--warning-text]" />
-                      <span className="font-medium text-[--warning-text]">
+                      <AlertTriangle className="h-4 w-4 text-[hsl(var(--warning-text))]" />
+                      <span className="font-medium text-[hsl(var(--warning-text))]">
                         Additional Sessions
                       </span>
                     </div>
-                    <p className="text-sm text-[--warning-text] mt-1">
+                    <p className="text-sm text-[hsl(var(--warning-text))] mt-1">
                       You've used {subscription.addOnSessions} additional sessions this month
                     </p>
                   </div>
@@ -359,7 +359,7 @@ export default function Billing() {
                     Due {subscription.nextBilling}
                   </p>
                   <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
-                    <CheckCircle2 className="h-3 w-3 text-[--success-text]" />
+                    <CheckCircle2 className="h-3 w-3 text-[hsl(var(--success-text))]" />
                     Auto-pay enabled
                   </div>
                 </div>

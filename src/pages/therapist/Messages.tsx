@@ -92,8 +92,8 @@ export default function TherapistMessages() {
         <Container>
           <div className="space-y-6">
             <div>
-              <h1 className="font-primary text-3xl text-text-primary mb-2">Messages</h1>
-              <p className="font-secondary text-text-secondary">Secure communication with your clients</p>
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Messages</h1>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Secure communication with your clients</p>
             </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-[--space-lg] h-full min-h-0 max-h-[calc(100vh-200px)]">
         {/* Conversations List */}
@@ -142,7 +142,7 @@ export default function TherapistMessages() {
           {/* Conversations */}
           <Card className="flex-1 min-h-0">
             <CardHeader className="pb-3">
-              <CardTitle className="font-primary text-jovial-jade">Conversations</CardTitle>
+              <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Conversations</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <div className="space-y-0 max-h-96 overflow-y-auto">
@@ -160,7 +160,7 @@ export default function TherapistMessages() {
                       <div className="relative">
                         <Avatar className="w-10 h-10">
                           <AvatarImage src={conversation.clientAvatar} alt={conversation.clientInitials} />
-                          <AvatarFallback className="bg-surface-accent text-jovial-jade font-secondary font-semibold text-sm">
+                          <AvatarFallback className="bg-surface-accent text-[hsl(var(--jovial-jade))] font-secondary font-semibold text-sm">
                             {conversation.clientInitials}
                           </AvatarFallback>
                         </Avatar>
@@ -209,7 +209,7 @@ export default function TherapistMessages() {
                 <HStack>
                   <Avatar className="w-8 h-8">
                     <AvatarImage src={selectedConversation.clientAvatar} alt={selectedConversation.clientInitials} />
-                    <AvatarFallback className="bg-surface-accent text-jovial-jade font-secondary font-semibold text-sm">
+                    <AvatarFallback className="bg-surface-accent text-[hsl(var(--jovial-jade))] font-secondary font-semibold text-sm">
                       {selectedConversation.clientInitials}
                     </AvatarFallback>
                   </Avatar>

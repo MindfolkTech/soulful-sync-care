@@ -127,6 +127,37 @@ export default function Discover() {
     onSwipeRight: () => currentTherapist && handleSave(currentTherapist),
   }) as React.MutableRefObject<HTMLDivElement>;
 
+  const handleCardKeyDown = React.useCallback((e: React.KeyboardEvent) => {
+    if (!currentTherapist) return;
+
+    switch (e.key) {
+      case 'ArrowLeft':
+        e.preventDefault();
+        handlePass(currentTherapist);
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        handleSave(currentTherapist);
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (currentTherapist.video_url) {
+          handleShowVideo(currentTherapist);
+        } else {
+          handleShowDetails(currentTherapist);
+        }
+        break;
+      case ' ':
+        e.preventDefault();
+        if (currentTherapist.video_url) {
+          handleShowVideo(currentTherapist);
+        } else {
+          handleShowDetails(currentTherapist);
+        }
+        break;
+    }
+  }, [currentTherapist, handlePass, handleSave, handleShowVideo, handleShowDetails]);
+
   useKeyboardNavigation({
     therapists: availableTherapists,
     currentIndex,
@@ -146,6 +177,8 @@ export default function Discover() {
 
   return (
     <div className="h-screen bg-warm-white flex flex-col overflow-hidden">
+      {/* Live region for announcements */}
+      <div aria-live="polite" className="sr-only" {...ariaLiveProps} />
       {/* Header - 8% height */}
       <header 
         role="banner" 
@@ -156,7 +189,7 @@ export default function Discover() {
         <div className="flex h-full items-center justify-between px-6">
           <div className="flex items-center space-x-2">
             <div className="h-8 w-8 rounded-full bg-garden-green flex items-center justify-center">
-              <span className="text-[--on-dark] font-primary font-bold text-lg">M</span>
+              <span className="text-[hsl(var(--on-dark))] font-primary font-bold text-lg">M</span>
             </div>
             <span className="font-primary font-bold text-xl text-text-primary">MindFolk</span>
           </div>
@@ -205,6 +238,7 @@ export default function Discover() {
                       onSave={handleSave}
                       onShowDetails={handleShowDetails}
                       onShowVideo={handleShowVideo}
+                      onKeyDown={handleCardKeyDown}
                       className="h-full"
                     />
                   </div>

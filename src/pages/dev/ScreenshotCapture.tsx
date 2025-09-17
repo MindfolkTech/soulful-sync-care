@@ -27,10 +27,10 @@ export default function ScreenshotCapturePage() {
           <div className="space-y-8">
             {/* Header */}
             <div className="text-center space-y-4">
-              <h1 className="font-primary text-3xl font-bold text-jovial-jade">
+              <h1 className="font-primary text-3xl font-bold text-[hsl(var(--jovial-jade))]">
                 Screenshot Analysis Tool
               </h1>
-              <p className="font-secondary text-text-secondary max-w-2xl mx-auto">
+              <p className="font-secondary text-[hsl(var(--text-secondary))] max-w-2xl mx-auto">
                 Automatically capture and analyze screenshots of every screen in the MindFolk app. 
                 Get insights on accessibility, performance, and visual issues.
               </p>
@@ -67,7 +67,7 @@ export default function ScreenshotCapturePage() {
                   </div>
                   <div className="space-y-2">
                     <p className="font-secondary font-medium text-sm">Parameters:</p>
-                    <ul className="text-sm text-text-secondary space-y-1">
+                    <ul className="text-sm text-[hsl(var(--text-secondary))] space-y-1">
                       <li>• <code>desktop</code> - Desktop screenshots (default)</li>
                       <li>• <code>mobile</code> - Mobile screenshots (375x667)</li>
                       <li>• <code>tablet</code> - Tablet screenshots (768x1024)</li>
@@ -90,7 +90,7 @@ export default function ScreenshotCapturePage() {
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
                         <Badge variant="secondary" className="mb-1">Public</Badge>
-                        <ul className="text-text-secondary space-y-1">
+                        <ul className="text-[hsl(var(--text-secondary))] space-y-1">
                           <li>• Landing Page</li>
                           <li>• Therapist Landing</li>
                           <li>• Sign In/Up</li>
@@ -98,7 +98,7 @@ export default function ScreenshotCapturePage() {
                       </div>
                       <div>
                         <Badge variant="secondary" className="mb-1">Client</Badge>
-                        <ul className="text-text-secondary space-y-1">
+                        <ul className="text-[hsl(var(--text-secondary))] space-y-1">
                           <li>• Assessment</li>
                           <li>• Discover</li>
                           <li>• Favorites</li>
@@ -107,7 +107,7 @@ export default function ScreenshotCapturePage() {
                       </div>
                       <div>
                         <Badge variant="secondary" className="mb-1">Therapist</Badge>
-                        <ul className="text-text-secondary space-y-1">
+                        <ul className="text-[hsl(var(--text-secondary))] space-y-1">
                           <li>• Onboarding</li>
                           <li>• Dashboard</li>
                           <li>• Clients</li>
@@ -116,7 +116,7 @@ export default function ScreenshotCapturePage() {
                       </div>
                       <div>
                         <Badge variant="secondary" className="mb-1">Admin</Badge>
-                        <ul className="text-text-secondary space-y-1">
+                        <ul className="text-[hsl(var(--text-secondary))] space-y-1">
                           <li>• Overview</li>
                           <li>• Users</li>
                           <li>• Therapists</li>
@@ -139,9 +139,9 @@ export default function ScreenshotCapturePage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    <p className="text-sm text-text-secondary">Resolution: 1280x720</p>
-                    <p className="text-sm text-text-secondary">Full page capture</p>
-                    <p className="text-sm text-text-secondary">High quality (90%)</p>
+                    <p className="text-sm text-[hsl(var(--text-secondary))]">Resolution: 1280x720</p>
+                    <p className="text-sm text-[hsl(var(--text-secondary))]">Full page capture</p>
+                    <p className="text-sm text-[hsl(var(--text-secondary))]">High quality (90%)</p>
                   </div>
                 </CardContent>
               </Card>
@@ -155,9 +155,9 @@ export default function ScreenshotCapturePage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    <p className="text-sm text-text-secondary">Resolution: 768x1024</p>
-                    <p className="text-sm text-text-secondary">Full page capture</p>
-                    <p className="text-sm text-text-secondary">High quality (90%)</p>
+                    <p className="text-sm text-[hsl(var(--text-secondary))]">Resolution: 768x1024</p>
+                    <p className="text-sm text-[hsl(var(--text-secondary))]">Full page capture</p>
+                    <p className="text-sm text-[hsl(var(--text-secondary))]">High quality (90%)</p>
                   </div>
                 </CardContent>
               </Card>
@@ -171,9 +171,9 @@ export default function ScreenshotCapturePage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    <p className="text-sm text-text-secondary">Resolution: 375x667</p>
-                    <p className="text-sm text-text-secondary">Viewport capture</p>
-                    <p className="text-sm text-text-secondary">High quality (90%)</p>
+                    <p className="text-sm text-[hsl(var(--text-secondary))]">Resolution: 375x667</p>
+                    <p className="text-sm text-[hsl(var(--text-secondary))]">Viewport capture</p>
+                    <p className="text-sm text-[hsl(var(--text-secondary))]">High quality (90%)</p>
                   </div>
                 </CardContent>
               </Card>

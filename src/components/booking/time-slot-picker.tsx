@@ -89,8 +89,8 @@ export function TimeSlotPicker({ selectedDate, selectedTime, onTimeSelect, thera
         </CardHeader>
         <CardContent>
           <div className="text-center py-8">
-            <Clock className="w-12 h-12 mx-auto text-text-muted mb-4" />
-            <p className="font-secondary text-text-secondary">
+            <Clock className="w-12 h-12 mx-auto text-[hsl(var(--text-muted))] mb-4" />
+            <p className="font-secondary text-[hsl(var(--text-secondary))]">
               Please select a date first to see available times
             </p>
           </div>
@@ -103,7 +103,7 @@ export function TimeSlotPicker({ selectedDate, selectedTime, onTimeSelect, thera
     <Card>
       <CardHeader>
         <CardTitle className="font-primary text-lg">Available Times</CardTitle>
-        <p className="text-sm text-text-secondary font-secondary">
+        <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary">
           {selectedDate.toLocaleDateString('en-GB', { 
             weekday: 'long', 
             year: 'numeric', 
@@ -114,7 +114,7 @@ export function TimeSlotPicker({ selectedDate, selectedTime, onTimeSelect, thera
       </CardHeader>
       <CardContent className="space-y-6">
         <div>
-          <h4 className="font-secondary font-semibold text-text-primary mb-3">Morning</h4>
+          <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))] mb-3">Morning</h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {morningSlots.map((slot) => (
               <TimeSlotButton key={slot.time} slot={slot} />
@@ -123,7 +123,7 @@ export function TimeSlotPicker({ selectedDate, selectedTime, onTimeSelect, thera
         </div>
         
         <div>
-          <h4 className="font-secondary font-semibold text-text-primary mb-3">Afternoon</h4>
+          <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))] mb-3">Afternoon</h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {afternoonSlots.map((slot) => (
               <TimeSlotButton key={slot.time} slot={slot} />
@@ -131,7 +131,7 @@ export function TimeSlotPicker({ selectedDate, selectedTime, onTimeSelect, thera
           </div>
         </div>
         
-        <div className="text-xs text-text-muted font-secondary">
+        <div className="text-xs text-[hsl(var(--text-muted))] font-secondary">
           <p>• All times are in your local timezone</p>
           <p>• Sessions are 15 minutes apart to allow for transitions</p>
         </div>

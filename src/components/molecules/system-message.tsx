@@ -25,14 +25,14 @@ const SystemMessage = React.forwardRef<HTMLDivElement, SystemMessageProps>(
     const typeConfig = {
       success: {
         icon: CheckCircle,
-        bgColor: "bg-success",
-        textColor: "text-success-foreground",
+        bgColor: "bg-[hsl(var(--success-bg))]",
+        textColor: "text-[hsl(var(--success-text))]",
         borderColor: "border-success",
       },
       warning: {
         icon: AlertTriangle,
-        bgColor: "bg-warning",
-        textColor: "text-warning-foreground", 
+        bgColor: "bg-[hsl(var(--warning-bg))]",
+        textColor: "text-[hsl(var(--warning-text))]", 
         borderColor: "border-warning",
       },
       error: {

@@ -47,8 +47,8 @@ const Timer = React.forwardRef<HTMLDivElement, TimerProps>(
           isCritical 
             ? "bg-error text-error-foreground" 
             : isWarning 
-            ? "bg-warning text-warning-foreground"
-            : "bg-success text-success-foreground",
+            ? "bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]"
+            : "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]",
           className
         )}
         {...props}

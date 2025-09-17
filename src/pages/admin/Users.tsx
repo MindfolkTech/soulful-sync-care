@@ -99,22 +99,22 @@ export default function AdminUsers() {
   const getRoleBadgeClass = (role: User["role"]) => {
     switch (role) {
       case "therapist":
-        return "bg-tag-specialty text-tag-specialty-foreground";
+        return "bg-[hsl(var(--tag-specialty-bg))] text-[hsl(var(--tag-specialty-text))]";
       case "client":
-        return "bg-tag-personality text-tag-personality-foreground";
+        return "bg-[hsl(var(--tag-personality-bg))] text-[hsl(var(--tag-personality-text))]";
       case "admin":
-        return "bg-tag-misc text-tag-misc-foreground";
+        return "bg-[hsl(var(--tag-misc-bg))] text-[hsl(var(--tag-misc-text))]";
     }
   };
 
   const getStatusBadgeClass = (status: User["status"]) => {
     switch (status) {
       case "active":
-        return "bg-success text-success-foreground";
+        return "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]";
       case "inactive":
-        return "bg-text-secondary text-[--on-dark]";
+        return "bg-[hsl(var(--text-secondary))] text-[hsl(var(--on-dark))]";
       case "suspended":
-        return "bg-destructive text-destructive-foreground";
+        return "bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))]";
     }
   };
 
@@ -147,8 +147,8 @@ export default function AdminUsers() {
         <Container>
           <div className="space-y-8">
             <div>
-              <h1 className="font-primary text-3xl text-text-primary mb-2">User Management</h1>
-              <p className="font-secondary text-text-secondary">Monitor and manage platform users</p>
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">User Management</h1>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Monitor and manage platform users</p>
             </div>
 
             {/* Impersonation Bar */}
@@ -160,7 +160,7 @@ export default function AdminUsers() {
                 <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                   <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center flex-1">
                     <div className="relative flex-1 max-w-sm">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-text-secondary" />
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[hsl(var(--text-secondary))]" />
                       <Input
                         placeholder="Search users..."
                         value={searchQuery}
@@ -193,13 +193,13 @@ export default function AdminUsers() {
                     </Select>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Badge variant="secondary" className="bg-success text-success-foreground">
+                    <Badge variant="secondary" className="bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]">
                       {activeUsers.length} Active
                     </Badge>
-                    <Badge variant="secondary" className="bg-text-secondary text-[--on-dark]">
+                    <Badge variant="secondary" className="bg-[hsl(var(--text-secondary))] text-[hsl(var(--on-dark))]">
                       {inactiveUsers.length} Inactive
                     </Badge>
-                    <Badge variant="secondary" className="bg-destructive text-destructive-foreground">
+                    <Badge variant="secondary" className="bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))]">
                       {suspendedUsers.length} Suspended
                     </Badge>
                   </div>
@@ -226,8 +226,8 @@ export default function AdminUsers() {
                     {filteredUsers.length === 0 ? (
                       <TableRow role="row">
                         <TableCell colSpan={7} className="text-center py-8">
-                          <User className="mx-auto h-12 w-12 text-text-secondary mb-2" />
-                          <p className="font-secondary text-text-secondary">No users found</p>
+                          <User className="mx-auto h-12 w-12 text-[hsl(var(--text-secondary))] mb-2" />
+                          <p className="font-secondary text-[hsl(var(--text-secondary))]">No users found</p>
                         </TableCell>
                       </TableRow>
                     ) : (
@@ -235,12 +235,12 @@ export default function AdminUsers() {
                         <TableRow key={user.id} role="row" aria-label={`User: ${user.name}, ${user.role}, ${user.status}`}>
                           <TableCell>
                             <div className="flex items-center gap-3">
-                              <div className="h-10 w-10 rounded-full bg-surface-accent flex items-center justify-center">
-                                <User className="h-5 w-5 text-text-primary" />
+                              <div className="h-10 w-10 rounded-full bg-[hsl(var(--surface-accent))] flex items-center justify-center">
+                                <User className="h-5 w-5 text-[hsl(var(--text-primary))]" />
                               </div>
                               <div>
-                                <h4 className="font-secondary font-bold text-text-primary">{user.name}</h4>
-                                <p className="font-secondary text-sm text-text-secondary">{user.email}</p>
+                                <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))]">{user.name}</h4>
+                                <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">{user.email}</p>
                               </div>
                             </div>
                           </TableCell>
@@ -262,19 +262,19 @@ export default function AdminUsers() {
                           </TableCell>
                           <TableCell>
                             <div className="flex items-center gap-2">
-                              <Calendar className="h-4 w-4 text-text-secondary" />
-                              <span className="font-secondary text-sm text-text-secondary">
+                              <Calendar className="h-4 w-4 text-[hsl(var(--text-secondary))]" />
+                              <span className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
                                 {formatDate(user.joinDate)}
                               </span>
                             </div>
                           </TableCell>
                           <TableCell>
-                            <span className="font-secondary text-sm text-text-secondary">
+                            <span className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
                               {formatLastActive(user.lastActive)}
                             </span>
                           </TableCell>
                           <TableCell>
-                            <span className="font-secondary font-medium text-text-primary">
+                            <span className="font-secondary font-medium text-[hsl(var(--text-primary))]">
                               {user.sessionsCount}
                             </span>
                           </TableCell>
@@ -293,7 +293,7 @@ export default function AdminUsers() {
                                 <Button
                                   variant="outline"
                                   size="sm"
-                                  className="text-success hover:bg-success hover:text-success-foreground min-h-[--touch-target-min]"
+                                  className="text-success hover:bg-[hsl(var(--success-bg))] hover:text-[hsl(var(--success-text))] min-h-[--touch-target-min]"
                                   onClick={() => handleStatusChange(user.id, "active")}
                                   aria-label={`Reactivate ${user.name}`}
                                 >
@@ -303,7 +303,7 @@ export default function AdminUsers() {
                                 <Button
                                   variant="outline"
                                   size="sm"
-                                  className="text-destructive hover:bg-destructive hover:text-destructive-foreground min-h-[--touch-target-min]"
+                                  className="text-destructive hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))] min-h-[--touch-target-min]"
                                   onClick={() => handleStatusChange(user.id, "suspended")}
                                   aria-label={`Suspend ${user.name}`}
                                 >
@@ -332,12 +332,12 @@ export default function AdminUsers() {
             </DialogHeader>
             <div className="space-y-6">
               <div className="flex items-center gap-4">
-                <div className="h-16 w-16 rounded-full bg-surface-accent flex items-center justify-center">
-                  <User className="h-8 w-8 text-text-primary" />
+                <div className="h-16 w-16 rounded-full bg-[hsl(var(--surface-accent))] flex items-center justify-center">
+                  <User className="h-8 w-8 text-[hsl(var(--text-primary))]" />
                 </div>
                 <div className="space-y-1">
-                  <h1 className="font-primary text-xl text-text-primary">{selectedUser.name}</h1>
-                  <p className="font-secondary text-text-secondary">{selectedUser.email}</p>
+                  <h1 className="font-primary text-xl text-[hsl(var(--text-primary))]">{selectedUser.name}</h1>
+                  <p className="font-secondary text-[hsl(var(--text-secondary))]">{selectedUser.email}</p>
                   <div className="flex items-center gap-2">
                     <Badge 
                       variant="secondary" 
@@ -357,20 +357,20 @@ export default function AdminUsers() {
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary">Join Date</p>
-                  <p className="font-secondary font-medium text-text-primary">{formatDate(selectedUser.joinDate)}</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Join Date</p>
+                  <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">{formatDate(selectedUser.joinDate)}</p>
                 </div>
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary">Last Active</p>
-                  <p className="font-secondary font-medium text-text-primary">{formatLastActive(selectedUser.lastActive)}</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Last Active</p>
+                  <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">{formatLastActive(selectedUser.lastActive)}</p>
                 </div>
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary">Total Sessions</p>
-                  <p className="font-secondary font-medium text-text-primary">{selectedUser.sessionsCount}</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Total Sessions</p>
+                  <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">{selectedUser.sessionsCount}</p>
                 </div>
                 <div>
-                  <p className="font-secondary text-sm text-text-secondary">User ID</p>
-                  <p className="font-secondary font-medium text-text-primary">{selectedUser.id}</p>
+                  <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">User ID</p>
+                  <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">{selectedUser.id}</p>
                 </div>
               </div>
 
@@ -384,7 +384,7 @@ export default function AdminUsers() {
                       handleStatusChange(selectedUser.id, "active");
                       setSelectedUser(null);
                     }}
-                    className="bg-success text-success-foreground hover:bg-success/90 min-h-[--touch-target-min]"
+                    className="bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))] hover:bg-[hsl(var(--success-bg))]/90 min-h-[--touch-target-min]"
                     aria-label={`Reactivate ${selectedUser.name}`}
                   >
                     <UserCheck className="h-4 w-4 mr-2" />
@@ -396,7 +396,7 @@ export default function AdminUsers() {
                       handleStatusChange(selectedUser.id, "suspended");
                       setSelectedUser(null);
                     }}
-                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90 min-h-[--touch-target-min]"
+                    className="bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))] hover:bg-[hsl(var(--error-bg))]/90 min-h-[--touch-target-min]"
                     aria-label={`Suspend ${selectedUser.name}`}
                   >
                     <Ban className="h-4 w-4 mr-2" />

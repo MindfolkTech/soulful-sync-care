@@ -39,8 +39,8 @@ export default function TherapistTasks() {
         <Container>
           <div className="space-y-6">
             <div>
-              <h1 className="font-primary text-3xl text-text-primary mb-2">Practice Tasks</h1>
-              <p className="font-secondary text-text-secondary">Manage your practice, clients, and professional requirements</p>
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Practice Tasks</h1>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Manage your practice, clients, and professional requirements</p>
             </div>
             <TaskHubShell
               role="therapist"

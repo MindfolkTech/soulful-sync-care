@@ -101,10 +101,10 @@ export function CookieConsent() {
             
             <div className="flex-1 space-y-4">
               <div>
-                <h3 className="font-primary text-lg font-semibold text-text-primary mb-2">
+                <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))] mb-2">
                   We use cookies
                 </h3>
-                <p className="font-secondary text-text-secondary text-sm">
+                <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
                   We use cookies to improve your experience, analyze site usage, and assist in our marketing efforts. 
                   You can choose which cookies to accept or reject.
                 </p>

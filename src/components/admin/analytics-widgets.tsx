@@ -113,7 +113,7 @@ export function AnalyticsWidgets({ className }: AnalyticsWidgetsProps) {
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
               <CardTitle className="font-primary">Weekly Activity</CardTitle>
-              <p className="font-secondary text-sm text-text-secondary">User engagement and sessions</p>
+              <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">User engagement and sessions</p>
             </div>
             <Button variant="outline" size="sm">
               <RefreshCw className="h-4 w-4" />
@@ -154,7 +154,7 @@ export function AnalyticsWidgets({ className }: AnalyticsWidgetsProps) {
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
               <CardTitle className="font-primary">Growth Trends</CardTitle>
-              <p className="font-secondary text-sm text-text-secondary">6-month overview</p>
+              <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">6-month overview</p>
             </div>
             <Button variant="outline" size="sm">
               <Download className="h-4 w-4" />
@@ -192,7 +192,7 @@ export function AnalyticsWidgets({ className }: AnalyticsWidgetsProps) {
         <Card>
           <CardHeader>
             <CardTitle className="font-primary">Therapist Specialties</CardTitle>
-            <p className="font-secondary text-sm text-text-secondary">Distribution of expertise areas</p>
+            <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Distribution of expertise areas</p>
           </CardHeader>
           <CardContent className="space-y-4">
             <ChartContainer config={chartConfig} className="h-64">
@@ -222,7 +222,7 @@ export function AnalyticsWidgets({ className }: AnalyticsWidgetsProps) {
                     className="w-3 h-3 rounded-full"
                     style={{ backgroundColor: item.color }}
                   />
-                  <span className="font-secondary text-sm text-text-secondary">
+                  <span className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
                     {item.name}: {item.value}%
                   </span>
                 </div>
@@ -235,7 +235,7 @@ export function AnalyticsWidgets({ className }: AnalyticsWidgetsProps) {
         <Card>
           <CardHeader>
             <CardTitle className="font-primary">User Retention</CardTitle>
-            <p className="font-secondary text-sm text-text-secondary">Percentage of users retained over time</p>
+            <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Percentage of users retained over time</p>
           </CardHeader>
           <CardContent className="space-y-4">
             <ChartContainer config={chartConfig} className="h-64">
@@ -256,10 +256,10 @@ export function AnalyticsWidgets({ className }: AnalyticsWidgetsProps) {
             <div className="space-y-2">
               {userRetentionData.slice(0, 3).map((item) => (
                 <div key={item.week} className="flex items-center justify-between">
-                  <span className="font-secondary text-sm text-text-secondary">{item.week}</span>
+                  <span className="font-secondary text-sm text-[hsl(var(--text-secondary))]">{item.week}</span>
                   <div className="flex items-center gap-2">
                     <Progress value={item.retained} className="w-20 h-2" />
-                    <span className="font-secondary text-sm font-medium text-text-primary">
+                    <span className="font-secondary text-sm font-medium text-[hsl(var(--text-primary))]">
                       {item.retained}%
                     </span>
                   </div>
@@ -274,7 +274,7 @@ export function AnalyticsWidgets({ className }: AnalyticsWidgetsProps) {
       <Card>
         <CardHeader>
           <CardTitle className="font-primary">Platform Health</CardTitle>
-          <p className="font-secondary text-sm text-text-secondary">Real-time system metrics</p>
+          <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">Real-time system metrics</p>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -326,18 +326,18 @@ function KPICard({ title, value, change, trend, icon: Icon, description }: KPICa
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-md bg-surface-accent flex items-center justify-center">
-              <Icon className="h-5 w-5 text-text-primary" />
+            <div className="h-10 w-10 rounded-md bg-[hsl(var(--surface-accent))] flex items-center justify-center">
+              <Icon className="h-5 w-5 text-[hsl(var(--text-primary))]" />
             </div>
             <div>
-              <p className="font-secondary text-sm text-text-secondary">{title}</p>
-              <p className="font-primary text-2xl font-semibold text-text-primary">{value}</p>
+              <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">{title}</p>
+              <p className="font-primary text-2xl font-semibold text-[hsl(var(--text-primary))]">{value}</p>
             </div>
           </div>
           <div className={`flex items-center gap-1 px-2 py-1 rounded-md ${
             isPositive 
-              ? 'bg-success/10 text-success' 
-              : 'bg-destructive/10 text-destructive'
+              ? 'bg-[hsl(var(--success-bg))]/10 text-success' 
+              : 'bg-[hsl(var(--error-bg))]/10 text-destructive'
           }`}>
             {isPositive ? (
               <ArrowUpRight className="h-4 w-4" />
@@ -349,7 +349,7 @@ function KPICard({ title, value, change, trend, icon: Icon, description }: KPICa
             </span>
           </div>
         </div>
-        <p className="font-secondary text-sm text-text-secondary mt-2">{description}</p>
+        <p className="font-secondary text-sm text-[hsl(var(--text-secondary))] mt-2">{description}</p>
       </CardContent>
     </Card>
   );
@@ -366,11 +366,11 @@ function HealthMetric({ label, value, status, description }: HealthMetricProps) 
   const getStatusColor = () => {
     switch (status) {
       case "healthy":
-        return "bg-success text-success-foreground";
+        return "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]";
       case "warning":
-        return "bg-warning text-warning-foreground";
+        return "bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]";
       case "critical":
-        return "bg-destructive text-destructive-foreground";
+        return "bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))]";
     }
   };
 
@@ -380,9 +380,9 @@ function HealthMetric({ label, value, status, description }: HealthMetricProps) 
         {status}
       </Badge>
       <div>
-        <p className="font-primary text-2xl font-semibold text-text-primary">{value}</p>
-        <p className="font-secondary font-medium text-text-primary">{label}</p>
-        <p className="font-secondary text-sm text-text-secondary">{description}</p>
+        <p className="font-primary text-2xl font-semibold text-[hsl(var(--text-primary))]">{value}</p>
+        <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">{label}</p>
+        <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">{description}</p>
       </div>
     </div>
   );

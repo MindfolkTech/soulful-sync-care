@@ -124,8 +124,8 @@ export function SessionCountdown({
     <HStack justify="between" spacing="sm" className={cn("min-w-0", className)}>
       <HStack spacing="sm" className="min-w-0 flex-1">
         <HStack spacing="xs">
-          <statusInfo.icon className="w-4 h-4 text-[--text-secondary]" />
-          <span className="font-secondary text-sm text-[--text-secondary]">
+          <statusInfo.icon className="w-4 h-4 text-[hsl(var(--text-secondary))]" />
+          <span className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
             {formatTimeDisplay()}
           </span>
         </HStack>
@@ -150,7 +150,7 @@ export function SessionCountdown({
           {sessionStarted ? "Join Session" : "JOIN NOW"}
         </Button>
       ) : (
-        <span className="text-xs font-secondary text-[--text-secondary] tabular-nums">
+        <span className="text-xs font-secondary text-[hsl(var(--text-secondary))] tabular-nums">
           {new Date(sessionTime).toLocaleTimeString('en-US', {
             hour: 'numeric',
             minute: '2-digit',

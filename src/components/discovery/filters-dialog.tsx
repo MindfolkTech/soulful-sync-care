@@ -63,7 +63,7 @@ export function FiltersDialog({ open, onOpenChange, trigger }: FiltersDialogProp
                   className={`${
                     selectedModality === modality 
                       ? "bg-tag-modality text-tag-modality-foreground" 
-                      : "bg-surface-accent text-text-primary hover:bg-tag-modality hover:text-tag-modality-foreground"
+                      : "bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-primary))] hover:bg-tag-modality hover:text-tag-modality-foreground"
                   } px-3 py-1 text-sm rounded-pill transition-colors`}
                 >
                   {modality}
@@ -76,7 +76,7 @@ export function FiltersDialog({ open, onOpenChange, trigger }: FiltersDialogProp
           <div>
             <h3 className="font-primary font-semibold mb-2">
               Personality (max 3) 
-              <span className="text-sm text-text-secondary ml-2">
+              <span className="text-sm text-[hsl(var(--text-secondary))] ml-2">
                 {selectedPersonality.length}/3
               </span>
             </h3>
@@ -92,10 +92,10 @@ export function FiltersDialog({ open, onOpenChange, trigger }: FiltersDialogProp
                     disabled={isDisabled}
                     className={`${
                       isSelected 
-                        ? "bg-tag-personality text-tag-personality-foreground" 
+                        ? "bg-[hsl(var(--tag-personality-bg))] text-[hsl(var(--tag-personality-text))]" 
                         : isDisabled
-                          ? "bg-surface text-text-secondary cursor-not-allowed"
-                          : "bg-surface-accent text-text-primary hover:bg-tag-personality hover:text-tag-personality-foreground"
+                          ? "bg-surface text-[hsl(var(--text-secondary))] cursor-not-allowed"
+                          : "bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--tag-personality-bg))] hover:text-[hsl(var(--tag-personality-text))]"
                     } px-3 py-1 text-sm rounded-pill transition-colors`}
                   >
                     {personality}
@@ -104,7 +104,7 @@ export function FiltersDialog({ open, onOpenChange, trigger }: FiltersDialogProp
               })}
             </div>
             {selectedPersonality.length >= 3 && (
-              <p className="text-sm text-text-secondary mt-2">
+              <p className="text-sm text-[hsl(var(--text-secondary))] mt-2">
                 Maximum selections reached. Deselect to choose different options.
               </p>
             )}
@@ -114,7 +114,7 @@ export function FiltersDialog({ open, onOpenChange, trigger }: FiltersDialogProp
           <div>
             <h3 className="font-primary font-semibold mb-2">
               Specialties (max 3)
-              <span className="text-sm text-text-secondary ml-2">
+              <span className="text-sm text-[hsl(var(--text-secondary))] ml-2">
                 {selectedSpecialties.length}/3
               </span>
             </h3>
@@ -130,10 +130,10 @@ export function FiltersDialog({ open, onOpenChange, trigger }: FiltersDialogProp
                     disabled={isDisabled}
                     className={`${
                       isSelected 
-                        ? "bg-tag-specialty text-tag-specialty-foreground" 
+                        ? "bg-[hsl(var(--tag-specialty-bg))] text-[hsl(var(--tag-specialty-text))]" 
                         : isDisabled
-                          ? "bg-surface text-text-secondary cursor-not-allowed"
-                          : "bg-surface-accent text-text-primary hover:bg-tag-specialty hover:text-tag-specialty-foreground"
+                          ? "bg-surface text-[hsl(var(--text-secondary))] cursor-not-allowed"
+                          : "bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--tag-specialty-bg))] hover:text-[hsl(var(--tag-specialty-text))]"
                     } px-3 py-1 text-sm rounded-pill transition-colors`}
                   >
                     {specialty}
@@ -142,7 +142,7 @@ export function FiltersDialog({ open, onOpenChange, trigger }: FiltersDialogProp
               })}
             </div>
             {selectedSpecialties.length >= 3 && (
-              <p className="text-sm text-text-secondary mt-2">
+              <p className="text-sm text-[hsl(var(--text-secondary))] mt-2">
                 Maximum selections reached. Deselect to choose different options.
               </p>
             )}

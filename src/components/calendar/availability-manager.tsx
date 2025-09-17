@@ -97,7 +97,7 @@ export function AvailabilityManager({
   return (
     <Card>
       <CardHeader className="p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
-        <CardTitle className="font-primary text-[--jovial-jade] text-sm md:text-base">
+        <CardTitle className="font-primary text-[hsl(var(--jovial-jade))] text-sm md:text-base">
           Availability Management
         </CardTitle>
       </CardHeader>
@@ -125,7 +125,7 @@ export function AvailabilityManager({
                         onCheckedChange={(checked) => updateWorkingHour(day, 'enabled', checked)}
                         className="min-h-[--touch-target-min]"
                       />
-                      <Label className="font-secondary text-[--text-primary] text-sm">
+                      <Label className="font-secondary text-[hsl(var(--text-primary))] text-sm">
                         {day}
                       </Label>
                     </div>
@@ -133,14 +133,14 @@ export function AvailabilityManager({
                     {dayHours.enabled && (
                       <div className="flex items-center gap-[--space-xs]">
                         <div className="flex items-center gap-[--space-xs]">
-                          <Clock className="w-4 h-4 text-[--text-secondary]" />
+                          <Clock className="w-4 h-4 text-[hsl(var(--text-secondary))]" />
                           <Input
                             type="time"
                             value={dayHours.startTime}
                             onChange={(e) => updateWorkingHour(day, 'startTime', e.target.value)}
                             className="w-24 min-h-[--touch-target-min] font-secondary text-xs"
                           />
-                          <span className="font-secondary text-[--text-secondary] text-xs">to</span>
+                          <span className="font-secondary text-[hsl(var(--text-secondary))] text-xs">to</span>
                           <Input
                             type="time"
                             value={dayHours.endTime}
@@ -175,10 +175,10 @@ export function AvailabilityManager({
 
             {/* Add New Blocked Time Form */}
             {isAddingBlockedTime && (
-              <div className="p-[--space-sm] border border-[--garden-green] rounded-lg bg-[--surface-accent] mb-[--space-sm]">
+              <div className="p-[--space-sm] border border-[hsl(var(--garden-green))] rounded-lg bg-[hsl(var(--surface-accent))] mb-[--space-sm]">
                 <div className="space-y-[--space-sm]">
                   <div>
-                    <Label className="font-secondary text-[--text-primary] text-xs">
+                    <Label className="font-secondary text-[hsl(var(--text-primary))] text-xs">
                       Title
                     </Label>
                     <Input
@@ -191,7 +191,7 @@ export function AvailabilityManager({
                   
                   <div className="grid grid-cols-2 gap-[--space-sm]">
                     <div>
-                      <Label className="font-secondary text-[--text-primary] text-xs">
+                      <Label className="font-secondary text-[hsl(var(--text-primary))] text-xs">
                         Start Date
                       </Label>
                       <Input
@@ -202,7 +202,7 @@ export function AvailabilityManager({
                       />
                     </div>
                     <div>
-                      <Label className="font-secondary text-[--text-primary] text-xs">
+                      <Label className="font-secondary text-[hsl(var(--text-primary))] text-xs">
                         End Date
                       </Label>
                       <Input
@@ -216,7 +216,7 @@ export function AvailabilityManager({
 
                   <div className="grid grid-cols-2 gap-[--space-sm]">
                     <div>
-                      <Label className="font-secondary text-[--text-primary] text-xs">
+                      <Label className="font-secondary text-[hsl(var(--text-primary))] text-xs">
                         Start Time
                       </Label>
                       <Input
@@ -227,7 +227,7 @@ export function AvailabilityManager({
                       />
                     </div>
                     <div>
-                      <Label className="font-secondary text-[--text-primary] text-xs">
+                      <Label className="font-secondary text-[hsl(var(--text-primary))] text-xs">
                         End Time
                       </Label>
                       <Input
@@ -245,7 +245,7 @@ export function AvailabilityManager({
                       onCheckedChange={(checked) => setNewBlockedTime({ ...newBlockedTime, recurring: checked })}
                       className="min-h-[--touch-target-min]"
                     />
-                    <Label className="font-secondary text-[--text-primary] text-xs">
+                    <Label className="font-secondary text-[hsl(var(--text-primary))] text-xs">
                       Recurring weekly
                     </Label>
                   </div>
@@ -278,12 +278,12 @@ export function AvailabilityManager({
               {blockedTimes.map(blockedTime => (
                 <div key={blockedTime.id} className="flex items-center justify-between p-[--space-sm] border rounded-lg min-h-[--touch-target-min]">
                   <div className="flex items-center gap-[--space-sm]">
-                    <Clock className="w-4 h-4 text-[--text-secondary]" />
+                    <Clock className="w-4 h-4 text-[hsl(var(--text-secondary))]" />
                     <div>
                       <h4 className="font-secondary font-bold text-foreground text-sm">
                         {blockedTime.title}
                       </h4>
-                      <p className="font-secondary text-[--text-secondary] text-xs">
+                      <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs">
                         {new Date(blockedTime.startDate).toLocaleDateString()} • 
                         {formatTimeDisplay(blockedTime.startTime)} - {formatTimeDisplay(blockedTime.endTime)}
                         {blockedTime.recurring && ' (Weekly)'}
@@ -292,7 +292,7 @@ export function AvailabilityManager({
                   </div>
                   <div className="flex items-center gap-[--space-xs]">
                     {blockedTime.recurring && (
-                      <Badge className="bg-[--tag-language-bg] text-[--tag-language-text] text-xs">
+                      <Badge className="bg-[hsl(var(--tag-language-bg))] text-[hsl(var(--tag-language-text))] text-xs">
                         Recurring
                       </Badge>
                     )}
@@ -309,7 +309,7 @@ export function AvailabilityManager({
               ))}
               
               {blockedTimes.length === 0 && (
-                <div className="text-center p-[--space-md] text-[--text-muted]">
+                <div className="text-center p-[--space-md] text-[hsl(var(--text-muted))]">
                   <Clock className="w-8 h-8 mx-auto mb-[--space-xs] opacity-50" />
                   <p className="font-secondary text-xs">
                     No blocked time scheduled

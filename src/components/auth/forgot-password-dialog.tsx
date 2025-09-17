@@ -60,8 +60,8 @@ export function ForgotPasswordDialog() {
               <Mail className="w-6 h-6 text-primary" />
             </div>
             <div className="space-y-2">
-              <p className="font-secondary text-text-primary">Check your email</p>
-              <p className="text-sm text-text-secondary font-secondary">
+              <p className="font-secondary text-[hsl(var(--text-primary))]">Check your email</p>
+              <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary">
                 We've sent a password reset link to {email}
               </p>
             </div>

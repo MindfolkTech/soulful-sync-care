@@ -80,7 +80,7 @@ export function FilterDropdown({
           <Filter className="w-4 h-4 mr-2" />
           Filter
           {hasActiveFilters() && (
-            <Badge className="ml-2 bg-[--garden-green] text-[--on-dark] text-xs">
+            <Badge className="ml-2 bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))] text-xs">
               {getFilterCount()}
             </Badge>
           )}
@@ -90,7 +90,7 @@ export function FilterDropdown({
         <div className="space-y-[--space-md]">
           {/* Header */}
           <div className="flex items-center justify-between">
-            <h3 className="font-primary text-[--jovial-jade] text-lg">Filter Appointments</h3>
+            <h3 className="font-primary text-[hsl(var(--jovial-jade))] text-lg">Filter Appointments</h3>
             {hasActiveFilters() && (
               <Button
                 variant="ghost"
@@ -106,7 +106,7 @@ export function FilterDropdown({
 
           {/* Date Range */}
           <div>
-            <h4 className="font-secondary font-bold text-[--text-primary] text-sm mb-[--space-sm]">
+            <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-sm mb-[--space-sm]">
               Date Range
             </h4>
             <div className="grid grid-cols-2 gap-[--space-xs]">
@@ -131,7 +131,7 @@ export function FilterDropdown({
 
           {/* Appointment Type */}
           <div>
-            <h4 className="font-secondary font-bold text-[--text-primary] text-sm mb-[--space-sm]">
+            <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-sm mb-[--space-sm]">
               Appointment Type
             </h4>
             <div className="space-y-[--space-xs]">
@@ -144,7 +144,7 @@ export function FilterDropdown({
                     onChange={() => handleFilterChange('appointmentType', toggleArrayItem(filters.appointmentType, type))}
                     className="min-h-[--touch-target-min]"
                   />
-                  <Label htmlFor={`type-${type}`} className="font-secondary text-[--text-primary] text-sm">
+                  <Label htmlFor={`type-${type}`} className="font-secondary text-[hsl(var(--text-primary))] text-sm">
                     {type}
                   </Label>
                 </div>
@@ -154,7 +154,7 @@ export function FilterDropdown({
 
           {/* Status */}
           <div>
-            <h4 className="font-secondary font-bold text-[--text-primary] text-sm mb-[--space-sm]">
+            <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-sm mb-[--space-sm]">
               Status
             </h4>
             <div className="space-y-[--space-xs]">
@@ -167,7 +167,7 @@ export function FilterDropdown({
                     onChange={() => handleFilterChange('status', toggleArrayItem(filters.status, status))}
                     className="min-h-[--touch-target-min]"
                   />
-                  <Label htmlFor={`status-${status}`} className="font-secondary text-[--text-primary] text-sm capitalize">
+                  <Label htmlFor={`status-${status}`} className="font-secondary text-[hsl(var(--text-primary))] text-sm capitalize">
                     {status}
                   </Label>
                 </div>
@@ -177,7 +177,7 @@ export function FilterDropdown({
 
           {/* Client Search */}
           <div>
-            <h4 className="font-secondary font-bold text-[--text-primary] text-sm mb-[--space-sm]">
+            <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-sm mb-[--space-sm]">
               Client
             </h4>
             <input
@@ -185,34 +185,34 @@ export function FilterDropdown({
               value={filters.client}
               onChange={(e) => handleFilterChange('client', e.target.value)}
               placeholder="Search by client name..."
-              className="w-full min-h-[--touch-target-min] font-secondary text-sm px-[--space-sm] py-[--space-xs] border border-[--border] rounded-[--radius-md]"
+              className="w-full min-h-[--touch-target-min] font-secondary text-sm px-[--space-sm] py-[--space-xs] border border-[hsl(var(--border))] rounded-[--radius-md]"
             />
           </div>
 
           {/* Active Filters Display */}
           {hasActiveFilters() && (
             <div>
-              <h4 className="font-secondary font-bold text-[--text-primary] text-sm mb-[--space-sm]">
+              <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-sm mb-[--space-sm]">
                 Active Filters
               </h4>
               <div className="flex flex-wrap gap-[--space-xs]">
                 {filters.dateRange !== 'week' && (
-                  <Badge className="bg-[--surface-accent] text-[--text-primary] text-xs">
+                  <Badge className="bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-primary))] text-xs">
                     {filters.dateRange}
                   </Badge>
                 )}
                 {filters.appointmentType.map(type => (
-                  <Badge key={type} className="bg-[--surface-accent] text-[--text-primary] text-xs">
+                  <Badge key={type} className="bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-primary))] text-xs">
                     {type}
                   </Badge>
                 ))}
                 {filters.status.map(status => (
-                  <Badge key={status} className="bg-[--surface-accent] text-[--text-primary] text-xs">
+                  <Badge key={status} className="bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-primary))] text-xs">
                     {status}
                   </Badge>
                 ))}
                 {filters.client && (
-                  <Badge className="bg-[--surface-accent] text-[--text-primary] text-xs">
+                  <Badge className="bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-primary))] text-xs">
                     {filters.client}
                   </Badge>
                 )}
