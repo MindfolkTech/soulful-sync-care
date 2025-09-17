@@ -52,6 +52,7 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
                 size="sm"
                 className="md:hidden text-white hover:bg-white/20 min-h-touch-min"
                 onClick={() => setSidebarOpen(!sidebarOpen)}
+                aria-label={sidebarOpen ? "Close navigation menu" : "Open navigation menu"}
               >
                 {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </Button>
@@ -129,6 +130,7 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
                       key={index}
                       variant="ghost" 
                       className="w-full justify-start font-secondary text-jovial-jade hover:bg-jovial-jade hover:text-white min-h-touch-min"
+                      aria-label={`Quick action: ${action}`}
                     >
                       <PlusCircle className="mr-2 h-4 w-4" />
                       {action}
@@ -140,7 +142,7 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
 
             {/* Sign out at bottom */}
             <div className="border-t border-border pt-4">
-              <button className="flex items-center gap-3 py-2 text-jovial-jade hover:text-garden-green transition-colors min-h-touch-min w-full justify-start">
+              <button className="flex items-center gap-3 py-2 text-jovial-jade hover:text-garden-green transition-colors min-h-touch-min w-full justify-start" aria-label="Sign out of account">
                 <span className="font-secondary text-sm">Sign out</span>
               </button>
             </div>
@@ -162,14 +164,14 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
           <Container className="py-8 min-h-full max-w-full">
             {/* Page title section */}
             {(title || subtitle) && (
-              <div className="mb-8">
+              <div className="mb-[--space-xl]">
                 {title && (
-                  <h1 className="font-primary text-3xl font-bold text-jovial-jade mb-2">
+                  <h2 className="font-primary text-[--text-3xl] font-bold text-[--jovial-jade] mb-[--space-xs]">
                     {title}
-                  </h1>
+                  </h2>
                 )}
                 {subtitle && (
-                  <p className="font-secondary text-muted-foreground">
+                  <p className="font-secondary text-[--text-secondary]">
                     {subtitle}
                   </p>
                 )}
@@ -177,7 +179,7 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
             )}
             
             {/* Page content */}
-            <div className="min-h-0 w-full overflow-hidden">
+            <div className="min-h-0 w-full overflow-auto">
               {children}
             </div>
           </Container>

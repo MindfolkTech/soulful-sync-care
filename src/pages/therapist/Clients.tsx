@@ -86,7 +86,7 @@ export default function TherapistClients() {
       title="My Clients"
       subtitle="Manage your client relationships and session history"
     >
-      <Stack className="space-y-6">
+      <Stack className="space-y-[--space-lg]">
         {/* Search and Filter Controls */}
         <HStack className="justify-between">
           <div className="relative flex-1 max-w-md">
@@ -97,7 +97,7 @@ export default function TherapistClients() {
             />
           </div>
           <HStack>
-            <Button variant="outline" className="min-h-touch-min">
+            <Button variant="outline" className="min-h-touch-min" aria-label="Filter clients">
               <Filter className="w-4 h-4 mr-2" />
               Filter
             </Button>
@@ -110,9 +110,9 @@ export default function TherapistClients() {
         </HStack>
 
         {/* Client Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-[--space-md]">
           <Card>
-            <CardContent className="p-4 md:p-5 lg:p-6">
+            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
               <div className="text-center">
                 <div className="font-primary text-2xl font-bold text-foreground">5</div>
                 <div className="font-secondary text-muted-foreground text-sm">Total Clients</div>
@@ -120,7 +120,7 @@ export default function TherapistClients() {
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="p-4 md:p-5 lg:p-6">
+            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
               <div className="text-center">
                 <div className="font-primary text-2xl font-bold text-success">4</div>
                 <div className="font-secondary text-muted-foreground text-sm">Active</div>
@@ -128,7 +128,7 @@ export default function TherapistClients() {
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="p-4 md:p-5 lg:p-6">
+            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
               <div className="text-center">
                 <div className="font-primary text-2xl font-bold text-foreground">20</div>
                 <div className="font-secondary text-muted-foreground text-sm">Total Sessions</div>
@@ -136,7 +136,7 @@ export default function TherapistClients() {
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="p-4 md:p-5 lg:p-6">
+            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
               <div className="text-center">
                 <div className="font-primary text-2xl font-bold text-foreground">4.9</div>
                 <div className="font-secondary text-muted-foreground text-sm">Avg Rating</div>
@@ -152,7 +152,7 @@ export default function TherapistClients() {
               {clients.map((client, index) => (
                 <div 
                   key={client.id} 
-                  className={`p-4 md:p-5 lg:p-6 hover:bg-muted/50 transition-colors ${
+                  className={`p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl] hover:bg-muted/50 transition-colors ${
                     index !== clients.length - 1 ? 'border-b border-border' : ''
                   }`}
                 >
@@ -202,16 +202,16 @@ export default function TherapistClients() {
                     
                     {/* Action buttons */}
                     <HStack className="gap-2">
-                      <Button variant="ghost" size="sm" className="min-h-touch-min">
+                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`Send message to ${client.name}`}>
                         <MessageCircle className="w-4 h-4" />
                       </Button>
-                      <Button variant="ghost" size="sm" className="min-h-touch-min">
+                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`Schedule appointment with ${client.name}`}>
                         <Calendar className="w-4 h-4" />
                       </Button>
-                      <Button variant="ghost" size="sm" className="min-h-touch-min">
+                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`View notes for ${client.name}`}>
                         <FileText className="w-4 h-4" />
                       </Button>
-                      <Button variant="ghost" size="sm" className="min-h-touch-min">
+                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`More options for ${client.name}`}>
                         <MoreHorizontal className="w-4 h-4" />
                       </Button>
                     </HStack>

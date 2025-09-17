@@ -1,5 +1,5 @@
 import { chromium } from 'playwright';
-import type { Page } from 'playwright';
+import type { Page, Browser } from 'playwright';
 
 export interface ScreenshotConfig {
   width?: number;
@@ -71,7 +71,11 @@ export class ScreenshotCapture {
 
       // Wait for specific element if specified
       if (route.waitFor) {
-        await page.waitForSelector(route.waitFor, { timeout: 10000 });
+        try {
+          await page.waitForSelector(route.waitFor, { timeout: 10000 });
+        } catch (error) {
+          console.warn(`⚠️  Element '${route.waitFor}' not found for ${route.name}, continuing anyway...`);
+        }
       }
 
       // Additional delay if specified
@@ -80,12 +84,18 @@ export class ScreenshotCapture {
       }
 
       // Take screenshot
-      const screenshot = await page.screenshot({
+      const screenshotOptions: any = {
         path: undefined, // Return buffer instead of saving to file
         fullPage: config.fullPage ?? true,
-        quality: config.quality ?? 90,
         type: config.format ?? 'png'
-      });
+      };
+      
+      // Only add quality for JPEG format
+      if (screenshotOptions.type === 'jpeg') {
+        screenshotOptions.quality = config.quality ?? 90;
+      }
+      
+      const screenshot = await page.screenshot(screenshotOptions);
 
       return screenshot;
     } finally {
@@ -96,8 +106,9 @@ export class ScreenshotCapture {
   async captureAllRoutes(
     routes: RouteConfig[], 
     config: ScreenshotConfig = {}
-  ): Promise<Map<string, Buffer>> {
+  ): Promise<{ screenshots: Map<string, Buffer>; failures: string[]; successCount: number; failureCount: number }> {
     const screenshots = new Map<string, Buffer>();
+    const failures: string[] = [];
     
     for (const route of routes) {
       try {
@@ -106,11 +117,18 @@ export class ScreenshotCapture {
         screenshots.set(route.name, screenshot);
         console.log(`✅ Captured: ${route.name}`);
       } catch (error) {
+        const errorMsg = `${route.name}: ${error instanceof Error ? error.message : String(error)}`;
+        failures.push(errorMsg);
         console.error(`❌ Failed to capture ${route.name}:`, error);
       }
     }
 
-    return screenshots;
+    return {
+      screenshots,
+      failures,
+      successCount: screenshots.size,
+      failureCount: failures.length
+    };
   }
 
   async saveScreenshots(

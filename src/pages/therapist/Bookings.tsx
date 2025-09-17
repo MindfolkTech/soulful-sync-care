@@ -81,11 +81,11 @@ export default function TherapistBookings() {
       title="Bookings & Schedule"
       subtitle="Manage your appointments and availability"
     >
-      <Stack className="space-y-6">
+      <Stack className="space-y-[--space-lg]">
         {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-[--space-md]">
           <Card>
-            <CardContent className="p-4 md:p-5 lg:p-6">
+            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
               <div className="text-center">
                 <div className="font-primary text-2xl font-bold text-foreground">4</div>
                 <div className="font-secondary text-muted-foreground text-sm">Today's Sessions</div>
@@ -93,7 +93,7 @@ export default function TherapistBookings() {
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="p-4 md:p-5 lg:p-6">
+            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
               <div className="text-center">
                 <div className="font-primary text-2xl font-bold text-foreground">12</div>
                 <div className="font-secondary text-muted-foreground text-sm">This Week</div>
@@ -101,7 +101,7 @@ export default function TherapistBookings() {
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="p-4 md:p-5 lg:p-6">
+            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
               <div className="text-center">
                 <div className="font-primary text-2xl font-bold text-success">3</div>
                 <div className="font-secondary text-muted-foreground text-sm">Pending</div>
@@ -109,7 +109,7 @@ export default function TherapistBookings() {
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="p-4 md:p-5 lg:p-6">
+            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
               <div className="text-center">
                 <div className="font-primary text-2xl font-bold text-foreground">18</div>
                 <div className="font-secondary text-muted-foreground text-sm">Available Slots</div>
@@ -119,7 +119,7 @@ export default function TherapistBookings() {
         </div>
 
         {/* Main Content Tabs */}
-        <Tabs defaultValue="upcoming" className="space-y-6">
+        <Tabs defaultValue="upcoming" className="space-y-[--space-lg]">
           <HStack className="justify-between">
             <TabsList className="grid grid-cols-3 w-fit">
               <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
@@ -128,21 +128,21 @@ export default function TherapistBookings() {
             </TabsList>
             
             <HStack>
-              <Button variant="outline" className="min-h-touch-min">
+              <Button variant="outline" className="min-h-touch-min" aria-label="Filter appointments">
                 <Filter className="w-4 h-4 mr-2" />
                 Filter
               </Button>
-              <Button className="bg-garden-green text-white hover:bg-elated-emerald min-h-touch-min">
+              <Button className="bg-garden-green text-white hover:bg-elated-emerald min-h-touch-min" aria-label="Add new appointment">
                 <Calendar className="w-4 h-4 mr-2" />
                 Add Appointment
               </Button>
             </HStack>
           </HStack>
 
-          <TabsContent value="upcoming" className="space-y-4">
+          <TabsContent value="upcoming" className="space-y-[--space-md]">
             {bookings.map((booking) => (
               <Card key={booking.id}>
-                <CardContent className="p-4 md:p-5 lg:p-6">
+                <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4 flex-1">
                       <Avatar className="w-12 h-12">
@@ -183,13 +183,13 @@ export default function TherapistBookings() {
                     </div>
                     
                     <HStack className="gap-2">
-                      <Button variant="ghost" size="sm" className="min-h-touch-min">
+                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`Start video call for ${booking.type}`}>
                         <Video className="w-4 h-4" />
                       </Button>
-                      <Button variant="ghost" size="sm" className="min-h-touch-min">
+                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`Send message about ${booking.type}`}>
                         <MessageCircle className="w-4 h-4" />
                       </Button>
-                      <Button variant="ghost" size="sm" className="min-h-touch-min">
+                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`More options for ${booking.type}`}>
                         <MoreHorizontal className="w-4 h-4" />
                       </Button>
                     </HStack>
@@ -199,9 +199,9 @@ export default function TherapistBookings() {
             ))}
           </TabsContent>
 
-          <TabsContent value="calendar" className="space-y-4">
+          <TabsContent value="calendar" className="space-y-[--space-md]">
             <Card>
-              <CardContent className="p-4 md:p-5 lg:p-6">
+              <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
                 <div className="h-96 flex items-center justify-center border-2 border-dashed border-border rounded-lg">
                   <div className="text-center">
                     <Calendar className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
@@ -215,27 +215,27 @@ export default function TherapistBookings() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="availability" className="space-y-4">
+          <TabsContent value="availability" className="space-y-[--space-md]">
             <Card>
-              <CardContent className="p-4 md:p-5 lg:p-6">
-                <div className="space-y-6">
+              <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
+                <div className="space-y-[--space-lg]">
                   <HStack className="justify-between">
-                    <h3 className="font-primary text-lg font-semibold text-jovial-jade">
+                    <h3 className="font-primary text-[--text-lg] font-semibold text-[--jovial-jade]">
                       Weekly Availability
                     </h3>
-                    <Button variant="outline" size="sm" className="min-h-touch-min">
+                    <Button variant="outline" size="sm" className="min-h-touch-min" aria-label="Edit weekly availability schedule">
                       Edit Schedule
                     </Button>
                   </HStack>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[--space-md]">
                     {availabilitySlots.map((day) => (
                       <Card key={day.day} className="border-border">
-                        <CardContent className="p-4">
-                          <h4 className="font-secondary font-semibold text-foreground mb-3">
+                        <CardContent className="p-[--space-md]">
+                          <h4 className="font-secondary text-[--text-base] font-semibold text-[--text-primary] mb-[--space-sm]">
                             {day.day}
                           </h4>
-                          <div className="space-y-2">
+                          <div className="space-y-[--space-xs]">
                             {day.slots.map((slot, index) => (
                               <div 
                                 key={index}

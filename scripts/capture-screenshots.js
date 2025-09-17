@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { ScreenshotCapture, MIND_FOLK_ROUTES, MOBILE_ROUTES, TABLET_ROUTES } from '../src/utils/screenshot-capture.js';
+import { ScreenshotCapture, MIND_FOLK_ROUTES, MOBILE_ROUTES, TABLET_ROUTES } from '../src/utils/screenshot-capture.ts';
 import { getBaseUrl } from '../src/utils/port-detector.ts';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -42,31 +42,83 @@ async function main() {
         break;
       case 'all':
         // Capture all device types
+        let totalSuccess = 0;
+        let totalFailures = 0;
+        const allFailures = [];
+
         console.log('📱 Capturing mobile screenshots...');
-        const mobileScreenshots = await capture.captureAllRoutes(MOBILE_ROUTES, { ...config, fullPage: false });
-        await capture.saveScreenshots(mobileScreenshots, join(outputDir, 'mobile'));
+        const mobileResult = await capture.captureAllRoutes(MOBILE_ROUTES, { ...config, fullPage: false });
+        await capture.saveScreenshots(mobileResult.screenshots, join(outputDir, 'mobile'));
+        totalSuccess += mobileResult.successCount;
+        totalFailures += mobileResult.failureCount;
+        allFailures.push(...mobileResult.failures.map(f => `Mobile: ${f}`));
 
         console.log('📱 Capturing tablet screenshots...');
-        const tabletScreenshots = await capture.captureAllRoutes(TABLET_ROUTES, config);
-        await capture.saveScreenshots(tabletScreenshots, join(outputDir, 'tablet'));
+        const tabletResult = await capture.captureAllRoutes(TABLET_ROUTES, config);
+        await capture.saveScreenshots(tabletResult.screenshots, join(outputDir, 'tablet'));
+        totalSuccess += tabletResult.successCount;
+        totalFailures += tabletResult.failureCount;
+        allFailures.push(...tabletResult.failures.map(f => `Tablet: ${f}`));
 
         console.log('💻 Capturing desktop screenshots...');
-        const desktopScreenshots = await capture.captureAllRoutes(MIND_FOLK_ROUTES, config);
-        await capture.saveScreenshots(desktopScreenshots, join(outputDir, 'desktop'));
+        const desktopResult = await capture.captureAllRoutes(MIND_FOLK_ROUTES, config);
+        await capture.saveScreenshots(desktopResult.screenshots, join(outputDir, 'desktop'));
+        totalSuccess += desktopResult.successCount;
+        totalFailures += desktopResult.failureCount;
+        allFailures.push(...desktopResult.failures.map(f => `Desktop: ${f}`));
         
-        console.log('🎉 All screenshots captured successfully!');
+        // Report results
+        console.log(`\n📊 Screenshot Summary:`);
+        console.log(`✅ Successful: ${totalSuccess}`);
+        console.log(`❌ Failed: ${totalFailures}`);
+        
+        if (totalFailures > 0) {
+          console.log(`\n🚨 Failed Screenshots:`);
+          allFailures.forEach(failure => console.log(`   - ${failure}`));
+          
+          if (totalSuccess === 0) {
+            console.log(`\n❌ All screenshots failed! Check your dev server is running.`);
+            process.exit(1);
+          } else if (totalFailures > totalSuccess) {
+            console.log(`\n⚠️  More screenshots failed than succeeded. Check for issues.`);
+          } else {
+            console.log(`\n✅ Most screenshots captured successfully!`);
+          }
+        } else {
+          console.log(`\n🎉 All screenshots captured successfully!`);
+        }
         return;
       default:
         routes = MIND_FOLK_ROUTES;
     }
 
     console.log(`📸 Capturing ${routes.length} screenshots...`);
-    const screenshots = await capture.captureAllRoutes(routes, config);
+    const result = await capture.captureAllRoutes(routes, config);
     
     console.log(`💾 Saving screenshots to ${outputDir}...`);
-    await capture.saveScreenshots(screenshots, outputDir);
+    await capture.saveScreenshots(result.screenshots, outputDir);
     
-    console.log('🎉 Screenshots captured successfully!');
+    // Report results
+    console.log(`\n📊 Screenshot Summary:`);
+    console.log(`✅ Successful: ${result.successCount}`);
+    console.log(`❌ Failed: ${result.failureCount}`);
+    
+    if (result.failureCount > 0) {
+      console.log(`\n🚨 Failed Screenshots:`);
+      result.failures.forEach(failure => console.log(`   - ${failure}`));
+      
+      if (result.successCount === 0) {
+        console.log(`\n❌ All screenshots failed! Check your dev server is running.`);
+        process.exit(1);
+      } else if (result.failureCount > result.successCount) {
+        console.log(`\n⚠️  More screenshots failed than succeeded. Check for issues.`);
+      } else {
+        console.log(`\n✅ Most screenshots captured successfully!`);
+      }
+    } else {
+      console.log(`\n🎉 All screenshots captured successfully!`);
+    }
+    
     console.log(`📁 Check the ${outputDir} directory for your screenshots.`);
 
   } catch (error) {

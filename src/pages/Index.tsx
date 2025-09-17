@@ -33,12 +33,12 @@ export default function Index() {
       <main className="flex-1">
         {/* Hero Section */}
         <section 
-          className="py-[var(--space-xl)] lg:py-[var(--space-2xl)]"
+          className="py-[--space-xl)] lg:py-[--space-2xl)]"
           style={{ backgroundColor: "var(--warm-white)" }}
         >
           <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-[var(--space-lg)] items-center">
-              <div className="lg:col-span-5 space-y-[var(--space-md)]">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-[--space-lg)] items-center">
+              <div className="lg:col-span-5 space-y-[--space-md]">
                 <p 
                   className="uppercase tracking-wide"
                   style={{
@@ -73,14 +73,14 @@ export default function Index() {
                   Because everyone's mental health journey is different.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row gap-[var(--space-sm)]">
+                <div className="flex flex-col sm:flex-row gap-[--space-sm)]">
                   <Button
                     size="lg"
                     className="min-h-[var(--touch-target-min)] focus-visible:ring-2 focus-visible:ring-[var(--garden-green)] focus-visible:ring-offset-2"
                     style={{
                       backgroundColor: "hsl(var(--btn-primary-bg))",
                       color: "hsl(var(--btn-primary-text))",
-                      padding: "0 var(--space-lg)",
+                      padding: "0 --space-lg)",
                     }}
                     asChild
                   >
@@ -94,7 +94,7 @@ export default function Index() {
                       backgroundColor: "transparent",
                       color: "hsl(var(--btn-secondary-text))",
                       borderColor: "hsl(var(--garden-green))",
-                      padding: "0 var(--space-lg)",
+                      padding: "0 --space-lg)",
                     }}
                     asChild
                   >

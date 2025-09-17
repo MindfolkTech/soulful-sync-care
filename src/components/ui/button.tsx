@@ -20,10 +20,10 @@ const buttonVariants = cva(
         link: "text-garden-green underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+        default: "h-[--touch-target-min] px-[--space-md] py-[--space-sm]",
+        sm: "h-[--touch-target-min] rounded-md px-[--space-sm]",
+        lg: "h-[--touch-target-comfort] rounded-md px-[--space-lg]",
+        icon: "h-[--touch-target-min] w-[--touch-target-min]",
       },
     },
     defaultVariants: {
