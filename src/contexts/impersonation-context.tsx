@@ -48,8 +48,8 @@ export function ImpersonationProvider({ children }: ImpersonationProviderProps) 
   const endImpersonation = () => {
     setIsImpersonating(false);
     setImpersonatedUser(null);
-    // Navigate back to admin overview
-    navigate('/admin/overview');
+    // Navigate back to admin dashboard (users page)
+    navigate('/admin/users');
   };
 
   const value: ImpersonationContextType = {

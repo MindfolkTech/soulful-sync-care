@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Calendar, Clock, Video, MessageCircle, Edit, Trash2, X } from "lucide-react";
@@ -89,6 +89,9 @@ export function AppointmentDetailsModal({
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="sr-only">Appointment Details</DialogTitle>
+          <DialogDescription className="sr-only">
+            View and manage appointment details
+          </DialogDescription>
         </DialogHeader>
         
         {/* Header with client info */}

@@ -82,10 +82,10 @@ export function GlobalImpersonationBar() {
                       variant="outline" 
                       size="sm"
                       className="text-xs h-8"
-                      onClick={() => handleQuickNav('/admin/overview')}
+                      onClick={() => handleQuickNav('/admin/users')}
                     >
                       <Home className="h-3 w-3 mr-1" />
-                      Admin
+                      Admin Dashboard
                     </Button>
                     
                     {impersonatedUser.role === 'client' && (

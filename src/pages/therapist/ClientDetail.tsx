@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { TherapistLayout } from "@/components/layout/therapist-layout";
+import { Container } from "@/components/ui/container";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -86,10 +87,14 @@ export default function ClientDetail() {
   const client = getClientData(id || "1");
 
   return (
-    <DashboardLayout 
-      title={client.name}
-      subtitle="Client Profile & Session History"
-    >
+    <TherapistLayout>
+      <div className="p-8">
+        <Container>
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-primary text-3xl text-text-primary mb-2">{client.name}</h1>
+              <p className="font-secondary text-text-secondary">Client Profile & Session History</p>
+            </div>
       <Stack className="space-y-[--space-lg]">
         {/* Back Navigation */}
         <div className="flex items-center gap-[--space-sm]">
@@ -401,7 +406,10 @@ export default function ClientDetail() {
           </div>
         </div>
       </Stack>
-    </DashboardLayout>
+          </div>
+        </Container>
+      </div>
+    </TherapistLayout>
   );
 }
 

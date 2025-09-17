@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
+import { AdminLayout } from "@/components/layout/admin-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -143,9 +142,8 @@ export default function AdminUsers() {
   const suspendedUsers = filteredUsers.filter(user => user.status === "suspended");
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      <main className="flex-1 py-8">
+    <AdminLayout>
+      <div className="p-8">
         <Container>
           <div className="space-y-8">
             <div>
@@ -323,8 +321,7 @@ export default function AdminUsers() {
             </Card>
           </div>
         </Container>
-      </main>
-      <Footer />
+      </div>
 
       {/* User Details Dialog */}
       {selectedUser && (
@@ -411,6 +408,6 @@ export default function AdminUsers() {
           </DialogContent>
         </Dialog>
       )}
-    </div>
+    </AdminLayout>
   );
 }

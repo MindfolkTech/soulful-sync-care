@@ -1,4 +1,5 @@
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { TherapistLayout } from "@/components/layout/therapist-layout";
+import { Container } from "@/components/ui/container";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -324,10 +325,14 @@ export default function TherapistBookings() {
   };
 
   return (
-    <DashboardLayout 
-      title="Bookings & Schedule"
-      subtitle="Manage your appointments and availability"
-    >
+    <TherapistLayout>
+      <div className="p-8">
+        <Container>
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-primary text-3xl text-text-primary mb-2">Bookings & Schedule</h1>
+              <p className="font-secondary text-text-secondary">Manage your appointments and availability</p>
+            </div>
       <Stack className="space-y-[--space-lg]">
 
         {/* Main Content Tabs */}
@@ -414,7 +419,10 @@ export default function TherapistBookings() {
           selectedTime={selectedTime}
           onBookTime={handleBookTime}
         />
-      </Stack>
-    </DashboardLayout>
+        </Stack>
+          </div>
+        </Container>
+      </div>
+    </TherapistLayout>
   );
 }

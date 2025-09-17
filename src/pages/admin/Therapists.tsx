@@ -1,18 +1,21 @@
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
+import { AdminLayout } from "@/components/layout/admin-layout";
 import { VerificationQueue } from "@/components/admin/verification-queue";
 
 export default function AdminTherapists() {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      <main className="flex-1 py-8">
+    <AdminLayout>
+      <div className="p-8">
         <Container>
-          <VerificationQueue />
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-primary text-3xl text-text-primary mb-2">Therapist Management</h1>
+              <p className="font-secondary text-text-secondary">Review and verify therapist applications</p>
+            </div>
+            <VerificationQueue />
+          </div>
         </Container>
-      </main>
-      <Footer />
-    </div>
+      </div>
+    </AdminLayout>
   );
 }

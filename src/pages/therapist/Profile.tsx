@@ -1,4 +1,5 @@
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { TherapistLayout } from "@/components/layout/therapist-layout";
+import { Container } from "@/components/ui/container";
 import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,10 +14,14 @@ import { Edit, Upload, Eye, Play } from "lucide-react";
 
 export default function TherapistProfile() {
   return (
-    <DashboardLayout 
-      title="Your Profile"
-      subtitle="Manage how clients see you"
-    >
+    <TherapistLayout>
+      <div className="p-8">
+        <Container>
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-primary text-3xl text-text-primary mb-2">Your Profile</h1>
+              <p className="font-secondary text-text-secondary">Manage how clients see you</p>
+            </div>
       <Stack className="space-y-8">
         {/* Profile Overview Card */}
         <Card>
@@ -212,12 +217,13 @@ export default function TherapistProfile() {
                   </Label>
                   <select 
                     id="sessionDuration" 
+                    defaultValue="60 minutes"
                     className="w-full px-3 py-2 border rounded-md bg-background font-secondary text-foreground min-h-[--touch-target-min] mt-1"
                     aria-label="Select default session duration"
                   >
                     <option>30 minutes</option>
                     <option>45 minutes</option>
-                    <option selected>60 minutes</option>
+                    <option>60 minutes</option>
                     <option>90 minutes</option>
                   </select>
                 </div>
@@ -293,7 +299,10 @@ export default function TherapistProfile() {
             Save Changes
           </Button>
         </HStack>
-      </Stack>
-    </DashboardLayout>
+        </Stack>
+          </div>
+        </Container>
+      </div>
+    </TherapistLayout>
   );
 }

@@ -1,14 +1,12 @@
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { AdminLayout } from "@/components/layout/admin-layout";
 import { Users, UserCheck, Calendar, DollarSign } from "lucide-react";
 
 export default function AdminOverview() {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      <main className="flex-1 py-8">
+    <AdminLayout>
+      <div className="p-8">
         <Container>
           <h1 className="font-primary text-3xl font-bold text-text-primary mb-8">Admin Overview</h1>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -58,8 +56,7 @@ export default function AdminOverview() {
             </Card>
           </div>
         </Container>
-      </main>
-      <Footer />
-    </div>
+      </div>
+    </AdminLayout>
   );
 }

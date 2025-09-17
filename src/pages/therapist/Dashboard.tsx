@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -28,7 +27,8 @@ import {
   PlusCircle
 } from "lucide-react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { TherapistLayout } from "@/components/layout/therapist-layout";
+import { Container } from "@/components/ui/container";
 import { useNavigate } from "react-router-dom";
 
 // Custom component for appointment items with JOIN NOW logic
@@ -198,9 +198,17 @@ export default function TherapistDashboard() {
   };
 
   return (
-    <DashboardLayout title="Welcome Back, Sarah!">
-      {/* 4-Widget Grid Layout with ONE PAGE VIEWPORT RULE compliance */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full min-w-0 max-h-[calc(100vh-200px)] overflow-hidden">
+    <TherapistLayout>
+      <div className="p-8">
+        <Container>
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-primary text-3xl text-text-primary mb-2">Welcome Back, Sarah!</h1>
+              <p className="font-secondary text-text-secondary">Here's your professional dashboard overview</p>
+            </div>
+            
+            {/* 4-Widget Grid Layout with ONE PAGE VIEWPORT RULE compliance */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full min-w-0 max-h-[calc(100vh-200px)] overflow-hidden">
         
         {/* Widget 1: Upcoming Appointments */}
         <Card className="min-w-0 overflow-hidden flex flex-col h-full max-h-[calc(50vh-120px)]">
@@ -369,7 +377,10 @@ export default function TherapistDashboard() {
             </div>
           </CardContent>
         </Card>
+            </div>
+          </div>
+        </Container>
       </div>
-    </DashboardLayout>
+    </TherapistLayout>
   );
 }

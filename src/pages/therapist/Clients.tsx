@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { TherapistLayout } from "@/components/layout/therapist-layout";
+import { Container } from "@/components/ui/container";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -104,10 +105,14 @@ export default function TherapistClients() {
   };
 
   return (
-    <DashboardLayout 
-      title="My Clients"
-      subtitle="Manage your client relationships and session history"
-    >
+    <TherapistLayout>
+      <div className="p-8">
+        <Container>
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-primary text-3xl text-text-primary mb-2">My Clients</h1>
+              <p className="font-secondary text-text-secondary">Manage your client relationships and session history</p>
+            </div>
       <Stack className="space-y-[--space-lg]">
         {/* Search and Filter Controls */}
         <HStack className="justify-between">
@@ -259,7 +264,10 @@ export default function TherapistClients() {
             </div>
           </CardContent>
         </Card>
-      </Stack>
-    </DashboardLayout>
+        </Stack>
+          </div>
+        </Container>
+      </div>
+    </TherapistLayout>
   );
 }

@@ -15,7 +15,8 @@ import {
 } from "lucide-react";
 
 interface MessageInputProps {
-  onSendMessage: (message: string, attachments?: File[]) => void;
+  conversationId?: string;
+  onSendMessage?: (message: string, attachments?: File[]) => void;
   disabled?: boolean;
   placeholder?: string;
 }
@@ -27,6 +28,7 @@ interface AttachedFile {
 }
 
 export function MessageInput({ 
+  conversationId,
   onSendMessage, 
   disabled = false,
   placeholder = "Type your message..."
@@ -39,7 +41,9 @@ export function MessageInput({
 
   const handleSend = () => {
     if (message.trim() || attachedFiles.length > 0) {
-      onSendMessage(message.trim(), attachedFiles.map(af => af.file));
+      if (onSendMessage) {
+        onSendMessage(message.trim(), attachedFiles.map(af => af.file));
+      }
       setMessage("");
       setAttachedFiles([]);
       

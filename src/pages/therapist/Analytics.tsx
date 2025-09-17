@@ -1,4 +1,5 @@
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { TherapistLayout } from "@/components/layout/therapist-layout";
+import { Container } from "@/components/ui/container";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -64,10 +65,14 @@ export default function TherapistAnalytics() {
   ];
 
   return (
-    <DashboardLayout 
-      title="Analytics & Insights"
-      subtitle="Track your practice performance and growth opportunities"
-    >
+    <TherapistLayout>
+      <div className="p-8">
+        <Container>
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-primary text-3xl text-text-primary mb-2">Analytics & Insights</h1>
+              <p className="font-secondary text-text-secondary">Track your practice performance and growth opportunities</p>
+            </div>
       <Stack className="space-y-8">
         {/* Header actions */}
         <HStack className="justify-end">
@@ -305,7 +310,10 @@ export default function TherapistAnalytics() {
             </Card>
           </TabsContent>
         </Tabs>
-      </Stack>
-    </DashboardLayout>
+        </Stack>
+          </div>
+        </Container>
+      </div>
+    </TherapistLayout>
   );
 }

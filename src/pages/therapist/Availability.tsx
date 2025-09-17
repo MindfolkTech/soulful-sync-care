@@ -1,5 +1,4 @@
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { TherapistLayout } from "@/components/layout/therapist-layout";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,12 +16,15 @@ const timeSlots = [
 
 export default function TherapistAvailability() {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      
-      <main className="flex-1 py-8">
+    <TherapistLayout>
+      <div className="p-8">
         <Container>
-          <div className="max-w-6xl mx-auto space-y-8">
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-primary text-3xl text-text-primary mb-2">Availability</h1>
+              <p className="font-secondary text-text-secondary">Set your working hours and availability</p>
+            </div>
+            <div className="space-y-8">
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="font-primary text-3xl font-bold text-text-primary">
@@ -245,11 +247,10 @@ export default function TherapistAvailability() {
                 </Card>
               </div>
             </div>
+            </div>
           </div>
         </Container>
-      </main>
-
-      <Footer />
-    </div>
+      </div>
+    </TherapistLayout>
   );
 }

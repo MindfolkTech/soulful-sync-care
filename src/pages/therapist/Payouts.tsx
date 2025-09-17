@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { TherapistLayout } from "@/components/layout/therapist-layout";
+import { Container } from "@/components/ui/container";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -117,15 +119,14 @@ export default function TherapistPayouts() {
   const currentEarnings = selectedPeriod === "current" ? earnings.currentMonth : earnings.lastMonth;
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container max-w-7xl mx-auto p-6">
-        {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold mb-2">Earnings & Payouts</h1>
-          <p className="text-muted-foreground">
-            Track your earnings, payouts, and financial performance
-          </p>
-        </div>
+    <TherapistLayout>
+      <div className="p-8">
+        <Container>
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-primary text-3xl text-text-primary mb-2">Earnings & Payouts</h1>
+              <p className="font-secondary text-text-secondary">Track your earnings, payouts, and financial performance</p>
+            </div>
 
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
@@ -442,7 +443,9 @@ export default function TherapistPayouts() {
             </Card>
           </div>
         </div>
+          </div>
+        </Container>
       </div>
-    </div>
+    </TherapistLayout>
   );
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { TherapistLayout } from "@/components/layout/therapist-layout";
+import { Container } from "@/components/ui/container";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -86,10 +87,14 @@ export default function TherapistMessages() {
   };
 
   return (
-    <DashboardLayout 
-      title="Messages"
-      subtitle="Secure communication with your clients"
-    >
+    <TherapistLayout>
+      <div className="p-8">
+        <Container>
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-primary text-3xl text-text-primary mb-2">Messages</h1>
+              <p className="font-secondary text-text-secondary">Secure communication with your clients</p>
+            </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-[--space-lg] h-full min-h-0 max-h-[calc(100vh-200px)]">
         {/* Conversations List */}
         <div className="lg:col-span-1 space-y-[--space-md]">
@@ -244,6 +249,9 @@ export default function TherapistMessages() {
           </Card>
         </div>
       </div>
-    </DashboardLayout>
+          </div>
+        </Container>
+      </div>
+    </TherapistLayout>
   );
 }

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, CheckCircle2, AlertCircle, X } from "lucide-react";
 import { useState } from "react";
@@ -40,6 +40,9 @@ export function CalendarIntegrationModal({
           <DialogTitle className="font-primary text-[--jovial-jade] text-lg">
             Connect Your Calendar
           </DialogTitle>
+          <DialogDescription>
+            Sync your calendar to manage availability and prevent double bookings
+          </DialogDescription>
         </DialogHeader>
         
         <div className="space-y-[--space-md]">

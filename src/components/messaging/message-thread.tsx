@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 interface MessageThreadProps {
-  threadId: string;
+  conversationId: string;
 }
 
 interface Message {
@@ -32,7 +32,7 @@ interface Message {
   encrypted: boolean;
 }
 
-export function MessageThread({ threadId }: MessageThreadProps) {
+export function MessageThread({ conversationId }: MessageThreadProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   
   // Mock messages data

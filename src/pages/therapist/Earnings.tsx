@@ -1,4 +1,5 @@
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { TherapistLayout } from "@/components/layout/therapist-layout";
+import { Container } from "@/components/ui/container";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -81,10 +82,14 @@ export default function TherapistEarnings() {
   const monthlyChange = ((earningsData.thisMonth - earningsData.lastMonth) / earningsData.lastMonth) * 100;
 
   return (
-    <DashboardLayout 
-      title="Earnings Dashboard"
-      subtitle="Track your income and manage payouts"
-    >
+    <TherapistLayout>
+      <div className="p-8">
+        <Container>
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-primary text-3xl text-text-primary mb-2">Earnings Dashboard</h1>
+              <p className="font-secondary text-text-secondary">Track your income and manage payouts</p>
+            </div>
       <Stack className="space-y-8">
         {/* Action Buttons */}
         <HStack className="justify-end">
@@ -315,7 +320,10 @@ export default function TherapistEarnings() {
             </Card>
           </TabsContent>
         </Tabs>
-      </Stack>
-    </DashboardLayout>
+        </Stack>
+          </div>
+        </Container>
+      </div>
+    </TherapistLayout>
   );
 }
