@@ -1,4 +1,5 @@
-import { chromium, Browser, Page } from 'playwright';
+import { chromium } from 'playwright';
+import type { Page } from 'playwright';
 
 export interface ScreenshotConfig {
   width?: number;
