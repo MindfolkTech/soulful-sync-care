@@ -46,11 +46,11 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
         <Container className="py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              {/* Mobile menu toggle */}
+              {/* Menu toggle - visible on all screen sizes */}
               <Button
                 variant="ghost"
                 size="sm"
-                className="md:hidden text-white hover:bg-white/20 min-h-touch-min"
+                className="text-white hover:bg-white/20 min-h-touch-min"
                 onClick={() => setSidebarOpen(!sidebarOpen)}
                 aria-label={sidebarOpen ? "Close navigation menu" : "Open navigation menu"}
               >
@@ -85,14 +85,14 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
       <div className="row-start-2 flex overflow-hidden">
         {/* Sidebar Navigation */}
         <aside className={`
-          fixed md:relative inset-y-0 left-0 z-40
+          fixed lg:relative inset-y-0 left-0 z-40
           w-64 bg-surface-accent min-h-full
           transform transition-transform duration-300 ease-in-out
-          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
           overflow-hidden
         `}>
           <div className="h-full">
-            <Container className="py-6 h-full">
+            <div className="py-6 h-full px-4 lg:px-6">
               <nav className="space-y-2 h-full flex flex-col">
             {/* Main navigation */}
             <div className="flex-1">
@@ -147,14 +147,14 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
               </button>
             </div>
               </nav>
-            </Container>
+            </div>
           </div>
         </aside>
 
-        {/* Mobile overlay */}
+        {/* Overlay for when sidebar is open */}
         {sidebarOpen && (
           <div 
-            className="fixed inset-0 bg-black/50 z-30 md:hidden"
+            className="fixed inset-0 bg-black/50 z-30 lg:hidden"
             onClick={() => setSidebarOpen(false)}
           />
         )}

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { Search, MessageCircle, Calendar, FileText, MoreHorizontal, Filter } from "lucide-react";
+import * as React from "react";
 
 const clients = [
   {
@@ -82,6 +83,26 @@ const clients = [
 ];
 
 export default function TherapistClients() {
+  const navigate = useNavigate();
+  const [clientList, setClientList] = React.useState(clients);
+
+  const handleClientClick = (clientId: string) => {
+    navigate(`/t/clients/${clientId}`);
+  };
+
+  const handleStatusToggle = (clientId: string, event: React.MouseEvent) => {
+    event.preventDefault(); // Prevent navigation when clicking the badge
+    event.stopPropagation();
+    
+    setClientList(prevClients => 
+      prevClients.map(client => 
+        client.id === clientId 
+          ? { ...client, status: client.status === "Active" ? "Inactive" : "Active" }
+          : client
+      )
+    );
+  };
+
   return (
     <DashboardLayout 
       title="My Clients"
@@ -111,7 +132,7 @@ export default function TherapistClients() {
         </HStack>
 
         {/* Client Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-[--space-md]">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-[--space-md]">
           <Card>
             <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
               <div className="text-center">
@@ -150,45 +171,60 @@ export default function TherapistClients() {
         <Card>
           <CardContent className="p-0">
             <div className="space-y-0">
-              {clients.map((client, index) => (
-                <Link
+              {clientList.map((client, index) => (
+                <div
                   key={client.id}
-                  to={`/t/clients/${client.id}`}
                   className={`block p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl] hover:bg-muted/50 transition-colors cursor-pointer ${
-                    index !== clients.length - 1 ? 'border-b border-border' : ''
+                    index !== clientList.length - 1 ? 'border-b border-border' : ''
                   }`}
+                  onClick={() => handleClientClick(client.id)}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4 flex-1 min-w-0">
-                      <Avatar className="w-12 h-12">
-                        <AvatarImage src={client.avatar} alt={client.initials} />
-                        <AvatarFallback className="bg-surface-accent text-jovial-jade font-secondary font-semibold">
-                          {client.initials}
-                        </AvatarFallback>
-                      </Avatar>
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleClientClick(client.id);
+                        }}
+                        className="w-12 h-12 rounded-full overflow-hidden hover:opacity-80 transition-opacity cursor-pointer"
+                        aria-label={`View ${client.name}'s profile`}
+                      >
+                        <Avatar className="w-12 h-12">
+                          <AvatarImage src={client.avatar} alt={client.initials} />
+                          <AvatarFallback className="bg-surface-accent text-jovial-jade font-secondary font-semibold">
+                            {client.initials}
+                          </AvatarFallback>
+                        </Avatar>
+                      </button>
                       
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-1">
                           <h4 className="font-secondary font-bold text-foreground truncate">
                             {client.name || 'Unknown Client'}
                           </h4>
-                          <Badge 
-                            variant={client.status === "Active" ? "secondary" : "outline"}
-                            className={client.status === "Active" ? "bg-success text-white" : "bg-warning text-foreground"}
+                          <button
+                            onClick={(e) => handleStatusToggle(client.id, e)}
+                            className="cursor-pointer"
+                            aria-label={`Toggle ${client.name} status between Active and Inactive`}
                           >
-                            {client.status}
-                          </Badge>
+                            <Badge 
+                              variant={client.status === "Active" ? "secondary" : "outline"}
+                              className={client.status === "Active" ? "bg-success text-white hover:bg-success/90" : "bg-warning text-foreground hover:bg-warning/90"}
+                            >
+                              {client.status}
+                            </Badge>
+                          </button>
                         </div>
                         
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm text-muted-foreground">
-                          <div>
+                        <div className="flex flex-col sm:flex-row sm:gap-4 gap-1 text-sm text-muted-foreground">
+                          <div className="flex-1">
                             <span className="font-secondary font-medium">Sessions:</span> {client.totalSessions}
                           </div>
-                          <div>
+                          <div className="flex-1">
                             <span className="font-secondary font-medium">Last:</span> {new Date(client.lastSession).toLocaleDateString()}
                           </div>
                           {client.nextSession && (
-                            <div>
+                            <div className="flex-1">
                               <span className="font-secondary font-medium">Next:</span> {client.nextSession}
                             </div>
                           )}
@@ -218,7 +254,7 @@ export default function TherapistClients() {
                       </Button>
                     </HStack>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </CardContent>
