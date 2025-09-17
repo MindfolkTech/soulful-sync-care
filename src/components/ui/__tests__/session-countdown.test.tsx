@@ -184,3 +184,4 @@ describe('SessionCountdown', () => {
     expect(joinButton).toHaveClass('animate-pulse');
   });
 });
+

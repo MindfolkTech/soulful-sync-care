@@ -234,3 +234,4 @@ describe('SessionReminderBanner', () => {
     expect(container.querySelector('.animate-pulse')).not.toBeInTheDocument();
   });
 });
+

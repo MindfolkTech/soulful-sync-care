@@ -208,3 +208,4 @@ describe('useSessionReminders', () => {
     expect(result.current.totalReminders).toBe(0); // should not show reminders for current/past sessions
   });
 });
+

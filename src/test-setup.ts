@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+import { vi } from 'vitest';
 
 // Mock CSS custom properties for tests
 Object.defineProperty(window, 'getComputedStyle', {
@@ -28,9 +29,18 @@ Object.defineProperty(window, 'getComputedStyle', {
 delete (window as any).location;
 window.location = {
   href: '',
+  pathname: '/',
+  search: '',
+  hash: '',
+  origin: 'http://localhost:3000',
+  protocol: 'http:',
+  host: 'localhost:3000',
+  hostname: 'localhost',
+  port: '3000',
   assign: vi.fn(),
   replace: vi.fn(),
   reload: vi.fn(),
+  toString: vi.fn(() => 'http://localhost:3000/'),
 } as any;
 
 // Mock ResizeObserver

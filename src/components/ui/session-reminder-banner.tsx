@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -16,15 +17,16 @@ interface SessionReminderBannerProps {
   className?: string;
 }
 
-export function SessionReminderBanner({ 
-  sessionTime, 
-  sessionId, 
+export function SessionReminderBanner({
+  sessionTime,
+  sessionId,
   therapistName,
   sessionType,
   onJoinSession,
   onDismiss,
-  className 
+  className
 }: SessionReminderBannerProps) {
+  const navigate = useNavigate();
   const [timeUntilSession, setTimeUntilSession] = useState<number>(0);
   const [isDismissed, setIsDismissed] = useState(false);
 
@@ -45,7 +47,7 @@ export function SessionReminderBanner({
     if (onJoinSession) {
       onJoinSession(sessionId);
     } else {
-      window.location.href = `/session/${sessionId}`;
+      navigate(`/session/${sessionId}`);
     }
   };
 

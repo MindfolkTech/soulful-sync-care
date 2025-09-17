@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Link } from "react-router-dom";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
@@ -28,41 +29,131 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { useNavigate } from "react-router-dom";
+
+// Custom component for appointment items with JOIN NOW logic
+function AppointmentItem({ appointment }: { appointment: any }) {
+  const navigate = useNavigate();
+  const [timeRemaining, setTimeRemaining] = React.useState<number>(0);
+
+  React.useEffect(() => {
+    const updateTime = () => {
+      const now = new Date().getTime();
+      const session = new Date(appointment.sessionTime).getTime();
+      setTimeRemaining(session - now);
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, [appointment.sessionTime]);
+
+  // Show JOIN NOW button if within 10 minutes of session start
+  const showJoinNow = timeRemaining <= 10 * 60 * 1000 && timeRemaining > 0;
+  
+  const formatTimeDisplay = (): string => {
+    const minutes = Math.floor(timeRemaining / (1000 * 60));
+    const hours = Math.floor(minutes / 60);
+    
+    if (hours > 0) {
+      return `in ${hours} hour${hours !== 1 ? 's' : ''}`;
+    }
+    return `in ${minutes} minute${minutes !== 1 ? 's' : ''}`;
+  };
+
+  const handleJoinSession = () => {
+    navigate(`/session/${appointment.id}`);
+  };
+
+  return (
+    <div className="flex items-center justify-between p-2 border rounded-lg min-h-[--touch-target-min]" role="listitem">
+      <div className="flex items-center gap-[--space-xs] min-w-0 flex-1">
+        <div className="w-8 h-8 bg-surface-accent rounded-full flex items-center justify-center flex-shrink-0">
+          <span className="font-secondary text-foreground text-xs">{appointment.clientInitials}</span>
+        </div>
+        <div className="min-w-0 flex-1">
+          <h4 className="font-secondary font-bold text-foreground text-sm truncate">{appointment.clientName}</h4>
+          <p className="font-secondary text-muted-foreground text-xs truncate">
+            {appointment.sessionTime.toLocaleDateString('en-US', { 
+              month: 'short', 
+              day: 'numeric' 
+            })} {appointment.sessionTime.toLocaleTimeString('en-US', { 
+              hour: 'numeric', 
+              minute: '2-digit',
+              hour12: true 
+            })} • {appointment.duration}
+          </p>
+        </div>
+      </div>
+      
+      <div className="flex items-center gap-[--space-xs] flex-shrink-0">
+        <span className="font-secondary text-xs text-muted-foreground tabular-nums">
+          {formatTimeDisplay()}
+        </span>
+        
+        {showJoinNow ? (
+          <Button 
+            onClick={handleJoinSession}
+            style={{ 
+              backgroundColor: "var(--btn-primary-bg)", 
+              color: "var(--btn-primary-text)" 
+            }}
+            className="min-h-[--touch-target-min] font-secondary font-semibold animate-pulse"
+            aria-label={`Join ${appointment.clientName}'s ${appointment.type}`}
+          >
+            JOIN NOW
+          </Button>
+        ) : (
+          <Button 
+            variant="ghost"
+            style={{
+              backgroundColor: "var(--btn-secondary-bg)",
+              color: "var(--btn-secondary-text)"
+            }}
+            className="min-h-[--touch-target-min] font-secondary text-xs border border-border"
+            disabled
+          >
+            Scheduled
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function TherapistDashboard() {
+  // Create realistic upcoming session times for demo
+  const now = new Date();
   const upcomingAppointments = [
     {
       id: "1",
       clientName: "Deborah Young",
       clientInitials: "DY",
       type: "Chemistry Call",
-      time: "Apr 21 10:00am - 10:30am",
+      sessionTime: new Date(now.getTime() + 8 * 60 * 1000), // 8 minutes from now (will show JOIN NOW)
       duration: "30 min",
       status: "confirmed",
-      priority: "high",
-      canJoin: true
+      priority: "high"
     },
     {
       id: "2", 
       clientName: "Lindsey Jacobs",
       clientInitials: "LJ",
       type: "Therapy Session",
-      time: "Apr 21 10:30am - 11:00am",
-      duration: "30 min",
+      sessionTime: new Date(now.getTime() + 45 * 60 * 1000), // 45 minutes from now
+      duration: "60 min",
       status: "confirmed",
-      priority: "medium",
-      canJoin: true
+      priority: "medium"
     },
     {
       id: "3",
       clientName: "John Smith",
       clientInitials: "JS",
       type: "Therapy Session", 
-      time: "Apr 21 11:00am - 11:30am",
-      duration: "30 min",
+      sessionTime: new Date(now.getTime() + 2 * 60 * 60 * 1000), // 2 hours from now
+      duration: "60 min",
       status: "confirmed",
-      priority: "high",
-      canJoin: true
+      priority: "high"
     }
   ];
 
@@ -126,8 +217,8 @@ export default function TherapistDashboard() {
                 Upcoming Appointments
               </h2>
               <div className="flex items-center gap-[--space-xs]">
-                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2 min-h-[--touch-target-min]" aria-label="Manage appointments and calendar">
-                  MANAGE
+                <Button variant="ghost" size="sm" className="text-[--btn-secondary-text] text-xs px-2 min-h-[--touch-target-min]" aria-label="View all appointments">
+                  VIEW ALL
                   <ExternalLink className="w-3 h-3 ml-1" />
                 </Button>
               </div>
@@ -136,20 +227,7 @@ export default function TherapistDashboard() {
           <CardContent className="flex-1 min-h-0 p-[--space-sm] md:p-[--space-md] pt-0">
             <div className="space-y-[--space-xs] h-full overflow-y-auto" role="list" aria-label="Upcoming appointments list">
               {upcomingAppointments.map(appointment => (
-                <div key={appointment.id} className="flex items-center justify-between p-2 border rounded-lg min-h-[--touch-target-min]" role="listitem" aria-label={`Appointment with ${appointment.clientName} at ${appointment.time}`}>
-                  <div className="flex items-center gap-[--space-xs]">
-                    <div className="w-8 h-8 bg-surface-accent rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="font-secondary text-foreground text-xs">{appointment.clientInitials}</span>
-                    </div>
-                    <div className="min-w-0">
-                      <h4 className="font-secondary font-bold text-foreground text-sm truncate">{appointment.clientName}</h4>
-                      <p className="font-secondary text-muted-foreground text-xs truncate">{appointment.time}</p>
-                    </div>
-                  </div>
-                  <Button className="bg-garden-green text-white hover:bg-elated-emerald text-xs px-3 py-1 flex-shrink-0" aria-label={`Join ${appointment.clientName}'s ${appointment.type}`}>
-                    Join Now →
-                  </Button>
-                </div>
+                <AppointmentItem key={appointment.id} appointment={appointment} />
               ))}
             </div>
           </CardContent>
@@ -163,7 +241,7 @@ export default function TherapistDashboard() {
                 My Client Dashboard
               </h2>
               <div className="flex items-center gap-[--space-xs]">
-                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="Manage client dashboard">
+                <Button variant="ghost" size="sm" className="text-[--btn-secondary-text] text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="Manage client dashboard">
                   MANAGE
                   <ExternalLink className="w-3 h-3 ml-1" />
                 </Button>
@@ -203,7 +281,7 @@ export default function TherapistDashboard() {
             <div className="flex items-center justify-between">
               <h2 className="font-primary text-jovial-jade text-sm md:text-base">Income Details</h2>
               <div className="flex items-center gap-[--space-xs]">
-                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="View analytics dashboard">
+                <Button variant="ghost" size="sm" className="text-[--btn-secondary-text] text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="View analytics dashboard">
                   VIEW
                   <ExternalLink className="w-3 h-3 ml-1" />
                 </Button>
@@ -262,7 +340,7 @@ export default function TherapistDashboard() {
             <div className="flex items-center justify-between">
               <h2 className="font-primary text-jovial-jade text-sm md:text-base">My Business Profile</h2>
               <div className="flex items-center gap-[--space-xs]">
-                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="Manage business profile">
+                <Button variant="ghost" size="sm" className="text-[--btn-secondary-text] text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="Manage business profile">
                   MANAGE
                   <ExternalLink className="w-3 h-3 ml-1" />
                 </Button>

@@ -41,6 +41,7 @@ import TherapistMessages from "./pages/therapist/Messages";
 import TherapistPayouts from "./pages/therapist/Payouts";
 import TherapistEarnings from "./pages/therapist/Earnings";
 import TherapistTasks from "./pages/therapist/Tasks";
+import ClientDetail from "./pages/therapist/ClientDetail";
 
 // Session pages
 import SessionRoom from "./pages/session/SessionRoom";
@@ -98,6 +99,7 @@ const App = () => (
           <Route path="/t/availability" element={<TherapistAvailability />} />
           <Route path="/t/bookings" element={<TherapistBookings />} />
           <Route path="/t/clients" element={<TherapistClients />} />
+          <Route path="/t/clients/:id" element={<ClientDetail />} />
           <Route path="/t/analytics" element={<TherapistAnalytics />} />
           <Route path="/t/dashboard" element={<TherapistDashboard />} />
           <Route path="/t/messages" element={<TherapistMessages />} />

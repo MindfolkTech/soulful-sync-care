@@ -31,7 +31,7 @@ export function Header() {
 
           <nav className="hidden md:flex items-center space-x-6">
             <Link 
-              to="/browse" 
+              to="/discover" 
               className="text-text-secondary hover:text-text-primary transition-colors font-secondary min-h-touch-target"
             >
               Find a Therapist
@@ -55,11 +55,18 @@ export function Header() {
             <TaskBadge count={3} role="client" />
             
             {/* Notifications */}
-            <Button variant="ghost" size="icon" className="relative">
-              <Bell className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 h-4 w-4 bg-destructive rounded-full flex items-center justify-center text-xs text-[--on-dark]">
-                2
-              </span>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="relative"
+              asChild
+            >
+              <Link to="/notifications" aria-label="View notifications">
+                <Bell className="h-5 w-5" />
+                <span className="absolute -top-1 -right-1 h-4 w-4 bg-destructive rounded-full flex items-center justify-center text-xs text-[--on-dark]">
+                  2
+                </span>
+              </Link>
             </Button>
             
             <Button 
@@ -71,7 +78,7 @@ export function Header() {
               className="min-h-touch-target"
             >
               <Link 
-                to="/signup"
+                to="/sign-up"
                 aria-label="Create account and start assessment"
               >
                 Get Started

@@ -69,8 +69,9 @@ export function ScreenshotAnalysis({ className }: { className?: string }) {
     });
 
     try {
-      // Import the analysis utility
-      const { ScreenshotAnalyzer, MIND_FOLK_ROUTES } = await import('@/utils/screenshot-analyzer');
+      // Import the analysis utility and routes
+      const { ScreenshotAnalyzer } = await import('@/utils/screenshot-analyzer');
+      const { MIND_FOLK_ROUTES } = await import('@/utils/screenshot-capture');
       
       const analyzer = new ScreenshotAnalyzer();
       await analyzer.initialize();
@@ -141,15 +142,15 @@ export function ScreenshotAnalysis({ className }: { className?: string }) {
   };
 
   const getAccessibilityColor = (score: number) => {
-    if (score >= 90) return 'text-success-bg';
-    if (score >= 70) return 'text-warning-bg';
-    return 'text-error-bg';
+    if (score >= 90) return 'text-[--success-bg]';
+    if (score >= 70) return 'text-[--warning-text]';
+    return 'text-[--error-text]';
   };
 
   const getPerformanceColor = (loadTime: number) => {
-    if (loadTime < 1000) return 'text-success-bg';
-    if (loadTime < 3000) return 'text-warning-bg';
-    return 'text-error-bg';
+    if (loadTime < 1000) return 'text-[--success-bg]';
+    if (loadTime < 3000) return 'text-[--warning-text]';
+    return 'text-[--error-text]';
   };
 
   const avgAccessibilityScore = results.length > 0 
@@ -270,7 +271,7 @@ export function ScreenshotAnalysis({ className }: { className?: string }) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <AlertTriangle className="w-4 h-4 text-warning-bg" />
+                    <AlertTriangle className="w-4 h-4 text-[--warning-text]" />
                     <span className="font-medium">Accessibility Issues</span>
                   </div>
                   <div className="text-sm text-text-secondary">
@@ -279,7 +280,7 @@ export function ScreenshotAnalysis({ className }: { className?: string }) {
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <TrendingDown className="w-4 h-4 text-error-bg" />
+                    <TrendingDown className="w-4 h-4 text-[--error-text]" />
                     <span className="font-medium">Performance Issues</span>
                   </div>
                   <div className="text-sm text-text-secondary">
@@ -324,7 +325,7 @@ export function ScreenshotAnalysis({ className }: { className?: string }) {
                       </div>
                     </div>
                     {result.accessibility.issues.length > 0 && (
-                      <div className="mt-2 text-sm text-warning-bg">
+                      <div className="mt-2 text-sm text-[--warning-text]">
                         Issues: {result.accessibility.issues.join(', ')}
                       </div>
                     )}

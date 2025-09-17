@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { HStack } from "@/components/ui/hstack";
@@ -28,6 +29,7 @@ export function SessionCountdown({
   onJoinSession,
   className 
 }: SessionCountdownProps) {
+  const navigate = useNavigate();
   const [timeRemaining, setTimeRemaining] = useState<TimeRemaining>({
     days: 0,
     hours: 0,
@@ -72,7 +74,7 @@ export function SessionCountdown({
       onJoinSession(sessionId);
     } else {
       // Default behavior - navigate to session room
-      window.location.href = `/session/${sessionId}`;
+      navigate(`/session/${sessionId}`);
     }
   };
 
@@ -139,7 +141,7 @@ export function SessionCountdown({
           onClick={handleJoinSession}
           className={cn(
             "min-h-[--touch-target-min] font-secondary font-semibold",
-            showJoinButton && "bg-[--garden-green] text-[--on-dark] hover:bg-[--garden-green]/90 animate-pulse"
+            showJoinButton && "bg-[--btn-primary-bg] text-[--btn-primary-text] hover:bg-[--btn-primary-bg]/90 animate-pulse"
           )}
           aria-label={`Join therapy session with ${therapistName}`}
         >

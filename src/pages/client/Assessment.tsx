@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
@@ -98,6 +99,7 @@ const assessmentSteps = [
 ];
 
 export default function Assessment() {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [responses, setResponses] = useState<Record<number, string[]>>({});
   const [demographicData, setDemographicData] = useState({
@@ -181,7 +183,7 @@ export default function Assessment() {
       
       // Simulate matching process
       setTimeout(() => {
-        window.location.href = "/discover";
+        navigate("/discover");
       }, 3000);
     } else {
       setCurrentStep(Math.min(assessmentSteps.length, currentStep + 1));
@@ -234,7 +236,7 @@ export default function Assessment() {
                       <Button size="lg" className="w-full" onClick={handleContinue}>
                         Start Your Journey
                       </Button>
-                      <Button variant="ghost" size="lg" className="w-full" onClick={() => window.location.href = '/sign-in'}>
+                      <Button variant="ghost" size="lg" className="w-full" onClick={() => navigate('/sign-in')}>
                         Log in
                       </Button>
                     </div>
@@ -587,7 +589,7 @@ export default function Assessment() {
                   onClick={() => {
                     setShowConsentModal(false);
                     // Redirect to a non-health-data path
-                    window.location.href = "/discover";
+                    navigate("/discover");
                   }}
                   className="font-secondary"
                 >

@@ -218,3 +218,4 @@ describe('Appointments Page', () => {
     expect(screen.getByTestId('bottom-nav')).toBeInTheDocument();
   });
 });
+

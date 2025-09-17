@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Button } from "@/components/ui/button";
@@ -150,9 +151,10 @@ export default function TherapistClients() {
           <CardContent className="p-0">
             <div className="space-y-0">
               {clients.map((client, index) => (
-                <div 
-                  key={client.id} 
-                  className={`p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl] hover:bg-muted/50 transition-colors ${
+                <Link
+                  key={client.id}
+                  to={`/t/clients/${client.id}`}
+                  className={`block p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl] hover:bg-muted/50 transition-colors cursor-pointer ${
                     index !== clients.length - 1 ? 'border-b border-border' : ''
                   }`}
                 >
@@ -216,7 +218,7 @@ export default function TherapistClients() {
                       </Button>
                     </HStack>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </CardContent>

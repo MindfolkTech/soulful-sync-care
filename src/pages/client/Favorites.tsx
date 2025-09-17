@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, Heart, Calendar, Filter, RotateCcw } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { BottomNav } from "@/components/ui/bottom-nav";
@@ -57,6 +58,7 @@ const mockFavorites: TherapistData[] = [
 ];
 
 export default function Favorites() {
+  const navigate = useNavigate();
   const [favorites, setFavorites] = React.useState<TherapistData[]>(mockFavorites);
   const [searchQuery, setSearchQuery] = React.useState("");
   const [sortBy, setSortBy] = React.useState("compatibility");
@@ -116,7 +118,7 @@ export default function Favorites() {
 
   const handleBookSession = (therapist: TherapistData) => {
     // Navigate to booking page
-    window.location.href = `/book/${therapist.id}`;
+    navigate(`/book/${therapist.id}`);
   };
 
   return (
@@ -140,7 +142,7 @@ export default function Favorites() {
           <Button 
             variant="outline" 
             size="sm"
-            onClick={() => window.location.href = '/discover'}
+            onClick={() => navigate('/discover')}
             aria-label="Back to discovery"
             className="min-h-[--touch-target-min]"
           >
@@ -295,7 +297,7 @@ export default function Favorites() {
                 <p className="font-secondary text-text-secondary mb-4">
                   Start discovering therapists and add them to your favorites
                 </p>
-                <Button onClick={() => window.location.href = '/discover'} className="min-h-[--touch-target-min]" aria-label="Go to therapist discovery page">
+                <Button onClick={() => navigate('/discover')} className="min-h-[--touch-target-min]" aria-label="Go to therapist discovery page">
                   Discover Therapists
                 </Button>
               </div>

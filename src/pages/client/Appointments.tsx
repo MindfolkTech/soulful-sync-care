@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { BottomNav } from "@/components/ui/bottom-nav";
@@ -75,6 +76,8 @@ const getStatusBadge = (status: string) => {
 };
 
 export default function Appointments() {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
@@ -147,7 +150,7 @@ export default function Appointments() {
                             <Button 
                               size="sm" 
                               variant="ghost" 
-                              onClick={() => window.location.href = '/messages'} 
+                              onClick={() => navigate('/messages')} 
                               className="min-h-[--touch-target-min] text-[--garden-green]" 
                               aria-label={`Send message to ${appointment.therapist}`}
                             >
@@ -213,7 +216,7 @@ export default function Appointments() {
                           <div className="flex items-center space-x-3">
                             {getStatusBadge(appointment.status)}
                             <div className="flex space-x-2">
-                              <Button size="sm" variant="outline" onClick={() => window.location.href = `/therapists/${appointment.id}`} className="min-h-[--touch-target-min]" aria-label={`Book another session with ${appointment.therapist}`}>
+                              <Button size="sm" variant="outline" onClick={() => navigate(`/therapists/${appointment.id}`)} className="min-h-[--touch-target-min]" aria-label={`Book another session with ${appointment.therapist}`}>
                                 Book Again
                               </Button>
                               <Button size="sm" variant="ghost" onClick={() => {
