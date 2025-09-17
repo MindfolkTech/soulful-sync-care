@@ -24,7 +24,7 @@ export default function TherapistLanding() {
                   style={{ 
                     fontFamily: "var(--font-primary)",
                     fontSize: "var(--text-3xl)",
-                    color: "hsl(var(--text-dark))"
+                    color: "hsl(var(--text-black))"
                   }}
                 >
                   Finally, a platform that values who you are — not just what you do
@@ -58,8 +58,8 @@ export default function TherapistLanding() {
                     className="min-h-[var(--touch-target-min)] focus-visible:ring-2 focus-visible:ring-[var(--garden-green)] focus-visible:ring-offset-2"
                     style={{
                       backgroundColor: "transparent",
-                      color: "hsl(var(--text-dark))",
-                      borderColor: "hsl(var(--text-dark))",
+                      color: "hsl(var(--text-black))",
+                      borderColor: "hsl(var(--text-black))",
                       padding: "0 var(--space-lg)",
                     }}
                     asChild

@@ -25,7 +25,7 @@ export default {
         "text-primary": "hsl(var(--text-primary))",
         "text-secondary": "hsl(var(--text-secondary))",
         "text-muted": "hsl(var(--text-muted))",
-        "text-dark": "hsl(var(--text-dark))",
+        "text-black": "hsl(var(--text-black))",
         
         // Button Colors
         "btn-primary": {

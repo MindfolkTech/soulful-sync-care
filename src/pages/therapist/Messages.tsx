@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,287 +15,235 @@ import {
   MessageSquare,
   Clock,
   CheckCircle2,
-  AlertCircle,
-  Star
+  AlertCircle
 } from "lucide-react";
 
+const conversations = [
+  {
+    id: "1",
+    clientName: "Jessica D.",
+    clientInitials: "JD",
+    clientAvatar: "https://images.unsplash.com/photo-1494790108755-2616b612b196?w=100&h=100&fit=crop&crop=face",
+    lastMessage: "Thank you for the session today. I feel much better about implementing those coping strategies.",
+    timestamp: "2 hours ago",
+    unreadCount: 0,
+    isOnline: true,
+    priority: "normal"
+  },
+  {
+    id: "2", 
+    clientName: "Michael S.",
+    clientInitials: "MS",
+    clientAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+    lastMessage: "I'm struggling with the exercises we discussed. Could we schedule an earlier session?",
+    timestamp: "5 hours ago",
+    unreadCount: 2,
+    isOnline: false,
+    priority: "high"
+  },
+  {
+    id: "3",
+    clientName: "Sarah L.",
+    clientInitials: "SL", 
+    clientAvatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+    lastMessage: "Looking forward to our session next week. I've been practicing the mindfulness techniques.",
+    timestamp: "1 day ago",
+    unreadCount: 0,
+    isOnline: false,
+    priority: "normal"
+  },
+  {
+    id: "4",
+    clientName: "Robert P.",
+    clientInitials: "RP",
+    clientAvatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
+    lastMessage: "The homework assignment was really helpful. I noticed a significant improvement in my sleep patterns.",
+    timestamp: "2 days ago", 
+    unreadCount: 1,
+    isOnline: true,
+    priority: "normal"
+  }
+];
+
 export default function TherapistMessages() {
-  const [selectedThread, setSelectedThread] = useState("1");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filter, setFilter] = useState("all"); // all, urgent, unread
+  const [selectedConversation, setSelectedConversation] = useState(conversations[0]);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // Mock client message threads
-  const threads = [
-    {
-      id: "1",
-      clientName: "Alex Johnson",
-      clientAvatar: "/images/client-white-male-20s-neutral-shirt.png",
-      lastMessage: "I tried the breathing exercise and it really helped",
-      timestamp: "15 minutes ago",
-      unread: 1,
-      encrypted: true,
-      priority: "normal",
-      lastSession: "2 days ago",
-      nextSession: "Tomorrow 2:00 PM"
-    },
-    {
-      id: "2",
-      clientName: "Emma Wilson", 
-      clientAvatar: "/images/client-white-female-autistic-20s.png",
-      lastMessage: "Having a really difficult day, could use some guidance",
-      timestamp: "1 hour ago",
-      unread: 2,
-      encrypted: true,
-      priority: "urgent",
-      lastSession: "5 days ago",
-      nextSession: "Friday 10:00 AM"
-    },
-    {
-      id: "3",
-      clientName: "Michael Chen",
-      clientAvatar: "/images/client-white-male-20s-lilac-shirt.png", 
-      lastMessage: "Thank you for the resources, I'll review them",
-      timestamp: "3 hours ago",
-      unread: 0,
-      encrypted: true,
-      priority: "normal",
-      lastSession: "1 day ago",
-      nextSession: "Next week"
+  const filteredConversations = conversations.filter(conv =>
+    conv.clientName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const totalUnread = conversations.reduce((sum, conv) => sum + conv.unreadCount, 0);
+
+  const getPriorityIcon = (priority: string) => {
+    switch (priority) {
+      case "high":
+        return <AlertCircle className="w-4 h-4 text-destructive" />;
+      case "normal":
+      default:
+        return <MessageSquare className="w-4 h-4 text-muted-foreground" />;
     }
-  ];
-
-  const filteredThreads = threads.filter(thread => {
-    const matchesSearch = thread.clientName.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesFilter = 
-      filter === "all" || 
-      (filter === "urgent" && thread.priority === "urgent") ||
-      (filter === "unread" && thread.unread > 0);
-    
-    return matchesSearch && matchesFilter;
-  });
-
-  const urgentCount = threads.filter(t => t.priority === "urgent").length;
-  const unreadCount = threads.reduce((sum, t) => sum + t.unread, 0);
+  };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container max-w-7xl mx-auto p-6">
-        {/* Header */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold mb-2">Client Messages</h1>
-              <p className="text-muted-foreground">
-                Secure communication with your clients
-              </p>
-            </div>
-            
-            <div className="flex items-center gap-4">
-              {urgentCount > 0 && (
-                <Badge variant="destructive" className="flex items-center gap-1">
-                  <AlertCircle className="h-3 w-3" />
-                  {urgentCount} urgent
-                </Badge>
-              )}
-              {unreadCount > 0 && (
-                <Badge variant="secondary">
-                  {unreadCount} unread
-                </Badge>
-              )}
-            </div>
+    <DashboardLayout 
+      title="Messages"
+      subtitle="Secure communication with your clients"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full min-h-0">
+        {/* Conversations List */}
+        <div className="lg:col-span-1 space-y-4">
+          {/* Message Stats */}
+          <div className="grid grid-cols-2 gap-4">
+            <Card>
+              <CardContent className="p-4">
+                <div className="text-center">
+                  <div className="font-primary text-2xl font-bold text-foreground">{totalUnread}</div>
+                  <div className="font-secondary text-muted-foreground text-sm">Unread</div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-4">
+                <div className="text-center">
+                  <div className="font-primary text-2xl font-bold text-foreground">{conversations.length}</div>
+                  <div className="font-secondary text-muted-foreground text-sm">Active</div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-200px)]">
-          {/* Client Threads List */}
-          <Card className="lg:col-span-1">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2">
-                  <MessageSquare className="h-5 w-5" />
-                  Client Conversations
-                </CardTitle>
-                <Button size="sm" variant="outline">
-                  <Filter className="h-4 w-4" />
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="p-0">
-              {/* Search and Filters */}
-              <div className="p-4 border-b space-y-3">
+          {/* Search and Filter */}
+          <Card>
+            <CardContent className="p-4">
+              <Stack className="space-y-3">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
-                    placeholder="Search clients..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-9"
+                    placeholder="Search conversations..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10 min-h-touch-min"
                   />
                 </div>
-                
-                <div className="flex gap-2">
-                  <Button
-                    variant={filter === "all" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setFilter("all")}
-                  >
-                    All
-                  </Button>
-                  <Button
-                    variant={filter === "urgent" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setFilter("urgent")}
-                    className="flex items-center gap-1"
-                  >
-                    <AlertCircle className="h-3 w-3" />
-                    Urgent
-                  </Button>
-                  <Button
-                    variant={filter === "unread" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setFilter("unread")}
-                  >
-                    Unread
-                  </Button>
-                </div>
-              </div>
+                <Button variant="outline" size="sm" className="w-full min-h-touch-min">
+                  <Filter className="w-4 h-4 mr-2" />
+                  Filter Messages
+                </Button>
+              </Stack>
+            </CardContent>
+          </Card>
 
-              {/* Thread List */}
-              <div className="divide-y">
-                {filteredThreads.map((thread) => (
-                  <button
-                    key={thread.id}
-                    onClick={() => setSelectedThread(thread.id)}
-                    className={`w-full p-4 text-left hover:bg-muted/50 transition-colors ${
-                      selectedThread === thread.id ? "bg-muted" : ""
-                    }`}
+          {/* Conversations */}
+          <Card className="flex-1 min-h-0">
+            <CardHeader className="pb-3">
+              <CardTitle className="font-primary text-jovial-jade">Conversations</CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="space-y-0 max-h-96 overflow-y-auto">
+                {filteredConversations.map((conversation, index) => (
+                  <div
+                    key={conversation.id}
+                    onClick={() => setSelectedConversation(conversation)}
+                    className={`
+                      p-4 border-b border-border cursor-pointer transition-colors hover:bg-muted/50
+                      ${selectedConversation.id === conversation.id ? 'bg-surface-accent' : ''}
+                      ${index === filteredConversations.length - 1 ? 'border-b-0' : ''}
+                    `}
                   >
                     <div className="flex items-start gap-3">
                       <div className="relative">
-                        <Avatar>
-                          <AvatarImage src={thread.clientAvatar} />
-                          <AvatarFallback>
-                            {thread.clientName.split(' ').map(n => n[0]).join('')}
+                        <Avatar className="w-10 h-10">
+                          <AvatarImage src={conversation.clientAvatar} alt={conversation.clientInitials} />
+                          <AvatarFallback className="bg-surface-accent text-jovial-jade font-secondary font-semibold text-sm">
+                            {conversation.clientInitials}
                           </AvatarFallback>
                         </Avatar>
-                        {thread.priority === "urgent" && (
-                          <div className="absolute -top-1 -right-1 w-3 h-3 bg-error border-2 border-background rounded-full"></div>
+                        {conversation.isOnline && (
+                          <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-success rounded-full border-2 border-background"></div>
                         )}
                       </div>
                       
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
-                          <h4 className="font-medium truncate">
-                            {thread.clientName}
-                          </h4>
-                          <div className="flex items-center gap-1">
-                            {thread.priority === "urgent" && (
-                              <AlertCircle className="h-3 w-3 text-[var(--error-text)]" />
-                            )}
-                            {thread.encrypted && (
-                              <Shield className="h-3 w-3 text-[var(--success-bg)]" />
-                            )}
-                            {thread.unread > 0 && (
-                              <Badge variant="default" className="text-xs px-2 py-0.5">
-                                {thread.unread}
+                          <h3 className="font-secondary font-semibold text-foreground text-sm truncate">
+                            {conversation.clientName}
+                          </h3>
+                          <div className="flex items-center gap-2">
+                            {getPriorityIcon(conversation.priority)}
+                            {conversation.unreadCount > 0 && (
+                              <Badge variant="destructive" className="text-xs px-1.5 py-0.5 min-w-[20px] h-5">
+                                {conversation.unreadCount}
                               </Badge>
                             )}
                           </div>
                         </div>
-                        <p className="text-sm text-muted-foreground truncate mb-2">
-                          {thread.lastMessage}
+                        
+                        <p className="text-xs text-muted-foreground line-clamp-2 mb-1">
+                          {conversation.lastMessage}
                         </p>
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <Clock className="h-3 w-3" />
-                            {thread.timestamp}
-                          </div>
-                          <div className="text-xs text-muted-foreground">
-                            Next: {thread.nextSession}
-                          </div>
+                        
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <Clock className="w-3 h-3" />
+                          {conversation.timestamp}
                         </div>
                       </div>
                     </div>
-                  </button>
+                  </div>
                 ))}
               </div>
             </CardContent>
           </Card>
+        </div>
 
-          {/* Message View */}
-          <div className="lg:col-span-2 flex flex-col">
-            {selectedThread ? (
-              <>
-                {/* Thread Header */}
-                <Card className="mb-4">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <Avatar>
-                          <AvatarImage src={filteredThreads.find(t => t.id === selectedThread)?.clientAvatar} />
-                          <AvatarFallback>
-                            {filteredThreads.find(t => t.id === selectedThread)?.clientName.split(' ').map(n => n[0]).join('')}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <h3 className="font-semibold">
-                              {filteredThreads.find(t => t.id === selectedThread)?.clientName}
-                            </h3>
-                            {filteredThreads.find(t => t.id === selectedThread)?.priority === "urgent" && (
-                              <Badge variant="destructive" className="text-xs">
-                                Urgent
-                              </Badge>
-                            )}
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <div className="flex items-center gap-1">
-                              <Shield className="h-3 w-3 text-[var(--success-bg)]" />
-                              Encrypted
-                            </div>
-                            <span>•</span>
-                            <span>
-                              Last session: {filteredThreads.find(t => t.id === selectedThread)?.lastSession}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center gap-2">
-                        <Button variant="outline" size="sm">
-                          <Star className="h-4 w-4 mr-1" />
-                          Add Note
-                        </Button>
-                        <Button variant="outline" size="sm">
-                          View Profile
-                        </Button>
-                      </div>
+        {/* Message Thread */}
+        <div className="lg:col-span-2">
+          <Card className="h-full flex flex-col min-h-0">
+            <CardHeader className="flex-shrink-0">
+              <HStack className="justify-between">
+                <HStack>
+                  <Avatar className="w-8 h-8">
+                    <AvatarImage src={selectedConversation.clientAvatar} alt={selectedConversation.clientInitials} />
+                    <AvatarFallback className="bg-surface-accent text-jovial-jade font-secondary font-semibold text-sm">
+                      {selectedConversation.clientInitials}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h3 className="font-secondary font-semibold text-foreground">
+                      {selectedConversation.clientName}
+                    </h3>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <div className={`w-2 h-2 rounded-full ${selectedConversation.isOnline ? 'bg-success' : 'bg-muted-foreground'}`}></div>
+                      {selectedConversation.isOnline ? 'Online' : 'Offline'}
                     </div>
-                  </CardContent>
-                </Card>
-
-                {/* Messages */}
-                <Card className="flex-1 flex flex-col">
-                  <CardContent className="flex-1 flex flex-col p-0">
-                    <MessageThread threadId={selectedThread} />
-                    <MessageInput onSendMessage={(message) => console.log("Send:", message)} />
-                  </CardContent>
-                </Card>
-              </>
-            ) : (
-              <Card className="flex-1 flex items-center justify-center">
-                <div className="text-center">
-                  <MessageSquare className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="font-medium mb-2">Select a client conversation</h3>
-                  <p className="text-muted-foreground">
-                    Choose a conversation to start messaging with your client
-                  </p>
-                </div>
-              </Card>
-            )}
-          </div>
+                  </div>
+                </HStack>
+                
+                <HStack>
+                  <Button variant="ghost" size="sm" className="min-h-touch-min">
+                    <Shield className="w-4 h-4" />
+                  </Button>
+                  <Badge variant="outline" className="bg-tag-misc text-tag-misc-foreground">
+                    Encrypted
+                  </Badge>
+                </HStack>
+              </HStack>
+            </CardHeader>
+            
+            <CardContent className="flex-1 flex flex-col min-h-0 p-0">
+              {/* Message Thread */}
+              <div className="flex-1 p-4 overflow-y-auto min-h-0">
+                <MessageThread conversationId={selectedConversation.id} />
+              </div>
+              
+              {/* Message Input */}
+              <div className="flex-shrink-0 border-t border-border p-4">
+                <MessageInput conversationId={selectedConversation.id} />
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 }

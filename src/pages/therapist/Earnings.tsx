@@ -1,87 +1,79 @@
-import { Link } from "react-router-dom";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { TherapistNav } from "@/components/layout/therapist-nav";
-import { Container } from "@/components/ui/container";
-import { Button } from "@/components/ui/button";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   DollarSign, 
   TrendingUp, 
-  Calendar, 
-  Download,
-  Clock,
-  CheckCircle2,
-  AlertCircle,
-  Banknote,
+  TrendingDown, 
+  Download, 
   CreditCard,
+  Calendar,
   ArrowUp,
-  ArrowDown,
-  ArrowLeft
+  ArrowDown
 } from "lucide-react";
 
 export default function TherapistEarnings() {
   const earningsData = {
     currentWeek: 640,
-    lastWeek: 520,
-    thisMonth: 2560,
-    lastMonth: 2100,
-    totalEarned: 12800,
-    pendingPayout: 320,
-    nextPayout: "2024-01-15"
+    lastWeek: 580,
+    thisMonth: 2340,
+    lastMonth: 2180,
+    thisYear: 24500,
+    lastYear: 19200
   };
-
-  const recentTransactions = [
-    {
-      id: "1",
-      date: "2024-01-08",
-      amount: 120,
-      type: "Session Payment",
-      status: "completed",
-      client: "J.D."
-    },
-    {
-      id: "2", 
-      date: "2024-01-07",
-      amount: 80,
-      type: "Chemistry Call",
-      status: "completed",
-      client: "M.S."
-    },
-    {
-      id: "3",
-      date: "2024-01-06",
-      amount: 120,
-      type: "Session Payment",
-      status: "pending",
-      client: "A.R."
-    },
-    {
-      id: "4",
-      date: "2024-01-05",
-      amount: 80,
-      type: "Chemistry Call",
-      status: "completed",
-      client: "L.K."
-    }
-  ];
 
   const payoutMethods = [
     {
       id: "1",
-      type: "Bank Transfer",
-      icon: Banknote,
+      type: "Bank Account",
+      details: "****1234",
       isDefault: true,
-      lastUsed: "2024-01-08"
+      status: "active"
+    },
+    {
+      id: "2", 
+      type: "PayPal",
+      details: "charlotte@email.com",
+      isDefault: false,
+      status: "active"
+    }
+  ];
+
+  const recentTransactions = [
+    {
+      id: "1",
+      type: "session_payment",
+      client: "Jessica D.",
+      amount: 75,
+      date: "2024-01-15",
+      status: "completed"
     },
     {
       id: "2",
-      type: "PayPal",
-      icon: CreditCard,
-      isDefault: false,
-      lastUsed: "2023-12-15"
+      type: "session_payment", 
+      client: "Michael S.",
+      amount: 75,
+      date: "2024-01-14",
+      status: "completed"
+    },
+    {
+      id: "3",
+      type: "payout",
+      client: "Weekly Payout",
+      amount: -580,
+      date: "2024-01-12",
+      status: "completed"
+    },
+    {
+      id: "4",
+      type: "session_payment",
+      client: "Sarah L.",
+      amount: 75,
+      date: "2024-01-11", 
+      status: "pending"
     }
   ];
 
@@ -89,202 +81,241 @@ export default function TherapistEarnings() {
   const monthlyChange = ((earningsData.thisMonth - earningsData.lastMonth) / earningsData.lastMonth) * 100;
 
   return (
-    <div className="min-h-screen bg-warm-white flex flex-col">
-      <Header />
-      <TherapistNav />
-      
-      <main className="flex-1 py-8">
-        <Container>
-          <div className="space-y-8">
-            {/* Header */}
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="flex items-center gap-4 mb-2">
-                  <Button asChild variant="outline" size="sm" className="hover:bg-surface-accent">
-                    <Link to="/t/dashboard">
-                      <ArrowLeft className="w-4 h-4 mr-2" />
-                      Back to Dashboard
-                    </Link>
-                  </Button>
+    <DashboardLayout 
+      title="Earnings Dashboard"
+      subtitle="Track your income and manage payouts"
+    >
+      <Stack className="space-y-8">
+        {/* Action Buttons */}
+        <HStack className="justify-end">
+          <Button variant="outline" className="min-h-touch-min">
+            <Download className="w-4 h-4 mr-2" />
+            Export Report
+          </Button>
+          <Button className="bg-garden-green text-white hover:bg-elated-emerald min-h-touch-min">
+            Request Payout
+          </Button>
+        </HStack>
+
+        {/* Earnings Overview Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card>
+            <CardContent className="p-4 md:p-5 lg:p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-secondary text-muted-foreground text-sm">This Week</p>
+                  <p className="font-primary text-2xl font-bold text-foreground">£{earningsData.currentWeek}</p>
                 </div>
-                <h1 className="font-crimson text-3xl font-bold text-jovial-jade">
-                  Earnings Dashboard
-                </h1>
-                <p className="font-helvetica text-text-secondary mt-2">
-                  Track your income and manage payouts
-                </p>
+                <div className={`flex items-center text-sm ${weeklyChange >= 0 ? 'text-success' : 'text-destructive'}`}>
+                  {weeklyChange >= 0 ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}
+                  <span className="font-secondary font-medium">{Math.abs(weeklyChange).toFixed(1)}%</span>
+                </div>
               </div>
-              <div className="flex items-center gap-3">
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  className="hover:bg-surface-accent transition-colors duration-200"
-                >
-                  <Download className="w-4 h-4 mr-2" aria-hidden="true" />
-                  Export Report
-                </Button>
-                <Button 
-                  size="sm"
-                  className="bg-[--garden-green] hover:bg-[--elated-emerald] text-[--on-dark] transition-colors duration-200"
-                >
-                  Request Payout
-                </Button>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-4 md:p-5 lg:p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-secondary text-muted-foreground text-sm">This Month</p>
+                  <p className="font-primary text-2xl font-bold text-foreground">£{earningsData.thisMonth}</p>
+                </div>
+                <div className={`flex items-center text-sm ${monthlyChange >= 0 ? 'text-success' : 'text-destructive'}`}>
+                  {monthlyChange >= 0 ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}
+                  <span className="font-secondary font-medium">{Math.abs(monthlyChange).toFixed(1)}%</span>
+                </div>
               </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-4 md:p-5 lg:p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-secondary text-muted-foreground text-sm">This Year</p>
+                  <p className="font-primary text-2xl font-bold text-foreground">£{earningsData.thisYear.toLocaleString()}</p>
+                </div>
+                <div className="flex items-center text-sm text-success">
+                  <TrendingUp className="w-4 h-4" />
+                  <span className="font-secondary font-medium">27.6%</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Content Tabs */}
+        <Tabs defaultValue="overview" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="transactions">Transactions</TabsTrigger>
+            <TabsTrigger value="payouts">Payouts</TabsTrigger>
+            <TabsTrigger value="tax">Tax Documents</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="overview" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="font-primary text-jovial-jade">Earnings Trend</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-64 flex items-center justify-center border-2 border-dashed border-border rounded-lg">
+                    <div className="text-center">
+                      <TrendingUp className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
+                      <p className="font-secondary text-muted-foreground">Earnings chart would go here</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="font-primary text-jovial-jade">Session Breakdown</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="font-secondary text-muted-foreground">Chemistry Calls</span>
+                      <span className="font-secondary font-semibold text-foreground">12 × £15 = £180</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-secondary text-muted-foreground">Therapy Sessions</span>
+                      <span className="font-secondary font-semibold text-foreground">31 × £75 = £2,325</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-secondary text-muted-foreground">Follow-up Sessions</span>
+                      <span className="font-secondary font-semibold text-foreground">8 × £60 = £480</span>
+                    </div>
+                    <div className="border-t pt-4">
+                      <div className="flex items-center justify-between">
+                        <span className="font-secondary font-semibold text-foreground">Total Gross</span>
+                        <span className="font-primary text-lg font-bold text-foreground">£2,985</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm text-muted-foreground mt-1">
+                        <span>Platform Fee (15%)</span>
+                        <span>-£447.75</span>
+                      </div>
+                      <div className="flex items-center justify-between font-semibold text-success mt-2">
+                        <span>Net Earnings</span>
+                        <span>£2,537.25</span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
+          </TabsContent>
 
-            {/* Earnings Overview Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="hover:shadow-lg transition-all duration-300 group cursor-pointer">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-helvetica text-text-secondary text-sm">This Week</p>
-                      <p className="font-crimson text-3xl font-bold text-jovial-jade mt-1">£{earningsData.currentWeek}</p>
-                      <p className={`font-helvetica text-xs flex items-center mt-2 ${weeklyChange >= 0 ? 'text-success-bg' : 'text-error-bg'}`}>
-                        {weeklyChange >= 0 ? <ArrowUp className="w-3 h-3 mr-1" /> : <ArrowDown className="w-3 h-3 mr-1" />}
-                        {Math.abs(weeklyChange).toFixed(1)}% from last week
-                      </p>
-                    </div>
-                    <div className="w-14 h-14 bg-surface-accent rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                      <DollarSign className="w-7 h-7 text-garden-green" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-all duration-300 group cursor-pointer">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-helvetica text-text-secondary text-sm">This Month</p>
-                      <p className="font-crimson text-3xl font-bold text-jovial-jade mt-1">£{earningsData.thisMonth}</p>
-                      <p className={`font-helvetica text-xs flex items-center mt-2 ${monthlyChange >= 0 ? 'text-success-bg' : 'text-error-bg'}`}>
-                        {monthlyChange >= 0 ? <ArrowUp className="w-3 h-3 mr-1" /> : <ArrowDown className="w-3 h-3 mr-1" />}
-                        {Math.abs(monthlyChange).toFixed(1)}% from last month
-                      </p>
-                    </div>
-                    <div className="w-14 h-14 bg-surface-accent rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                      <TrendingUp className="w-7 h-7 text-garden-green" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-all duration-300 group cursor-pointer">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-helvetica text-text-secondary text-sm">Pending Payout</p>
-                      <p className="font-crimson text-3xl font-bold text-jovial-jade mt-1">£{earningsData.pendingPayout}</p>
-                      <p className="font-helvetica text-text-secondary text-xs mt-2">
-                        Next payout: {new Date(earningsData.nextPayout).toLocaleDateString()}
-                      </p>
-                    </div>
-                    <div className="w-14 h-14 bg-surface-accent rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                      <Clock className="w-7 h-7 text-garden-green" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-lg transition-all duration-300 group cursor-pointer">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-helvetica text-text-secondary text-sm">Total Earned</p>
-                      <p className="font-crimson text-3xl font-bold text-jovial-jade mt-1">£{earningsData.totalEarned}</p>
-                      <p className="font-helvetica text-text-secondary text-xs mt-2">
-                        All time earnings
-                      </p>
-                    </div>
-                    <div className="w-14 h-14 bg-surface-accent rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                      <Banknote className="w-7 h-7 text-garden-green" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="grid lg:grid-cols-3 gap-8">
-              {/* Recent Transactions */}
-              <div className="lg:col-span-2">
-                <Card className="shadow-lg">
-                  <CardHeader>
-                    <CardTitle className="font-crimson text-xl text-jovial-jade">Recent Transactions</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {recentTransactions.map((transaction) => (
-                      <div key={transaction.id} className="flex items-center justify-between p-4 bg-surface-accent rounded-lg">
-                        <div className="flex items-center gap-4">
+          <TabsContent value="transactions" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-primary text-jovial-jade">Recent Transactions</CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="space-y-0">
+                  {recentTransactions.map((transaction, index) => (
+                    <div 
+                      key={transaction.id}
+                      className={`p-4 md:p-5 lg:p-6 ${index !== recentTransactions.length - 1 ? 'border-b border-border' : ''}`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
                           <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                            transaction.status === 'completed' ? 'bg-success-bg' : 'bg-warning-bg'
+                            transaction.type === 'payout' ? 'bg-warning text-foreground' : 'bg-success text-white'
                           }`}>
-                            {transaction.status === 'completed' ? (
-                              <CheckCircle2 className="w-5 h-5 text-[--on-dark]" />
-                            ) : (
-                              <Clock className="w-5 h-5 text-warning-text" />
-                            )}
+                            {transaction.type === 'payout' ? 
+                              <Download className="w-4 h-4" /> : 
+                              <DollarSign className="w-4 h-4" />
+                            }
                           </div>
                           <div>
-                            <p className="font-crimson font-semibold text-jovial-jade">{transaction.type}</p>
-                            <p className="font-helvetica text-text-secondary text-sm">
-                              {transaction.client} • {new Date(transaction.date).toLocaleDateString()}
+                            <p className="font-secondary font-semibold text-foreground">
+                              {transaction.client}
+                            </p>
+                            <p className="font-secondary text-muted-foreground text-sm">
+                              {new Date(transaction.date).toLocaleDateString()}
                             </p>
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className="font-crimson font-bold text-jovial-jade">£{transaction.amount}</p>
+                          <p className={`font-secondary font-semibold ${
+                            transaction.amount > 0 ? 'text-success' : 'text-foreground'
+                          }`}>
+                            {transaction.amount > 0 ? '+' : ''}£{Math.abs(transaction.amount)}
+                          </p>
                           <Badge 
-                            variant={transaction.status === 'completed' ? 'default' : 'secondary'}
-                            className={transaction.status === 'completed' ? 'bg-success-bg text-success-text' : 'bg-warning-bg text-warning-text'}
+                            variant={transaction.status === 'completed' ? 'secondary' : 'outline'}
+                            className={transaction.status === 'completed' ? 'bg-success text-white' : ''}
                           >
                             {transaction.status}
                           </Badge>
                         </div>
                       </div>
-                    ))}
-                  </CardContent>
-                </Card>
-              </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-              {/* Payout Methods */}
-              <div className="lg:col-span-1">
-                <Card className="shadow-lg">
-                  <CardHeader>
-                    <CardTitle className="font-crimson text-xl text-jovial-jade">Payout Methods</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {payoutMethods.map((method) => (
-                      <div key={method.id} className="flex items-center justify-between p-4 bg-surface-accent rounded-lg">
-                        <div className="flex items-center gap-3">
-                          <method.icon className="w-6 h-6 text-garden-green" />
-                          <div>
-                            <p className="font-crimson font-semibold text-jovial-jade">{method.type}</p>
-                            <p className="font-helvetica text-text-secondary text-sm">
-                              Last used: {new Date(method.lastUsed).toLocaleDateString()}
-                            </p>
-                          </div>
+          <TabsContent value="payouts" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <HStack className="justify-between">
+                  <CardTitle className="font-primary text-jovial-jade">Payout Methods</CardTitle>
+                  <Button variant="outline" size="sm" className="min-h-touch-min">
+                    Add Method
+                  </Button>
+                </HStack>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {payoutMethods.map((method) => (
+                    <div key={method.id} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <CreditCard className="w-6 h-6 text-muted-foreground" />
+                        <div>
+                          <p className="font-secondary font-semibold text-foreground">{method.type}</p>
+                          <p className="font-secondary text-muted-foreground text-sm">{method.details}</p>
                         </div>
-                        {method.isDefault && (
-                          <Badge className="bg-[--garden-green] text-[--on-dark]">Default</Badge>
-                        )}
                       </div>
-                    ))}
-                    <Button 
-                      variant="outline" 
-                      className="w-full mt-4 hover:bg-surface-accent transition-colors duration-200"
-                    >
-                      Add Payment Method
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </main>
-      
-      <Footer />
-    </div>
+                      <div className="flex items-center gap-2">
+                        {method.isDefault && (
+                          <Badge variant="secondary" className="bg-success text-white">Default</Badge>
+                        )}
+                        <Button variant="ghost" size="sm" className="min-h-touch-min">
+                          Edit
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="tax" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-primary text-jovial-jade">Tax Documents</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-12">
+                  <Calendar className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="font-secondary font-semibold text-foreground mb-2">
+                    Tax documents will be available at year-end
+                  </h3>
+                  <p className="font-secondary text-muted-foreground text-sm">
+                    Your 1099 and other tax documents will be generated automatically in January
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </Stack>
+    </DashboardLayout>
   );
 }

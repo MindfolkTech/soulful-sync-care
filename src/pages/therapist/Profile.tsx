@@ -1,6 +1,5 @@
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { Container } from "@/components/ui/container";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -14,280 +13,283 @@ import { Edit, Upload, Eye, Play } from "lucide-react";
 
 export default function TherapistProfile() {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      
-      <main className="flex-1 py-8">
-        <Container>
-          <div className="max-w-4xl mx-auto space-y-8">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="font-primary text-3xl font-bold text-text-primary">
-                  Your Profile
-                </h1>
-                <p className="font-secondary text-text-secondary mt-2">
-                  Manage how clients see you
-                </p>
+    <DashboardLayout 
+      title="Your Profile"
+      subtitle="Manage how clients see you"
+    >
+      <Stack className="space-y-8">
+        {/* Profile Overview Card */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-primary text-jovial-jade">Profile Overview</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 md:p-5 lg:p-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Profile Photo Section */}
+              <div className="space-y-4">
+                <Avatar className="w-32 h-32 mx-auto lg:mx-0">
+                  <AvatarImage 
+                    src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&h=300&fit=crop&crop=face" 
+                    alt="Profile photo" 
+                  />
+                  <AvatarFallback className="bg-surface-accent text-jovial-jade font-primary text-2xl">
+                    CT
+                  </AvatarFallback>
+                </Avatar>
+                <div className="text-center lg:text-left space-y-2">
+                  <Button variant="outline" size="sm" className="min-h-touch-min">
+                    <Upload className="w-4 h-4 mr-2" />
+                    Change Photo
+                  </Button>
+                  <p className="font-secondary text-muted-foreground text-xs">
+                    JPG or PNG, max 5MB
+                  </p>
+                </div>
               </div>
-              <div className="flex space-x-3">
-                <Button variant="outline">
-                  <Eye className="w-4 h-4 mr-2" />
-                  Preview
-                </Button>
-                <Button>
-                  <Edit className="w-4 h-4 mr-2" />
-                  Edit Profile
-                </Button>
-              </div>
-            </div>
 
-            {/* Profile Status */}
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-3 h-3 bg-success rounded-full"></div>
-                      <span className="font-secondary text-text-primary">Profile Active</span>
-                    </div>
-                    <Badge variant="secondary" className="bg-success text-success-foreground">
-                      Verified
-                    </Badge>
+              {/* Basic Info */}
+              <div className="lg:col-span-2 space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="firstName" className="font-secondary text-foreground">First Name</Label>
+                    <Input 
+                      id="firstName" 
+                      defaultValue="Dr. Charlotte" 
+                      className="min-h-touch-min"
+                    />
                   </div>
-                  <div className="flex items-center space-x-4">
-                    <div className="text-right">
-                      <p className="font-secondary text-text-secondary text-sm">Profile Views This Week</p>
-                      <p className="font-primary text-lg font-semibold text-text-primary">28</p>
-                    </div>
-                    <Switch defaultChecked />
+                  <div>
+                    <Label htmlFor="lastName" className="font-secondary text-foreground">Last Name</Label>
+                    <Input 
+                      id="lastName" 
+                      defaultValue="Thompson" 
+                      className="min-h-touch-min"
+                    />
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+                
+                <div>
+                  <Label htmlFor="title" className="font-secondary text-foreground">Professional Title</Label>
+                  <Input 
+                    id="title" 
+                    defaultValue="Licensed Clinical Psychologist" 
+                    className="min-h-touch-min"
+                  />
+                </div>
 
-            <div className="grid lg:grid-cols-3 gap-8">
-              {/* Profile Preview */}
-              <div className="lg:col-span-1">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="font-primary text-lg">Client View</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="text-center">
-                      <div className="relative inline-block">
-                        <Avatar className="w-24 h-24">
-                          <AvatarImage src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=face" />
-                          <AvatarFallback>SC</AvatarFallback>
-                        </Avatar>
-                        <Button size="sm" className="absolute -bottom-2 -right-2 h-8 w-8 rounded-full">
-                          <Play className="w-4 h-4" />
-                        </Button>
-                      </div>
-                      <h3 className="font-primary text-xl font-semibold text-text-primary mt-3">
-                        Dr. Sarah Chen
-                      </h3>
-                      <p className="font-secondary text-text-secondary">
-                        Clinical Psychologist
-                      </p>
-                      <p className="font-secondary text-text-muted text-sm">
-                        8 years experience
-                      </p>
-                    </div>
-
-                    <div className="space-y-3">
-                      <div>
-                        <p className="font-secondary text-text-secondary text-sm mb-2">Specialties</p>
-                        <div className="flex flex-wrap gap-1">
-                          <Tag category="specialty" size="sm">Anxiety</Tag>
-                          <Tag category="specialty" size="sm">Depression</Tag>
-                          <Tag category="specialty" size="sm">Trauma</Tag>
-                        </div>
-                      </div>
-
-                      <div>
-                        <p className="font-secondary text-text-secondary text-sm mb-2">Style</p>
-                        <div className="flex flex-wrap gap-1">
-                          <Tag category="personality" size="sm">Empathetic</Tag>
-                          <Tag category="personality" size="sm">Structured</Tag>
-                        </div>
-                      </div>
-
-                      <div>
-                        <p className="font-secondary text-text-secondary text-sm mb-2">Languages</p>
-                        <div className="flex flex-wrap gap-1">
-                          <Tag category="language" size="sm">English</Tag>
-                          <Tag category="language" size="sm">Mandarin</Tag>
-                        </div>
-                      </div>
-                    </div>
-
-                    <blockquote className="font-secondary text-text-secondary italic text-sm text-center">
-                      "I believe in creating a safe space where you can explore your authentic self."
-                    </blockquote>
-
-                    <div className="text-center">
-                      <p className="font-secondary font-semibold text-text-primary">£80/session</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Edit Forms */}
-              <div className="lg:col-span-2 space-y-6">
-                {/* Basic Information */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="font-primary">Basic Information</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center space-x-6">
-                      <Avatar className="w-20 h-20">
-                        <AvatarImage src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=face" />
-                        <AvatarFallback>SC</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <Button variant="outline" size="sm">
-                          <Upload className="w-4 h-4 mr-2" />
-                          Change Photo
-                        </Button>
-                        <p className="text-sm text-text-muted mt-1 font-secondary">
-                          Professional headshot recommended
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="firstName">First Name</Label>
-                        <Input id="firstName" defaultValue="Sarah" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="lastName">Last Name</Label>
-                        <Input id="lastName" defaultValue="Chen" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="title">Professional Title</Label>
-                        <Input id="title" defaultValue="Clinical Psychologist" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="experience">Years of Experience</Label>
-                        <select className="w-full p-2 border rounded-md bg-background">
-                          <option value="5-10 years" selected>5-10 years</option>
-                          <option value="0-2 years">0-2 years</option>
-                          <option value="2-5 years">2-5 years</option>
-                          <option value="10+ years">10+ years</option>
-                        </select>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Professional Bio */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="font-primary">Professional Bio</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="bio">Bio (200-400 words)</Label>
-                      <Textarea
-                        id="bio"
-                        rows={6}
-                        defaultValue="I am a Clinical Psychologist with over 8 years of experience helping individuals navigate anxiety, depression, and trauma. My approach combines evidence-based therapies with a warm, empathetic style that creates a safe space for healing and growth."
-                      />
-                      <p className="text-xs text-text-muted font-secondary">287/400 words</p>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <Label htmlFor="quote">Client Quote (50-100 words)</Label>
-                      <Textarea
-                        id="quote"
-                        rows={3}
-                        defaultValue="I believe in creating a safe space where you can explore your authentic self and develop the tools you need to thrive."
-                      />
-                      <p className="text-xs text-text-muted font-secondary">76/100 words</p>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Video Introduction */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="font-primary">Video Introduction</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between p-4 border rounded-lg">
-                      <div>
-                        <p className="font-secondary font-semibold text-text-primary">
-                          Current Video (45 seconds)
-                        </p>
-                        <p className="font-secondary text-text-secondary text-sm">
-                          Uploaded 2 weeks ago
-                        </p>
-                      </div>
-                      <div className="flex space-x-2">
-                        <Button variant="outline" size="sm">
-                          <Play className="w-4 h-4 mr-2" />
-                          Preview
-                        </Button>
-                        <Button variant="outline" size="sm">
-                          <Upload className="w-4 h-4 mr-2" />
-                          Replace
-                        </Button>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-info/10 p-4 rounded-lg">
-                      <p className="font-secondary text-info text-sm">
-                        💡 Profiles with videos get 3x more chemistry call bookings
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Rates & Availability */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="font-primary">Rates & Availability</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="rate30">30-minute Rate</Label>
-                        <div className="relative">
-                          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary">£</span>
-                          <Input id="rate30" className="pl-8" defaultValue="40" />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="rate60">60-minute Rate</Label>
-                        <div className="relative">
-                          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary">£</span>
-                          <Input id="rate60" className="pl-8" defaultValue="80" />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="rate90">90-minute Rate</Label>
-                        <div className="relative">
-                          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary">£</span>
-                          <Input id="rate90" className="pl-8" defaultValue="120" />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-between">
-                      <Button variant="outline">Manage Availability</Button>
-                      <Button>Save Changes</Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                <div>
+                  <Label htmlFor="bio" className="font-secondary text-foreground">Bio</Label>
+                  <Textarea 
+                    id="bio" 
+                    defaultValue="I specialize in anxiety, depression, and relationship counseling with over 10 years of experience helping clients achieve their mental health goals."
+                    rows={3}
+                    className="resize-none"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        </Container>
-      </main>
+          </CardContent>
+        </Card>
 
-      <Footer />
-    </div>
+        {/* Professional Details */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="font-primary text-jovial-jade">Specializations</CardTitle>
+            </CardHeader>
+            <CardContent className="p-4 md:p-5 lg:p-6">
+              <div className="space-y-4">
+                <Cluster>
+                  <Tag variant="specialty">Anxiety Disorders</Tag>
+                  <Tag variant="specialty">Depression</Tag>
+                  <Tag variant="specialty">Relationship Counseling</Tag>
+                  <Tag variant="specialty">Trauma Therapy</Tag>
+                  <Tag variant="specialty">CBT</Tag>
+                </Cluster>
+                <Button variant="outline" size="sm" className="min-h-touch-min">
+                  <Edit className="w-4 h-4 mr-2" />
+                  Edit Specializations
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="font-primary text-jovial-jade">Languages</CardTitle>
+            </CardHeader>
+            <CardContent className="p-4 md:p-5 lg:p-6">
+              <div className="space-y-4">
+                <Cluster>
+                  <Tag variant="language">English</Tag>
+                  <Tag variant="language">Spanish</Tag>
+                  <Tag variant="language">French</Tag>
+                </Cluster>
+                <Button variant="outline" size="sm" className="min-h-touch-min">
+                  <Edit className="w-4 h-4 mr-2" />
+                  Edit Languages
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Video Introduction */}
+        <Card>
+          <CardHeader>
+            <HStack className="justify-between">
+              <CardTitle className="font-primary text-jovial-jade">Video Introduction</CardTitle>
+              <Badge variant="outline" className="bg-tag-personality text-tag-personality-foreground">
+                Recommended
+              </Badge>
+            </HStack>
+          </CardHeader>
+          <CardContent className="p-4 md:p-5 lg:p-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="aspect-video bg-muted rounded-lg flex items-center justify-center border-2 border-dashed border-border">
+                <div className="text-center">
+                  <Play className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
+                  <p className="font-secondary text-muted-foreground">No video uploaded</p>
+                </div>
+              </div>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-secondary font-semibold text-foreground mb-2">
+                    Why add a video?
+                  </h3>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 bg-garden-green rounded-full mt-2 flex-shrink-0"></span>
+                      Profiles with videos get 3x more bookings
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 bg-garden-green rounded-full mt-2 flex-shrink-0"></span>
+                      Help clients feel more comfortable
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="w-1.5 h-1.5 bg-garden-green rounded-full mt-2 flex-shrink-0"></span>
+                      Show your personality and approach
+                    </li>
+                  </ul>
+                </div>
+                <Button className="bg-garden-green text-white hover:bg-elated-emerald min-h-touch-min">
+                  <Upload className="w-4 h-4 mr-2" />
+                  Upload Video
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Session Settings */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-primary text-jovial-jade">Session Settings</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 md:p-5 lg:p-6">
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <Label htmlFor="sessionPrice" className="font-secondary text-foreground">
+                    Session Price (per hour)
+                  </Label>
+                  <div className="relative mt-1">
+                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">£</span>
+                    <Input 
+                      id="sessionPrice" 
+                      type="number" 
+                      defaultValue="75" 
+                      className="pl-8 min-h-touch-min"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <Label htmlFor="sessionDuration" className="font-secondary text-foreground">
+                    Default Session Duration
+                  </Label>
+                  <select 
+                    id="sessionDuration" 
+                    className="w-full px-3 py-2 border rounded-md bg-background font-secondary text-foreground min-h-touch-min mt-1"
+                  >
+                    <option>30 minutes</option>
+                    <option>45 minutes</option>
+                    <option selected>60 minutes</option>
+                    <option>90 minutes</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <HStack className="justify-between">
+                  <div>
+                    <Label className="font-secondary text-foreground">Accept new clients</Label>
+                    <p className="text-sm text-muted-foreground">Allow new clients to book sessions</p>
+                  </div>
+                  <Switch defaultChecked />
+                </HStack>
+
+                <HStack className="justify-between">
+                  <div>
+                    <Label className="font-secondary text-foreground">Instant booking</Label>
+                    <p className="text-sm text-muted-foreground">Clients can book without approval</p>
+                  </div>
+                  <Switch defaultChecked />
+                </HStack>
+
+                <HStack className="justify-between">
+                  <div>
+                    <Label className="font-secondary text-foreground">Weekend availability</Label>
+                    <p className="text-sm text-muted-foreground">Available for weekend sessions</p>
+                  </div>
+                  <Switch />
+                </HStack>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Profile Visibility */}
+        <Card>
+          <CardHeader>
+            <HStack className="justify-between">
+              <CardTitle className="font-primary text-jovial-jade">Profile Visibility</CardTitle>
+              <Button variant="outline" size="sm" className="min-h-touch-min">
+                <Eye className="w-4 h-4 mr-2" />
+                Preview Profile
+              </Button>
+            </HStack>
+          </CardHeader>
+          <CardContent className="p-4 md:p-5 lg:p-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="text-center">
+                <div className="font-primary text-2xl font-bold text-foreground">127</div>
+                <div className="font-secondary text-muted-foreground text-sm">Profile Views</div>
+                <div className="text-xs text-success">+12% this month</div>
+              </div>
+              <div className="text-center">
+                <div className="font-primary text-2xl font-bold text-foreground">28</div>
+                <div className="font-secondary text-muted-foreground text-sm">Favorites</div>
+                <div className="text-xs text-success">+15% this month</div>
+              </div>
+              <div className="text-center">
+                <div className="font-primary text-2xl font-bold text-foreground">4.9</div>
+                <div className="font-secondary text-muted-foreground text-sm">Average Rating</div>
+                <div className="text-xs text-muted-foreground">27 reviews</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Save Changes */}
+        <HStack className="justify-end pt-4">
+          <Button variant="outline" className="min-h-touch-min">
+            Cancel
+          </Button>
+          <Button className="bg-garden-green text-white hover:bg-elated-emerald min-h-touch-min">
+            Save Changes
+          </Button>
+        </HStack>
+      </Stack>
+    </DashboardLayout>
   );
 }

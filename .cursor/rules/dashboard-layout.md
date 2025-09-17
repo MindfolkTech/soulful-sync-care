@@ -15,14 +15,14 @@ Apply to all therapist and admin pages (React/TSX/CSS/Tailwind). Ensure consiste
 ## Dashboard Layout Requirements
 
 ### Header Section (Mandatory)
-- **Mindfolk logo** - `text-[--on-dark]` on `bg-[--jovial-jade]` background
+- **Mindfolk logo** - `text-white` on `bg-jovial-jade` background
 - **Search bar** - "Search Clients" placeholder with magnifying glass icon
 - **User avatar** - Circular with initials, positioned top-right
-- **Background**: Full-width `bg-[--jovial-jade]` header bar
+- **Background**: Full-width `bg-jovial-jade` header bar
 
 ### Sidebar Navigation (Mandatory)
-- **Background**: `bg-[--surface-accent]`
-- **Active state**: `bg-[--jovial-jade]` vertical bar + `text-[--on-dark]`
+- **Background**: `bg-surface-accent`
+- **Active state**: `bg-jovial-jade` vertical bar + `text-white`
 - **Navigation items**:
   - Dashboard (house icon) - currently active
   - My Clients (two-person icon)
@@ -44,7 +44,7 @@ Apply to all therapist and admin pages (React/TSX/CSS/Tailwind). Ensure consiste
   - Client avatars (circular with initials)
   - Full client names (not initials)
   - Date and time (Apr 21 10:00am - 10:30am format)
-  - `bg-[--garden-green]` "Join Now >" buttons for each appointment
+  - `bg-garden-green` "Join Now >" buttons for each appointment
 - **Scrollable**: Vertical scrollbar if more than 3 appointments
 
 #### Widget 2: My Client Dashboard (Top Right)
@@ -54,7 +54,7 @@ Apply to all therapist and admin pages (React/TSX/CSS/Tailwind). Ensure consiste
   - Client avatars (circular with initials)
   - Full client names
   - Email addresses displayed
-  - Status badges: "Active" (`bg-[--success-bg]`) / "Inactive" (`bg-[--warning-bg]`)
+  - Status badges: "Active" (`bg-success`) / "Inactive" (`bg-warning`)
   - "EDIT" link next to each status
 
 #### Widget 3: Income Details (Bottom Left)
@@ -78,58 +78,58 @@ Apply to all therapist and admin pages (React/TSX/CSS/Tailwind). Ensure consiste
 ## Color Specifications
 
 ### Header Colors
-- **Background**: `bg-[--jovial-jade]`
-- **Text**: `text-[--on-dark]`
-- **Logo**: `text-[--on-dark]`
+- **Background**: `bg-jovial-jade`
+- **Text**: `text-white`
+- **Logo**: `text-white`
 
 ### Sidebar Colors
-- **Background**: `bg-[--surface-accent]`
-- **Text**: `text-[--jovial-jade]`
-- **Active state**: `bg-[--jovial-jade]` + `text-[--on-dark]`
-- **Icons**: `text-[--jovial-jade]`
+- **Background**: `bg-surface-accent`
+- **Text**: `text-jovial-jade`
+- **Active state**: `bg-jovial-jade` + `text-white`
+- **Icons**: `text-jovial-jade`
 
 ### Widget Colors
-- **Background**: `bg-[--surface]`
-- **Borders**: `border-[--border]`
-- **Titles**: `text-[--jovial-jade]`
-- **Action links**: `text-[--garden-green]`
-- **Join buttons**: `bg-[--garden-green]` + `text-[--on-dark]`
+- **Background**: `bg-card`
+- **Borders**: `border-border`
+- **Titles**: `text-jovial-jade`
+- **Action links**: `text-garden-green`
+- **Join buttons**: `bg-garden-green` + `text-white`
 - **Status badges**: 
-  - Active: `bg-[--success-bg]` + `text-[--on-dark]`
-  - Inactive: `bg-[--warning-bg]` + `text-[--ink-slate]`
+  - Active: `bg-success` + `text-white`
+  - Inactive: `bg-warning` + `text-foreground`
 
 ### Chart Colors (Aligned with chart-components.md)
 - **Donut chart segments**: 
-  - Completed: `bg-[--btn-accent-bg]` (orange)
-  - Cancelled: `bg-[--tag-language-bg]` (purple)  
-  - Rescheduled: `bg-[--tag-modality-bg]` (green)
-- **Line graph**: `bg-[--btn-accent-bg]` (orange trend line)
-- **Chart text**: `text-[--jovial-jade]` (central numbers), `text-[--text-secondary]` (labels)
+  - Completed: `bg-btn-accent` (orange)
+  - Cancelled: `bg-tag-language` (purple)  
+  - Rescheduled: `bg-tag-modality` (green)
+- **Line graph**: `bg-btn-accent` (orange trend line)
+- **Chart text**: `text-jovial-jade` (central numbers), `text-muted-foreground` (labels)
 
 ## Typography Requirements
 
 ### Headers
-- **Main title**: "Welcome Back, Sarah!" - `font-[--font-primary]`, large size, `text-[--jovial-jade]`
-- **Widget titles**: `font-[--font-primary]`, medium size, `text-[--jovial-jade]`
-- **Section labels**: `font-[--font-secondary]`, small size, `text-[--text-secondary]`
+- **Main title**: "Welcome Back, Sarah!" - `font-primary`, large size, `text-jovial-jade`
+- **Widget titles**: `font-primary`, medium size, `text-jovial-jade`
+- **Section labels**: `font-secondary`, small size, `text-muted-foreground`
 
 ### Content
-- **Client names**: `font-[--font-secondary]`, medium size, `text-[--text-primary]`
-- **Email addresses**: `font-[--font-secondary]`, small size, `text-[--text-secondary]`
-- **Times/dates**: `font-[--font-secondary]`, small size, `text-[--text-secondary]`
-- **Action links**: `font-[--font-secondary]`, small size, `text-[--garden-green]`
+- **Client names**: `font-secondary`, medium size, `text-foreground`
+- **Email addresses**: `font-secondary`, small size, `text-muted-foreground`
+- **Times/dates**: `font-secondary`, small size, `text-muted-foreground`
+- **Action links**: `font-secondary`, small size, `text-garden-green`
 
 ## Interactive Elements
 
 ### Buttons
-- **Join Now**: `bg-[--garden-green]`, `text-[--on-dark]`, rounded corners
-- **EDIT links**: `text-[--garden-green]`, no background
-- **OPEN links**: `text-[--garden-green]` with external link icon
+- **Join Now**: `bg-garden-green`, `text-white`, rounded corners
+- **EDIT links**: `text-garden-green`, no background
+- **OPEN links**: `text-garden-green` with external link icon
 - **Status badges**: Rounded, colored backgrounds
 
 ### Touch Targets
-- **All buttons**: `min-h-[--touch-target-min]` (44px)
-- **Action links**: `min-h-[--touch-target-min]` (44px)
+- **All buttons**: `min-h-touch-min` (44px)
+- **Action links**: `min-h-touch-min` (44px)
 - **Client rows**: Full row clickable for selection
 
 ## Layout Specifications
@@ -147,11 +147,11 @@ Apply to all therapist and admin pages (React/TSX/CSS/Tailwind). Ensure consiste
 - **Scrollable content**: Vertical scroll when content exceeds widget height
 
 ## Token Usage Requirements
-- **Always use design tokens** instead of raw color values
+- **Always use Tailwind class names** instead of CSS variable syntax (e.g., `bg-jovial-jade` not `bg-[--jovial-jade]`)
 - **Follow design-tokens.md** for all token usage
-- **Use semantic token names** (e.g., `--on-dark`, not "white text")
+- **Use semantic class names** (e.g., `text-white`, `text-foreground`)
 - **Reference design-tokens.md** for complete token definitions
-- **Follow text-colors.md** for proper text color hierarchy (prefer `--ink-slate` over `--text-black`)
+- **Follow text-colors.md** for proper text color hierarchy
 - **Align with user-flows.md** specifications for all dashboard components
 
 ## Accessibility Requirements
@@ -182,56 +182,56 @@ Apply to all therapist and admin pages (React/TSX/CSS/Tailwind). Ensure consiste
 - **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
 - **MUST use same colors** (all design tokens from design-tokens.md)
 - **MUST include analytics-specific widgets** (KPIs, charts, improvements)
-- **MUST follow same header pattern** (`bg-[--jovial-jade]` background with logo, search, avatar)
-- **MUST follow same sidebar pattern** (`bg-[--surface-accent]` background with navigation)
+- **MUST follow same header pattern** (`bg-jovial-jade` background with logo, search, avatar)
+- **MUST follow same sidebar pattern** (`bg-surface-accent` background with navigation)
 
 ### Therapist Clients Page
 - **MUST use dashboard layout** (header + sidebar + main content)
 - **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
 - **MUST use same colors** (all design tokens from design-tokens.md)
 - **MUST include client management widgets** (search, filters, client list)
-- **MUST follow same header pattern** (`bg-[--jovial-jade]` background with logo, search, avatar)
-- **MUST follow same sidebar pattern** (`bg-[--surface-accent]` background with navigation)
+- **MUST follow same header pattern** (`bg-jovial-jade` background with logo, search, avatar)
+- **MUST follow same sidebar pattern** (`bg-surface-accent` background with navigation)
 
 ### Therapist Bookings Page
 - **MUST use dashboard layout** (header + sidebar + main content)
 - **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
 - **MUST use same colors** (all design tokens from design-tokens.md)
 - **MUST include booking management widgets** (calendar, appointment list, status tracking)
-- **MUST follow same header pattern** (`bg-[--jovial-jade]` background with logo, search, avatar)
-- **MUST follow same sidebar pattern** (`bg-[--surface-accent]` background with navigation)
+- **MUST follow same header pattern** (`bg-jovial-jade` background with logo, search, avatar)
+- **MUST follow same sidebar pattern** (`bg-surface-accent` background with navigation)
 
 ### Therapist Messages Page
 - **MUST use dashboard layout** (header + sidebar + main content)
 - **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
 - **MUST use same colors** (all design tokens from design-tokens.md)
 - **MUST include messaging widgets** (conversation list, message thread, input)
-- **MUST follow same header pattern** (`bg-[--jovial-jade]` background with logo, search, avatar)
-- **MUST follow same sidebar pattern** (`bg-[--surface-accent]` background with navigation)
+- **MUST follow same header pattern** (`bg-jovial-jade` background with logo, search, avatar)
+- **MUST follow same sidebar pattern** (`bg-surface-accent` background with navigation)
 
 ### Therapist Profile Page
 - **MUST use dashboard layout** (header + sidebar + main content)
 - **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
 - **MUST use same colors** (all design tokens from design-tokens.md)
 - **MUST include profile management widgets** (profile info, video upload, availability)
-- **MUST follow same header pattern** (`bg-[--jovial-jade]` background with logo, search, avatar)
-- **MUST follow same sidebar pattern** (`bg-[--surface-accent]` background with navigation)
+- **MUST follow same header pattern** (`bg-jovial-jade` background with logo, search, avatar)
+- **MUST follow same sidebar pattern** (`bg-surface-accent` background with navigation)
 
 ### Therapist Earnings Page
 - **MUST use dashboard layout** (header + sidebar + main content)
 - **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
 - **MUST use same colors** (all design tokens from design-tokens.md)
 - **MUST include earnings widgets** (income charts, payout history, tax documents)
-- **MUST follow same header pattern** (`bg-[--jovial-jade]` background with logo, search, avatar)
-- **MUST follow same sidebar pattern** (`bg-[--surface-accent]` background with navigation)
+- **MUST follow same header pattern** (`bg-jovial-jade` background with logo, search, avatar)
+- **MUST follow same sidebar pattern** (`bg-surface-accent` background with navigation)
 
 ### Admin Pages (All)
 - **MUST use dashboard layout** (header + sidebar + main content)
 - **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
 - **MUST use same colors** (all design tokens from design-tokens.md)
 - **MUST include admin-specific widgets** (user management, system overview, moderation tools)
-- **MUST follow same header pattern** (`bg-[--jovial-jade]` background with logo, search, avatar)
-- **MUST follow same sidebar pattern** (`bg-[--surface-accent]` background with navigation)
+- **MUST follow same header pattern** (`bg-jovial-jade` background with logo, search, avatar)
+- **MUST follow same sidebar pattern** (`bg-surface-accent` background with navigation)
 
 ## Key Rules
 - **Dashboard layout pattern** is mandatory for all therapist and admin pages

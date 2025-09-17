@@ -113,26 +113,26 @@ export default function TherapistDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-[--warm-white]">
+    <div className="min-h-screen bg-background">
       {/* Header Section */}
-      <header className="bg-[--jovial-jade] text-[--btn-primary-text] px-6 py-4">
+      <header className="bg-jovial-jade text-white px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <h1 className="font-primary text-xl font-bold text-[--btn-primary-text]">Mindfolk</h1>
+            <h1 className="font-primary text-xl font-bold text-white">Mindfolk</h1>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[--text-muted]" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input 
                 id="client-search"
                 name="clientSearch"
                 type="search" 
                 placeholder="Search Clients" 
-                className="pl-10 pr-4 py-2 bg-white text-[--text-primary] rounded border-0 focus:ring-2 focus:ring-white/30 focus:outline-none min-h-[44px] w-64"
+                className="pl-10 pr-4 py-2 bg-white text-foreground rounded border-0 focus:ring-2 focus:ring-white/30 focus:outline-none min-h-[44px] w-64"
                 aria-label="Search clients"
               />
             </div>
           </div>
-          <div className="w-10 h-10 bg-[--surface-accent] rounded-full flex items-center justify-center">
-            <span className="font-secondary text-sm font-semibold text-[--jovial-jade]">CT</span>
+          <div className="w-10 h-10 bg-surface-accent rounded-full flex items-center justify-center">
+            <span className="font-secondary text-sm font-semibold text-jovial-jade">CT</span>
           </div>
         </div>
       </header>
@@ -141,19 +141,19 @@ export default function TherapistDashboard() {
         {/* Sidebar Navigation */}
         <aside className="w-64 bg-surface-accent min-h-screen py-6">
           <nav className="space-y-2 px-4">
-            <div className="flex items-center gap-3 px-3 py-2 bg-[--jovial-jade] text-[--on-dark] rounded-md">
+            <div className="flex items-center gap-3 px-3 py-2 bg-jovial-jade text-white rounded-md">
               <Home className="w-5 h-5" />
               <span className="font-secondary font-medium">Dashboard</span>
               </div>
-            <Link to="/t/clients" className="flex items-center gap-3 px-3 py-2 text-[--jovial-jade] hover:bg-[--jovial-jade] hover:text-[--on-dark] rounded-md transition-colors">
+            <Link to="/t/clients" className="flex items-center gap-3 px-3 py-2 text-jovial-jade hover:bg-jovial-jade hover:text-white rounded-md transition-colors">
               <Users className="w-5 h-5" />
               <span className="font-secondary">My Clients</span>
             </Link>
-            <Link to="/t/profile" className="flex items-center gap-3 px-3 py-2 text-[--jovial-jade] hover:bg-[--jovial-jade] hover:text-[--on-dark] rounded-md transition-colors">
+            <Link to="/t/profile" className="flex items-center gap-3 px-3 py-2 text-jovial-jade hover:bg-jovial-jade hover:text-white rounded-md transition-colors">
               <User className="w-5 h-5" />
               <span className="font-secondary">My Profile</span>
             </Link>
-            <Link to="/t/analytics" className="flex items-center gap-3 px-3 py-2 text-[--jovial-jade] hover:bg-[--jovial-jade] hover:text-[--on-dark] rounded-md transition-colors">
+            <Link to="/t/analytics" className="flex items-center gap-3 px-3 py-2 text-jovial-jade hover:bg-jovial-jade hover:text-white rounded-md transition-colors">
               <BarChart3 className="w-5 h-5" />
               <span className="font-secondary">Performance & Analytics</span>
             </Link>
@@ -218,14 +218,14 @@ export default function TherapistDashboard() {
                   <div key={appointment.id} className="flex items-center justify-between p-3 border rounded-lg">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-surface-accent rounded-full flex items-center justify-center">
-                        <span className="font-secondary text-text-primary text-sm">{appointment.clientInitials}</span>
+                        <span className="font-secondary text-foreground text-sm">{appointment.clientInitials}</span>
                       </div>
                       <div>
-                        <p className="font-secondary text-text-primary">{appointment.clientName}</p>
-                        <p className="font-secondary text-text-secondary text-sm">{appointment.time}</p>
+                        <p className="font-secondary text-foreground">{appointment.clientName}</p>
+                        <p className="font-secondary text-muted-foreground text-sm">{appointment.time}</p>
                       </div>
                     </div>
-                    <Button className="bg-[--garden-green] text-[--on-dark] hover:bg-[--elated-emerald]">
+                    <Button className="bg-garden-green text-white hover:bg-elated-emerald">
                       Join Now →
                     </Button>
                   </div>
@@ -250,17 +250,17 @@ export default function TherapistDashboard() {
                   <div key={client.id} className="flex items-center justify-between p-3 border rounded-lg">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-surface-accent rounded-full flex items-center justify-center">
-                        <span className="font-secondary text-text-primary text-sm">{client.initials}</span>
+                        <span className="font-secondary text-foreground text-sm">{client.initials}</span>
                       </div>
                       <div>
-                        <p className="font-secondary text-text-primary">{client.name}</p>
-                        <p className="font-secondary text-text-secondary text-sm">{client.email}</p>
+                        <p className="font-secondary text-foreground">{client.name}</p>
+                        <p className="font-secondary text-muted-foreground text-sm">{client.email}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
                       <Badge 
                         variant={client.status === "Active" ? "secondary" : "outline"}
-                        className={client.status === "Active" ? "bg-success-bg text-success-text" : "bg-warning-bg text-warning-text"}
+                        className={client.status === "Active" ? "bg-success text-white" : "bg-warning text-foreground"}
                       >
                         {client.status}
                       </Badge>
@@ -285,7 +285,7 @@ export default function TherapistDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="mb-4">
-                  <h3 className="font-primary text-text-secondary text-sm mb-4">Appointments</h3>
+                  <h3 className="font-primary text-muted-foreground text-sm mb-4">Appointments</h3>
                   <div className="relative w-full h-48 flex items-center justify-center">
                     <div className="absolute inset-0 flex items-center justify-center">
                       <span className="font-primary text-4xl font-bold text-jovial-jade">122</span>
@@ -343,7 +343,7 @@ export default function TherapistDashboard() {
                   </CardHeader>
               <CardContent>
                 <div className="mb-4">
-                  <h3 className="font-primary text-text-secondary text-sm mb-4">Profile Views in the last year</h3>
+                  <h3 className="font-primary text-muted-foreground text-sm mb-4">Profile Views in the last year</h3>
                   <div className="w-full h-48 p-4">
                     <svg className="w-full h-full" viewBox="0 0 400 200">
                       {/* Grid lines */}

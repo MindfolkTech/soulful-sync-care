@@ -1,6 +1,5 @@
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { Container } from "@/components/ui/container";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -28,202 +27,196 @@ const clients = [
     email: "m.smith@email.com", 
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
     status: "Active",
-    joinDate: "2024-01-05",
-    lastSession: "2024-01-10",
-    nextSession: "2024-01-15 2:00 PM",
+    joinDate: "2024-01-08",
+    lastSession: "2024-01-11",
+    nextSession: "2024-01-16 2:00 PM",
     totalSessions: 5,
     sessionType: "Therapy Session",
-    notes: "Working on work-life balance and stress management"
+    notes: "Working on communication skills and relationship building"
   },
   {
     id: "3",
-    initials: "A.R.",
-    email: "a.robinson@email.com",
+    initials: "S.L.",
+    email: "sarah.lee@email.com",
     avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
-    status: "Inactive", 
-    joinDate: "2023-12-20",
-    lastSession: "2024-01-08",
+    status: "Inactive",
+    joinDate: "2023-12-15",
+    lastSession: "2023-12-20",
     nextSession: null,
-    totalSessions: 8,
-    sessionType: "Therapy Session",
-    notes: "Completed initial treatment goals, on break"
+    totalSessions: 2,
+    sessionType: "Chemistry Call",
+    notes: "Completed initial sessions, considering ongoing therapy"
   },
   {
     id: "4",
-    initials: "T.W.",
-    email: "t.wilson@email.com",
+    initials: "R.P.",
+    email: "robert.parker@email.com",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-    status: "Pending",
-    joinDate: "2024-01-14",
-    lastSession: null,
-    nextSession: "2024-01-16 11:00 AM",
-    totalSessions: 0,
-    sessionType: "Chemistry Call",
-    notes: "New client, first meeting scheduled"
+    status: "Active",
+    joinDate: "2024-01-05",
+    lastSession: "2024-01-10",
+    nextSession: "2024-01-17 11:00 AM",
+    totalSessions: 4,
+    sessionType: "Therapy Session",
+    notes: "Focusing on stress management and work-life balance"
+  },
+  {
+    id: "5",
+    initials: "L.M.",
+    email: "lisa.martinez@email.com",
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face",
+    status: "Active",
+    joinDate: "2023-12-28",
+    lastSession: "2024-01-09",
+    nextSession: "2024-01-18 3:30 PM",
+    totalSessions: 6,
+    sessionType: "Therapy Session",
+    notes: "Long-term client showing excellent progress with depression management"
   }
 ];
 
-const getStatusBadge = (status: string) => {
-  const variants: Record<string, string> = {
-    "Active": "bg-success text-success-foreground",
-    "Inactive": "bg-muted text-muted-foreground", 
-    "Pending": "bg-warning text-warning-foreground",
-    "Cancelled": "bg-destructive text-destructive-foreground"
-  };
-
-  return (
-    <Badge className={variants[status] || "bg-muted text-muted-foreground"}>
-      {status}
-    </Badge>
-  );
-};
-
 export default function TherapistClients() {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      
-      <main className="flex-1 py-8">
-        <Container>
-          <div className="max-w-6xl mx-auto">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <h1 className="font-primary text-3xl font-bold text-text-primary">
-                  Client Directory
-                </h1>
-                <p className="font-secondary text-text-secondary mt-2">
-                  Manage your client relationships and files
-                </p>
-              </div>
-              
-              <div className="flex space-x-3">
-                <Button variant="outline" size="sm">
-                  <Filter className="w-4 h-4 mr-2" />
-                  Filter
-                </Button>
-                <Button variant="outline" size="sm">
-                  Export
-                </Button>
-              </div>
-            </div>
+    <DashboardLayout 
+      title="My Clients"
+      subtitle="Manage your client relationships and session history"
+    >
+      <Stack className="space-y-6">
+        {/* Search and Filter Controls */}
+        <HStack className="justify-between">
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input 
+              placeholder="Search clients..." 
+              className="pl-10 min-h-touch-min"
+            />
+          </div>
+          <HStack>
+            <Button variant="outline" className="min-h-touch-min">
+              <Filter className="w-4 h-4 mr-2" />
+              Filter
+            </Button>
+            <select className="px-3 py-2 border rounded-md bg-background font-secondary text-foreground min-h-touch-min">
+              <option>All Clients</option>
+              <option>Active</option>
+              <option>Inactive</option>
+            </select>
+          </HStack>
+        </HStack>
 
-            {/* Search & Filters */}
-            <div className="flex items-center space-x-4 mb-6">
-              <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-text-muted" />
-                <Input 
-                  placeholder="Search clients..." 
-                  className="pl-10"
-                />
+        {/* Client Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <Card>
+            <CardContent className="p-4 md:p-5 lg:p-6">
+              <div className="text-center">
+                <div className="font-primary text-2xl font-bold text-foreground">5</div>
+                <div className="font-secondary text-muted-foreground text-sm">Total Clients</div>
               </div>
-              <select className="px-3 py-2 border rounded-md bg-background font-secondary text-text-primary">
-                <option value="">All Statuses</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-                <option value="pending">Pending</option>
-              </select>
-            </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 md:p-5 lg:p-6">
+              <div className="text-center">
+                <div className="font-primary text-2xl font-bold text-success">4</div>
+                <div className="font-secondary text-muted-foreground text-sm">Active</div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 md:p-5 lg:p-6">
+              <div className="text-center">
+                <div className="font-primary text-2xl font-bold text-foreground">20</div>
+                <div className="font-secondary text-muted-foreground text-sm">Total Sessions</div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 md:p-5 lg:p-6">
+              <div className="text-center">
+                <div className="font-primary text-2xl font-bold text-foreground">4.9</div>
+                <div className="font-secondary text-muted-foreground text-sm">Avg Rating</div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
-            {/* Client List */}
-            <div className="space-y-4">
-              {clients.map((client) => (
-                <Card key={client.id}>
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        <Avatar className="w-12 h-12">
-                          <AvatarImage src={client.avatar} />
-                          <AvatarFallback>{client.initials}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="flex items-center space-x-3 mb-1">
-                            <h3 className="font-primary font-semibold text-text-primary">
-                              Client {client.initials}
-                            </h3>
-                            {getStatusBadge(client.status)}
-                          </div>
-                          <p className="font-secondary text-text-secondary text-sm">
+        {/* Client List */}
+        <Card>
+          <CardContent className="p-0">
+            <div className="space-y-0">
+              {clients.map((client, index) => (
+                <div 
+                  key={client.id} 
+                  className={`p-4 md:p-5 lg:p-6 hover:bg-muted/50 transition-colors ${
+                    index !== clients.length - 1 ? 'border-b border-border' : ''
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4 flex-1 min-w-0">
+                      <Avatar className="w-12 h-12">
+                        <AvatarImage src={client.avatar} alt={client.initials} />
+                        <AvatarFallback className="bg-surface-accent text-jovial-jade font-secondary font-semibold">
+                          {client.initials}
+                        </AvatarFallback>
+                      </Avatar>
+                      
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-3 mb-1">
+                          <h3 className="font-secondary font-semibold text-foreground truncate">
                             {client.email}
-                          </p>
-                          <div className="flex items-center space-x-4 mt-2 text-sm text-text-muted">
-                            <span>Joined: {client.joinDate}</span>
-                            <span>Sessions: {client.totalSessions}</span>
-                            {client.lastSession && (
-                              <span>Last: {client.lastSession}</span>
-                            )}
-                          </div>
-                          {client.notes && (
-                            <p className="font-secondary text-text-muted text-sm mt-2 max-w-md">
-                              {client.notes}
-                            </p>
-                          )}
+                          </h3>
+                          <Badge 
+                            variant={client.status === "Active" ? "secondary" : "outline"}
+                            className={client.status === "Active" ? "bg-success text-white" : "bg-warning text-foreground"}
+                          >
+                            {client.status}
+                          </Badge>
                         </div>
-                      </div>
-
-                      <div className="flex items-center space-x-4">
-                        <div className="text-right">
-                          {client.nextSession ? (
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm text-muted-foreground">
+                          <div>
+                            <span className="font-medium">Sessions:</span> {client.totalSessions}
+                          </div>
+                          <div>
+                            <span className="font-medium">Last:</span> {new Date(client.lastSession).toLocaleDateString()}
+                          </div>
+                          {client.nextSession && (
                             <div>
-                              <p className="font-secondary text-text-primary text-sm font-semibold">
-                                Next Session
-                              </p>
-                              <p className="font-secondary text-text-secondary text-sm">
-                                {client.nextSession}
-                              </p>
-                              <p className="font-secondary text-text-muted text-xs">
-                                {client.sessionType}
-                              </p>
+                              <span className="font-medium">Next:</span> {client.nextSession}
                             </div>
-                          ) : (
-                            <p className="font-secondary text-text-muted text-sm">
-                              No upcoming sessions
-                            </p>
                           )}
                         </div>
                         
-                        <div className="flex space-x-2">
-                          <Button size="sm" variant="outline">
-                            <MessageCircle className="w-4 h-4 mr-2" />
-                            Message
-                          </Button>
-                          <Button size="sm" variant="outline">
-                            <Calendar className="w-4 h-4 mr-2" />
-                            Schedule
-                          </Button>
-                          <Button size="sm" variant="outline">
-                            <FileText className="w-4 h-4 mr-2" />
-                            Notes
-                          </Button>
-                          <Button size="sm" variant="ghost">
-                            <MoreHorizontal className="w-4 h-4" />
-                          </Button>
-                        </div>
+                        {client.notes && (
+                          <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
+                            {client.notes}
+                          </p>
+                        )}
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
+                    
+                    {/* Action buttons */}
+                    <HStack className="gap-2">
+                      <Button variant="ghost" size="sm" className="min-h-touch-min">
+                        <MessageCircle className="w-4 h-4" />
+                      </Button>
+                      <Button variant="ghost" size="sm" className="min-h-touch-min">
+                        <Calendar className="w-4 h-4" />
+                      </Button>
+                      <Button variant="ghost" size="sm" className="min-h-touch-min">
+                        <FileText className="w-4 h-4" />
+                      </Button>
+                      <Button variant="ghost" size="sm" className="min-h-touch-min">
+                        <MoreHorizontal className="w-4 h-4" />
+                      </Button>
+                    </HStack>
+                  </div>
+                </div>
               ))}
             </div>
-
-            {/* Pagination */}
-            <div className="flex items-center justify-between mt-8">
-              <p className="font-secondary text-text-secondary text-sm">
-                Showing 4 of 4 clients
-              </p>
-              <div className="flex space-x-2">
-                <Button variant="outline" size="sm" disabled>
-                  Previous
-                </Button>
-                <Button variant="outline" size="sm" disabled>
-                  Next
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </main>
-
-      <Footer />
-    </div>
+          </CardContent>
+        </Card>
+      </Stack>
+    </DashboardLayout>
   );
 }
