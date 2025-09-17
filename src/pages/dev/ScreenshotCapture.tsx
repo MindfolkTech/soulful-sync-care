@@ -27,10 +27,10 @@ export default function ScreenshotCapturePage() {
           <div className="space-y-8">
             {/* Header */}
             <div className="text-center space-y-4">
-              <h1 className="font-crimson text-3xl font-bold text-jovial-jade">
+              <h1 className="font-primary text-3xl font-bold text-jovial-jade">
                 Screenshot Analysis Tool
               </h1>
-              <p className="font-helvetica text-text-secondary max-w-2xl mx-auto">
+              <p className="font-secondary text-text-secondary max-w-2xl mx-auto">
                 Automatically capture and analyze screenshots of every screen in the MindFolk app. 
                 Get insights on accessibility, performance, and visual issues.
               </p>
@@ -57,7 +57,7 @@ export default function ScreenshotCapturePage() {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="space-y-2">
-                    <p className="font-medium text-sm">Command Line Interface:</p>
+                    <p className="font-secondary font-medium text-sm">Command Line Interface:</p>
                     <div className="bg-surface-accent p-3 rounded-lg font-mono text-sm">
                       <div>npm run screenshots</div>
                       <div>npm run screenshots mobile</div>
@@ -66,7 +66,7 @@ export default function ScreenshotCapturePage() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <p className="font-medium text-sm">Parameters:</p>
+                    <p className="font-secondary font-medium text-sm">Parameters:</p>
                     <ul className="text-sm text-text-secondary space-y-1">
                       <li>• <code>desktop</code> - Desktop screenshots (default)</li>
                       <li>• <code>mobile</code> - Mobile screenshots (375x667)</li>
@@ -86,7 +86,7 @@ export default function ScreenshotCapturePage() {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="space-y-2">
-                    <p className="font-medium text-sm">Routes Captured:</p>
+                    <p className="font-secondary font-medium text-sm">Routes Captured:</p>
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
                         <Badge variant="secondary" className="mb-1">Public</Badge>

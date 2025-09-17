@@ -268,7 +268,7 @@ function UserSearchDialog({ onSelectUser }: UserSearchDialogProps) {
                       <User className="h-5 w-5 text-text-primary" />
                     </div>
                     <div>
-                      <p className="font-secondary font-medium text-text-primary">{user.name}</p>
+                      <h4 className="font-secondary font-bold text-text-primary">{user.name}</h4>
                       <p className="font-secondary text-sm text-text-secondary">{user.email}</p>
                     </div>
                   </div>

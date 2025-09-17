@@ -10,6 +10,7 @@ import { Search, MessageCircle, Calendar, FileText, MoreHorizontal, Filter } fro
 const clients = [
   {
     id: "1",
+    name: "Jane Doe",
     initials: "J.D.",
     email: "j.doe@email.com",
     avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b196?w=100&h=100&fit=crop&crop=face",
@@ -23,6 +24,7 @@ const clients = [
   },
   {
     id: "2",
+    name: "Michael Smith",
     initials: "M.S.",
     email: "m.smith@email.com", 
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
@@ -36,6 +38,7 @@ const clients = [
   },
   {
     id: "3",
+    name: "Sarah Lee",
     initials: "S.L.",
     email: "sarah.lee@email.com",
     avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
@@ -49,6 +52,7 @@ const clients = [
   },
   {
     id: "4",
+    name: "Robert Parker",
     initials: "R.P.",
     email: "robert.parker@email.com",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
@@ -62,6 +66,7 @@ const clients = [
   },
   {
     id: "5",
+    name: "Lisa Martinez",
     initials: "L.M.",
     email: "lisa.martinez@email.com",
     avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face",
@@ -162,9 +167,9 @@ export default function TherapistClients() {
                       
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-1">
-                          <h3 className="font-secondary font-semibold text-foreground truncate">
-                            {client.email}
-                          </h3>
+                          <h4 className="font-secondary font-bold text-foreground truncate">
+                            {client.name || 'Unknown Client'}
+                          </h4>
                           <Badge 
                             variant={client.status === "Active" ? "secondary" : "outline"}
                             className={client.status === "Active" ? "bg-success text-white" : "bg-warning text-foreground"}
@@ -175,14 +180,14 @@ export default function TherapistClients() {
                         
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm text-muted-foreground">
                           <div>
-                            <span className="font-medium">Sessions:</span> {client.totalSessions}
+                            <span className="font-secondary font-medium">Sessions:</span> {client.totalSessions}
                           </div>
                           <div>
-                            <span className="font-medium">Last:</span> {new Date(client.lastSession).toLocaleDateString()}
+                            <span className="font-secondary font-medium">Last:</span> {new Date(client.lastSession).toLocaleDateString()}
                           </div>
                           {client.nextSession && (
                             <div>
-                              <span className="font-medium">Next:</span> {client.nextSession}
+                              <span className="font-secondary font-medium">Next:</span> {client.nextSession}
                             </div>
                           )}
                         </div>

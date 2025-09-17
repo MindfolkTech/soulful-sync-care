@@ -240,7 +240,7 @@ export default function AdminUsers() {
                                 <User className="h-5 w-5 text-text-primary" />
                               </div>
                               <div>
-                                <p className="font-secondary font-medium text-text-primary">{user.name}</p>
+                                <h4 className="font-secondary font-bold text-text-primary">{user.name}</h4>
                                 <p className="font-secondary text-sm text-text-secondary">{user.email}</p>
                               </div>
                             </div>
@@ -334,7 +334,7 @@ export default function AdminUsers() {
                   <User className="h-8 w-8 text-text-primary" />
                 </div>
                 <div className="space-y-1">
-                  <h3 className="font-primary text-xl text-text-primary">{selectedUser.name}</h3>
+                  <h1 className="font-primary text-xl text-text-primary">{selectedUser.name}</h1>
                   <p className="font-secondary text-text-secondary">{selectedUser.email}</p>
                   <div className="flex items-center gap-2">
                     <Badge 

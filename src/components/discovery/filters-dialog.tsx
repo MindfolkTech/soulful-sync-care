@@ -52,7 +52,7 @@ export function FiltersDialog({ open, onOpenChange, trigger }: FiltersDialogProp
         <div className="space-y-6">
           {/* Modality - Single Selection */}
           <div>
-            <h3 className="font-secondary font-semibold mb-2">Modality (select one)</h3>
+            <h3 className="font-primary font-semibold mb-2">Modality (select one)</h3>
             <div className="flex flex-wrap gap-2">
               {modalityOptions.map((modality) => (
                 <button
@@ -74,7 +74,7 @@ export function FiltersDialog({ open, onOpenChange, trigger }: FiltersDialogProp
 
           {/* Personality - Max 3 */}
           <div>
-            <h3 className="font-secondary font-semibold mb-2">
+            <h3 className="font-primary font-semibold mb-2">
               Personality (max 3) 
               <span className="text-sm text-text-secondary ml-2">
                 {selectedPersonality.length}/3
@@ -112,7 +112,7 @@ export function FiltersDialog({ open, onOpenChange, trigger }: FiltersDialogProp
 
           {/* Specialties - Max 3 */}
           <div>
-            <h3 className="font-secondary font-semibold mb-2">
+            <h3 className="font-primary font-semibold mb-2">
               Specialties (max 3)
               <span className="text-sm text-text-secondary ml-2">
                 {selectedSpecialties.length}/3

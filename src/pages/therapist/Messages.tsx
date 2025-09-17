@@ -166,9 +166,9 @@ export default function TherapistMessages() {
                       
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
-                          <h3 className="font-secondary font-semibold text-foreground text-sm truncate">
+                          <h4 className="font-secondary font-bold text-foreground text-sm truncate">
                             {conversation.clientName}
-                          </h3>
+                          </h4>
                           <div className="flex items-center gap-2">
                             {getPriorityIcon(conversation.priority)}
                             {conversation.unreadCount > 0 && (
@@ -209,7 +209,7 @@ export default function TherapistMessages() {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <h3 className="font-secondary font-semibold text-foreground">
+                    <h3 className="font-primary font-semibold text-foreground">
                       {selectedConversation.clientName}
                     </h3>
                     <div className="flex items-center gap-1 text-xs text-muted-foreground">

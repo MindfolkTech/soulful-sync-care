@@ -153,7 +153,7 @@ export function PaymentForm({
       {/* Plan Selection */}
       {showPlanSelection && (
         <div className="space-y-4">
-          <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-50 mb-4">Choose Your Plan</h3>
+          <h3 className="font-primary font-semibold text-lg text-gray-900 dark:text-gray-50 mb-4">Choose Your Plan</h3>
           <div className="grid gap-3">
             {plans.map((plan) => (
               <Card 
@@ -168,7 +168,7 @@ export function PaymentForm({
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      <h4 className="font-medium text-gray-900 dark:text-gray-50">{plan.name}</h4>
+                      <h4 className="font-secondary font-medium text-gray-900 dark:text-gray-50">{plan.name}</h4>
                       {plan.popular && (
                         <Badge variant="default" className="text-xs">
                           Popular
@@ -202,7 +202,7 @@ export function PaymentForm({
       {/* Payment Information */}
       <div className="bg-white dark:bg-gray-950 rounded-lg shadow-md overflow-hidden">
         <div className="p-6">
-          <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-50 mb-4">Payment Information</h3>
+          <h3 className="font-primary font-semibold text-lg text-gray-900 dark:text-gray-50 mb-4">Payment Information</h3>
 
         {/* Card Number */}
         <div>

@@ -304,7 +304,7 @@ export default function TherapistEarnings() {
               <CardContent>
                 <div className="text-center py-12">
                   <Calendar className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="font-secondary font-semibold text-foreground mb-2">
+                  <h3 className="font-primary font-semibold text-foreground mb-2">
                     Tax documents will be available at year-end
                   </h3>
                   <p className="font-secondary text-muted-foreground text-sm">

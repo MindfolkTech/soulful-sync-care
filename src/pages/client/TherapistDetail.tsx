@@ -200,7 +200,7 @@ export default function TherapistDetail() {
                   </div>
 
                   <div className="pt-4 border-t">
-                    <h4 className="font-primary font-semibold text-text-primary mb-2">
+                    <h4 className="font-secondary font-semibold text-text-primary mb-2">
                       Next Available
                     </h4>
                     <div className="space-y-1 text-sm font-secondary text-text-secondary">

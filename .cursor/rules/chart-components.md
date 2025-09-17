@@ -32,8 +32,8 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 - **Background**: `bg-[--surface]` (#FFFFFF)
 
 #### Required Elements
-- **Section label**: "Appointments" - `font-[--font-secondary]`, `text-[--text-secondary]`
-- **Central number**: Large font size, `font-[--font-primary]`, `text-[--jovial-jade]`
+- **Section label**: "Appointments" - `font-secondary`, `text-[--text-secondary]`
+- **Central number**: Large font size, `font-primary`, `text-[--jovial-jade]`
 - **Legend**: Three items (Completed, Cancelled, Rescheduled) with color indicators
 - **Tooltip support**: Show exact numbers on hover/focus
 
@@ -53,8 +53,8 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 - **Title**: `text-[--text-secondary]` (#6B7280)
 
 #### Required Elements
-- **Section label**: "Profile Views in the last year" - `font-[--font-secondary]`, `text-[--text-secondary]`
-- **Y-axis labels**: 9k, 11k, 14k, 17k, 20k - `font-[--font-secondary]`, `text-[--text-secondary]`
+- **Section label**: "Profile Views in the last year" - `font-secondary`, `text-[--text-secondary]`
+- **Y-axis labels**: 9k, 11k, 14k, 17k, 20k - `font-secondary`, `text-[--text-secondary]`
 - **Trend line**: Orange color with smooth curves
 - **Data points**: Circular indicators at key points
 - **Grid lines**: Horizontal guidelines for readability
@@ -80,11 +80,11 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
   - Hover interactions for additional data
 
 ### Typography Requirements
-- **Chart titles**: `font-[--font-primary]` (Crimson Pro) - `text-[--jovial-jade]`
-- **Section labels**: `font-[--font-secondary]` (Helvetica Neue) - `text-[--text-secondary]`
-- **Data labels**: `font-[--font-secondary]` (Helvetica Neue) - `text-[--text-secondary]`
-- **Central numbers**: `font-[--font-primary]` (Crimson Pro) - `text-[--jovial-jade]`
-- **Legend text**: `font-[--font-secondary]` (Helvetica Neue) - `text-[--text-secondary]`
+- **Chart titles**: `font-primary` (Crimson Pro) - `text-[--jovial-jade]`
+- **Section labels**: `font-secondary` (Helvetica Neue) - `text-[--text-secondary]`
+- **Data labels**: `font-secondary` (Helvetica Neue) - `text-[--text-secondary]`
+- **Central numbers**: `font-primary` (Crimson Pro) - `text-[--jovial-jade]`
+- **Legend text**: `font-secondary` (Helvetica Neue) - `text-[--text-secondary]`
 
 ## Accessibility Requirements (WCAG AA)
 
@@ -142,7 +142,7 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 - **Scrolling**: Vertical scroll if chart content exceeds widget height
 
 ### Header Integration
-- **Widget titles**: Match dashboard typography (`font-[--font-primary]`, `text-[--jovial-jade]`)
+- **Widget titles**: Match dashboard typography (`font-primary`, `text-[--jovial-jade]`)
 - **Action links**: "EDIT" and "OPEN" links with `text-[--garden-green]`
 - **External link icons**: Consistent with other dashboard widgets
 
@@ -167,11 +167,11 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 // Donut Chart for Income Details Widget
 <div className="bg-[--surface] p-4 rounded-lg border border-[--border]">
   <div className="flex items-center justify-between mb-4">
-    <h3 className="font-[--font-primary] text-[--jovial-jade]">Income Details</h3>
+    <h3 className="font-primary text-[--jovial-jade]">Income Details</h3>
     <a href="#" className="text-[--garden-green] text-sm">EDIT</a>
   </div>
   <div className="flex items-center justify-between mb-2">
-    <span className="font-[--font-secondary] text-[--text-secondary] text-sm">Appointments</span>
+    <span className="font-secondary text-[--text-secondary] text-sm">Appointments</span>
     <a href="#" className="text-[--garden-green] text-sm flex items-center">
       OPEN ANALYTICS <ExternalLink className="ml-1 w-4 h-4" />
     </a>
@@ -188,7 +188,7 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
         { label: "Rescheduled", value: 15, color: "bg-[--tag-modality-bg]" }
       ]}
       centerText="122"
-      centerTextClass="font-[--font-primary] text-2xl text-[--jovial-jade]"
+      centerTextClass="font-primary text-2xl text-[--jovial-jade]"
     />
   </div>
   <div className="space-y-2">
@@ -196,9 +196,9 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
       <div key={index} className="flex items-center justify-between text-sm">
         <div className="flex items-center">
           <div className={`w-3 h-3 rounded-full ${item.color} mr-2`} />
-          <span className="font-[--font-secondary] text-[--text-secondary]">{item.label}</span>
+          <span className="font-secondary text-[--text-secondary]">{item.label}</span>
         </div>
-        <span className="font-[--font-secondary] text-[--text-primary]">{item.value}</span>
+        <span className="font-secondary text-[--text-primary]">{item.value}</span>
       </div>
     ))}
   </div>

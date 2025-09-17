@@ -83,8 +83,19 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Use **CSS custom properties** wit
 
 ### Typography
 ```css
---font-primary: 'Crimson Pro', Georgia, serif;           /* Headings, quotes, names */
---font-secondary: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; /* Body/UI */
+--font-primary: 'Crimson Pro', Georgia, serif;           /* Major headings (h1-h3), quotes, names */
+--font-secondary: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; /* Minor headings (h4-h6), body/UI */
+```
+
+### Client Names
+```css
+/* Special rule for client names - H4 with bold weight */
+<h4 className="font-secondary font-bold text-foreground text-sm">Client Name</h4>
+
+/* Data Requirements */
+- All client objects MUST have a 'name' field
+- Use fallback: {client.name || 'Unknown Client'} for missing names
+- Client names are required for consistent layout and accessibility
 ```
 
 ### Spacing & Touch Targets
@@ -124,8 +135,16 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Use **CSS custom properties** wit
 <Tag className="bg-[--tag-personality-bg] text-[--tag-personality-text]">Empathetic</Tag>
 
 // Typography
-<h1 className="font-[--font-primary] text-[--jovial-jade]">Welcome</h1>
-<p className="font-[--font-secondary] text-[--text-primary]">Body text</p>
+<h1 className="font-primary text-[--jovial-jade]">Welcome</h1>
+<h2 className="font-primary text-[--jovial-jade]">Section Title</h2>
+<h3 className="font-primary text-[--text-primary]">Subsection</h3>
+<h4 className="font-secondary text-[--text-primary]">Minor Heading</h4>
+<h5 className="font-secondary text-[--text-primary]">Small Heading</h5>
+<h6 className="font-secondary text-[--text-primary]">Tiny Heading</h6>
+<p className="font-secondary text-[--text-primary]">Body text</p>
+
+// Client Names (special rule)
+<h4 className="font-secondary font-bold text-foreground text-sm">Client Name</h4>
 
 // Spacing
 <div className="p-[--space-md] gap-[--space-sm]">Content</div>

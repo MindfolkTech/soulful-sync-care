@@ -122,9 +122,9 @@ export default function TherapistDashboard() {
         <Card className="min-w-0 overflow-hidden flex flex-col">
           <CardHeader className="flex-shrink-0 p-3 md:p-4 pb-2">
             <div className="flex items-center justify-between">
-              <CardTitle className="font-primary text-jovial-jade text-sm md:text-base">
+              <h2 className="font-primary text-jovial-jade text-sm md:text-base">
                 Upcoming Appointments
-              </CardTitle>
+              </h2>
               <div className="flex items-center gap-1">
                 <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">
                   EDIT
@@ -145,7 +145,7 @@ export default function TherapistDashboard() {
                       <span className="font-secondary text-foreground text-xs">{appointment.clientInitials}</span>
                     </div>
                     <div className="min-w-0">
-                      <p className="font-secondary text-foreground text-sm truncate">{appointment.clientName}</p>
+                      <h4 className="font-secondary font-bold text-foreground text-sm truncate">{appointment.clientName}</h4>
                       <p className="font-secondary text-muted-foreground text-xs truncate">{appointment.time}</p>
                     </div>
                   </div>
@@ -162,9 +162,9 @@ export default function TherapistDashboard() {
         <Card className="min-w-0 overflow-hidden flex flex-col">
           <CardHeader className="flex-shrink-0 p-3 md:p-4 pb-2">
             <div className="flex items-center justify-between">
-              <CardTitle className="font-primary text-jovial-jade text-sm md:text-base">
+              <h2 className="font-primary text-jovial-jade text-sm md:text-base">
                 My Client Dashboard
-              </CardTitle>
+              </h2>
               <div className="flex items-center gap-1">
                 <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">EDIT</Button>
                 <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">
@@ -183,7 +183,7 @@ export default function TherapistDashboard() {
                       <span className="font-secondary text-foreground text-xs">{client.initials}</span>
                     </div>
                     <div className="min-w-0">
-                      <p className="font-secondary text-foreground text-sm truncate">{client.name}</p>
+                      <h4 className="font-secondary font-bold text-foreground text-sm truncate">{client.name}</h4>
                       <p className="font-secondary text-muted-foreground text-xs truncate">{client.email}</p>
                     </div>
                   </div>
@@ -206,7 +206,7 @@ export default function TherapistDashboard() {
         <Card className="min-w-0 overflow-hidden flex flex-col">
           <CardHeader className="flex-shrink-0 p-3 md:p-4 pb-2">
             <div className="flex items-center justify-between">
-              <CardTitle className="font-primary text-jovial-jade text-sm md:text-base">Income Details</CardTitle>
+              <h2 className="font-primary text-jovial-jade text-sm md:text-base">Income Details</h2>
               <div className="flex items-center gap-1">
                 <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">EDIT</Button>
                 <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">
@@ -218,7 +218,7 @@ export default function TherapistDashboard() {
           </CardHeader>
           <CardContent className="flex-1 min-h-0 p-3 md:p-4 pt-0">
             <div className="h-full flex flex-col">
-              <h3 className="font-primary text-muted-foreground text-xs mb-2">Appointments</h3>
+              <h4 className="font-secondary text-muted-foreground text-xs mb-2">Appointments</h4>
               <div className="flex-1 min-h-0 flex items-center justify-center relative">
                 <div className="absolute inset-0 flex items-center justify-center z-10">
                   <span className="font-primary text-2xl md:text-3xl font-bold text-jovial-jade">122</span>
@@ -266,7 +266,7 @@ export default function TherapistDashboard() {
         <Card className="min-w-0 overflow-hidden flex flex-col">
           <CardHeader className="flex-shrink-0 p-3 md:p-4 pb-2">
             <div className="flex items-center justify-between">
-              <CardTitle className="font-primary text-jovial-jade text-sm md:text-base">My Business Profile</CardTitle>
+              <h2 className="font-primary text-jovial-jade text-sm md:text-base">My Business Profile</h2>
               <div className="flex items-center gap-1">
                 <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">EDIT</Button>
                 <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">
@@ -278,7 +278,7 @@ export default function TherapistDashboard() {
           </CardHeader>
           <CardContent className="flex-1 min-h-0 p-3 md:p-4 pt-0">
             <div className="h-full flex flex-col">
-              <h3 className="font-primary text-muted-foreground text-xs mb-2">Profile Views in the last year</h3>
+              <h4 className="font-secondary text-muted-foreground text-xs mb-2">Profile Views in the last year</h4>
               <div className="flex-1 min-h-0 p-2">
                 <svg className="w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
                   <defs>

@@ -98,7 +98,7 @@ export default function Account() {
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-primary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-text-primary">
                             Email Notifications
                           </h4>
                           <p className="text-sm text-text-secondary">
@@ -110,7 +110,7 @@ export default function Account() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-primary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-text-primary">
                             SMS Reminders
                           </h4>
                           <p className="text-sm text-text-secondary">
@@ -122,7 +122,7 @@ export default function Account() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-primary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-text-primary">
                             Push Notifications
                           </h4>
                           <p className="text-sm text-text-secondary">
@@ -134,7 +134,7 @@ export default function Account() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-primary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-text-primary">
                             Marketing Communications
                           </h4>
                           <p className="text-sm text-text-secondary">
@@ -162,7 +162,7 @@ export default function Account() {
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-primary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-text-primary">
                             Profile Visibility
                           </h4>
                           <p className="text-sm text-text-secondary">
@@ -174,7 +174,7 @@ export default function Account() {
 
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="font-primary font-semibold text-text-primary">
+                          <h4 className="font-secondary font-semibold text-text-primary">
                             Data Analytics
                           </h4>
                           <p className="text-sm text-text-secondary">
@@ -186,7 +186,7 @@ export default function Account() {
                     </div>
 
                     <div className="pt-6 border-t space-y-4">
-                      <h4 className="font-primary font-semibold text-text-primary">
+                      <h4 className="font-secondary font-semibold text-text-primary">
                         Data Management
                       </h4>
                       <div className="flex space-x-4">
@@ -208,7 +208,7 @@ export default function Account() {
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div>
-                      <h4 className="font-primary font-semibold text-text-primary mb-4">
+                      <h4 className="font-secondary font-semibold text-text-primary mb-4">
                         Payment Methods
                       </h4>
                       <div className="space-y-3">
@@ -233,7 +233,7 @@ export default function Account() {
                     </div>
 
                     <div>
-                      <h4 className="font-primary font-semibold text-text-primary mb-4">
+                      <h4 className="font-secondary font-semibold text-text-primary mb-4">
                         Billing History
                       </h4>
                       <div className="space-y-3">

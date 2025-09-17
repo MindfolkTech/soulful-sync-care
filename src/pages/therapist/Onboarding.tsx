@@ -143,7 +143,7 @@ export default function TherapistOnboarding() {
                     className="h-3 flex-1 bg-surface-accent rounded-full overflow-hidden"
                     aria-label={`Progress: ${Math.round(progress)}% complete`}
                   />
-                  <span className="text-sm text-text-secondary font-helvetica whitespace-nowrap bg-surface px-3 py-1 rounded-full" aria-live="polite">
+                  <span className="text-sm text-text-secondary font-secondary whitespace-nowrap bg-surface px-3 py-1 rounded-full" aria-live="polite">
                     Step {currentStep} of {onboardingSteps.length}
                   </span>
                 </div>
@@ -151,7 +151,7 @@ export default function TherapistOnboarding() {
                   {savedProgress && (
                     <div className="flex items-center gap-2 bg-success-bg text-success-text px-3 py-1 rounded-full" role="status" aria-live="polite">
                       <Save className="w-4 h-4" aria-hidden="true" />
-                      <span className="text-sm font-helvetica font-medium">Saved</span>
+                      <span className="text-sm font-secondary font-medium">Saved</span>
                     </div>
                   )}
                   <Button 
@@ -447,7 +447,7 @@ export default function TherapistOnboarding() {
                       <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
                         <Upload className="w-8 h-8 text-primary" />
                       </div>
-                      <h4 className="font-primary font-semibold text-text-primary mb-2">
+                      <h4 className="font-secondary font-semibold text-text-primary mb-2">
                         Record your 30-60 second introduction
                       </h4>
                       <p className="font-secondary text-text-secondary text-sm mb-4">

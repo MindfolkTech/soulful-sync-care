@@ -147,7 +147,7 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - ✅ **DashboardLayout Component**: Mandatory shared component for all therapist pages
 - ✅ **Layout Atoms**: Use Stack, HStack, Cluster for consistent spacing
 - ✅ **Responsive Design**: Collapsible sidebar, mobile-first, no horizontal scroll
-- ✅ **Typography**: `font-[--font-primary]` for titles, `font-[--font-secondary]` for content
+- ✅ **Typography**: `font-primary` for titles, `font-secondary` for content
 - ✅ **Color System**: All pages must use design tokens consistently
 
 **Calendar Management**
@@ -234,12 +234,13 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 ## Typography Requirements
 
 ### Font Usage
-- ✅ Headings: `font-[--font-primary]` (Crimson Pro, Georgia, serif)
-- ✅ Body text and UI labels: `font-[--font-secondary]` (Helvetica Neue, Helvetica, Arial, sans-serif)
-- ✅ Therapist names and quotes: `font-[--font-primary]`
-- ✅ Sender names in messages: `font-[--font-primary]`
-- ✅ Form labels: `font-[--font-secondary]`
-- ✅ Section headings: `font-[--font-primary]`
+- ✅ **H1, H2, H3**: `font-primary` (Crimson Pro, Georgia, serif) - Major headings
+- ✅ **H4, H5, H6**: `font-secondary` (Helvetica Neue, Helvetica, Arial, sans-serif) - Minor headings
+- ✅ **Client names**: `font-secondary font-bold` (special rule - H4 with bold)
+- ✅ **Body text and UI labels**: `font-secondary` (Helvetica Neue, Helvetica, Arial, sans-serif)
+- ✅ **Therapist names and quotes**: `font-primary`
+- ✅ **Sender names in messages**: `font-primary`
+- ✅ **Form labels**: `font-secondary`
 
 ## Color System Requirements
 
@@ -303,18 +304,18 @@ export default function TherapistPage() {
       {/* Upcoming Appointments Widget */}
       <Card>
         <CardHeader>
-          <CardTitle className="font-[--font-primary] text-[--jovial-jade]">Today's Sessions</CardTitle>
+          <CardTitle className="font-primary text-[--jovial-jade]">Today's Sessions</CardTitle>
         </CardHeader>
         <CardContent>
           {upcomingSessions.map(session => (
             <div key={session.id} className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 bg-[--surface-accent] rounded-full flex items-center justify-center">
-                  <span className="font-[--font-secondary] text-[--text-primary] text-sm">{session.clientInitials}</span>
+                  <span className="font-secondary text-[--text-primary] text-sm">{session.clientInitials}</span>
                 </div>
                 <div>
-                  <p className="font-[--font-secondary] text-[--text-primary]">{session.type}</p>
-                  <p className="font-[--font-secondary] text-[--text-secondary] text-sm">{session.time}</p>
+                  <p className="font-secondary text-[--text-primary]">{session.type}</p>
+                  <p className="font-secondary text-[--text-secondary] text-sm">{session.time}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -334,7 +335,7 @@ export default function TherapistPage() {
       {/* Calendar Management */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="font-[--font-primary] text-[--jovial-jade]">Calendar</CardTitle>
+          <CardTitle className="font-primary text-[--jovial-jade]">Calendar</CardTitle>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm">Google</Button>
             <Button variant="outline" size="sm">Outlook</Button>
@@ -357,7 +358,7 @@ export default function TherapistPage() {
       {/* Client Relationship Management */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="font-[--font-primary] text-[--jovial-jade]">Client Directory</CardTitle>
+          <CardTitle className="font-primary text-[--jovial-jade]">Client Directory</CardTitle>
           <div className="flex items-center gap-2">
             <input 
               type="search" 
@@ -372,10 +373,10 @@ export default function TherapistPage() {
             <div key={client.id} className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 bg-[--surface-accent] rounded-full flex items-center justify-center">
-                  <span className="font-[--font-secondary] text-[--text-primary] text-sm">{client.initials}</span>
+                  <span className="font-secondary text-[--text-primary] text-sm">{client.initials}</span>
                 </div>
                 <div>
-                  <p className="font-[--font-secondary] text-[--text-primary]">{client.name}</p>
+                  <p className="font-secondary text-[--text-primary]">{client.name}</p>
                   <Badge variant={client.status === 'Active' ? 'secondary' : 'outline'}>
                     {client.status}
                   </Badge>

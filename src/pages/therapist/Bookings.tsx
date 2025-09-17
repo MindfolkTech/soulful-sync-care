@@ -154,7 +154,7 @@ export default function TherapistBookings() {
                       
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-1">
-                          <h3 className="font-secondary font-semibold text-foreground">
+                          <h3 className="font-primary font-semibold text-foreground">
                             {booking.type}
                           </h3>
                           {getStatusBadge(booking.status)}

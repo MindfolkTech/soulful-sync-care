@@ -80,8 +80,8 @@
     --error-foreground: var(--error-text);
     
     /* Typography Tokens */
-    --font-primary: 'Crimson Pro', Georgia, serif;
-    --font-secondary: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    --font-primary: 'Crimson Pro', Georgia, serif;           /* Major headings (h1-h3), quotes, names */
+    --font-secondary: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif; /* Minor headings (h4-h6), body/UI */
     --text-xs: clamp(0.75rem, 0.70rem + 0.25vw, 0.875rem);
     --text-sm: clamp(0.875rem, 0.80rem + 0.375vw, 1rem);
     --text-base: clamp(1rem, 0.90rem + 0.50vw, 1.125rem);
@@ -144,3 +144,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .font-primary {
+    font-family: var(--font-primary);
+  }
+  
+  .font-secondary {
+    font-family: var(--font-secondary);
+  }
+}
+
+/* Typography Patterns:
+ * H1, H2, H3: font-primary (serif) - Major headings
+ * H4, H5, H6: font-secondary (sans-serif) - Minor headings  
+ * Client names: font-secondary font-bold (special rule)
+ * Body text: font-secondary (sans-serif)
+ */

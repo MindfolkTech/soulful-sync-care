@@ -53,7 +53,7 @@ export default function Messages() {
       <Container size="xl">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-3xl font-bold mb-2">Messages</h1>
+          <h1 className="font-primary text-3xl font-bold mb-2">Messages</h1>
           <p className="text-muted-foreground">
             Secure communication with your therapists
           </p>
@@ -112,7 +112,7 @@ export default function Messages() {
                       
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
-                          <h4 className="font-medium truncate">
+                          <h4 className="font-secondary font-medium truncate">
                             {thread.therapistName}
                           </h4>
                           <div className="flex items-center gap-1">
@@ -157,7 +157,7 @@ export default function Messages() {
                           </AvatarFallback>
                         </Avatar>
                         <div>
-                          <h3 className="font-semibold">
+                          <h3 className="font-primary font-semibold">
                             {filteredThreads.find(t => t.id === selectedThread)?.therapistName}
                           </h3>
                           <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -193,7 +193,7 @@ export default function Messages() {
               <Card className="flex-1 flex items-center justify-center">
                 <div className="text-center">
                   <MessageSquare className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="font-medium mb-2">Select a conversation</h3>
+                  <h3 className="font-primary font-medium mb-2">Select a conversation</h3>
                   <p className="text-muted-foreground">
                     Choose a conversation to start messaging with your therapist
                   </p>

@@ -274,7 +274,7 @@ function ApplicationsList({
                       <User className="h-5 w-5 text-text-primary" />
                     </div>
                     <div>
-                      <p className="font-secondary font-medium text-text-primary">{application.name}</p>
+                      <h4 className="font-secondary font-bold text-text-primary">{application.name}</h4>
                       <p className="font-secondary text-sm text-text-secondary">{application.email}</p>
                     </div>
                   </div>
@@ -386,7 +386,7 @@ function ApplicationDetailsDialog({
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="font-secondary text-sm text-text-secondary">Name</p>
-                  <p className="font-secondary font-medium text-text-primary">{application.name}</p>
+                  <h4 className="font-secondary font-bold text-text-primary">{application.name}</h4>
                 </div>
                 <div>
                   <p className="font-secondary text-sm text-text-secondary">Email</p>

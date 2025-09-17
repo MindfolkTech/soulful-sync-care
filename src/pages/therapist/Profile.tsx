@@ -154,7 +154,7 @@ export default function TherapistProfile() {
               </div>
               <div className="space-y-4">
                 <div>
-                  <h3 className="font-secondary font-semibold text-foreground mb-2">
+                  <h3 className="font-primary font-semibold text-foreground mb-2">
                     Why add a video?
                   </h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">

@@ -145,15 +145,15 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 ## Typography Requirements
 
 ### Headers
-- **Main title**: "Welcome Back, Sarah!" - `font-primary`, large size, `text-jovial-jade`
-- **Widget titles**: `font-primary`, medium size, `text-jovial-jade`
-- **Section labels**: `font-secondary`, small size, `text-muted-foreground`
+- **Main title**: "Welcome Back, Sarah!" - `<h1 className="font-primary text-3xl font-bold text-jovial-jade">`
+- **Widget titles**: `<h2 className="font-primary text-jovial-jade text-sm md:text-base">` (e.g., "Upcoming Appointments", "My Client Dashboard")
+- **Widget subtitles**: `<h4 className="font-secondary text-muted-foreground text-xs">` (e.g., "Appointments", "Profile Views in the last year")
 
 ### Content
-- **Client names**: `font-secondary`, medium size, `text-foreground`
-- **Email addresses**: `font-secondary`, small size, `text-muted-foreground`
-- **Times/dates**: `font-secondary`, small size, `text-muted-foreground`
-- **Action links**: `font-secondary`, small size, `text-garden-green`
+- **Client names**: `<h4 className="font-secondary font-bold text-foreground text-sm">` (special rule - H4 with bold)
+- **Email addresses**: `<p className="font-secondary text-muted-foreground text-xs">`
+- **Times/dates**: `<p className="font-secondary text-muted-foreground text-xs">`
+- **Action links**: `<Button className="font-secondary text-garden-green text-xs">`
 
 ## Interactive Elements
 
