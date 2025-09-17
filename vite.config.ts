@@ -16,4 +16,15 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  optimizeDeps: {
+    exclude: [
+      '@playwright/test',
+      'playwright-core',
+      'chromium-bidi'
+    ],
+  },
+  define: {
+    // Exclude playwright from browser bundle
+    'process.env.NODE_ENV': JSON.stringify(mode),
+  },
 }));

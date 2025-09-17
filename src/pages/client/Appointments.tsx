@@ -6,15 +6,20 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { SessionCountdown } from "@/components/ui/session-countdown";
+import { SessionReminderBanner } from "@/components/ui/session-reminder-banner";
 import { Calendar, Clock, Video, MessageCircle, MoreHorizontal } from "lucide-react";
 
+// Create realistic upcoming session times for demo
+const now = new Date();
 const appointments = [
   {
     id: "1",
     therapist: "Dr. Sarah Chen",
     type: "Chemistry Call",
-    date: "2024-01-15",
-    time: "10:00 AM",
+    sessionType: "chemistry" as const,
+    // Session in 8 minutes (will show JOIN NOW)
+    sessionTime: new Date(now.getTime() + 8 * 60 * 1000),
     duration: "15 min",
     status: "confirmed",
     image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=face"
@@ -23,11 +28,34 @@ const appointments = [
     id: "2",
     therapist: "Michael Thompson",
     type: "Therapy Session",
-    date: "2024-01-12",
-    time: "2:00 PM", 
+    sessionType: "therapy" as const,
+    // Session in 45 minutes (will show reminder banner)
+    sessionTime: new Date(now.getTime() + 45 * 60 * 1000),
     duration: "60 min",
-    status: "completed",
+    status: "confirmed",
     image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200&h=200&fit=crop&crop=face"
+  },
+  {
+    id: "3",
+    therapist: "Dr. Priya Patel",
+    type: "Therapy Session",
+    sessionType: "therapy" as const,
+    // Session tomorrow
+    sessionTime: new Date(now.getTime() + 24 * 60 * 60 * 1000),
+    duration: "60 min",
+    status: "confirmed",
+    image: "https://images.unsplash.com/photo-1594824919066-c0f76fe0cd0d?w=200&h=200&fit=crop&crop=face"
+  },
+  {
+    id: "4",
+    therapist: "Dr. James Wilson",
+    type: "Chemistry Call",
+    sessionType: "chemistry" as const,
+    // Completed session
+    sessionTime: new Date(now.getTime() - 24 * 60 * 60 * 1000),
+    duration: "15 min",
+    status: "completed",
+    image: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=200&h=200&fit=crop&crop=face"
   }
 ];
 
@@ -63,6 +91,21 @@ export default function Appointments() {
               </p>
             </div>
 
+            {/* Session Reminder Banners */}
+            <div className="space-y-4 mb-6">
+              {appointments
+                .filter(apt => apt.status === "confirmed")
+                .map((appointment) => (
+                  <SessionReminderBanner
+                    key={`reminder-${appointment.id}`}
+                    sessionTime={appointment.sessionTime}
+                    sessionId={appointment.id}
+                    therapistName={appointment.therapist}
+                    sessionType={appointment.sessionType}
+                  />
+                ))}
+            </div>
+
             <Tabs defaultValue="upcoming" className="space-y-6">
               <TabsList className="grid w-full grid-cols-3" role="tablist" aria-label="Appointment filter tabs">
                 <TabsTrigger value="upcoming" className="min-h-[--touch-target-min]" aria-label="View upcoming appointments">Upcoming</TabsTrigger>
@@ -77,45 +120,48 @@ export default function Appointments() {
                   .map((appointment) => (
                     <Card key={appointment.id} role="listitem">
                       <CardContent className="p-6">
-                        <div className="flex items-center justify-between">
+                        <div className="space-y-4">
+                          {/* Therapist Info Row */}
                           <div className="flex items-center space-x-4">
                             <img
                               src={appointment.image}
                               alt={`Profile photo of ${appointment.therapist}`}
                               className="w-16 h-16 rounded-full object-cover"
                             />
-                            <div>
-                              <h3 className="font-primary text-lg font-semibold text-text-primary">
+                            <div className="flex-1 min-w-0">
+                              <h3 className="font-primary text-lg font-semibold text-[--text-primary]">
                                 {appointment.therapist}
                               </h3>
-                              <p className="font-secondary text-text-secondary">
-                                {appointment.type}
+                              <p className="font-secondary text-[--text-secondary]">
+                                {appointment.type} • {appointment.duration}
                               </p>
-                              <div className="flex items-center space-x-4 mt-2 text-sm text-text-muted">
-                                <div className="flex items-center space-x-1">
-                                  <Calendar className="w-4 h-4" />
-                                  <span>{appointment.date}</span>
-                                </div>
-                                <div className="flex items-center space-x-1">
-                                  <Clock className="w-4 h-4" />
-                                  <span>{appointment.time} ({appointment.duration})</span>
-                                </div>
-                              </div>
+                              <p className="font-secondary text-sm text-[--text-muted] mt-1">
+                                {appointment.sessionTime.toLocaleDateString('en-US', {
+                                  weekday: 'long',
+                                  month: 'long',
+                                  day: 'numeric'
+                                })}
+                              </p>
                             </div>
+                            
+                            <Button 
+                              size="sm" 
+                              variant="ghost" 
+                              onClick={() => window.location.href = '/messages'} 
+                              className="min-h-[--touch-target-min] text-[--garden-green]" 
+                              aria-label={`Send message to ${appointment.therapist}`}
+                            >
+                              <MessageCircle className="w-4 h-4" />
+                            </Button>
                           </div>
 
-                          <div className="flex items-center space-x-3">
-                            {getStatusBadge(appointment.status)}
-                            <div className="flex space-x-2">
-                              <Button size="sm" onClick={() => window.location.href = `/session/${appointment.id}`} className="min-h-[--touch-target-min]" aria-label={`Join therapy session with ${appointment.therapist}`}>
-                                <Video className="w-4 h-4 mr-2" />
-                                Join
-                              </Button>
-                              <Button size="sm" variant="ghost" onClick={() => window.location.href = '/messages'} className="min-h-[--touch-target-min] text-garden-green" aria-label={`Send message to ${appointment.therapist}`}>
-                                <MessageCircle className="w-4 h-4" />
-                              </Button>
-                            </div>
-                          </div>
+                          {/* Session Countdown Row */}
+                          <SessionCountdown
+                            sessionTime={appointment.sessionTime}
+                            sessionId={appointment.id}
+                            therapistName={appointment.therapist}
+                            className="pt-3 border-t border-[--border]"
+                          />
                         </div>
                       </CardContent>
                     </Card>
@@ -138,20 +184,27 @@ export default function Appointments() {
                               className="w-16 h-16 rounded-full object-cover"
                             />
                             <div>
-                              <h3 className="font-primary text-lg font-semibold text-text-primary">
+                              <h3 className="font-primary text-lg font-semibold text-[--text-primary]">
                                 {appointment.therapist}
                               </h3>
-                              <p className="font-secondary text-text-secondary">
-                                {appointment.type}
+                              <p className="font-secondary text-[--text-secondary]">
+                                {appointment.type} • {appointment.duration}
                               </p>
-                              <div className="flex items-center space-x-4 mt-2 text-sm text-text-muted">
+                              <div className="flex items-center space-x-4 mt-2 text-sm text-[--text-muted]">
                                 <div className="flex items-center space-x-1">
                                   <Calendar className="w-4 h-4" />
-                                  <span>{appointment.date}</span>
+                                  <span>{appointment.sessionTime.toLocaleDateString('en-US', {
+                                    month: 'short',
+                                    day: 'numeric'
+                                  })}</span>
                                 </div>
                                 <div className="flex items-center space-x-1">
                                   <Clock className="w-4 h-4" />
-                                  <span>{appointment.time} ({appointment.duration})</span>
+                                  <span>{appointment.sessionTime.toLocaleTimeString('en-US', {
+                                    hour: 'numeric',
+                                    minute: '2-digit',
+                                    hour12: true
+                                  })}</span>
                                 </div>
                               </div>
                             </div>
@@ -166,7 +219,7 @@ export default function Appointments() {
                               <Button size="sm" variant="ghost" onClick={() => {
                                 // TODO: Implement review system
                                 console.log("Leave review for", appointment.therapist);
-                              }} className="min-h-[--touch-target-min] text-garden-green" aria-label={`Leave review for ${appointment.therapist}`}>
+                              }} className="min-h-[--touch-target-min] text-[--garden-green]" aria-label={`Leave review for ${appointment.therapist}`}>
                                 ⭐
                               </Button>
                             </div>

@@ -59,6 +59,7 @@ import AdminTasks from "./pages/admin/Tasks";
 
 // Dev pages
 import ScreenshotCapturePage from "./pages/dev/ScreenshotCapture";
+import SessionManagementDemo from "./pages/dev/SessionManagementDemo";
 
 const queryClient = new QueryClient();
 
@@ -121,6 +122,7 @@ const App = () => (
 
           {/* Dev routes */}
           <Route path="/dev/screenshots" element={<ScreenshotCapturePage />} />
+          <Route path="/dev/session-management" element={<SessionManagementDemo />} />
 
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
