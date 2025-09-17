@@ -167,11 +167,12 @@ export default function AdminUsers() {
                         placeholder="Search users..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-10"
+                        className="pl-10 min-h-[--touch-target-min]"
+                        aria-label="Search users by name or email"
                       />
                     </div>
                     <Select value={statusFilter} onValueChange={setStatusFilter}>
-                      <SelectTrigger className="w-full sm:w-[140px]">
+                      <SelectTrigger className="w-full sm:w-[140px] min-h-[--touch-target-min]" aria-label="Filter users by status">
                         <SelectValue placeholder="All Status" />
                       </SelectTrigger>
                       <SelectContent>
@@ -182,7 +183,7 @@ export default function AdminUsers() {
                       </SelectContent>
                     </Select>
                     <Select value={roleFilter} onValueChange={setRoleFilter}>
-                      <SelectTrigger className="w-full sm:w-[140px]">
+                      <SelectTrigger className="w-full sm:w-[140px] min-h-[--touch-target-min]" aria-label="Filter users by role">
                         <SelectValue placeholder="All Roles" />
                       </SelectTrigger>
                       <SelectContent>
@@ -211,9 +212,9 @@ export default function AdminUsers() {
             {/* Users Table */}
             <Card>
               <CardContent className="p-0">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
+                <Table role="table" aria-label="User management table">
+                  <TableHeader role="rowgroup">
+                    <TableRow role="row">
                       <TableHead>User</TableHead>
                       <TableHead>Role</TableHead>
                       <TableHead>Status</TableHead>
@@ -223,9 +224,9 @@ export default function AdminUsers() {
                       <TableHead>Actions</TableHead>
                     </TableRow>
                   </TableHeader>
-                  <TableBody>
+                  <TableBody role="rowgroup">
                     {filteredUsers.length === 0 ? (
-                      <TableRow>
+                      <TableRow role="row">
                         <TableCell colSpan={7} className="text-center py-8">
                           <User className="mx-auto h-12 w-12 text-text-secondary mb-2" />
                           <p className="font-secondary text-text-secondary">No users found</p>
@@ -233,7 +234,7 @@ export default function AdminUsers() {
                       </TableRow>
                     ) : (
                       filteredUsers.map((user) => (
-                        <TableRow key={user.id}>
+                        <TableRow key={user.id} role="row" aria-label={`User: ${user.name}, ${user.role}, ${user.status}`}>
                           <TableCell>
                             <div className="flex items-center gap-3">
                               <div className="h-10 w-10 rounded-full bg-surface-accent flex items-center justify-center">
@@ -284,7 +285,9 @@ export default function AdminUsers() {
                               <Button
                                 variant="outline"
                                 size="sm"
+                                className="min-h-[--touch-target-min]"
                                 onClick={() => setSelectedUser(user)}
+                                aria-label={`View details for ${user.name}`}
                               >
                                 <Eye className="h-4 w-4" />
                               </Button>
@@ -292,8 +295,9 @@ export default function AdminUsers() {
                                 <Button
                                   variant="outline"
                                   size="sm"
+                                  className="text-success hover:bg-success hover:text-success-foreground min-h-[--touch-target-min]"
                                   onClick={() => handleStatusChange(user.id, "active")}
-                                  className="text-success hover:bg-success hover:text-success-foreground"
+                                  aria-label={`Reactivate ${user.name}`}
                                 >
                                   <UserCheck className="h-4 w-4" />
                                 </Button>
@@ -301,8 +305,9 @@ export default function AdminUsers() {
                                 <Button
                                   variant="outline"
                                   size="sm"
+                                  className="text-destructive hover:bg-destructive hover:text-destructive-foreground min-h-[--touch-target-min]"
                                   onClick={() => handleStatusChange(user.id, "suspended")}
-                                  className="text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                                  aria-label={`Suspend ${user.name}`}
                                 >
                                   <Ban className="h-4 w-4" />
                                 </Button>
@@ -373,7 +378,7 @@ export default function AdminUsers() {
               </div>
 
               <div className="flex justify-end gap-3">
-                <Button variant="outline" onClick={() => setSelectedUser(null)}>
+                <Button variant="outline" className="min-h-[--touch-target-min]" onClick={() => setSelectedUser(null)} aria-label="Close user details dialog">
                   Close
                 </Button>
                 {selectedUser.status === "suspended" ? (
@@ -382,7 +387,8 @@ export default function AdminUsers() {
                       handleStatusChange(selectedUser.id, "active");
                       setSelectedUser(null);
                     }}
-                    className="bg-success text-success-foreground hover:bg-success/90"
+                    className="bg-success text-success-foreground hover:bg-success/90 min-h-[--touch-target-min]"
+                    aria-label={`Reactivate ${selectedUser.name}`}
                   >
                     <UserCheck className="h-4 w-4 mr-2" />
                     Reactivate User
@@ -393,7 +399,8 @@ export default function AdminUsers() {
                       handleStatusChange(selectedUser.id, "suspended");
                       setSelectedUser(null);
                     }}
-                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90 min-h-[--touch-target-min]"
+                    aria-label={`Suspend ${selectedUser.name}`}
                   >
                     <Ban className="h-4 w-4 mr-2" />
                     Suspend User

@@ -90,11 +90,11 @@ export default function TherapistMessages() {
       title="Messages"
       subtitle="Secure communication with your clients"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full min-h-0">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-[--space-lg] h-full min-h-0 max-h-[calc(100vh-200px)]">
         {/* Conversations List */}
-        <div className="lg:col-span-1 space-y-4">
+        <div className="lg:col-span-1 space-y-[--space-md]">
           {/* Message Stats */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-[--space-md]">
             <Card>
               <CardContent className="p-4">
                 <div className="text-center">
@@ -126,7 +126,7 @@ export default function TherapistMessages() {
                     className="pl-10 min-h-touch-min"
                   />
                 </div>
-                <Button variant="outline" size="sm" className="w-full min-h-touch-min">
+                <Button variant="outline" size="sm" className="w-full min-h-[--touch-target-min]" aria-label="Filter conversations">
                   <Filter className="w-4 h-4 mr-2" />
                   Filter Messages
                 </Button>
@@ -220,7 +220,7 @@ export default function TherapistMessages() {
                 </HStack>
                 
                 <HStack>
-                  <Button variant="ghost" size="sm" className="min-h-touch-min">
+                  <Button variant="ghost" size="sm" className="min-h-[--touch-target-min]" aria-label="Security settings">
                     <Shield className="w-4 h-4" />
                   </Button>
                   <Badge variant="outline" className="bg-tag-misc text-tag-misc-foreground">

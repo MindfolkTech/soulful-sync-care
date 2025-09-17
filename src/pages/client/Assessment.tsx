@@ -207,9 +207,9 @@ export default function Assessment() {
 
             <Card className="min-h-[400px]">
               <CardHeader className="text-center">
-                <CardTitle className="font-primary text-2xl text-text-primary">
+                <h1 className="font-primary text-[--text-2xl] text-[--text-primary]">
                   {currentStepData?.title}
-                </CardTitle>
+                </h1>
                 {currentStepData?.content && (
                   <p className="font-secondary text-text-secondary mt-2">
                     {currentStepData.content}

@@ -1,11 +1,11 @@
 {
-  "timestamp": "2025-09-17T13:46:05.441Z",
+  "timestamp": "2025-09-17T14:25:51.062Z",
   "totalRoutes": 23,
   "analyses": [
     {
       "route": "/",
       "name": "Landing Page",
-      "timestamp": "2025-09-17T13:44:56.643Z",
+      "timestamp": "2025-09-17T14:24:42.179Z",
       "viewport": {
         "width": 1280,
         "height": 720
@@ -34,8 +34,8 @@
         },
         "performance": {
           "loadTime": 0,
-          "domContentLoaded": 0.10000002384185791,
-          "firstContentfulPaint": 408,
+          "domContentLoaded": 0.09999999403953552,
+          "firstContentfulPaint": 532,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -185,15 +185,15 @@
               "Fixed width detected on SECTION: 1280px",
               "Fixed width detected on DIV: 1280px",
               "Fixed width detected on DIV: 1200px",
-              "Fixed width detected on DIV: 481.328px",
-              "Fixed width detected on P: 481.328px",
+              "Fixed width detected on DIV: 500px",
+              "Fixed width detected on P: 500px",
               "Fixed width detected on H1: 353.391px",
-              "Fixed width detected on P: 481.328px",
-              "Fixed width detected on DIV: 481.328px",
+              "Fixed width detected on P: 500px",
+              "Fixed width detected on DIV: 500px",
               "Fixed width detected on A: 197.094px",
               "Fixed width detected on A: 168.234px",
-              "Fixed width detected on DIV: 686.656px",
-              "Fixed width detected on IMG: 686.656px",
+              "Fixed width detected on DIV: 700px",
+              "Fixed width detected on IMG: 700px",
               "Fixed width detected on SECTION: 1280px",
               "Fixed width detected on DIV: 1280px",
               "Fixed width detected on DIV: 1200px",
@@ -316,7 +316,7 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 4.051318860448286,
+            "textDensity": 4.104152274494587,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
@@ -347,9 +347,9 @@
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 77.27202745428836,
+            "clutterScore": 77.31108295938398,
             "cognitiveLoad": "high",
-            "informationDensity": 0.2215034317860459,
+            "informationDensity": 0.22638536992299796,
             "clutterIssues": [
               "High element density (146 elements) - exceeds optimal complexity"
             ]
@@ -375,7 +375,7 @@
           },
           "scaleAndProportion": {
             "scaleIssues": [
-              "Very large image: 686.65625x871.71875px"
+              "Very large image: 700x888.671875px"
             ],
             "proportionScore": 75,
             "sizeRelationships": [],
@@ -523,7 +523,7 @@
     {
       "route": "/therapist",
       "name": "Therapist Landing",
-      "timestamp": "2025-09-17T13:45:00.062Z",
+      "timestamp": "2025-09-17T14:24:45.631Z",
       "viewport": {
         "width": 1280,
         "height": 720
@@ -553,7 +553,7 @@
         "performance": {
           "loadTime": 0,
           "domContentLoaded": 0,
-          "firstContentfulPaint": 360,
+          "firstContentfulPaint": 456,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -1020,17 +1020,16 @@
     {
       "route": "/sign-in",
       "name": "Sign In",
-      "timestamp": "2025-09-17T13:45:03.172Z",
+      "timestamp": "2025-09-17T14:24:48.733Z",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "analysis": {
         "accessibility": {
-          "score": 63,
+          "score": 82,
           "issues": [
-            "9 buttons missing aria labels",
-            "No H1 heading found"
+            "6 buttons missing aria labels"
           ],
           "colorContrast": {
             "passed": true,
@@ -1051,7 +1050,7 @@
         "performance": {
           "loadTime": 0,
           "domContentLoaded": 0.09999999403953552,
-          "firstContentfulPaint": 280,
+          "firstContentfulPaint": 344,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -1070,8 +1069,7 @@
               14,
               16,
               20,
-              24,
-              30
+              24
             ],
             "fontFamilies": [
               "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
@@ -1088,7 +1086,7 @@
               "Inconsistent margin spacing detected",
               "Inconsistent padding spacing detected"
             ],
-            "marginConsistency": 59.04,
+            "marginConsistency": 48.8,
             "paddingConsistency": 0
           },
           "alignment": {
@@ -1100,12 +1098,11 @@
             "horizontalAlignment": "poor"
           },
           "visualHierarchy": {
-            "score": 65,
+            "score": 85,
             "issues": [
-              "Inconsistent heading sizes detected",
               "Inconsistent button sizes detected"
             ],
-            "headingConsistency": false,
+            "headingConsistency": true,
             "buttonConsistency": false
           },
           "colorAnalysis": {
@@ -1203,14 +1200,14 @@
               "Fixed width detected on DIV: 672px",
               "Fixed width detected on DIV: 448px",
               "Fixed width detected on DIV: 446px",
-              "Fixed width detected on H3: 398px",
+              "Fixed width detected on H1: 398px",
               "Fixed width detected on P: 398px",
               "Fixed width detected on DIV: 446px",
               "Fixed width detected on DIV: 398px",
               "Fixed width detected on DIV: 398px",
-              "Fixed width detected on BUTTON: 398px",
+              "Fixed width detected on BUTTON: 320px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on BUTTON: 398px",
+              "Fixed width detected on BUTTON: 320px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on DIV: 398px",
               "Fixed width detected on DIV: 398px",
@@ -1267,7 +1264,7 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 4.597657989144218,
+            "textDensity": 4.578331102643694,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
@@ -1294,13 +1291,13 @@
           "visualAccessibility": {
             "colorBlindnessSupport": "good",
             "highContrastMode": false,
-            "fontSizeConsistency": 84,
+            "fontSizeConsistency": 90,
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 85.39035166816952,
+            "clutterScore": 85.34330357142856,
             "cognitiveLoad": "high",
-            "informationDensity": 0.5987939585211902,
+            "informationDensity": 0.5929129464285714,
             "clutterIssues": [
               "High element density (85 elements) - exceeds optimal complexity"
             ]
@@ -1328,8 +1325,8 @@
           },
           "scaleAndProportion": {
             "scaleIssues": [
-              "Button too wide: 398x44px",
-              "Button too wide: 398x44px",
+              "Button too wide: 320x44px",
+              "Button too wide: 320x44px",
               "Button too wide: 398x44px"
             ],
             "proportionScore": 55,
@@ -1379,7 +1376,8 @@
           "headingStructure": {
             "valid": false,
             "issues": [
-              "Heading level 3 skipped from 0"
+              "Heading level 3 skipped from 0",
+              "Heading level 3 skipped from 1"
             ]
           },
           "contentLength": {
@@ -1420,13 +1418,14 @@
         },
         "layoutPatterns": {
           "detectedPatterns": [
+            "hero-section",
             "grid-layout",
             "card-based"
           ],
-          "layoutType": "grid",
+          "layoutType": "hero",
           "complexity": "complex",
           "structure": {
-            "hasHero": false,
+            "hasHero": true,
             "hasGrid": true,
             "hasCards": true,
             "hasSidebar": false,
@@ -1434,7 +1433,6 @@
             "hasModal": false
           },
           "recommendations": [
-            "Consider adding a hero section for better first impression",
             "Complex layout detected - consider adding sidebar navigation for better organization"
           ]
         },
@@ -1465,17 +1463,16 @@
     {
       "route": "/sign-up",
       "name": "Sign Up",
-      "timestamp": "2025-09-17T13:45:06.306Z",
+      "timestamp": "2025-09-17T14:24:51.889Z",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "analysis": {
         "accessibility": {
-          "score": 48,
+          "score": 70,
           "issues": [
-            "14 buttons missing aria labels",
-            "No H1 heading found"
+            "10 buttons missing aria labels"
           ],
           "colorContrast": {
             "passed": true,
@@ -1496,7 +1493,7 @@
         "performance": {
           "loadTime": 0,
           "domContentLoaded": 0.09999999403953552,
-          "firstContentfulPaint": 444,
+          "firstContentfulPaint": 324,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -1515,8 +1512,7 @@
               14,
               16,
               20,
-              24,
-              30
+              24
             ],
             "fontFamilies": [
               "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
@@ -1533,7 +1529,7 @@
               "Inconsistent margin spacing detected",
               "Inconsistent padding spacing detected"
             ],
-            "marginConsistency": 58.44897959183673,
+            "marginConsistency": 29.714285714285708,
             "paddingConsistency": 0
           },
           "alignment": {
@@ -1545,12 +1541,11 @@
             "horizontalAlignment": "poor"
           },
           "visualHierarchy": {
-            "score": 65,
+            "score": 85,
             "issues": [
-              "Inconsistent heading sizes detected",
               "Inconsistent button sizes detected"
             ],
-            "headingConsistency": false,
+            "headingConsistency": true,
             "buttonConsistency": false
           },
           "colorAnalysis": {
@@ -1598,13 +1593,7 @@
             "clickTargets": {
               "adequate": false,
               "issues": [
-                "Button too small for touch: 40x44px",
-                "Button too small for touch: 40x40px",
-                "Button too small for touch: 16x16px",
-                "Button too small for touch: 16x16px",
-                "Button too small for touch: 16x16px",
-                "Button too small for touch: 16x16px",
-                "Button too small for touch: 16x16px"
+                "Button too small for touch: 40x44px"
               ]
             }
           },
@@ -1659,14 +1648,14 @@
               "Fixed width detected on DIV: 672px",
               "Fixed width detected on DIV: 448px",
               "Fixed width detected on DIV: 446px",
-              "Fixed width detected on H3: 398px",
+              "Fixed width detected on H1: 398px",
               "Fixed width detected on P: 398px",
               "Fixed width detected on DIV: 446px",
               "Fixed width detected on DIV: 398px",
               "Fixed width detected on DIV: 398px",
-              "Fixed width detected on BUTTON: 398px",
+              "Fixed width detected on BUTTON: 320px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on BUTTON: 398px",
+              "Fixed width detected on BUTTON: 320px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on DIV: 398px",
               "Fixed width detected on DIV: 398px",
@@ -1684,41 +1673,41 @@
               "Fixed width detected on DIV: 398px",
               "Fixed width detected on DIV: 398px",
               "Fixed width detected on INPUT: 398px",
-              "Fixed width detected on BUTTON: 40px",
+              "Fixed width detected on BUTTON: 44px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on P: 398px",
               "Fixed width detected on DIV: 398px",
               "Fixed width detected on INPUT: 398px",
               "Fixed width detected on DIV: 398px",
               "Fixed width detected on DIV: 398px",
-              "Fixed width detected on BUTTON: 16px",
-              "Fixed width detected on INPUT: 16px",
-              "Fixed width detected on LABEL: 352.781px",
+              "Fixed width detected on BUTTON: 44px",
+              "Fixed width detected on INPUT: 44px",
+              "Fixed width detected on LABEL: 346px",
               "Fixed width detected on DIV: 398px",
               "Fixed width detected on H4: 364px",
               "Fixed width detected on P: 364px",
               "Fixed width detected on DIV: 364px",
               "Fixed width detected on DIV: 364px",
-              "Fixed width detected on BUTTON: 16px",
-              "Fixed width detected on SPAN: 14px",
-              "Fixed width detected on svg: 14px",
-              "Fixed width detected on INPUT: 16px",
-              "Fixed width detected on LABEL: 340px",
+              "Fixed width detected on BUTTON: 44px",
+              "Fixed width detected on SPAN: 42px",
+              "Fixed width detected on svg: 16px",
+              "Fixed width detected on INPUT: 44px",
+              "Fixed width detected on LABEL: 312px",
               "Fixed width detected on DIV: 364px",
-              "Fixed width detected on BUTTON: 16px",
-              "Fixed width detected on SPAN: 14px",
-              "Fixed width detected on svg: 14px",
-              "Fixed width detected on INPUT: 16px",
-              "Fixed width detected on LABEL: 340px",
+              "Fixed width detected on BUTTON: 44px",
+              "Fixed width detected on SPAN: 42px",
+              "Fixed width detected on svg: 16px",
+              "Fixed width detected on INPUT: 44px",
+              "Fixed width detected on LABEL: 312px",
               "Fixed width detected on DIV: 364px",
-              "Fixed width detected on BUTTON: 16px",
-              "Fixed width detected on INPUT: 16px",
-              "Fixed width detected on LABEL: 322.172px",
+              "Fixed width detected on BUTTON: 44px",
+              "Fixed width detected on INPUT: 44px",
+              "Fixed width detected on LABEL: 312px",
               "Fixed width detected on DIV: 364px",
-              "Fixed width detected on BUTTON: 16px",
-              "Fixed width detected on INPUT: 16px",
-              "Fixed width detected on LABEL: 327.578px",
-              "Fixed width detected on BUTTON: 398px",
+              "Fixed width detected on BUTTON: 44px",
+              "Fixed width detected on INPUT: 44px",
+              "Fixed width detected on LABEL: 312px",
+              "Fixed width detected on BUTTON: 320px",
               "Fixed width detected on DIV: 398px",
               "Fixed width detected on FOOTER: 1280px",
               "Fixed width detected on DIV: 1280px",
@@ -1760,12 +1749,12 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 4.378364905840085,
+            "textDensity": 4.338095213444664,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
           "designConsistency": {
-            "componentReuse": 57.692307692307686,
+            "componentReuse": 53.84615384615385,
             "styleUniformity": 76,
             "patternConsistency": "good",
             "inconsistencies": [
@@ -1787,13 +1776,13 @@
           "visualAccessibility": {
             "colorBlindnessSupport": "good",
             "highContrastMode": false,
-            "fontSizeConsistency": 84,
+            "fontSizeConsistency": 90,
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 86.71388888888889,
+            "clutterScore": 86.39054441260745,
             "cognitiveLoad": "high",
-            "informationDensity": 0.564236111111111,
+            "informationDensity": 0.5238180515759312,
             "clutterIssues": [
               "Too many buttons (14) - exceeds Miller's Rule (7±2)",
               "High element density (117 elements) - exceeds optimal complexity"
@@ -1822,16 +1811,11 @@
           },
           "scaleAndProportion": {
             "scaleIssues": [
-              "Button too wide: 398x44px",
-              "Button too wide: 398x44px",
-              "Button too small: 16x16px",
-              "Button too small: 16x16px",
-              "Button too small: 16x16px",
-              "Button too small: 16x16px",
-              "Button too small: 16x16px",
-              "Button too wide: 398x44px"
+              "Button too wide: 320x44px",
+              "Button too wide: 320x44px",
+              "Button too wide: 320x44px"
             ],
-            "proportionScore": 5,
+            "proportionScore": 55,
             "sizeRelationships": [],
             "visualWeight": "top-heavy"
           },
@@ -1878,7 +1862,8 @@
           "headingStructure": {
             "valid": false,
             "issues": [
-              "Heading level 3 skipped from 0"
+              "Heading level 3 skipped from 0",
+              "Heading level 4 skipped from 1"
             ]
           },
           "contentLength": {
@@ -1919,13 +1904,14 @@
         },
         "layoutPatterns": {
           "detectedPatterns": [
+            "hero-section",
             "grid-layout",
             "card-based"
           ],
-          "layoutType": "grid",
+          "layoutType": "hero",
           "complexity": "complex",
           "structure": {
-            "hasHero": false,
+            "hasHero": true,
             "hasGrid": true,
             "hasCards": true,
             "hasSidebar": false,
@@ -1933,7 +1919,6 @@
             "hasModal": false
           },
           "recommendations": [
-            "Consider adding a hero section for better first impression",
             "Complex layout detected - consider adding sidebar navigation for better organization"
           ]
         },
@@ -1964,17 +1949,16 @@
     {
       "route": "/assessment",
       "name": "Client Assessment",
-      "timestamp": "2025-09-17T13:45:09.410Z",
+      "timestamp": "2025-09-17T14:24:54.989Z",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "analysis": {
         "accessibility": {
-          "score": 63,
+          "score": 73,
           "issues": [
-            "9 buttons missing aria labels",
-            "No H1 heading found"
+            "9 buttons missing aria labels"
           ],
           "colorContrast": {
             "passed": true,
@@ -1994,8 +1978,8 @@
         },
         "performance": {
           "loadTime": 0,
-          "domContentLoaded": 0,
-          "firstContentfulPaint": 316,
+          "domContentLoaded": 0.09999999403953552,
+          "firstContentfulPaint": 364,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -2014,8 +1998,7 @@
               14,
               16,
               20,
-              24,
-              30
+              24
             ],
             "fontFamilies": [
               "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
@@ -2044,12 +2027,11 @@
             "horizontalAlignment": "poor"
           },
           "visualHierarchy": {
-            "score": 65,
+            "score": 85,
             "issues": [
-              "Inconsistent heading sizes detected",
               "Inconsistent button sizes detected"
             ],
-            "headingConsistency": false,
+            "headingConsistency": true,
             "buttonConsistency": false
           },
           "colorAnalysis": {
@@ -2152,7 +2134,7 @@
               "Fixed width detected on P: 672px",
               "Fixed width detected on DIV: 672px",
               "Fixed width detected on DIV: 670px",
-              "Fixed width detected on H3: 622px",
+              "Fixed width detected on H1: 622px",
               "Fixed width detected on P: 622px",
               "Fixed width detected on P: 622px",
               "Fixed width detected on DIV: 670px",
@@ -2207,7 +2189,7 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 5.4559689453125,
+            "textDensity": 5.463512851880944,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
@@ -2234,13 +2216,13 @@
           "visualAccessibility": {
             "colorBlindnessSupport": "good",
             "highContrastMode": false,
-            "fontSizeConsistency": 84,
+            "fontSizeConsistency": 90,
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 84.35555555555555,
+            "clutterScore": 84.44221014492753,
             "cognitiveLoad": "high",
-            "informationDensity": 0.5694444444444444,
+            "informationDensity": 0.580276268115942,
             "clutterIssues": [
               "High element density (82 elements) - exceeds optimal complexity"
             ]
@@ -2319,7 +2301,8 @@
           "headingStructure": {
             "valid": false,
             "issues": [
-              "Heading level 3 skipped from 0"
+              "Heading level 3 skipped from 0",
+              "Heading level 3 skipped from 1"
             ]
           },
           "contentLength": {
@@ -2358,13 +2341,14 @@
         },
         "layoutPatterns": {
           "detectedPatterns": [
+            "hero-section",
             "grid-layout",
             "card-based"
           ],
-          "layoutType": "grid",
+          "layoutType": "hero",
           "complexity": "complex",
           "structure": {
-            "hasHero": false,
+            "hasHero": true,
             "hasGrid": true,
             "hasCards": true,
             "hasSidebar": false,
@@ -2372,7 +2356,6 @@
             "hasModal": false
           },
           "recommendations": [
-            "Consider adding a hero section for better first impression",
             "Complex layout detected - consider adding sidebar navigation for better organization"
           ]
         },
@@ -2403,7 +2386,7 @@
     {
       "route": "/discover",
       "name": "Discover Therapists",
-      "timestamp": "2025-09-17T13:45:12.584Z",
+      "timestamp": "2025-09-17T14:24:58.149Z",
       "viewport": {
         "width": 1280,
         "height": 720
@@ -2432,8 +2415,8 @@
         },
         "performance": {
           "loadTime": 0,
-          "domContentLoaded": 0.09999999403953552,
-          "firstContentfulPaint": 344,
+          "domContentLoaded": 0,
+          "firstContentfulPaint": 316,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -2933,16 +2916,16 @@
     {
       "route": "/favorites",
       "name": "Client Favorites",
-      "timestamp": "2025-09-17T13:45:15.658Z",
+      "timestamp": "2025-09-17T14:25:01.222Z",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "analysis": {
         "accessibility": {
-          "score": 67,
+          "score": 88,
           "issues": [
-            "11 buttons missing aria labels"
+            "4 buttons missing aria labels"
           ],
           "colorContrast": {
             "passed": true,
@@ -2963,7 +2946,7 @@
         "performance": {
           "loadTime": 0,
           "domContentLoaded": 0,
-          "firstContentfulPaint": 344,
+          "firstContentfulPaint": 336,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -2990,8 +2973,8 @@
               "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
             ],
             "readability": "poor",
-            "avgReadabilityScore": 20.8,
-            "textSampleCount": 68
+            "avgReadabilityScore": 19,
+            "textSampleCount": 66
           },
           "spacing": {
             "consistent": false,
@@ -3048,13 +3031,13 @@
                 "Missing hover state for button: Compatibility",
                 "Missing hover state for button: unnamed",
                 "Missing hover state for button: Book Session",
-                "Missing hover state for button: Watch Video",
+                "Missing hover state for button: 📹",
                 "Missing hover state for button: unnamed",
                 "Missing hover state for button: Book Session",
-                "Missing hover state for button: View Profile",
+                "Missing hover state for button: 👁️",
                 "Missing hover state for button: unnamed",
                 "Missing hover state for button: Book Session",
-                "Missing hover state for button: View Profile"
+                "Missing hover state for button: 👁️"
               ]
             },
             "focusStates": {
@@ -3064,8 +3047,7 @@
             "clickTargets": {
               "adequate": false,
               "issues": [
-                "Button too small for touch: 40x44px",
-                "Button too small for touch: 192x40px"
+                "Button too small for touch: 40x44px"
               ]
             }
           },
@@ -3142,8 +3124,8 @@
               "Fixed width detected on DIV: 68.9531px",
               "Fixed width detected on P: 1118px",
               "Fixed width detected on DIV: 1118px",
-              "Fixed width detected on BUTTON: 991.797px",
-              "Fixed width detected on BUTTON: 118.203px",
+              "Fixed width detected on BUTTON: 1064.03px",
+              "Fixed width detected on BUTTON: 45.9688px",
               "Fixed width detected on DIV: 1248px",
               "Fixed width detected on DIV: 1246px",
               "Fixed width detected on DIV: 1214px",
@@ -3165,8 +3147,8 @@
               "Fixed width detected on DIV: 69.8594px",
               "Fixed width detected on P: 1118px",
               "Fixed width detected on DIV: 1118px",
-              "Fixed width detected on BUTTON: 997.75px",
-              "Fixed width detected on BUTTON: 112.25px",
+              "Fixed width detected on BUTTON: 1064.03px",
+              "Fixed width detected on BUTTON: 45.9688px",
               "Fixed width detected on DIV: 1248px",
               "Fixed width detected on DIV: 1246px",
               "Fixed width detected on DIV: 1214px",
@@ -3187,8 +3169,8 @@
               "Fixed width detected on DIV: 96.7656px",
               "Fixed width detected on P: 1118px",
               "Fixed width detected on DIV: 1118px",
-              "Fixed width detected on BUTTON: 997.75px",
-              "Fixed width detected on BUTTON: 112.25px",
+              "Fixed width detected on BUTTON: 1064.03px",
+              "Fixed width detected on BUTTON: 45.9688px",
               "Fixed width detected on NAV: 1280px",
               "Fixed width detected on DIV: 1280px",
               "Fixed width detected on A: 320px",
@@ -3204,22 +3186,7 @@
               "Fixed width detected on A: 320px",
               "Fixed width detected on svg: 20px",
               "Fixed width detected on SPAN: 39.6875px",
-              "Fixed width detected on DIV: 1px",
-              "Fixed width detected on NAV: 1280px",
-              "Fixed width detected on DIV: 1280px",
-              "Fixed width detected on A: 320px",
-              "Fixed width detected on svg: 20px",
-              "Fixed width detected on SPAN: 37.3594px",
-              "Fixed width detected on A: 320px",
-              "Fixed width detected on svg: 20px",
-              "Fixed width detected on SPAN: 57.5781px",
-              "Fixed width detected on A: 320px",
-              "Fixed width detected on svg: 20px",
-              "Fixed width detected on rect: 18px",
-              "Fixed width detected on SPAN: 85.6094px",
-              "Fixed width detected on A: 320px",
-              "Fixed width detected on svg: 20px",
-              "Fixed width detected on SPAN: 39.6875px"
+              "Fixed width detected on DIV: 1px"
             ],
             "mobileIssues": [],
             "tabletIssues": [],
@@ -3228,18 +3195,18 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 10.019639400906033,
+            "textDensity": 9.946990831163195,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": [
               "H1 with high text density: 24.0000"
             ]
           },
           "designConsistency": {
-            "componentReuse": 50,
+            "componentReuse": 45,
             "styleUniformity": 80,
             "patternConsistency": "fair",
             "inconsistencies": [
-              "Too many button styles (7 unique classes)"
+              "Too many button styles (8 unique classes)"
             ]
           },
           "loadingExperience": {
@@ -3249,7 +3216,7 @@
             "placeholderQuality": "excellent"
           },
           "motionAndAnimation": {
-            "animationCount": 32,
+            "animationCount": 28,
             "motionSicknessRisk": "low",
             "reducedMotionSupport": false,
             "animationIssues": []
@@ -3261,12 +3228,12 @@
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 90.72986111111112,
+            "clutterScore": 86.74861111111112,
             "cognitiveLoad": "high",
-            "informationDensity": 1.2912326388888888,
+            "informationDensity": 1.1935763888888888,
             "clutterIssues": [
               "Too many buttons (15) - exceeds Miller's Rule (7±2)",
-              "High element density (119 elements) - exceeds optimal complexity"
+              "High element density (110 elements) - exceeds optimal complexity"
             ]
           },
           "blandnessDetection": {
@@ -3275,7 +3242,7 @@
             "varietyIssues": [],
             "engagementFactors": [
               "15 interactive buttons",
-              "8 navigation links",
+              "4 navigation links",
               "3 images for visual interest"
             ]
           },
@@ -3290,13 +3257,13 @@
           },
           "scaleAndProportion": {
             "scaleIssues": [
-              "Button too wide: 991.796875x44px",
-              "Button too wide: 997.75x44px",
-              "Button too wide: 997.75x44px"
+              "Button too wide: 1064.03125x44px",
+              "Button too wide: 1064.03125x44px",
+              "Button too wide: 1064.03125x44px"
             ],
-            "proportionScore": 70,
+            "proportionScore": 55,
             "sizeRelationships": [],
-            "visualWeight": "balanced"
+            "visualWeight": "top-heavy"
           },
           "textOverflow": {
             "overflowIssues": [
@@ -3357,9 +3324,9 @@
             ]
           },
           "contentLength": {
-            "text": 92,
+            "text": 87,
             "images": 3,
-            "links": 8,
+            "links": 4,
             "buttons": 15
           },
           "seoElements": {
@@ -3415,7 +3382,7 @@
         "microInteractions": {
           "hoverStates": {
             "score": 100,
-            "interactiveElements": 27,
+            "interactiveElements": 23,
             "hoverEffects": 71,
             "issues": []
           },
@@ -3439,16 +3406,16 @@
     {
       "route": "/appointments",
       "name": "Client Appointments",
-      "timestamp": "2025-09-17T13:45:18.714Z",
+      "timestamp": "2025-09-17T14:25:04.280Z",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "analysis": {
         "accessibility": {
-          "score": 67,
+          "score": 85,
           "issues": [
-            "11 buttons missing aria labels"
+            "5 buttons missing aria labels"
           ],
           "colorContrast": {
             "passed": true,
@@ -3469,7 +3436,7 @@
         "performance": {
           "loadTime": 0,
           "domContentLoaded": 0,
-          "firstContentfulPaint": 288,
+          "firstContentfulPaint": 328,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -3497,7 +3464,7 @@
               "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
             ],
             "readability": "poor",
-            "avgReadabilityScore": 16.6,
+            "avgReadabilityScore": 15.5,
             "textSampleCount": 47
           },
           "spacing": {
@@ -3557,7 +3524,6 @@
                 "Missing hover state for button: Past",
                 "Missing hover state for button: Cancelled",
                 "Missing hover state for button: Join",
-                "Missing hover state for button: Message",
                 "Missing hover state for button: unnamed"
               ]
             },
@@ -3569,9 +3535,6 @@
               "adequate": false,
               "issues": [
                 "Button too small for touch: 40x44px",
-                "Button too small for touch: 296x36px",
-                "Button too small for touch: 296x36px",
-                "Button too small for touch: 296x36px",
                 "Button too small for touch: 40x44px"
               ]
             }
@@ -3636,6 +3599,7 @@
               "Fixed width detected on BUTTON: 296px",
               "Fixed width detected on DIV: 896px",
               "Fixed width detected on DIV: 896px",
+              "Fixed width detected on DIV: 896px",
               "Fixed width detected on DIV: 894px",
               "Fixed width detected on DIV: 846px",
               "Fixed width detected on DIV: 347.234px",
@@ -3651,14 +3615,12 @@
               "Fixed width detected on DIV: 149.438px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on SPAN: 129.438px",
-              "Fixed width detected on DIV: 364.172px",
+              "Fixed width detected on DIV: 234.594px",
               "Fixed width detected on DIV: 89.1719px",
-              "Fixed width detected on DIV: 263px",
+              "Fixed width detected on DIV: 133.422px",
               "Fixed width detected on BUTTON: 85.4219px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on rect: 14px",
-              "Fixed width detected on BUTTON: 121.578px",
-              "Fixed width detected on svg: 16px",
               "Fixed width detected on BUTTON: 40px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on FOOTER: 1280px",
@@ -3716,16 +3678,16 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 6.291689120786977,
+            "textDensity": 6.404636115428665,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
           "designConsistency": {
-            "componentReuse": 23.076923076923077,
+            "componentReuse": 25,
             "styleUniformity": 76,
             "patternConsistency": "poor",
             "inconsistencies": [
-              "Too many button styles (8 unique classes)"
+              "Too many button styles (7 unique classes)"
             ]
           },
           "loadingExperience": {
@@ -3735,7 +3697,7 @@
             "placeholderQuality": "good"
           },
           "motionAndAnimation": {
-            "animationCount": 31,
+            "animationCount": 30,
             "motionSicknessRisk": "low",
             "reducedMotionSupport": false,
             "animationIssues": []
@@ -3751,7 +3713,7 @@
             "cognitiveLoad": "high",
             "informationDensity": 1.0430301047120418,
             "clutterIssues": [
-              "Too many buttons (11) - exceeds Miller's Rule (7±2)",
+              "Too many buttons (10) - exceeds Miller's Rule (7±2)",
               "High element density (102 elements) - exceeds optimal complexity"
             ]
           },
@@ -3760,7 +3722,7 @@
             "monotonyScore": 0,
             "varietyIssues": [],
             "engagementFactors": [
-              "11 interactive buttons",
+              "10 interactive buttons",
               "17 navigation links",
               "1 images for visual interest"
             ]
@@ -3829,10 +3791,10 @@
             ]
           },
           "contentLength": {
-            "text": 73,
+            "text": 74,
             "images": 1,
             "links": 17,
-            "buttons": 11
+            "buttons": 10
           },
           "seoElements": {
             "title": "soulful-sync-care",
@@ -3888,7 +3850,7 @@
         "microInteractions": {
           "hoverStates": {
             "score": 100,
-            "interactiveElements": 35,
+            "interactiveElements": 34,
             "hoverEffects": 71,
             "issues": []
           },
@@ -3912,17 +3874,17 @@
     {
       "route": "/messages",
       "name": "Client Messages",
-      "timestamp": "2025-09-17T13:45:21.799Z",
+      "timestamp": "2025-09-17T14:25:07.392Z",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "analysis": {
         "accessibility": {
-          "score": 35,
+          "score": 54,
           "issues": [
-            "7 images missing alt text",
-            "10 buttons missing aria labels"
+            "5 images missing alt text",
+            "7 buttons missing aria labels"
           ],
           "colorContrast": {
             "passed": true,
@@ -3943,7 +3905,7 @@
         "performance": {
           "loadTime": 0,
           "domContentLoaded": 0,
-          "firstContentfulPaint": 296,
+          "firstContentfulPaint": 308,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -4083,51 +4045,51 @@
               "Fixed width detected on H1: 1200px",
               "Fixed width detected on P: 1200px",
               "Fixed width detected on DIV: 1200px",
-              "Fixed width detected on DIV: 384px",
-              "Fixed width detected on DIV: 382px",
-              "Fixed width detected on DIV: 334px",
+              "Fixed width detected on DIV: 378.656px",
+              "Fixed width detected on DIV: 376.656px",
+              "Fixed width detected on DIV: 328.656px",
               "Fixed width detected on H3: 210.156px",
               "Fixed width detected on svg: 20px",
               "Fixed width detected on BUTTON: 42px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on DIV: 382px",
-              "Fixed width detected on DIV: 382px",
-              "Fixed width detected on DIV: 350px",
+              "Fixed width detected on DIV: 376.656px",
+              "Fixed width detected on DIV: 376.656px",
+              "Fixed width detected on DIV: 328.656px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on INPUT: 350px",
-              "Fixed width detected on DIV: 382px",
-              "Fixed width detected on BUTTON: 382px",
-              "Fixed width detected on DIV: 350px",
+              "Fixed width detected on INPUT: 328.656px",
+              "Fixed width detected on DIV: 376.656px",
+              "Fixed width detected on BUTTON: 376.656px",
+              "Fixed width detected on DIV: 344.656px",
               "Fixed width detected on DIV: 40px",
               "Fixed width detected on SPAN: 40px",
               "Fixed width detected on IMG: 40px",
               "Fixed width detected on DIV: 12px",
-              "Fixed width detected on DIV: 298px",
-              "Fixed width detected on DIV: 298px",
+              "Fixed width detected on DIV: 292.656px",
+              "Fixed width detected on DIV: 292.656px",
               "Fixed width detected on H4: 110.281px",
               "Fixed width detected on DIV: 41.7812px",
               "Fixed width detected on svg: 12px",
               "Fixed width detected on DIV: 25.7812px",
-              "Fixed width detected on P: 298px",
-              "Fixed width detected on DIV: 298px",
+              "Fixed width detected on P: 292.656px",
+              "Fixed width detected on DIV: 292.656px",
               "Fixed width detected on svg: 12px",
-              "Fixed width detected on BUTTON: 382px",
-              "Fixed width detected on DIV: 350px",
+              "Fixed width detected on BUTTON: 376.656px",
+              "Fixed width detected on DIV: 344.656px",
               "Fixed width detected on DIV: 40px",
               "Fixed width detected on SPAN: 40px",
               "Fixed width detected on SPAN: 40px",
-              "Fixed width detected on DIV: 298px",
-              "Fixed width detected on DIV: 298px",
+              "Fixed width detected on DIV: 292.656px",
+              "Fixed width detected on DIV: 292.656px",
               "Fixed width detected on H4: 142.281px",
               "Fixed width detected on DIV: 12px",
               "Fixed width detected on svg: 12px",
-              "Fixed width detected on P: 298px",
-              "Fixed width detected on DIV: 298px",
+              "Fixed width detected on P: 292.656px",
+              "Fixed width detected on DIV: 292.656px",
               "Fixed width detected on svg: 12px",
-              "Fixed width detected on DIV: 792px",
-              "Fixed width detected on DIV: 792px",
-              "Fixed width detected on DIV: 790px",
-              "Fixed width detected on DIV: 758px",
+              "Fixed width detected on DIV: 789.344px",
+              "Fixed width detected on DIV: 789.344px",
+              "Fixed width detected on DIV: 787.344px",
+              "Fixed width detected on DIV: 755.344px",
               "Fixed width detected on DIV: 290.422px",
               "Fixed width detected on SPAN: 40px",
               "Fixed width detected on IMG: 40px",
@@ -4140,45 +4102,45 @@
               "Fixed width detected on svg: 12px",
               "Fixed width detected on DIV: 120.844px",
               "Fixed width detected on svg: 12px",
-              "Fixed width detected on DIV: 792px",
-              "Fixed width detected on DIV: 790px",
-              "Fixed width detected on DIV: 790px",
-              "Fixed width detected on DIV: 758px",
-              "Fixed width detected on DIV: 758px",
-              "Fixed width detected on DIV: 758px",
-              "Fixed width detected on DIV: 758px",
+              "Fixed width detected on DIV: 789.344px",
+              "Fixed width detected on DIV: 787.344px",
+              "Fixed width detected on DIV: 787.344px",
+              "Fixed width detected on DIV: 739.344px",
+              "Fixed width detected on DIV: 739.344px",
+              "Fixed width detected on DIV: 739.344px",
+              "Fixed width detected on DIV: 739.344px",
               "Fixed width detected on DIV: 405.906px",
               "Fixed width detected on svg: 12px",
-              "Fixed width detected on DIV: 758px",
-              "Fixed width detected on DIV: 530.594px",
-              "Fixed width detected on DIV: 530.594px",
-              "Fixed width detected on P: 506.594px",
-              "Fixed width detected on DIV: 530.594px",
+              "Fixed width detected on DIV: 739.344px",
+              "Fixed width detected on DIV: 517.531px",
+              "Fixed width detected on DIV: 517.531px",
+              "Fixed width detected on P: 493.531px",
+              "Fixed width detected on DIV: 517.531px",
               "Fixed width detected on SPAN: 90.0781px",
               "Fixed width detected on svg: 12px",
               "Fixed width detected on svg: 12px",
               "Fixed width detected on SPAN: 32px",
               "Fixed width detected on IMG: 32px",
-              "Fixed width detected on DIV: 758px",
+              "Fixed width detected on DIV: 739.344px",
               "Fixed width detected on SPAN: 32px",
               "Fixed width detected on IMG: 32px",
-              "Fixed width detected on DIV: 530.594px",
-              "Fixed width detected on DIV: 530.594px",
-              "Fixed width detected on P: 506.594px",
-              "Fixed width detected on DIV: 530.594px",
+              "Fixed width detected on DIV: 517.531px",
+              "Fixed width detected on DIV: 517.531px",
+              "Fixed width detected on P: 493.531px",
+              "Fixed width detected on DIV: 517.531px",
               "Fixed width detected on SPAN: 90.0781px",
               "Fixed width detected on svg: 12px",
-              "Fixed width detected on DIV: 758px",
-              "Fixed width detected on DIV: 530.594px",
-              "Fixed width detected on DIV: 530.594px",
-              "Fixed width detected on P: 506.594px",
-              "Fixed width detected on DIV: 530.594px",
+              "Fixed width detected on DIV: 739.344px",
+              "Fixed width detected on DIV: 517.531px",
+              "Fixed width detected on DIV: 517.531px",
+              "Fixed width detected on P: 493.531px",
+              "Fixed width detected on DIV: 517.531px",
               "Fixed width detected on SPAN: 90.0781px",
               "Fixed width detected on svg: 12px",
               "Fixed width detected on svg: 12px",
               "Fixed width detected on SPAN: 32px",
               "Fixed width detected on IMG: 32px",
-              "Fixed width detected on DIV: 758px",
+              "Fixed width detected on DIV: 739.344px",
               "Fixed width detected on DIV: 381.938px",
               "Fixed width detected on DIV: 381.938px",
               "Fixed width detected on DIV: 357.938px",
@@ -4198,25 +4160,25 @@
               "Fixed width detected on svg: 12px",
               "Fixed width detected on SPAN: 32px",
               "Fixed width detected on IMG: 32px",
-              "Fixed width detected on DIV: 758px",
+              "Fixed width detected on DIV: 739.344px",
               "Fixed width detected on SPAN: 32px",
               "Fixed width detected on IMG: 32px",
-              "Fixed width detected on DIV: 530.594px",
-              "Fixed width detected on DIV: 530.594px",
-              "Fixed width detected on P: 506.594px",
-              "Fixed width detected on DIV: 530.594px",
+              "Fixed width detected on DIV: 517.531px",
+              "Fixed width detected on DIV: 517.531px",
+              "Fixed width detected on P: 493.531px",
+              "Fixed width detected on DIV: 517.531px",
               "Fixed width detected on SPAN: 90.0781px",
               "Fixed width detected on svg: 12px",
-              "Fixed width detected on DIV: 790px",
-              "Fixed width detected on DIV: 758px",
-              "Fixed width detected on DIV: 756px",
+              "Fixed width detected on DIV: 787.344px",
+              "Fixed width detected on DIV: 755.344px",
+              "Fixed width detected on DIV: 753.344px",
               "Fixed width detected on BUTTON: 40px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on TEXTAREA: 636px",
+              "Fixed width detected on TEXTAREA: 633.344px",
               "Fixed width detected on BUTTON: 40px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on DIV: 756px",
-              "Fixed width detected on DIV: 732px",
+              "Fixed width detected on DIV: 753.344px",
+              "Fixed width detected on DIV: 729.344px",
               "Fixed width detected on svg: 12px",
               "Fixed width detected on SPAN: 224.234px"
             ],
@@ -4227,7 +4189,7 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 11.899913533528645,
+            "textDensity": 11.880059746636285,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
@@ -4292,8 +4254,8 @@
               "Very small image: 32x32px",
               "Very small image: 32x32px",
               "Very small image: 32x32px",
-              "Button too wide: 382x112px",
-              "Button too wide: 382x110px"
+              "Button too wide: 376.65625x112px",
+              "Button too wide: 376.65625x110px"
             ],
             "proportionScore": 0,
             "sizeRelationships": [],
@@ -4312,17 +4274,17 @@
               "Very long text line: 1280px wide",
               "Very long text line: 1280px wide",
               "Very long text line: 1200px wide",
-              "Very long text line: 792px wide",
-              "Very long text line: 792px wide",
-              "Very long text line: 790px wide",
-              "Very long text line: 790px wide",
-              "Very long text line: 758px wide",
-              "Very long text line: 758px wide",
-              "Very long text line: 758px wide",
-              "Very long text line: 758px wide",
-              "Very long text line: 758px wide",
-              "Very long text line: 758px wide",
-              "Very long text line: 758px wide"
+              "Very long text line: 789.34375px wide",
+              "Very long text line: 789.34375px wide",
+              "Very long text line: 787.34375px wide",
+              "Very long text line: 787.34375px wide",
+              "Very long text line: 739.34375px wide",
+              "Very long text line: 739.34375px wide",
+              "Very long text line: 739.34375px wide",
+              "Very long text line: 739.34375px wide",
+              "Very long text line: 739.34375px wide",
+              "Very long text line: 739.34375px wide",
+              "Very long text line: 739.34375px wide"
             ],
             "containerViolations": [],
             "textClipping": [
@@ -4441,7 +4403,7 @@
     {
       "route": "/account",
       "name": "Client Account",
-      "timestamp": "2025-09-17T13:45:24.866Z",
+      "timestamp": "2025-09-17T14:25:10.484Z",
       "viewport": {
         "width": 1280,
         "height": 720
@@ -4471,7 +4433,7 @@
         "performance": {
           "loadTime": 0,
           "domContentLoaded": 0,
-          "firstContentfulPaint": 328,
+          "firstContentfulPaint": 344,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -4903,16 +4865,16 @@
     {
       "route": "/billing",
       "name": "Client Billing",
-      "timestamp": "2025-09-17T13:45:27.975Z",
+      "timestamp": "2025-09-17T14:25:13.617Z",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "analysis": {
         "accessibility": {
-          "score": 46,
+          "score": 88,
           "issues": [
-            "18 buttons missing aria labels"
+            "4 buttons missing aria labels"
           ],
           "colorContrast": {
             "passed": true,
@@ -4933,7 +4895,7 @@
         "performance": {
           "loadTime": 0,
           "domContentLoaded": 0,
-          "firstContentfulPaint": 300,
+          "firstContentfulPaint": 308,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -4961,8 +4923,8 @@
               "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
             ],
             "readability": "poor",
-            "avgReadabilityScore": 12.9,
-            "textSampleCount": 90
+            "avgReadabilityScore": 12.5,
+            "textSampleCount": 91
           },
           "spacing": {
             "consistent": false,
@@ -4970,7 +4932,7 @@
               "Inconsistent margin spacing detected",
               "Inconsistent padding spacing detected"
             ],
-            "marginConsistency": 68.93827160493828,
+            "marginConsistency": 68.22145328719724,
             "paddingConsistency": 0
           },
           "alignment": {
@@ -5017,7 +4979,6 @@
                 "Missing hover state for button: Accept All",
                 "Missing hover state for button: unnamed",
                 "Missing hover state for button: Manage Plan",
-                "Missing hover state for button: Cancel Subscription",
                 "Missing hover state for button: All Transactions",
                 "Missing hover state for button: Subscriptions",
                 "Missing hover state for button: Additional Sessions",
@@ -5028,8 +4989,7 @@
                 "Missing hover state for button: unnamed",
                 "Missing hover state for button: unnamed",
                 "Missing hover state for button: Book Additional Sess",
-                "Missing hover state for button: Download Receipts",
-                "Missing hover state for button: Update Billing Info"
+                "Missing hover state for button: Download Receipts"
               ]
             },
             "focusStates": {
@@ -5109,7 +5069,6 @@
               "Fixed width detected on DIV: 742px",
               "Fixed width detected on BUTTON: 152.594px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on BUTTON: 168.938px",
               "Fixed width detected on DIV: 792px",
               "Fixed width detected on DIV: 790px",
               "Fixed width detected on H3: 742px",
@@ -5182,6 +5141,7 @@
               "Fixed width detected on svg: 16px",
               "Fixed width detected on DIV: 790px",
               "Fixed width detected on DIV: 742px",
+              "Fixed width detected on DIV: 742px",
               "Fixed width detected on DIV: 172.812px",
               "Fixed width detected on DIV: 32px",
               "Fixed width detected on svg: 16px",
@@ -5209,11 +5169,9 @@
               "Fixed width detected on DIV: 382px",
               "Fixed width detected on H3: 334px",
               "Fixed width detected on DIV: 382px",
-              "Fixed width detected on BUTTON: 334px",
+              "Fixed width detected on BUTTON: 280px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on BUTTON: 334px",
-              "Fixed width detected on svg: 16px",
-              "Fixed width detected on BUTTON: 334px",
+              "Fixed width detected on BUTTON: 280px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on DIV: 384px",
               "Fixed width detected on DIV: 382px",
@@ -5251,12 +5209,12 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 7.906354435875854,
+            "textDensity": 7.963055242331068,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
           "designConsistency": {
-            "componentReuse": 60.71428571428571,
+            "componentReuse": 57.692307692307686,
             "styleUniformity": 80,
             "patternConsistency": "good",
             "inconsistencies": [
@@ -5270,7 +5228,7 @@
             "placeholderQuality": "good"
           },
           "motionAndAnimation": {
-            "animationCount": 24,
+            "animationCount": 22,
             "motionSicknessRisk": "low",
             "reducedMotionSupport": false,
             "animationIssues": []
@@ -5282,12 +5240,12 @@
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 81.20789074355083,
+            "clutterScore": 81.22626339969372,
             "cognitiveLoad": "high",
-            "informationDensity": 0.9009863429438543,
+            "informationDensity": 0.9032829249617151,
             "clutterIssues": [
-              "Too many buttons (18) - exceeds Miller's Rule (7±2)",
-              "High element density (152 elements) - exceeds optimal complexity"
+              "Too many buttons (16) - exceeds Miller's Rule (7±2)",
+              "High element density (151 elements) - exceeds optimal complexity"
             ]
           },
           "blandnessDetection": {
@@ -5297,7 +5255,7 @@
               "No images found - may lack visual interest"
             ],
             "engagementFactors": [
-              "18 interactive buttons"
+              "16 interactive buttons"
             ]
           },
           "colorHarmony": {
@@ -5310,12 +5268,8 @@
             "colorTemperature": "mixed"
           },
           "scaleAndProportion": {
-            "scaleIssues": [
-              "Button too wide: 334x44px",
-              "Button too wide: 334x44px",
-              "Button too wide: 334x44px"
-            ],
-            "proportionScore": 55,
+            "scaleIssues": [],
+            "proportionScore": 85,
             "sizeRelationships": [],
             "visualWeight": "top-heavy"
           },
@@ -5369,10 +5323,10 @@
             ]
           },
           "contentLength": {
-            "text": 134,
+            "text": 135,
             "images": 0,
             "links": 0,
-            "buttons": 18
+            "buttons": 16
           },
           "seoElements": {
             "title": "soulful-sync-care",
@@ -5428,7 +5382,7 @@
         "microInteractions": {
           "hoverStates": {
             "score": 100,
-            "interactiveElements": 25,
+            "interactiveElements": 23,
             "hoverEffects": 71,
             "issues": []
           },
@@ -5452,17 +5406,16 @@
     {
       "route": "/t/onboarding",
       "name": "Therapist Onboarding",
-      "timestamp": "2025-09-17T13:45:31.062Z",
+      "timestamp": "2025-09-17T14:25:16.708Z",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "analysis": {
         "accessibility": {
-          "score": 72,
+          "score": 82,
           "issues": [
-            "6 buttons missing aria labels",
-            "No H1 heading found"
+            "6 buttons missing aria labels"
           ],
           "colorContrast": {
             "passed": true,
@@ -5483,7 +5436,7 @@
         "performance": {
           "loadTime": 0,
           "domContentLoaded": 0,
-          "firstContentfulPaint": 300,
+          "firstContentfulPaint": 288,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -5503,8 +5456,7 @@
               16,
               18,
               20,
-              24,
-              30
+              24
             ],
             "fontFamilies": [
               "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
@@ -5660,7 +5612,7 @@
               "Fixed width detected on DIV: 757.328px",
               "Fixed width detected on DIV: 757.328px",
               "Fixed width detected on DIV: 757.328px",
-              "Fixed width detected on H3: 709.328px",
+              "Fixed width detected on H1: 709.328px",
               "Fixed width detected on P: 709.328px",
               "Fixed width detected on DIV: 757.328px",
               "Fixed width detected on DIV: 709.328px",
@@ -5720,7 +5672,7 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 6.7443821844880265,
+            "textDensity": 6.7252547368715225,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
@@ -5747,7 +5699,7 @@
           "visualAccessibility": {
             "colorBlindnessSupport": "good",
             "highContrastMode": false,
-            "fontSizeConsistency": 84,
+            "fontSizeConsistency": 90,
             "visualImpairmentIssues": []
           },
           "visualClutter": {
@@ -5841,7 +5793,8 @@
           "headingStructure": {
             "valid": false,
             "issues": [
-              "Heading level 3 skipped from 0"
+              "Heading level 3 skipped from 0",
+              "Heading level 3 skipped from 1"
             ]
           },
           "contentLength": {
@@ -5882,13 +5835,14 @@
         },
         "layoutPatterns": {
           "detectedPatterns": [
+            "hero-section",
             "grid-layout",
             "card-based"
           ],
-          "layoutType": "grid",
+          "layoutType": "hero",
           "complexity": "complex",
           "structure": {
-            "hasHero": false,
+            "hasHero": true,
             "hasGrid": true,
             "hasCards": true,
             "hasSidebar": false,
@@ -5896,7 +5850,6 @@
             "hasModal": false
           },
           "recommendations": [
-            "Consider adding a hero section for better first impression",
             "Complex layout detected - consider adding sidebar navigation for better organization"
           ]
         },
@@ -5927,16 +5880,16 @@
     {
       "route": "/t/dashboard",
       "name": "Therapist Dashboard",
-      "timestamp": "2025-09-17T13:45:34.184Z",
+      "timestamp": "2025-09-17T14:25:19.828Z",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "analysis": {
         "accessibility": {
-          "score": 46,
+          "score": 88,
           "issues": [
-            "18 buttons missing aria labels"
+            "4 buttons missing aria labels"
           ],
           "colorContrast": {
             "passed": true,
@@ -5956,8 +5909,8 @@
         },
         "performance": {
           "loadTime": 0,
-          "domContentLoaded": 0,
-          "firstContentfulPaint": 316,
+          "domContentLoaded": 0.09999999403953552,
+          "firstContentfulPaint": 296,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -5986,8 +5939,8 @@
               "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
             ],
             "readability": "poor",
-            "avgReadabilityScore": 19.3,
-            "textSampleCount": 80
+            "avgReadabilityScore": 16.9,
+            "textSampleCount": 75
           },
           "spacing": {
             "consistent": false,
@@ -6047,20 +6000,13 @@
                 "Missing hover state for button: Learn engagement boo",
                 "Missing hover state for button: FAQ",
                 "Missing hover state for button: Sign out",
-                "Missing hover state for button: EDIT",
-                "Missing hover state for button: OPEN CALENDAR",
+                "Missing hover state for button: MANAGE",
                 "Missing hover state for button: Join Now →",
                 "Missing hover state for button: Join Now →",
                 "Missing hover state for button: Join Now →",
-                "Missing hover state for button: EDIT",
-                "Missing hover state for button: OPEN CLIENTS",
-                "Missing hover state for button: EDIT",
-                "Missing hover state for button: EDIT",
-                "Missing hover state for button: EDIT",
-                "Missing hover state for button: EDIT",
-                "Missing hover state for button: OPEN ANALYTICS",
-                "Missing hover state for button: EDIT",
-                "Missing hover state for button: OPEN PROFILE"
+                "Missing hover state for button: MANAGE",
+                "Missing hover state for button: VIEW",
+                "Missing hover state for button: MANAGE"
               ]
             },
             "focusStates": {
@@ -6152,15 +6098,14 @@
               "Fixed width detected on DIV: 944px",
               "Fixed width detected on DIV: 464px",
               "Fixed width detected on DIV: 462px",
-              "Fixed width detected on DIV: 430px",
+              "Fixed width detected on DIV: 414px",
               "Fixed width detected on H2: 200.703px",
-              "Fixed width detected on DIV: 204.562px",
-              "Fixed width detected on BUTTON: 45.0938px",
-              "Fixed width detected on BUTTON: 155.469px",
+              "Fixed width detected on DIV: 103.328px",
+              "Fixed width detected on BUTTON: 103.328px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on DIV: 462px",
-              "Fixed width detected on DIV: 430px",
-              "Fixed width detected on DIV: 430px",
+              "Fixed width detected on DIV: 414px",
+              "Fixed width detected on DIV: 414px",
               "Fixed width detected on DIV: 206.547px",
               "Fixed width detected on DIV: 32px",
               "Fixed width detected on SPAN: 19.4531px",
@@ -6168,7 +6113,7 @@
               "Fixed width detected on H4: 166.547px",
               "Fixed width detected on P: 166.547px",
               "Fixed width detected on BUTTON: 99.2031px",
-              "Fixed width detected on DIV: 430px",
+              "Fixed width detected on DIV: 414px",
               "Fixed width detected on DIV: 205.516px",
               "Fixed width detected on DIV: 32px",
               "Fixed width detected on SPAN: 14.7969px",
@@ -6176,7 +6121,7 @@
               "Fixed width detected on H4: 165.516px",
               "Fixed width detected on P: 165.516px",
               "Fixed width detected on BUTTON: 99.2031px",
-              "Fixed width detected on DIV: 430px",
+              "Fixed width detected on DIV: 414px",
               "Fixed width detected on DIV: 204.469px",
               "Fixed width detected on DIV: 32px",
               "Fixed width detected on SPAN: 16.3438px",
@@ -6186,72 +6131,66 @@
               "Fixed width detected on BUTTON: 99.2031px",
               "Fixed width detected on DIV: 464px",
               "Fixed width detected on DIV: 462px",
-              "Fixed width detected on DIV: 430px",
+              "Fixed width detected on DIV: 414px",
               "Fixed width detected on H2: 169.141px",
-              "Fixed width detected on DIV: 186.656px",
-              "Fixed width detected on BUTTON: 45.0938px",
-              "Fixed width detected on BUTTON: 137.562px",
+              "Fixed width detected on DIV: 103.328px",
+              "Fixed width detected on BUTTON: 103.328px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on DIV: 462px",
-              "Fixed width detected on DIV: 430px",
-              "Fixed width detected on DIV: 430px",
+              "Fixed width detected on DIV: 414px",
+              "Fixed width detected on DIV: 414px",
               "Fixed width detected on DIV: 186.516px",
               "Fixed width detected on DIV: 32px",
               "Fixed width detected on SPAN: 16.3438px",
               "Fixed width detected on DIV: 146.516px",
               "Fixed width detected on H4: 146.516px",
               "Fixed width detected on P: 146.516px",
-              "Fixed width detected on DIV: 110.234px",
               "Fixed width detected on DIV: 61.1406px",
-              "Fixed width detected on BUTTON: 45.0938px",
-              "Fixed width detected on DIV: 430px",
+              "Fixed width detected on DIV: 61.1406px",
+              "Fixed width detected on DIV: 414px",
               "Fixed width detected on DIV: 163.938px",
               "Fixed width detected on DIV: 32px",
               "Fixed width detected on SPAN: 19.4531px",
               "Fixed width detected on DIV: 123.938px",
               "Fixed width detected on H4: 123.938px",
               "Fixed width detected on P: 123.938px",
-              "Fixed width detected on DIV: 110.234px",
               "Fixed width detected on DIV: 61.1406px",
-              "Fixed width detected on BUTTON: 45.0938px",
-              "Fixed width detected on DIV: 430px",
+              "Fixed width detected on DIV: 61.1406px",
+              "Fixed width detected on DIV: 414px",
               "Fixed width detected on DIV: 191.188px",
               "Fixed width detected on DIV: 32px",
               "Fixed width detected on SPAN: 18.6875px",
               "Fixed width detected on DIV: 151.188px",
               "Fixed width detected on H4: 151.188px",
               "Fixed width detected on P: 151.188px",
-              "Fixed width detected on DIV: 120.391px",
               "Fixed width detected on DIV: 71.2969px",
-              "Fixed width detected on BUTTON: 45.0938px",
+              "Fixed width detected on DIV: 71.2969px",
               "Fixed width detected on DIV: 464px",
               "Fixed width detected on DIV: 462px",
-              "Fixed width detected on DIV: 430px",
+              "Fixed width detected on DIV: 414px",
               "Fixed width detected on H2: 120.094px",
-              "Fixed width detected on DIV: 205.625px",
-              "Fixed width detected on BUTTON: 45.0938px",
-              "Fixed width detected on BUTTON: 156.531px",
+              "Fixed width detected on DIV: 78.0781px",
+              "Fixed width detected on BUTTON: 78.0781px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on DIV: 462px",
-              "Fixed width detected on DIV: 430px",
-              "Fixed width detected on H4: 430px",
-              "Fixed width detected on DIV: 430px",
-              "Fixed width detected on DIV: 430px",
+              "Fixed width detected on DIV: 414px",
+              "Fixed width detected on H4: 414px",
+              "Fixed width detected on DIV: 414px",
+              "Fixed width detected on DIV: 414px",
               "Fixed width detected on SPAN: 62.75px",
               "Fixed width detected on svg: 200px",
               "Fixed width detected on DIV: 464px",
               "Fixed width detected on DIV: 462px",
-              "Fixed width detected on DIV: 430px",
+              "Fixed width detected on DIV: 414px",
               "Fixed width detected on H2: 157.344px",
-              "Fixed width detected on DIV: 186.25px",
-              "Fixed width detected on BUTTON: 45.0938px",
-              "Fixed width detected on BUTTON: 137.156px",
+              "Fixed width detected on DIV: 103.328px",
+              "Fixed width detected on BUTTON: 103.328px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on DIV: 462px",
-              "Fixed width detected on DIV: 430px",
-              "Fixed width detected on H4: 430px",
-              "Fixed width detected on DIV: 430px",
-              "Fixed width detected on svg: 414px",
+              "Fixed width detected on DIV: 414px",
+              "Fixed width detected on H4: 414px",
+              "Fixed width detected on DIV: 414px",
+              "Fixed width detected on svg: 398px",
               "Fixed width detected on rect: 400px"
             ],
             "mobileIssues": [],
@@ -6261,16 +6200,16 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 8.869294449447038,
+            "textDensity": 8.224835103352865,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
           "designConsistency": {
-            "componentReuse": 63.33333333333333,
+            "componentReuse": 47.82608695652174,
             "styleUniformity": 76,
-            "patternConsistency": "good",
+            "patternConsistency": "fair",
             "inconsistencies": [
-              "Too many button styles (8 unique classes)"
+              "Too many button styles (9 unique classes)"
             ]
           },
           "loadingExperience": {
@@ -6280,7 +6219,7 @@
             "placeholderQuality": "good"
           },
           "motionAndAnimation": {
-            "animationCount": 32,
+            "animationCount": 25,
             "motionSicknessRisk": "low",
             "reducedMotionSupport": false,
             "animationIssues": []
@@ -6292,12 +6231,12 @@
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 90.29415584415585,
+            "clutterScore": 90.52638888888889,
             "cognitiveLoad": "high",
-            "informationDensity": 1.5117694805194806,
+            "informationDensity": 1.5407986111111112,
             "clutterIssues": [
-              "Too many buttons (24) - exceeds Miller's Rule (7±2)",
-              "High element density (149 elements) - exceeds optimal complexity"
+              "Too many buttons (17) - exceeds Miller's Rule (7±2)",
+              "High element density (142 elements) - exceeds optimal complexity"
             ]
           },
           "blandnessDetection": {
@@ -6307,7 +6246,7 @@
               "No images found - may lack visual interest"
             ],
             "engagementFactors": [
-              "24 interactive buttons",
+              "17 interactive buttons",
               "4 navigation links"
             ]
           },
@@ -6344,7 +6283,12 @@
               "Very long text line: 944px wide",
               "Very long text line: 944px wide"
             ],
-            "containerViolations": [],
+            "containerViolations": [
+              "Text overflows container vertically: LJLindsey JacobsApr 21 10:30am...",
+              "Text overflows container vertically: JSJohn SmithApr 21 11:00am - 1...",
+              "Text overflows container vertically: DVDebbie Vectradv1092@gmail.co...",
+              "Text overflows container vertically: PSPaul Sungp.sung0982@gmail.co..."
+            ],
             "textClipping": [
               "Text clipped with ellipsis: Deborah Young...",
               "Text clipped with ellipsis: Apr 21 10:00am - 10:30am...",
@@ -6359,7 +6303,7 @@
               "Text clipped with ellipsis: Paul Sung...",
               "Text clipped with ellipsis: p.sung0982@gmail.com..."
             ],
-            "boundaryProblems": 25
+            "boundaryProblems": 29
           },
           "advancedAlignment": {
             "gridAlignment": "poor",
@@ -6371,7 +6315,7 @@
             "gridViolations": []
           },
           "layoutAppeal": {
-            "appealScore": 96.66666666666666,
+            "appealScore": 100,
             "sophisticationLevel": "high",
             "layoutIssues": [],
             "designQuality": "professional"
@@ -6393,7 +6337,7 @@
             "text": 120,
             "images": 0,
             "links": 4,
-            "buttons": 24
+            "buttons": 17
           },
           "seoElements": {
             "title": "soulful-sync-care",
@@ -6447,7 +6391,7 @@
         "microInteractions": {
           "hoverStates": {
             "score": 100,
-            "interactiveElements": 32,
+            "interactiveElements": 25,
             "hoverEffects": 71,
             "issues": []
           },
@@ -6471,7 +6415,7 @@
     {
       "route": "/t/clients",
       "name": "Therapist Clients",
-      "timestamp": "2025-09-17T13:45:37.332Z",
+      "timestamp": "2025-09-17T14:25:22.947Z",
       "viewport": {
         "width": 1280,
         "height": 720
@@ -6500,8 +6444,8 @@
         },
         "performance": {
           "loadTime": 0,
-          "domContentLoaded": 0,
-          "firstContentfulPaint": 284,
+          "domContentLoaded": 0.09999999403953552,
+          "firstContentfulPaint": 340,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -6521,8 +6465,7 @@
               16,
               20,
               24,
-              30,
-              36
+              30
             ],
             "fontFamilies": [
               "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
@@ -6881,7 +6824,7 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 8.979658399379522,
+            "textDensity": 9.041963154777152,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
@@ -6908,13 +6851,13 @@
           "visualAccessibility": {
             "colorBlindnessSupport": "good",
             "highContrastMode": false,
-            "fontSizeConsistency": 78,
+            "fontSizeConsistency": 84,
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 85.91704180064309,
+            "clutterScore": 86.0688524590164,
             "cognitiveLoad": "high",
-            "informationDensity": 0.9646302250803859,
+            "informationDensity": 0.9836065573770493,
             "clutterIssues": [
               "Too many buttons (31) - exceeds Miller's Rule (7±2)",
               "High element density (192 elements) - exceeds optimal complexity"
@@ -7099,7 +7042,7 @@
     {
       "route": "/t/bookings",
       "name": "Therapist Bookings",
-      "timestamp": "2025-09-17T13:45:40.489Z",
+      "timestamp": "2025-09-17T14:25:26.085Z",
       "viewport": {
         "width": 1280,
         "height": 720
@@ -7128,8 +7071,8 @@
         },
         "performance": {
           "loadTime": 0,
-          "domContentLoaded": 0,
-          "firstContentfulPaint": 308,
+          "domContentLoaded": 0.09999999403953552,
+          "firstContentfulPaint": 304,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -7149,8 +7092,7 @@
               16,
               20,
               24,
-              30,
-              36
+              30
             ],
             "fontFamilies": [
               "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
@@ -7487,7 +7429,7 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 8.781325507589445,
+            "textDensity": 8.84628886661766,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
@@ -7514,13 +7456,13 @@
           "visualAccessibility": {
             "colorBlindnessSupport": "good",
             "highContrastMode": false,
-            "fontSizeConsistency": 78,
+            "fontSizeConsistency": 84,
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 85.47159172019985,
+            "clutterScore": 85.6307075127644,
             "cognitiveLoad": "high",
-            "informationDensity": 0.9089489650249821,
+            "informationDensity": 0.9288384390955507,
             "clutterIssues": [
               "Too many buttons (27) - exceeds Miller's Rule (7±2)",
               "High element density (163 elements) - exceeds optimal complexity"
@@ -7705,17 +7647,17 @@
     {
       "route": "/t/messages",
       "name": "Therapist Messages",
-      "timestamp": "2025-09-17T13:45:43.646Z",
+      "timestamp": "2025-09-17T14:25:29.248Z",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "analysis": {
         "accessibility": {
-          "score": 48,
+          "score": 54,
           "issues": [
             "5 images missing alt text",
-            "9 buttons missing aria labels"
+            "7 buttons missing aria labels"
           ],
           "colorContrast": {
             "passed": true,
@@ -7736,7 +7678,7 @@
         "performance": {
           "loadTime": 0,
           "domContentLoaded": 0.09999999403953552,
-          "firstContentfulPaint": 364,
+          "firstContentfulPaint": 312,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -7758,8 +7700,7 @@
               16,
               20,
               24,
-              30,
-              36
+              30
             ],
             "fontFamilies": [
               "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
@@ -7929,91 +7870,91 @@
               "Fixed width detected on P: 944px",
               "Fixed width detected on DIV: 944px",
               "Fixed width detected on DIV: 944px",
-              "Fixed width detected on DIV: 298.656px",
-              "Fixed width detected on DIV: 298.656px",
-              "Fixed width detected on DIV: 141.328px",
-              "Fixed width detected on DIV: 139.328px",
-              "Fixed width detected on DIV: 107.328px",
-              "Fixed width detected on DIV: 107.328px",
-              "Fixed width detected on DIV: 107.328px",
-              "Fixed width detected on DIV: 141.328px",
-              "Fixed width detected on DIV: 139.328px",
-              "Fixed width detected on DIV: 107.328px",
-              "Fixed width detected on DIV: 107.328px",
-              "Fixed width detected on DIV: 107.328px",
-              "Fixed width detected on DIV: 298.656px",
-              "Fixed width detected on DIV: 296.656px",
-              "Fixed width detected on DIV: 264.656px",
-              "Fixed width detected on DIV: 264.656px",
+              "Fixed width detected on DIV: 293.328px",
+              "Fixed width detected on DIV: 293.328px",
+              "Fixed width detected on DIV: 134.656px",
+              "Fixed width detected on DIV: 132.656px",
+              "Fixed width detected on DIV: 100.656px",
+              "Fixed width detected on DIV: 100.656px",
+              "Fixed width detected on DIV: 100.656px",
+              "Fixed width detected on DIV: 134.672px",
+              "Fixed width detected on DIV: 132.672px",
+              "Fixed width detected on DIV: 100.672px",
+              "Fixed width detected on DIV: 100.672px",
+              "Fixed width detected on DIV: 100.672px",
+              "Fixed width detected on DIV: 293.328px",
+              "Fixed width detected on DIV: 291.328px",
+              "Fixed width detected on DIV: 259.328px",
+              "Fixed width detected on DIV: 259.328px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on INPUT: 264.656px",
-              "Fixed width detected on BUTTON: 264.656px",
+              "Fixed width detected on INPUT: 259.328px",
+              "Fixed width detected on BUTTON: 259.328px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on DIV: 298.656px",
-              "Fixed width detected on DIV: 296.656px",
-              "Fixed width detected on H3: 248.656px",
-              "Fixed width detected on DIV: 296.656px",
-              "Fixed width detected on DIV: 296.656px",
-              "Fixed width detected on DIV: 296.656px",
-              "Fixed width detected on DIV: 264.656px",
+              "Fixed width detected on DIV: 293.328px",
+              "Fixed width detected on DIV: 291.328px",
+              "Fixed width detected on H3: 243.328px",
+              "Fixed width detected on DIV: 291.328px",
+              "Fixed width detected on DIV: 291.328px",
+              "Fixed width detected on DIV: 291.328px",
+              "Fixed width detected on DIV: 259.328px",
               "Fixed width detected on DIV: 40px",
               "Fixed width detected on SPAN: 40px",
               "Fixed width detected on SPAN: 40px",
               "Fixed width detected on DIV: 12px",
-              "Fixed width detected on DIV: 212.656px",
-              "Fixed width detected on DIV: 212.656px",
+              "Fixed width detected on DIV: 207.328px",
+              "Fixed width detected on DIV: 207.328px",
               "Fixed width detected on H4: 78.2812px",
               "Fixed width detected on DIV: 16px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on P: 212.656px",
-              "Fixed width detected on DIV: 212.656px",
+              "Fixed width detected on P: 207.328px",
+              "Fixed width detected on DIV: 207.328px",
               "Fixed width detected on svg: 12px",
-              "Fixed width detected on DIV: 296.656px",
-              "Fixed width detected on DIV: 264.656px",
+              "Fixed width detected on DIV: 291.328px",
+              "Fixed width detected on DIV: 259.328px",
               "Fixed width detected on DIV: 40px",
               "Fixed width detected on SPAN: 40px",
               "Fixed width detected on IMG: 40px",
-              "Fixed width detected on DIV: 212.656px",
-              "Fixed width detected on DIV: 212.656px",
+              "Fixed width detected on DIV: 207.328px",
+              "Fixed width detected on DIV: 207.328px",
               "Fixed width detected on H4: 78.25px",
               "Fixed width detected on DIV: 45.7812px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on DIV: 21.7812px",
-              "Fixed width detected on P: 212.656px",
-              "Fixed width detected on DIV: 212.656px",
+              "Fixed width detected on P: 207.328px",
+              "Fixed width detected on DIV: 207.328px",
               "Fixed width detected on svg: 12px",
-              "Fixed width detected on DIV: 296.656px",
-              "Fixed width detected on DIV: 264.656px",
+              "Fixed width detected on DIV: 291.328px",
+              "Fixed width detected on DIV: 259.328px",
               "Fixed width detected on DIV: 40px",
               "Fixed width detected on SPAN: 40px",
               "Fixed width detected on IMG: 40px",
-              "Fixed width detected on DIV: 212.656px",
-              "Fixed width detected on DIV: 212.656px",
+              "Fixed width detected on DIV: 207.328px",
+              "Fixed width detected on DIV: 207.328px",
               "Fixed width detected on H4: 63.1406px",
               "Fixed width detected on DIV: 16px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on P: 212.656px",
-              "Fixed width detected on DIV: 212.656px",
+              "Fixed width detected on P: 207.328px",
+              "Fixed width detected on DIV: 207.328px",
               "Fixed width detected on svg: 12px",
-              "Fixed width detected on DIV: 296.656px",
-              "Fixed width detected on DIV: 264.656px",
+              "Fixed width detected on DIV: 291.328px",
+              "Fixed width detected on DIV: 259.328px",
               "Fixed width detected on DIV: 40px",
               "Fixed width detected on SPAN: 40px",
               "Fixed width detected on IMG: 40px",
               "Fixed width detected on DIV: 12px",
-              "Fixed width detected on DIV: 212.656px",
-              "Fixed width detected on DIV: 212.656px",
+              "Fixed width detected on DIV: 207.328px",
+              "Fixed width detected on DIV: 207.328px",
               "Fixed width detected on H4: 69.0625px",
               "Fixed width detected on DIV: 44px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on DIV: 20px",
-              "Fixed width detected on P: 212.656px",
-              "Fixed width detected on DIV: 212.656px",
+              "Fixed width detected on P: 207.328px",
+              "Fixed width detected on DIV: 207.328px",
               "Fixed width detected on svg: 12px",
-              "Fixed width detected on DIV: 621.344px",
-              "Fixed width detected on DIV: 621.344px",
-              "Fixed width detected on DIV: 619.344px",
-              "Fixed width detected on DIV: 571.344px",
+              "Fixed width detected on DIV: 618.672px",
+              "Fixed width detected on DIV: 618.672px",
+              "Fixed width detected on DIV: 616.672px",
+              "Fixed width detected on DIV: 568.672px",
               "Fixed width detected on DIV: 129.422px",
               "Fixed width detected on SPAN: 32px",
               "Fixed width detected on SPAN: 32px",
@@ -8025,84 +7966,84 @@
               "Fixed width detected on BUTTON: 40px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on DIV: 86.1562px",
-              "Fixed width detected on DIV: 619.344px",
-              "Fixed width detected on DIV: 619.344px",
-              "Fixed width detected on DIV: 587.344px",
-              "Fixed width detected on DIV: 555.344px",
-              "Fixed width detected on DIV: 555.344px",
-              "Fixed width detected on DIV: 555.344px",
-              "Fixed width detected on DIV: 555.344px",
+              "Fixed width detected on DIV: 616.672px",
+              "Fixed width detected on DIV: 616.672px",
+              "Fixed width detected on DIV: 584.672px",
+              "Fixed width detected on DIV: 536.672px",
+              "Fixed width detected on DIV: 536.672px",
+              "Fixed width detected on DIV: 536.672px",
+              "Fixed width detected on DIV: 536.672px",
               "Fixed width detected on DIV: 405.906px",
               "Fixed width detected on svg: 12px",
-              "Fixed width detected on DIV: 555.344px",
-              "Fixed width detected on DIV: 388.734px",
-              "Fixed width detected on DIV: 388.734px",
-              "Fixed width detected on P: 364.734px",
-              "Fixed width detected on DIV: 388.734px",
+              "Fixed width detected on DIV: 536.672px",
+              "Fixed width detected on DIV: 375.656px",
+              "Fixed width detected on DIV: 375.656px",
+              "Fixed width detected on P: 351.656px",
+              "Fixed width detected on DIV: 375.656px",
               "Fixed width detected on SPAN: 90.0781px",
               "Fixed width detected on svg: 12px",
               "Fixed width detected on svg: 12px",
               "Fixed width detected on SPAN: 32px",
               "Fixed width detected on IMG: 32px",
-              "Fixed width detected on DIV: 555.344px",
+              "Fixed width detected on DIV: 536.672px",
               "Fixed width detected on SPAN: 32px",
               "Fixed width detected on IMG: 32px",
-              "Fixed width detected on DIV: 388.734px",
-              "Fixed width detected on DIV: 388.734px",
-              "Fixed width detected on P: 364.734px",
-              "Fixed width detected on DIV: 388.734px",
+              "Fixed width detected on DIV: 375.656px",
+              "Fixed width detected on DIV: 375.656px",
+              "Fixed width detected on P: 351.656px",
+              "Fixed width detected on DIV: 375.656px",
               "Fixed width detected on SPAN: 90.0781px",
               "Fixed width detected on svg: 12px",
-              "Fixed width detected on DIV: 555.344px",
-              "Fixed width detected on DIV: 388.734px",
-              "Fixed width detected on DIV: 388.734px",
-              "Fixed width detected on P: 364.734px",
-              "Fixed width detected on DIV: 388.734px",
+              "Fixed width detected on DIV: 536.672px",
+              "Fixed width detected on DIV: 375.656px",
+              "Fixed width detected on DIV: 375.656px",
+              "Fixed width detected on P: 351.656px",
+              "Fixed width detected on DIV: 375.656px",
               "Fixed width detected on SPAN: 90.0781px",
               "Fixed width detected on svg: 12px",
               "Fixed width detected on svg: 12px",
               "Fixed width detected on SPAN: 32px",
               "Fixed width detected on IMG: 32px",
-              "Fixed width detected on DIV: 555.344px",
-              "Fixed width detected on DIV: 381.938px",
-              "Fixed width detected on DIV: 381.938px",
-              "Fixed width detected on DIV: 357.938px",
-              "Fixed width detected on P: 357.938px",
-              "Fixed width detected on DIV: 357.938px",
-              "Fixed width detected on DIV: 331.938px",
+              "Fixed width detected on DIV: 536.672px",
+              "Fixed width detected on DIV: 375.656px",
+              "Fixed width detected on DIV: 375.656px",
+              "Fixed width detected on DIV: 351.656px",
+              "Fixed width detected on P: 351.656px",
+              "Fixed width detected on DIV: 351.656px",
+              "Fixed width detected on DIV: 325.656px",
               "Fixed width detected on DIV: 32px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on DIV: 233.938px",
-              "Fixed width detected on P: 233.938px",
-              "Fixed width detected on P: 233.938px",
+              "Fixed width detected on DIV: 227.656px",
+              "Fixed width detected on P: 227.656px",
+              "Fixed width detected on P: 227.656px",
               "Fixed width detected on BUTTON: 42px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on DIV: 381.938px",
+              "Fixed width detected on DIV: 375.656px",
               "Fixed width detected on SPAN: 90.0781px",
               "Fixed width detected on svg: 12px",
               "Fixed width detected on svg: 12px",
               "Fixed width detected on SPAN: 32px",
               "Fixed width detected on IMG: 32px",
-              "Fixed width detected on DIV: 555.344px",
+              "Fixed width detected on DIV: 536.672px",
               "Fixed width detected on SPAN: 32px",
               "Fixed width detected on IMG: 32px",
-              "Fixed width detected on DIV: 388.734px",
-              "Fixed width detected on DIV: 388.734px",
-              "Fixed width detected on P: 364.734px",
-              "Fixed width detected on DIV: 388.734px",
+              "Fixed width detected on DIV: 375.656px",
+              "Fixed width detected on DIV: 375.656px",
+              "Fixed width detected on P: 351.656px",
+              "Fixed width detected on DIV: 375.656px",
               "Fixed width detected on SPAN: 90.0781px",
               "Fixed width detected on svg: 12px",
-              "Fixed width detected on DIV: 619.344px",
-              "Fixed width detected on DIV: 587.344px",
-              "Fixed width detected on DIV: 555.344px",
-              "Fixed width detected on DIV: 553.344px",
+              "Fixed width detected on DIV: 616.672px",
+              "Fixed width detected on DIV: 584.672px",
+              "Fixed width detected on DIV: 552.672px",
+              "Fixed width detected on DIV: 550.672px",
               "Fixed width detected on BUTTON: 40px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on TEXTAREA: 433.344px",
+              "Fixed width detected on TEXTAREA: 430.672px",
               "Fixed width detected on BUTTON: 40px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on DIV: 553.344px",
-              "Fixed width detected on DIV: 529.344px",
+              "Fixed width detected on DIV: 550.672px",
+              "Fixed width detected on DIV: 526.672px",
               "Fixed width detected on svg: 12px",
               "Fixed width detected on SPAN: 224.234px"
             ],
@@ -8113,12 +8054,12 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 10.232509322921647,
+            "textDensity": 13.485223484538613,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": [
-              "P with high text density: 0.0106",
-              "P with high text density: 0.0101",
-              "P with high text density: 0.0113"
+              "P with high text density: 0.0109",
+              "P with high text density: 0.0103",
+              "P with high text density: 0.0116"
             ]
           },
           "designConsistency": {
@@ -8145,20 +8086,20 @@
           "visualAccessibility": {
             "colorBlindnessSupport": "fair",
             "highContrastMode": false,
-            "fontSizeConsistency": 78,
+            "fontSizeConsistency": 84,
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 88.05080336648814,
+            "clutterScore": 95.0520942408377,
             "cognitiveLoad": "high",
-            "informationDensity": 1.2313504208110178,
+            "informationDensity": 2.106511780104712,
             "clutterIssues": [
               "Too many buttons (15) - exceeds Miller's Rule (7±2)",
               "High element density (206 elements) - exceeds optimal complexity",
-              "Dense text block: 495 chars in 298.65625x1033px area",
-              "Dense text block: 466 chars in 298.65625x452px area",
-              "Dense text block: 453 chars in 296.65625x384px area",
-              "Dense text block: 453 chars in 296.65625x384px area"
+              "Dense text block: 495 chars in 293.328125x1073px area",
+              "Dense text block: 466 chars in 293.328125x452px area",
+              "Dense text block: 453 chars in 291.328125x384px area",
+              "Dense text block: 453 chars in 291.328125x384px area"
             ]
           },
           "blandnessDetection": {
@@ -8210,10 +8151,10 @@
               "Very long text line: 1024px wide",
               "Very long text line: 944px wide",
               "Very long text line: 944px wide",
-              "Very long text line: 621.34375px wide",
-              "Very long text line: 621.34375px wide",
-              "Very long text line: 619.34375px wide",
-              "Very long text line: 619.34375px wide"
+              "Very long text line: 618.671875px wide",
+              "Very long text line: 618.671875px wide",
+              "Very long text line: 616.671875px wide",
+              "Very long text line: 616.671875px wide"
             ],
             "containerViolations": [
               "Text overflows container vertically: Robert P.1The homework assignm..."
@@ -8333,7 +8274,7 @@
     {
       "route": "/t/analytics",
       "name": "Therapist Analytics",
-      "timestamp": "2025-09-17T13:45:46.745Z",
+      "timestamp": "2025-09-17T14:25:32.353Z",
       "viewport": {
         "width": 1280,
         "height": 720
@@ -8362,8 +8303,8 @@
         },
         "performance": {
           "loadTime": 0,
-          "domContentLoaded": 0,
-          "firstContentfulPaint": 296,
+          "domContentLoaded": 0.09999999403953552,
+          "firstContentfulPaint": 348,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -8383,8 +8324,7 @@
               16,
               20,
               24,
-              30,
-              36
+              30
             ],
             "fontFamilies": [
               "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
@@ -8647,7 +8587,7 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 8.432516642011834,
+            "textDensity": 8.512395198170731,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
@@ -8674,13 +8614,13 @@
           "visualAccessibility": {
             "colorBlindnessSupport": "good",
             "highContrastMode": false,
-            "fontSizeConsistency": 78,
+            "fontSizeConsistency": 84,
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 85.45936883629192,
+            "clutterScore": 85.71117886178862,
             "cognitiveLoad": "high",
-            "informationDensity": 1.032421104536489,
+            "informationDensity": 1.0638973577235773,
             "clutterIssues": [
               "Too many buttons (15) - exceeds Miller's Rule (7±2)",
               "High element density (134 elements) - exceeds optimal complexity"
@@ -8748,7 +8688,7 @@
             "gridViolations": []
           },
           "layoutAppeal": {
-            "appealScore": 98.33333333333333,
+            "appealScore": 100,
             "sophisticationLevel": "high",
             "layoutIssues": [],
             "designQuality": "professional"
@@ -8845,7 +8785,7 @@
     {
       "route": "/t/earnings",
       "name": "Therapist Earnings",
-      "timestamp": "2025-09-17T13:45:49.842Z",
+      "timestamp": "2025-09-17T14:25:35.449Z",
       "viewport": {
         "width": 1280,
         "height": 720
@@ -8874,8 +8814,8 @@
         },
         "performance": {
           "loadTime": 0,
-          "domContentLoaded": 0,
-          "firstContentfulPaint": 300,
+          "domContentLoaded": 0.09999999403953552,
+          "firstContentfulPaint": 308,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -8894,8 +8834,7 @@
               16,
               20,
               24,
-              30,
-              36
+              30
             ],
             "fontFamilies": [
               "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
@@ -9144,7 +9083,7 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 8.510458798144429,
+            "textDensity": 8.59777138060865,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
@@ -9171,13 +9110,13 @@
           "visualAccessibility": {
             "colorBlindnessSupport": "good",
             "highContrastMode": false,
-            "fontSizeConsistency": 80,
+            "fontSizeConsistency": 86,
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 85.29822361546499,
+            "clutterScore": 85.56030204962244,
             "cognitiveLoad": "high",
-            "informationDensity": 1.0122779519331244,
+            "informationDensity": 1.0450377562028046,
             "clutterIssues": [
               "Too many buttons (16) - exceeds Miller's Rule (7±2)",
               "High element density (124 elements) - exceeds optimal complexity"
@@ -9244,7 +9183,7 @@
             "gridViolations": []
           },
           "layoutAppeal": {
-            "appealScore": 98.33333333333333,
+            "appealScore": 100,
             "sophisticationLevel": "high",
             "layoutIssues": [],
             "designQuality": "professional"
@@ -9341,16 +9280,16 @@
     {
       "route": "/t/profile",
       "name": "Therapist Profile",
-      "timestamp": "2025-09-17T13:45:53.004Z",
+      "timestamp": "2025-09-17T14:25:38.652Z",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "analysis": {
         "accessibility": {
-          "score": 58,
+          "score": 88,
           "issues": [
-            "14 buttons missing aria labels"
+            "4 buttons missing aria labels"
           ],
           "colorContrast": {
             "passed": true,
@@ -9370,8 +9309,8 @@
         },
         "performance": {
           "loadTime": 0,
-          "domContentLoaded": 0.10000002384185791,
-          "firstContentfulPaint": 348,
+          "domContentLoaded": 0,
+          "firstContentfulPaint": 464,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -9391,8 +9330,7 @@
               16,
               20,
               24,
-              30,
-              36
+              30
             ],
             "fontFamilies": [
               "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
@@ -9400,7 +9338,7 @@
               "\"Helvetica Neue\", Helvetica, Arial, sans-serif"
             ],
             "readability": "poor",
-            "avgReadabilityScore": 19.4,
+            "avgReadabilityScore": 19.5,
             "textSampleCount": 93
           },
           "spacing": {
@@ -9464,8 +9402,8 @@
                 "Missing hover state for button: FAQ",
                 "Missing hover state for button: Sign out",
                 "Missing hover state for button: Change Photo",
-                "Missing hover state for button: Edit Specializations",
-                "Missing hover state for button: Edit Languages",
+                "Missing hover state for button: unnamed",
+                "Missing hover state for button: unnamed",
                 "Missing hover state for button: Upload Video",
                 "Missing hover state for button: unnamed",
                 "Missing hover state for button: unnamed",
@@ -9484,6 +9422,8 @@
               "issues": [
                 "Button too small for touch: 40x44px",
                 "Button too small for touch: 0x0px",
+                "Button too small for touch: 40x44px",
+                "Button too small for touch: 40x44px",
                 "Button too small for touch: 44x24px",
                 "Button too small for touch: 44x24px",
                 "Button too small for touch: 44x24px"
@@ -9600,7 +9540,7 @@
               "Fixed width detected on DIV: 196.562px",
               "Fixed width detected on DIV: 141.391px",
               "Fixed width detected on DIV: 56px",
-              "Fixed width detected on BUTTON: 197.078px",
+              "Fixed width detected on BUTTON: 40px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on DIV: 460px",
               "Fixed width detected on DIV: 458px",
@@ -9611,7 +9551,7 @@
               "Fixed width detected on DIV: 76.4844px",
               "Fixed width detected on DIV: 81.8281px",
               "Fixed width detected on DIV: 73.7969px",
-              "Fixed width detected on BUTTON: 168.156px",
+              "Fixed width detected on BUTTON: 40px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on DIV: 944px",
               "Fixed width detected on DIV: 942px",
@@ -9695,16 +9635,16 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 8.134048737942758,
+            "textDensity": 8.155131149708083,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
           "designConsistency": {
-            "componentReuse": 50,
+            "componentReuse": 47.05882352941176,
             "styleUniformity": 68,
             "patternConsistency": "fair",
             "inconsistencies": [
-              "Too many button styles (10 unique classes)",
+              "Too many button styles (11 unique classes)",
               "Too many input styles (5 unique classes)"
             ]
           },
@@ -9723,13 +9663,13 @@
           "visualAccessibility": {
             "colorBlindnessSupport": "fair",
             "highContrastMode": false,
-            "fontSizeConsistency": 78,
+            "fontSizeConsistency": 84,
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 82.8200808514149,
+            "clutterScore": 82.89864354635715,
             "cognitiveLoad": "high",
-            "informationDensity": 0.5775101064268625,
+            "informationDensity": 0.587330443294644,
             "clutterIssues": [
               "Too many buttons (20) - exceeds Miller's Rule (7±2)",
               "High element density (168 elements) - exceeds optimal complexity"
@@ -9900,16 +9840,16 @@
     {
       "route": "/t/tasks",
       "name": "Therapist Tasks",
-      "timestamp": "2025-09-17T13:45:56.121Z",
+      "timestamp": "2025-09-17T14:25:41.773Z",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "analysis": {
         "accessibility": {
-          "score": 64,
+          "score": 79,
           "issues": [
-            "12 buttons missing aria labels"
+            "7 buttons missing aria labels"
           ],
           "colorContrast": {
             "passed": true,
@@ -9929,8 +9869,8 @@
         },
         "performance": {
           "loadTime": 0,
-          "domContentLoaded": 0.09999999403953552,
-          "firstContentfulPaint": 332,
+          "domContentLoaded": 0,
+          "firstContentfulPaint": 324,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -10034,14 +9974,9 @@
               "adequate": false,
               "issues": [
                 "Button too small for touch: 40x44px",
-                "Button too small for touch: 84.9375x39px",
-                "Button too small for touch: 142.453125x39px",
-                "Button too small for touch: 85.84375x36px",
-                "Button too small for touch: 103.8125x36px",
                 "Button too small for touch: 128x40px",
                 "Button too small for touch: 128x40px",
-                "Button too small for touch: 128x40px",
-                "Button too small for touch: 16x16px"
+                "Button too small for touch: 128x40px"
               ]
             }
           },
@@ -10127,8 +10062,8 @@
               "Fixed width detected on DIV: 920px",
               "Fixed width detected on DIV: 920px",
               "Fixed width detected on DIV: 920px",
-              "Fixed width detected on DIV: 76.1094px",
-              "Fixed width detected on BUTTON: 16px",
+              "Fixed width detected on DIV: 104.109px",
+              "Fixed width detected on BUTTON: 44px",
               "Fixed width detected on SPAN: 48.1094px",
               "Fixed width detected on BUTTON: 67.2031px",
               "Fixed width detected on DIV: 920px",
@@ -10237,7 +10172,7 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 8.59079623329372,
+            "textDensity": 8.592636450865024,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
@@ -10297,10 +10232,8 @@
             "colorTemperature": "mixed"
           },
           "scaleAndProportion": {
-            "scaleIssues": [
-              "Button too small: 16x16px"
-            ],
-            "proportionScore": 75,
+            "scaleIssues": [],
+            "proportionScore": 85,
             "sizeRelationships": [],
             "visualWeight": "top-heavy"
           },
@@ -10452,7 +10385,7 @@
     {
       "route": "/admin/overview",
       "name": "Admin Overview",
-      "timestamp": "2025-09-17T13:45:59.172Z",
+      "timestamp": "2025-09-17T14:25:44.825Z",
       "viewport": {
         "width": 1280,
         "height": 720
@@ -10482,7 +10415,7 @@
         "performance": {
           "loadTime": 0,
           "domContentLoaded": 0,
-          "firstContentfulPaint": 300,
+          "firstContentfulPaint": 292,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -10891,16 +10824,16 @@
     {
       "route": "/admin/users",
       "name": "Admin Users",
-      "timestamp": "2025-09-17T13:46:02.337Z",
+      "timestamp": "2025-09-17T14:25:47.974Z",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "analysis": {
         "accessibility": {
-          "score": 52,
+          "score": 82,
           "issues": [
-            "16 buttons missing aria labels"
+            "6 buttons missing aria labels"
           ],
           "colorContrast": {
             "passed": true,
@@ -10921,7 +10854,7 @@
         "performance": {
           "loadTime": 0,
           "domContentLoaded": 0,
-          "firstContentfulPaint": 380,
+          "firstContentfulPaint": 364,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -11028,8 +10961,6 @@
               "adequate": false,
               "issues": [
                 "Button too small for touch: 40x44px",
-                "Button too small for touch: 140x40px",
-                "Button too small for touch: 140x40px",
                 "Button too small for touch: 42x44px",
                 "Button too small for touch: 42x44px",
                 "Button too small for touch: 42x44px",
@@ -11275,7 +11206,7 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 6.441375371220302,
+            "textDensity": 6.444619615664012,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
@@ -11306,9 +11237,9 @@
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 87.73736501079914,
+            "clutterScore": 87.71003013344813,
             "cognitiveLoad": "high",
-            "informationDensity": 0.9921706263498921,
+            "informationDensity": 0.988753766681016,
             "clutterIssues": [
               "Too many buttons (16) - exceeds Miller's Rule (7±2)",
               "High element density (147 elements) - exceeds optimal complexity"
@@ -11474,17 +11405,16 @@
     {
       "route": "/admin/therapists",
       "name": "Admin Therapists",
-      "timestamp": "2025-09-17T13:46:05.434Z",
+      "timestamp": "2025-09-17T14:25:51.055Z",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "analysis": {
         "accessibility": {
-          "score": 48,
+          "score": 85,
           "issues": [
-            "14 buttons missing aria labels",
-            "No H1 heading found"
+            "5 buttons missing aria labels"
           ],
           "colorContrast": {
             "passed": true,
@@ -11504,8 +11434,8 @@
         },
         "performance": {
           "loadTime": 0,
-          "domContentLoaded": 0,
-          "firstContentfulPaint": 372,
+          "domContentLoaded": 0.09999999403953552,
+          "firstContentfulPaint": 324,
           "largestContentfulPaint": 0,
           "cumulativeLayoutShift": 0,
           "firstInputDelay": 0
@@ -11524,8 +11454,7 @@
               14,
               16,
               20,
-              24,
-              30
+              24
             ],
             "fontFamilies": [
               "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
@@ -11554,12 +11483,11 @@
             "horizontalAlignment": "poor"
           },
           "visualHierarchy": {
-            "score": 65,
+            "score": 85,
             "issues": [
-              "Inconsistent heading sizes detected",
               "Inconsistent button sizes detected"
             ],
-            "headingConsistency": false,
+            "headingConsistency": true,
             "buttonConsistency": false
           },
           "colorAnalysis": {
@@ -11609,16 +11537,7 @@
             "clickTargets": {
               "adequate": false,
               "issues": [
-                "Button too small for touch: 40x44px",
-                "Button too small for touch: 397.328125x36px",
-                "Button too small for touch: 397.328125x36px",
-                "Button too small for touch: 397.34375x36px",
-                "Button too small for touch: 42x44px",
-                "Button too small for touch: 42x44px",
-                "Button too small for touch: 42x44px",
-                "Button too small for touch: 42x44px",
-                "Button too small for touch: 42x44px",
-                "Button too small for touch: 42x44px"
+                "Button too small for touch: 40x44px"
               ]
             }
           },
@@ -11673,9 +11592,9 @@
               "Fixed width detected on DIV: 1280px",
               "Fixed width detected on DIV: 1200px",
               "Fixed width detected on DIV: 1200px",
-              "Fixed width detected on DIV: 383.406px",
-              "Fixed width detected on H2: 383.406px",
-              "Fixed width detected on P: 383.406px",
+              "Fixed width detected on DIV: 298.828px",
+              "Fixed width detected on H1: 298.828px",
+              "Fixed width detected on P: 298.828px",
               "Fixed width detected on DIV: 193.828px",
               "Fixed width detected on DIV: 85.6562px",
               "Fixed width detected on DIV: 92.1719px",
@@ -11695,12 +11614,12 @@
               "Fixed width detected on THEAD: 1198px",
               "Fixed width detected on TR: 1198px",
               "Fixed width detected on TH: 280.453px",
-              "Fixed width detected on TH: 114.422px",
-              "Fixed width detected on TH: 214.031px",
+              "Fixed width detected on TH: 113.578px",
+              "Fixed width detected on TH: 211.469px",
               "Fixed width detected on TH: 110.406px",
-              "Fixed width detected on TH: 198.656px",
+              "Fixed width detected on TH: 196.062px",
               "Fixed width detected on TH: 106.016px",
-              "Fixed width detected on TH: 174.016px",
+              "Fixed width detected on TH: 180.016px",
               "Fixed width detected on TBODY: 1198px",
               "Fixed width detected on TR: 1198px",
               "Fixed width detected on TD: 280.453px",
@@ -11710,29 +11629,29 @@
               "Fixed width detected on DIV: 189.672px",
               "Fixed width detected on H4: 189.672px",
               "Fixed width detected on P: 189.672px",
-              "Fixed width detected on TD: 114.422px",
-              "Fixed width detected on P: 82.4219px",
-              "Fixed width detected on TD: 214.031px",
-              "Fixed width detected on DIV: 182.031px",
+              "Fixed width detected on TD: 113.578px",
+              "Fixed width detected on P: 81.5781px",
+              "Fixed width detected on TD: 211.469px",
+              "Fixed width detected on DIV: 179.469px",
               "Fixed width detected on DIV: 69.8594px",
               "Fixed width detected on DIV: 92.6719px",
               "Fixed width detected on DIV: 37.375px",
               "Fixed width detected on TD: 110.406px",
               "Fixed width detected on P: 78.4062px",
-              "Fixed width detected on TD: 198.656px",
-              "Fixed width detected on DIV: 166.656px",
-              "Fixed width detected on svg: 13.7188px",
+              "Fixed width detected on TD: 196.062px",
+              "Fixed width detected on DIV: 164.062px",
+              "Fixed width detected on svg: 13.5px",
               "Fixed width detected on rect: 18px",
-              "Fixed width detected on P: 144.938px",
+              "Fixed width detected on P: 142.562px",
               "Fixed width detected on TD: 106.016px",
               "Fixed width detected on DIV: 74.0156px",
-              "Fixed width detected on TD: 174.016px",
-              "Fixed width detected on DIV: 142.016px",
-              "Fixed width detected on BUTTON: 42px",
+              "Fixed width detected on TD: 180.016px",
+              "Fixed width detected on DIV: 148.016px",
+              "Fixed width detected on BUTTON: 44px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on BUTTON: 42px",
+              "Fixed width detected on BUTTON: 44px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on BUTTON: 42px",
+              "Fixed width detected on BUTTON: 44px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on TR: 1198px",
               "Fixed width detected on TD: 280.453px",
@@ -11742,29 +11661,29 @@
               "Fixed width detected on DIV: 196.453px",
               "Fixed width detected on H4: 196.453px",
               "Fixed width detected on P: 196.453px",
-              "Fixed width detected on TD: 114.422px",
-              "Fixed width detected on P: 82.4219px",
-              "Fixed width detected on TD: 214.031px",
-              "Fixed width detected on DIV: 182.031px",
+              "Fixed width detected on TD: 113.578px",
+              "Fixed width detected on P: 81.5781px",
+              "Fixed width detected on TD: 211.469px",
+              "Fixed width detected on DIV: 179.469px",
               "Fixed width detected on DIV: 68.9531px",
               "Fixed width detected on DIV: 83.7656px",
               "Fixed width detected on DIV: 37.375px",
               "Fixed width detected on TD: 110.406px",
               "Fixed width detected on P: 78.4062px",
-              "Fixed width detected on TD: 198.656px",
-              "Fixed width detected on DIV: 166.656px",
-              "Fixed width detected on svg: 13.7188px",
+              "Fixed width detected on TD: 196.062px",
+              "Fixed width detected on DIV: 164.062px",
+              "Fixed width detected on svg: 13.5px",
               "Fixed width detected on rect: 18px",
-              "Fixed width detected on P: 144.938px",
+              "Fixed width detected on P: 142.562px",
               "Fixed width detected on TD: 106.016px",
               "Fixed width detected on DIV: 74.0156px",
-              "Fixed width detected on TD: 174.016px",
-              "Fixed width detected on DIV: 142.016px",
-              "Fixed width detected on BUTTON: 42px",
+              "Fixed width detected on TD: 180.016px",
+              "Fixed width detected on DIV: 148.016px",
+              "Fixed width detected on BUTTON: 44px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on BUTTON: 42px",
+              "Fixed width detected on BUTTON: 44px",
               "Fixed width detected on svg: 16px",
-              "Fixed width detected on BUTTON: 42px",
+              "Fixed width detected on BUTTON: 44px",
               "Fixed width detected on svg: 16px",
               "Fixed width detected on FOOTER: 1280px",
               "Fixed width detected on DIV: 1280px",
@@ -11806,7 +11725,7 @@
           },
           "contentDensity": {
             "whitespaceRatio": 0,
-            "textDensity": 6.972373512188836,
+            "textDensity": 7.0030551711892635,
             "visualBreathingRoom": "poor",
             "overcrowdedElements": []
           },
@@ -11833,13 +11752,13 @@
           "visualAccessibility": {
             "colorBlindnessSupport": "fair",
             "highContrastMode": false,
-            "fontSizeConsistency": 84,
+            "fontSizeConsistency": 90,
             "visualImpairmentIssues": []
           },
           "visualClutter": {
-            "clutterScore": 88.73402565668906,
+            "clutterScore": 88.9692789968652,
             "cognitiveLoad": "high",
-            "informationDensity": 1.1167532070861332,
+            "informationDensity": 1.1461598746081505,
             "clutterIssues": [
               "Too many buttons (14) - exceeds Miller's Rule (7±2)",
               "High element density (117 elements) - exceeds optimal complexity"
@@ -11867,9 +11786,9 @@
           },
           "scaleAndProportion": {
             "scaleIssues": [
-              "Button too wide: 397.328125x36px",
-              "Button too wide: 397.328125x36px",
-              "Button too wide: 397.34375x36px"
+              "Button too wide: 397.328125x44px",
+              "Button too wide: 397.328125x44px",
+              "Button too wide: 397.34375x44px"
             ],
             "proportionScore": 55,
             "sizeRelationships": [],
@@ -11925,7 +11844,7 @@
             "valid": false,
             "issues": [
               "Heading level 3 skipped from 0",
-              "Heading level 4 skipped from 2"
+              "Heading level 4 skipped from 1"
             ]
           },
           "contentLength": {
@@ -11966,14 +11885,15 @@
         },
         "layoutPatterns": {
           "detectedPatterns": [
+            "hero-section",
             "grid-layout",
             "card-based",
             "tabbed-content"
           ],
-          "layoutType": "grid",
+          "layoutType": "hero",
           "complexity": "complex",
           "structure": {
-            "hasHero": false,
+            "hasHero": true,
             "hasGrid": true,
             "hasCards": true,
             "hasSidebar": false,
@@ -11981,7 +11901,6 @@
             "hasModal": false
           },
           "recommendations": [
-            "Consider adding a hero section for better first impression",
             "Complex layout detected - consider adding sidebar navigation for better organization"
           ]
         },

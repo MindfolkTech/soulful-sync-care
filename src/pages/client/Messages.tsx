@@ -60,7 +60,7 @@ export default function Messages() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-200px)]">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-[--space-lg] min-h-[calc(100vh-200px)] max-h-[calc(100vh-200px)]">
           {/* Threads List */}
           <Card className="lg:col-span-1">
             <CardHeader>
@@ -69,14 +69,14 @@ export default function Messages() {
                   <MessageSquare className="h-5 w-5" />
                   Conversations
                 </CardTitle>
-                <Button size="sm" variant="outline">
+                <Button size="sm" variant="outline" aria-label="Start new conversation">
                   <Plus className="h-4 w-4" />
                 </Button>
               </div>
             </CardHeader>
             <CardContent className="p-0">
               {/* Search */}
-              <div className="p-4 border-b">
+              <div className="p-[--space-md] border-b">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -97,11 +97,12 @@ export default function Messages() {
                     className={`w-full p-4 text-left hover:bg-muted/50 transition-colors ${
                       selectedThread === thread.id ? "bg-muted" : ""
                     }`}
+                    aria-label={`Open conversation with ${thread.therapistName}`}
                   >
                     <div className="flex items-start gap-3">
                       <div className="relative">
                         <Avatar>
-                          <AvatarImage src={thread.therapistAvatar} />
+                          <AvatarImage src={thread.therapistAvatar} alt={`${thread.therapistName} profile picture`} />
                           <AvatarFallback>
                             {thread.therapistName.split(' ').map(n => n[0]).join('')}
                           </AvatarFallback>
@@ -152,7 +153,7 @@ export default function Messages() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <Avatar>
-                          <AvatarImage src={filteredThreads.find(t => t.id === selectedThread)?.therapistAvatar} />
+                          <AvatarImage src={filteredThreads.find(t => t.id === selectedThread)?.therapistAvatar} alt={`${filteredThreads.find(t => t.id === selectedThread)?.therapistName} profile picture`} />
                           <AvatarFallback>
                             {filteredThreads.find(t => t.id === selectedThread)?.therapistName.split(' ').map(n => n[0]).join('')}
                           </AvatarFallback>
@@ -192,7 +193,7 @@ export default function Messages() {
               </>
             ) : (
               <Card className="flex-1 flex items-center justify-center">
-                <div className="text-center space-y-4">
+                <div className="text-center space-y-[--space-md]">
                   <MessageSquare className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <h3 className="font-primary font-medium mb-2">Select a conversation</h3>
                   <p className="text-muted-foreground">

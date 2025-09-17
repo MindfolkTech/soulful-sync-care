@@ -115,32 +115,29 @@ export default function TherapistDashboard() {
 
   return (
     <DashboardLayout title="Welcome Back, Sarah!">
-      {/* 4-Widget Grid Layout with proper height constraints */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full min-w-0 h-full max-h-[calc(100vh-12rem)]">
+      {/* 4-Widget Grid Layout with ONE PAGE VIEWPORT RULE compliance */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full min-w-0 max-h-[calc(100vh-200px)] overflow-hidden">
         
         {/* Widget 1: Upcoming Appointments */}
-        <Card className="min-w-0 overflow-hidden flex flex-col">
-          <CardHeader className="flex-shrink-0 p-3 md:p-4 pb-2">
+        <Card className="min-w-0 overflow-hidden flex flex-col h-full max-h-[calc(50vh-120px)]">
+          <CardHeader className="flex-shrink-0 p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
             <div className="flex items-center justify-between">
               <h2 className="font-primary text-jovial-jade text-sm md:text-base">
                 Upcoming Appointments
               </h2>
-              <div className="flex items-center gap-1">
-                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">
-                  EDIT
-                </Button>
-                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">
-                  OPEN CALENDAR
+              <div className="flex items-center gap-[--space-xs]">
+                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2 min-h-[--touch-target-min]" aria-label="Manage appointments and calendar">
+                  MANAGE
                   <ExternalLink className="w-3 h-3 ml-1" />
                 </Button>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="flex-1 min-h-0 p-3 md:p-4 pt-0">
-            <div className="space-y-2 h-full overflow-y-auto">
+          <CardContent className="flex-1 min-h-0 p-[--space-sm] md:p-[--space-md] pt-0">
+            <div className="space-y-[--space-xs] h-full overflow-y-auto" role="list" aria-label="Upcoming appointments list">
               {upcomingAppointments.map(appointment => (
-                <div key={appointment.id} className="flex items-center justify-between p-2 border rounded-lg min-h-[44px]">
-                  <div className="flex items-center gap-2">
+                <div key={appointment.id} className="flex items-center justify-between p-2 border rounded-lg min-h-[--touch-target-min]" role="listitem" aria-label={`Appointment with ${appointment.clientName} at ${appointment.time}`}>
+                  <div className="flex items-center gap-[--space-xs]">
                     <div className="w-8 h-8 bg-surface-accent rounded-full flex items-center justify-center flex-shrink-0">
                       <span className="font-secondary text-foreground text-xs">{appointment.clientInitials}</span>
                     </div>
@@ -149,7 +146,7 @@ export default function TherapistDashboard() {
                       <p className="font-secondary text-muted-foreground text-xs truncate">{appointment.time}</p>
                     </div>
                   </div>
-                  <Button className="bg-garden-green text-white hover:bg-elated-emerald text-xs px-3 py-1 flex-shrink-0">
+                  <Button className="bg-garden-green text-white hover:bg-elated-emerald text-xs px-3 py-1 flex-shrink-0" aria-label={`Join ${appointment.clientName}'s ${appointment.type}`}>
                     Join Now →
                   </Button>
                 </div>
@@ -159,26 +156,25 @@ export default function TherapistDashboard() {
         </Card>
 
         {/* Widget 2: My Client Dashboard */}
-        <Card className="min-w-0 overflow-hidden flex flex-col">
-          <CardHeader className="flex-shrink-0 p-3 md:p-4 pb-2">
+        <Card className="min-w-0 overflow-hidden flex flex-col h-full max-h-[calc(50vh-120px)]">
+          <CardHeader className="flex-shrink-0 p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
             <div className="flex items-center justify-between">
               <h2 className="font-primary text-jovial-jade text-sm md:text-base">
                 My Client Dashboard
               </h2>
-              <div className="flex items-center gap-1">
-                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">EDIT</Button>
-                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">
-                  OPEN CLIENTS
+              <div className="flex items-center gap-[--space-xs]">
+                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="Manage client dashboard">
+                  MANAGE
                   <ExternalLink className="w-3 h-3 ml-1" />
                 </Button>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="flex-1 min-h-0 p-3 md:p-4 pt-0">
-            <div className="space-y-2 h-full overflow-y-auto">
+          <CardContent className="flex-1 min-h-0 p-[--space-sm] md:p-[--space-md] pt-0">
+            <div className="space-y-[--space-xs] h-full overflow-y-auto" role="list" aria-label="Client dashboard list">
               {recentClients.map(client => (
-                <div key={client.id} className="flex items-center justify-between p-2 border rounded-lg min-h-[44px]">
-                  <div className="flex items-center gap-2">
+                <div key={client.id} className="flex items-center justify-between p-2 border rounded-lg min-h-[--touch-target-min]" role="listitem" aria-label={`Client ${client.name}, status: ${client.status}, email: ${client.email}`}>
+                  <div className="flex items-center gap-[--space-xs]">
                     <div className="w-8 h-8 bg-surface-accent rounded-full flex items-center justify-center flex-shrink-0">
                       <span className="font-secondary text-foreground text-xs">{client.initials}</span>
                     </div>
@@ -187,14 +183,13 @@ export default function TherapistDashboard() {
                       <p className="font-secondary text-muted-foreground text-xs truncate">{client.email}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 flex-shrink-0">
+                  <div className="flex items-center gap-[--space-xs] flex-shrink-0">
                     <Badge 
                       variant={client.status === "Active" ? "secondary" : "outline"}
                       className={`text-xs ${client.status === "Active" ? "bg-success text-white" : "bg-warning text-foreground"}`}
                     >
                       {client.status}
                     </Badge>
-                    <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">EDIT</Button>
                   </div>
                 </div>
               ))}
@@ -203,27 +198,26 @@ export default function TherapistDashboard() {
         </Card>
 
         {/* Widget 3: Income Details with Fixed Chart */}
-        <Card className="min-w-0 overflow-hidden flex flex-col">
-          <CardHeader className="flex-shrink-0 p-3 md:p-4 pb-2">
+        <Card className="min-w-0 overflow-hidden flex flex-col h-full max-h-[calc(50vh-120px)]">
+          <CardHeader className="flex-shrink-0 p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
             <div className="flex items-center justify-between">
               <h2 className="font-primary text-jovial-jade text-sm md:text-base">Income Details</h2>
-              <div className="flex items-center gap-1">
-                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">EDIT</Button>
-                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">
-                  OPEN ANALYTICS
+              <div className="flex items-center gap-[--space-xs]">
+                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="View analytics dashboard">
+                  VIEW
                   <ExternalLink className="w-3 h-3 ml-1" />
                 </Button>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="flex-1 min-h-0 p-3 md:p-4 pt-0">
+          <CardContent className="flex-1 min-h-0 p-[--space-sm] md:p-[--space-md] pt-0">
             <div className="h-full flex flex-col">
               <h4 className="font-secondary text-muted-foreground text-xs mb-2">Appointments</h4>
               <div className="flex-1 min-h-0 flex items-center justify-center relative">
                 <div className="absolute inset-0 flex items-center justify-center z-10">
                   <span className="font-primary text-2xl md:text-3xl font-bold text-jovial-jade">122</span>
                 </div>
-                <svg className="w-full h-full max-w-[200px] max-h-[200px]" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+                <svg className="w-full h-full max-w-[200px] max-h-[200px]" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Appointment breakdown chart showing 122 total appointments with completed, cancelled, and rescheduled segments">
                   <circle
                     cx="100"
                     cy="100"
@@ -263,27 +257,26 @@ export default function TherapistDashboard() {
         </Card>
 
         {/* Widget 4: My Business Profile */}
-        <Card className="min-w-0 overflow-hidden flex flex-col">
-          <CardHeader className="flex-shrink-0 p-3 md:p-4 pb-2">
+        <Card className="min-w-0 overflow-hidden flex flex-col h-full max-h-[calc(50vh-120px)]">
+          <CardHeader className="flex-shrink-0 p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
             <div className="flex items-center justify-between">
               <h2 className="font-primary text-jovial-jade text-sm md:text-base">My Business Profile</h2>
-              <div className="flex items-center gap-1">
-                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">EDIT</Button>
-                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-2">
-                  OPEN PROFILE
+              <div className="flex items-center gap-[--space-xs]">
+                <Button variant="ghost" size="sm" className="text-garden-green text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="Manage business profile">
+                  MANAGE
                   <ExternalLink className="w-3 h-3 ml-1" />
                 </Button>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="flex-1 min-h-0 p-3 md:p-4 pt-0">
+          <CardContent className="flex-1 min-h-0 p-[--space-sm] md:p-[--space-md] pt-0">
             <div className="h-full flex flex-col">
               <h4 className="font-secondary text-muted-foreground text-xs mb-2">Profile Views in the last year</h4>
-              <div className="flex-1 min-h-0 p-2">
-                <svg className="w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+                <div className="flex-1 min-h-0 p-[--space-xs]">
+                <svg className="w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Profile views trend chart showing growth from 9k to 20k views over the last year">
                   <defs>
                     <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E5E7EB" strokeWidth="1"/>
+                      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--border))" strokeWidth="1"/>
                     </pattern>
                   </defs>
                   <rect width="100%" height="100%" fill="url(#grid)" />

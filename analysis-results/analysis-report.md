@@ -1,9 +1,9 @@
 # 📊 Screenshot Analysis Report
-Generated: 2025-09-17T13:46:05.438Z
+Generated: 2025-09-17T14:25:51.058Z
 Total Routes Analyzed: 23
 
 ## 📈 Overall Summary
-- Average Accessibility Score: 64.8/100
+- Average Accessibility Score: 78.8/100
 - Average Load Time: 0ms
 
 ## 🔍 Route Analysis
@@ -33,7 +33,7 @@ Total Routes Analyzed: 23
   - Too many colors (10) - exceeds optimal palette size (3-7 colors)
   - Mixed warm and cool colors may create visual discord (Itten color theory)
 - **Scale & Proportion Issues**:
-  - Very large image: 686.65625x871.71875px
+  - Very large image: 700x888.671875px
 - **Text Overflow Issues**:
   - Very long text line: 1280px wide
   - Very long text line: 1280px wide
@@ -157,12 +157,11 @@ Total Routes Analyzed: 23
   - Animations: 110/100
 
 ### Sign In (/sign-in)
-- **Accessibility Score**: 63/100
+- **Accessibility Score**: 82/100
 - **Load Time**: 0ms
 - **Content Elements**: 60 text, 9 buttons
 - **Accessibility Issues**:
-  - 9 buttons missing aria labels
-  - No H1 heading found
+  - 6 buttons missing aria labels
 - **Spacing Issues**:
   - Inconsistent margin spacing detected
   - Inconsistent padding spacing detected
@@ -170,7 +169,6 @@ Total Routes Analyzed: 23
   - Poor horizontal alignment detected
   - Poor vertical alignment detected
 - **Visual Hierarchy Issues**:
-  - Inconsistent heading sizes detected
   - Inconsistent button sizes detected
 - **Interactive Element Issues**:
   - Inconsistent button sizes detected
@@ -185,8 +183,8 @@ Total Routes Analyzed: 23
   - Too many colors (10) - exceeds optimal palette size (3-7 colors)
   - Mixed warm and cool colors may create visual discord (Itten color theory)
 - **Scale & Proportion Issues**:
-  - Button too wide: 398x44px
-  - Button too wide: 398x44px
+  - Button too wide: 320x44px
+  - Button too wide: 320x44px
   - Button too wide: 398x44px
 - **Text Overflow Issues**:
   - Very long text line: 1280px wide
@@ -214,11 +212,10 @@ Total Routes Analyzed: 23
   - User Experience Issues:
     - High information density - may overwhelm users
 - **Layout Patterns**:
-  - Detected Patterns: grid-layout, card-based
-  - Layout Type: grid
+  - Detected Patterns: hero-section, grid-layout, card-based
+  - Layout Type: hero
   - Complexity: complex
   - Recommendations:
-    - Consider adding a hero section for better first impression
     - Complex layout detected - consider adding sidebar navigation for better organization
 - **Micro-interactions**:
   - Overall Score: 103/100
@@ -227,12 +224,11 @@ Total Routes Analyzed: 23
   - Animations: 110/100
 
 ### Sign Up (/sign-up)
-- **Accessibility Score**: 48/100
+- **Accessibility Score**: 70/100
 - **Load Time**: 0ms
 - **Content Elements**: 77 text, 14 buttons
 - **Accessibility Issues**:
-  - 14 buttons missing aria labels
-  - No H1 heading found
+  - 10 buttons missing aria labels
 - **Spacing Issues**:
   - Inconsistent margin spacing detected
   - Inconsistent padding spacing detected
@@ -240,17 +236,10 @@ Total Routes Analyzed: 23
   - Poor horizontal alignment detected
   - Poor vertical alignment detected
 - **Visual Hierarchy Issues**:
-  - Inconsistent heading sizes detected
   - Inconsistent button sizes detected
 - **Interactive Element Issues**:
   - Inconsistent button sizes detected
   - Button too small for touch: 40x44px
-  - Button too small for touch: 40x40px
-  - Button too small for touch: 16x16px
-  - Button too small for touch: 16x16px
-  - Button too small for touch: 16x16px
-  - Button too small for touch: 16x16px
-  - Button too small for touch: 16x16px
 - **Design Consistency Issues**:
   - Too many button styles (8 unique classes)
 - **Visual Clutter Issues**:
@@ -262,14 +251,9 @@ Total Routes Analyzed: 23
   - Too many colors (10) - exceeds optimal palette size (3-7 colors)
   - Mixed warm and cool colors may create visual discord (Itten color theory)
 - **Scale & Proportion Issues**:
-  - Button too wide: 398x44px
-  - Button too wide: 398x44px
-  - Button too small: 16x16px
-  - Button too small: 16x16px
-  - Button too small: 16x16px
-  - Button too small: 16x16px
-  - Button too small: 16x16px
-  - Button too wide: 398x44px
+  - Button too wide: 320x44px
+  - Button too wide: 320x44px
+  - Button too wide: 320x44px
 - **Text Overflow Issues**:
   - Very long text line: 1280px wide
   - Very long text line: 1280px wide
@@ -296,11 +280,10 @@ Total Routes Analyzed: 23
   - User Experience Issues:
     - High information density - may overwhelm users
 - **Layout Patterns**:
-  - Detected Patterns: grid-layout, card-based
-  - Layout Type: grid
+  - Detected Patterns: hero-section, grid-layout, card-based
+  - Layout Type: hero
   - Complexity: complex
   - Recommendations:
-    - Consider adding a hero section for better first impression
     - Complex layout detected - consider adding sidebar navigation for better organization
 - **Micro-interactions**:
   - Overall Score: 103/100
@@ -309,12 +292,11 @@ Total Routes Analyzed: 23
   - Animations: 110/100
 
 ### Client Assessment (/assessment)
-- **Accessibility Score**: 63/100
+- **Accessibility Score**: 73/100
 - **Load Time**: 0ms
 - **Content Elements**: 59 text, 9 buttons
 - **Accessibility Issues**:
   - 9 buttons missing aria labels
-  - No H1 heading found
 - **Spacing Issues**:
   - Inconsistent margin spacing detected
   - Inconsistent padding spacing detected
@@ -322,7 +304,6 @@ Total Routes Analyzed: 23
   - Poor horizontal alignment detected
   - Poor vertical alignment detected
 - **Visual Hierarchy Issues**:
-  - Inconsistent heading sizes detected
   - Inconsistent button sizes detected
 - **Interactive Element Issues**:
   - Inconsistent button sizes detected
@@ -364,11 +345,10 @@ Total Routes Analyzed: 23
   - User Experience: 115/100
   - Differentiation: 75/100
 - **Layout Patterns**:
-  - Detected Patterns: grid-layout, card-based
-  - Layout Type: grid
+  - Detected Patterns: hero-section, grid-layout, card-based
+  - Layout Type: hero
   - Complexity: complex
   - Recommendations:
-    - Consider adding a hero section for better first impression
     - Complex layout detected - consider adding sidebar navigation for better organization
 - **Micro-interactions**:
   - Overall Score: 103/100
@@ -478,11 +458,11 @@ Total Routes Analyzed: 23
   - Animations: 110/100
 
 ### Client Favorites (/favorites)
-- **Accessibility Score**: 67/100
+- **Accessibility Score**: 88/100
 - **Load Time**: 0ms
-- **Content Elements**: 92 text, 15 buttons
+- **Content Elements**: 87 text, 15 buttons
 - **Accessibility Issues**:
-  - 11 buttons missing aria labels
+  - 4 buttons missing aria labels
 - **Spacing Issues**:
   - Inconsistent padding spacing detected
 - **Alignment Issues**:
@@ -494,21 +474,20 @@ Total Routes Analyzed: 23
 - **Interactive Element Issues**:
   - Inconsistent button sizes detected
   - Button too small for touch: 40x44px
-  - Button too small for touch: 192x40px
 - **Content Density Issues**:
   - H1 with high text density: 24.0000
 - **Design Consistency Issues**:
-  - Too many button styles (7 unique classes)
+  - Too many button styles (8 unique classes)
 - **Visual Clutter Issues**:
   - Too many buttons (15) - exceeds Miller's Rule (7±2)
-  - High element density (119 elements) - exceeds optimal complexity
+  - High element density (110 elements) - exceeds optimal complexity
 - **Color Harmony Issues**:
   - Too many colors (9) - exceeds optimal palette size (3-7 colors)
   - Mixed warm and cool colors may create visual discord (Itten color theory)
 - **Scale & Proportion Issues**:
-  - Button too wide: 991.796875x44px
-  - Button too wide: 997.75x44px
-  - Button too wide: 997.75x44px
+  - Button too wide: 1064.03125x44px
+  - Button too wide: 1064.03125x44px
+  - Button too wide: 1064.03125x44px
 - **Text Overflow Issues**:
   - Very long text line: 1280px wide
   - Very long text line: 1280px wide
@@ -558,11 +537,11 @@ Total Routes Analyzed: 23
   - Animations: 110/100
 
 ### Client Appointments (/appointments)
-- **Accessibility Score**: 67/100
+- **Accessibility Score**: 85/100
 - **Load Time**: 0ms
-- **Content Elements**: 73 text, 11 buttons
+- **Content Elements**: 74 text, 10 buttons
 - **Accessibility Issues**:
-  - 11 buttons missing aria labels
+  - 5 buttons missing aria labels
 - **Spacing Issues**:
   - Inconsistent margin spacing detected
   - Inconsistent padding spacing detected
@@ -575,14 +554,11 @@ Total Routes Analyzed: 23
 - **Interactive Element Issues**:
   - Inconsistent button sizes detected
   - Button too small for touch: 40x44px
-  - Button too small for touch: 296x36px
-  - Button too small for touch: 296x36px
-  - Button too small for touch: 296x36px
   - Button too small for touch: 40x44px
 - **Design Consistency Issues**:
-  - Too many button styles (8 unique classes)
+  - Too many button styles (7 unique classes)
 - **Visual Clutter Issues**:
-  - Too many buttons (11) - exceeds Miller's Rule (7±2)
+  - Too many buttons (10) - exceeds Miller's Rule (7±2)
   - High element density (102 elements) - exceeds optimal complexity
 - **Color Harmony Issues**:
   - Too many colors (11) - exceeds optimal palette size (3-7 colors)
@@ -626,12 +602,12 @@ Total Routes Analyzed: 23
   - Animations: 110/100
 
 ### Client Messages (/messages)
-- **Accessibility Score**: 35/100
+- **Accessibility Score**: 54/100
 - **Load Time**: 0ms
 - **Content Elements**: 115 text, 10 buttons
 - **Accessibility Issues**:
-  - 7 images missing alt text
-  - 10 buttons missing aria labels
+  - 5 images missing alt text
+  - 7 buttons missing aria labels
 - **Layout Issues**:
   - 1 elements with overflow hidden
 - **Spacing Issues**:
@@ -667,8 +643,8 @@ Total Routes Analyzed: 23
   - Very small image: 32x32px
   - Very small image: 32x32px
   - Very small image: 32x32px
-  - Button too wide: 382x112px
-  - Button too wide: 382x110px
+  - Button too wide: 376.65625x112px
+  - Button too wide: 376.65625x110px
 - **Text Overflow Issues**:
   - Very long text line: 1280px wide
   - Very long text line: 1280px wide
@@ -681,17 +657,17 @@ Total Routes Analyzed: 23
   - Very long text line: 1280px wide
   - Very long text line: 1280px wide
   - Very long text line: 1200px wide
-  - Very long text line: 792px wide
-  - Very long text line: 792px wide
-  - Very long text line: 790px wide
-  - Very long text line: 790px wide
-  - Very long text line: 758px wide
-  - Very long text line: 758px wide
-  - Very long text line: 758px wide
-  - Very long text line: 758px wide
-  - Very long text line: 758px wide
-  - Very long text line: 758px wide
-  - Very long text line: 758px wide
+  - Very long text line: 789.34375px wide
+  - Very long text line: 789.34375px wide
+  - Very long text line: 787.34375px wide
+  - Very long text line: 787.34375px wide
+  - Very long text line: 739.34375px wide
+  - Very long text line: 739.34375px wide
+  - Very long text line: 739.34375px wide
+  - Very long text line: 739.34375px wide
+  - Very long text line: 739.34375px wide
+  - Very long text line: 739.34375px wide
+  - Very long text line: 739.34375px wide
 - **Advanced Alignment Issues**:
   - Inconsistent element widths break visual rhythm
   - Inconsistent element heights break visual rhythm
@@ -788,11 +764,11 @@ Total Routes Analyzed: 23
   - Animations: 110/100
 
 ### Client Billing (/billing)
-- **Accessibility Score**: 46/100
+- **Accessibility Score**: 88/100
 - **Load Time**: 0ms
-- **Content Elements**: 134 text, 18 buttons
+- **Content Elements**: 135 text, 16 buttons
 - **Accessibility Issues**:
-  - 18 buttons missing aria labels
+  - 4 buttons missing aria labels
 - **Spacing Issues**:
   - Inconsistent margin spacing detected
   - Inconsistent padding spacing detected
@@ -816,17 +792,13 @@ Total Routes Analyzed: 23
 - **Design Consistency Issues**:
   - Too many button styles (9 unique classes)
 - **Visual Clutter Issues**:
-  - Too many buttons (18) - exceeds Miller's Rule (7±2)
-  - High element density (152 elements) - exceeds optimal complexity
+  - Too many buttons (16) - exceeds Miller's Rule (7±2)
+  - High element density (151 elements) - exceeds optimal complexity
 - **Blandness & Variety Issues**:
   - No images found - may lack visual interest
 - **Color Harmony Issues**:
   - Too many colors (9) - exceeds optimal palette size (3-7 colors)
   - Mixed warm and cool colors may create visual discord (Itten color theory)
-- **Scale & Proportion Issues**:
-  - Button too wide: 334x44px
-  - Button too wide: 334x44px
-  - Button too wide: 334x44px
 - **Text Overflow Issues**:
   - Very long text line: 1280px wide
   - Very long text line: 1280px wide
@@ -868,12 +840,11 @@ Total Routes Analyzed: 23
   - Animations: 110/100
 
 ### Therapist Onboarding (/t/onboarding)
-- **Accessibility Score**: 72/100
+- **Accessibility Score**: 82/100
 - **Load Time**: 0ms
 - **Content Elements**: 74 text, 9 buttons
 - **Accessibility Issues**:
   - 6 buttons missing aria labels
-  - No H1 heading found
 - **Spacing Issues**:
   - Inconsistent margin spacing detected
   - Inconsistent padding spacing detected
@@ -935,11 +906,10 @@ Total Routes Analyzed: 23
   - User Experience Issues:
     - High information density - may overwhelm users
 - **Layout Patterns**:
-  - Detected Patterns: grid-layout, card-based
-  - Layout Type: grid
+  - Detected Patterns: hero-section, grid-layout, card-based
+  - Layout Type: hero
   - Complexity: complex
   - Recommendations:
-    - Consider adding a hero section for better first impression
     - Complex layout detected - consider adding sidebar navigation for better organization
 - **Micro-interactions**:
   - Overall Score: 103/100
@@ -948,11 +918,11 @@ Total Routes Analyzed: 23
   - Animations: 110/100
 
 ### Therapist Dashboard (/t/dashboard)
-- **Accessibility Score**: 46/100
+- **Accessibility Score**: 88/100
 - **Load Time**: 0ms
-- **Content Elements**: 120 text, 24 buttons
+- **Content Elements**: 120 text, 17 buttons
 - **Accessibility Issues**:
-  - 18 buttons missing aria labels
+  - 4 buttons missing aria labels
 - **Spacing Issues**:
   - Inconsistent margin spacing detected
   - Inconsistent padding spacing detected
@@ -967,10 +937,10 @@ Total Routes Analyzed: 23
   - Button too small for touch: 40x44px
   - Button too small for touch: 0x0px
 - **Design Consistency Issues**:
-  - Too many button styles (8 unique classes)
+  - Too many button styles (9 unique classes)
 - **Visual Clutter Issues**:
-  - Too many buttons (24) - exceeds Miller's Rule (7±2)
-  - High element density (149 elements) - exceeds optimal complexity
+  - Too many buttons (17) - exceeds Miller's Rule (7±2)
+  - High element density (142 elements) - exceeds optimal complexity
 - **Blandness & Variety Issues**:
   - No images found - may lack visual interest
 - **Color Harmony Issues**:
@@ -992,6 +962,10 @@ Total Routes Analyzed: 23
   - Very long text line: 1024px wide
   - Very long text line: 944px wide
   - Very long text line: 944px wide
+  - Text overflows container vertically: LJLindsey JacobsApr 21 10:30am...
+  - Text overflows container vertically: JSJohn SmithApr 21 11:00am - 1...
+  - Text overflows container vertically: DVDebbie Vectradv1092@gmail.co...
+  - Text overflows container vertically: PSPaul Sungp.sung0982@gmail.co...
 - **Advanced Alignment Issues**:
   - Inconsistent element widths break visual rhythm
   - Inconsistent element heights break visual rhythm
@@ -1215,12 +1189,12 @@ Total Routes Analyzed: 23
   - Animations: 110/100
 
 ### Therapist Messages (/t/messages)
-- **Accessibility Score**: 48/100
+- **Accessibility Score**: 54/100
 - **Load Time**: 0ms
 - **Content Elements**: 175 text, 15 buttons
 - **Accessibility Issues**:
   - 5 images missing alt text
-  - 9 buttons missing aria labels
+  - 7 buttons missing aria labels
 - **Layout Issues**:
   - 1 elements with overflow hidden
 - **Spacing Issues**:
@@ -1243,19 +1217,19 @@ Total Routes Analyzed: 23
   - Button too small for touch: 40x44px
   - Button too small for touch: 40x44px
 - **Content Density Issues**:
-  - P with high text density: 0.0106
-  - P with high text density: 0.0101
-  - P with high text density: 0.0113
+  - P with high text density: 0.0109
+  - P with high text density: 0.0103
+  - P with high text density: 0.0116
 - **Design Consistency Issues**:
   - Too many button styles (11 unique classes)
   - Too many input styles (4 unique classes)
 - **Visual Clutter Issues**:
   - Too many buttons (15) - exceeds Miller's Rule (7±2)
   - High element density (206 elements) - exceeds optimal complexity
-  - Dense text block: 495 chars in 298.65625x1033px area
-  - Dense text block: 466 chars in 298.65625x452px area
-  - Dense text block: 453 chars in 296.65625x384px area
-  - Dense text block: 453 chars in 296.65625x384px area
+  - Dense text block: 495 chars in 293.328125x1073px area
+  - Dense text block: 466 chars in 293.328125x452px area
+  - Dense text block: 453 chars in 291.328125x384px area
+  - Dense text block: 453 chars in 291.328125x384px area
 - **Color Harmony Issues**:
   - Too many colors (17) - exceeds optimal palette size (3-7 colors)
 - **Scale & Proportion Issues**:
@@ -1282,10 +1256,10 @@ Total Routes Analyzed: 23
   - Very long text line: 1024px wide
   - Very long text line: 944px wide
   - Very long text line: 944px wide
-  - Very long text line: 621.34375px wide
-  - Very long text line: 621.34375px wide
-  - Very long text line: 619.34375px wide
-  - Very long text line: 619.34375px wide
+  - Very long text line: 618.671875px wide
+  - Very long text line: 618.671875px wide
+  - Very long text line: 616.671875px wide
+  - Very long text line: 616.671875px wide
   - Text overflows container vertically: Robert P.1The homework assignm...
 - **Advanced Alignment Issues**:
   - Inconsistent element widths break visual rhythm
@@ -1450,11 +1424,11 @@ Total Routes Analyzed: 23
   - Animations: 110/100
 
 ### Therapist Profile (/t/profile)
-- **Accessibility Score**: 58/100
+- **Accessibility Score**: 88/100
 - **Load Time**: 0ms
 - **Content Elements**: 133 text, 20 buttons
 - **Accessibility Issues**:
-  - 14 buttons missing aria labels
+  - 4 buttons missing aria labels
 - **Spacing Issues**:
   - Inconsistent margin spacing detected
   - Inconsistent padding spacing detected
@@ -1470,11 +1444,13 @@ Total Routes Analyzed: 23
   - Inconsistent button sizes detected
   - Button too small for touch: 40x44px
   - Button too small for touch: 0x0px
+  - Button too small for touch: 40x44px
+  - Button too small for touch: 40x44px
   - Button too small for touch: 44x24px
   - Button too small for touch: 44x24px
   - Button too small for touch: 44x24px
 - **Design Consistency Issues**:
-  - Too many button styles (10 unique classes)
+  - Too many button styles (11 unique classes)
   - Too many input styles (5 unique classes)
 - **Visual Clutter Issues**:
   - Too many buttons (20) - exceeds Miller's Rule (7±2)
@@ -1530,11 +1506,11 @@ Total Routes Analyzed: 23
   - Animations: 110/100
 
 ### Therapist Tasks (/t/tasks)
-- **Accessibility Score**: 64/100
+- **Accessibility Score**: 79/100
 - **Load Time**: 0ms
 - **Content Elements**: 142 text, 13 buttons
 - **Accessibility Issues**:
-  - 12 buttons missing aria labels
+  - 7 buttons missing aria labels
 - **Spacing Issues**:
   - Inconsistent margin spacing detected
   - Inconsistent padding spacing detected
@@ -1549,14 +1525,9 @@ Total Routes Analyzed: 23
 - **Interactive Element Issues**:
   - Inconsistent button sizes detected
   - Button too small for touch: 40x44px
-  - Button too small for touch: 84.9375x39px
-  - Button too small for touch: 142.453125x39px
-  - Button too small for touch: 85.84375x36px
-  - Button too small for touch: 103.8125x36px
   - Button too small for touch: 128x40px
   - Button too small for touch: 128x40px
   - Button too small for touch: 128x40px
-  - Button too small for touch: 16x16px
 - **Design Consistency Issues**:
   - Too many button styles (7 unique classes)
 - **Visual Clutter Issues**:
@@ -1567,8 +1538,6 @@ Total Routes Analyzed: 23
 - **Color Harmony Issues**:
   - Too many colors (15) - exceeds optimal palette size (3-7 colors)
   - Mixed warm and cool colors may create visual discord (Itten color theory)
-- **Scale & Proportion Issues**:
-  - Button too small: 16x16px
 - **Text Overflow Issues**:
   - Very long text line: 1280px wide
   - Very long text line: 1280px wide
@@ -1678,11 +1647,11 @@ Total Routes Analyzed: 23
   - Animations: 110/100
 
 ### Admin Users (/admin/users)
-- **Accessibility Score**: 52/100
+- **Accessibility Score**: 82/100
 - **Load Time**: 0ms
 - **Content Elements**: 117 text, 16 buttons
 - **Accessibility Issues**:
-  - 16 buttons missing aria labels
+  - 6 buttons missing aria labels
 - **Spacing Issues**:
   - Inconsistent margin spacing detected
   - Inconsistent padding spacing detected
@@ -1697,8 +1666,6 @@ Total Routes Analyzed: 23
 - **Interactive Element Issues**:
   - Inconsistent button sizes detected
   - Button too small for touch: 40x44px
-  - Button too small for touch: 140x40px
-  - Button too small for touch: 140x40px
   - Button too small for touch: 42x44px
   - Button too small for touch: 42x44px
   - Button too small for touch: 42x44px
@@ -1759,12 +1726,11 @@ Total Routes Analyzed: 23
   - Animations: 110/100
 
 ### Admin Therapists (/admin/therapists)
-- **Accessibility Score**: 48/100
+- **Accessibility Score**: 85/100
 - **Load Time**: 0ms
 - **Content Elements**: 90 text, 14 buttons
 - **Accessibility Issues**:
-  - 14 buttons missing aria labels
-  - No H1 heading found
+  - 5 buttons missing aria labels
 - **Spacing Issues**:
   - Inconsistent margin spacing detected
   - Inconsistent padding spacing detected
@@ -1772,22 +1738,12 @@ Total Routes Analyzed: 23
   - Poor horizontal alignment detected
   - Poor vertical alignment detected
 - **Visual Hierarchy Issues**:
-  - Inconsistent heading sizes detected
   - Inconsistent button sizes detected
 - **Color Issues**:
   - Too many colors used (may lack visual consistency)
 - **Interactive Element Issues**:
   - Inconsistent button sizes detected
   - Button too small for touch: 40x44px
-  - Button too small for touch: 397.328125x36px
-  - Button too small for touch: 397.328125x36px
-  - Button too small for touch: 397.34375x36px
-  - Button too small for touch: 42x44px
-  - Button too small for touch: 42x44px
-  - Button too small for touch: 42x44px
-  - Button too small for touch: 42x44px
-  - Button too small for touch: 42x44px
-  - Button too small for touch: 42x44px
 - **Design Consistency Issues**:
   - Too many button styles (8 unique classes)
 - **Visual Clutter Issues**:
@@ -1799,9 +1755,9 @@ Total Routes Analyzed: 23
   - Too many colors (14) - exceeds optimal palette size (3-7 colors)
   - Mixed warm and cool colors may create visual discord (Itten color theory)
 - **Scale & Proportion Issues**:
-  - Button too wide: 397.328125x36px
-  - Button too wide: 397.328125x36px
-  - Button too wide: 397.34375x36px
+  - Button too wide: 397.328125x44px
+  - Button too wide: 397.328125x44px
+  - Button too wide: 397.34375x44px
 - **Text Overflow Issues**:
   - Very long text line: 1280px wide
   - Very long text line: 1280px wide
@@ -1834,11 +1790,10 @@ Total Routes Analyzed: 23
   - User Experience Issues:
     - High information density - may overwhelm users
 - **Layout Patterns**:
-  - Detected Patterns: grid-layout, card-based, tabbed-content
-  - Layout Type: grid
+  - Detected Patterns: hero-section, grid-layout, card-based, tabbed-content
+  - Layout Type: hero
   - Complexity: complex
   - Recommendations:
-    - Consider adding a hero section for better first impression
     - Complex layout detected - consider adding sidebar navigation for better organization
 - **Micro-interactions**:
   - Overall Score: 103/100
@@ -1848,37 +1803,28 @@ Total Routes Analyzed: 23
 
 ## 💡 Recommendations
 ### Accessibility Improvements
-- **Sign In**: Improve accessibility (Score: 63/100)
-- **Sign Up**: Improve accessibility (Score: 48/100)
-- **Client Assessment**: Improve accessibility (Score: 63/100)
-- **Client Favorites**: Improve accessibility (Score: 67/100)
-- **Client Appointments**: Improve accessibility (Score: 67/100)
-- **Client Messages**: Improve accessibility (Score: 35/100)
+- **Sign Up**: Improve accessibility (Score: 70/100)
+- **Client Assessment**: Improve accessibility (Score: 73/100)
+- **Client Messages**: Improve accessibility (Score: 54/100)
 - **Client Account**: Improve accessibility (Score: 67/100)
-- **Client Billing**: Improve accessibility (Score: 46/100)
-- **Therapist Onboarding**: Improve accessibility (Score: 72/100)
-- **Therapist Dashboard**: Improve accessibility (Score: 46/100)
 - **Therapist Bookings**: Improve accessibility (Score: 79/100)
-- **Therapist Messages**: Improve accessibility (Score: 48/100)
+- **Therapist Messages**: Improve accessibility (Score: 54/100)
 - **Therapist Analytics**: Improve accessibility (Score: 73/100)
 - **Therapist Earnings**: Improve accessibility (Score: 70/100)
-- **Therapist Profile**: Improve accessibility (Score: 58/100)
-- **Therapist Tasks**: Improve accessibility (Score: 64/100)
-- **Admin Users**: Improve accessibility (Score: 52/100)
-- **Admin Therapists**: Improve accessibility (Score: 48/100)
+- **Therapist Tasks**: Improve accessibility (Score: 79/100)
 
 ### Spacing & Layout Improvements
 - **Landing Page**: Improve spacing consistency (Score: 0% margins, 0% padding)
 - **Therapist Landing**: Improve spacing consistency (Score: 0% margins, 0% padding)
-- **Sign In**: Improve spacing consistency (Score: 59% margins, 0% padding)
-- **Sign Up**: Improve spacing consistency (Score: 58% margins, 0% padding)
+- **Sign In**: Improve spacing consistency (Score: 49% margins, 0% padding)
+- **Sign Up**: Improve spacing consistency (Score: 30% margins, 0% padding)
 - **Client Assessment**: Improve spacing consistency (Score: 48% margins, 0% padding)
 - **Discover Therapists**: Improve spacing consistency (Score: 86% margins, 0% padding)
 - **Client Favorites**: Improve spacing consistency (Score: 80% margins, 0% padding)
 - **Client Appointments**: Improve spacing consistency (Score: 0% margins, 0% padding)
 - **Client Messages**: Improve spacing consistency (Score: 57% margins, 0% padding)
 - **Client Account**: Improve spacing consistency (Score: 5% margins, 0% padding)
-- **Client Billing**: Improve spacing consistency (Score: 69% margins, 0% padding)
+- **Client Billing**: Improve spacing consistency (Score: 68% margins, 0% padding)
 - **Therapist Onboarding**: Improve spacing consistency (Score: 50% margins, 0% padding)
 - **Therapist Dashboard**: Improve spacing consistency (Score: 0% margins, 0% padding)
 - **Therapist Clients**: Improve spacing consistency (Score: 0% margins, 0% padding)
@@ -1920,9 +1866,6 @@ Total Routes Analyzed: 23
 ### Visual Hierarchy Improvements
 - **Landing Page**: Improve visual hierarchy (Score: 65/100)
 - **Therapist Landing**: Improve visual hierarchy (Score: 65/100)
-- **Sign In**: Improve visual hierarchy (Score: 65/100)
-- **Sign Up**: Improve visual hierarchy (Score: 65/100)
-- **Client Assessment**: Improve visual hierarchy (Score: 65/100)
 - **Discover Therapists**: Improve visual hierarchy (Score: 65/100)
 - **Client Favorites**: Improve visual hierarchy (Score: 65/100)
 - **Client Appointments**: Improve visual hierarchy (Score: 65/100)
@@ -1940,7 +1883,6 @@ Total Routes Analyzed: 23
 - **Therapist Tasks**: Improve visual hierarchy (Score: 65/100)
 - **Admin Overview**: Improve visual hierarchy (Score: 65/100)
 - **Admin Users**: Improve visual hierarchy (Score: 65/100)
-- **Admin Therapists**: Improve visual hierarchy (Score: 65/100)
 
 ### Interactive Element Improvements
 - **Landing Page**: Fix button sizes and click targets
@@ -1996,22 +1938,22 @@ Total Routes Analyzed: 23
 - **Landing Page**: Improve design consistency (poor patterns, 17% reuse)
 - **Therapist Landing**: Improve design consistency (poor patterns, 17% reuse)
 - **Sign In**: Improve design consistency (poor patterns, 23% reuse)
-- **Sign Up**: Improve design consistency (good patterns, 58% reuse)
+- **Sign Up**: Improve design consistency (good patterns, 54% reuse)
 - **Client Assessment**: Improve design consistency (poor patterns, 9% reuse)
 - **Discover Therapists**: Improve design consistency (fair patterns, 47% reuse)
-- **Client Favorites**: Improve design consistency (fair patterns, 50% reuse)
-- **Client Appointments**: Improve design consistency (poor patterns, 23% reuse)
+- **Client Favorites**: Improve design consistency (fair patterns, 45% reuse)
+- **Client Appointments**: Improve design consistency (poor patterns, 25% reuse)
 - **Client Messages**: Improve design consistency (poor patterns, 6% reuse)
 - **Client Account**: Improve design consistency (fair patterns, 41% reuse)
-- **Client Billing**: Improve design consistency (good patterns, 61% reuse)
+- **Client Billing**: Improve design consistency (good patterns, 58% reuse)
 - **Therapist Onboarding**: Improve design consistency (poor patterns, 9% reuse)
-- **Therapist Dashboard**: Improve design consistency (good patterns, 63% reuse)
+- **Therapist Dashboard**: Improve design consistency (fair patterns, 48% reuse)
 - **Therapist Clients**: Improve design consistency (good patterns, 68% reuse)
 - **Therapist Bookings**: Improve design consistency (good patterns, 65% reuse)
 - **Therapist Messages**: Improve design consistency (poor patterns, 24% reuse)
 - **Therapist Analytics**: Improve design consistency (fair patterns, 50% reuse)
 - **Therapist Earnings**: Improve design consistency (fair patterns, 48% reuse)
-- **Therapist Profile**: Improve design consistency (fair patterns, 50% reuse)
+- **Therapist Profile**: Improve design consistency (fair patterns, 47% reuse)
 - **Therapist Tasks**: Improve design consistency (good patterns, 56% reuse)
 - **Admin Overview**: Improve design consistency (fair patterns, 40% reuse)
 - **Admin Users**: Improve design consistency (fair patterns, 38% reuse)
@@ -2067,12 +2009,11 @@ Total Routes Analyzed: 23
 - **Landing Page**: Fix scale issues (75/100 score, 1 issues)
 - **Therapist Landing**: Fix scale issues (75/100 score, 1 issues)
 - **Sign In**: Fix scale issues (55/100 score, 3 issues)
-- **Sign Up**: Fix scale issues (5/100 score, 8 issues)
+- **Sign Up**: Fix scale issues (55/100 score, 3 issues)
 - **Client Assessment**: Fix scale issues (65/100 score, 2 issues)
 - **Discover Therapists**: Fix scale issues (30/100 score, 7 issues)
-- **Client Favorites**: Fix scale issues (70/100 score, 3 issues)
+- **Client Favorites**: Fix scale issues (55/100 score, 3 issues)
 - **Client Messages**: Fix scale issues (0/100 score, 9 issues)
-- **Client Billing**: Fix scale issues (55/100 score, 3 issues)
 - **Therapist Onboarding**: Fix scale issues (75/100 score, 1 issues)
 - **Therapist Dashboard**: Fix scale issues (75/100 score, 1 issues)
 - **Therapist Clients**: Fix scale issues (35/100 score, 5 issues)
@@ -2081,7 +2022,6 @@ Total Routes Analyzed: 23
 - **Therapist Analytics**: Fix scale issues (75/100 score, 1 issues)
 - **Therapist Earnings**: Fix scale issues (75/100 score, 1 issues)
 - **Therapist Profile**: Fix scale issues (75/100 score, 1 issues)
-- **Therapist Tasks**: Fix scale issues (75/100 score, 1 issues)
 - **Admin Therapists**: Fix scale issues (55/100 score, 3 issues)
 
 ### Text Overflow Fixes
@@ -2097,7 +2037,7 @@ Total Routes Analyzed: 23
 - **Client Account**: Fix text overflow (20 boundary problems)
 - **Client Billing**: Fix text overflow (18 boundary problems)
 - **Therapist Onboarding**: Fix text overflow (27 boundary problems)
-- **Therapist Dashboard**: Fix text overflow (25 boundary problems)
+- **Therapist Dashboard**: Fix text overflow (29 boundary problems)
 - **Therapist Clients**: Fix text overflow (33 boundary problems)
 - **Therapist Bookings**: Fix text overflow (35 boundary problems)
 - **Therapist Messages**: Fix text overflow (23 boundary problems)
@@ -2140,19 +2080,19 @@ Total Routes Analyzed: 23
 ### Layout Pattern Improvements
 - **Landing Page**: Complex layout detected - consider adding sidebar navigation for better organization
 - **Therapist Landing**: Complex layout detected - consider adding sidebar navigation for better organization
-- **Sign In**: Consider adding a hero section for better first impression, Complex layout detected - consider adding sidebar navigation for better organization
-- **Sign Up**: Consider adding a hero section for better first impression, Complex layout detected - consider adding sidebar navigation for better organization
-- **Client Assessment**: Consider adding a hero section for better first impression, Complex layout detected - consider adding sidebar navigation for better organization
+- **Sign In**: Complex layout detected - consider adding sidebar navigation for better organization
+- **Sign Up**: Complex layout detected - consider adding sidebar navigation for better organization
+- **Client Assessment**: Complex layout detected - consider adding sidebar navigation for better organization
 - **Client Favorites**: Complex layout detected - consider adding sidebar navigation for better organization
 - **Client Appointments**: Complex layout detected - consider adding sidebar navigation for better organization
 - **Client Messages**: Complex layout detected - consider adding sidebar navigation for better organization
 - **Client Account**: Complex layout detected - consider adding sidebar navigation for better organization
 - **Client Billing**: Complex layout detected - consider adding sidebar navigation for better organization
-- **Therapist Onboarding**: Consider adding a hero section for better first impression, Complex layout detected - consider adding sidebar navigation for better organization
+- **Therapist Onboarding**: Complex layout detected - consider adding sidebar navigation for better organization
 - **Therapist Tasks**: Complex layout detected - consider adding sidebar navigation for better organization
 - **Admin Overview**: Complex layout detected - consider adding sidebar navigation for better organization
 - **Admin Users**: Complex layout detected - consider adding sidebar navigation for better organization
-- **Admin Therapists**: Consider adding a hero section for better first impression, Complex layout detected - consider adding sidebar navigation for better organization
+- **Admin Therapists**: Complex layout detected - consider adding sidebar navigation for better organization
 
 ## 🎨 Aesthetic Summary
 - Average Competitive Score: 96.3/100

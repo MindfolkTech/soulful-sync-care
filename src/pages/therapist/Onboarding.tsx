@@ -191,9 +191,9 @@ export default function TherapistOnboarding() {
 
             <Card className="min-h-[500px] shadow-lg border-0" role="region" aria-label={`Step ${currentStep} content`}>
               <CardHeader className="text-center pb-8">
-                <CardTitle className="font-primary text-2xl tracking-tight" id={`step-${currentStep}-title`}>
+                <h1 className="font-primary text-[--text-2xl] tracking-tight" id={`step-${currentStep}-title`}>
                   {currentStepData?.title}
-                </CardTitle>
+                </h1>
                 <p className="font-secondary text-text-secondary text-lg" id={`step-${currentStep}-subtitle`}>
                   {currentStepData?.subtitle}
                 </p>

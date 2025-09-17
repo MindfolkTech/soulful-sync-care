@@ -36,21 +36,21 @@ export default function SignIn() {
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
       
-      <main className="flex-1 flex items-center justify-center py-16">
+      <main className="flex-1 flex items-center justify-center py-[--space-2xl]">
         <Container size="sm">
           <Card className="w-full max-w-md mx-auto">
             <CardHeader className="text-center">
-              <CardTitle className="font-primary text-2xl">Welcome back</CardTitle>
-              <CardDescription className="font-secondary">
+              <h1 className="font-primary text-[--text-2xl]">Welcome back</h1>
+              <CardDescription className="font-secondary text-[--text-secondary]">
                 Sign in to your MindFolk account
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-[--space-lg]">
               <SocialLogin mode="signin" />
               
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-[--space-md]">
                 {error && (
-                  <div className="flex items-center space-x-2 text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+                  <div className="flex items-center space-x-[--space-xs] text-sm text-destructive bg-destructive/10 p-[--space-sm] rounded-md">
                     <AlertCircle className="w-4 h-4" />
                     <span className="font-secondary">{error}</span>
                   </div>
@@ -82,12 +82,12 @@ export default function SignIn() {
                   />
                 </div>
                 
-                <Button type="submit" className="w-full min-h-touch-min" disabled={isLoading}>
+                <Button type="submit" className="w-full min-h-[--touch-target-min]" aria-label="Sign in to account" disabled={isLoading}>
                   {isLoading ? "Signing in..." : "Sign In"}
                 </Button>
               </form>
               
-              <div className="text-center space-y-2">
+              <div className="text-center space-y-[--space-xs]">
                 <Link to="/sign-up" className="text-sm text-text-secondary hover:text-text-primary font-secondary">
                   Don't have an account? Sign up
                 </Link>

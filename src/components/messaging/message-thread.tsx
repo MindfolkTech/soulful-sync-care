@@ -127,7 +127,7 @@ export function MessageThread({ threadId }: MessageThreadProps) {
   };
 
   return (
-    <ScrollArea className="flex-1 p-4" ref={scrollRef}>
+    <ScrollArea className="flex-1 p-[--space-md] overflow-auto" ref={scrollRef}>
       <div className="space-y-4">
         {messages.map((message) => {
           if (message.type === "system") {

@@ -71,7 +71,8 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
           placeholder="Search tasks..."
           value={filters.search}
           onChange={(e) => onFiltersChange({ ...filters, search: e.target.value })}
-          className="pl-10"
+          className="pl-10 min-h-[--touch-target-min]"
+          aria-label="Search through tasks"
         />
       </div>
 
@@ -146,7 +147,7 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
         </Select>
         
         {hasActiveFilters && (
-          <Button variant="tertiary" size="sm" onClick={clearFilters}>
+          <Button variant="tertiary" size="sm" onClick={clearFilters} className="min-h-[--touch-target-min]" aria-label="Clear all filters">
             <X className="h-4 w-4 mr-1 text-garden-green" />
             Clear
           </Button>
@@ -158,37 +159,46 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
           {filters.status.map(status => (
             <Badge key={status} variant="secondary" className="flex items-center gap-1">
               {statusOptions.find(s => s.value === status)?.label}
-              <X 
-                className="h-4 w-4 cursor-pointer text-garden-green p-1"
+              <button 
+                className="h-6 w-6 cursor-pointer text-garden-green rounded-full hover:bg-garden-green/10 flex items-center justify-center min-h-[--touch-target-min] min-w-[--touch-target-min]"
                 onClick={() => onFiltersChange({
                   ...filters,
                   status: filters.status.filter(s => s !== status)
                 })}
-              />
+                aria-label={`Remove ${statusOptions.find(s => s.value === status)?.label} filter`}
+              >
+                <X className="h-3 w-3" />
+              </button>
             </Badge>
           ))}
           {filters.priority.map(priority => (
             <Badge key={priority} variant="secondary" className="flex items-center gap-1">
               {priorityOptions.find(p => p.value === priority)?.label}
-              <X 
-                className="h-4 w-4 cursor-pointer text-garden-green p-1"
+              <button 
+                className="h-6 w-6 cursor-pointer text-garden-green rounded-full hover:bg-garden-green/10 flex items-center justify-center min-h-[--touch-target-min] min-w-[--touch-target-min]"
                 onClick={() => onFiltersChange({
                   ...filters,
                   priority: filters.priority.filter(p => p !== priority)
                 })}
-              />
+                aria-label={`Remove ${priorityOptions.find(p => p.value === priority)?.label} filter`}
+              >
+                <X className="h-3 w-3" />
+              </button>
             </Badge>
           ))}
           {filters.flow.map(flow => (
             <Badge key={flow} variant="secondary" className="flex items-center gap-1">
               {flowOptions[role].find(f => f.value === flow)?.label}
-              <X 
-                className="h-4 w-4 cursor-pointer text-garden-green p-1"
+              <button 
+                className="h-6 w-6 cursor-pointer text-garden-green rounded-full hover:bg-garden-green/10 flex items-center justify-center min-h-[--touch-target-min] min-w-[--touch-target-min]"
                 onClick={() => onFiltersChange({
                   ...filters,
                   flow: filters.flow.filter(f => f !== flow)
                 })}
-              />
+                aria-label={`Remove ${flowOptions[role].find(f => f.value === flow)?.label} filter`}
+              >
+                <X className="h-3 w-3" />
+              </button>
             </Badge>
           ))}
         </div>

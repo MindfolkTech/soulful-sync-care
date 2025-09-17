@@ -88,7 +88,7 @@ export function TaskList({ tasks, filters, loading, error, onRetry, role }: Task
         <h3 className="text-lg font-medium text-text-primary mb-2">Error loading tasks</h3>
         <p className="text-text-secondary mb-4">{error}</p>
         {onRetry && (
-          <Button onClick={onRetry} variant="tertiary">
+          <Button onClick={onRetry} variant="tertiary" className="min-h-[--touch-target-min]" aria-label="Retry loading tasks">
             Try again
           </Button>
         )}
@@ -124,6 +124,7 @@ export function TaskList({ tasks, filters, loading, error, onRetry, role }: Task
               checked={selectedTasks.size === filteredTasks.length}
               onCheckedChange={handleSelectAll}
               aria-label="Select all tasks"
+              className="min-h-[--touch-target-min] min-w-[--touch-target-min]"
             />
             <span className="text-sm text-text-secondary">
               {selectedTasks.size > 0 
@@ -137,6 +138,8 @@ export function TaskList({ tasks, filters, loading, error, onRetry, role }: Task
             variant="tertiary"
             size="sm"
             onClick={() => setShowBulkSelect(!showBulkSelect)}
+            className="min-h-[--touch-target-min]"
+            aria-label={showBulkSelect ? "Cancel bulk selection" : "Enable bulk selection"}
           >
             {showBulkSelect ? "Cancel" : "Select"}
           </Button>

@@ -76,21 +76,21 @@ export default function SignUp() {
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
       
-      <main className="flex-1 flex items-center justify-center py-16">
+      <main className="flex-1 flex items-center justify-center py-[--space-2xl]">
         <Container size="sm">
           <Card className="w-full max-w-md mx-auto">
             <CardHeader className="text-center">
-              <CardTitle className="font-primary text-2xl">Get started</CardTitle>
-              <CardDescription className="font-secondary">
+              <h1 className="font-primary text-[--text-2xl]">Get started</h1>
+              <CardDescription className="font-secondary text-[--text-secondary]">
                 Create your MindFolk account
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-[--space-lg]">
               <SocialLogin mode="signup" />
               
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-[--space-md]">
                 {error && (
-                  <div className="flex items-center space-x-2 text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+                  <div className="flex items-center space-x-[--space-xs] text-sm text-destructive bg-destructive/10 p-[--space-sm] rounded-md">
                     <AlertCircle className="w-4 h-4" />
                     <span className="font-secondary">{error}</span>
                   </div>
@@ -102,9 +102,11 @@ export default function SignUp() {
                     <Input 
                       id="firstName" 
                       placeholder="First name"
+                      className="min-h-[--touch-target-min]"
                       value={formData.firstName}
                       onChange={(e) => handleInputChange("firstName", e.target.value)}
                       required
+                      aria-describedby="firstName-required"
                     />
                   </div>
                   <div className="space-y-2">
@@ -112,9 +114,11 @@ export default function SignUp() {
                     <Input 
                       id="lastName" 
                       placeholder="Last name"
+                      className="min-h-[--touch-target-min]"
                       value={formData.lastName}
                       onChange={(e) => handleInputChange("lastName", e.target.value)}
                       required
+                      aria-describedby="lastName-required"
                     />
                   </div>
                 </div>
@@ -125,9 +129,11 @@ export default function SignUp() {
                     id="email" 
                     type="email" 
                     placeholder="Enter your email"
+                    className="min-h-[--touch-target-min]"
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
                     required
+                    aria-describedby="email-required"
                   />
                 </div>
                 
@@ -138,16 +144,19 @@ export default function SignUp() {
                       id="password" 
                       type={showPassword ? "text" : "password"}
                       placeholder="Create a password"
+                      className="min-h-[--touch-target-min] pr-12"
                       value={formData.password}
                       onChange={(e) => handleInputChange("password", e.target.value)}
                       required
+                      aria-describedby="password-requirements"
                     />
                     <Button
                       type="button"
                       variant="ghost"
                       size="sm"
-                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent min-h-[--touch-target-min] min-w-[--touch-target-min]"
                       onClick={() => setShowPassword(!showPassword)}
+                      aria-label={showPassword ? "Hide password" : "Show password"}
                     >
                       {showPassword ? (
                         <EyeOff className="h-4 w-4 text-text-muted" />
@@ -167,9 +176,11 @@ export default function SignUp() {
                     id="confirmPassword" 
                     type="password"
                     placeholder="Confirm your password"
+                    className="min-h-[--touch-target-min]"
                     value={formData.confirmPassword}
                     onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
                     required
+                    aria-describedby="confirmPassword-match"
                   />
                 </div>
                 
@@ -179,6 +190,8 @@ export default function SignUp() {
                       id="terms" 
                       checked={agreedToTerms}
                       onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
+                      className="min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                      aria-describedby="terms-description"
                     />
                     <label htmlFor="terms" className="text-sm font-secondary text-text-secondary">
                       I agree to the{" "}
@@ -206,6 +219,8 @@ export default function SignUp() {
                           id="essential" 
                           checked={consentPreferences.essential}
                           disabled
+                          className="min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                          aria-describedby="essential-description"
                         />
                         <label htmlFor="essential" className="text-xs font-secondary text-text-secondary">
                           Essential cookies and data (required for site functionality)
@@ -219,6 +234,8 @@ export default function SignUp() {
                           onCheckedChange={(checked) => 
                             setConsentPreferences(prev => ({ ...prev, therapyData: checked === true }))
                           }
+                          className="min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                          aria-describedby="therapy-data-description"
                         />
                         <label htmlFor="therapy-data" className="text-xs font-secondary text-text-secondary">
                           Therapy data processing (required for matching and sessions)
@@ -232,6 +249,8 @@ export default function SignUp() {
                           onCheckedChange={(checked) => 
                             setConsentPreferences(prev => ({ ...prev, analytics: checked === true }))
                           }
+                          className="min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                          aria-describedby="analytics-description"
                         />
                         <label htmlFor="analytics" className="text-xs font-secondary text-text-secondary">
                           Analytics and usage data (help improve our service)
@@ -245,6 +264,8 @@ export default function SignUp() {
                           onCheckedChange={(checked) => 
                             setConsentPreferences(prev => ({ ...prev, marketing: checked === true }))
                           }
+                          className="min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                          aria-describedby="marketing-description"
                         />
                         <label htmlFor="marketing" className="text-xs font-secondary text-text-secondary">
                           Marketing communications (newsletters, promotions)
@@ -254,12 +275,12 @@ export default function SignUp() {
                   </div>
                 </div>
                 
-                <Button type="submit" className="w-full min-h-touch-min" disabled={isLoading}>
+                <Button type="submit" className="w-full min-h-[--touch-target-min] max-w-[320px] mx-auto" aria-label="Create new account" disabled={isLoading}>
                   {isLoading ? "Creating account..." : "Create Account"}
                 </Button>
               </form>
               
-              <div className="text-center space-y-2">
+              <div className="text-center space-y-[--space-xs]">
                 <Link to="/sign-in" className="text-sm text-text-secondary hover:text-text-primary font-secondary">
                   Already have an account? Sign in
                 </Link>

@@ -155,12 +155,9 @@ export default function Billing() {
                 </div>
 
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="min-h-[--touch-target-min]" aria-label="Manage subscription plan settings">
                     <Settings className="h-4 w-4 mr-2" />
                     Manage Plan
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    Cancel Subscription
                   </Button>
                 </div>
               </CardContent>
@@ -176,15 +173,15 @@ export default function Billing() {
               </CardHeader>
               <CardContent>
                 <Tabs defaultValue="all" className="space-y-4">
-                  <TabsList>
-                    <TabsTrigger value="all">All Transactions</TabsTrigger>
-                    <TabsTrigger value="subscriptions">Subscriptions</TabsTrigger>
-                    <TabsTrigger value="sessions">Additional Sessions</TabsTrigger>
+                  <TabsList role="tablist" aria-label="Billing history filter tabs">
+                    <TabsTrigger value="all" aria-label="View all billing transactions">All Transactions</TabsTrigger>
+                    <TabsTrigger value="subscriptions" aria-label="View subscription billing only">Subscriptions</TabsTrigger>
+                    <TabsTrigger value="sessions" aria-label="View additional session charges only">Additional Sessions</TabsTrigger>
                   </TabsList>
 
                   <TabsContent value="all" className="space-y-3">
                     {billingHistory.map((item) => (
-                      <div key={item.id} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div key={item.id} className="flex items-center justify-between p-4 border rounded-lg min-h-[--touch-target-min]" role="listitem" aria-label={`Transaction: ${item.description}, amount: $${item.amount}, status: ${item.status}`}>
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center">
                             <Receipt className="h-4 w-4" />
@@ -206,7 +203,7 @@ export default function Billing() {
                             <Badge variant={getStatusColor(item.status)} className="text-xs">
                               {item.status}
                             </Badge>
-                            <Button variant="ghost" size="sm">
+                            <Button variant="ghost" size="sm" className="min-h-[--touch-target-min]" aria-label={`Download receipt for ${item.invoice}`}>
                               <Download className="h-3 w-3" />
                             </Button>
                           </div>
@@ -242,7 +239,9 @@ export default function Billing() {
                   </div>
                   <Button 
                     size="sm" 
+                    className="min-h-[--touch-target-min]"
                     onClick={() => setShowPaymentForm(true)}
+                    aria-label="Add new payment method"
                   >
                     <Plus className="h-4 w-4 mr-2" />
                     Add Method
@@ -250,8 +249,9 @@ export default function Billing() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
+                <div role="list" aria-label="Payment methods on file">
                 {paymentMethods.map((method) => (
-                  <div key={method.id} className="flex items-center justify-between p-3 border rounded-lg">
+                  <div key={method.id} className="flex items-center justify-between p-3 border rounded-lg min-h-[--touch-target-min]" role="listitem" aria-label={`Payment method: ${method.brand} card ending in ${method.last4}, expires ${method.expiry}${method.isDefault ? ', default payment method' : ''}`}>
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-muted rounded flex items-center justify-center">
                         {getBrandIcon(method.brand)}
@@ -272,12 +272,13 @@ export default function Billing() {
                           Default
                         </Badge>
                       )}
-                      <Button variant="ghost" size="sm">
+                      <Button variant="ghost" size="sm" className="min-h-[--touch-target-min]" aria-label={`Manage payment method ending in ${method.last4}`}>
                         <Settings className="h-3 w-3" />
                       </Button>
                     </div>
                   </div>
                 ))}
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -290,17 +291,13 @@ export default function Billing() {
                 <CardTitle className="text-lg">Quick Actions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button className="w-full justify-start">
+                <Button className="w-full justify-start min-h-[--touch-target-min] max-w-[280px]" aria-label="Book an additional therapy session">
                   <Plus className="h-4 w-4 mr-2" />
                   Book Additional Session
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button variant="outline" className="w-full justify-start min-h-[--touch-target-min] max-w-[280px]" aria-label="Download all billing receipts">
                   <Download className="h-4 w-4 mr-2" />
                   Download Receipts
-                </Button>
-                <Button variant="outline" className="w-full justify-start">
-                  <Settings className="h-4 w-4 mr-2" />
-                  Update Billing Info
                 </Button>
               </CardContent>
             </Card>

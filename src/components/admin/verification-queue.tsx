@@ -139,8 +139,8 @@ export function VerificationQueue() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="font-primary text-2xl text-text-primary">Therapist Verification Queue</h2>
-          <p className="font-secondary text-text-secondary">Review and process therapist applications</p>
+          <h1 className="font-primary text-[--text-2xl] text-[--text-primary]">Therapist Verification Queue</h1>
+          <p className="font-secondary text-[--text-secondary]">Review and process therapist applications</p>
         </div>
         <div className="flex items-center gap-4">
           <Badge variant="secondary" className="bg-warning text-warning-foreground">
@@ -153,16 +153,16 @@ export function VerificationQueue() {
       </div>
 
       <Tabs defaultValue="pending" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="pending" className="flex items-center gap-2">
+        <TabsList className="grid w-full grid-cols-3" role="tablist" aria-label="Application status filter tabs">
+          <TabsTrigger value="pending" className="flex items-center gap-2 min-h-[--touch-target-min]" aria-label={`View pending applications (${pendingApplications.length} applications)`}>
             <Clock className="h-4 w-4" />
             Pending ({pendingApplications.length})
           </TabsTrigger>
-          <TabsTrigger value="reviewing" className="flex items-center gap-2">
+          <TabsTrigger value="reviewing" className="flex items-center gap-2 min-h-[--touch-target-min]" aria-label={`View applications under review (${reviewingApplications.length} applications)`}>
             <Eye className="h-4 w-4" />
             In Review ({reviewingApplications.length})
           </TabsTrigger>
-          <TabsTrigger value="processed" className="flex items-center gap-2">
+          <TabsTrigger value="processed" className="flex items-center gap-2 min-h-[--touch-target-min]" aria-label={`View processed applications (${processedApplications.length} applications)`}>
             <CheckCircle className="h-4 w-4" />
             Processed ({processedApplications.length})
           </TabsTrigger>
@@ -253,9 +253,9 @@ function ApplicationsList({
   return (
     <Card>
       <CardContent className="p-0">
-        <Table>
-          <TableHeader>
-            <TableRow>
+        <Table role="table" aria-label="Therapist applications table">
+          <TableHeader role="rowgroup">
+            <TableRow role="row">
               <TableHead>Therapist</TableHead>
               <TableHead>License</TableHead>
               <TableHead>Specialties</TableHead>
@@ -265,9 +265,9 @@ function ApplicationsList({
               {!hideActions && <TableHead>Actions</TableHead>}
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody role="rowgroup">
             {applications.map((application) => (
-              <TableRow key={application.id}>
+              <TableRow key={application.id} role="row" aria-label={`Application from ${application.name}, status: ${application.status}`}>
                 <TableCell>
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-full bg-surface-accent flex items-center justify-center">
@@ -317,6 +317,8 @@ function ApplicationsList({
                         variant="outline"
                         size="sm"
                         onClick={() => onViewDetails(application)}
+                        className="min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                        aria-label={`View details for ${application.name}'s application`}
                       >
                         <Eye className="h-4 w-4" />
                       </Button>
@@ -326,7 +328,8 @@ function ApplicationsList({
                             variant="outline"
                             size="sm"
                             onClick={() => onApprove(application.id)}
-                            className="text-success hover:bg-success hover:text-success-foreground"
+                            className="text-success hover:bg-success hover:text-success-foreground min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                            aria-label={`Approve ${application.name}'s application`}
                           >
                             <CheckCircle className="h-4 w-4" />
                           </Button>
@@ -334,7 +337,8 @@ function ApplicationsList({
                             variant="outline"
                             size="sm"
                             onClick={() => onReject(application.id)}
-                            className="text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                            className="text-destructive hover:bg-destructive hover:text-destructive-foreground min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                            aria-label={`Reject ${application.name}'s application`}
                           >
                             <XCircle className="h-4 w-4" />
                           </Button>
@@ -433,7 +437,7 @@ function ApplicationDetailsDialog({
                       <p className="font-secondary text-sm text-text-secondary">{application.documents.license}</p>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="min-h-[--touch-target-min]" aria-label={`View ${application.documents.license} document`}>
                     <Eye className="h-4 w-4 mr-2" />
                     View
                   </Button>
@@ -446,9 +450,8 @@ function ApplicationDetailsDialog({
                       <p className="font-secondary text-sm text-text-secondary">{application.documents.insurance}</p>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm">
-                    <Eye className="h-4 w-4 mr-2" />
-                    View
+                  <Button variant="ghost" size="sm" className="min-h-[--touch-target-min] min-w-[--touch-target-min] text-garden-green" aria-label="View insurance certificate document">
+                    <Eye className="h-4 w-4" />
                   </Button>
                 </div>
                 <div className="flex items-center justify-between p-3 border border-border rounded-md">
@@ -459,9 +462,8 @@ function ApplicationDetailsDialog({
                       <p className="font-secondary text-sm text-text-secondary">{application.documents.cv}</p>
                     </div>
                   </div>
-                  <Button variant="outline" size="sm">
-                    <Eye className="h-4 w-4 mr-2" />
-                    View
+                  <Button variant="ghost" size="sm" className="min-h-[--touch-target-min] min-w-[--touch-target-min] text-garden-green" aria-label="View curriculum vitae document">
+                    <Eye className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
@@ -499,7 +501,8 @@ function ApplicationDetailsDialog({
                   onReject(application.id);
                   onClose();
                 }}
-                className="text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                className="text-destructive hover:bg-destructive hover:text-destructive-foreground min-h-[--touch-target-min] max-w-[280px]"
+                aria-label={`Reject ${application.name}'s application permanently`}
               >
                 <XCircle className="h-4 w-4 mr-2" />
                 Reject Application
@@ -509,7 +512,8 @@ function ApplicationDetailsDialog({
                   onApprove(application.id);
                   onClose();
                 }}
-                className="bg-success text-success-foreground hover:bg-success/90"
+                className="bg-success text-success-foreground hover:bg-success/90 min-h-[--touch-target-min] max-w-[280px]"
+                aria-label={`Approve ${application.name}'s application and grant access`}
               >
                 <CheckCircle className="h-4 w-4 mr-2" />
                 Approve Application

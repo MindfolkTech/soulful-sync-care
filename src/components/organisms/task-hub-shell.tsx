@@ -126,8 +126,8 @@ export function TaskHubShell({
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="mb-6">
-          <TabsTrigger value="all" className="flex items-center gap-2">
+        <TabsList className="mb-6" role="tablist" aria-label="Task filter tabs">
+          <TabsTrigger value="all" className="flex items-center gap-2 min-h-[--touch-target-min]" aria-label={`View all tasks (${stats.total} total)`}>
             All
             {stats.total > 0 && (
               <Badge variant="secondary" className="ml-1">
@@ -135,7 +135,7 @@ export function TaskHubShell({
               </Badge>
             )}
           </TabsTrigger>
-          <TabsTrigger value="due-today" className="flex items-center gap-2">
+          <TabsTrigger value="due-today" className="flex items-center gap-2 min-h-[--touch-target-min]" aria-label={`View tasks due today (${stats.dueToday} tasks)`}>
             Due Today
             {stats.dueToday > 0 && (
               <Badge variant="secondary" className="ml-1">
@@ -143,7 +143,7 @@ export function TaskHubShell({
               </Badge>
             )}
           </TabsTrigger>
-          <TabsTrigger value="overdue" className="flex items-center gap-2">
+          <TabsTrigger value="overdue" className="flex items-center gap-2 min-h-[--touch-target-min]" aria-label={`View overdue tasks (${stats.overdue} overdue)`}>
             Overdue
             {stats.overdue > 0 && (
               <Badge variant="destructive" className="ml-1">
@@ -151,7 +151,7 @@ export function TaskHubShell({
               </Badge>
             )}
           </TabsTrigger>
-          <TabsTrigger value="completed" className="flex items-center gap-2">
+          <TabsTrigger value="completed" className="flex items-center gap-2 min-h-[--touch-target-min]" aria-label={`View completed tasks (${stats.completed} completed)`}>
             Completed
             {stats.completed > 0 && (
               <Badge variant="outline" className="ml-1">

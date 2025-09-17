@@ -142,6 +142,7 @@ export default function Favorites() {
             size="sm"
             onClick={() => window.location.href = '/discover'}
             aria-label="Back to discovery"
+            className="min-h-[--touch-target-min]"
           >
             <Filter className="w-4 h-4 mr-2" />
             Discover More
@@ -167,12 +168,12 @@ export default function Favorites() {
                 placeholder="Search favorites..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 min-h-[--touch-target-min]"
                 aria-label="Search favorites"
               />
             </div>
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-full sm:w-48">
+              <SelectTrigger className="w-full sm:w-48 min-h-[--touch-target-min]" aria-label="Sort favorites by criteria">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
@@ -202,9 +203,9 @@ export default function Favorites() {
         {/* Favorites List */}
         <div className="flex-1 overflow-y-auto p-4">
           {filteredFavorites.length > 0 ? (
-            <div className="space-y-4">
+            <div className="space-y-4" role="list" aria-label="Your favorite therapists">
               {filteredFavorites.map((therapist) => (
-                <Card key={therapist.id} className="overflow-hidden">
+                <Card key={therapist.id} className="overflow-hidden" role="listitem">
                   <CardContent className="p-4">
                     <div className="flex gap-4">
                       {/* Therapist Image */}
@@ -237,7 +238,7 @@ export default function Favorites() {
                             variant="ghost"
                             size="icon"
                             onClick={() => handleRemoveFavorite(therapist)}
-                            className="text-text-secondary hover:text-error"
+                            className="text-text-secondary hover:text-error min-h-[--touch-target-min] min-w-[--touch-target-min]"
                             aria-label={`Remove ${therapist.name} from favorites`}
                           >
                             <Heart className="h-5 w-5 fill-current" />
@@ -263,16 +264,19 @@ export default function Favorites() {
                           <Button
                             size="sm"
                             onClick={() => handleBookSession(therapist)}
-                            className="flex-1"
+                            className="flex-1 min-h-[--touch-target-min]"
+                            aria-label={`Book therapy session with ${therapist.name}`}
                           >
                             Book Session
                           </Button>
                           <Button
-                            variant="outline"
+                            variant="ghost"
                             size="sm"
                             onClick={() => therapist.video_url ? handleShowVideo(therapist) : handleShowDetails(therapist)}
+                            className="min-h-[--touch-target-min] text-garden-green"
+                            aria-label={therapist.video_url ? `Watch introduction video from ${therapist.name}` : `View ${therapist.name}'s full profile`}
                           >
-                            {therapist.video_url ? "Watch Video" : "View Profile"}
+                            {therapist.video_url ? "📹" : "👁️"}
                           </Button>
                         </div>
                       </div>
@@ -291,7 +295,7 @@ export default function Favorites() {
                 <p className="font-secondary text-text-secondary mb-4">
                   Start discovering therapists and add them to your favorites
                 </p>
-                <Button onClick={() => window.location.href = '/discover'}>
+                <Button onClick={() => window.location.href = '/discover'} className="min-h-[--touch-target-min]" aria-label="Go to therapist discovery page">
                   Discover Therapists
                 </Button>
               </div>
@@ -325,7 +329,6 @@ export default function Favorites() {
 
       {/* ARIA Live Region */}
       <div {...ariaLiveProps} />
-      <BottomNav />
     </div>
   );
 }

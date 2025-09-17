@@ -33,7 +33,8 @@ export function BulkActionsBar({
             variant="tertiary" 
             size="sm"
             onClick={onMarkComplete}
-            className="flex items-center gap-1"
+            className="flex items-center gap-1 min-h-[--touch-target-min]"
+            aria-label="Mark selected tasks as complete"
           >
             <CheckCircle className="h-4 w-4" />
             Complete
@@ -43,7 +44,8 @@ export function BulkActionsBar({
             variant="tertiary" 
             size="sm"
             onClick={onMarkInProgress}
-            className="flex items-center gap-1"
+            className="flex items-center gap-1 min-h-[--touch-target-min]"
+            aria-label="Mark selected tasks as in progress"
           >
             <Clock className="h-4 w-4" />
             In Progress
@@ -53,7 +55,8 @@ export function BulkActionsBar({
             variant="tertiary" 
             size="sm"
             onClick={onDefer}
-            className="flex items-center gap-1"
+            className="flex items-center gap-1 min-h-[--touch-target-min]"
+            aria-label="Defer selected tasks"
           >
             <Archive className="h-4 w-4" />
             Defer
@@ -64,7 +67,8 @@ export function BulkActionsBar({
           variant="ghost" 
           size="sm"
           onClick={onClearSelection}
-          className="flex items-center gap-1"
+          className="flex items-center gap-1 min-h-[--touch-target-min] min-w-[--touch-target-min]"
+          aria-label="Clear selection"
         >
           <X className="h-4 w-4" />
         </Button>

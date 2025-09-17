@@ -44,7 +44,7 @@ export function TaskItem({ task, selected, onSelect, showBulkSelect }: TaskItemP
           <Checkbox
             checked={selected}
             onCheckedChange={onSelect}
-            className="mt-1"
+            className="mt-1 min-h-[--touch-target-min] min-w-[--touch-target-min]"
             aria-label={`Select task: ${task.title}`}
           />
         )}
@@ -98,8 +98,8 @@ export function TaskItem({ task, selected, onSelect, showBulkSelect }: TaskItemP
             </p>
           )}
 
-          <Button asChild variant="tertiary" size="sm">
-            <Link to={task.cta.href}>
+          <Button asChild variant="tertiary" size="sm" className="min-h-[--touch-target-min]">
+            <Link to={task.cta.href} aria-label={`${task.cta.label} for task: ${task.title}`}>
               {task.cta.label}
             </Link>
           </Button>

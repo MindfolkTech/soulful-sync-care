@@ -37,7 +37,7 @@ export default function TherapistProfile() {
                   </AvatarFallback>
                 </Avatar>
                 <div className="text-center lg:text-left space-y-2">
-                  <Button variant="outline" size="sm" className="min-h-touch-min">
+                  <Button variant="outline" size="sm" className="min-h-[--touch-target-min]" aria-label="Upload or change profile photo">
                     <Upload className="w-4 h-4 mr-2" />
                     Change Photo
                   </Button>
@@ -55,7 +55,8 @@ export default function TherapistProfile() {
                     <Input 
                       id="firstName" 
                       defaultValue="Dr. Charlotte" 
-                      className="min-h-touch-min"
+                      className="min-h-[--touch-target-min]"
+                      aria-describedby="firstName-help"
                     />
                   </div>
                   <div>
@@ -63,7 +64,8 @@ export default function TherapistProfile() {
                     <Input 
                       id="lastName" 
                       defaultValue="Thompson" 
-                      className="min-h-touch-min"
+                      className="min-h-[--touch-target-min]"
+                      aria-describedby="lastName-help"
                     />
                   </div>
                 </div>
@@ -73,7 +75,8 @@ export default function TherapistProfile() {
                   <Input 
                     id="title" 
                     defaultValue="Licensed Clinical Psychologist" 
-                    className="min-h-touch-min"
+                    className="min-h-[--touch-target-min]"
+                    aria-describedby="title-help"
                   />
                 </div>
 
@@ -83,7 +86,8 @@ export default function TherapistProfile() {
                     id="bio" 
                     defaultValue="I specialize in anxiety, depression, and relationship counseling with over 10 years of experience helping clients achieve their mental health goals."
                     rows={3}
-                    className="resize-none"
+                    className="resize-none min-h-[--touch-target-min]"
+                    aria-describedby="bio-help"
                   />
                 </div>
               </div>
@@ -105,11 +109,10 @@ export default function TherapistProfile() {
                   <Tag variant="specialty">Relationship Counseling</Tag>
                   <Tag variant="specialty">Trauma Therapy</Tag>
                   <Tag variant="specialty">CBT</Tag>
+                  <Button variant="ghost" size="sm" className="min-h-[--touch-target-min] text-garden-green" aria-label="Edit your therapy specializations">
+                    <Edit className="w-3 h-3" />
+                  </Button>
                 </Cluster>
-                <Button variant="outline" size="sm" className="min-h-touch-min">
-                  <Edit className="w-4 h-4 mr-2" />
-                  Edit Specializations
-                </Button>
               </div>
             </CardContent>
           </Card>
@@ -124,11 +127,10 @@ export default function TherapistProfile() {
                   <Tag variant="language">English</Tag>
                   <Tag variant="language">Spanish</Tag>
                   <Tag variant="language">French</Tag>
+                  <Button variant="ghost" size="sm" className="min-h-[--touch-target-min] text-garden-green" aria-label="Edit languages you speak">
+                    <Edit className="w-3 h-3" />
+                  </Button>
                 </Cluster>
-                <Button variant="outline" size="sm" className="min-h-touch-min">
-                  <Edit className="w-4 h-4 mr-2" />
-                  Edit Languages
-                </Button>
               </div>
             </CardContent>
           </Card>
@@ -172,7 +174,7 @@ export default function TherapistProfile() {
                     </li>
                   </ul>
                 </div>
-                <Button className="bg-garden-green text-white hover:bg-elated-emerald min-h-touch-min">
+                <Button className="bg-garden-green text-white hover:bg-elated-emerald min-h-[--touch-target-min]" aria-label="Upload introduction video to attract more clients">
                   <Upload className="w-4 h-4 mr-2" />
                   Upload Video
                 </Button>
@@ -199,7 +201,8 @@ export default function TherapistProfile() {
                       id="sessionPrice" 
                       type="number" 
                       defaultValue="75" 
-                      className="pl-8 min-h-touch-min"
+                      className="pl-8 min-h-[--touch-target-min]"
+                      aria-describedby="sessionPrice-help"
                     />
                   </div>
                 </div>
@@ -209,7 +212,8 @@ export default function TherapistProfile() {
                   </Label>
                   <select 
                     id="sessionDuration" 
-                    className="w-full px-3 py-2 border rounded-md bg-background font-secondary text-foreground min-h-touch-min mt-1"
+                    className="w-full px-3 py-2 border rounded-md bg-background font-secondary text-foreground min-h-[--touch-target-min] mt-1"
+                    aria-label="Select default session duration"
                   >
                     <option>30 minutes</option>
                     <option>45 minutes</option>
@@ -225,7 +229,7 @@ export default function TherapistProfile() {
                     <Label className="font-secondary text-foreground">Accept new clients</Label>
                     <p className="text-sm text-muted-foreground">Allow new clients to book sessions</p>
                   </div>
-                  <Switch defaultChecked />
+                  <Switch defaultChecked aria-label="Toggle accepting new clients" />
                 </HStack>
 
                 <HStack className="justify-between">
@@ -233,7 +237,7 @@ export default function TherapistProfile() {
                     <Label className="font-secondary text-foreground">Instant booking</Label>
                     <p className="text-sm text-muted-foreground">Clients can book without approval</p>
                   </div>
-                  <Switch defaultChecked />
+                  <Switch defaultChecked aria-label="Toggle instant booking for clients" />
                 </HStack>
 
                 <HStack className="justify-between">
@@ -241,7 +245,7 @@ export default function TherapistProfile() {
                     <Label className="font-secondary text-foreground">Weekend availability</Label>
                     <p className="text-sm text-muted-foreground">Available for weekend sessions</p>
                   </div>
-                  <Switch />
+                  <Switch aria-label="Toggle weekend availability" />
                 </HStack>
               </div>
             </div>
@@ -253,7 +257,7 @@ export default function TherapistProfile() {
           <CardHeader>
             <HStack className="justify-between">
               <CardTitle className="font-primary text-jovial-jade">Profile Visibility</CardTitle>
-              <Button variant="outline" size="sm" className="min-h-touch-min">
+              <Button variant="outline" size="sm" className="min-h-[--touch-target-min]" aria-label="Preview how your profile appears to clients">
                 <Eye className="w-4 h-4 mr-2" />
                 Preview Profile
               </Button>
@@ -282,10 +286,10 @@ export default function TherapistProfile() {
 
         {/* Save Changes */}
         <HStack className="justify-end pt-4">
-          <Button variant="outline" className="min-h-touch-min">
+          <Button variant="outline" className="min-h-[--touch-target-min]" aria-label="Cancel profile changes without saving">
             Cancel
           </Button>
-          <Button className="bg-garden-green text-white hover:bg-elated-emerald min-h-touch-min">
+          <Button className="bg-garden-green text-white hover:bg-elated-emerald min-h-[--touch-target-min]" aria-label="Save all profile changes">
             Save Changes
           </Button>
         </HStack>

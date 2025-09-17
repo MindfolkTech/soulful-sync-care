@@ -64,23 +64,24 @@ export default function Appointments() {
             </div>
 
             <Tabs defaultValue="upcoming" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
-                <TabsTrigger value="past">Past</TabsTrigger>
-                <TabsTrigger value="cancelled">Cancelled</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-3" role="tablist" aria-label="Appointment filter tabs">
+                <TabsTrigger value="upcoming" className="min-h-[--touch-target-min]" aria-label="View upcoming appointments">Upcoming</TabsTrigger>
+                <TabsTrigger value="past" className="min-h-[--touch-target-min]" aria-label="View past appointments">Past</TabsTrigger>
+                <TabsTrigger value="cancelled" className="min-h-[--touch-target-min]" aria-label="View cancelled appointments">Cancelled</TabsTrigger>
               </TabsList>
 
-              <TabsContent value="upcoming" className="space-y-4">
+              <TabsContent value="upcoming" className="space-y-4" role="tabpanel" aria-labelledby="upcoming-tab">
+                <div role="list" aria-label="Upcoming appointments">
                 {appointments
                   .filter(apt => apt.status === "confirmed")
                   .map((appointment) => (
-                    <Card key={appointment.id}>
+                    <Card key={appointment.id} role="listitem">
                       <CardContent className="p-6">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-4">
                             <img
                               src={appointment.image}
-                              alt={appointment.therapist}
+                              alt={`Profile photo of ${appointment.therapist}`}
                               className="w-16 h-16 rounded-full object-cover"
                             />
                             <div>
@@ -106,19 +107,12 @@ export default function Appointments() {
                           <div className="flex items-center space-x-3">
                             {getStatusBadge(appointment.status)}
                             <div className="flex space-x-2">
-                              <Button size="sm" onClick={() => window.location.href = `/session/${appointment.id}`}>
+                              <Button size="sm" onClick={() => window.location.href = `/session/${appointment.id}`} className="min-h-[--touch-target-min]" aria-label={`Join therapy session with ${appointment.therapist}`}>
                                 <Video className="w-4 h-4 mr-2" />
                                 Join
                               </Button>
-                              <Button size="sm" variant="outline" onClick={() => window.location.href = '/messages'}>
-                                <MessageCircle className="w-4 h-4 mr-2" />
-                                Message
-                              </Button>
-                              <Button size="sm" variant="ghost" onClick={() => {
-                                // TODO: Implement appointment options menu
-                                console.log("Show appointment options");
-                              }}>
-                                <MoreHorizontal className="w-4 h-4" />
+                              <Button size="sm" variant="ghost" onClick={() => window.location.href = '/messages'} className="min-h-[--touch-target-min] text-garden-green" aria-label={`Send message to ${appointment.therapist}`}>
+                                <MessageCircle className="w-4 h-4" />
                               </Button>
                             </div>
                           </div>
@@ -126,19 +120,21 @@ export default function Appointments() {
                       </CardContent>
                     </Card>
                   ))}
+                </div>
               </TabsContent>
 
-              <TabsContent value="past" className="space-y-4">
+              <TabsContent value="past" className="space-y-4" role="tabpanel" aria-labelledby="past-tab">
+                <div role="list" aria-label="Past appointments">
                 {appointments
                   .filter(apt => apt.status === "completed")
                   .map((appointment) => (
-                    <Card key={appointment.id}>
+                    <Card key={appointment.id} role="listitem">
                       <CardContent className="p-6">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-4">
                             <img
                               src={appointment.image}
-                              alt={appointment.therapist}
+                              alt={`Profile photo of ${appointment.therapist}`}
                               className="w-16 h-16 rounded-full object-cover"
                             />
                             <div>
@@ -164,14 +160,14 @@ export default function Appointments() {
                           <div className="flex items-center space-x-3">
                             {getStatusBadge(appointment.status)}
                             <div className="flex space-x-2">
-                              <Button size="sm" variant="outline" onClick={() => window.location.href = `/therapists/${appointment.id}`}>
+                              <Button size="sm" variant="outline" onClick={() => window.location.href = `/therapists/${appointment.id}`} className="min-h-[--touch-target-min]" aria-label={`Book another session with ${appointment.therapist}`}>
                                 Book Again
                               </Button>
-                              <Button size="sm" variant="outline" onClick={() => {
+                              <Button size="sm" variant="ghost" onClick={() => {
                                 // TODO: Implement review system
                                 console.log("Leave review for", appointment.therapist);
-                              }}>
-                                Leave Review
+                              }} className="min-h-[--touch-target-min] text-garden-green" aria-label={`Leave review for ${appointment.therapist}`}>
+                                ⭐
                               </Button>
                             </div>
                           </div>
@@ -179,9 +175,10 @@ export default function Appointments() {
                       </CardContent>
                     </Card>
                   ))}
+                </div>
               </TabsContent>
 
-              <TabsContent value="cancelled">
+              <TabsContent value="cancelled" role="tabpanel" aria-labelledby="cancelled-tab">
                 <Card>
                   <CardContent className="p-12 text-center">
                     <p className="font-secondary text-text-secondary">
