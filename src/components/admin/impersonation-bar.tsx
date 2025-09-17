@@ -9,6 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Shield, User, LogOut, Search, ChevronDown, Eye, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useImpersonation } from "@/contexts/impersonation-context";
 
 interface User {
   id: string;
@@ -56,24 +57,15 @@ const mockUsers: User[] = [
 ];
 
 interface ImpersonationBarProps {
-  currentUser?: User | null;
-  onStartImpersonation?: (user: User) => void;
-  onEndImpersonation?: () => void;
+  // No props needed since we use context
 }
 
-export function ImpersonationBar({ 
-  currentUser = null, 
-  onStartImpersonation = () => {},
-  onEndImpersonation = () => {}
-}: ImpersonationBarProps) {
-  const [isImpersonating, setIsImpersonating] = useState(false);
-  const [impersonatedUser, setImpersonatedUser] = useState<User | null>(null);
+export function ImpersonationBar({}: ImpersonationBarProps = {}) {
+  const { isImpersonating, impersonatedUser, startImpersonation, endImpersonation } = useImpersonation();
   const { toast } = useToast();
 
   const handleStartImpersonation = (user: User) => {
-    setIsImpersonating(true);
-    setImpersonatedUser(user);
-    onStartImpersonation(user);
+    startImpersonation(user);
     toast({
       title: "Impersonation Started",
       description: `Now viewing as ${user.name} (${user.role})`,
@@ -81,9 +73,7 @@ export function ImpersonationBar({
   };
 
   const handleEndImpersonation = () => {
-    setIsImpersonating(false);
-    setImpersonatedUser(null);
-    onEndImpersonation();
+    endImpersonation();
     toast({
       title: "Impersonation Ended",
       description: "Returned to admin view",

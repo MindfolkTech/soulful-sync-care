@@ -4,6 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { CookieConsent } from "@/components/legal/cookie-consent";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ImpersonationProvider } from "@/contexts/impersonation-context";
+import { GlobalImpersonationBar } from "@/components/admin/global-impersonation-bar";
 
 // Pages
 import Index from "./pages/Index";
@@ -71,7 +73,9 @@ const App = () => (
       <Sonner />
       <CookieConsent />
       <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <Routes>
+        <ImpersonationProvider>
+          <GlobalImpersonationBar />
+          <Routes>
           {/* Public routes */}
           <Route path="/" element={<Index />} />
           <Route path="/therapist" element={<TherapistLanding />} />
@@ -129,6 +133,7 @@ const App = () => (
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </ImpersonationProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

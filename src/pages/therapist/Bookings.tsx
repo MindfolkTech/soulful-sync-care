@@ -1,12 +1,18 @@
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Calendar, Clock, Video, MessageCircle, MoreHorizontal, Filter } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { CalendarIntegrationModal } from "@/components/calendar/calendar-integration-modal";
+import { InteractiveCalendar } from "@/components/calendar/interactive-calendar";
+import { AvailabilityManager } from "@/components/calendar/availability-manager";
+import { AppointmentDetailsModal } from "@/components/calendar/appointment-details-modal";
+import { BookingModal } from "@/components/calendar/booking-modal";
+import { FilterDropdown } from "@/components/calendar/filter-dropdown";
 import * as React from "react";
 
 const bookings = [
@@ -197,6 +203,125 @@ function BookingItem({ booking }: { booking: any }) {
 }
 
 export default function TherapistBookings() {
+  const [connectedCalendars, setConnectedCalendars] = React.useState({
+    google: false,
+    outlook: false
+  });
+
+  const [isCalendarModalOpen, setIsCalendarModalOpen] = React.useState(false);
+  const [isAppointmentModalOpen, setIsAppointmentModalOpen] = React.useState(false);
+  const [isBookingModalOpen, setIsBookingModalOpen] = React.useState(false);
+  const [selectedAppointment, setSelectedAppointment] = React.useState<any>(null);
+  const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
+  const [selectedTime, setSelectedTime] = React.useState<string>('09:00');
+  const [filters, setFilters] = React.useState({
+    dateRange: 'week',
+    appointmentType: [],
+    status: [],
+    client: ''
+  });
+
+  const [workingHours, setWorkingHours] = React.useState([
+    { day: 'Monday', enabled: true, startTime: '09:00', endTime: '17:00' },
+    { day: 'Tuesday', enabled: true, startTime: '09:00', endTime: '17:00' },
+    { day: 'Wednesday', enabled: true, startTime: '09:00', endTime: '17:00' },
+    { day: 'Thursday', enabled: true, startTime: '09:00', endTime: '17:00' },
+    { day: 'Friday', enabled: true, startTime: '09:00', endTime: '17:00' },
+    { day: 'Saturday', enabled: false, startTime: '10:00', endTime: '14:00' },
+    { day: 'Sunday', enabled: false, startTime: '10:00', endTime: '14:00' }
+  ]);
+
+  const [blockedTimes, setBlockedTimes] = React.useState([
+    {
+      id: '1',
+      title: 'Lunch Break',
+      startDate: '2024-01-15',
+      endDate: '2024-01-15',
+      startTime: '12:00',
+      endTime: '13:00',
+      recurring: true
+    }
+  ]);
+
+  const handleConnectCalendar = async (provider: 'google' | 'outlook') => {
+    // Simulate OAuth flow
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setConnectedCalendars(prev => ({ ...prev, [provider]: true }));
+  };
+
+  const handleDisconnectCalendar = (provider: 'google' | 'outlook') => {
+    setConnectedCalendars(prev => ({ ...prev, [provider]: false }));
+  };
+
+  const handleAppointmentClick = (appointment: any) => {
+    console.log('Appointment clicked:', appointment);
+    setSelectedAppointment(appointment);
+    setIsAppointmentModalOpen(true);
+  };
+
+  const handleTimeSlotClick = (date: Date, time: string) => {
+    setSelectedDate(date);
+    setSelectedTime(time);
+    setIsBookingModalOpen(true);
+  };
+
+  const handleAppointmentMove = (appointmentId: string, newDate: Date, newTime: string) => {
+    console.log('Appointment moved:', appointmentId, newDate, newTime);
+    // Update appointment in backend
+  };
+
+  const handleAddBlockedTime = (blockedTime: any) => {
+    const newBlockedTime = {
+      ...blockedTime,
+      id: Date.now().toString()
+    };
+    setBlockedTimes(prev => [...prev, newBlockedTime]);
+  };
+
+  const handleRemoveBlockedTime = (id: string) => {
+    setBlockedTimes(prev => prev.filter(bt => bt.id !== id));
+  };
+
+  const handleSaveAvailability = () => {
+    console.log('Saving availability:', { workingHours, blockedTimes });
+    // Save to backend
+  };
+
+  // Appointment action handlers
+  const handleEditAppointment = (appointment: any) => {
+    console.log('Edit appointment:', appointment);
+    // Open edit modal or navigate to edit page
+  };
+
+  const handleRescheduleAppointment = (appointment: any) => {
+    console.log('Reschedule appointment:', appointment);
+    // Open reschedule modal
+  };
+
+  const handleCancelAppointment = (appointmentId: string) => {
+    console.log('Cancel appointment:', appointmentId);
+    // Show confirmation and cancel appointment
+  };
+
+  const handleJoinSession = (appointmentId: string) => {
+    console.log('Join session:', appointmentId);
+    // Navigate to video session
+  };
+
+  const handleMessageClient = (clientName: string) => {
+    console.log('Message client:', clientName);
+    // Open messaging interface
+  };
+
+  const handleBookTime = (bookingData: any) => {
+    console.log('Book time:', bookingData);
+    // Add to blocked times or personal appointments
+  };
+
+  const handleFilterChange = (newFilters: any) => {
+    setFilters(newFilters);
+    // Apply filters to appointments
+  };
 
   return (
     <DashboardLayout 
@@ -204,123 +329,91 @@ export default function TherapistBookings() {
       subtitle="Manage your appointments and availability"
     >
       <Stack className="space-y-[--space-lg]">
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-[--space-md]">
-          <Card>
-            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
-              <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-foreground">4</div>
-                <div className="font-secondary text-muted-foreground text-sm">Today's Sessions</div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
-              <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-foreground">12</div>
-                <div className="font-secondary text-muted-foreground text-sm">This Week</div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
-              <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-success">3</div>
-                <div className="font-secondary text-muted-foreground text-sm">Pending</div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
-              <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-foreground">18</div>
-                <div className="font-secondary text-muted-foreground text-sm">Available Slots</div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
 
         {/* Main Content Tabs */}
-        <Tabs defaultValue="upcoming" className="space-y-[--space-lg]">
+        <Tabs defaultValue="calendar" className="space-y-[--space-lg]">
           <HStack className="justify-between">
             <TabsList className="grid grid-cols-3 w-fit">
-              <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
-              <TabsTrigger value="calendar">Calendar</TabsTrigger>
-              <TabsTrigger value="availability">Availability</TabsTrigger>
+              <TabsTrigger value="calendar">Calendar View</TabsTrigger>
+              <TabsTrigger value="list">List View</TabsTrigger>
+              <TabsTrigger value="availability">Manage Availability</TabsTrigger>
             </TabsList>
             
             <HStack>
-              <Button variant="outline" className="min-h-touch-min" aria-label="Filter appointments">
-                <Filter className="w-4 h-4 mr-2" />
-                Filter
+              <FilterDropdown
+                onFilterChange={handleFilterChange}
+                currentFilters={filters}
+                availableClients={['Jessica Davis', 'Michael Smith', 'Robert Parker', 'Lisa Martinez']}
+                availableTypes={['Chemistry Call', 'Therapy Session']}
+              />
+              <Button 
+                variant="outline" 
+                className="min-h-touch-min font-secondary" 
+                onClick={() => setIsCalendarModalOpen(true)}
+                aria-label="Add calendar integration"
+              >
+                <Calendar className="w-4 h-4 mr-2" />
+                Add My Calendar
               </Button>
             </HStack>
           </HStack>
 
-          <TabsContent value="upcoming" className="space-y-[--space-md]">
+          <TabsContent value="calendar" className="space-y-[--space-md]">
+            <InteractiveCalendar
+              appointments={bookings}
+              onAppointmentClick={handleAppointmentClick}
+              onTimeSlotClick={handleTimeSlotClick}
+              onAppointmentMove={handleAppointmentMove}
+            />
+          </TabsContent>
+
+          <TabsContent value="list" className="space-y-[--space-md]">
             {bookings.map((booking) => (
               <BookingItem key={booking.id} booking={booking} />
             ))}
           </TabsContent>
 
-          <TabsContent value="calendar" className="space-y-[--space-md]">
-            <Card>
-              <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
-                <div className="h-96 flex items-center justify-center border-2 border-dashed border-border rounded-lg">
-                  <div className="text-center">
-                    <Calendar className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
-                    <p className="font-secondary text-muted-foreground">Calendar view would go here</p>
-                    <p className="font-secondary text-muted-foreground text-sm">
-                      Interactive calendar with booking management
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
           <TabsContent value="availability" className="space-y-[--space-md]">
-            <Card>
-              <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
-                <div className="space-y-[--space-lg]">
-                  <HStack className="justify-between">
-                    <h3 className="font-primary text-[--text-lg] font-semibold text-[--jovial-jade]">
-                      Weekly Availability
-                    </h3>
-                    <Button variant="outline" size="sm" className="min-h-touch-min" aria-label="Edit weekly availability schedule">
-                      Edit Schedule
-                    </Button>
-                  </HStack>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[--space-md]">
-                    {availabilitySlots.map((day) => (
-                      <Card key={day.day} className="border-border">
-                        <CardContent className="p-[--space-md]">
-                          <h4 className="font-secondary text-[--text-base] font-semibold text-[--text-primary] mb-[--space-sm]">
-                            {day.day}
-                          </h4>
-                          <div className="space-y-[--space-xs]">
-                            {day.slots.map((slot, index) => (
-                              <div 
-                                key={index}
-                                className="flex items-center justify-between p-2 bg-surface-accent rounded text-sm"
-                              >
-                                <span className="font-secondary text-foreground">{slot}</span>
-                                <Badge variant="outline" className="text-xs">
-                                  Available
-                                </Badge>
-                              </div>
-                            ))}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <AvailabilityManager
+              workingHours={workingHours}
+              blockedTimes={blockedTimes}
+              onUpdateWorkingHours={setWorkingHours}
+              onAddBlockedTime={handleAddBlockedTime}
+              onRemoveBlockedTime={handleRemoveBlockedTime}
+              onSave={handleSaveAvailability}
+            />
           </TabsContent>
         </Tabs>
+
+        {/* Calendar Integration Modal */}
+        <CalendarIntegrationModal
+          isOpen={isCalendarModalOpen}
+          onClose={() => setIsCalendarModalOpen(false)}
+          onConnect={handleConnectCalendar}
+          onDisconnect={handleDisconnectCalendar}
+          connectedCalendars={connectedCalendars}
+        />
+
+        {/* Appointment Details Modal */}
+        <AppointmentDetailsModal
+          isOpen={isAppointmentModalOpen}
+          onClose={() => setIsAppointmentModalOpen(false)}
+          appointment={selectedAppointment}
+          onEdit={handleEditAppointment}
+          onReschedule={handleRescheduleAppointment}
+          onCancel={handleCancelAppointment}
+          onJoinSession={handleJoinSession}
+          onMessageClient={handleMessageClient}
+        />
+
+        {/* Booking Modal */}
+        <BookingModal
+          isOpen={isBookingModalOpen}
+          onClose={() => setIsBookingModalOpen(false)}
+          selectedDate={selectedDate}
+          selectedTime={selectedTime}
+          onBookTime={handleBookTime}
+        />
       </Stack>
     </DashboardLayout>
   );
