@@ -45,6 +45,9 @@ export interface ScreenshotAnalysis {
     performance: PerformanceAnalysis;
     visual: VisualAnalysis;
     content: ContentAnalysis;
+    competitor: CompetitorAnalysis;
+    layoutPatterns: LayoutPatternAnalysis;
+    microInteractions: MicroInteractionsAnalysis;
   };
 }
 
@@ -225,12 +228,87 @@ export interface ContentAnalysis {
   };
 }
 
+export interface CompetitorAnalysis {
+  visualAppeal: {
+    score: number;
+    modernDesign: boolean;
+    professionalLook: boolean;
+    brandConsistency: boolean;
+    issues: string[];
+  };
+  userExperience: {
+    score: number;
+    intuitiveNavigation: boolean;
+    clearCallToActions: boolean;
+    informationDensity: boolean;
+    issues: string[];
+  };
+  differentiation: {
+    score: number;
+    uniqueElements: string[];
+    competitiveAdvantages: string[];
+    issues: string[];
+  };
+}
+
+export interface LayoutPatternAnalysis {
+  detectedPatterns: string[];
+  layoutType: 'hero' | 'grid' | 'card-based' | 'dashboard' | 'sidebar' | 'tabbed' | 'modal' | 'unknown';
+  complexity: 'simple' | 'moderate' | 'complex';
+  structure: {
+    hasHero: boolean;
+    hasGrid: boolean;
+    hasCards: boolean;
+    hasSidebar: boolean;
+    hasTabs: boolean;
+    hasModal: boolean;
+  };
+  recommendations: string[];
+}
+
+export interface MicroInteractionsAnalysis {
+  hoverStates: {
+    score: number;
+    interactiveElements: number;
+    hoverEffects: number;
+    issues: string[];
+  };
+  transitions: {
+    score: number;
+    smoothTransitions: number;
+    abruptChanges: number;
+    issues: string[];
+  };
+  animations: {
+    score: number;
+    loadingAnimations: boolean;
+    scrollAnimations: boolean;
+    buttonAnimations: boolean;
+    issues: string[];
+  };
+  overallScore: number;
+}
+
 export class ScreenshotAnalyzer {
   private browser: Browser | null = null;
   private baseUrl: string;
 
   constructor(baseUrl: string = 'http://localhost:5173') {
     this.baseUrl = baseUrl;
+  }
+
+  /**
+   * Set the base URL with smart port detection
+   * @param baseUrl - The base URL to use
+   */
+  async setBaseUrl(baseUrl?: string): Promise<void> {
+    if (baseUrl) {
+      this.baseUrl = baseUrl;
+    } else {
+      // Import port detector dynamically to avoid circular dependencies
+      const { getBaseUrl } = await import('./port-detector');
+      this.baseUrl = await getBaseUrl('http://localhost:5173', { verbose: true });
+    }
   }
 
   async initialize(): Promise<void> {
@@ -289,18 +367,24 @@ export class ScreenshotAnalyzer {
 
   private async performAnalysis(page: Page, route: string): Promise<ScreenshotAnalysis['analysis']> {
     // Run all analysis in parallel
-    const [accessibility, performance, visual, content] = await Promise.all([
+    const [accessibility, performance, visual, content, competitor, layoutPatterns, microInteractions] = await Promise.all([
       this.analyzeAccessibility(page),
       this.analyzePerformance(page),
       this.analyzeVisual(page),
-      this.analyzeContent(page)
+      this.analyzeContent(page),
+      this.analyzeCompetitor(page),
+      this.analyzeLayoutPatterns(page),
+      this.analyzeMicroInteractions(page)
     ]);
 
     return {
       accessibility,
       performance,
       visual,
-      content
+      content,
+      competitor,
+      layoutPatterns,
+      microInteractions
     };
   }
 
@@ -2077,6 +2161,376 @@ export class ScreenshotAnalyzer {
     };
   }
 
+  private async analyzeCompetitor(page: Page): Promise<CompetitorAnalysis> {
+    const competitorData = await page.evaluate(() => {
+      // Visual Appeal Analysis
+      const visualAppeal = {
+        score: 85, // Default score, would be compared against competitors
+        modernDesign: false,
+        professionalLook: false,
+        brandConsistency: false,
+        issues: [] as string[]
+      };
+
+      // Check for modern design elements
+      const modernElements = document.querySelectorAll('[class*="gradient"], [class*="shadow"], [class*="rounded"], [class*="blur"], [class*="backdrop"]');
+      if (modernElements.length > 0) {
+        visualAppeal.modernDesign = true;
+        visualAppeal.score += 10;
+      } else {
+        visualAppeal.issues.push('Limited modern design elements');
+      }
+
+      // Check for professional look
+      const professionalElements = document.querySelectorAll('h1, h2, h3, button, [class*="card"], [class*="section"]');
+      if (professionalElements.length >= 5) {
+        visualAppeal.professionalLook = true;
+        visualAppeal.score += 10;
+      }
+
+      // Check for brand consistency (basic check for consistent styling)
+      const styledElements = document.querySelectorAll('[class*="bg-"], [class*="text-"], [class*="border-"]');
+      const uniqueClasses = new Set(Array.from(styledElements).map(el => Array.from(el.classList).join(' ')));
+      if (uniqueClasses.size > 10) {
+        visualAppeal.brandConsistency = true;
+        visualAppeal.score += 5;
+      } else {
+        visualAppeal.issues.push('Limited brand consistency indicators');
+      }
+
+      // User Experience Analysis
+      const userExperience = {
+        score: 80,
+        intuitiveNavigation: false,
+        clearCallToActions: false,
+        informationDensity: false,
+        issues: [] as string[]
+      };
+
+      // Check navigation clarity
+      const navElements = document.querySelectorAll('nav, [role="navigation"], [class*="nav"], [class*="menu"]');
+      if (navElements.length > 0) {
+        userExperience.intuitiveNavigation = true;
+        userExperience.score += 15;
+      }
+
+      // Check call-to-actions
+      const ctas = document.querySelectorAll('button, [role="button"], a[href], [class*="btn"], [class*="button"]');
+      if (ctas.length >= 3) {
+        userExperience.clearCallToActions = true;
+        userExperience.score += 10;
+      }
+
+      // Check information density
+      const textElements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, div');
+      const textLength = Array.from(textElements).reduce((total, el) => total + (el.textContent?.length || 0), 0);
+      if (textLength > 500 && textLength < 5000) {
+        userExperience.informationDensity = true;
+        userExperience.score += 10;
+      } else if (textLength <= 500) {
+        userExperience.issues.push('Low information density - may lack content');
+      } else {
+        userExperience.issues.push('High information density - may overwhelm users');
+      }
+
+      // Differentiation Analysis
+      const differentiation = {
+        score: 75,
+        uniqueElements: [] as string[],
+        competitiveAdvantages: [] as string[],
+        issues: [] as string[]
+      };
+
+      // Check for unique elements
+      const uniqueSelectors = [
+        '[class*="hero"]', '[class*="banner"]', '[class*="feature"]',
+        '[class*="testimonial"]', '[class*="gallery"]', '[class*="timeline"]',
+        '[class*="pricing"]', '[class*="faq"]', '[class*="contact"]'
+      ];
+
+      uniqueSelectors.forEach(selector => {
+        if (document.querySelector(selector)) {
+          const elementName = selector.replace(/\[class\*="([^"]+)"\]/, '$1');
+          differentiation.uniqueElements.push(elementName);
+          differentiation.score += 5;
+        }
+      });
+
+      // Check for competitive advantages
+      if (document.querySelector('[class*="secure"], [class*="trust"], [class*="guarantee"]')) {
+        differentiation.competitiveAdvantages.push('Trust indicators');
+        differentiation.score += 10;
+      }
+
+      if (document.querySelector('[class*="fast"], [class*="quick"], [class*="instant"]')) {
+        differentiation.competitiveAdvantages.push('Speed indicators');
+        differentiation.score += 5;
+      }
+
+      if (document.querySelector('[class*="free"], [class*="trial"], [class*="demo"]')) {
+        differentiation.competitiveAdvantages.push('Value proposition');
+        differentiation.score += 10;
+      }
+
+      return {
+        visualAppeal,
+        userExperience,
+        differentiation
+      };
+    });
+
+    return competitorData;
+  }
+
+  private async analyzeLayoutPatterns(page: Page): Promise<LayoutPatternAnalysis> {
+    const layoutData = await page.evaluate(() => {
+      const detectedPatterns: string[] = [];
+      let layoutType: 'hero' | 'grid' | 'card-based' | 'dashboard' | 'sidebar' | 'tabbed' | 'modal' | 'unknown' = 'unknown';
+      let complexity: 'simple' | 'moderate' | 'complex' = 'simple';
+
+      // Detect layout patterns
+      const body = document.body;
+      const mainContent = document.querySelector('main') || body;
+
+      // Check for hero section
+      const heroSection = document.querySelector('[class*="hero"], [class*="banner"], h1 + p, h1 + div, [class*="jumbotron"]');
+      if (heroSection) {
+        detectedPatterns.push('hero-section');
+        layoutType = 'hero';
+      }
+
+      // Check for grid layout
+      const gridElements = document.querySelectorAll('[class*="grid"], [style*="display: grid"], [class*="flex"], [style*="display: flex"]');
+      if (gridElements.length > 0) {
+        detectedPatterns.push('grid-layout');
+        if (layoutType === 'unknown') layoutType = 'grid';
+      }
+
+      // Check for card-based layout
+      const cards = document.querySelectorAll('[class*="card"], .card, [class*="tile"], [class*="panel"]');
+      if (cards.length > 0) {
+        detectedPatterns.push('card-based');
+        if (layoutType === 'unknown') layoutType = 'card-based';
+      }
+
+      // Check for sidebar navigation
+      const sidebar = document.querySelector('[class*="sidebar"], [class*="nav"], aside, [class*="aside"]');
+      if (sidebar) {
+        detectedPatterns.push('sidebar-navigation');
+        layoutType = 'dashboard';
+      }
+
+      // Check for tabs
+      const tabs = document.querySelectorAll('[role="tab"], [class*="tab"], [class*="tablist"]');
+      if (tabs.length > 0) {
+        detectedPatterns.push('tabbed-content');
+        if (layoutType === 'unknown') layoutType = 'tabbed';
+      }
+
+      // Check for modal
+      const modal = document.querySelector('[role="dialog"], [class*="modal"], [class*="overlay"], [class*="popup"]');
+      if (modal) {
+        detectedPatterns.push('modal-overlay');
+        if (layoutType === 'unknown') layoutType = 'modal';
+      }
+
+      // Determine complexity based on number of sections and elements
+      const sections = document.querySelectorAll('section, [class*="section"], [class*="container"]');
+      const totalElements = document.querySelectorAll('*').length;
+      
+      if (sections.length > 5 || totalElements > 100) {
+        complexity = 'complex';
+      } else if (sections.length > 2 || totalElements > 50) {
+        complexity = 'moderate';
+      }
+
+      // Generate recommendations
+      const recommendations: string[] = [];
+      
+      if (!detectedPatterns.includes('hero-section') && layoutType !== 'dashboard') {
+        recommendations.push('Consider adding a hero section for better first impression');
+      }
+      
+      if (detectedPatterns.includes('grid-layout') && complexity === 'simple') {
+        recommendations.push('Grid layout detected - consider adding more visual hierarchy');
+      }
+      
+      if (complexity === 'complex' && !detectedPatterns.includes('sidebar-navigation')) {
+        recommendations.push('Complex layout detected - consider adding sidebar navigation for better organization');
+      }
+
+      return {
+        detectedPatterns,
+        layoutType,
+        complexity,
+        structure: {
+          hasHero: detectedPatterns.includes('hero-section'),
+          hasGrid: detectedPatterns.includes('grid-layout'),
+          hasCards: detectedPatterns.includes('card-based'),
+          hasSidebar: detectedPatterns.includes('sidebar-navigation'),
+          hasTabs: detectedPatterns.includes('tabbed-content'),
+          hasModal: detectedPatterns.includes('modal-overlay')
+        },
+        recommendations
+      };
+    });
+
+    return layoutData;
+  }
+
+  private async analyzeMicroInteractions(page: Page): Promise<MicroInteractionsAnalysis> {
+    const microData = await page.evaluate(() => {
+      // Hover States Analysis
+      const hoverStates = {
+        score: 100,
+        interactiveElements: 0,
+        hoverEffects: 0,
+        issues: [] as string[]
+      };
+
+      // Count interactive elements
+      const interactiveElements = document.querySelectorAll('button, a, [role="button"], input, select, textarea, [tabindex]');
+      hoverStates.interactiveElements = interactiveElements.length;
+
+      // Check for hover effects in CSS
+      const styleSheets = Array.from(document.styleSheets);
+      let hoverRules = 0;
+      
+      styleSheets.forEach(sheet => {
+        try {
+          const rules = Array.from(sheet.cssRules);
+          rules.forEach(rule => {
+            if (rule instanceof CSSStyleRule && rule.selectorText.includes(':hover')) {
+              hoverRules++;
+            }
+          });
+        } catch (e) {
+          // Cross-origin stylesheets may throw errors
+        }
+      });
+
+      hoverStates.hoverEffects = hoverRules;
+
+      // Score based on hover coverage
+      if (hoverStates.interactiveElements > 0) {
+        const hoverCoverage = (hoverStates.hoverEffects / hoverStates.interactiveElements) * 100;
+        if (hoverCoverage < 50) {
+          hoverStates.score -= 20;
+          hoverStates.issues.push(`Low hover coverage: ${hoverCoverage.toFixed(1)}% of interactive elements have hover effects`);
+        } else if (hoverCoverage < 80) {
+          hoverStates.score -= 10;
+          hoverStates.issues.push(`Moderate hover coverage: ${hoverCoverage.toFixed(1)}% of interactive elements have hover effects`);
+        }
+      }
+
+      // Transitions Analysis
+      const transitions = {
+        score: 100,
+        smoothTransitions: 0,
+        abruptChanges: 0,
+        issues: [] as string[]
+      };
+
+      // Check for transition properties in CSS
+      let transitionRules = 0;
+      styleSheets.forEach(sheet => {
+        try {
+          const rules = Array.from(sheet.cssRules);
+          rules.forEach(rule => {
+            if (rule instanceof CSSStyleRule && rule.style.transition) {
+              transitionRules++;
+            }
+          });
+        } catch (e) {
+          // Cross-origin stylesheets may throw errors
+        }
+      });
+
+      transitions.smoothTransitions = transitionRules;
+
+      // Check for abrupt changes (elements without transitions)
+      const elementsWithoutTransitions = document.querySelectorAll('*');
+      let elementsWithTransitions = 0;
+      
+      elementsWithoutTransitions.forEach(el => {
+        const computedStyle = getComputedStyle(el);
+        if (computedStyle.transition && computedStyle.transition !== 'none') {
+          elementsWithTransitions++;
+        }
+      });
+
+      transitions.abruptChanges = elementsWithoutTransitions.length - elementsWithTransitions;
+
+      if (transitions.abruptChanges > transitions.smoothTransitions) {
+        transitions.score -= 15;
+        transitions.issues.push('More elements without transitions than with transitions');
+      }
+
+      // Animations Analysis
+      const animations = {
+        score: 100,
+        loadingAnimations: false,
+        scrollAnimations: false,
+        buttonAnimations: false,
+        issues: [] as string[]
+      };
+
+      // Check for loading animations
+      const loadingElements = document.querySelectorAll('[class*="loading"], [class*="spinner"], [class*="skeleton"], [class*="pulse"]');
+      if (loadingElements.length > 0) {
+        animations.loadingAnimations = true;
+        animations.score += 10;
+      }
+
+      // Check for scroll animations
+      const scrollElements = document.querySelectorAll('[class*="scroll"], [class*="reveal"], [class*="fade"], [class*="slide"]');
+      if (scrollElements.length > 0) {
+        animations.scrollAnimations = true;
+        animations.score += 10;
+      }
+
+      // Check for button animations
+      const animatedButtons = document.querySelectorAll('button[class*="animate"], button[class*="transition"], button[class*="transform"]');
+      if (animatedButtons.length > 0) {
+        animations.buttonAnimations = true;
+        animations.score += 10;
+      }
+
+      // Check for CSS animations
+      let animationRules = 0;
+      styleSheets.forEach(sheet => {
+        try {
+          const rules = Array.from(sheet.cssRules);
+          rules.forEach(rule => {
+            if (rule instanceof CSSKeyframesRule || 
+                (rule instanceof CSSStyleRule && (rule.style.animation || rule.style.transform))) {
+              animationRules++;
+            }
+          });
+        } catch (e) {
+          // Cross-origin stylesheets may throw errors
+        }
+      });
+
+      if (animationRules === 0) {
+        animations.score -= 20;
+        animations.issues.push('No CSS animations detected');
+      }
+
+      // Calculate overall score
+      const overallScore = Math.round((hoverStates.score + transitions.score + animations.score) / 3);
+
+      return {
+        hoverStates,
+        transitions,
+        animations,
+        overallScore
+      };
+    });
+
+    return microData;
+  }
+
   async analyzeAllRoutes(routes: Array<{ path: string; name: string }>): Promise<ScreenshotAnalysis[]> {
     const results: ScreenshotAnalysis[] = [];
 
@@ -2269,6 +2723,72 @@ export class ScreenshotAnalyzer {
         report.push('- **Layout Appeal Issues**:');
         analysis.analysis.visual.layoutAppeal.layoutIssues.forEach(issue => {
           report.push(`  - ${issue}`);
+        });
+      }
+      
+      // New Aesthetic Analysis Sections
+      report.push('- **Competitor Analysis**:');
+      report.push(`  - Visual Appeal: ${analysis.analysis.competitor.visualAppeal.score}/100`);
+      report.push(`  - User Experience: ${analysis.analysis.competitor.userExperience.score}/100`);
+      report.push(`  - Differentiation: ${analysis.analysis.competitor.differentiation.score}/100`);
+      
+      if (analysis.analysis.competitor.visualAppeal.issues.length > 0) {
+        report.push('  - Visual Appeal Issues:');
+        analysis.analysis.competitor.visualAppeal.issues.forEach(issue => {
+          report.push(`    - ${issue}`);
+        });
+      }
+      
+      if (analysis.analysis.competitor.userExperience.issues.length > 0) {
+        report.push('  - User Experience Issues:');
+        analysis.analysis.competitor.userExperience.issues.forEach(issue => {
+          report.push(`    - ${issue}`);
+        });
+      }
+      
+      if (analysis.analysis.competitor.differentiation.issues.length > 0) {
+        report.push('  - Differentiation Issues:');
+        analysis.analysis.competitor.differentiation.issues.forEach(issue => {
+          report.push(`    - ${issue}`);
+        });
+      }
+      
+      report.push('- **Layout Patterns**:');
+      report.push(`  - Detected Patterns: ${analysis.analysis.layoutPatterns.detectedPatterns.join(', ') || 'None'}`);
+      report.push(`  - Layout Type: ${analysis.analysis.layoutPatterns.layoutType}`);
+      report.push(`  - Complexity: ${analysis.analysis.layoutPatterns.complexity}`);
+      
+      if (analysis.analysis.layoutPatterns.recommendations.length > 0) {
+        report.push('  - Recommendations:');
+        analysis.analysis.layoutPatterns.recommendations.forEach(rec => {
+          report.push(`    - ${rec}`);
+        });
+      }
+      
+      report.push('- **Micro-interactions**:');
+      report.push(`  - Overall Score: ${analysis.analysis.microInteractions.overallScore}/100`);
+      report.push(`  - Hover States: ${analysis.analysis.microInteractions.hoverStates.score}/100`);
+      report.push(`  - Transitions: ${analysis.analysis.microInteractions.transitions.score}/100`);
+      report.push(`  - Animations: ${analysis.analysis.microInteractions.animations.score}/100`);
+      
+      if (analysis.analysis.microInteractions.hoverStates.issues.length > 0) {
+        report.push('  - Hover Issues:');
+        analysis.analysis.microInteractions.hoverStates.issues.forEach(issue => {
+          report.push(`    - ${issue}`);
+        });
+      }
+      
+      if (analysis.analysis.microInteractions.transitions.issues.length > 0) {
+        report.push('  - Transition Issues:');
+        analysis.analysis.microInteractions.transitions.issues.forEach(issue => {
+          report.push(`    - ${issue}`);
+        });
+      }
+      
+      if (analysis.analysis.microInteractions.animations.issues.length > 0) {
+        report.push('  - Animation Issues:');
+        analysis.analysis.microInteractions.animations.issues.forEach(issue => {
+          report.push(`    - ${issue}`);
         });
       }
       
@@ -2474,6 +2994,70 @@ export class ScreenshotAnalyzer {
         report.push(`- **${route.name}**: Improve layout appeal (${route.analysis.visual.layoutAppeal.appealScore}/100 score, ${route.analysis.visual.layoutAppeal.designQuality} quality)`);
       });
       report.push('');
+    }
+
+    // New Aesthetic Recommendations
+    const competitorIssues = analyses.filter(a => a.analysis.competitor.visualAppeal.score < 80 || a.analysis.competitor.userExperience.score < 80);
+    if (competitorIssues.length > 0) {
+      report.push('### Competitive Analysis Improvements');
+      competitorIssues.forEach(route => {
+        const issues = [];
+        if (route.analysis.competitor.visualAppeal.score < 80) issues.push(`visual appeal (${route.analysis.competitor.visualAppeal.score}/100)`);
+        if (route.analysis.competitor.userExperience.score < 80) issues.push(`user experience (${route.analysis.competitor.userExperience.score}/100)`);
+        report.push(`- **${route.name}**: Improve ${issues.join(' and ')}`);
+      });
+      report.push('');
+    }
+
+    const layoutPatternIssues = analyses.filter(a => a.analysis.layoutPatterns.recommendations.length > 0);
+    if (layoutPatternIssues.length > 0) {
+      report.push('### Layout Pattern Improvements');
+      layoutPatternIssues.forEach(route => {
+        report.push(`- **${route.name}**: ${route.analysis.layoutPatterns.recommendations.join(', ')}`);
+      });
+      report.push('');
+    }
+
+    const microInteractionIssues = analyses.filter(a => a.analysis.microInteractions.overallScore < 70);
+    if (microInteractionIssues.length > 0) {
+      report.push('### Micro-interaction Improvements');
+      microInteractionIssues.forEach(route => {
+        report.push(`- **${route.name}**: Improve micro-interactions (${route.analysis.microInteractions.overallScore}/100 overall score)`);
+        if (route.analysis.microInteractions.hoverStates.score < 70) {
+          report.push(`  - Add more hover effects (${route.analysis.microInteractions.hoverStates.score}/100)`);
+        }
+        if (route.analysis.microInteractions.transitions.score < 70) {
+          report.push(`  - Add smooth transitions (${route.analysis.microInteractions.transitions.score}/100)`);
+        }
+        if (route.analysis.microInteractions.animations.score < 70) {
+          report.push(`  - Add animations (${route.analysis.microInteractions.animations.score}/100)`);
+        }
+      });
+      report.push('');
+    }
+
+    // Overall Aesthetic Score Summary
+    const avgCompetitorScore = analyses.reduce((sum, a) => sum + (a.analysis.competitor.visualAppeal.score + a.analysis.competitor.userExperience.score + a.analysis.competitor.differentiation.score) / 3, 0) / analyses.length;
+    const avgMicroScore = analyses.reduce((sum, a) => sum + a.analysis.microInteractions.overallScore, 0) / analyses.length;
+    
+    report.push('## 🎨 Aesthetic Summary');
+    report.push(`- Average Competitive Score: ${avgCompetitorScore.toFixed(1)}/100`);
+    report.push(`- Average Micro-interaction Score: ${avgMicroScore.toFixed(1)}/100`);
+    
+    if (avgCompetitorScore >= 85) {
+      report.push('- ✅ **Excellent competitive positioning**');
+    } else if (avgCompetitorScore >= 75) {
+      report.push('- ⚠️ **Good competitive positioning** - room for improvement');
+    } else {
+      report.push('- ❌ **Needs competitive improvements**');
+    }
+    
+    if (avgMicroScore >= 80) {
+      report.push('- ✅ **Excellent micro-interactions**');
+    } else if (avgMicroScore >= 60) {
+      report.push('- ⚠️ **Good micro-interactions** - could be enhanced');
+    } else {
+      report.push('- ❌ **Micro-interactions need work**');
     }
 
     return report.join('\n');

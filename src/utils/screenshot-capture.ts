@@ -24,6 +24,20 @@ export class ScreenshotCapture {
     this.baseUrl = baseUrl;
   }
 
+  /**
+   * Set the base URL with smart port detection
+   * @param baseUrl - The base URL to use
+   */
+  async setBaseUrl(baseUrl?: string): Promise<void> {
+    if (baseUrl) {
+      this.baseUrl = baseUrl;
+    } else {
+      // Import port detector dynamically to avoid circular dependencies
+      const { getBaseUrl } = await import('./port-detector');
+      this.baseUrl = await getBaseUrl('http://localhost:5173', { verbose: true });
+    }
+  }
+
   async initialize(): Promise<void> {
     this.browser = await chromium.launch({ 
       headless: true,

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { ScreenshotCapture, MIND_FOLK_ROUTES, MOBILE_ROUTES, TABLET_ROUTES } from '../src/utils/screenshot-capture.js';
+import { getBaseUrl } from '../src/utils/port-detector.ts';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -10,17 +11,21 @@ const __dirname = dirname(__filename);
 async function main() {
   const args = process.argv.slice(2);
   const device = args[0] || 'desktop'; // desktop, mobile, tablet, all
-  const baseUrl = args[1] || 'http://localhost:5173';
+  const manualBaseUrl = args[1];
   const outputDir = args[2] || join(__dirname, '../screenshots');
+  
+  // Use smart port detection unless manually specified
+  const baseUrl = manualBaseUrl || await getBaseUrl('http://localhost:5173', { verbose: true });
 
   console.log(`📸 Starting screenshot capture...`);
   console.log(`Device: ${device}`);
   console.log(`Base URL: ${baseUrl}`);
   console.log(`Output: ${outputDir}`);
 
-  const capture = new ScreenshotCapture(baseUrl);
+  const capture = new ScreenshotCapture();
   
   try {
+    await capture.setBaseUrl(baseUrl);
     await capture.initialize();
     console.log('✅ Browser initialized');
 

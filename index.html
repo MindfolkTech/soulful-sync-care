@@ -20,7 +20,26 @@
   <body>
     <div id="root"></div>
     <!-- React DevTools standalone connection (development only) -->
-    <script src="http://localhost:8097"></script>
+    <script>
+      // Try to connect to React DevTools on common ports
+      (function() {
+        const ports = [8097, 8098, 8099];
+        let connected = false;
+        
+        for (const port of ports) {
+          const script = document.createElement('script');
+          script.src = `http://localhost:${port}`;
+          script.onload = () => { connected = true; };
+          script.onerror = () => { 
+            if (!connected && port === ports[ports.length - 1]) {
+              console.log('React DevTools not found on any port');
+            }
+          };
+          document.head.appendChild(script);
+          if (connected) break;
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

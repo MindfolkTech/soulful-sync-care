@@ -27,7 +27,10 @@ This starts Storybook on `http://localhost:6006` where you can:
 ### 2. Run Visual Tests
 
 ```bash
-# Run Playwright visual tests
+# Run Playwright visual tests (auto-detects port)
+npm run test:visual:smart
+
+# Run Playwright visual tests (manual port)
 npm run test:visual
 
 # Update visual snapshots
@@ -222,8 +225,9 @@ It includes:
 ### Common Issues
 
 1. **Screenshots don't match**: Check for animations or dynamic content
-2. **Tests fail**: Ensure dev server is running
-3. **Chromatic fails**: Check project token and network
+2. **Tests fail**: Ensure dev server is running (`npm run dev`)
+3. **Port detection fails**: Use `npm run test:visual:smart` for automatic port detection
+4. **Chromatic fails**: Check project token and network
 
 ### Debug Commands
 

@@ -1,6 +1,11 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Therapist Flow Visual Tests', () => {
+  // Test that the dev server is running
+  test('Dev server is accessible', async ({ page }) => {
+    await page.goto('/');
+    await expect(page).toHaveTitle(/MindFolk|Soulful Sync Care/);
+  });
   test('Onboarding flow - all steps', async ({ page }) => {
     await page.goto('/therapist/onboarding');
     

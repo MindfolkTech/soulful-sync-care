@@ -33,6 +33,7 @@ A beautiful, accessible web application for connecting clients with therapists t
    ```bash
    npm run dev
    ```
+   The server will start on port 5173 (or next available port if taken)
 
 ## 🏗️ Architecture
 
@@ -65,7 +66,12 @@ src/
 ## 🎨 Design System
 
 Built with MindFolk Style Guide 2.3 featuring:
-- **Warm color palette**: Jovial Jade (155 28% 28%), Garden Green (145 27% 35%), Warm White (32 100% 97%)
+- **Core Brand Colors**: Jovial Jade (155 28% 28%), Garden Green (145 27% 35%), Elated Emerald (149 28% 32%)
+- **Surface & Background**: Warm White (32 100% 97%), Surface (0 0% 100%), Surface Accent (134 23% 92%)
+- **Text & Border**: Text Primary (145 23% 35%), Text Secondary (220 13% 46%), Ink Slate (198 33% 17%), Border (220 13% 91%)
+- **Button Colors**: Primary (145 27% 35%), Accent (25 100% 87%), CTA (134 23% 92%)
+- **Tag System**: Personality (25 100% 87%), Modality (134 23% 92%), Specialty (211 38% 93%), Language (267 55% 94%), Misc (22 41% 92%)
+- **System Colors**: Success (145 27% 35%), Warning (14 88% 83%), Error (14 88% 83%), Info (149 28% 32%)
 - **Typography**: Crimson Pro (headings) + Helvetica Neue (body)
 - **Semantic tokens**: All colors, spacing, and typography defined systematically
 - **Accessibility**: 44px+ touch targets, proper contrast ratios
@@ -86,6 +92,10 @@ The personality-first matching system weighs:
 - **Components**: Custom shadcn/ui variants with design system tokens
 - **Forms**: React Hook Form + Zod validation
 - **Testing**: Unit tests for matching algorithm
+- **Visual Testing**: Storybook + Chromatic + Playwright with smart port detection
+- **Screenshots**: Automated screenshot capture with smart port detection
+- **Analysis**: Comprehensive screenshot analysis with smart port detection
+- **Development Tools**: All tools automatically detect dev server port
 
 ## 📝 License
 

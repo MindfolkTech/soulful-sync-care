@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 5173",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
@@ -15,13 +15,17 @@
     "test:visual": "playwright test --config=playwright.config.ts",
     "test:visual:update": "playwright test --config=playwright.config.ts --update-snapshots",
     "test:visual:ui": "playwright test --ui",
+    "test:visual:smart": "node scripts/test-visual-smart.js",
     "test:storybook": "test-storybook",
     "screenshots": "node scripts/capture-screenshots.js",
     "screenshots:mobile": "node scripts/capture-screenshots.js mobile",
     "screenshots:tablet": "node scripts/capture-screenshots.js tablet",
     "screenshots:all": "node scripts/capture-screenshots.js all",
-    "analyze": "node scripts/simple-analyzer.js",
-    "analyze:full": "npm run analyze && npm run screenshots:all"
+    "analyze": "node scripts/analyze-screenshots.js",
+    "analyze:simple": "node scripts/simple-analyzer.js",
+    "analyze:full": "npm run analyze && npm run screenshots:all",
+    "dev:tools": "npm run dev & npm run storybook",
+    "test:port": "node scripts/test-port-detection.js"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.47.0",

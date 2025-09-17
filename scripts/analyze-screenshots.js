@@ -2,6 +2,7 @@
 
 import { ScreenshotAnalyzer } from '../src/utils/screenshot-analyzer.ts';
 import { MIND_FOLK_ROUTES } from '../src/utils/screenshot-capture.ts';
+import { getBaseUrl } from '../src/utils/port-detector.ts';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { writeFileSync } from 'fs';
@@ -11,16 +12,20 @@ const __dirname = dirname(__filename);
 
 async function main() {
   const args = process.argv.slice(2);
-  const baseUrl = args[0] || 'http://localhost:5173';
+  const manualBaseUrl = args[0];
   const outputDir = args[1] || join(__dirname, '../analysis-results');
+  
+  // Use smart port detection unless manually specified
+  const baseUrl = manualBaseUrl || await getBaseUrl('http://localhost:5173', { verbose: true });
 
   console.log(`🔍 Starting screenshot analysis...`);
   console.log(`Base URL: ${baseUrl}`);
   console.log(`Output: ${outputDir}`);
 
-  const analyzer = new ScreenshotAnalyzer(baseUrl);
+  const analyzer = new ScreenshotAnalyzer();
   
   try {
+    await analyzer.setBaseUrl(baseUrl);
     await analyzer.initialize();
     console.log('✅ Browser initialized');
 
