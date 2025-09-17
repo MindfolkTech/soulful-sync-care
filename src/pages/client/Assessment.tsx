@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import celebrationIllustration from "@/assets/celebration-illustration.jpg";
+import { DemographicsWarning, HealthDataWarning } from "@/components/legal/data-minimization-warning";
 
 const assessmentSteps = [
   {
@@ -107,6 +108,8 @@ export default function Assessment() {
     sexualOrientation: ""
   });
   const [isMatching, setIsMatching] = useState(false);
+  const [healthDataConsent, setHealthDataConsent] = useState(false);
+  const [showConsentModal, setShowConsentModal] = useState(false);
 
   // Language options from PRD
   const languageOptions = [
@@ -158,8 +161,24 @@ export default function Assessment() {
   };
 
   const handleContinue = () => {
+    // Check if we're about to collect health data (step 3 onwards)
+    if (currentStep === 2 && !healthDataConsent) {
+      setShowConsentModal(true);
+      return;
+    }
+
     if (currentStep === 9) {
       setIsMatching(true);
+      // Save assessment data with consent
+      const assessmentData = {
+        responses,
+        demographicData,
+        healthDataConsent,
+        timestamp: new Date().toISOString(),
+        version: '2.0'
+      };
+      localStorage.setItem('assessmentData', JSON.stringify(assessmentData));
+      
       // Simulate matching process
       setTimeout(() => {
         window.location.href = "/discover";
@@ -233,6 +252,10 @@ export default function Assessment() {
                   </div>
                 )}
 
+                {currentStepData?.type === "multiple-choice" && currentStep === 3 && (
+                  <HealthDataWarning />
+                )}
+
                 {currentStepData?.type === "multiple-choice" && (
                   <div className="space-y-3">
                     {currentStepData.options?.map((option) => (
@@ -274,6 +297,10 @@ export default function Assessment() {
 
                 {currentStepData?.type === "demographics" && (
                   <div className="space-y-6">
+                    <DemographicsWarning 
+                      onSkip={() => setCurrentStep(6)}
+                      onContinue={() => setCurrentStep(6)}
+                    />
                     <div className="space-y-4">
                       <div className="space-y-2">
                         <Label htmlFor="primaryLanguage">Primary language:</Label>
@@ -487,6 +514,100 @@ export default function Assessment() {
       </main>
 
       <Footer />
+
+      {/* Health Data Consent Modal */}
+      {showConsentModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-background rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 space-y-6">
+              <div className="text-center">
+                <h2 className="font-primary text-2xl font-bold text-text-primary mb-2">
+                  Health Data Processing Consent
+                </h2>
+                <p className="font-secondary text-text-secondary">
+                  We need your explicit consent to process sensitive health information
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                <div className="p-4 bg-garden-green/10 border border-garden-green rounded-lg">
+                  <h3 className="font-primary font-semibold text-text-primary mb-2">
+                    What we'll collect:
+                  </h3>
+                  <ul className="list-disc ml-6 space-y-1 text-sm font-secondary text-text-secondary">
+                    <li>Mental health concerns and symptoms</li>
+                    <li>Therapy preferences and goals</li>
+                    <li>Demographic information relevant to therapy</li>
+                    <li>Assessment responses for matching</li>
+                  </ul>
+                </div>
+
+                <div className="p-4 bg-background border rounded-lg">
+                  <h3 className="font-primary font-semibold text-text-primary mb-2">
+                    How we'll use it:
+                  </h3>
+                  <ul className="list-disc ml-6 space-y-1 text-sm font-secondary text-text-secondary">
+                    <li>Match you with compatible therapists</li>
+                    <li>Personalize your therapy experience</li>
+                    <li>Ensure appropriate care and safety</li>
+                    <li>Improve our matching algorithm (anonymized)</li>
+                  </ul>
+                </div>
+
+                <div className="p-4 bg-warning/10 border border-warning rounded-lg">
+                  <h3 className="font-primary font-semibold text-text-primary mb-2">
+                    Your rights:
+                  </h3>
+                  <ul className="list-disc ml-6 space-y-1 text-sm font-secondary text-text-secondary">
+                    <li>Withdraw consent at any time</li>
+                    <li>Access and correct your data</li>
+                    <li>Request data deletion</li>
+                    <li>Export your data</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2 p-4 bg-background border rounded-lg">
+                <input
+                  type="checkbox"
+                  id="health-consent"
+                  checked={healthDataConsent}
+                  onChange={(e) => setHealthDataConsent(e.target.checked)}
+                  className="w-4 h-4"
+                />
+                <label htmlFor="health-consent" className="text-sm font-secondary text-text-primary">
+                  I consent to the processing of my health data for therapy matching and service delivery. 
+                  I understand I can withdraw this consent at any time in my account settings.
+                </label>
+              </div>
+
+              <div className="flex gap-3 justify-end">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setShowConsentModal(false);
+                    // Redirect to a non-health-data path
+                    window.location.href = "/discover";
+                  }}
+                  className="font-secondary"
+                >
+                  Decline and Browse Therapists
+                </Button>
+                <Button
+                  onClick={() => {
+                    setShowConsentModal(false);
+                    setCurrentStep(3); // Continue to health data collection
+                  }}
+                  disabled={!healthDataConsent}
+                  className="font-secondary"
+                >
+                  Continue with Assessment
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

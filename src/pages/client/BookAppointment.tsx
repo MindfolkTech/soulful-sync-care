@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { TimeSlotPicker } from "@/components/booking/time-slot-picker";
+import { BookingDataNotice } from "@/components/legal/data-processing-notice";
 import { useState } from "react";
 
 export default function BookAppointment() {
@@ -189,7 +190,9 @@ export default function BookAppointment() {
                       Confirm Booking
                     </Button>
 
-                    <div className="text-xs text-text-muted text-center">
+                    <BookingDataNotice className="mt-4" />
+                    
+                    <div className="text-xs text-text-muted text-center mt-4">
                       <p>By booking, you agree to our Terms of Service</p>
                       <p className="mt-1">Free cancellation up to 2 hours before</p>
                     </div>

@@ -65,7 +65,7 @@ src/
 ## 🎨 Design System
 
 Built with MindFolk Style Guide 2.3 featuring:
-- **Warm color palette**: Jovial Jade, Garden Green, Warm White
+- **Warm color palette**: Jovial Jade (155 28% 28%), Garden Green (145 27% 35%), Warm White (32 100% 97%)
 - **Typography**: Crimson Pro (headings) + Helvetica Neue (body)
 - **Semantic tokens**: All colors, spacing, and typography defined systematically
 - **Accessibility**: 44px+ touch targets, proper contrast ratios

@@ -21,6 +21,12 @@ export default function SignUp() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [consentPreferences, setConsentPreferences] = useState({
+    essential: true, // Always required
+    analytics: false,
+    marketing: false,
+    therapyData: true // Required for service
+  });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,11 +48,23 @@ export default function SignUp() {
       return;
     }
     
+    if (!consentPreferences.therapyData) {
+      setError("Therapy data processing consent is required to use our service");
+      return;
+    }
+    
     setIsLoading(true);
     
     try {
+      // Save consent preferences
+      localStorage.setItem('user-consent-preferences', JSON.stringify({
+        ...consentPreferences,
+        timestamp: new Date().toISOString(),
+        version: '2.0'
+      }));
+      
       // TODO: Implement sign up
-      console.log("Sign up:", formData);
+      console.log("Sign up:", formData, consentPreferences);
     } catch (err) {
       setError("Something went wrong. Please try again.");
     } finally {
@@ -155,22 +173,85 @@ export default function SignUp() {
                   />
                 </div>
                 
-                <div className="flex items-center space-x-2">
-                  <Checkbox 
-                    id="terms" 
-                    checked={agreedToTerms}
-                    onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
-                  />
-                  <label htmlFor="terms" className="text-sm font-secondary text-text-secondary">
-                    I agree to the{" "}
-                    <Link to="/terms" className="text-primary hover:underline">
-                      Terms of Service
-                    </Link>{" "}
-                    and{" "}
-                    <Link to="/privacy" className="text-primary hover:underline">
-                      Privacy Policy
-                    </Link>
-                  </label>
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox 
+                      id="terms" 
+                      checked={agreedToTerms}
+                      onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
+                    />
+                    <label htmlFor="terms" className="text-sm font-secondary text-text-secondary">
+                      I agree to the{" "}
+                      <Link to="/terms" className="text-primary hover:underline">
+                        Terms of Service
+                      </Link>{" "}
+                      and{" "}
+                      <Link to="/privacy" className="text-primary hover:underline">
+                        Privacy Policy
+                      </Link>
+                    </label>
+                  </div>
+
+                  <div className="space-y-3 p-4 bg-background border rounded-lg">
+                    <h4 className="font-primary font-semibold text-text-primary text-sm">
+                      Data Processing Consent
+                    </h4>
+                    <p className="text-xs font-secondary text-text-secondary">
+                      We need your consent to process different types of data. You can choose which you're comfortable with:
+                    </p>
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="essential" 
+                          checked={consentPreferences.essential}
+                          disabled
+                        />
+                        <label htmlFor="essential" className="text-xs font-secondary text-text-secondary">
+                          Essential cookies and data (required for site functionality)
+                        </label>
+                      </div>
+                      
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="therapy-data" 
+                          checked={consentPreferences.therapyData}
+                          onCheckedChange={(checked) => 
+                            setConsentPreferences(prev => ({ ...prev, therapyData: checked === true }))
+                          }
+                        />
+                        <label htmlFor="therapy-data" className="text-xs font-secondary text-text-secondary">
+                          Therapy data processing (required for matching and sessions)
+                        </label>
+                      </div>
+                      
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="analytics" 
+                          checked={consentPreferences.analytics}
+                          onCheckedChange={(checked) => 
+                            setConsentPreferences(prev => ({ ...prev, analytics: checked === true }))
+                          }
+                        />
+                        <label htmlFor="analytics" className="text-xs font-secondary text-text-secondary">
+                          Analytics and usage data (help improve our service)
+                        </label>
+                      </div>
+                      
+                      <div className="flex items-center space-x-2">
+                        <Checkbox 
+                          id="marketing" 
+                          checked={consentPreferences.marketing}
+                          onCheckedChange={(checked) => 
+                            setConsentPreferences(prev => ({ ...prev, marketing: checked === true }))
+                          }
+                        />
+                        <label htmlFor="marketing" className="text-xs font-secondary text-text-secondary">
+                          Marketing communications (newsletters, promotions)
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 
                 <Button type="submit" className="w-full min-h-touch-min" disabled={isLoading}>

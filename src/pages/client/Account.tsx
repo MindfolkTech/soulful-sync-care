@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
@@ -8,9 +9,57 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Bell, CreditCard, Shield, Upload } from "lucide-react";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { User, Bell, CreditCard, Shield, Upload, Download, Trash2 } from "lucide-react";
+import { DataRightsManager } from "@/utils/data-rights";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function Account() {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDownloadData = async () => {
+    setIsDownloading(true);
+    try {
+      await DataRightsManager.downloadUserData('current-user');
+      toast({
+        title: "Data Export Complete",
+        description: "Your data has been downloaded successfully.",
+      });
+    } catch (error) {
+      toast({
+        title: "Export Failed",
+        description: error instanceof Error ? error.message : "Failed to export your data.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    setIsDeleting(true);
+    try {
+      await DataRightsManager.deleteUserAccount('current-user');
+      toast({
+        title: "Account Deleted",
+        description: "Your account and all data have been permanently deleted.",
+      });
+      navigate('/');
+    } catch (error) {
+      toast({
+        title: "Deletion Failed",
+        description: error instanceof Error ? error.message : "Failed to delete your account.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
@@ -183,15 +232,128 @@ export default function Account() {
                         </div>
                         <Switch defaultChecked />
                       </div>
+
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="font-secondary font-semibold text-text-primary">
+                            Marketing Communications
+                          </h4>
+                          <p className="text-sm text-text-secondary">
+                            Receive newsletters, promotions, and service updates
+                          </p>
+                        </div>
+                        <Switch defaultChecked />
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="font-secondary font-semibold text-text-primary">
+                            Health Data Processing
+                          </h4>
+                          <p className="text-sm text-text-secondary">
+                            Process health data for therapy matching and care
+                          </p>
+                        </div>
+                        <Switch defaultChecked />
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="font-secondary font-semibold text-text-primary">
+                            Session Recording
+                          </h4>
+                          <p className="text-sm text-text-secondary">
+                            Allow session recordings for quality and training (with consent)
+                          </p>
+                        </div>
+                        <Switch />
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="font-secondary font-semibold text-text-primary">
+                            Research Participation
+                          </h4>
+                          <p className="text-sm text-text-secondary">
+                            Participate in anonymized research to improve therapy outcomes
+                          </p>
+                        </div>
+                        <Switch />
+                      </div>
                     </div>
 
                     <div className="pt-6 border-t space-y-4">
                       <h4 className="font-secondary font-semibold text-text-primary">
+                        Consent Management
+                      </h4>
+                      <div className="p-4 bg-background border rounded-lg">
+                        <p className="text-sm font-secondary text-text-secondary mb-3">
+                          You can withdraw or modify your consent at any time. Changes will take effect immediately.
+                        </p>
+                        <div className="flex space-x-2">
+                          <Button variant="outline" size="sm" className="font-secondary">
+                            View Consent History
+                          </Button>
+                          <Button variant="outline" size="sm" className="font-secondary">
+                            Withdraw All Consent
+                          </Button>
+                        </div>
+                      </div>
+
+                      <h4 className="font-secondary font-semibold text-text-primary">
                         Data Management
                       </h4>
                       <div className="flex space-x-4">
-                        <Button variant="outline">Download My Data</Button>
-                        <Button variant="outline">Delete Account</Button>
+                        <Button 
+                          variant="outline" 
+                          onClick={handleDownloadData}
+                          disabled={isDownloading}
+                          className="font-secondary"
+                        >
+                          <Download className="w-4 h-4 mr-2" />
+                          {isDownloading ? "Downloading..." : "Download My Data"}
+                        </Button>
+                        
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button 
+                              variant="outline" 
+                              className="font-secondary text-destructive hover:text-destructive"
+                            >
+                              <Trash2 className="w-4 h-4 mr-2" />
+                              Delete Account
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle className="font-primary">
+                                Delete Your Account
+                              </AlertDialogTitle>
+                              <AlertDialogDescription className="font-secondary">
+                                This action cannot be undone. This will permanently delete your account 
+                                and remove all your data from our servers, including:
+                                <ul className="mt-2 ml-4 list-disc">
+                                  <li>Your profile and assessment data</li>
+                                  <li>All therapy sessions and messages</li>
+                                  <li>Your preferences and settings</li>
+                                  <li>Your account history</li>
+                                </ul>
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel className="font-secondary">
+                                Cancel
+                              </AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={handleDeleteAccount}
+                                disabled={isDeleting}
+                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90 font-secondary"
+                              >
+                                {isDeleting ? "Deleting..." : "Yes, Delete My Account"}
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
                       </div>
                     </div>
                   </CardContent>

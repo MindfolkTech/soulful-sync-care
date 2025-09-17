@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { MessageThread } from "@/components/messaging/message-thread";
 import { MessageInput } from "@/components/messaging/message-input";
 import { Container } from "@/components/ui/container";
+import { MessagingDataNotice } from "@/components/legal/data-processing-notice";
 import { 
   Search, 
   Plus, 
@@ -191,12 +192,15 @@ export default function Messages() {
               </>
             ) : (
               <Card className="flex-1 flex items-center justify-center">
-                <div className="text-center">
+                <div className="text-center space-y-4">
                   <MessageSquare className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <h3 className="font-primary font-medium mb-2">Select a conversation</h3>
                   <p className="text-muted-foreground">
                     Choose a conversation to start messaging with your therapist
                   </p>
+                  <div className="max-w-md mx-auto">
+                    <MessagingDataNotice />
+                  </div>
                 </div>
               </Card>
             )}
