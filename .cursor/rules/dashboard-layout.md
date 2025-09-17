@@ -14,15 +14,51 @@ Apply to all therapist and admin pages (React/TSX/CSS/Tailwind). Ensure consiste
 
 ## Dashboard Layout Requirements
 
-### Header Section (Mandatory)
+### Shared Dashboard Layout Component (Mandatory)
+**All therapist and admin pages MUST use the `DashboardLayout` component:**
+
+```tsx
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
+
+export default function YourPage() {
+  return (
+    <DashboardLayout 
+      title="Page Title"
+      subtitle="Optional page description"
+    >
+      {/* Your page content here */}
+    </DashboardLayout>
+  );
+}
+```
+
+### Layout Atoms (Required)
+**Use these components for consistent flexbox layouts:**
+
+```tsx
+import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
+
+// Vertical stacking with gap-4
+<Stack className="space-y-6">...</Stack>
+
+// Horizontal layout with items-center gap-4  
+<HStack className="justify-between">...</HStack>
+
+// Wrapping layout for tags/chips with gap-2
+<Cluster>...</Cluster>
+```
+
+### Header Section (Automated by DashboardLayout)
 - **Mindfolk logo** - `text-white` on `bg-jovial-jade` background
 - **Search bar** - "Search Clients" placeholder with magnifying glass icon
 - **User avatar** - Circular with initials, positioned top-right
 - **Background**: Full-width `bg-jovial-jade` header bar
+- **Mobile menu toggle** - Hamburger menu for sidebar on mobile
 
-### Sidebar Navigation (Mandatory)
+### Sidebar Navigation (Automated by DashboardLayout)
 - **Background**: `bg-surface-accent`
 - **Active state**: `bg-jovial-jade` vertical bar + `text-white`
+- **Collapsible**: Slides out on mobile, always visible on desktop
 - **Navigation items**:
   - Dashboard (house icon) - currently active
   - My Clients (two-person icon)
@@ -134,17 +170,24 @@ Apply to all therapist and admin pages (React/TSX/CSS/Tailwind). Ensure consiste
 
 ## Layout Specifications
 
+### Responsive Design (Built into DashboardLayout)
+- **Mobile-first**: Flexbox-based responsive design
+- **Collapsible sidebar**: Slides out on mobile with overlay
+- **One-screen rule**: Content fits within viewport with proper overflow handling
+- **No horizontal scroll**: Perfect scaling on all screen sizes
+- **Touch targets**: All interactive elements meet 44px minimum
+- **Container padding**: Uses responsive Container component with `px-6 md:px-8 lg:px-10`
+
 ### Grid System
-- **4-widget layout**: 2x2 grid on desktop
-- **Responsive**: Single column on mobile
-- **Spacing**: Consistent gaps between widgets
-- **Container**: Full-width with proper padding
+- **Dashboard page**: 4-widget layout (2x2 grid on desktop, single column on mobile)
+- **Other pages**: Flexible grid layouts using CSS Grid and Flexbox
+- **Spacing**: Consistent gaps using `gap-4` and `gap-6`
+- **Content areas**: Use Stack and HStack atoms for consistent spacing
 
 ### Widget Dimensions
-- **Equal height**: All widgets same height
-- **Proportional width**: 50% each row
-- **Internal padding**: Consistent padding within each widget
-- **Scrollable content**: Vertical scroll when content exceeds widget height
+- **Card padding**: `p-4 md:p-5 lg:p-6` for responsive internal padding
+- **Equal height**: Cards use `h-full` for consistent heights
+- **Scrollable content**: `overflow-y-auto` with `min-h-0` when needed
 
 ## Token Usage Requirements
 - **Always use Tailwind class names** instead of CSS variable syntax (e.g., `bg-jovial-jade` not `bg-[--jovial-jade]`)
@@ -177,61 +220,64 @@ Apply to all therapist and admin pages (React/TSX/CSS/Tailwind). Ensure consiste
 - **Charts** must use specified colors (orange, purple, green)
 - **Status badges** must use exact color combinations
 
-### Therapist Analytics Page
-- **MUST use dashboard layout** (header + sidebar + main content)
-- **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
-- **MUST use same colors** (all design tokens from design-tokens.md)
-- **MUST include analytics-specific widgets** (KPIs, charts, improvements)
-- **MUST follow same header pattern** (`bg-jovial-jade` background with logo, search, avatar)
-- **MUST follow same sidebar pattern** (`bg-surface-accent` background with navigation)
+### All Therapist Pages (Mandatory Pattern)
+**Every therapist page MUST follow this exact pattern:**
 
-### Therapist Clients Page
-- **MUST use dashboard layout** (header + sidebar + main content)
-- **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
-- **MUST use same colors** (all design tokens from design-tokens.md)
-- **MUST include client management widgets** (search, filters, client list)
-- **MUST follow same header pattern** (`bg-jovial-jade` background with logo, search, avatar)
-- **MUST follow same sidebar pattern** (`bg-surface-accent` background with navigation)
+```tsx
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { Stack, HStack } from "@/components/layout/layout-atoms";
 
-### Therapist Bookings Page
-- **MUST use dashboard layout** (header + sidebar + main content)
-- **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
-- **MUST use same colors** (all design tokens from design-tokens.md)
-- **MUST include booking management widgets** (calendar, appointment list, status tracking)
-- **MUST follow same header pattern** (`bg-jovial-jade` background with logo, search, avatar)
-- **MUST follow same sidebar pattern** (`bg-surface-accent` background with navigation)
+export default function TherapistPageName() {
+  return (
+    <DashboardLayout 
+      title="Page Title"
+      subtitle="Page description"
+    >
+      <Stack className="space-y-6">
+        {/* Page content using proper layout atoms */}
+      </Stack>
+    </DashboardLayout>
+  );
+}
+```
 
-### Therapist Messages Page
-- **MUST use dashboard layout** (header + sidebar + main content)
-- **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
-- **MUST use same colors** (all design tokens from design-tokens.md)
-- **MUST include messaging widgets** (conversation list, message thread, input)
-- **MUST follow same header pattern** (`bg-jovial-jade` background with logo, search, avatar)
-- **MUST follow same sidebar pattern** (`bg-surface-accent` background with navigation)
+### Page-Specific Content Requirements
 
-### Therapist Profile Page
-- **MUST use dashboard layout** (header + sidebar + main content)
-- **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
-- **MUST use same colors** (all design tokens from design-tokens.md)
-- **MUST include profile management widgets** (profile info, video upload, availability)
-- **MUST follow same header pattern** (`bg-jovial-jade` background with logo, search, avatar)
-- **MUST follow same sidebar pattern** (`bg-surface-accent` background with navigation)
+#### Therapist Analytics Page
+- **Content**: KPIs grid, performance charts, improvement suggestions
+- **Layout**: Use `Stack` for main content, `HStack` for action buttons
+- **Widgets**: Analytics-specific cards with proper spacing
 
-### Therapist Earnings Page
-- **MUST use dashboard layout** (header + sidebar + main content)
-- **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
-- **MUST use same colors** (all design tokens from design-tokens.md)
-- **MUST include earnings widgets** (income charts, payout history, tax documents)
-- **MUST follow same header pattern** (`bg-jovial-jade` background with logo, search, avatar)
-- **MUST follow same sidebar pattern** (`bg-surface-accent` background with navigation)
+#### Therapist Clients Page  
+- **Content**: Client search, stats cards, client list with actions
+- **Layout**: Search bar in `HStack`, client list in scrollable container
+- **Widgets**: Client management interface with proper touch targets
+
+#### Therapist Bookings Page
+- **Content**: Booking stats, appointment tabs (upcoming/calendar/availability)
+- **Layout**: Tab interface with responsive booking cards
+- **Widgets**: Calendar integration and appointment management
+
+#### Therapist Messages Page
+- **Content**: Conversation list + message thread (2-column layout)
+- **Layout**: Grid layout `grid-cols-1 lg:grid-cols-3` for responsive messaging
+- **Widgets**: Secure messaging interface with proper overflow handling
+
+#### Therapist Profile Page
+- **Content**: Profile photo, professional details, video upload, settings
+- **Layout**: Mixed grid layouts for different sections using `Stack` and `HStack`
+- **Widgets**: Profile management forms with proper validation
+
+#### Therapist Earnings Page
+- **Content**: Earnings overview, transaction history, payout management
+- **Layout**: Stats cards + tabbed interface for different views
+- **Widgets**: Financial data visualization and payout controls
 
 ### Admin Pages (All)
-- **MUST use dashboard layout** (header + sidebar + main content)
-- **MUST use same typography** (`font-[--font-primary]` for titles, `font-[--font-secondary]` for content)
-- **MUST use same colors** (all design tokens from design-tokens.md)
+- **MUST use DashboardLayout component** with appropriate title/subtitle
+- **MUST use layout atoms** (Stack, HStack, Cluster) for consistent spacing
 - **MUST include admin-specific widgets** (user management, system overview, moderation tools)
-- **MUST follow same header pattern** (`bg-jovial-jade` background with logo, search, avatar)
-- **MUST follow same sidebar pattern** (`bg-surface-accent` background with navigation)
+- **Content adapts** to admin needs while maintaining consistent layout pattern
 
 ## Key Rules
 - **Dashboard layout pattern** is mandatory for all therapist and admin pages

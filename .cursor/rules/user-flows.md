@@ -144,9 +144,9 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - ✅ Business profile widget: performance overview + action prompts
 
 **All Therapist Pages (Dashboard Pattern)**
-- ✅ **Header Section**: `bg-[--jovial-jade]` background with logo, search, user avatar
-- ✅ **Sidebar Navigation**: `bg-[--surface-accent]` background with navigation items
-- ✅ **Main Content Area**: Consistent layout pattern across all pages
+- ✅ **DashboardLayout Component**: Mandatory shared component for all therapist pages
+- ✅ **Layout Atoms**: Use Stack, HStack, Cluster for consistent spacing
+- ✅ **Responsive Design**: Collapsible sidebar, mobile-first, no horizontal scroll
 - ✅ **Typography**: `font-[--font-primary]` for titles, `font-[--font-secondary]` for content
 - ✅ **Color System**: All pages must use design tokens consistently
 
@@ -284,18 +284,21 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 
 ### ✅ Good Flow Implementation
 ```tsx
-// Therapist Dashboard with all required components
-<div className="min-h-screen bg-[--warm-white]">
-  <Container>
-    <div className="flex flex-col gap-6">
-      {/* Morning Dashboard Overview */}
-      <div className="flex items-center gap-4">
-        <img src={avatar} alt="Therapist avatar" className="w-12 h-12 rounded-full" />
-        <div>
-          <h1 className="font-[--font-primary] text-2xl text-[--jovial-jade]">Good morning, Dr. Chen</h1>
-          <p className="font-[--font-secondary] text-[--text-secondary]">Here's your practice overview</p>
-        </div>
-      </div>
+// Therapist page using DashboardLayout component
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { Stack, HStack } from "@/components/layout/layout-atoms";
+
+export default function TherapistPage() {
+  return (
+    <DashboardLayout 
+      title="Good morning, Dr. Chen"
+      subtitle="Here's your practice overview"
+    >
+      <Stack className="space-y-6">
+        {/* Page content with proper layout atoms */}
+        <HStack className="justify-between">
+          <div className="stats-cards">...</div>
+        </HStack>
       
       {/* Upcoming Appointments Widget */}
       <Card>
