@@ -100,7 +100,7 @@ export default function TherapistOnboarding() {
   useEffect(() => {
     const timer = setTimeout(() => {
       // Process profile data for matching algorithm
-      const processedProfileData = { ...profileData };
+      const processedProfileData: typeof profileData & { personality_tags?: string[] } = { ...profileData };
       
       // Merge communication style into personality_tags for matching
       if (profileData.communicationStyle) {

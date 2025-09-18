@@ -21,6 +21,7 @@ export interface TherapistData {
   image: string;
   video_url?: string;
   location?: string;
+  compatibility_score?: number;
 }
 
 interface TherapistCardProps {

@@ -215,7 +215,7 @@ export default function TherapistBookings() {
   const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
   const [selectedTime, setSelectedTime] = React.useState<string>('09:00');
   const [filters, setFilters] = React.useState({
-    dateRange: 'week',
+    dateRange: 'week' as const,
     appointmentType: [],
     status: [],
     client: ''
