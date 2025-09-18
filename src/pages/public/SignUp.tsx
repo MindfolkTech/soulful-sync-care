@@ -115,7 +115,7 @@ export default function SignUp() {
                 </CardDescription>
               </CardHeader>
             <CardContent className="space-y-[--space-lg]">
-              <SocialLogin mode="signup" />
+              <SocialLogin mode="signup" role={role || 'client'} />
               
               <form onSubmit={handleSubmit} className="space-y-[--space-md]">
                 {error && (

@@ -5,9 +5,10 @@ import { useToast } from "@/hooks/use-toast";
 
 interface SocialLoginProps {
   mode: "signin" | "signup";
+  role?: 'client' | 'therapist';
 }
 
-export function SocialLogin({ mode }: SocialLoginProps) {
+export function SocialLogin({ mode, role }: SocialLoginProps) {
   const actionText = mode === "signin" ? "Sign in" : "Sign up";
   const { signIn } = useSignIn();
   const { signUp } = useSignUp();
@@ -21,11 +22,23 @@ export function SocialLogin({ mode }: SocialLoginProps) {
       const redirectUrl = `${window.location.origin}/sso-callback`;
       const redirectUrlComplete = `${window.location.origin}/`;
       
-      await authMethod.authenticateWithRedirect({
-        strategy: "oauth_google",
-        redirectUrl,
-        redirectUrlComplete,
-      });
+      // Set role metadata for signup
+      if (mode === "signup" && role) {
+        await authMethod.authenticateWithRedirect({
+          strategy: "oauth_google",
+          redirectUrl,
+          redirectUrlComplete,
+          unsafeMetadata: {
+            intendedRole: role
+          }
+        });
+      } else {
+        await authMethod.authenticateWithRedirect({
+          strategy: "oauth_google",
+          redirectUrl,
+          redirectUrlComplete,
+        });
+      }
     } catch (error) {
       console.error("Google OAuth error:", error);
       toast({
