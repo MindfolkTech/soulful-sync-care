@@ -1,44 +1,66 @@
 import { useState } from "react";
+import { useSignIn } from "@clerk/clerk-react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { SocialLogin } from "@/components/auth/social-login";
 import { ForgotPasswordDialog } from "@/components/auth/forgot-password-dialog";
+import { RedirectAuthenticated } from "@/components/auth/redirect-authenticated";
 import { AlertCircle } from "lucide-react";
 
 export default function SignIn() {
+  const { isLoaded, signIn, setActive } = useSignIn();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (e: React.FormEvent) => {
+    if (!isLoaded) return;
+
     e.preventDefault();
     setIsLoading(true);
     setError("");
     
     try {
-      // TODO: Implement sign in
-      console.log("Sign in:", { email, password });
-    } catch (err) {
-      setError("Invalid email or password. Please try again.");
+      const result = await signIn.create({
+        identifier: email,
+        password,
+      });
+
+      if (result.status === "complete") {
+        await setActive({ session: result.createdSessionId });
+        
+        // Redirect to intended destination or default
+        const from = location.state?.from || "/discover";
+        navigate(from, { replace: true });
+      } else {
+        setError("Sign in failed. Please try again.");
+      }
+    } catch (err: any) {
+      console.error("Sign in error:", err);
+      setError(err.errors?.[0]?.message || "Invalid email or password. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      
-      <main className="flex-1 flex items-center justify-center py-[--space-2xl]">
-        <Container size="sm">
-          <Card className="w-full max-w-md mx-auto">
+    <RedirectAuthenticated>
+      <div className="min-h-screen bg-background flex flex-col">
+        <Header />
+        
+        <main className="flex-1 flex items-center justify-center py-[--space-2xl]">
+          <Container size="sm">
+            <Card className="w-full max-w-md mx-auto">
             <CardHeader className="text-center">
               <h1 className="font-primary text-[hsl(var(--text-2xl))]">Welcome back</h1>
               <CardDescription className="font-secondary text-[hsl(var(--text-secondary))]">
@@ -82,7 +104,7 @@ export default function SignIn() {
                   />
                 </div>
                 
-                <Button type="submit" className="w-full min-h-touch-target" aria-label="Sign in to account" disabled={isLoading}>
+                <Button type="submit" className="w-full min-h-touch-target" aria-label="Sign in to account" disabled={isLoading || !isLoaded}>
                   {isLoading ? "Signing in..." : "Sign In"}
                 </Button>
               </form>
@@ -99,5 +121,6 @@ export default function SignIn() {
 
       <Footer />
     </div>
+    </RedirectAuthenticated>
   );
 }

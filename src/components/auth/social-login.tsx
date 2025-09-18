@@ -8,13 +8,23 @@ interface SocialLoginProps {
 export function SocialLogin({ mode }: SocialLoginProps) {
   const actionText = mode === "signin" ? "Sign in" : "Sign up";
   
+  const handleGoogleSignIn = () => {
+    // TODO: Implement Google OAuth with Clerk
+    console.log("Google OAuth not yet implemented");
+  };
+
+  const handleAppleSignIn = () => {
+    // TODO: Implement Apple OAuth with Clerk
+    console.log("Apple OAuth not yet implemented");
+  };
+  
   return (
     <div className="space-y-4">
       <div className="space-y-2">
         <Button 
           variant="outline" 
           className="w-full min-h-[--touch-target-min] max-w-[320px] mx-auto"
-          onClick={() => {/* TODO: Google OAuth */}}
+          onClick={handleGoogleSignIn}
           aria-label={`${actionText} with Google account`}
         >
           <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
@@ -29,7 +39,7 @@ export function SocialLogin({ mode }: SocialLoginProps) {
         <Button 
           variant="outline" 
           className="w-full min-h-[--touch-target-min] max-w-[320px] mx-auto"
-          onClick={() => {/* TODO: Apple OAuth */}}
+          onClick={handleAppleSignIn}
           aria-label={`${actionText} with Apple ID`}
         >
           <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
