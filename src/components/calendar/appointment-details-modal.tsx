@@ -95,18 +95,18 @@ export function AppointmentDetailsModal({
         </DialogHeader>
         
         {/* Header with client info */}
-        <div className="flex items-center justify-between pb-4">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between pb-[--space-md]">
+          <div className="flex items-center gap-[--space-sm]">
             <Avatar className="w-12 h-12">
-              <AvatarFallback className="bg-[hsl(var(--btn-accent-bg))] text-[hsl(var(--on-dark))] font-secondary font-bold text-lg">
+              <AvatarFallback className="bg-[hsl(var(--btn-accent-bg))] text-[hsl(var(--btn-accent-text))] font-secondary font-bold text-[length:var(--text-lg)]">
                 {appointment.clientInitials}
               </AvatarFallback>
             </Avatar>
             <div>
-              <h3 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-lg">
+              <h3 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-[length:var(--text-lg)]">
                 {appointment.clientName}
               </h3>
-              <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
+              <p className="font-secondary text-[hsl(var(--text-secondary))] text-[length:var(--text-sm)]">
                 Active Member
               </p>
             </div>
@@ -114,20 +114,20 @@ export function AppointmentDetailsModal({
           <Button
             variant="ghost"
             size="sm"
-            className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))]"
+            className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] focus-visible-outline min-h-[--touch-target-min]"
             onClick={() => handleAction(() => onEdit(appointment))}
           >
             EDIT
           </Button>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-[--space-lg]">
           {/* Session Info */}
           <div>
-            <h4 className="font-secondary text-[hsl(var(--text-secondary))] text-sm mb-2">
+            <h4 className="font-secondary text-[hsl(var(--text-secondary))] text-[length:var(--text-sm)] mb-[--space-xs]">
               Upcoming session
             </h4>
-            <div className="text-2xl font-bold text-[hsl(var(--btn-accent-text))] mb-1">
+            <div className="text-[length:var(--text-2xl)] font-bold text-[hsl(var(--btn-accent-text))] mb-[--space-xs]">
               {appointment.sessionTime.toLocaleTimeString('en-US', { 
                 hour: 'numeric', 
                 minute: '2-digit',
@@ -138,7 +138,7 @@ export function AppointmentDetailsModal({
                 hour12: true 
               })}
             </div>
-            <div className="flex items-center gap-2 text-[hsl(var(--text-secondary))] text-sm">
+            <div className="flex items-center gap-[--space-xs] text-[hsl(var(--text-secondary))] text-[length:var(--text-sm)]">
               <span>{appointment.duration}</span>
               <span>•</span>
               <span>{appointment.sessionTime.toLocaleDateString('en-US', { 
@@ -152,7 +152,7 @@ export function AppointmentDetailsModal({
           {/* Join Button */}
           {canJoinSession() && (
             <Button
-              variant="primary" className="w-full font-secondary font-semibold py-3 text-base"
+              className="w-full bg-[hsl(var(--btn-cta-bg))] text-[hsl(var(--btn-cta-text))] font-secondary font-semibold py-[--space-sm] text-[length:var(--text-base)] min-h-[--touch-target-comfort] focus-visible-outline"
               onClick={() => handleAction(() => onJoinSession(appointment.id))}
               disabled={isLoading}
             >
@@ -161,74 +161,73 @@ export function AppointmentDetailsModal({
           )}
 
           {/* Session Details */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2 text-[hsl(var(--btn-accent-text))]">
+          <div className="space-y-[--space-md]">
+            <div className="flex items-center gap-[--space-xs] text-[hsl(var(--btn-accent-text))]">
               <MessageCircle className="w-4 h-4" />
-              <span className="font-secondary text-sm font-medium">Session details</span>
+              <span className="font-secondary text-[length:var(--text-sm)] font-medium">Session details</span>
             </div>
             
             <div>
-              <h5 className="font-secondary font-bold text-[hsl(var(--text-primary))] mb-2">
+              <h5 className="font-secondary font-bold text-[hsl(var(--text-primary))] mb-[--space-xs]">
                 {appointment.type}
               </h5>
-              <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
+              <p className="font-secondary text-[hsl(var(--text-secondary))] text-[length:var(--text-sm)]">
                 {appointment.notes || "No additional notes for this session."}
               </p>
             </div>
           </div>
 
           {/* Services Section */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 text-[hsl(var(--btn-accent-text))]">
+          <div className="space-y-[--space-sm]">
+            <div className="flex items-center gap-[--space-xs] text-[hsl(var(--btn-accent-text))]">
               <MessageCircle className="w-4 h-4" />
-              <span className="font-secondary text-sm font-medium">Main Services</span>
+              <span className="font-secondary text-[length:var(--text-sm)] font-medium">Main Services</span>
             </div>
             
-            <div className="space-y-2">
+            <div className="space-y-[--space-xs]">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="font-secondary font-bold text-[hsl(var(--text-primary))]">CBT Therapy</div>
-                  <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Service</div>
+                  <div className="font-secondary text-[hsl(var(--text-secondary))] text-[length:var(--text-sm)]">Service</div>
                 </div>
-                <Button variant="outline" size="sm" className="text-[hsl(var(--btn-accent-text))] border-[hsl(var(--btn-accent-text))]">
+                <Button className="bg-transparent text-[hsl(var(--btn-accent-text))] border border-[hsl(var(--btn-accent-text))] font-secondary text-[length:var(--text-sm)] min-h-[--touch-target-min] focus-visible-outline">
                   ADD SERVICES +
                 </Button>
               </div>
-              <select className="w-full p-2 border rounded-md font-secondary text-sm">
+              <select className="w-full p-[--space-xs] border border-[hsl(var(--border))] rounded-[--radius-md] font-secondary text-[length:var(--text-sm)] text-[hsl(var(--text-primary))] bg-[hsl(var(--surface))] focus-visible-outline">
                 <option>Psychotherapy</option>
               </select>
             </div>
           </div>
 
           {/* Notifications */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 text-[hsl(var(--btn-accent-text))]">
+          <div className="space-y-[--space-sm]">
+            <div className="flex items-center gap-[--space-xs] text-[hsl(var(--btn-accent-text))]">
               <MessageCircle className="w-4 h-4" />
-              <span className="font-secondary text-sm font-medium">Notifications</span>
+              <span className="font-secondary text-[length:var(--text-sm)] font-medium">Notifications</span>
             </div>
             
-            <div className="flex items-center justify-between p-3 bg-[hsl(var(--surface-accent))] rounded-md">
+            <div className="flex items-center justify-between p-[--space-sm] bg-[hsl(var(--surface-accent))] rounded-[--radius-md]">
               <div>
                 <div className="font-secondary font-bold text-[hsl(var(--text-primary))]">Assessment form</div>
-                <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">SEND REMINDER</div>
+                <div className="font-secondary text-[hsl(var(--text-secondary))] text-[length:var(--text-sm)]">SEND REMINDER</div>
               </div>
-              <Badge className="bg-[hsl(var(--btn-accent-bg))] text-[hsl(var(--btn-accent-text))] border-[hsl(var(--btn-accent-text))]">
+              <Badge className="bg-[hsl(var(--btn-accent-bg))] text-[hsl(var(--btn-accent-text))] border border-[hsl(var(--btn-accent-text))]">
                 Awaiting Signature
               </Badge>
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-3 pt-4 border-t">
+          <div className="flex gap-[--space-sm] pt-[--space-md] border-t border-[hsl(var(--border))]">
             <Button
-              variant="outline"
-              className="flex-1 font-secondary"
+              className="flex-1 bg-transparent text-[hsl(var(--btn-secondary-text))] border border-[hsl(var(--btn-secondary-text))] font-secondary min-h-[--touch-target-min] focus-visible-outline"
               onClick={onClose}
             >
               DISCARD
             </Button>
             <Button
-              variant="primary" className="flex-1 font-secondary"
+              className="flex-1 bg-[hsl(var(--btn-primary-bg))] text-[hsl(var(--btn-primary-text))] font-secondary min-h-[--touch-target-min] focus-visible-outline"
               onClick={onClose}
             >
               SAVE
