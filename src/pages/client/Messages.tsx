@@ -186,7 +186,7 @@ export default function Messages() {
                 {/* Messages */}
                 <Card className="flex-1 flex flex-col">
                   <CardContent className="flex-1 flex flex-col p-0">
-                    <MessageThread threadId={selectedThread} />
+                    <MessageThread conversationId={selectedThread} />
                     <MessageInput onSendMessage={(message) => console.log("Send:", message)} />
                   </CardContent>
                 </Card>
