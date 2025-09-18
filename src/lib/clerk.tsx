@@ -1,5 +1,5 @@
 import { ClerkProvider } from "@clerk/clerk-react";
-import { ReactNode } from "react";
+import { ReactNode, useRef } from "react";
 
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -7,10 +7,24 @@ interface ClerkProviderWrapperProps {
   children: ReactNode;
 }
 
+// Global flag to prevent multiple Clerk initialization
+let clerkInitialized = false;
+
 export function ClerkProviderWrapper({ children }: ClerkProviderWrapperProps) {
+  const initRef = useRef(false);
+  
   if (!clerkPubKey) {
     throw new Error("Missing Clerk Publishable Key");
   }
+
+  // Prevent multiple initialization
+  if (clerkInitialized || initRef.current) {
+    console.warn("ClerkProvider already initialized, skipping duplicate initialization");
+    return <>{children}</>;
+  }
+
+  initRef.current = true;
+  clerkInitialized = true;
 
   return (
     <ClerkProvider 
