@@ -24,7 +24,7 @@ export function HeroSection() {
               <SignUpButton mode="modal">
                 <Button 
                   size="lg"
-                  className="bg-btn-primary-bg text-btn-primary-text hover:opacity-90 min-h-touch-min"
+                  className="bg-btn-primary text-btn-primary-foreground hover:opacity-90 min-h-touch-min"
                 >
                   Start Matching for Free
                 </Button>

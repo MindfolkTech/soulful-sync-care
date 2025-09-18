@@ -56,7 +56,7 @@ export function TherapistsSection() {
                     {therapist.tags.map((tag, tagIndex) => (
                       <Badge 
                         key={tagIndex} 
-                        className="bg-tag-specialty-bg text-tag-specialty-text text-xs px-2 py-1"
+                        className="bg-tag-specialty text-tag-specialty-foreground text-xs px-2 py-1"
                       >
                         {tag}
                       </Badge>

@@ -10,7 +10,7 @@ const benefits = [
 
 export function TherapistBandSection() {
   return (
-    <section className="py-12 lg:py-20 bg-tag-language-bg">
+    <section className="py-12 lg:py-20 bg-tag-language">
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-6 space-y-8">
@@ -31,7 +31,7 @@ export function TherapistBandSection() {
             
             <Button
               size="lg"
-              className="bg-btn-accent-bg text-btn-accent-text hover:opacity-90 px-8 min-h-touch-min"
+              className="bg-btn-accent text-btn-accent-foreground hover:opacity-90 px-8 min-h-touch-min"
             >
               For Therapists
             </Button>

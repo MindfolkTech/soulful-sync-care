@@ -53,7 +53,7 @@ export function SolutionSection() {
               </p>
               <div className="bg-white p-4 rounded-lg shadow-sm border border-border">
                 <div className="space-y-2">
-                  <div className="bg-tag-personality-bg p-2 rounded text-sm">
+                  <div className="bg-tag-personality p-2 rounded text-sm">
                     "Hi! I'd love to chat about your goals..."
                   </div>
                   <div className="bg-surface-accent p-2 rounded text-sm text-right">
@@ -78,7 +78,7 @@ export function SolutionSection() {
               </p>
               <div className="bg-white p-4 rounded-lg shadow-sm border border-border">
                 <div className="text-center">
-                  <div className="text-success-text font-bold">✓ Perfect Match</div>
+                  <div className="text-success-foreground font-bold">✓ Perfect Match</div>
                   <div className="text-sm text-text-secondary mt-1">Session confirmed</div>
                 </div>
               </div>

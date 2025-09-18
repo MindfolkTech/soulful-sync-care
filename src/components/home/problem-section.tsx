@@ -12,8 +12,8 @@ export function ProblemSection() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="space-y-4">
-              <div className="w-16 h-16 bg-tag-misc-bg rounded-full flex items-center justify-center mx-auto">
-                <Clock className="w-8 h-8 text-tag-misc-text" />
+              <div className="w-16 h-16 bg-tag-misc rounded-full flex items-center justify-center mx-auto">
+                <Clock className="w-8 h-8 text-tag-misc-foreground" />
               </div>
               <h3 className="font-secondary font-bold text-lg text-text-primary">
                 Wasted Time
@@ -24,8 +24,8 @@ export function ProblemSection() {
             </div>
             
             <div className="space-y-4">
-              <div className="w-16 h-16 bg-warning-bg rounded-full flex items-center justify-center mx-auto">
-                <Wallet className="w-8 h-8 text-warning-text" />
+              <div className="w-16 h-16 bg-warning rounded-full flex items-center justify-center mx-auto">
+                <Wallet className="w-8 h-8 text-warning-foreground" />
               </div>
               <h3 className="font-secondary font-bold text-lg text-text-primary">
                 Financial Drain
@@ -36,8 +36,8 @@ export function ProblemSection() {
             </div>
             
             <div className="space-y-4">
-              <div className="w-16 h-16 bg-error-bg rounded-full flex items-center justify-center mx-auto">
-                <Frown className="w-8 h-8 text-error-text" />
+              <div className="w-16 h-16 bg-error rounded-full flex items-center justify-center mx-auto">
+                <Frown className="w-8 h-8 text-error-foreground" />
               </div>
               <h3 className="font-secondary font-bold text-lg text-text-primary">
                 Mental Exhaustion
