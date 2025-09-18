@@ -90,7 +90,7 @@ export default function TherapistAnalytics() {
           {kpis.map((kpi) => {
             const IconComponent = kpi.icon;
             const TrendIcon = kpi.trend === "up" ? ArrowUp : ArrowDown;
-            const trendColor = kpi.trend === "up" ? "text-success" : "text-destructive";
+            const trendColor = kpi.trend === "up" ? "text-[hsl(var(--success-text))]" : "text-[hsl(var(--error-text))]";
             
             return (
               <Card key={kpi.title}>
@@ -161,7 +161,7 @@ export default function TherapistAnalytics() {
                     <div className="border-t pt-4">
                       <div className="flex items-center justify-between">
                         <span className="font-secondary text-muted-foreground">Conversion Rate</span>
-                        <span className="font-secondary font-semibold text-success">33.9%</span>
+                        <span className="font-secondary font-semibold text-[hsl(var(--success-text))]">33.9%</span>
                       </div>
                     </div>
                   </div>

@@ -23,8 +23,8 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - **Exit/Logout** option accessible but not prominent
 
 #### 2. Accessibility & Touch Targets
-- **Minimum touch targets**: `min-h-[--touch-target-min]` (44px) for all interactive elements
-- **Comfortable touch targets**: `min-h-[--touch-target-comfort]` (56px) for primary actions
+- **Minimum touch targets**: `min-h-[hsl(var(--touch-target-min))]` (44px) for all interactive elements
+- **Comfortable touch targets**: `min-h-[hsl(var(--touch-target-comfort))]` (56px) for primary actions
 - **Focus indicators**: Visible focus rings on all interactive elements
 - **Keyboard navigation**: All flows must be keyboard accessible
 
@@ -42,22 +42,22 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 
 **Welcome & Value Proposition**
 - ✅ Hero illustration with diverse figures
-- ✅ Primary CTA: "Start Your Journey" (`bg-[--btn-primary-bg]` + `text-[--btn-primary-text]`)
-- ✅ Secondary CTA: "Already have an account? Log In" (`bg-[--btn-accent-bg]` + `border-[--garden-green]`)
+- ✅ Primary CTA: "Start Your Journey" (`bg-[hsl(var(--btn-primary-bg))]` + `text-[hsl(var(--btn-primary-text))]`)
+- ✅ Secondary CTA: "Already have an account? Log In" (`bg-[hsl(var(--btn-accent-bg))]` + `border-[hsl(var(--garden-green))]`)
 - ✅ Container wrapper with responsive padding
 
 **Assessment Introduction**
-- ✅ Progress indicator: Step X of 4 (`bg-[--garden-green]` progress bar)
+- ✅ Progress indicator: Step X of 4 (`bg-[hsl(var(--garden-green))]` progress bar)
 - ✅ Value explanation: "85% better compatibility when matched by personality"
-- ✅ Primary CTA: "Continue" (`bg-[--btn-primary-bg]` + `text-[--btn-primary-text]`)
-- ✅ Tertiary CTA: "Skip for now" (`bg-[--btn-cta-bg]` + `text-[--text-primary]`, softer emphasis)
+- ✅ Primary CTA: "Continue" (`bg-[hsl(var(--btn-primary-bg))]` + `text-[hsl(var(--btn-primary-text))]`)
+- ✅ Tertiary CTA: "Skip for now" (`bg-[hsl(var(--btn-cta-bg))]` + `text-[hsl(var(--text-primary))]`, softer emphasis)
 - ✅ Back button to previous step
 
 **Goal Selection (Multi-select cards)**
 - ✅ Progress indicator: X% complete
 - ✅ Multi-select cards with visual states:
-  - Unselected: `bg-[--surface]` background, `border-[--border]` border
-  - Selected: `bg-[--surface-accent]` background, `border-[--garden-green]` border
+  - Unselected: `bg-[hsl(var(--surface))]` background, `border-[hsl(var(--border))]` border
+  - Selected: `bg-[hsl(var(--surface-accent))]` background, `border-[hsl(var(--garden-green))]` border
 - ✅ Continue button (disabled until selection made)
 - ✅ Back button to previous step
 
@@ -76,9 +76,9 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - ✅ Full-screen video profile cards (mobile) or split view (desktop)
 - ✅ Video controls: Default paused with overlay play button, captions ON
 - ✅ Profile actions:
-  - Favorite: `bg-[--btn-accent-bg]` background with heart icon
+  - Favorite: `bg-[hsl(var(--btn-accent-bg))]` background with heart icon
   - Skip: X icon with undo toast notification
-  - Info: `bg-[--btn-cta-bg]` background for detailed view
+  - Info: `bg-[hsl(var(--btn-cta-bg))]` background for detailed view
 - ✅ Swipe gesture support with visual feedback
 - ✅ Loading states: Skeleton screens during content fetch
 
@@ -86,19 +86,19 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - ✅ Video section: 30-second introduction with custom controls
 - ✅ Bio section: Personality-focused description
 - ✅ Tag system (5 categories with proper colors):
-  - Personality: `bg-[--tag-personality-bg]` + `text-[--tag-personality-text]`
-  - Modality: `bg-[--tag-modality-bg]` + `text-[--tag-modality-text]`
-  - Specialty: `bg-[--tag-specialty-bg]` + `text-[--tag-specialty-text]`
-  - Language: `bg-[--tag-language-bg]` + `text-[--tag-language-text]`
-  - Misc/Identity: `bg-[--tag-misc-bg]` + `text-[--tag-misc-text]`
+  - Personality: `bg-[hsl(var(--tag-personality-bg))]` + `text-[hsl(var(--tag-personality-text))]`
+  - Modality: `bg-[hsl(var(--tag-modality-bg))]` + `text-[hsl(var(--tag-modality-text))]`
+  - Specialty: `bg-[hsl(var(--tag-specialty-bg))]` + `text-[hsl(var(--tag-specialty-text))]`
+  - Language: `bg-[hsl(var(--tag-language-bg))]` + `text-[hsl(var(--tag-language-text))]`
+  - Misc/Identity: `bg-[hsl(var(--tag-misc-bg))]` + `text-[hsl(var(--tag-misc-text))]`
 - ✅ Availability preview: Next 3 available chemistry call slots
 - ✅ Rates: Clearly displayed session pricing
 - ✅ Back button to discovery interface
 
 **Chemistry Call Booking**
 - ✅ Calendar integration: Available 15-minute slots displayed
-- ✅ Primary CTA: "Book Chemistry Call" (`bg-[--btn-primary-bg]` background)
-- ✅ Secondary CTA: "Add to Favorites" (`bg-[--btn-accent-bg]` background)
+- ✅ Primary CTA: "Book Chemistry Call" (`bg-[hsl(var(--btn-primary-bg))]` background)
+- ✅ Secondary CTA: "Add to Favorites" (`bg-[hsl(var(--btn-accent-bg))]` background)
 - ✅ Automated reminders: Email + SMS confirmations
 - ✅ Back button to profile detail
 
@@ -198,11 +198,11 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - ✅ End-to-end encrypted chat between matched pairs
 - ✅ Message status indicators (sent, delivered, read)
 - ✅ File sharing with healthcare compliance
-- ✅ Send button with `min-h-[--touch-target-comfort]` (56px)
+- ✅ Send button with `min-h-[hsl(var(--touch-target-comfort))]` (56px)
 - ✅ Message styling:
-  - Sent: `bg-[--garden-green]` background
-  - Received: `bg-[--surface]` background
-- ✅ System messages: `text-[--text-muted]` color for timestamps
+  - Sent: `bg-[hsl(var(--garden-green))]` background
+  - Received: `bg-[hsl(var(--surface))]` background
+- ✅ System messages: `text-[hsl(var(--text-muted))]` color for timestamps
 
 **Notification Management**
 - ✅ Customizable notification preferences
@@ -245,17 +245,17 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 ## Color System Requirements
 
 ### Background System
-- ✅ App background: `bg-[--warm-white]`
-- ✅ Cards: `bg-[--surface]`
-- ✅ Selected states: `bg-[--surface-accent]`
-- ✅ Form inputs: `bg-[--surface]` background, `border-[--border]` borders
+- ✅ App background: `bg-[hsl(var(--warm-white))]`
+- ✅ Cards: `bg-[hsl(var(--surface))]`
+- ✅ Selected states: `bg-[hsl(var(--surface-accent))]`
+- ✅ Form inputs: `bg-[hsl(var(--surface))]` background, `border-[hsl(var(--border))]` borders
 
 ### Interactive Elements
-- ✅ Primary buttons: `bg-[--btn-primary-bg]` + `text-[--btn-primary-text]`
-- ✅ Secondary buttons: transparent + `border-[--garden-green]`
-- ✅ Tertiary buttons: transparent + `text-[--jovial-jade]`
-- ✅ Accent buttons: `bg-[--btn-accent-bg]` + `text-[--jovial-jade]`
-- ✅ CTA buttons: `bg-[--btn-cta-bg]` + `text-[--text-primary]`
+- ✅ Primary buttons: `bg-[hsl(var(--btn-primary-bg))]` + `text-[hsl(var(--btn-primary-text))]`
+- ✅ Secondary buttons: transparent + `border-[hsl(var(--garden-green))]`
+- ✅ Tertiary buttons: transparent + `text-[hsl(var(--jovial-jade))]`
+- ✅ Accent buttons: `bg-[hsl(var(--btn-accent-bg))]` + `text-[hsl(var(--jovial-jade))]`
+- ✅ CTA buttons: `bg-[hsl(var(--btn-cta-bg))]` + `text-[hsl(var(--text-primary))]`
 
 ## Enforcement Rules
 
@@ -304,23 +304,23 @@ export default function TherapistPage() {
       {/* Upcoming Appointments Widget */}
       <Card>
         <CardHeader>
-          <CardTitle className="font-primary text-[--jovial-jade]">Today's Sessions</CardTitle>
+          <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Today's Sessions</CardTitle>
         </CardHeader>
         <CardContent>
           {upcomingSessions.map(session => (
             <div key={session.id} className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-[--surface-accent] rounded-full flex items-center justify-center">
-                  <span className="font-secondary text-[--text-primary] text-sm">{session.clientInitials}</span>
+                <div className="w-10 h-10 bg-[hsl(var(--surface-accent))] rounded-full flex items-center justify-center">
+                  <span className="font-secondary text-[hsl(var(--text-primary))] text-sm">{session.clientInitials}</span>
                 </div>
                 <div>
-                  <p className="font-secondary text-[--text-primary]">{session.type}</p>
-                  <p className="font-secondary text-[--text-secondary] text-sm">{session.time}</p>
+                  <p className="font-secondary text-[hsl(var(--text-primary))]">{session.type}</p>
+                  <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">{session.time}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 {session.canJoin && (
-                  <Button className="bg-[--garden-green] text-[--on-dark]">
+                  <Button className="bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))]">
                     <Video className="w-4 h-4 mr-2" />
                     JOIN NOW
                   </Button>
@@ -335,7 +335,7 @@ export default function TherapistPage() {
       {/* Calendar Management */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="font-primary text-[--jovial-jade]">Calendar</CardTitle>
+          <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Calendar</CardTitle>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm">Google</Button>
             <Button variant="outline" size="sm">Outlook</Button>
@@ -358,12 +358,12 @@ export default function TherapistPage() {
       {/* Client Relationship Management */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="font-primary text-[--jovial-jade]">Client Directory</CardTitle>
+          <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Client Directory</CardTitle>
           <div className="flex items-center gap-2">
             <input 
               type="search" 
               placeholder="Search clients..." 
-              className="px-3 py-2 border rounded-md min-h-[--touch-target-min]"
+              className="px-3 py-2 border rounded-md min-h-[hsl(var(--touch-target-min))]"
             />
             <Button variant="outline" size="sm">Filter</Button>
           </div>
@@ -372,11 +372,11 @@ export default function TherapistPage() {
           {clients.map(client => (
             <div key={client.id} className="flex items-center justify-between p-4 border rounded-lg">
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 bg-[--surface-accent] rounded-full flex items-center justify-center">
-                  <span className="font-secondary text-[--text-primary] text-sm">{client.initials}</span>
+                <div className="w-10 h-10 bg-[hsl(var(--surface-accent))] rounded-full flex items-center justify-center">
+                  <span className="font-secondary text-[hsl(var(--text-primary))] text-sm">{client.initials}</span>
                 </div>
                 <div>
-                  <p className="font-secondary text-[--text-primary]">{client.name}</p>
+                  <p className="font-secondary text-[hsl(var(--text-primary))]">{client.name}</p>
                   <Badge variant={client.status === 'Active' ? 'secondary' : 'outline'}>
                     {client.status}
                   </Badge>

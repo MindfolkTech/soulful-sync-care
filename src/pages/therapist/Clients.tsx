@@ -137,7 +137,7 @@ export default function TherapistClients() {
         </HStack>
 
         {/* Client Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-[--space-md]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[--space-md]">
           <Card>
             <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
               <div className="text-center">
@@ -243,8 +243,8 @@ export default function TherapistClients() {
                       </div>
                     </div>
                     
-                    {/* Action buttons */}
-                    <HStack className="gap-2">
+                    {/* Action buttons - Mobile: Vertical stack, Desktop: Horizontal */}
+                    <div className="flex flex-col md:flex-row gap-2">
                       <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`Send message to ${client.name}`}>
                         <MessageCircle className="w-4 h-4" />
                       </Button>
@@ -257,7 +257,7 @@ export default function TherapistClients() {
                       <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`More options for ${client.name}`}>
                         <MoreHorizontal className="w-4 h-4" />
                       </Button>
-                    </HStack>
+                    </div>
                   </div>
                 </div>
               ))}

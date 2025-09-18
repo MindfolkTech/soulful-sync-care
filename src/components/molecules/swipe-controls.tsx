@@ -48,7 +48,7 @@ export function SwipeControls({
         className="min-h-touch-target min-w-touch-target rounded-full border-2 border-destructive/20 hover:border-destructive hover:bg-destructive/10"
         aria-label="Pass on this therapist"
       >
-        <X className="h-6 w-6 text-destructive" />
+        <X className="h-6 w-6 text-[hsl(var(--error-text))]" />
       </Button>
 
       <Button

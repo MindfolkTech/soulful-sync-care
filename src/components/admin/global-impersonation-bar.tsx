@@ -40,7 +40,7 @@ export function GlobalImpersonationBar() {
               <div className="space-y-4">
                 {/* Header */}
                 <div className="flex items-center gap-2 pb-2 border-b">
-                  <AlertTriangle className="h-4 w-4 text-warning" />
+                  <AlertTriangle className="h-4 w-4 text-[hsl(var(--warning-text))]" />
                   <span className="font-secondary font-semibold text-sm">
                     IMPERSONATION MODE
                   </span>

@@ -270,16 +270,16 @@ export default function TherapistProfile() {
             </HStack>
           </CardHeader>
           <CardContent className="p-4 md:p-5 lg:p-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="text-center">
                 <div className="font-primary text-2xl font-bold text-foreground">127</div>
                 <div className="font-secondary text-muted-foreground text-sm">Profile Views</div>
-                <div className="text-xs text-success">+12% this month</div>
+                <div className="text-xs text-[hsl(var(--success-text))]">+12% this month</div>
               </div>
               <div className="text-center">
                 <div className="font-primary text-2xl font-bold text-foreground">28</div>
                 <div className="font-secondary text-muted-foreground text-sm">Favorites</div>
-                <div className="text-xs text-success">+15% this month</div>
+                <div className="text-xs text-[hsl(var(--success-text))]">+15% this month</div>
               </div>
               <div className="text-center">
                 <div className="font-primary text-2xl font-bold text-foreground">4.9</div>

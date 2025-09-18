@@ -90,7 +90,7 @@ export default function SignUp() {
               
               <form onSubmit={handleSubmit} className="space-y-[--space-md]">
                 {error && (
-                  <div className="flex items-center space-x-[--space-xs] text-sm text-destructive bg-destructive/10 p-[--space-sm] rounded-md">
+                  <div className="flex items-center space-x-[--space-xs] text-sm text-[hsl(var(--error-text))] bg-destructive/10 p-[--space-sm] rounded-md">
                     <AlertCircle className="w-4 h-4" />
                     <span className="font-secondary">{error}</span>
                   </div>

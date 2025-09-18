@@ -293,7 +293,7 @@ export default function AdminUsers() {
                                 <Button
                                   variant="outline"
                                   size="sm"
-                                  className="text-success hover:bg-[hsl(var(--success-bg))] hover:text-[hsl(var(--success-text))] min-h-[--touch-target-min]"
+                                  className="text-[hsl(var(--success-text))] hover:bg-[hsl(var(--success-bg))] hover:text-[hsl(var(--success-text))] min-h-[--touch-target-min]"
                                   onClick={() => handleStatusChange(user.id, "active")}
                                   aria-label={`Reactivate ${user.name}`}
                                 >
@@ -303,7 +303,7 @@ export default function AdminUsers() {
                                 <Button
                                   variant="outline"
                                   size="sm"
-                                  className="text-destructive hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))] min-h-[--touch-target-min]"
+                                  className="text-[hsl(var(--error-text))] hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))] min-h-[--touch-target-min]"
                                   onClick={() => handleStatusChange(user.id, "suspended")}
                                   aria-label={`Suspend ${user.name}`}
                                 >

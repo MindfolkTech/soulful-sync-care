@@ -1,4 +1,5 @@
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { TherapistLayout } from "@/components/layout/therapist-layout";
+import { Container } from "@/components/ui/container";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -81,24 +82,28 @@ export default function TherapistEarnings() {
   const monthlyChange = ((earningsData.thisMonth - earningsData.lastMonth) / earningsData.lastMonth) * 100;
 
   return (
-    <DashboardLayout 
-      title="Earnings Dashboard"
-      subtitle="Track your income and manage payouts"
-    >
-      <Stack className="space-y-8">
+    <TherapistLayout>
+      <div className="p-8">
+        <Container>
+          <div className="space-y-6">
+            <div>
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Earnings Dashboard</h1>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Track your income and manage payouts</p>
+            </div>
+            <Stack className="space-y-8">
         {/* Action Buttons */}
         <HStack className="justify-end">
           <Button variant="outline" className="min-h-touch-min">
             <Download className="w-4 h-4 mr-2" />
             Export Report
           </Button>
-          <Button className="bg-garden-green text-white hover:bg-elated-emerald min-h-touch-min">
+          <Button variant="primary" className="min-h-touch-min">
             Request Payout
           </Button>
         </HStack>
 
         {/* Earnings Overview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <Card>
             <CardContent className="p-4 md:p-5 lg:p-6">
               <div className="flex items-center justify-between">
@@ -106,7 +111,7 @@ export default function TherapistEarnings() {
                   <p className="font-secondary text-muted-foreground text-sm">This Week</p>
                   <p className="font-primary text-2xl font-bold text-foreground">£{earningsData.currentWeek}</p>
                 </div>
-                <div className={`flex items-center text-sm ${weeklyChange >= 0 ? 'text-success' : 'text-destructive'}`}>
+                <div className={`flex items-center text-sm ${weeklyChange >= 0 ? 'text-[hsl(var(--success-text))]' : 'text-[hsl(var(--error-text))]'}`}>
                   {weeklyChange >= 0 ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}
                   <span className="font-secondary font-medium">{Math.abs(weeklyChange).toFixed(1)}%</span>
                 </div>
@@ -121,7 +126,7 @@ export default function TherapistEarnings() {
                   <p className="font-secondary text-muted-foreground text-sm">This Month</p>
                   <p className="font-primary text-2xl font-bold text-foreground">£{earningsData.thisMonth}</p>
                 </div>
-                <div className={`flex items-center text-sm ${monthlyChange >= 0 ? 'text-success' : 'text-destructive'}`}>
+                <div className={`flex items-center text-sm ${monthlyChange >= 0 ? 'text-[hsl(var(--success-text))]' : 'text-[hsl(var(--error-text))]'}`}>
                   {monthlyChange >= 0 ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}
                   <span className="font-secondary font-medium">{Math.abs(monthlyChange).toFixed(1)}%</span>
                 </div>
@@ -136,7 +141,7 @@ export default function TherapistEarnings() {
                   <p className="font-secondary text-muted-foreground text-sm">This Year</p>
                   <p className="font-primary text-2xl font-bold text-foreground">£{earningsData.thisYear.toLocaleString()}</p>
                 </div>
-                <div className="flex items-center text-sm text-success">
+                <div className="flex items-center text-sm text-[hsl(var(--success-text))]">
                   <TrendingUp className="w-4 h-4" />
                   <span className="font-secondary font-medium">27.6%</span>
                 </div>
@@ -197,7 +202,7 @@ export default function TherapistEarnings() {
                         <span>Platform Fee (15%)</span>
                         <span>-£447.75</span>
                       </div>
-                      <div className="flex items-center justify-between font-semibold text-success mt-2">
+                      <div className="flex items-center justify-between font-semibold text-[hsl(var(--success-text))] mt-2">
                         <span>Net Earnings</span>
                         <span>£2,537.25</span>
                       </div>
@@ -223,7 +228,7 @@ export default function TherapistEarnings() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                            transaction.type === 'payout' ? 'bg-warning text-foreground' : 'bg-success text-white'
+                            transaction.type === 'payout' ? 'bg-warning text-foreground' : 'bg-success text-[hsl(var(--on-dark))]'
                           }`}>
                             {transaction.type === 'payout' ? 
                               <Download className="w-4 h-4" /> : 
@@ -241,13 +246,13 @@ export default function TherapistEarnings() {
                         </div>
                         <div className="text-right">
                           <p className={`font-secondary font-semibold ${
-                            transaction.amount > 0 ? 'text-success' : 'text-foreground'
+                            transaction.amount > 0 ? 'text-[hsl(var(--success-text))]' : 'text-foreground'
                           }`}>
                             {transaction.amount > 0 ? '+' : ''}£{Math.abs(transaction.amount)}
                           </p>
                           <Badge 
                             variant={transaction.status === 'completed' ? 'secondary' : 'outline'}
-                            className={transaction.status === 'completed' ? 'bg-success text-white' : ''}
+                            className={transaction.status === 'completed' ? 'bg-success text-[hsl(var(--on-dark))]' : ''}
                           >
                             {transaction.status}
                           </Badge>
@@ -283,7 +288,7 @@ export default function TherapistEarnings() {
                       </div>
                       <div className="flex items-center gap-2">
                         {method.isDefault && (
-                          <Badge variant="secondary" className="bg-success text-white">Default</Badge>
+                          <Badge variant="secondary" className="bg-success text-[hsl(var(--on-dark))]">Default</Badge>
                         )}
                         <Button variant="ghost" size="sm" className="min-h-touch-min">
                           Edit
@@ -315,7 +320,10 @@ export default function TherapistEarnings() {
             </Card>
           </TabsContent>
         </Tabs>
-      </Stack>
-    </DashboardLayout>
+            </Stack>
+          </div>
+        </Container>
+      </div>
+    </TherapistLayout>
   );
 }

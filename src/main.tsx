@@ -9,8 +9,8 @@ window.addEventListener('mousedown', () => document.body.classList.remove('user-
 window.addEventListener('touchstart', () => document.body.classList.remove('user-keys'));
 
 // Connect to standalone React DevTools (development only)
-if (typeof window !== 'undefined' && window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
-  window.__REACT_DEVTOOLS_GLOBAL_HOOK__.connectToDevTools?.();
+if (typeof window !== 'undefined' && (window as any).__REACT_DEVTOOLS_GLOBAL_HOOK__) {
+  (window as any).__REACT_DEVTOOLS_GLOBAL_HOOK__.connectToDevTools?.();
 }
 
 createRoot(document.getElementById("root")!).render(<App />);

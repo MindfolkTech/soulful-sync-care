@@ -245,7 +245,7 @@ export function ModerationTable() {
               
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="outline" size="sm" className="text-destructive hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))]">
+                  <Button variant="outline" size="sm" className="text-[hsl(var(--error-text))] hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))]">
                     <Trash2 className="h-4 w-4 mr-2" />
                     Remove Selected ({selectedItems.length})
                   </Button>
@@ -464,7 +464,7 @@ function ModerationTableView({
                           variant="outline"
                           size="sm"
                           onClick={() => onRemove(item.id)}
-                          className="text-destructive hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))]"
+                          className="text-[hsl(var(--error-text))] hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))]"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>

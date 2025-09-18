@@ -284,7 +284,7 @@ function UserSearchDialog({ onSelectUser }: UserSearchDialogProps) {
 
           <div className="bg-[hsl(var(--surface-accent))] p-4 rounded-md">
             <div className="flex items-start gap-3">
-              <AlertTriangle className="h-5 w-5 text-warning mt-0.5" />
+              <AlertTriangle className="h-5 w-5 text-[hsl(var(--warning-text))] mt-0.5" />
               <div className="space-y-1">
                 <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">Security Notice</p>
                 <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">

@@ -222,7 +222,7 @@ Apply to all UI code (React/TSX/CSS/Tailwind).
 <div className="bg-[#497557] text-[#ffffff]">Content</div>
 
 // Wrong — token without hsl() wrapper
-<div className="bg-[--garden-green] text-[--on-dark]">Content</div>
+<div className="bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))]">Content</div>
 
 // Wrong — Tailwind named colors for tags
 <Tag className="bg-orange-200 text-green-800">Tag</Tag>

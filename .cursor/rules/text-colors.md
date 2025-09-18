@@ -64,7 +64,7 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Use **design tokens** only.
 ## Enforcement — Auto-fix Guidance
 
 ### Replace These Patterns
-- If code contains `text-black`, `#000`, `rgb(0,0,0)`, or `hsl(0 0% 0%)` outside critical alerts, replace with `text-[--ink-slate]`
+- If code contains `text-black`, `#000`, `rgb(0,0,0)`, or `hsl(0 0% 0%)` outside critical alerts, replace with `text-[hsl(var(--ink-slate))]`
 - If dark bg is used and text isn't `--on-dark`, change to `--on-dark`
 - If a tag bg is one of the 6 category tokens, force its paired text token from the table above
 - If `--garden-green` is used for body text on light bg, replace with `--text-primary`
@@ -86,25 +86,25 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Use **design tokens** only.
 ### ✅ Good Examples
 ```tsx
 // Light surface content
-<p className="text-[--text-primary]">Main content</p>
-<span className="text-[--text-secondary]">Description</span>
+<p className="text-[hsl(var(--text-primary))]">Main content</p>
+<span className="text-[hsl(var(--text-secondary))]">Description</span>
 
 // Primary button
-<Button className="bg-[--garden-green] text-[--on-dark]">Start Journey</Button>
+<Button className="bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))]">Start Journey</Button>
 
 // Personality tag
-<Tag className="bg-[--tag-personality-bg] text-[--tag-personality-text]">Empathetic</Tag>
+<Tag className="bg-[hsl(var(--tag-personality-bg))] text-[hsl(var(--tag-personality-text))]">Empathetic</Tag>
 
 // Trust button (NEW)
-<Button className="bg-[--tag-specialty-bg] text-[--tag-specialty-text]">Learn More</Button>
+<Button className="bg-[hsl(var(--tag-specialty-bg))] text-[hsl(var(--tag-specialty-text))]">Learn More</Button>
 
 // Warning alert (preferred soft ink)
-<Alert variant="warning" className="bg-[--warning-bg] text-[--ink-slate]">
+<Alert variant="warning" className="bg-[hsl(var(--warning-bg))] text-[hsl(var(--ink-slate))]">
   Please complete your assessment
 </Alert>
 
 // Critical alert (only place for pure black)
-<Alert variant="critical" className="bg-[--warning-bg] text-[--text-black]">
+<Alert variant="critical" className="bg-[hsl(var(--warning-bg))] text-[hsl(var(--text-black))]">
   ⚠️ Session ending in 30 seconds
 </Alert>
 ```
@@ -118,20 +118,20 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Use **design tokens** only.
 <Button className="bg-[#497557] text-black">Go</Button>
 
 // Wrong - mismatched tag colors
-<Tag className="bg-[--tag-personality-bg] text-black">Empathetic</Tag>
+<Tag className="bg-[hsl(var(--tag-personality-bg))] text-black">Empathetic</Tag>
 
 // Wrong - garden-green for body text
-<p className="text-[--garden-green]">Body text</p>
+<p className="text-[hsl(var(--garden-green))]">Body text</p>
 
 // Wrong - black for non-critical alerts
-<Alert className="bg-[--warning-bg] text-black">Minor warning</Alert>
+<Alert className="bg-[hsl(var(--warning-bg))] text-black">Minor warning</Alert>
 ```
 
 ## Implementation Notes
-- **Always use CSS custom properties** with `text-[--token-name]` syntax
+- **Always use CSS custom properties** with `text-[hsl(var(--token-name))]` syntax
 - **Test contrast ratios** using browser dev tools or accessibility tools
 - **Use semantic color names** that match the design system
-- **Prefer Tailwind's arbitrary value syntax** for custom properties: `text-[--text-primary]`
+- **Prefer Tailwind's arbitrary value syntax** for custom properties: `text-[hsl(var(--text-primary))]`
 - **Soft ink (#20323A) is preferred over pure black** for better UX and brand alignment
 - **Reserve pure black only for critical safety alerts** that require maximum attention
 
@@ -152,27 +152,27 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Use **design tokens** only.
 ## Dashboard-Specific Colors
 
 ### Header Colors
-- **Logo text**: `text-[--on-dark]` on `bg-[--jovial-jade]` background
-- **Search placeholder**: `text-[--text-muted]` on `bg-[--jovial-jade]` background
-- **User avatar text**: `text-[--on-dark]` on `bg-[--jovial-jade]` background
+- **Logo text**: `text-[hsl(var(--on-dark))]` on `bg-[hsl(var(--jovial-jade))]` background
+- **Search placeholder**: `text-[hsl(var(--text-muted))]` on `bg-[hsl(var(--jovial-jade))]` background
+- **User avatar text**: `text-[hsl(var(--on-dark))]` on `bg-[hsl(var(--jovial-jade))]` background
 
 ### Sidebar Colors
-- **Navigation text**: `text-[--text-primary]` on `bg-[--surface-accent]` background (✅ High contrast: 7.2:1)
-- **Active navigation**: `text-[--on-dark]` on `bg-[--jovial-jade]` background
-- **Quick actions**: `text-[--text-primary]` on `bg-[--surface-accent]` background (✅ High contrast: 7.2:1)
+- **Navigation text**: `text-[hsl(var(--text-primary))]` on `bg-[hsl(var(--surface-accent))]` background (✅ High contrast: 7.2:1)
+- **Active navigation**: `text-[hsl(var(--on-dark))]` on `bg-[hsl(var(--jovial-jade))]` background
+- **Quick actions**: `text-[hsl(var(--text-primary))]` on `bg-[hsl(var(--surface-accent))]` background (✅ High contrast: 7.2:1)
 
 ### Widget Colors
-- **Widget titles**: `text-[--jovial-jade]` on `bg-[--surface]` background
-- **Action links**: `text-[--garden-green]` on `bg-[--surface]` background
-- **Client names**: `text-[--text-primary]` on `bg-[--surface]` background
-- **Email addresses**: `text-[--text-secondary]` on `bg-[--surface]` background
-- **Times/dates**: `text-[--text-secondary]` on `bg-[--surface]` background
+- **Widget titles**: `text-[hsl(var(--jovial-jade))]` on `bg-[hsl(var(--surface))]` background
+- **Action links**: `text-[hsl(var(--garden-green))]` on `bg-[hsl(var(--surface))]` background
+- **Client names**: `text-[hsl(var(--text-primary))]` on `bg-[hsl(var(--surface))]` background
+- **Email addresses**: `text-[hsl(var(--text-secondary))]` on `bg-[hsl(var(--surface))]` background
+- **Times/dates**: `text-[hsl(var(--text-secondary))]` on `bg-[hsl(var(--surface))]` background
 
 ### Status Badge Colors
-- **Active status**: `text-[--on-dark]` on `bg-[--success-bg]`
-- **Inactive status**: `text-[--ink-slate]` on `bg-[--warning-bg]`
+- **Active status**: `text-[hsl(var(--on-dark))]` on `bg-[hsl(var(--success-bg))]`
+- **Inactive status**: `text-[hsl(var(--ink-slate))]` on `bg-[hsl(var(--warning-bg))]`
 
 ### Chart Colors
-- **Chart labels**: `text-[--text-secondary]` on white background
-- **Central numbers**: `text-[--jovial-jade]` on white background
-- **Data points**: `bg-[--btn-accent-bg]` with `text-[--on-dark]` centers
+- **Chart labels**: `text-[hsl(var(--text-secondary))]` on white background
+- **Central numbers**: `text-[hsl(var(--jovial-jade))]` on white background
+- **Data points**: `bg-[hsl(var(--btn-accent-bg))]` with `text-[hsl(var(--on-dark))]` centers

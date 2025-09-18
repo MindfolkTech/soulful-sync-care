@@ -318,7 +318,7 @@ export default function Account() {
                           <AlertDialogTrigger asChild>
                             <Button 
                               variant="outline" 
-                              className="font-secondary text-destructive hover:text-destructive"
+                              className="font-secondary text-[hsl(var(--error-text))] hover:text-[hsl(var(--error-text))]"
                             >
                               <Trash2 className="w-4 h-4 mr-2" />
                               Delete Account
@@ -347,7 +347,7 @@ export default function Account() {
                               <AlertDialogAction
                                 onClick={handleDeleteAccount}
                                 disabled={isDeleting}
-                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90 font-secondary"
+                                className="bg-destructive text-[hsl(var(--error-text))]-foreground hover:bg-destructive/90 font-secondary"
                               >
                                 {isDeleting ? "Deleting..." : "Yes, Delete My Account"}
                               </AlertDialogAction>

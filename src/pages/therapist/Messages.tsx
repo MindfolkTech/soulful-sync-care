@@ -79,7 +79,7 @@ export default function TherapistMessages() {
   const getPriorityIcon = (priority: string) => {
     switch (priority) {
       case "high":
-        return <AlertCircle className="w-4 h-4 text-destructive" />;
+        return <AlertCircle className="w-4 h-4 text-[hsl(var(--error-text))]" />;
       case "normal":
       default:
         return <MessageSquare className="w-4 h-4 text-muted-foreground" />;

@@ -47,7 +47,7 @@ export default function TherapistAvailability() {
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Card>
                 <CardContent className="p-6">
                   <div className="text-center">
@@ -70,7 +70,7 @@ export default function TherapistAvailability() {
                 <CardContent className="p-6">
                   <div className="text-center">
                     <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Remaining</p>
-                    <p className="font-primary text-2xl font-bold text-success">6</p>
+                    <p className="font-primary text-2xl font-bold text-[hsl(var(--success-text))]">6</p>
                     <p className="font-secondary text-text-muted text-xs">Open slots</p>
                   </div>
                 </CardContent>
@@ -79,7 +79,7 @@ export default function TherapistAvailability() {
                 <CardContent className="p-6">
                   <div className="text-center">
                     <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Utilization</p>
-                    <p className="font-primary text-2xl font-bold text-warning">67%</p>
+                    <p className="font-primary text-2xl font-bold text-[hsl(var(--warning-text))]">67%</p>
                     <p className="font-secondary text-text-muted text-xs">Of available hours</p>
                   </div>
                 </CardContent>

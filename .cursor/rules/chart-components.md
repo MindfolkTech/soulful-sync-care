@@ -16,7 +16,7 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 ## Dashboard Widget Chart Requirements
 
 ### Widget 3: Income Details - Donut Chart (Mandatory)
-- **Central number**: Large, prominent display (e.g., "122") - `text-[--jovial-jade]` color
+- **Central number**: Large, prominent display (e.g., "122") - `text-[hsl(var(--jovial-jade))]` color
 - **Chart type**: Donut chart with three segments
 - **Data representation**: Appointments breakdown (completed/cancelled/rescheduled sessions)
 - **Size**: Proportional to widget container, centered in widget
@@ -24,16 +24,16 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 - **Accessibility**: ARIA labels, alt text, and data tables for screen readers
 
 #### Color Specifications (Exact Mapping)
-- **Completed sessions**: `bg-[--btn-accent-bg]` (#FFCBAA - orange segment)
-- **Cancelled sessions**: `bg-[--tag-language-bg]` (#EAE3DC - purple segment)  
-- **Rescheduled sessions**: `bg-[--tag-modality-bg]` (#EBF1ED - green segment)
-- **Central number**: `text-[--jovial-jade]` (#3A5949)
-- **Legend text**: `text-[--text-secondary]` (#6B7280)
-- **Background**: `bg-[--surface]` (#FFFFFF)
+- **Completed sessions**: `bg-[hsl(var(--btn-accent-bg))]` (#FFCBAA - orange segment)
+- **Cancelled sessions**: `bg-[hsl(var(--tag-language-bg))]` (#EAE3DC - purple segment)  
+- **Rescheduled sessions**: `bg-[hsl(var(--tag-modality-bg))]` (#EBF1ED - green segment)
+- **Central number**: `text-[hsl(var(--jovial-jade))]` (#3A5949)
+- **Legend text**: `text-[hsl(var(--text-secondary))]` (#6B7280)
+- **Background**: `bg-[hsl(var(--surface))]` (#FFFFFF)
 
 #### Required Elements
-- **Section label**: "Appointments" - `font-secondary`, `text-[--text-secondary]`
-- **Central number**: Large font size, `font-primary`, `text-[--jovial-jade]`
+- **Section label**: "Appointments" - `font-secondary`, `text-[hsl(var(--text-secondary))]`
+- **Central number**: Large font size, `font-primary`, `text-[hsl(var(--jovial-jade))]`
 - **Legend**: Three items (Completed, Cancelled, Rescheduled) with color indicators
 - **Tooltip support**: Show exact numbers on hover/focus
 
@@ -45,16 +45,16 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 - **Accessibility**: Screen reader friendly data points and trend description
 
 #### Color Specifications (Exact Mapping)
-- **Trend line**: `bg-[--btn-accent-bg]` (#FFCBAA - orange line)
-- **Data points**: `bg-[--btn-accent-bg]` with `text-[--on-dark]` centers
-- **Grid lines**: `border-[--border]` (#E5E7EB - subtle, non-distracting)
-- **Y-axis labels**: `text-[--text-secondary]` (#6B7280)
-- **Background**: `bg-[--surface]` (#FFFFFF)
-- **Title**: `text-[--text-secondary]` (#6B7280)
+- **Trend line**: `bg-[hsl(var(--btn-accent-bg))]` (#FFCBAA - orange line)
+- **Data points**: `bg-[hsl(var(--btn-accent-bg))]` with `text-[hsl(var(--on-dark))]` centers
+- **Grid lines**: `border-[hsl(var(--border))]` (#E5E7EB - subtle, non-distracting)
+- **Y-axis labels**: `text-[hsl(var(--text-secondary))]` (#6B7280)
+- **Background**: `bg-[hsl(var(--surface))]` (#FFFFFF)
+- **Title**: `text-[hsl(var(--text-secondary))]` (#6B7280)
 
 #### Required Elements
-- **Section label**: "Profile Views in the last year" - `font-secondary`, `text-[--text-secondary]`
-- **Y-axis labels**: 9k, 11k, 14k, 17k, 20k - `font-secondary`, `text-[--text-secondary]`
+- **Section label**: "Profile Views in the last year" - `font-secondary`, `text-[hsl(var(--text-secondary))]`
+- **Y-axis labels**: 9k, 11k, 14k, 17k, 20k - `font-secondary`, `text-[hsl(var(--text-secondary))]`
 - **Trend line**: Orange color with smooth curves
 - **Data points**: Circular indicators at key points
 - **Grid lines**: Horizontal guidelines for readability
@@ -62,9 +62,9 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 ## Chart Implementation Requirements
 
 ### Touch Target Compliance
-- **Interactive elements**: `min-h-[--touch-target-min]` (44px)
-- **Data points**: `min-h-[--touch-target-min]` when clickable
-- **Legend items**: `min-h-[--touch-target-min]` for accessibility
+- **Interactive elements**: `min-h-[hsl(var(--touch-target-min))]` (44px)
+- **Data points**: `min-h-[hsl(var(--touch-target-min))]` when clickable
+- **Legend items**: `min-h-[hsl(var(--touch-target-min))]` for accessibility
 - **Tooltip triggers**: Meet touch target requirements
 
 ### Responsive Design
@@ -80,11 +80,11 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
   - Hover interactions for additional data
 
 ### Typography Requirements
-- **Chart titles**: `font-primary` (Crimson Pro) - `text-[--jovial-jade]`
-- **Section labels**: `font-secondary` (Helvetica Neue) - `text-[--text-secondary]`
-- **Data labels**: `font-secondary` (Helvetica Neue) - `text-[--text-secondary]`
-- **Central numbers**: `font-primary` (Crimson Pro) - `text-[--jovial-jade]`
-- **Legend text**: `font-secondary` (Helvetica Neue) - `text-[--text-secondary]`
+- **Chart titles**: `font-primary` (Crimson Pro) - `text-[hsl(var(--jovial-jade))]`
+- **Section labels**: `font-secondary` (Helvetica Neue) - `text-[hsl(var(--text-secondary))]`
+- **Data labels**: `font-secondary` (Helvetica Neue) - `text-[hsl(var(--text-secondary))]`
+- **Central numbers**: `font-primary` (Crimson Pro) - `text-[hsl(var(--jovial-jade))]`
+- **Legend text**: `font-secondary` (Helvetica Neue) - `text-[hsl(var(--text-secondary))]`
 
 ## Accessibility Requirements (WCAG AA)
 
@@ -129,21 +129,21 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 - **Graceful degradation**: Show basic data if chart library fails
 
 ### Error States
-- **No data**: Clear message with `text-[--text-secondary]`
+- **No data**: Clear message with `text-[hsl(var(--text-secondary))]`
 - **Data errors**: User-friendly error messages
 - **Fallback content**: Text-based data when charts can't render
 
 ## Integration with Dashboard Layout
 
 ### Widget Container Requirements
-- **Background**: `bg-[--surface]` with `border-[--border]`
+- **Background**: `bg-[hsl(var(--surface))]` with `border-[hsl(var(--border))]`
 - **Padding**: Consistent with other dashboard widgets
 - **Height**: Equal height with other widgets in the grid
 - **Scrolling**: Vertical scroll if chart content exceeds widget height
 
 ### Header Integration
-- **Widget titles**: Match dashboard typography (`font-primary`, `text-[--jovial-jade]`)
-- **Action links**: "EDIT" and "OPEN" links with `text-[--garden-green]`
+- **Widget titles**: Match dashboard typography (`font-primary`, `text-[hsl(var(--jovial-jade))]`)
+- **Action links**: "EDIT" and "OPEN" links with `text-[hsl(var(--garden-green))]`
 - **External link icons**: Consistent with other dashboard widgets
 
 ## Testing Requirements
@@ -165,14 +165,14 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 ### ? Good Chart Implementation
 ```tsx
 // Donut Chart for Income Details Widget
-<div className="bg-[--surface] p-4 rounded-lg border border-[--border]">
+<div className="bg-[hsl(var(--surface))] p-4 rounded-lg border border-[hsl(var(--border))]">
   <div className="flex items-center justify-between mb-4">
-    <h3 className="font-primary text-[--jovial-jade]">Income Details</h3>
-    <a href="#" className="text-[--garden-green] text-sm">EDIT</a>
+    <h3 className="font-primary text-[hsl(var(--jovial-jade))]">Income Details</h3>
+    <a href="#" className="text-[hsl(var(--garden-green))] text-sm">EDIT</a>
   </div>
   <div className="flex items-center justify-between mb-2">
-    <span className="font-secondary text-[--text-secondary] text-sm">Appointments</span>
-    <a href="#" className="text-[--garden-green] text-sm flex items-center">
+    <span className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Appointments</span>
+    <a href="#" className="text-[hsl(var(--garden-green))] text-sm flex items-center">
       OPEN ANALYTICS <ExternalLink className="ml-1 w-4 h-4" />
     </a>
   </div>
@@ -183,12 +183,12 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
   >
     <DonutChart
       data={[
-        { label: "Completed", value: 85, color: "bg-[--btn-accent-bg]" },
-        { label: "Cancelled", value: 22, color: "bg-[--tag-language-bg]" },
-        { label: "Rescheduled", value: 15, color: "bg-[--tag-modality-bg]" }
+        { label: "Completed", value: 85, color: "bg-[hsl(var(--btn-accent-bg))]" },
+        { label: "Cancelled", value: 22, color: "bg-[hsl(var(--tag-language-bg))]" },
+        { label: "Rescheduled", value: 15, color: "bg-[hsl(var(--tag-modality-bg))]" }
       ]}
       centerText="122"
-      centerTextClass="font-primary text-2xl text-[--jovial-jade]"
+      centerTextClass="font-primary text-2xl text-[hsl(var(--jovial-jade))]"
     />
   </div>
   <div className="space-y-2">
@@ -196,9 +196,9 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
       <div key={index} className="flex items-center justify-between text-sm">
         <div className="flex items-center">
           <div className={`w-3 h-3 rounded-full ${item.color} mr-2`} />
-          <span className="font-secondary text-[--text-secondary]">{item.label}</span>
+          <span className="font-secondary text-[hsl(var(--text-secondary))]">{item.label}</span>
         </div>
-        <span className="font-secondary text-[--text-primary]">{item.value}</span>
+        <span className="font-secondary text-[hsl(var(--text-primary))]">{item.value}</span>
       </div>
     ))}
   </div>

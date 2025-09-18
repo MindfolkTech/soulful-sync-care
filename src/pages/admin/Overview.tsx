@@ -9,7 +9,7 @@ export default function AdminOverview() {
       <div className="p-8">
         <Container>
           <h1 className="font-primary text-3xl font-bold text-[hsl(var(--text-primary))] mb-8">Admin Overview</h1>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
@@ -28,7 +28,7 @@ export default function AdminOverview() {
                     <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Active Therapists</p>
                     <p className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">89</p>
                   </div>
-                  <UserCheck className="w-8 h-8 text-success" />
+                  <UserCheck className="w-8 h-8 text-[hsl(var(--success-text))]" />
                 </div>
               </CardContent>
             </Card>
@@ -39,7 +39,7 @@ export default function AdminOverview() {
                     <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Sessions Today</p>
                     <p className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">156</p>
                   </div>
-                  <Calendar className="w-8 h-8 text-warning" />
+                  <Calendar className="w-8 h-8 text-[hsl(var(--warning-text))]" />
                 </div>
               </CardContent>
             </Card>

@@ -260,7 +260,7 @@ export function PaymentForm({
           </div>
         </div>
         {errors.expiry && (
-          <p className="text-xs text-destructive flex items-center gap-1 font-secondary">
+          <p className="text-xs text-[hsl(var(--error-text))] flex items-center gap-1 font-secondary">
             <AlertCircle className="h-3 w-3" />
             {errors.expiry}
           </p>

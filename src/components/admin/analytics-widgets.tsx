@@ -337,7 +337,7 @@ function KPICard({ title, value, change, trend, icon: Icon, description }: KPICa
           <div className={`flex items-center gap-1 px-2 py-1 rounded-md ${
             isPositive 
               ? 'bg-[hsl(var(--success-bg))]/10 text-[hsl(var(--success-text))]' 
-              : 'bg-[hsl(var(--error-bg))]/10 text-destructive'
+              : 'bg-[hsl(var(--error-bg))]/10 text-[hsl(var(--error-text))]'
           }`}>
             {isPositive ? (
               <ArrowUpRight className="h-4 w-4" />

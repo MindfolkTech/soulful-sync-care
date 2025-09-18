@@ -337,7 +337,7 @@ function ApplicationsList({
                             variant="outline"
                             size="sm"
                             onClick={() => onReject(application.id)}
-                            className="text-destructive hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))] min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                            className="text-[hsl(var(--error-text))] hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))] min-h-[--touch-target-min] min-w-[--touch-target-min]"
                             aria-label={`Reject ${application.name}'s application`}
                           >
                             <XCircle className="h-4 w-4" />
@@ -484,7 +484,7 @@ function ApplicationDetailsDialog({
                   </>
                 ) : (
                   <>
-                    <XCircle className="h-5 w-5 text-destructive" />
+                    <XCircle className="h-5 w-5 text-[hsl(var(--error-text))]" />
                     <p className="font-secondary text-[hsl(var(--text-primary))]">Background check pending</p>
                   </>
                 )}
@@ -501,7 +501,7 @@ function ApplicationDetailsDialog({
                   onReject(application.id);
                   onClose();
                 }}
-                className="text-destructive hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))] min-h-[--touch-target-min] max-w-[280px]"
+                className="text-[hsl(var(--error-text))] hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))] min-h-[--touch-target-min] max-w-[280px]"
                 aria-label={`Reject ${application.name}'s application permanently`}
               >
                 <XCircle className="h-4 w-4 mr-2" />

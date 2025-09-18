@@ -132,28 +132,28 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure all color combinations mee
 ### ✅ Excellent Contrast Examples
 ```tsx
 // High contrast text
-<p className="text-[--text-primary] bg-[--warm-white]">Main content</p>
-<h1 className="text-[--jovial-jade] bg-[--surface]">Heading</h1>
+<p className="text-[hsl(var(--text-primary))] bg-[hsl(var(--warm-white))]">Main content</p>
+<h1 className="text-[hsl(var(--jovial-jade))] bg-[hsl(var(--surface))]">Heading</h1>
 
 // High contrast buttons
-<Button className="bg-[--garden-green] text-[--on-dark]">Primary Action</Button>
-<Button className="bg-[--tag-specialty-bg] text-[--tag-specialty-text]">Trust Action</Button>
+<Button className="bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))]">Primary Action</Button>
+<Button className="bg-[hsl(var(--tag-specialty-bg))] text-[hsl(var(--tag-specialty-text))]">Trust Action</Button>
 
 // High contrast tags
-<Tag className="bg-[--tag-personality-bg] text-[--tag-personality-text]">Personality</Tag>
-<Tag className="bg-[--tag-specialty-bg] text-[--tag-specialty-text]">Specialty</Tag>
+<Tag className="bg-[hsl(var(--tag-personality-bg))] text-[hsl(var(--tag-personality-text))]">Personality</Tag>
+<Tag className="bg-[hsl(var(--tag-specialty-bg))] text-[hsl(var(--tag-specialty-text))]">Specialty</Tag>
 ```
 
 ### ❌ Poor Contrast Examples
 ```tsx
 // Wrong - low contrast
-<p className="text-[--text-muted] bg-[--surface-accent]">Washed out</p>
+<p className="text-[hsl(var(--text-muted))] bg-[hsl(var(--surface-accent))]">Washed out</p>
 
 // Wrong - insufficient contrast
-<Button className="bg-[--tag-modality-bg] text-[--text-secondary]">Hard to read</Button>
+<Button className="bg-[hsl(var(--tag-modality-bg))] text-[hsl(var(--text-secondary))]">Hard to read</Button>
 
 // Wrong - clashing colors
-<div className="bg-[--garden-green] text-[--warning-bg]">Jarring</div>
+<div className="bg-[hsl(var(--garden-green))] text-[hsl(var(--warning-bg))]">Jarring</div>
 ```
 
 ## Implementation Guidelines
