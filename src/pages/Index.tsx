@@ -110,7 +110,6 @@ export default function Index() {
                   className="w-full h-auto drop-shadow-lg"
                   style={{ borderRadius: "var(--radius-lg)" }}
                   loading="eager"
-                  fetchPriority="high"
                 />
               </div>
             </div>
