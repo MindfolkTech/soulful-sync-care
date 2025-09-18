@@ -79,7 +79,7 @@ export function BasicInfoSection({ profile, onUpdate }: BasicInfoSectionProps) {
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="yearsExperience">Years of Experience</Label>
-            <Select value={profile.yearsExperience} onValueChange={(value) => onUpdate({ yearsExperience: value })}>
+            <Select value={profile.years_experience} onValueChange={(value) => onUpdate({ years_experience: value })}>
               <SelectTrigger>
                 <SelectValue placeholder="Select experience" />
               </SelectTrigger>
@@ -204,7 +204,7 @@ export function RatesAndPoliciesSection({ profile, onUpdate }: RatesAndPoliciesS
                 placeholder="80"
                 className="pl-8"
                 value={profile.rate45min || ""}
-                onChange={(e) => onUpdate({ rate45min: e.target.value })}
+                onChange={(e) => onUpdate({ rate45min: Number(e.target.value) })}
               />
             </div>
           </div>
@@ -218,7 +218,7 @@ export function RatesAndPoliciesSection({ profile, onUpdate }: RatesAndPoliciesS
                 placeholder="100"
                 className="pl-8"
                 value={profile.rate60min || ""}
-                onChange={(e) => onUpdate({ rate60min: e.target.value })}
+                onChange={(e) => onUpdate({ rate60min: Number(e.target.value) })}
               />
             </div>
           </div>
@@ -241,8 +241,8 @@ export function RatesAndPoliciesSection({ profile, onUpdate }: RatesAndPoliciesS
             <div className="flex items-center space-x-2">
               <Checkbox 
                 id="videoSessions"
-                checked={profile.offersVideo || false}
-                onCheckedChange={(checked) => onUpdate({ offersVideo: checked })}
+              checked={profile.offersVideo || false}
+              onCheckedChange={(checked) => onUpdate({ offersVideo: !!checked })}
               />
               <label htmlFor="videoSessions" className="font-secondary text-sm">
                 Video sessions
@@ -251,8 +251,8 @@ export function RatesAndPoliciesSection({ profile, onUpdate }: RatesAndPoliciesS
             <div className="flex items-center space-x-2">
               <Checkbox 
                 id="phoneSessions"
-                checked={profile.offersPhone || false}
-                onCheckedChange={(checked) => onUpdate({ offersPhone: checked })}
+              checked={profile.offersPhone || false}
+              onCheckedChange={(checked) => onUpdate({ offersPhone: !!checked })}
               />
               <label htmlFor="phoneSessions" className="font-secondary text-sm">
                 Phone sessions

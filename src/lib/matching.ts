@@ -102,6 +102,7 @@ export interface TherapistProfile {
   lastName?: string;
   title?: string;
   bio?: string;
+  location?: string;
   experience?: string[];
   education?: string[];
   certifications?: string[];

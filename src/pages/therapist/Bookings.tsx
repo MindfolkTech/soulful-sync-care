@@ -25,7 +25,7 @@ const bookings = [
     type: "Chemistry Call",
     sessionTime: new Date(Date.now() + 8 * 60 * 1000), // 8 minutes from now (will show JOIN NOW)
     duration: "15 min",
-    status: "confirmed",
+    status: "confirmed" as const,
     notes: "First time client - anxiety and stress management"
   },
   {
@@ -36,7 +36,7 @@ const bookings = [
     type: "Therapy Session",
     sessionTime: new Date(Date.now() + 45 * 60 * 1000), // 45 minutes from now
     duration: "60 min",
-    status: "confirmed",
+    status: "confirmed" as const,
     notes: "Regular session - working on communication skills"
   },
   {
@@ -47,7 +47,7 @@ const bookings = [
     type: "Therapy Session",
     sessionTime: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2 hours from now
     duration: "60 min",
-    status: "pending",
+    status: "pending" as const,
     notes: "Follow-up session - stress management techniques"
   },
   {
@@ -58,7 +58,7 @@ const bookings = [
     type: "Therapy Session",
     sessionTime: new Date(Date.now() + 24 * 60 * 60 * 1000), // Tomorrow
     duration: "60 min",
-    status: "confirmed",
+    status: "confirmed" as const,
     notes: "Long-term client - depression management progress review"
   }
 ];
