@@ -18,6 +18,7 @@ import SignIn from "./pages/public/SignIn";
 import SignUp from "./pages/public/SignUp";
 import Terms from "./pages/public/Terms";
 import Privacy from "./pages/public/Privacy";
+import WaitlistSuccess from "./pages/public/WaitlistSuccess";
 
 // Client pages
 import Assessment from "./pages/client/Assessment";
@@ -85,6 +86,7 @@ const App = () => (
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/legal/terms" element={<Terms />} />
           <Route path="/legal/privacy" element={<Privacy />} />
+          <Route path="/waitlist-success" element={<WaitlistSuccess />} />
 
           {/* Client routes */}
           <Route path="/assessment" element={<Assessment />} />

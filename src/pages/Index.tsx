@@ -4,97 +4,764 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-
-// Images now served from public folder
+import { ClerkWaitlist } from "@/components/auth/clerk-waitlist";
+import { Clock, Wallet, Frown, CheckCircle, Star, Shield } from "lucide-react";
 
 export default function Index() {
-  React.useEffect(() => {
-    const link = document.createElement("link");
-    link.rel = "preload";
-    link.as = "image";
-    link.href = "/images/master-landing-hero-option-a.png";
-    (link as any).fetchpriority = "high";
-    document.head.appendChild(link);
-
-    return () => {
-      if (document.head.contains(link)) {
-        document.head.removeChild(link);
-      }
-    };
-  }, []);
-
   return (
     <div 
       className="grid grid-rows-[auto_1fr_auto] min-h-dvh overflow-x-hidden"
-      style={{ backgroundColor: "var(--warm-white)" }}
+      style={{ backgroundColor: "hsl(var(--warm-white))" }}
     >
       <Header />
 
       <main className="flex-1">
-        {/* Hero Section */}
+        {/* 1. Hero Section - The "Aha!" Moment */}
         <section 
-          className="py-[--space-xl)] lg:py-[--space-2xl)]"
-          style={{ backgroundColor: "var(--warm-white)" }}
+          className="py-[--space-xl] lg:py-[--space-2xl]"
+          style={{ backgroundColor: "hsl(var(--warm-white))" }}
         >
           <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-[--space-lg)] items-center">
-              <div className="lg:col-span-5 space-y-[--space-md]">
-                <p 
-                  className="uppercase tracking-wide"
-                  style={{
-                    fontFamily: "var(--font-secondary)",
-                    color: "hsl(var(--text-secondary))",
-                    fontSize: "var(--text-xs)",
-                  }}
-                >
-                  Tired of therapist mismatches?
-                </p>
-                
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-[--space-lg] items-center">
+              <div className="lg:col-span-6 space-y-[--space-md]">
                 <h1 
                   className="font-bold leading-tight"
                   style={{
                     fontFamily: "var(--font-primary)",
-                    color: "hsl(var(--jovial-jade))",
-                    fontSize: "var(--text-3xl)",
-                    maxWidth: "14ch"
+                    color: "hsl(var(--text-primary))",
+                    fontSize: "clamp(2.5rem, 5vw, 4rem)",
                   }}
                 >
-                  Find the right therapist <em className="italic font-bold">for you</em>.
+                  Find a therapist who actually <em className="italic" style={{ color: "hsl(var(--garden-green))" }}>gets you</em>.
                 </h1>
                 
                 <p 
-                  className="leading-relaxed"
+                  className="leading-relaxed text-lg"
                   style={{
                     fontFamily: "var(--font-secondary)",
-                    color: "hsl(var(--text-primary))",
-                    fontSize: "var(--text-lg)",
+                    color: "hsl(var(--text-secondary))",
                   }}
                 >
-                  Because everyone's mental health journey is different.
+                  Stop scrolling through therapist directories. Swipe through short, authentic videos to find a fit that clicks.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row gap-[--space-sm)]">
+                <div className="pt-4">
                   <Button
                     size="lg"
-                    className="min-h-[var(--touch-target-min)] focus-visible:ring-2 focus-visible:ring-[var(--garden-green)] focus-visible:ring-offset-2"
+                    className="text-lg px-8 py-4 min-h-[var(--touch-target-comfort)]"
                     style={{
-                      backgroundColor: "hsl(var(--btn-primary-bg))",
+                      backgroundColor: "hsl(var(--garden-green))",
                       color: "hsl(var(--btn-primary-text))",
-                      padding: "0 --space-lg)",
+                      fontFamily: "var(--font-secondary)",
+                      fontWeight: "600",
                     }}
                     asChild
                   >
-                    <Link to="/assessment">Start Your Journey</Link>
+                    <Link to="#waitlist">Start Matching for Free</Link>
                   </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="min-h-[var(--touch-target-min)] focus-visible:ring-2 focus-visible:ring-[var(--garden-green)] focus-visible:ring-offset-2"
+                </div>
+              </div>
+
+              <div className="lg:col-span-6">
+                <div className="relative">
+                  <img
+                    src="/images/hero-mix.png"
+                    alt="Diverse, warm, approachable therapist faces in a swipe interface showing authentic video profiles"
+                    className="w-full h-auto drop-shadow-lg"
+                    style={{ borderRadius: "var(--radius-lg)" }}
+                    loading="eager"
+                  />
+                </div>
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* 2. The Problem - "We Understand the Struggle" */}
+        <section 
+          className="py-[--space-xl] lg:py-[--space-2xl]"
+          style={{ backgroundColor: "hsl(var(--surface))" }}
+        >
+          <Container>
+            <div className="text-center space-y-[--space-lg]">
+              <h2 
+                className="text-3xl lg:text-4xl font-bold"
+                style={{
+                  fontFamily: "var(--font-primary)",
+                  color: "hsl(var(--text-primary))",
+                }}
+              >
+                The old way of finding a therapist is broken.
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <div className="text-center space-y-4">
+                  <div 
+                    className="w-16 h-16 mx-auto rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: "hsl(var(--surface-accent))" }}
+                  >
+                    <Clock className="w-8 h-8" style={{ color: "hsl(var(--text-secondary))" }} />
+                  </div>
+                  <h3 
+                    className="text-xl font-bold"
                     style={{
-                      backgroundColor: "transparent",
-                      color: "hsl(var(--btn-secondary-text))",
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-primary))",
+                    }}
+                  >
+                    Wasted Time
+                  </h3>
+                  <p 
+                    className="leading-relaxed"
+                    style={{
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-secondary))",
+                    }}
+                  >
+                    Endless scrolling through text-heavy directories.
+                  </p>
+                </div>
+                
+                <div className="text-center space-y-4">
+                  <div 
+                    className="w-16 h-16 mx-auto rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: "hsl(var(--surface-accent))" }}
+                  >
+                    <Wallet className="w-8 h-8" style={{ color: "hsl(var(--text-secondary))" }} />
+                  </div>
+                  <h3 
+                    className="text-xl font-bold"
+                    style={{
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-primary))",
+                    }}
+                  >
+                    Financial Drain
+                  </h3>
+                  <p 
+                    className="leading-relaxed"
+                    style={{
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-secondary))",
+                    }}
+                  >
+                    Paying for initial sessions that go nowhere.
+                  </p>
+                </div>
+                
+                <div className="text-center space-y-4">
+                  <div 
+                    className="w-16 h-16 mx-auto rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: "hsl(var(--surface-accent))" }}
+                  >
+                    <Frown className="w-8 h-8" style={{ color: "hsl(var(--text-secondary))" }} />
+                  </div>
+                  <h3 
+                    className="text-xl font-bold"
+                    style={{
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-primary))",
+                    }}
+                  >
+                    Mental Exhaustion
+                  </h3>
+                  <p 
+                    className="leading-relaxed"
+                    style={{
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-secondary))",
+                    }}
+                  >
+                    Re-explaining yourself to therapist-after-therapist over and over again.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* 3. The Solution - "Here's a Better Way" */}
+        <section 
+          className="py-[--space-xl] lg:py-[--space-2xl]"
+          style={{ backgroundColor: "hsl(var(--surface-accent))" }}
+        >
+          <Container>
+            <div className="text-center space-y-[--space-lg]">
+              <h2 
+                className="text-3xl lg:text-4xl font-bold"
+                style={{
+                  fontFamily: "var(--font-primary)",
+                  color: "hsl(var(--text-primary))",
+                }}
+              >
+                You are a person. Not a <em className="italic">patient</em>.
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <div className="space-y-6">
+                  <div 
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mx-auto"
+                    style={{ 
+                      backgroundColor: "hsl(var(--garden-green))",
+                      color: "hsl(var(--btn-primary-text))",
+                      fontFamily: "var(--font-secondary)"
+                    }}
+                  >
+                    1
+                  </div>
+                  <div className="space-y-4">
+                    <h3 
+                      className="text-xl font-bold"
+                      style={{
+                        fontFamily: "var(--font-secondary)",
+                        color: "hsl(var(--text-primary))",
+                      }}
+                    >
+                      Watch & Swipe
+                    </h3>
+                    <p 
+                      className="leading-relaxed"
+                      style={{
+                        fontFamily: "var(--font-secondary)",
+                        color: "hsl(var(--text-secondary))",
+                      }}
+                    >
+                      Get a real feel for a therapist's personality with short video intros. See who you vibe with.
+                    </p>
+                  </div>
+                  <img 
+                    src="/images/client-white-female-autistic-20s.png"
+                    alt="Young woman engaging with video profiles on mobile app"
+                    className="w-full h-48 object-cover rounded-lg"
+                    loading="lazy"
+                  />
+                </div>
+                
+                <div className="space-y-6">
+                  <div 
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mx-auto"
+                    style={{ 
+                      backgroundColor: "hsl(var(--garden-green))",
+                      color: "hsl(var(--btn-primary-text))",
+                      fontFamily: "var(--font-secondary)"
+                    }}
+                  >
+                    2
+                  </div>
+                  <div className="space-y-4">
+                    <h3 
+                      className="text-xl font-bold"
+                      style={{
+                        fontFamily: "var(--font-secondary)",
+                        color: "hsl(var(--text-primary))",
+                      }}
+                    >
+                      Chat & Check
+                    </h3>
+                    <p 
+                      className="leading-relaxed"
+                      style={{
+                        fontFamily: "var(--font-secondary)",
+                        color: "hsl(var(--text-secondary))",
+                      }}
+                    >
+                      Book a free 15-minute chemistry call with your favs. No commitment.
+                    </p>
+                  </div>
+                  <img 
+                    src="/images/therapist-white-female-20s.png"
+                    alt="Young therapist in friendly video call"
+                    className="w-full h-48 object-cover rounded-lg"
+                    loading="lazy"
+                  />
+                </div>
+                
+                <div className="space-y-6">
+                  <div 
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mx-auto"
+                    style={{ 
+                      backgroundColor: "hsl(var(--garden-green))",
+                      color: "hsl(var(--btn-primary-text))",
+                      fontFamily: "var(--font-secondary)"
+                    }}
+                  >
+                    3
+                  </div>
+                  <div className="space-y-4">
+                    <h3 
+                      className="text-xl font-bold"
+                      style={{
+                        fontFamily: "var(--font-secondary)",
+                        color: "hsl(var(--text-primary))",
+                      }}
+                    >
+                      Book with Confidence
+                    </h3>
+                    <p 
+                      className="leading-relaxed"
+                      style={{
+                        fontFamily: "var(--font-secondary)",
+                        color: "hsl(var(--text-secondary))",
+                      }}
+                    >
+                      Start your therapy journey knowing you've already made a genuine connection.
+                    </p>
+                  </div>
+                  <img 
+                    src="/images/client-white-male-20s-lilac-shirt.png"
+                    alt="Young man looking hopeful and confident"
+                    className="w-full h-48 object-cover rounded-lg"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* 4. The People - "Meet Our Folk" */}
+        <section 
+          className="py-[--space-xl] lg:py-[--space-2xl]"
+          style={{ backgroundColor: "hsl(var(--surface))" }}
+        >
+          <Container>
+            <div className="text-center space-y-[--space-lg]">
+              <h2 
+                className="text-3xl lg:text-4xl font-bold"
+                style={{
+                  fontFamily: "var(--font-primary)",
+                  color: "hsl(var(--text-primary))",
+                }}
+              >
+                Real Therapists, Real Personalities.
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+                <div className="space-y-4">
+                  <div className="relative overflow-hidden rounded-lg">
+                    <img 
+                      src="/images/therapist-black-female-40s.png"
+                      alt="Therapist video profile - warm and approachable Black therapist"
+                      className="w-full h-64 object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 
+                      className="text-lg font-bold"
+                      style={{
+                        fontFamily: "var(--font-secondary)",
+                        color: "hsl(var(--text-primary))",
+                      }}
+                    >
+                      Maya
+                    </h3>
+                    <div className="flex flex-wrap gap-1 justify-center">
+                      <span 
+                        className="px-2 py-1 rounded-full text-xs"
+                        style={{
+                          backgroundColor: "hsl(var(--tag-specialty-bg))",
+                          color: "hsl(var(--tag-specialty-text))",
+                          fontFamily: "var(--font-secondary)"
+                        }}
+                      >
+                        Neurodiversity Affirming
+                      </span>
+                      <span 
+                        className="px-2 py-1 rounded-full text-xs"
+                        style={{
+                          backgroundColor: "hsl(var(--tag-personality-bg))",
+                          color: "hsl(var(--tag-personality-text))",
+                          fontFamily: "var(--font-secondary)"
+                        }}
+                      >
+                        LGBTQ+ Advocate
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="relative overflow-hidden rounded-lg">
+                    <img 
+                      src="/images/therapist-white-female-40s.png"
+                      alt="Therapist video profile - experienced white female therapist"
+                      className="w-full h-64 object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 
+                      className="text-lg font-bold"
+                      style={{
+                        fontFamily: "var(--font-secondary)",
+                        color: "hsl(var(--text-primary))",
+                      }}
+                    >
+                      Sarah
+                    </h3>
+                    <div className="flex flex-wrap gap-1 justify-center">
+                      <span 
+                        className="px-2 py-1 rounded-full text-xs"
+                        style={{
+                          backgroundColor: "hsl(var(--tag-specialty-bg))",
+                          color: "hsl(var(--tag-specialty-text))",
+                          fontFamily: "var(--font-secondary)"
+                        }}
+                      >
+                        Life Transitions
+                      </span>
+                      <span 
+                        className="px-2 py-1 rounded-full text-xs"
+                        style={{
+                          backgroundColor: "hsl(var(--tag-modality-bg))",
+                          color: "hsl(var(--tag-modality-text))",
+                          fontFamily: "var(--font-secondary)"
+                        }}
+                      >
+                        CBT
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="relative overflow-hidden rounded-lg">
+                    <img 
+                      src="/images/therapist-white-nonbinary-30s.png"
+                      alt="Therapist video profile - welcoming non-binary therapist"
+                      className="w-full h-64 object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 
+                      className="text-lg font-bold"
+                      style={{
+                        fontFamily: "var(--font-secondary)",
+                        color: "hsl(var(--text-primary))",
+                      }}
+                    >
+                      Alex
+                    </h3>
+                    <div className="flex flex-wrap gap-1 justify-center">
+                      <span 
+                        className="px-2 py-1 rounded-full text-xs"
+                        style={{
+                          backgroundColor: "hsl(var(--tag-personality-bg))",
+                          color: "hsl(var(--tag-personality-text))",
+                          fontFamily: "var(--font-secondary)"
+                        }}
+                      >
+                        Gender Affirming
+                      </span>
+                      <span 
+                        className="px-2 py-1 rounded-full text-xs"
+                        style={{
+                          backgroundColor: "hsl(var(--tag-specialty-bg))",
+                          color: "hsl(var(--tag-specialty-text))",
+                          fontFamily: "var(--font-secondary)"
+                        }}
+                      >
+                        Trauma Informed
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="relative overflow-hidden rounded-lg">
+                    <img 
+                      src="/images/therapist-asian-male-40s.png"
+                      alt="Therapist video profile - calm and reassuring Asian male therapist"
+                      className="w-full h-64 object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 
+                      className="text-lg font-bold"
+                      style={{
+                        fontFamily: "var(--font-secondary)",
+                        color: "hsl(var(--text-primary))",
+                      }}
+                    >
+                      David
+                    </h3>
+                    <div className="flex flex-wrap gap-1 justify-center">
+                      <span 
+                        className="px-2 py-1 rounded-full text-xs"
+                        style={{
+                          backgroundColor: "hsl(var(--tag-modality-bg))",
+                          color: "hsl(var(--tag-modality-text))",
+                          fontFamily: "var(--font-secondary)"
+                        }}
+                      >
+                        Mindfulness
+                      </span>
+                      <span 
+                        className="px-2 py-1 rounded-full text-xs"
+                        style={{
+                          backgroundColor: "hsl(var(--tag-specialty-bg))",
+                          color: "hsl(var(--tag-specialty-text))",
+                          fontFamily: "var(--font-secondary)"
+                        }}
+                      >
+                        Anxiety Specialist
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <Button
+                variant="outline"
+                size="lg"
+                className="mt-8"
+                style={{
+                  borderColor: "hsl(var(--garden-green))",
+                  color: "hsl(var(--garden-green))",
+                  fontFamily: "var(--font-secondary)",
+                }}
+                asChild
+              >
+                <Link to="#waitlist">See More Therapists</Link>
+              </Button>
+            </div>
+          </Container>
+        </section>
+
+        {/* 5. The Proof - "You're in Good Company" */}
+        <section 
+          className="py-[--space-xl] lg:py-[--space-2xl]"
+          style={{ backgroundColor: "hsl(var(--surface-accent))" }}
+        >
+          <Container>
+            <div className="text-center space-y-[--space-lg]">
+              <h2 
+                className="text-3xl lg:text-4xl font-bold"
+                style={{
+                  fontFamily: "var(--font-primary)",
+                  color: "hsl(var(--text-primary))",
+                }}
+              >
+                Join the thousands who are finally feeling understood.
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <div 
+                  className="p-6 rounded-lg space-y-4"
+                  style={{ backgroundColor: "hsl(var(--surface))" }}
+                >
+                  <div className="flex text-yellow-400 justify-center">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-current" />
+                    ))}
+                  </div>
+                  <p 
+                    className="italic leading-relaxed"
+                    style={{
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-primary))",
+                    }}
+                  >
+                    "I already felt comfortable with her before our first session. It made the whole process so much easier."
+                  </p>
+                  <p 
+                    className="text-sm font-medium"
+                    style={{
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-secondary))",
+                    }}
+                  >
+                    - Sarah, 28
+                  </p>
+                </div>
+                
+                <div 
+                  className="p-6 rounded-lg space-y-4"
+                  style={{ backgroundColor: "hsl(var(--surface))" }}
+                >
+                  <div className="flex text-yellow-400 justify-center">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-current" />
+                    ))}
+                  </div>
+                  <p 
+                    className="italic leading-relaxed"
+                    style={{
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-primary))",
+                    }}
+                  >
+                    "Finally, a way to see if we actually click before spending hundreds on sessions that don't work."
+                  </p>
+                  <p 
+                    className="text-sm font-medium"
+                    style={{
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-secondary))",
+                    }}
+                  >
+                    - Marcus, 34
+                  </p>
+                </div>
+                
+                <div 
+                  className="p-6 rounded-lg space-y-4"
+                  style={{ backgroundColor: "hsl(var(--surface))" }}
+                >
+                  <div className="flex text-yellow-400 justify-center">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-current" />
+                    ))}
+                  </div>
+                  <p 
+                    className="italic leading-relaxed"
+                    style={{
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-primary))",
+                    }}
+                  >
+                    "The video profiles helped me find someone who actually understands my cultural background."
+                  </p>
+                  <p 
+                    className="text-sm font-medium"
+                    style={{
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-secondary))",
+                    }}
+                  >
+                    - Priya, 26
+                  </p>
+                </div>
+              </div>
+              
+              <div 
+                className="flex items-center justify-center gap-3 mt-8 p-4 rounded-lg"
+                style={{ backgroundColor: "hsl(var(--surface))" }}
+              >
+                <Shield className="w-6 h-6" style={{ color: "hsl(var(--garden-green))" }} />
+                <p 
+                  className="text-sm"
+                  style={{
+                    fontFamily: "var(--font-secondary)",
+                    color: "hsl(var(--text-primary))",
+                  }}
+                >
+                  <strong>Your privacy is our priority.</strong> Our platform is secure and GDPA-compliant.
+                </p>
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* 6. Final CTA - "Ready to Connect?" with Clerk Waitlist */}
+        <section 
+          id="waitlist"
+          className="py-[--space-xl] lg:py-[--space-2xl]"
+          style={{ backgroundColor: "hsl(var(--garden-green))" }}
+        >
+          <Container>
+            <div className="text-center space-y-[--space-lg] max-w-2xl mx-auto">
+              <h2 
+                className="text-3xl lg:text-4xl font-bold"
+                style={{
+                  fontFamily: "var(--font-primary)",
+                  color: "hsl(var(--btn-primary-text))",
+                }}
+              >
+                Ready to find your therapeutic fit?
+              </h2>
+              
+              <p 
+                className="text-lg leading-relaxed"
+                style={{
+                  fontFamily: "var(--font-secondary)",
+                  color: "hsl(var(--btn-primary-text))",
+                  opacity: "0.9"
+                }}
+              >
+                Explore MindFolk today and discover a more human way to find help.
+              </p>
+              
+              <div className="bg-white p-8 rounded-xl shadow-lg max-w-md mx-auto">
+                <ClerkWaitlist />
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* 7. Therapist Section */}
+        <section 
+          className="py-[--space-xl] lg:py-[--space-2xl]"
+          style={{ backgroundColor: "hsl(var(--surface))" }}
+        >
+          <Container>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-[--space-lg] items-center">
+              <div className="lg:col-span-6 space-y-[--space-md]">
+                <h2 
+                  className="text-3xl lg:text-4xl font-bold leading-tight"
+                  style={{
+                    fontFamily: "var(--font-primary)",
+                    color: "hsl(var(--text-primary))",
+                  }}
+                >
+                  Are you a Therapist?
+                </h2>
+                
+                <p 
+                  className="text-xl leading-relaxed"
+                  style={{
+                    fontFamily: "var(--font-secondary)",
+                    color: "hsl(var(--text-secondary))",
+                  }}
+                >
+                  Stand out by <em className="italic">being yourself</em>.
+                </p>
+                
+                <ul className="space-y-4 mt-6">
+                  <li 
+                    className="flex items-start gap-3"
+                    style={{
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-primary))",
+                    }}
+                  >
+                    <CheckCircle className="w-5 h-5 mt-1 flex-shrink-0" style={{ color: "hsl(var(--garden-green))" }} />
+                    Set your own rates, availability, and cancellation policy.
+                  </li>
+                  <li 
+                    className="flex items-start gap-3"
+                    style={{
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-primary))",
+                    }}
+                  >
+                    <CheckCircle className="w-5 h-5 mt-1 flex-shrink-0" style={{ color: "hsl(var(--garden-green))" }} />
+                    Attract pre-qualified clients who value your style.
+                  </li>
+                  <li 
+                    className="flex items-start gap-3"
+                    style={{
+                      fontFamily: "var(--font-secondary)",
+                      color: "hsl(var(--text-primary))",
+                    }}
+                  >
+                    <CheckCircle className="w-5 h-5 mt-1 flex-shrink-0" style={{ color: "hsl(var(--garden-green))" }} />
+                    All-in-one scheduling, payouts, and simple admin.
+                  </li>
+                </ul>
+                
+                <div className="pt-6">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="px-8"
+                    style={{
                       borderColor: "hsl(var(--garden-green))",
-                      padding: "0 --space-lg)",
+                      color: "hsl(var(--garden-green))",
+                      fontFamily: "var(--font-secondary)",
                     }}
                     asChild
                   >
@@ -102,484 +769,12 @@ export default function Index() {
                   </Button>
                 </div>
               </div>
-
-              <div className="lg:col-span-7">
-                <img
-                  src="/images/master-landing-hero-option-a.png"
-                  alt="Four diverse clients smiling, cropped into organic editorial shapes"
-                  className="w-full h-auto drop-shadow-lg"
-                  style={{ borderRadius: "var(--radius-lg)" }}
-                  loading="eager"
-                />
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        {/* Why Compatibility Matters Section */}
-        <section 
-          className="py-12 lg:py-20"
-          style={{ backgroundColor: "var(--surface)" }}
-        >
-          <Container>
-            <div className="space-y-12">
-              <h2 
-                className="text-3xl lg:text-4xl font-bold text-center leading-tight"
-                style={{
-                  fontFamily: "var(--font-primary)",
-                  color: "var(--jovial-jade)",
-                }}
-              >
-                Why compatibility matters
-              </h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div className="space-y-4">
-                  <div 
-                    className="text-4xl lg:text-5xl font-bold"
-                    style={{
-                      fontFamily: "var(--font-primary)",
-                      color: "var(--jovial-jade)",
-                    }}
-                  >
-                    6 <span className="text-base font-normal">therapists</span>
-                  </div>
-                  <p 
-                    className="text-sm leading-relaxed"
-                    style={{
-                      fontFamily: "var(--font-secondary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    On average it takes trying six therapists to find the right fit.
-                  </p>
-                </div>
-                
-                <div className="space-y-4">
-                  <div 
-                    className="text-4xl lg:text-5xl font-bold"
-                    style={{
-                      fontFamily: "var(--font-primary)",
-                      color: "var(--jovial-jade)",
-                    }}
-                  >
-                    57%
-                  </div>
-                  <p 
-                    className="text-sm leading-relaxed"
-                    style={{
-                      fontFamily: "var(--font-secondary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    give up after 1–2 mismatches.
-                  </p>
-                </div>
-                
-                <div className="space-y-4">
-                  <div 
-                    className="text-4xl lg:text-5xl font-bold"
-                    style={{
-                      fontFamily: "var(--font-primary)",
-                      color: "var(--jovial-jade)",
-                    }}
-                  >
-                    97%
-                  </div>
-                  <p 
-                    className="text-sm leading-relaxed"
-                    style={{
-                      fontFamily: "var(--font-secondary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    say comfort with the therapist is the #1 factor.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        {/* How It Works Section */}
-        <section 
-          className="py-12 lg:py-20"
-          style={{ backgroundColor: "var(--surface-accent)" }}
-        >
-          <Container>
-            <div className="space-y-12">
-              <h2 
-                className="text-3xl lg:text-4xl font-bold text-center leading-tight"
-                style={{
-                  fontFamily: "var(--font-primary)",
-                  color: "var(--jovial-jade)",
-                }}
-              >
-                How it works
-              </h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="text-center space-y-4">
-                  <div 
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mx-auto"
-                    style={{ 
-                      backgroundColor: "hsl(var(--garden-green))",
-                      color: "hsl(var(--on-dark))"
-                    }}
-                  >
-                    1
-                  </div>
-                  <h3 
-                    className="text-lg font-bold"
-                    style={{
-                      fontFamily: "var(--font-primary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    Take a 3-minute quiz
-                  </h3>
-                  <p 
-                    className="text-sm leading-relaxed"
-                    style={{
-                      fontFamily: "var(--font-secondary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    Tell us your goals and preferences.
-                  </p>
-                </div>
-                
-                <div className="text-center space-y-4">
-                  <div 
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mx-auto"
-                    style={{ 
-                      backgroundColor: "hsl(var(--garden-green))",
-                      color: "hsl(var(--on-dark))"
-                    }}
-                  >
-                    2
-                  </div>
-                  <h3 
-                    className="text-lg font-bold"
-                    style={{
-                      fontFamily: "var(--font-primary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    Browse profiles
-                  </h3>
-                  <p 
-                    className="text-sm leading-relaxed"
-                    style={{
-                      fontFamily: "var(--font-secondary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    Watch 30–60s intro videos to feel their vibe.
-                  </p>
-                </div>
-                
-                <div className="text-center space-y-4">
-                  <div 
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mx-auto"
-                    style={{ 
-                      backgroundColor: "hsl(var(--garden-green))",
-                      color: "hsl(var(--on-dark))"
-                    }}
-                  >
-                    3
-                  </div>
-                  <h3 
-                    className="text-lg font-bold"
-                    style={{
-                      fontFamily: "var(--font-primary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    Free chemistry calls
-                  </h3>
-                  <p 
-                    className="text-sm leading-relaxed"
-                    style={{
-                      fontFamily: "var(--font-secondary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    15 minutes with your favourites — no commitment.
-                  </p>
-                </div>
-                
-                <div className="text-center space-y-4">
-                  <div 
-                    className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mx-auto"
-                    style={{ 
-                      backgroundColor: "hsl(var(--garden-green))",
-                      color: "hsl(var(--on-dark))"
-                    }}
-                  >
-                    4
-                  </div>
-                  <h3 
-                    className="text-lg font-bold"
-                    style={{
-                      fontFamily: "var(--font-primary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    Only pay for sessions
-                  </h3>
-                  <p 
-                    className="text-sm leading-relaxed"
-                    style={{
-                      fontFamily: "var(--font-secondary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    No subscriptions. Switch any time.
-                  </p>
-                </div>
-              </div>
-
-              <div className="text-center pt-8">
+              <div className="lg:col-span-6">
                 <img 
-                  src="/images/client-hero-image.png"
-                  alt="Client portrait with soft editorial overlays"
-                  className="w-72 h-auto mx-auto drop-shadow-md"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        {/* For Clients Section */}
-        <section 
-          className="py-12 lg:py-20"
-          style={{ backgroundColor: "var(--surface)" }}
-        >
-          <Container>
-            <div className="space-y-12">
-              <div className="text-center max-w-3xl mx-auto space-y-6">
-                <h2 
-                  className="text-3xl lg:text-4xl font-bold leading-tight"
-                  style={{
-                    fontFamily: "var(--font-primary)",
-                    color: "var(--jovial-jade)",
-                  }}
-                >
-                  Find a therapist you click with.
-                </h2>
-                
-                <div className="space-y-4">
-                  <p 
-                    className="text-lg leading-relaxed"
-                    style={{
-                      fontFamily: "var(--font-secondary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    See beyond credentials — discover personality, communication style, culture and identity.
-                  </p>
-                  <p 
-                    className="text-lg leading-relaxed"
-                    style={{
-                      fontFamily: "var(--font-secondary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    Save time, reduce stress, and avoid mismatched starts.
-                  </p>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-                <div>
-                  <img 
-                    src="/images/client-white-female-autistic-20s.png"
-                    alt="Young autistic woman in sage dungarees with dark green headphones, laughing"
-                    className="w-full h-auto rounded-lg drop-shadow-lg"
-                    loading="lazy"
-                  />
-                </div>
-                <div>
-                  <img 
-                    src="/images/therapist-black-female-40s.png"
-                    alt="Black Caribbean woman in cultural dress, warm and approachable"
-                    className="w-full h-auto rounded-lg drop-shadow-lg"
-                    loading="lazy"
-                  />
-                </div>
-                <div>
-                  <img 
-                    src="/images/client-white-male-20s-lilac-shirt.png"
-                    alt="Young white male in lilac shirt, friendly and calm"
-                    className="w-full h-auto rounded-lg drop-shadow-lg"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        {/* Therapist Band Section */}
-        <section 
-          className="py-12 lg:py-20"
-          style={{ backgroundColor: "var(--tag-language-bg)" }}
-        >
-          <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              <div className="lg:col-span-6 space-y-8">
-                <h2 
-                  className="text-3xl lg:text-4xl font-bold leading-tight"
-                  style={{
-                    fontFamily: "var(--font-primary)",
-                    color: "var(--jovial-jade)",
-                  }}
-                >
-                  Are you a therapist? Stand out by <em className="italic">being yourself</em>.
-                </h2>
-                
-                <ul className="space-y-4">
-                  <li 
-                    className="flex items-start gap-3"
-                    style={{
-                      fontFamily: "var(--font-secondary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    <div className="w-2 h-2 bg-[hsl(var(--garden-green))] rounded-full mt-2 flex-shrink-0"></div>
-                    Set your own rates, availability, and cancellation policy.
-                  </li>
-                  <li 
-                    className="flex items-start gap-3"
-                    style={{
-                      fontFamily: "var(--font-secondary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    <div className="w-2 h-2 bg-[hsl(var(--garden-green))] rounded-full mt-2 flex-shrink-0"></div>
-                    Attract pre-qualified clients who value your style.
-                  </li>
-                  <li 
-                    className="flex items-start gap-3"
-                    style={{
-                      fontFamily: "var(--font-secondary)",
-                      color: "var(--text-primary)",
-                    }}
-                  >
-                    <div className="w-2 h-2 bg-[hsl(var(--garden-green))] rounded-full mt-2 flex-shrink-0"></div>
-                    All-in-one scheduling, payouts, and simple admin.
-                  </li>
-                </ul>
-                
-                <Button
-                  size="lg"
-                  className="px-8"
-                  style={{
-                    backgroundColor: "var(--btn-accent-bg)",
-                    color: "var(--btn-accent-text)",
-                  }}
-                  asChild
-                >
-                  <Link to="/therapist">For Therapists</Link>
-                </Button>
-              </div>
-              
-              <div className="lg:col-span-6 grid grid-cols-2 gap-4">
-                <img 
-                  src="/images/therapist-black-female-40s.png"
-                  alt="Experienced Black female therapist — calm, professional"
-                  className="w-full h-auto rounded-lg drop-shadow-md"
-                  loading="lazy"
-                />
-                <img 
-                  src="/images/therapist-white-nonbinary-30s.png"
-                  alt="White nonbinary therapist in blazer — friendly and expressive"
-                  className="w-full h-auto rounded-lg drop-shadow-md"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        {/* Quote Band Section */}
-        <section 
-          className="py-12 lg:py-20"
-          style={{ backgroundColor: "var(--surface)" }}
-        >
-          <Container>
-            <div className="text-center max-w-4xl mx-auto">
-              <blockquote 
-                className="text-2xl lg:text-3xl font-bold italic leading-relaxed"
-                style={{
-                  fontFamily: "var(--font-primary)",
-                  color: "var(--jovial-jade)",
-                  maxWidth: "40ch",
-                  margin: "0 auto"
-                }}
-              >
-                "The video intros are genius. You can tell so much about someone's vibe in 30 seconds."
-              </blockquote>
-              <cite 
-                className="text-sm mt-4 block not-italic"
-                style={{
-                  fontFamily: "var(--font-secondary)",
-                  color: "var(--text-secondary)",
-                }}
-              >
-                — 35–44, male
-              </cite>
-            </div>
-          </Container>
-        </section>
-
-        {/* Final CTA Section */}
-        <section 
-          className="py-12 lg:py-20"
-          style={{ backgroundColor: "var(--btn-cta-bg)" }}
-        >
-          <Container>
-            <div className="text-center space-y-8">
-              <div className="space-y-4">
-                <h2 
-                  className="text-3xl lg:text-4xl font-bold leading-tight"
-                  style={{
-                    fontFamily: "var(--font-primary)",
-                    color: "var(--jovial-jade)",
-                  }}
-                >
-                  Ready to find your fit?
-                </h2>
-                <p 
-                  className="text-lg leading-relaxed"
-                  style={{
-                    fontFamily: "var(--font-secondary)",
-                    color: "var(--text-primary)",
-                  }}
-                >
-                  It takes less than 5 minutes to start.
-                </p>
-              </div>
-              
-              <Button
-                size="lg"
-                className="px-8"
-                style={{
-                  backgroundColor: "var(--btn-primary-bg)",
-                  color: "var(--btn-primary-text)",
-                }}
-                asChild
-              >
-                <Link to="/assessment">Start My Journey</Link>
-              </Button>
-              
-              <div className="pt-4">
-                <img 
-                  src="/images/master-landing-hero-option-a.png"
-                  alt="Diverse clients collage"
-                  className="w-48 h-auto mx-auto rounded-lg drop-shadow"
+                  src="/images/therapist-white-female-50s.png"
+                  alt="Professional therapist in a warm, welcoming office environment"
+                  className="w-full h-auto rounded-lg drop-shadow-lg"
                   loading="lazy"
                 />
               </div>
