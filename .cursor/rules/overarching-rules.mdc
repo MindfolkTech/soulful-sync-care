@@ -4,7 +4,8 @@ alwaysApply: true
 Always enforce the following project rules when applying changes:
 - Use ONLY design tokens from design-tokens.md.
 - Text colors must follow text-colors.md + contrast-harmony.md.
-- All therapist/admin pages must use DashboardLayout + layout atoms.
+- All therapist pages must use TherapistLayout + layout atoms.
+- All admin pages must use AdminLayout + layout atoms.
 - All flows must include required navigation/progress per user-flows.md.
 - All charts must follow chart-components.md specs.
 If a suggested fix conflicts with these rules, do not apply it. Instead, pause and check with me before continuing. Suggest the best route forward, and ask me if I would rather change the rule to continue with the fix, or change the fix strategy. Always propose both options. Always tell me exactly which files would need to be amended to continue with the fix (including which rules documents) and always propose an alternative fix strategy.  If a suggested fix conflicts with these rules, **DO NOT CHANGE ANY CODE AUTOMATICALLY**

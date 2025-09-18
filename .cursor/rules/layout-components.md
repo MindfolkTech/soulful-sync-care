@@ -14,20 +14,29 @@ Apply to all layout components and pages using dashboard patterns. Ensure consis
 
 ## Mandatory Layout Components
 
-### DashboardLayout Component (Required)
-**All therapist and admin pages MUST use this component:**
-
+### Layout Components (Required)
+**All therapist pages MUST use TherapistLayout:**
 ```tsx
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { TherapistLayout } from "@/components/layout/therapist-layout";
 
 export default function YourPage() {
   return (
-    <DashboardLayout 
-      title="Page Title"
-      subtitle="Optional page description"
-    >
+    <TherapistLayout>
       {/* Your page content here */}
-    </DashboardLayout>
+    </TherapistLayout>
+  );
+}
+```
+
+**All admin pages MUST use AdminLayout:**
+```tsx
+import { AdminLayout } from "@/components/layout/admin-layout";
+
+export default function YourPage() {
+  return (
+    <AdminLayout>
+      {/* Your page content here */}
+    </AdminLayout>
   );
 }
 ```
@@ -78,7 +87,7 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 - **Desktop**: Always visible, fixed width (256px)
 - **Mobile**: Collapsible with overlay, slides from left
 - **Animation**: Smooth 300ms ease-in-out transitions
-- **State management**: Controlled by DashboardLayout component
+- **State management**: Controlled by TherapistLayout/AdminLayout components
 
 ### Content Areas
 - **Main content**: Uses `overflow-auto`, `min-w-0`, and `w-full` for proper flex behavior
@@ -92,7 +101,7 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 
 ### Page Structure
 ```tsx
-<DashboardLayout title="..." subtitle="...">
+<TherapistLayout>
   <Stack className="space-y-6">
     {/* Action bar */}
     <HStack className="justify-end">
@@ -116,7 +125,7 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
       </CardContent>
     </Card>
   </Stack>
-</DashboardLayout>
+</TherapistLayout>
 ```
 
 ### Grid Layouts
@@ -174,7 +183,8 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 - ❌ Grid containers without `w-full min-w-0`
 
 ### Required Patterns
-- ✅ DashboardLayout component for all dashboard pages
+- ✅ TherapistLayout component for all therapist pages
+- ✅ AdminLayout component for all admin pages
 - ✅ Layout atoms for consistent spacing
 - ✅ Responsive grid systems
 - ✅ Proper touch target sizes
