@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { useSignIn, useSignUp } from "@clerk/clerk-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface SocialLoginProps {
   mode: "signin" | "signup";
@@ -7,15 +9,48 @@ interface SocialLoginProps {
 
 export function SocialLogin({ mode }: SocialLoginProps) {
   const actionText = mode === "signin" ? "Sign in" : "Sign up";
+  const { signIn } = useSignIn();
+  const { signUp } = useSignUp();
+  const { toast } = useToast();
   
-  const handleGoogleSignIn = () => {
-    // TODO: Implement Google OAuth with Clerk
-    console.log("Google OAuth not yet implemented");
+  const handleGoogleSignIn = async () => {
+    try {
+      const authMethod = mode === "signin" ? signIn : signUp;
+      if (!authMethod) return;
+      
+      await authMethod.authenticateWithRedirect({
+        strategy: "oauth_google",
+        redirectUrl: "/sso-callback",
+        redirectUrlComplete: "/",
+      });
+    } catch (error) {
+      console.error("Google OAuth error:", error);
+      toast({
+        title: "Error",
+        description: "Failed to authenticate with Google. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
-  const handleAppleSignIn = () => {
-    // TODO: Implement Apple OAuth with Clerk
-    console.log("Apple OAuth not yet implemented");
+  const handleAppleSignIn = async () => {
+    try {
+      const authMethod = mode === "signin" ? signIn : signUp;
+      if (!authMethod) return;
+      
+      await authMethod.authenticateWithRedirect({
+        strategy: "oauth_apple",
+        redirectUrl: "/sso-callback",
+        redirectUrlComplete: "/",
+      });
+    } catch (error) {
+      console.error("Apple OAuth error:", error);
+      toast({
+        title: "Error",
+        description: "Failed to authenticate with Apple. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
   
   return (

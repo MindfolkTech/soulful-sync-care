@@ -8,6 +8,7 @@ import { ImpersonationProvider } from "@/contexts/impersonation-context";
 import { GlobalImpersonationBar } from "@/components/admin/global-impersonation-bar";
 import ErrorBoundary from "@/components/util/ErrorBoundary";
 import { AuthGuard } from "@/components/auth/auth-guard";
+import { ClerkProviderWrapper } from "@/lib/clerk";
 
 // Pages
 import Index from "./pages/Index";
@@ -70,15 +71,16 @@ import SessionManagementDemo from "./pages/dev/SessionManagementDemo";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <CookieConsent />
-      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <ImpersonationProvider>
-          <GlobalImpersonationBar />
-          <ErrorBoundary>
+  <ClerkProviderWrapper>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <CookieConsent />
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <ImpersonationProvider>
+            <GlobalImpersonationBar />
+            <ErrorBoundary>
             <Routes>
           {/* Public routes */}
           <Route path="/" element={<Index />} />
@@ -143,6 +145,7 @@ const App = () => (
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
+  </ClerkProviderWrapper>
 );
 
 export default App;
