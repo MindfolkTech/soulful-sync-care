@@ -170,7 +170,7 @@ export function PaymentForm({
                     <div className="flex items-center gap-2">
                       <h4 className="font-secondary font-medium text-[hsl(var(--text-primary))] dark:text-[hsl(var(--on-dark))]">{plan.name}</h4>
                       {plan.popular && (
-                        <Badge variant="default" className="text-xs">
+                        <Badge variant="secondary" className="text-xs">
                           Popular
                         </Badge>
                       )}
