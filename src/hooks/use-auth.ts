@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 
 export interface UserProfile {
   id: string;
-  user_id: string;
+  user_id?: string; // Optional since we use clerk_user_id as primary identifier
   clerk_user_id: string;
   email: string;
   first_name?: string;
@@ -26,7 +26,7 @@ export interface UserProfile {
 }
 
 export function useAuth() {
-  const { isSignedIn, isLoaded, signOut } = useClerkAuth();
+  const { isSignedIn, isLoaded, signOut, getToken } = useClerkAuth();
   const { user } = useUser();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
@@ -45,56 +45,36 @@ export function useAuth() {
     if (!user) return;
 
     try {
-      // Check if profile exists
-      const { data: existingProfile, error: fetchError } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('clerk_user_id', user.id)
-        .maybeSingle();
+      // Get Clerk session token
+      const session = await getToken();
+      if (!session) {
+        console.error('No Clerk session token available');
+        return;
+      }
 
-      if (fetchError) {
-        console.error('Error fetching profile:', fetchError);
+      // Call our secure Edge Function to sync profile
+      const response = await fetch(`https://jegunzgsuyylcvberwcz.supabase.co/functions/v1/clerk-auth/sync-profile`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplZ3VuemdzdXl5bGN2YmVyd2N6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgyMTQ1MjcsImV4cCI6MjA3Mzc5MDUyN30.RX2gljBrmCEi9ycC281Z6TaSPtVXaUJ7UBFgrThG8f0`,
+          'clerk-session-token': session,
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error syncing profile:', errorData);
         toast({
           title: "Error",
-          description: "Failed to load user profile",
+          description: "Failed to sync user profile",
           variant: "destructive",
         });
         return;
       }
 
-      if (existingProfile) {
-        setProfile(existingProfile as UserProfile);
-      } else {
-        // Create new profile
-        const intendedRole = user.unsafeMetadata?.intendedRole as 'client' | 'therapist' | undefined;
-        const newProfile = {
-          clerk_user_id: user.id,
-          email: user.primaryEmailAddress?.emailAddress || '',
-          first_name: user.firstName || '',
-          last_name: user.lastName || '',
-          role: intendedRole || 'client' as const,
-          avatar_url: user.imageUrl || null,
-          is_verified: false,
-        };
-
-        const { data: createdProfile, error: createError } = await supabase
-          .from('profiles')
-          .insert(newProfile)
-          .select()
-          .single();
-
-        if (createError) {
-          console.error('Error creating profile:', createError);
-          toast({
-            title: "Error",
-            description: "Failed to create user profile",
-            variant: "destructive",
-          });
-          return;
-        }
-
-        setProfile(createdProfile as UserProfile);
-      }
+      const { profile } = await response.json();
+      setProfile(profile as UserProfile);
     } catch (error) {
       console.error('Profile sync error:', error);
       toast({
@@ -108,19 +88,40 @@ export function useAuth() {
   };
 
   const updateProfile = async (updates: Partial<UserProfile>) => {
-    if (!profile) return;
+    if (!profile || !user) return;
 
     try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .update(updates)
-        .eq('clerk_user_id', profile.clerk_user_id)
-        .select()
-        .single();
+      // Get Clerk session token
+      const session = await getToken();
+      if (!session) {
+        console.error('No Clerk session token available');
+        return;
+      }
 
-      if (error) throw error;
+      // Call our secure Edge Function to update profile
+      const response = await fetch(`https://jegunzgsuyylcvberwcz.supabase.co/functions/v1/clerk-auth/update-profile`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplZ3VuemdzdXl5bGN2YmVyd2N6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgyMTQ1MjcsImV4cCI6MjA3Mzc5MDUyN30.RX2gljBrmCEi9ycC281Z6TaSPtVXaUJ7UBFgrThG8f0`,
+          'clerk-session-token': session,
+        },
+        body: JSON.stringify(updates),
+      });
 
-      setProfile(data as UserProfile);
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error updating profile:', errorData);
+        toast({
+          title: "Error",
+          description: "Failed to update profile",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const { profile: updatedProfile } = await response.json();
+      setProfile(updatedProfile as UserProfile);
       toast({
         title: "Success",
         description: "Profile updated successfully",

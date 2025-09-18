@@ -246,6 +246,7 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          clerk_user_id: string | null
           created_at: string
           date_of_birth: string | null
           email: string
@@ -261,10 +262,11 @@ export type Database = {
           role: string
           timezone: string | null
           updated_at: string
-          user_id: string
+          user_id: string | null
         }
         Insert: {
           avatar_url?: string | null
+          clerk_user_id?: string | null
           created_at?: string
           date_of_birth?: string | null
           email: string
@@ -280,10 +282,11 @@ export type Database = {
           role?: string
           timezone?: string | null
           updated_at?: string
-          user_id: string
+          user_id?: string | null
         }
         Update: {
           avatar_url?: string | null
+          clerk_user_id?: string | null
           created_at?: string
           date_of_birth?: string | null
           email?: string
@@ -299,7 +302,7 @@ export type Database = {
           role?: string
           timezone?: string | null
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -553,6 +556,7 @@ export type Database = {
       therapist_profiles: {
         Row: {
           bio: string | null
+          clerk_user_id: string | null
           created_at: string
           currency: string | null
           education: string | null
@@ -564,13 +568,14 @@ export type Database = {
           license_state: string | null
           stripe_account_id: string | null
           updated_at: string
-          user_id: string
+          user_id: string | null
           verification_status: string | null
           video_intro_url: string | null
           years_experience: number | null
         }
         Insert: {
           bio?: string | null
+          clerk_user_id?: string | null
           created_at?: string
           currency?: string | null
           education?: string | null
@@ -582,13 +587,14 @@ export type Database = {
           license_state?: string | null
           stripe_account_id?: string | null
           updated_at?: string
-          user_id: string
+          user_id?: string | null
           verification_status?: string | null
           video_intro_url?: string | null
           years_experience?: number | null
         }
         Update: {
           bio?: string | null
+          clerk_user_id?: string | null
           created_at?: string
           currency?: string | null
           education?: string | null
@@ -600,7 +606,7 @@ export type Database = {
           license_state?: string | null
           stripe_account_id?: string | null
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
           verification_status?: string | null
           video_intro_url?: string | null
           years_experience?: number | null
