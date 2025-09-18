@@ -50,7 +50,7 @@ export default function TherapistLanding() {
                     }}
                     asChild
                   >
-                    <Link to="/signup?role=therapist">Get Started</Link>
+                     <Link to="/sign-up?role=therapist">Get Started</Link>
                   </Button>
                   <Button
                     size="lg"
