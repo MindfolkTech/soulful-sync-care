@@ -18,20 +18,8 @@ const SPECIALTIES = {
   "cultural-identity": ["LGBTQ+ affirmative", "Cultural competency", "Religious/spiritual", "Multilingual"]
 };
 
-interface TherapistProfile {
-  id: string;
-  name: string;
-  title: string;
-  bio: string;
-  specialties: string[];
-  languages: string[];
-  location: string;
-  rate: number;
-  availability: string[];
-  education: string[];
-  experience: string[];
-  certifications: string[];
-}
+// Import the shared TherapistProfile interface
+import { TherapistProfile } from '@/lib/matching';
 
 interface BasicInfoSectionProps {
   profile: TherapistProfile;

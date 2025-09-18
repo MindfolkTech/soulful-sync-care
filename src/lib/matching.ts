@@ -1,6 +1,59 @@
 /**
  * MindFolk Personality-First Therapy Matching Algorithm
  * Based on JSON specification with weighted scoring factors
+ * 
+ * DATABASE INTEGRATION NOTES:
+ * ==========================
+ * 
+ * When connecting to Supabase, the following data sources need to be replaced:
+ * 
+ * 1. THERAPIST DATA SOURCE:
+ *    Current: mockTherapists array
+ *    Future: Query from 'therapists' table
+ *    
+ *    Required fields: personality_tags, specialties, modalities, identity_tags, 
+ *    languages, session_rates, availability, age_group, cultural_background
+ * 
+ * 2. CLIENT ASSESSMENT STORAGE:
+ *    Current: localStorage
+ *    Future: Store in 'client_assessments' table
+ *    
+ *    Required fields: communication_preferences, therapy_goals, identity_preferences,
+ *    budget_range, language_preferences, age_group, cultural_identity
+ * 
+ * 3. MATCH RESULTS STORAGE:
+ *    Current: Calculated on-the-fly
+ *    Future: Store in 'match_results' table for analytics
+ *    
+ *    Required fields: client_id, therapist_id, compatibility_score, breakdown,
+ *    hard_filter_passed, conditional_filters_passed
+ * 
+ * DATABASE SCHEMA REQUIRED:
+ * =========================
+ * 
+ * therapists:
+ * - id, personality_tags[], specialties[], modalities[], identity_tags[]
+ * - languages[], session_rates{}, availability{}, age_group, cultural_background[]
+ * - is_active, is_verified, gender_identity, years_experience
+ * 
+ * client_assessments:
+ * - id, user_id, communication_preferences[], therapy_goals[], identity_preferences[]
+ * - budget_range[2], language_preferences[], age_group, cultural_identity[]
+ * - therapist_gender_preference, experience_preference, preferred_times[]
+ * - prefers_similar_age, prefers_cultural_background_match
+ * 
+ * match_results:
+ * - id, client_id, therapist_id, compatibility_score, breakdown{}
+ * - hard_filter_passed, conditional_filters_passed, created_at
+ * 
+ * MIGRATION STRATEGY:
+ * ==================
+ * 1. Keep algorithm unchanged - only replace data sources
+ * 2. Add database queries in findMatches() function
+ * 3. Add assessment persistence in client flow
+ * 4. Add match result storage for analytics
+ * 
+ * The matching algorithm logic remains the same - only data sources change.
  */
 
 export interface MatchingWeights {
@@ -29,6 +82,7 @@ export interface ClientAssessment {
 
 export interface TherapistProfile {
   id: string;
+  // Matching algorithm fields
   personality_tags: string[];
   languages: string[];
   identity_tags: string[];
@@ -42,6 +96,21 @@ export interface TherapistProfile {
   cultural_background: string[];
   is_verified: boolean;
   is_active: boolean;
+  
+  // UI component fields (for backward compatibility)
+  firstName?: string;
+  lastName?: string;
+  title?: string;
+  bio?: string;
+  experience?: string[];
+  education?: string[];
+  certifications?: string[];
+  rate45min?: number;
+  rate60min?: number;
+  cancellationPolicy?: string;
+  offersVideo?: boolean;
+  offersPhone?: boolean;
+  videoUrl?: string;
 }
 
 export interface MatchResult {
@@ -65,6 +134,25 @@ export const MATCHING_WEIGHTS: MatchingWeights = {
   modality_preferences: 0.15,
   availability_fit: 0.05,
 };
+
+/**
+ * Normalize string for exact matching
+ */
+function normalize(v: string): string {
+  return v.trim().toLowerCase();
+}
+
+/**
+ * Exact, normalized overlap: fraction of client prefs satisfied (0..1)
+ */
+function calculateOverlapExact(client: string[], therapist: string[]): number {
+  if (!client?.length || !therapist?.length) return 0;
+  const c = new Set(client.map(normalize));
+  const t = new Set(therapist.map(normalize));
+  let hits = 0;
+  for (const x of c) if (t.has(x)) hits++;
+  return hits / c.size;
+}
 
 /**
  * Calculate overlap between two arrays (any overlap)
@@ -104,6 +192,29 @@ function checkGenderPreferenceFilter(
 }
 
 /**
+ * Check if budget filter is active (client set a budget)
+ */
+function checkBudgetIsActive(budget?: [number, number]): boolean {
+  if (!budget) return false;
+  const [, maxB] = budget;
+  return (maxB ?? 0) > 0; // treat as "set" when max > 0
+}
+
+/**
+ * Check budget hard filter
+ */
+function checkBudgetHardFilter(
+  clientBudget: [number, number],
+  therapistRates: Record<string, number>
+): boolean {
+  if (!checkBudgetIsActive(clientBudget)) return true;
+  const [minB, maxB] = clientBudget;
+  const rates = Object.values(therapistRates || {});
+  if (!rates.length) return false;
+  return rates.some(r => r >= minB && r <= maxB);
+}
+
+/**
  * Check budget compatibility
  */
 function checkBudgetCompatibility(
@@ -134,7 +245,7 @@ function calculateExperienceMatch(
   };
   
   const acceptableExperience = experienceMapping[clientPreference] || [];
-  return acceptableExperience.includes(therapistExperience) ? 1 : 0.5;
+  return acceptableExperience.includes(therapistExperience) ? 1 : 0;
 }
 
 /**
@@ -216,6 +327,24 @@ export function calculateMatch(
     };
   }
 
+  // Budget hard filter
+  const budgetOk = checkBudgetHardFilter(assessment.budget_range, therapist.session_rates);
+  if (!budgetOk) {
+    return {
+      therapist_id: therapist.id,
+      compatibility_score: 0,
+      breakdown: {
+        personality_compatibility: 0,
+        identity_affirming: 0,
+        specialty_match: 0,
+        modality_preferences: 0,
+        availability_fit: 0,
+      },
+      hard_filter_passed: false,
+      conditional_filters_passed: false,
+    };
+  }
+
   // Conditional filters
   const genderMatch = checkGenderPreferenceFilter(
     assessment.therapist_gender_preference,
@@ -223,7 +352,7 @@ export function calculateMatch(
   );
 
   const identityMatch = assessment.identity_preferences.length === 0 || 
-    calculateOverlapAny(assessment.identity_preferences, therapist.identity_tags) > 0;
+    calculateOverlapExact(assessment.identity_preferences, therapist.identity_tags) > 0;
 
   if (!genderMatch || !identityMatch) {
     return {
@@ -242,22 +371,22 @@ export function calculateMatch(
   }
 
   // Calculate weighted scores
-  const personalityScore = calculateOverlapAny(
+  const personalityScore = calculateOverlapExact(
     assessment.communication_preferences,
     therapist.personality_tags
   );
 
-  const identityScore = calculateOverlapAny(
+  const identityScore = calculateOverlapExact(
     assessment.identity_preferences,
     therapist.identity_tags
   );
 
-  const specialtyScore = calculateOverlapAny(
+  const specialtyScore = calculateOverlapExact(
     assessment.therapy_goals,
     therapist.specialties
   );
 
-  const modalityScore = calculateOverlapAny(
+  const modalityScore = calculateOverlapExact(
     assessment.therapy_modalities,
     therapist.modalities
   );
@@ -319,6 +448,9 @@ export function calculateMatch(
 
 /**
  * Find matching therapists for a client
+ * 
+ * TODO: Replace mockTherapists with Supabase query when database is connected
+ * Example: const therapists = await supabase.from('therapists').select('*').eq('is_active', true)
  */
 export function findMatches(
   assessment: ClientAssessment,
@@ -358,6 +490,9 @@ export function findMatches(
 
 /**
  * Mock data for development
+ * 
+ * TODO: Remove when Supabase integration is complete
+ * This will be replaced with database queries
  */
 export const mockTherapists: TherapistProfile[] = [
   {
