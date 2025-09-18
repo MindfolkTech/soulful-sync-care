@@ -65,12 +65,13 @@ export function useAuth() {
         setProfile(existingProfile as UserProfile);
       } else {
         // Create new profile
+        const intendedRole = user.unsafeMetadata?.intendedRole as 'client' | 'therapist' | undefined;
         const newProfile = {
           user_id: user.id,
           email: user.primaryEmailAddress?.emailAddress || '',
           first_name: user.firstName || '',
           last_name: user.lastName || '',
-          role: 'client' as const,
+          role: intendedRole || 'client' as const,
           avatar_url: user.imageUrl || null,
           is_verified: false,
         };

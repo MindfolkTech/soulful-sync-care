@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSignUp } from "@clerk/clerk-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
@@ -16,6 +16,8 @@ import { AlertCircle, Eye, EyeOff } from "lucide-react";
 
 export default function SignUp() {
   const { isLoaded, signUp, setActive } = useSignUp();
+  const [searchParams] = useSearchParams();
+  const role = searchParams.get('role') as 'client' | 'therapist' | null;
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -75,6 +77,9 @@ export default function SignUp() {
         password: formData.password,
         firstName: formData.firstName,
         lastName: formData.lastName,
+        unsafeMetadata: {
+          intendedRole: role || 'client'
+        }
       });
 
       if (result.status === "complete") {

@@ -57,7 +57,7 @@ export default function Index() {
                     }}
                     asChild
                   >
-                    <Link to="#waitlist">Start Matching for Free</Link>
+                    <Link to="/signup?role=client">Start Matching for Free</Link>
                   </Button>
                 </div>
               </div>
