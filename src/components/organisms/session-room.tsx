@@ -2,7 +2,7 @@ import * as React from "react";
 import { Mic, MicOff, Video, VideoOff, Phone, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Timer } from "@/components/ui/timer";
-import { Stack, HStack } from "@/components/ui/stack";
+import { Stack } from "@/components/ui/stack";
 import { cn } from "@/lib/utils";
 
 export interface SessionRoomProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -85,7 +85,7 @@ const SessionRoom = React.forwardRef<HTMLDivElement, SessionRoomProps>(
 
         {/* Controls */}
         <div className="bg-black/80 backdrop-blur-sm border-t border-white/10 p-6">
-          <HStack justify="center" spacing="lg">
+          <div className="flex items-center justify-center gap-4">
             <Button
               size="icon"
               variant={isMuted ? "destructive" : "secondary"}
@@ -124,7 +124,7 @@ const SessionRoom = React.forwardRef<HTMLDivElement, SessionRoomProps>(
             >
               <Phone className="h-6 w-6" />
             </Button>
-          </HStack>
+          </div>
         </div>
       </div>
     );

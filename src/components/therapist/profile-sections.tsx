@@ -148,7 +148,7 @@ export function SpecialtiesSection({ profile, onUpdate }: SpecialtiesSectionProp
           {Object.keys(SPECIALTIES).map((category) => (
             <Button
               key={category}
-              variant={selectedCategory === category ? "default" : "outline"}
+              variant={selectedCategory === category ? "primary" : "outline"}
               size="sm"
               onClick={() => setSelectedCategory(category as keyof typeof SPECIALTIES)}
             >

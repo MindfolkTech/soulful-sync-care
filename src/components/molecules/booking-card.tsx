@@ -107,7 +107,7 @@ export function BookingCard({
             <div className="flex items-center gap-2">
               {isUpcoming && (
                 <>
-                  <Button asChild variant="default" size="sm">
+                  <Button asChild variant="primary" size="sm">
                     <Link to={`/session/${booking.id}`}>
                       Join Session
                     </Link>
