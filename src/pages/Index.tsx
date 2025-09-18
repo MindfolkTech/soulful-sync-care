@@ -18,12 +18,12 @@ export default function Index() {
       <main className="flex-1">
         {/* 1. Hero Section - The "Aha!" Moment */}
         <section 
-          className="py-[--space-xl] lg:py-[--space-2xl]"
+          className="py-xl lg:py-2xl"
           style={{ backgroundColor: "hsl(var(--warm-white))" }}
         >
           <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-[--space-lg] items-center">
-              <div className="lg:col-span-6 space-y-[--space-md]">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-lg items-center">
+              <div className="lg:col-span-6 space-y-md">
                 <h1 
                   className="font-bold leading-tight"
                   style={{
@@ -79,11 +79,11 @@ export default function Index() {
 
         {/* 2. The Problem - "We Understand the Struggle" */}
         <section 
-          className="py-[--space-xl] lg:py-[--space-2xl]"
+          className="py-xl lg:py-2xl"
           style={{ backgroundColor: "hsl(var(--surface))" }}
         >
           <Container>
-            <div className="text-center space-y-[--space-lg]">
+            <div className="text-center space-y-lg">
               <h2 
                 className="text-3xl lg:text-4xl font-bold"
                 style={{
@@ -182,11 +182,11 @@ export default function Index() {
 
         {/* 3. The Solution - "Here's a Better Way" */}
         <section 
-          className="py-[--space-xl] lg:py-[--space-2xl]"
+          className="py-xl lg:py-2xl"
           style={{ backgroundColor: "hsl(var(--surface-accent))" }}
         >
           <Container>
-            <div className="text-center space-y-[--space-lg]">
+            <div className="text-center space-y-lg">
               <h2 
                 className="text-3xl lg:text-4xl font-bold"
                 style={{
@@ -321,11 +321,11 @@ export default function Index() {
 
         {/* 4. The People - "Meet Our Folk" */}
         <section 
-          className="py-[--space-xl] lg:py-[--space-2xl]"
+          className="py-xl lg:py-2xl"
           style={{ backgroundColor: "hsl(var(--surface))" }}
         >
           <Container>
-            <div className="text-center space-y-[--space-lg]">
+            <div className="text-center space-y-lg">
               <h2 
                 className="text-3xl lg:text-4xl font-bold"
                 style={{
@@ -533,11 +533,11 @@ export default function Index() {
 
         {/* 5. The Proof - "You're in Good Company" */}
         <section 
-          className="py-[--space-xl] lg:py-[--space-2xl]"
+          className="py-xl lg:py-2xl"
           style={{ backgroundColor: "hsl(var(--surface-accent))" }}
         >
           <Container>
-            <div className="text-center space-y-[--space-lg]">
+            <div className="text-center space-y-lg">
               <h2 
                 className="text-3xl lg:text-4xl font-bold"
                 style={{
@@ -649,7 +649,7 @@ export default function Index() {
                     color: "hsl(var(--text-primary))",
                   }}
                 >
-                  <strong>Your privacy is our priority.</strong> Our platform is secure and GDPA-compliant.
+                  <strong>Your privacy is our priority.</strong> Our platform is secure and GDPR-compliant.
                 </p>
               </div>
             </div>
@@ -659,11 +659,11 @@ export default function Index() {
         {/* 6. Final CTA - "Ready to Connect?" with Clerk Waitlist */}
         <section 
           id="waitlist"
-          className="py-[--space-xl] lg:py-[--space-2xl]"
+          className="py-xl lg:py-2xl"
           style={{ backgroundColor: "hsl(var(--garden-green))" }}
         >
           <Container>
-            <div className="text-center space-y-[--space-lg] max-w-2xl mx-auto">
+            <div className="text-center space-y-lg max-w-2xl mx-auto">
               <h2 
                 className="text-3xl lg:text-4xl font-bold"
                 style={{
@@ -694,12 +694,12 @@ export default function Index() {
 
         {/* 7. Therapist Section */}
         <section 
-          className="py-[--space-xl] lg:py-[--space-2xl]"
+          className="py-xl lg:py-2xl"
           style={{ backgroundColor: "hsl(var(--surface))" }}
         >
           <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-[--space-lg] items-center">
-              <div className="lg:col-span-6 space-y-[--space-md]">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-lg items-center">
+              <div className="lg:col-span-6 space-y-md">
                 <h2 
                   className="text-3xl lg:text-4xl font-bold leading-tight"
                   style={{
