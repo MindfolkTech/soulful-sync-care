@@ -4,7 +4,7 @@
 
 Design tokens are the foundational design decisions of the MindFolk application. They define colors, typography, spacing, and other design elements that ensure consistency across all interfaces.
 
-**Source of Truth**: `src/index.css`
+**Source of Truth**: `styles/design-tokens.css`
 
 ## 🎨 Colors
 

@@ -2,7 +2,7 @@
 alwaysApply: true
 ---
 Always enforce the following project rules when applying changes:
-- Use ONLY design tokens from src/index.css (source of truth).
+- Use ONLY design tokens from styles/design-tokens.css (source of truth).
 - All therapist pages must use TherapistLayout + layout atoms.
 - All admin pages must use AdminLayout + layout atoms.
 - All flows must include required navigation/progress per user-flows.md.

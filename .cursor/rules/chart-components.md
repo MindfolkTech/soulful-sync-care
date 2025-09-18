@@ -10,7 +10,7 @@ alwaysApply: true
 Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user-flows.md specifications and accessibility standards.
 ?? No deviations from specified colors, layouts, or accessibility requirements.
 
-**Reference**: See `design-tokens.md` for complete token definitions and usage guidelines.
+**Reference**: See `DESIGN_TOKENS.md` for complete token definitions and usage guidelines.
 **Alignment**: This file implements chart requirements specified in `user-flows.md` sections.
 
 ## Dashboard Widget Chart Requirements
@@ -226,7 +226,7 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 - **Use design tokens exclusively** - no raw colors or CSS color names
 - **Follow user-flows.md specifications** exactly for widget charts
 - **Implement full accessibility** with ARIA labels and screen reader support
-- **Maintain consistent typography** using font tokens from design-tokens.md
+- **Maintain consistent typography** using font tokens from DESIGN_TOKENS.md
 - **Provide responsive behavior** across all breakpoints
 - **Include smooth animations** with respect for reduced motion preferences
 - **Test thoroughly** for accessibility and cross-browser compatibility

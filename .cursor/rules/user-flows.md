@@ -10,7 +10,7 @@ alwaysApply: true
 Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains core user flow elements and accessibility standards.
 🚫 No screens without essential navigation, progress, or flow continuity elements.
 
-**Reference**: See `design-tokens.md` for complete token definitions and usage guidelines.
+**Reference**: See `DESIGN_TOKENS.md` for complete token definitions and usage guidelines.
 
 ## Core Flow Requirements
 

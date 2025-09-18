@@ -33,7 +33,7 @@ styles/
 
 ## 🎨 Design Tokens
 
-**Source of Truth**: `src/index.css`
+**Source of Truth**: `styles/design-tokens.css`
 
 ### Colors
 - **Primary**: Jovial Jade, Garden Green, Elated Emerald
