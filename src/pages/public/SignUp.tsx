@@ -304,9 +304,11 @@ export default function SignUp() {
                   </div>
                 </div>
                 
-                <Button type="submit" className="w-full min-h-touch-target max-w-[320px] mx-auto" aria-label="Create new account" disabled={isLoading || !isLoaded}>
-                  {isLoading ? "Creating account..." : "Create Account"}
-                </Button>
+                <div className="flex justify-center">
+                  <Button type="submit" className="w-full min-h-touch-target max-w-[320px]" aria-label="Create new account" disabled={isLoading || !isLoaded}>
+                    {isLoading ? "Creating account..." : "Create Account"}
+                  </Button>
+                </div>
               </form>
               
               <div className="text-center space-y-[--space-xs]">
@@ -314,6 +316,14 @@ export default function SignUp() {
                   Already have an account? Sign in
                 </Link>
               </div>
+              
+              {role && (
+                <div className="text-center">
+                  <p className="text-xs text-text-muted font-secondary">
+                    Signing up as: <span className="font-semibold capitalize">{role}</span>
+                  </p>
+                </div>
+              )}
             </CardContent>
           </Card>
         </Container>
