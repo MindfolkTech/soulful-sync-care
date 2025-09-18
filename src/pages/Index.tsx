@@ -13,7 +13,7 @@ export default function Index() {
     link.rel = "preload";
     link.as = "image";
     link.href = "/images/master-landing-hero-option-a.png";
-    (link as any).fetchpriority = "high";
+    (link as any).fetchPriority = "high";
     document.head.appendChild(link);
 
     return () => {
@@ -110,7 +110,7 @@ export default function Index() {
                   className="w-full h-auto drop-shadow-lg"
                   style={{ borderRadius: "var(--radius-lg)" }}
                   loading="eager"
-                  fetchpriority="high"
+                  fetchPriority="high"
                 />
               </div>
             </div>

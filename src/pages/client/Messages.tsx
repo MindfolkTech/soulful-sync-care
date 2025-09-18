@@ -122,7 +122,7 @@ export default function Messages() {
                               <Shield className="h-3 w-3 text-[hsl(var(--success-text))]" />
                             )}
                             {thread.unread > 0 && (
-                              <Badge variant="default" className="text-xs px-2 py-0.5">
+                              <Badge variant="secondary" className="text-xs px-2 py-0.5">
                                 {thread.unread}
                               </Badge>
                             )}

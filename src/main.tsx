@@ -1,6 +1,7 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import { ClerkProviderWrapper } from "@/lib/clerk";
 
 // Input modality detection for focus rings
 // Run once on app load
@@ -13,4 +14,8 @@ if (typeof window !== 'undefined' && (window as any).__REACT_DEVTOOLS_GLOBAL_HOO
   (window as any).__REACT_DEVTOOLS_GLOBAL_HOOK__.connectToDevTools?.();
 }
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(
+  <ClerkProviderWrapper>
+    <App />
+  </ClerkProviderWrapper>
+);
