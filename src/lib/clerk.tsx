@@ -1,0 +1,20 @@
+import { ClerkProvider } from '@clerk/clerk-react'
+import { ReactNode } from 'react'
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error('Missing Publishable Key')
+}
+
+interface ClerkAuthProviderProps {
+  children: ReactNode
+}
+
+export function ClerkAuthProvider({ children }: ClerkAuthProviderProps) {
+  return (
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      {children}
+    </ClerkProvider>
+  )
+}
