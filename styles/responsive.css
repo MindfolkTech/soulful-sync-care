@@ -1,0 +1,381 @@
+/* Responsive Utilities */
+
+/* Breakpoint Variables */
+:root {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* Mobile Breakpoint for JavaScript */
+:root {
+  --mobile-breakpoint: 768px;
+}
+
+/* Responsive Typography */
+.responsive-text-xs {
+  font-size: clamp(0.75rem, 0.70rem + 0.25vw, 0.875rem);
+}
+
+.responsive-text-sm {
+  font-size: clamp(0.875rem, 0.80rem + 0.375vw, 1rem);
+}
+
+.responsive-text-base {
+  font-size: clamp(1rem, 0.90rem + 0.5vw, 1.125rem);
+}
+
+.responsive-text-lg {
+  font-size: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+}
+
+.responsive-text-xl {
+  font-size: clamp(1.25rem, 1.10rem + 0.75vw, 1.5rem);
+}
+
+.responsive-text-2xl {
+  font-size: clamp(1.5rem, 1.30rem + 1vw, 1.875rem);
+}
+
+.responsive-text-3xl {
+  font-size: clamp(1.875rem, 1.60rem + 1.375vw, 2.25rem);
+}
+
+.responsive-text-4xl {
+  font-size: clamp(2.25rem, 1.90rem + 1.75vw, 3rem);
+}
+
+/* Responsive Spacing */
+.responsive-space-xs {
+  padding: clamp(4px, 2px + 1vw, 8px);
+}
+
+.responsive-space-sm {
+  padding: clamp(8px, 4px + 2vw, 12px);
+}
+
+.responsive-space-md {
+  padding: clamp(12px, 6px + 3vw, 16px);
+}
+
+.responsive-space-lg {
+  padding: clamp(16px, 8px + 4vw, 24px);
+}
+
+.responsive-space-xl {
+  padding: clamp(24px, 12px + 6vw, 32px);
+}
+
+.responsive-space-2xl {
+  padding: clamp(32px, 16px + 8vw, 48px);
+}
+
+/* Responsive Margins */
+.responsive-margin-xs {
+  margin: clamp(4px, 2px + 1vw, 8px);
+}
+
+.responsive-margin-sm {
+  margin: clamp(8px, 4px + 2vw, 12px);
+}
+
+.responsive-margin-md {
+  margin: clamp(12px, 6px + 3vw, 16px);
+}
+
+.responsive-margin-lg {
+  margin: clamp(16px, 8px + 4vw, 24px);
+}
+
+.responsive-margin-xl {
+  margin: clamp(24px, 12px + 6vw, 32px);
+}
+
+.responsive-margin-2xl {
+  margin: clamp(32px, 16px + 8vw, 48px);
+}
+
+/* Responsive Grid */
+.responsive-grid-1 {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.responsive-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .responsive-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.responsive-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .responsive-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.responsive-grid-4 {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .responsive-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Responsive Flex */
+.responsive-flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .responsive-flex-col {
+    flex-direction: row;
+  }
+}
+
+.responsive-flex-col-reverse {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+@media (min-width: 768px) {
+  .responsive-flex-col-reverse {
+    flex-direction: row;
+  }
+}
+
+/* Responsive Visibility */
+.responsive-hidden-mobile {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .responsive-hidden-mobile {
+    display: block;
+  }
+}
+
+.responsive-hidden-desktop {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .responsive-hidden-desktop {
+    display: none;
+  }
+}
+
+/* Responsive Touch Targets */
+.responsive-touch-min {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.responsive-touch-comfort {
+  min-height: 56px;
+  min-width: 56px;
+}
+
+/* Responsive Overflow */
+.responsive-overflow-hidden {
+  overflow: hidden;
+}
+
+.responsive-overflow-auto {
+  overflow: auto;
+}
+
+.responsive-overflow-x-hidden {
+  overflow-x: hidden;
+}
+
+.responsive-overflow-y-auto {
+  overflow-y: auto;
+}
+
+/* Responsive Container */
+.responsive-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .responsive-container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .responsive-container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .responsive-container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .responsive-container {
+    max-width: 1536px;
+  }
+}
+
+/* Responsive Padding */
+.responsive-padding {
+  padding: clamp(1rem, 0.5rem + 2.5vw, 2rem);
+}
+
+.responsive-padding-sm {
+  padding: clamp(0.5rem, 0.25rem + 1.25vw, 1rem);
+}
+
+.responsive-padding-lg {
+  padding: clamp(1.5rem, 0.75rem + 3.75vw, 3rem);
+}
+
+/* Responsive Gap */
+.responsive-gap {
+  gap: clamp(0.5rem, 0.25rem + 1.25vw, 1rem);
+}
+
+.responsive-gap-sm {
+  gap: clamp(0.25rem, 0.125rem + 0.625vw, 0.5rem);
+}
+
+.responsive-gap-lg {
+  gap: clamp(1rem, 0.5rem + 2.5vw, 2rem);
+}
+
+/* Responsive Border Radius */
+.responsive-radius {
+  border-radius: clamp(0.25rem, 0.125rem + 0.625vw, 0.5rem);
+}
+
+.responsive-radius-sm {
+  border-radius: clamp(0.125rem, 0.0625rem + 0.3125vw, 0.25rem);
+}
+
+.responsive-radius-lg {
+  border-radius: clamp(0.5rem, 0.25rem + 1.25vw, 1rem);
+}
+
+/* Responsive Shadows */
+.responsive-shadow {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.responsive-shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.responsive-shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive Transitions */
+.responsive-transition {
+  transition: all 300ms ease-in-out;
+}
+
+.responsive-transition-fast {
+  transition: all 150ms ease-in-out;
+}
+
+.responsive-transition-slow {
+  transition: all 500ms ease-in-out;
+}
+
+/* Responsive Animation */
+@keyframes responsive-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.responsive-fade-in {
+  animation: responsive-fade-in 300ms ease-in-out;
+}
+
+/* Responsive Media Queries */
+@media (prefers-reduced-motion: reduce) {
+  .responsive-transition,
+  .responsive-transition-fast,
+  .responsive-transition-slow {
+    transition: none;
+  }
+  
+  .responsive-fade-in {
+    animation: none;
+  }
+}
+
+/* Responsive Print Styles */
+@media print {
+  .responsive-hidden-print {
+    display: none !important;
+  }
+  
+  .responsive-print-only {
+    display: block !important;
+  }
+}
+
+/* Responsive High Contrast */
+@media (prefers-contrast: high) {
+  .responsive-high-contrast {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Responsive Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .responsive-dark-mode {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+}
+

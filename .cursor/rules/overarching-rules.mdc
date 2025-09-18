@@ -2,10 +2,27 @@
 alwaysApply: true
 ---
 Always enforce the following project rules when applying changes:
-- Use ONLY design tokens from design-tokens.md.
-- Text colors must follow text-colors.md + contrast-harmony.md.
+- Use ONLY design tokens from src/index.css (source of truth).
 - All therapist pages must use TherapistLayout + layout atoms.
 - All admin pages must use AdminLayout + layout atoms.
 - All flows must include required navigation/progress per user-flows.md.
 - All charts must follow chart-components.md specs.
+- Typography: H1-H3 use font-primary (Crimson Pro), H4-H6 and body text use font-secondary (Helvetica Neue).
+- Content structure: All dashboard pages must follow the responsive padding + Container + spacing pattern.
 If a suggested fix conflicts with these rules, do not apply it. Instead, pause and check with me before continuing. Suggest the best route forward, and ask me if I would rather change the rule to continue with the fix, or change the fix strategy. Always propose both options. Always tell me exactly which files would need to be amended to continue with the fix (including which rules documents) and always propose an alternative fix strategy.  If a suggested fix conflicts with these rules, **DO NOT CHANGE ANY CODE AUTOMATICALLY**
+
+Reference documentation:
+- Design System: docs/DESIGN_SYSTEM.md
+- Design Tokens: docs/DESIGN_TOKENS.md
+- Layout Components: docs/LAYOUT_COMPONENTS.md
+- Responsive Patterns: docs/RESPONSIVE_PATTERNS.md
+- Component Documentation: docs/design-system/components/
+- Design Patterns: docs/design-system/patterns/
+- Code Examples: docs/design-system/examples/
+
+Component locations:
+- TherapistLayout: src/components/layout/therapist-layout.tsx
+- AdminLayout: src/components/layout/admin-layout.tsx
+- PageShell: src/components/ui/page-shell.tsx
+- Container: src/components/ui/container.tsx
+- Layout Atoms: src/components/layout/ (Stack, HStack, Cluster)

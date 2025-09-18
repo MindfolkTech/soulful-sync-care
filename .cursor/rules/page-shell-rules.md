@@ -10,7 +10,7 @@ alwaysApply: true
 Apply to all non-dashboard pages (React/TSX/CSS/Tailwind). Ensure consistent page structure for discovery, onboarding, and public pages.
 🚫 No manual page layout implementation - must use PageShell component.
 
-**Reference**: See `layout-components.md` for dashboard layout requirements.
+**Reference**: See `docs/LAYOUT_COMPONENTS.md` for dashboard layout requirements.
 
 ## What is PageShell?
 

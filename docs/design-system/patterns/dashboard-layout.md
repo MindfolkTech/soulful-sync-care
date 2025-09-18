@@ -15,7 +15,7 @@ Apply to all **post-authentication** therapist and admin pages (React/TSX/CSS/Ta
 
 🚫 No deviations from the TherapistLayout/AdminLayout pattern and component hierarchy.
 
-**Reference**: See `docs/LAYOUT_COMPONENTS.md` for complete layout component requirements, `docs/design-system/components/PageShell.md` for onboarding pages, and `docs/DESIGN_TOKENS.md` for token definitions.
+**Reference**: See `layout-components.md` for complete layout component requirements, `page-shell-rules.md` for onboarding pages, and `design-tokens.md` for token definitions.
 
 ## What Pages Are Excluded
 
@@ -66,7 +66,7 @@ export default function AdminPage() {
       <div className="p-4 md:p-6 lg:p-8">
         <Container>
           <div className="space-y-6">
-      {/* Your page content here */}
+            {/* Your page content here */}
           </div>
         </Container>
       </div>
