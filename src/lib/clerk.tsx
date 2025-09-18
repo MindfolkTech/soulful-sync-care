@@ -1,7 +1,7 @@
 import { ClerkProvider } from "@clerk/clerk-react";
 import { ReactNode } from "react";
 
-const clerkPubKey = "pk_test_YWN0aXZlLXF1YWdnYS01OS5jbGVyay5hY2NvdW50cy5kZXYk";
+const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 interface ClerkProviderWrapperProps {
   children: ReactNode;
