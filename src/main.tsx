@@ -1,7 +1,4 @@
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { ClerkAuthProvider } from "@/lib/clerk";
-import ClerkErrorBoundary from "@/components/util/ClerkErrorBoundary";
 import App from "./App.tsx";
 import "./index.css";
 
@@ -16,12 +13,4 @@ if (typeof window !== 'undefined' && (window as any).__REACT_DEVTOOLS_GLOBAL_HOO
   (window as any).__REACT_DEVTOOLS_GLOBAL_HOOK__.connectToDevTools?.();
 }
 
-createRoot(document.getElementById("root")!).render(
-  <ClerkErrorBoundary>
-    <ClerkAuthProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ClerkAuthProvider>
-  </ClerkErrorBoundary>
-);
+createRoot(document.getElementById("root")!).render(<App />);

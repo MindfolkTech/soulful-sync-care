@@ -21,25 +21,16 @@ const SPECIALTIES = {
 interface TherapistProfile {
   id: string;
   name: string;
-  firstName?: string;
-  lastName?: string;
   title: string;
   bio: string;
   specialties: string[];
   languages: string[];
   location: string;
   rate: number;
-  rate45min?: string;
-  rate60min?: string;
   availability: string[];
   education: string[];
   experience: string[];
-  yearsExperience?: string;
   certifications: string[];
-  cancellationPolicy?: string;
-  offersVideo?: boolean;
-  offersPhone?: boolean;
-  videoUrl?: string;
 }
 
 interface BasicInfoSectionProps {
@@ -157,7 +148,7 @@ export function SpecialtiesSection({ profile, onUpdate }: SpecialtiesSectionProp
           {Object.keys(SPECIALTIES).map((category) => (
             <Button
               key={category}
-              variant={selectedCategory === category ? "primary" : "outline"}
+              variant={selectedCategory === category ? "default" : "outline"}
               size="sm"
               onClick={() => setSelectedCategory(category as keyof typeof SPECIALTIES)}
             >
@@ -263,7 +254,7 @@ export function RatesAndPoliciesSection({ profile, onUpdate }: RatesAndPoliciesS
               <Checkbox 
                 id="videoSessions"
                 checked={profile.offersVideo || false}
-                onCheckedChange={(checked: boolean) => onUpdate({ offersVideo: checked })}
+                onCheckedChange={(checked) => onUpdate({ offersVideo: checked })}
               />
               <label htmlFor="videoSessions" className="font-secondary text-sm">
                 Video sessions
@@ -273,7 +264,7 @@ export function RatesAndPoliciesSection({ profile, onUpdate }: RatesAndPoliciesS
               <Checkbox 
                 id="phoneSessions"
                 checked={profile.offersPhone || false}
-                onCheckedChange={(checked: boolean) => onUpdate({ offersPhone: checked })}
+                onCheckedChange={(checked) => onUpdate({ offersPhone: checked })}
               />
               <label htmlFor="phoneSessions" className="font-secondary text-sm">
                 Phone sessions

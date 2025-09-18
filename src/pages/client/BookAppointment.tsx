@@ -190,7 +190,7 @@ export default function BookAppointment() {
                       Confirm Booking
                     </Button>
 
-                    <BookingDataNotice />
+                    <BookingDataNotice className="mt-4" />
                     
                     <div className="text-xs text-text-muted text-center mt-4">
                       <p>By booking, you agree to our Terms of Service</p>

@@ -92,7 +92,7 @@ export function VideoControls({
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              variant={isScreenSharing ? "primary" : "secondary"}
+              variant={isScreenSharing ? "default" : "secondary"}
               size="lg"
               className="h-12 w-12 rounded-full"
               onClick={handleScreenShare}
@@ -109,7 +109,7 @@ export function VideoControls({
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
-              variant={captionsEnabled ? "primary" : "secondary"}
+              variant={captionsEnabled ? "default" : "secondary"}
               size="lg"
               className="h-12 w-12 rounded-full"
               onClick={handleCaptionsToggle}

@@ -25,7 +25,7 @@ const bookings = [
     type: "Chemistry Call",
     sessionTime: new Date(Date.now() + 8 * 60 * 1000), // 8 minutes from now (will show JOIN NOW)
     duration: "15 min",
-    status: "confirmed" as "confirmed" | "pending" | "cancelled",
+    status: "confirmed",
     notes: "First time client - anxiety and stress management"
   },
   {
@@ -36,7 +36,7 @@ const bookings = [
     type: "Therapy Session",
     sessionTime: new Date(Date.now() + 45 * 60 * 1000), // 45 minutes from now
     duration: "60 min",
-    status: "confirmed" as "confirmed" | "pending" | "cancelled",
+    status: "confirmed",
     notes: "Regular session - working on communication skills"
   },
   {
@@ -47,7 +47,7 @@ const bookings = [
     type: "Therapy Session",
     sessionTime: new Date(Date.now() + 2 * 60 * 60 * 1000), // 2 hours from now
     duration: "60 min",
-    status: "pending" as "confirmed" | "pending" | "cancelled",
+    status: "pending",
     notes: "Follow-up session - stress management techniques"
   },
   {
@@ -58,7 +58,7 @@ const bookings = [
     type: "Therapy Session",
     sessionTime: new Date(Date.now() + 24 * 60 * 60 * 1000), // Tomorrow
     duration: "60 min",
-    status: "confirmed" as "confirmed" | "pending" | "cancelled",
+    status: "confirmed",
     notes: "Long-term client - depression management progress review"
   }
 ];
@@ -215,7 +215,7 @@ export default function TherapistBookings() {
   const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
   const [selectedTime, setSelectedTime] = React.useState<string>('09:00');
   const [filters, setFilters] = React.useState({
-    dateRange: 'week' as 'month' | 'week' | 'today' | 'custom',
+    dateRange: 'week',
     appointmentType: [],
     status: [],
     client: ''
