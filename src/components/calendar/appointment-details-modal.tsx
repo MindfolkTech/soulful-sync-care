@@ -98,7 +98,7 @@ export function AppointmentDetailsModal({
         <div className="flex items-center justify-between pb-4">
           <div className="flex items-center gap-3">
             <Avatar className="w-12 h-12">
-              <AvatarFallback className="bg-orange-500 text-white font-secondary font-bold text-lg">
+              <AvatarFallback className="bg-[hsl(var(--btn-accent-bg))] text-[hsl(var(--on-dark))] font-secondary font-bold text-lg">
                 {appointment.clientInitials}
               </AvatarFallback>
             </Avatar>
@@ -127,7 +127,7 @@ export function AppointmentDetailsModal({
             <h4 className="font-secondary text-[hsl(var(--text-secondary))] text-sm mb-2">
               Upcoming session
             </h4>
-            <div className="text-2xl font-bold text-orange-500 mb-1">
+            <div className="text-2xl font-bold text-[hsl(var(--btn-accent-text))] mb-1">
               {appointment.sessionTime.toLocaleTimeString('en-US', { 
                 hour: 'numeric', 
                 minute: '2-digit',
@@ -152,7 +152,7 @@ export function AppointmentDetailsModal({
           {/* Join Button */}
           {canJoinSession() && (
             <Button
-              className="w-full bg-[hsl(var(--garden-green))] hover:bg-[hsl(var(--garden-green))]/90 text-white font-secondary font-semibold py-3 text-base"
+              variant="primary" className="w-full font-secondary font-semibold py-3 text-base"
               onClick={() => handleAction(() => onJoinSession(appointment.id))}
               disabled={isLoading}
             >
@@ -162,7 +162,7 @@ export function AppointmentDetailsModal({
 
           {/* Session Details */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2 text-orange-500">
+            <div className="flex items-center gap-2 text-[hsl(var(--btn-accent-text))]">
               <MessageCircle className="w-4 h-4" />
               <span className="font-secondary text-sm font-medium">Session details</span>
             </div>
@@ -179,7 +179,7 @@ export function AppointmentDetailsModal({
 
           {/* Services Section */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2 text-orange-500">
+            <div className="flex items-center gap-2 text-[hsl(var(--btn-accent-text))]">
               <MessageCircle className="w-4 h-4" />
               <span className="font-secondary text-sm font-medium">Main Services</span>
             </div>
@@ -190,7 +190,7 @@ export function AppointmentDetailsModal({
                   <div className="font-secondary font-bold text-[hsl(var(--text-primary))]">CBT Therapy</div>
                   <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Service</div>
                 </div>
-                <Button variant="outline" size="sm" className="text-orange-500 border-orange-500">
+                <Button variant="outline" size="sm" className="text-[hsl(var(--btn-accent-text))] border-[hsl(var(--btn-accent-text))]">
                   ADD SERVICES +
                 </Button>
               </div>
@@ -202,7 +202,7 @@ export function AppointmentDetailsModal({
 
           {/* Notifications */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2 text-orange-500">
+            <div className="flex items-center gap-2 text-[hsl(var(--btn-accent-text))]">
               <MessageCircle className="w-4 h-4" />
               <span className="font-secondary text-sm font-medium">Notifications</span>
             </div>
@@ -212,7 +212,7 @@ export function AppointmentDetailsModal({
                 <div className="font-secondary font-bold text-[hsl(var(--text-primary))]">Assessment form</div>
                 <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">SEND REMINDER</div>
               </div>
-              <Badge className="bg-orange-100 text-orange-700 border-orange-300">
+              <Badge className="bg-[hsl(var(--btn-accent-bg))] text-[hsl(var(--btn-accent-text))] border-[hsl(var(--btn-accent-text))]">
                 Awaiting Signature
               </Badge>
             </div>
@@ -228,7 +228,7 @@ export function AppointmentDetailsModal({
               DISCARD
             </Button>
             <Button
-              className="flex-1 bg-[hsl(var(--garden-green))] hover:bg-[hsl(var(--garden-green))]/90 text-white font-secondary"
+              variant="primary" className="flex-1 font-secondary"
               onClick={onClose}
             >
               SAVE

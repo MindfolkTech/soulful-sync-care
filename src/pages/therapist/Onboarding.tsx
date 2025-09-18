@@ -149,7 +149,7 @@ export default function TherapistOnboarding() {
                 </div>
                 <div className="flex items-center gap-3">
                   {savedProgress && (
-                    <div className="flex items-center gap-2 bg-success-bg text-success-text px-3 py-1 rounded-full" role="status" aria-live="polite">
+                    <div className="flex items-center gap-2 bg-[hsl(var(--success-bg))]-bg text-[hsl(var(--success-text))]-text px-3 py-1 rounded-full" role="status" aria-live="polite">
                       <Save className="w-4 h-4" aria-hidden="true" />
                       <span className="text-sm font-secondary font-medium">Saved</span>
                     </div>
@@ -218,7 +218,7 @@ export default function TherapistOnboarding() {
                         </ul>
                       </div>
                     </div>
-                    <Button size="lg" className="w-full">Get Started</Button>
+                    <Button size="lg" className="w-full" onClick={() => setCurrentStep(1)}>Get Started</Button>
                   </div>
                 )}
 
@@ -540,7 +540,7 @@ export default function TherapistOnboarding() {
                   }
                 }}
                 disabled={false}
-                className="bg-[hsl(var(--garden-green))] hover:bg-[hsl(var(--elated-emerald))] text-[hsl(var(--on-dark))] px-8 py-3 transition-all duration-200 disabled:opacity-50 min-h-[--touch-target-min]"
+                variant="primary" className="px-8 py-3 transition-all duration-200 disabled:opacity-50 min-h-[--touch-target-min]"
                 aria-label={currentStep === onboardingSteps.length ? "Complete onboarding setup" : "Go to next step"}
               >
                 {currentStep === onboardingSteps.length ? "Complete Setup" : "Continue"}

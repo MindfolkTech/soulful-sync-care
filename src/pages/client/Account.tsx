@@ -129,7 +129,7 @@ export default function Account() {
                         </div>
                       </div>
 
-                      <Button>Save Changes</Button>
+                      <Button onClick={() => console.log('Save profile changes')}>Save Changes</Button>
                     </CardContent>
                   </Card>
                 </div>
@@ -194,7 +194,7 @@ export default function Account() {
                       </div>
                     </div>
 
-                    <Button>Save Preferences</Button>
+                    <Button onClick={() => console.log('Save notification preferences')}>Save Preferences</Button>
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -386,7 +386,7 @@ export default function Account() {
                               <p className="text-sm text-[hsl(var(--text-secondary))]">Expires 12/25</p>
                             </div>
                           </div>
-                          <Button variant="outline" size="sm">Remove</Button>
+                          <Button variant="outline" size="sm" onClick={() => console.log('Remove payment method')}>Remove</Button>
                         </div>
                       </div>
                       <Button variant="outline" className="mt-4">
@@ -408,7 +408,7 @@ export default function Account() {
                           </div>
                           <div className="text-right">
                             <p className="font-secondary font-semibold text-[hsl(var(--text-primary))]">£80.00</p>
-                            <Button variant="ghost" size="sm">Download</Button>
+                            <Button variant="ghost" size="sm" onClick={() => console.log('Download invoice')}>Download</Button>
                           </div>
                         </div>
                       </div>

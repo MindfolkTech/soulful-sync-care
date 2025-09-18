@@ -149,8 +149,8 @@ export default function TherapistClients() {
           <Card>
             <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
               <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-success">4</div>
-                <div className="font-secondary text-muted-foreground text-sm">Active</div>
+                <div className="font-primary text-2xl font-bold text-[hsl(var(--success-text))]">4</div>
+                <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Active</div>
               </div>
             </CardContent>
           </Card>
@@ -214,7 +214,7 @@ export default function TherapistClients() {
                           >
                             <Badge 
                               variant={client.status === "Active" ? "secondary" : "outline"}
-                              className={client.status === "Active" ? "bg-success text-white hover:bg-success/90" : "bg-warning text-foreground hover:bg-warning/90"}
+                              className={client.status === "Active" ? "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))] hover:bg-[hsl(var(--success-bg))]/90" : "bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))] hover:bg-[hsl(var(--warning-bg))]/90"}
                             >
                               {client.status}
                             </Badge>

@@ -179,7 +179,7 @@ export default function TherapistProfile() {
                     </li>
                   </ul>
                 </div>
-                <Button className="bg-[hsl(var(--garden-green))] text-white hover:bg-[hsl(var(--elated-emerald))] min-h-[--touch-target-min]" aria-label="Upload introduction video to attract more clients">
+                <Button variant="primary" className="min-h-[--touch-target-min]" aria-label="Upload introduction video to attract more clients">
                   <Upload className="w-4 h-4 mr-2" />
                   Upload Video
                 </Button>
@@ -295,7 +295,7 @@ export default function TherapistProfile() {
           <Button variant="outline" className="min-h-[--touch-target-min]" aria-label="Cancel profile changes without saving">
             Cancel
           </Button>
-          <Button className="bg-[hsl(var(--garden-green))] text-white hover:bg-[hsl(var(--elated-emerald))] min-h-[--touch-target-min]" aria-label="Save all profile changes">
+          <Button variant="primary" className="min-h-[--touch-target-min]" aria-label="Save all profile changes">
             Save Changes
           </Button>
         </HStack>

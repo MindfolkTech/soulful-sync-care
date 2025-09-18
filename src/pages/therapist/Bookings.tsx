@@ -109,9 +109,9 @@ function BookingItem({ booking }: { booking: any }) {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "confirmed":
-        return <Badge className="bg-success text-white">Confirmed</Badge>;
+        return <Badge className="bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]">Confirmed</Badge>;
       case "pending":
-        return <Badge className="bg-warning text-foreground">Pending</Badge>;
+        return <Badge className="bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]">Pending</Badge>;
       case "cancelled":
         return <Badge variant="destructive">Cancelled</Badge>;
       default:
@@ -189,9 +189,8 @@ function BookingItem({ booking }: { booking: any }) {
               </Button>
             ) : (
               <Button
-                variant="secondary"
-                className="min-h-[--touch-target-min] font-secondary text-xs"
-                disabled
+                variant="tertiary"
+                className="min-h-[--touch-target-min] font-secondary text-xs bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-secondary))]"
               >
                 Scheduled
               </Button>

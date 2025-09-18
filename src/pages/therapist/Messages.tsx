@@ -165,7 +165,7 @@ export default function TherapistMessages() {
                           </AvatarFallback>
                         </Avatar>
                         {conversation.isOnline && (
-                          <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-success rounded-full border-2 border-background"></div>
+                          <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-[hsl(var(--success-bg))] rounded-full border-2 border-background"></div>
                         )}
                       </div>
                       
@@ -218,7 +218,7 @@ export default function TherapistMessages() {
                       {selectedConversation.clientName}
                     </h3>
                     <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <div className={`w-2 h-2 rounded-full ${selectedConversation.isOnline ? 'bg-success' : 'bg-muted-foreground'}`}></div>
+                      <div className={`w-2 h-2 rounded-full ${selectedConversation.isOnline ? 'bg-[hsl(var(--success-bg))]' : 'bg-muted-foreground'}`}></div>
                       {selectedConversation.isOnline ? 'Online' : 'Offline'}
                     </div>
                   </div>

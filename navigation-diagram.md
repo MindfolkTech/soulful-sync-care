@@ -86,12 +86,12 @@ flowchart TD
     end
     
     %% Styling
-    classDef publicRoute fill:#e1f5fe
-    classDef clientRoute fill:#e8f5e8
-    classDef therapistRoute fill:#fff3e0
-    classDef adminRoute fill:#fce4ec
-    classDef devRoute fill:#f3e5f5
-    classDef sessionRoute fill:#ffebee
+    classDef publicRoute fill:#E3ECF5
+    classDef clientRoute fill:#EBF1ED
+    classDef therapistRoute fill:#FFF3EB
+    classDef adminRoute fill:#FADBD8
+    classDef devRoute fill:#EAE3DC
+    classDef sessionRoute fill:#FADBD8
     
     class Landing,Assessment,TherapistLanding,SignIn,SignUp,Terms,Privacy publicRoute
     class Discover,TherapistDetail,BookAppointment,Appointments,Favorites,Messages,Notifications,Account,Billing,ClientTasks clientRoute

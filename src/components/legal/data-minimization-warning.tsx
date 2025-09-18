@@ -31,7 +31,7 @@ export function DataMinimizationWarning({
     switch (type) {
       case 'optional': return 'bg-surface-accent/10 border-surface-accent';
       case 'required': return 'bg-[hsl(var(--garden-green))]/10 border-[hsl(var(--garden-green))]';
-      case 'sensitive': return 'bg-warning/10 border-warning';
+      case 'sensitive': return 'bg-[hsl(var(--warning-bg))]/10 border-warning';
     }
   };
 

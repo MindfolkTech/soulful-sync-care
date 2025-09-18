@@ -102,9 +102,8 @@ function AppointmentItem({ appointment }: { appointment: any }) {
           </Button>
         ) : (
           <Button 
-            variant="secondary"
-            className="min-h-[--touch-target-min] font-secondary text-xs"
-            disabled
+            variant="tertiary"
+            className="min-h-[--touch-target-min] font-secondary text-xs bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-secondary))]"
           >
             Scheduled
           </Button>
@@ -267,7 +266,7 @@ export default function TherapistDashboard() {
                   <div className="flex items-center gap-[--space-xs] flex-shrink-0">
                     <Badge 
                       variant={client.status === "Active" ? "secondary" : "outline"}
-                      className={`text-xs ${client.status === "Active" ? "bg-success text-white" : "bg-warning text-foreground"}`}
+                      className={`text-xs ${client.status === "Active" ? "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]" : "bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]"}`}
                     >
                       {client.status}
                     </Badge>

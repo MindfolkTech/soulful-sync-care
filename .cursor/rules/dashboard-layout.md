@@ -49,16 +49,17 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 ```
 
 ### Header Section (Automated by DashboardLayout)
-- **Mindfolk logo** - `text-white` on `bg-jovial-jade` background
+- **Mindfolk logo** - `text-[hsl(var(--on-dark))]` on `bg-[hsl(var(--jovial-jade))]` background
 - **Search bar** - "Search Clients" placeholder with magnifying glass icon
 - **User avatar** - Circular with initials, positioned top-right
-- **Background**: Full-width `bg-jovial-jade` header bar
-- **Mobile menu toggle** - Hamburger menu for sidebar on mobile
+- **Background**: Full-width `bg-[hsl(var(--jovial-jade))]` header bar
+- **Mobile menu toggle** - Hamburger menu for sidebar on mobile (always visible)
+- **Theme toggle** - Dark mode and high contrast toggle buttons (when implemented)
 
 ### Sidebar Navigation (Automated by DashboardLayout)
-- **Background**: `bg-surface-accent`
-- **Active state**: `bg-jovial-jade` vertical bar + `text-white`
-- **Collapsible**: Slides out on mobile, always visible on desktop
+- **Background**: `bg-[hsl(var(--surface-accent))]`
+- **Active state**: `bg-[hsl(var(--jovial-jade))]` + `text-[hsl(var(--on-dark))]`
+- **Collapsible**: Slides out on mobile with overlay, always visible on desktop
 - **Navigation items**:
   - Dashboard (house icon) - currently active
   - My Clients (two-person icon)
@@ -90,7 +91,7 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
   - Client avatars (circular with initials)
   - Full client names
   - Email addresses displayed
-  - Status badges: "Active" (`bg-success`) / "Inactive" (`bg-warning`)
+  - Status badges: "Active" (`bg-[hsl(var(--success-bg))]`) / "Inactive" (`bg-[hsl(var(--warning-bg))]`)
   - "EDIT" link next to each status
 
 #### Widget 3: Income Details (Bottom Left)
@@ -114,25 +115,25 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 ## Color Specifications
 
 ### Header Colors
-- **Background**: `bg-jovial-jade`
-- **Text**: `text-white`
-- **Logo**: `text-white`
+- **Background**: `bg-[hsl(var(--jovial-jade))]`
+- **Text**: `text-[hsl(var(--on-dark))]`
+- **Logo**: `text-[hsl(var(--on-dark))]`
 
 ### Sidebar Colors
-- **Background**: `bg-surface-accent`
-- **Text**: `text-jovial-jade`
-- **Active state**: `bg-jovial-jade` + `text-white`
-- **Icons**: `text-jovial-jade`
+- **Background**: `bg-[hsl(var(--surface-accent))]`
+- **Text**: `text-[hsl(var(--jovial-jade))]`
+- **Active state**: `bg-[hsl(var(--jovial-jade))]` + `text-[hsl(var(--on-dark))]`
+- **Icons**: `text-[hsl(var(--jovial-jade))]`
 
 ### Widget Colors
 - **Background**: `bg-card`
 - **Borders**: `border-border`
-- **Titles**: `text-jovial-jade`
-- **Action links**: `text-garden-green`
-- **Join buttons**: `bg-garden-green` + `text-white`
+- **Titles**: `text-[hsl(var(--jovial-jade))]`
+- **Action links**: `text-[hsl(var(--garden-green))]`
+- **Join buttons**: `bg-[hsl(var(--garden-green))]` + `text-[hsl(var(--on-dark))]`
 - **Status badges**: 
-  - Active: `bg-success` + `text-white`
-  - Inactive: `bg-warning` + `text-foreground`
+  - Active: `bg-[hsl(var(--success-bg))]` + `text-[hsl(var(--success-text))]`
+  - Inactive: `bg-[hsl(var(--warning-bg))]` + `text-[hsl(var(--warning-text))]`
 
 ### Chart Colors (Aligned with chart-components.md)
 - **Donut chart segments**: 
@@ -145,22 +146,22 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 ## Typography Requirements
 
 ### Headers
-- **Main title**: "Welcome Back, Sarah!" - `<h1 className="font-primary text-3xl font-bold text-jovial-jade">`
-- **Widget titles**: `<h2 className="font-primary text-jovial-jade text-sm md:text-base">` (e.g., "Upcoming Appointments", "My Client Dashboard")
+- **Main title**: "Welcome Back, Sarah!" - `<h1 className="font-primary text-3xl font-bold text-[hsl(var(--jovial-jade))]">`
+- **Widget titles**: `<h2 className="font-primary text-[hsl(var(--jovial-jade))] text-sm md:text-base">` (e.g., "Upcoming Appointments", "My Client Dashboard")
 - **Widget subtitles**: `<h4 className="font-secondary text-muted-foreground text-xs">` (e.g., "Appointments", "Profile Views in the last year")
 
 ### Content
 - **Client names**: `<h4 className="font-secondary font-bold text-foreground text-sm">` (special rule - H4 with bold)
 - **Email addresses**: `<p className="font-secondary text-muted-foreground text-xs">`
 - **Times/dates**: `<p className="font-secondary text-muted-foreground text-xs">`
-- **Action links**: `<Button className="font-secondary text-garden-green text-xs">`
+- **Action links**: `<Button className="font-secondary text-[hsl(var(--garden-green))] text-xs">`
 
 ## Interactive Elements
 
 ### Buttons
-- **Join Now**: `bg-garden-green`, `text-white`, rounded corners
-- **EDIT links**: `text-garden-green`, no background
-- **OPEN links**: `text-garden-green` with external link icon
+- **Join Now**: `bg-[hsl(var(--garden-green))]`, `text-[hsl(var(--on-dark))]`, rounded corners
+- **EDIT links**: `text-[hsl(var(--garden-green))]`, no background
+- **OPEN links**: `text-[hsl(var(--garden-green))]` with external link icon
 - **Status badges**: Rounded, colored backgrounds
 
 ### Touch Targets
@@ -172,11 +173,13 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 
 ### Responsive Design (Built into DashboardLayout)
 - **Mobile-first**: Flexbox-based responsive design
-- **Collapsible sidebar**: Slides out on mobile with overlay
+- **Collapsible sidebar**: Slides out on mobile with overlay (`fixed lg:fixed`)
 - **One-screen rule**: Content fits within viewport with proper overflow handling
 - **No horizontal scroll**: Perfect scaling on all screen sizes
-- **Touch targets**: All interactive elements meet 44px minimum
+- **Touch targets**: All interactive elements meet `min-h-touch-min` (44px) minimum
 - **Container padding**: Uses responsive Container component with `px-6 md:px-8 lg:px-10`
+- **Grid layout**: Uses `grid grid-rows-[auto_1fr]` for header/content separation
+- **Overlay**: Dark overlay (`bg-black/50`) when sidebar is open on mobile
 
 ### Grid System
 - **Dashboard page**: 4-widget layout (2x2 grid on desktop, single column on mobile)
@@ -190,9 +193,9 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 - **Scrollable content**: `overflow-y-auto` with `min-h-0` when needed
 
 ## Token Usage Requirements
-- **Always use Tailwind class names** instead of CSS variable syntax (e.g., `bg-jovial-jade` not `bg-[--jovial-jade]`)
+- **Always use proper HSL token syntax** (e.g., `bg-[hsl(var(--jovial-jade))]` not `bg-[--jovial-jade]`)
 - **Follow design-tokens.md** for all token usage
-- **Use semantic class names** (e.g., `text-white`, `text-foreground`)
+- **Use semantic class names** (e.g., `text-[hsl(var(--on-dark))]`, `text-[hsl(var(--text-primary))]`)
 - **Reference design-tokens.md** for complete token definitions
 - **Follow text-colors.md** for proper text color hierarchy
 - **Align with user-flows.md** specifications for all dashboard components
@@ -204,11 +207,20 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 - **Charts**: Alt text and data labels
 - **Buttons**: Descriptive button text
 - **Status badges**: Screen reader friendly
+- **Icon-only buttons**: Must have `aria-label` attributes
+- **Navigation items**: Proper `aria-current` for active states
 
 ### Focus Management
 - **Tab order**: Logical flow through widgets
-- **Focus indicators**: Visible focus rings
+- **Focus indicators**: Visible focus rings using `focus-visible:outline-2 focus-visible:outline-[hsl(var(--ring))]`
 - **Keyboard navigation**: All interactive elements accessible
+- **Input modality detection**: Focus rings only show for keyboard users, not mouse/touch
+- **Touch targets**: All buttons meet `min-h-touch-min` (44px) requirement
+
+### Error Handling
+- **Error boundaries**: All dashboard pages wrapped with ErrorBoundary component
+- **Skip links**: "Skip to content" link for keyboard navigation
+- **Live regions**: Announcements for dynamic content changes
 
 ## Page-Specific Requirements
 

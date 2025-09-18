@@ -41,7 +41,7 @@ export function DataProcessingNotice({
   const getColor = () => {
     switch (type) {
       case 'collection': return 'bg-[hsl(var(--garden-green))]/10 border-[hsl(var(--garden-green))]';
-      case 'sharing': return 'bg-warning/10 border-warning';
+      case 'sharing': return 'bg-[hsl(var(--warning-bg))]/10 border-warning';
       case 'storage': return 'bg-primary/10 border-primary';
       case 'analytics': return 'bg-surface-accent/10 border-surface-accent';
     }

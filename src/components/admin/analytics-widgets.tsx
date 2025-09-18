@@ -115,7 +115,7 @@ export function AnalyticsWidgets({ className }: AnalyticsWidgetsProps) {
               <CardTitle className="font-primary">Weekly Activity</CardTitle>
               <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">User engagement and sessions</p>
             </div>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={() => window.location.reload()}>
               <RefreshCw className="h-4 w-4" />
             </Button>
           </CardHeader>
@@ -156,7 +156,7 @@ export function AnalyticsWidgets({ className }: AnalyticsWidgetsProps) {
               <CardTitle className="font-primary">Growth Trends</CardTitle>
               <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">6-month overview</p>
             </div>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={() => console.log('Download growth trends data')}>
               <Download className="h-4 w-4" />
             </Button>
           </CardHeader>
@@ -336,7 +336,7 @@ function KPICard({ title, value, change, trend, icon: Icon, description }: KPICa
           </div>
           <div className={`flex items-center gap-1 px-2 py-1 rounded-md ${
             isPositive 
-              ? 'bg-[hsl(var(--success-bg))]/10 text-success' 
+              ? 'bg-[hsl(var(--success-bg))]/10 text-[hsl(var(--success-text))]' 
               : 'bg-[hsl(var(--error-bg))]/10 text-destructive'
           }`}>
             {isPositive ? (

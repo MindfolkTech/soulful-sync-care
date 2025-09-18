@@ -188,7 +188,7 @@ export function ScreenshotCapture({ className }: ScreenshotCaptureProps) {
             <div className="space-y-2">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1">
-                  <CheckCircle2 className="w-4 h-4 text-success-bg" />
+                  <CheckCircle2 className="w-4 h-4 text-[hsl(var(--success-text))]-bg" />
                   <span className="text-sm">{status.completed.length} completed</span>
                 </div>
                 {status.failed.length > 0 && (

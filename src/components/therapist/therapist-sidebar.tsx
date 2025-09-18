@@ -158,7 +158,7 @@ export function TherapistSidebar({ className = "" }: TherapistSidebarProps) {
                       {item.badge && (
                         <Badge 
                           variant="secondary" 
-                          className="bg-warning text-warning-foreground text-xs h-5 px-1.5"
+                          className="bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))] text-xs h-5 px-1.5"
                         >
                           {item.badge}
                         </Badge>

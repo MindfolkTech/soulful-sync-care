@@ -222,8 +222,11 @@ export default function Index() {
               <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div className="text-center space-y-4">
                   <div 
-                    className="w-12 h-12 rounded-full bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))] flex items-center justify-center text-xl font-bold mx-auto"
-                    style={{ backgroundColor: "var(--garden-green)" }}
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mx-auto"
+                    style={{ 
+                      backgroundColor: "hsl(var(--garden-green))",
+                      color: "hsl(var(--on-dark))"
+                    }}
                   >
                     1
                   </div>
@@ -249,8 +252,11 @@ export default function Index() {
                 
                 <div className="text-center space-y-4">
                   <div 
-                    className="w-12 h-12 rounded-full bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))] flex items-center justify-center text-xl font-bold mx-auto"
-                    style={{ backgroundColor: "var(--garden-green)" }}
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mx-auto"
+                    style={{ 
+                      backgroundColor: "hsl(var(--garden-green))",
+                      color: "hsl(var(--on-dark))"
+                    }}
                   >
                     2
                   </div>
@@ -276,8 +282,11 @@ export default function Index() {
                 
                 <div className="text-center space-y-4">
                   <div 
-                    className="w-12 h-12 rounded-full bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))] flex items-center justify-center text-xl font-bold mx-auto"
-                    style={{ backgroundColor: "var(--garden-green)" }}
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mx-auto"
+                    style={{ 
+                      backgroundColor: "hsl(var(--garden-green))",
+                      color: "hsl(var(--on-dark))"
+                    }}
                   >
                     3
                   </div>
@@ -303,8 +312,11 @@ export default function Index() {
                 
                 <div className="text-center space-y-4">
                   <div 
-                    className="w-12 h-12 rounded-full bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))] flex items-center justify-center text-xl font-bold mx-auto"
-                    style={{ backgroundColor: "var(--garden-green)" }}
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mx-auto"
+                    style={{ 
+                      backgroundColor: "hsl(var(--garden-green))",
+                      color: "hsl(var(--on-dark))"
+                    }}
                   >
                     4
                   </div>

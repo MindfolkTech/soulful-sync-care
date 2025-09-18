@@ -336,7 +336,7 @@ export function NotesEditor({ sessionId, clientName }: NotesEditorProps) {
 
           {/* Save Button */}
           <div className="mt-6 flex justify-end gap-2">
-            <Button variant="outline">Save Draft</Button>
+            <Button variant="outline" onClick={() => console.log('Save session notes draft')}>Save Draft</Button>
             <Button>
               <Save className="h-4 w-4 mr-2" />
               Save & Complete Session

@@ -42,7 +42,7 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
   return (
     <div className="grid grid-rows-[auto_1fr] min-h-dvh overflow-hidden bg-background">
       {/* Header Section */}
-      <header className="row-start-1 bg-[hsl(var(--jovial-jade))] text-white relative z-50">
+      <header className="row-start-1 bg-[hsl(var(--jovial-jade))] text-[hsl(var(--on-dark))] relative z-50">
         <Container className="py-4">
           <div className="flex items-center justify-between">
             {/* Left side - Menu, Logo, Search */}
@@ -51,14 +51,14 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-white hover:bg-white/20 min-h-touch-min"
+                className="text-[hsl(var(--on-dark))] hover:bg-white/20 min-h-touch-min"
                 onClick={() => setSidebarOpen(!sidebarOpen)}
                 aria-label={sidebarOpen ? "Close navigation menu" : "Open navigation menu"}
               >
                 {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </Button>
               
-              <h1 className="font-primary text-xl font-bold text-white">Mindfolk</h1>
+              <h1 className="font-primary text-xl font-bold text-[hsl(var(--on-dark))]">Mindfolk</h1>
               
               {/* Search bar - always visible on desktop, hidden on mobile when sidebar is open */}
               <div className={`relative ${sidebarOpen ? 'hidden md:block' : 'hidden sm:block'}`}>
@@ -113,8 +113,8 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
                     className={`
                       flex items-center gap-3 px-3 py-2 rounded-md transition-colors min-h-touch-min
                       ${isActive 
-                        ? 'bg-[hsl(var(--jovial-jade))] text-white' 
-                        : 'text-[hsl(var(--jovial-jade))] hover:bg-[hsl(var(--jovial-jade))] hover:text-white'
+                        ? 'bg-[hsl(var(--jovial-jade))] text-[hsl(var(--on-dark))]' 
+                        : 'text-[hsl(var(--jovial-jade))] hover:bg-[hsl(var(--jovial-jade))] hover:text-[hsl(var(--on-dark))]'
                       }
                     `}
                   >
@@ -134,7 +134,7 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
                     <Button 
                       key={index}
                       variant="ghost" 
-                      className="w-full justify-start font-secondary text-[hsl(var(--jovial-jade))] hover:bg-[hsl(var(--jovial-jade))] hover:text-white min-h-touch-min"
+                      className="w-full justify-start font-secondary text-[hsl(var(--jovial-jade))] hover:bg-[hsl(var(--jovial-jade))] hover:text-[hsl(var(--on-dark))] min-h-touch-min"
                       aria-label={`Quick action: ${action}`}
                     >
                       <PlusCircle className="mr-2 h-4 w-4" />

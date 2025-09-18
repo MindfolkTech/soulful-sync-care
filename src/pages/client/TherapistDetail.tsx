@@ -68,7 +68,7 @@ export default function TherapistDetail() {
                             {therapist.name}
                           </h1>
                           {therapist.isVerified && (
-                            <Badge variant="secondary" className="bg-success text-success-foreground">
+                            <Badge variant="secondary" className="bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]">
                               Verified
                             </Badge>
                           )}

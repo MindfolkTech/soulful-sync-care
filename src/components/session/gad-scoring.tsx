@@ -223,7 +223,7 @@ export function GADScoring({ clientId, sessionId }: GADScoringProps) {
 
       {/* Actions */}
       <div className="flex justify-end gap-2">
-        <Button variant="outline">Save Draft</Button>
+        <Button variant="outline" onClick={() => console.log('Save GAD assessment draft')}>Save Draft</Button>
         <Button onClick={handleSave} disabled={!isComplete}>
           <Save className="h-4 w-4 mr-2" />
           Complete Assessment

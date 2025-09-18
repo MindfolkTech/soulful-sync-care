@@ -1,14 +1,14 @@
-﻿---
+---
 description: Chart component requirements for dashboard widgets with detailed specifications from user-flows.md
 globs: ["src/components/charts/**/*.tsx", "src/pages/therapist/Dashboard.tsx", "src/pages/therapist/**/*.tsx"]
 alwaysApply: true
 ---
 
-# Rule: Chart Components — Dashboard Data Visualization (User-Flows Aligned)
+# Rule: Chart Components � Dashboard Data Visualization (User-Flows Aligned)
 
 ## Scope
 Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user-flows.md specifications and accessibility standards.
-🚫 No deviations from specified colors, layouts, or accessibility requirements.
+?? No deviations from specified colors, layouts, or accessibility requirements.
 
 **Reference**: See `design-tokens.md` for complete token definitions and usage guidelines.
 **Alignment**: This file implements chart requirements specified in `user-flows.md` sections.
@@ -24,10 +24,10 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 - **Accessibility**: ARIA labels, alt text, and data tables for screen readers
 
 #### Color Specifications (Exact Mapping)
-- **Completed sessions**: `bg-[--btn-accent-bg]` (#ffd9be - orange segment)
-- **Cancelled sessions**: `bg-[--tag-language-bg]` (#ede6fa - purple segment)  
-- **Rescheduled sessions**: `bg-[--tag-modality-bg]` (#e6eee9 - green segment)
-- **Central number**: `text-[--jovial-jade]` (#305C45)
+- **Completed sessions**: `bg-[--btn-accent-bg]` (#FFCBAA - orange segment)
+- **Cancelled sessions**: `bg-[--tag-language-bg]` (#EAE3DC - purple segment)  
+- **Rescheduled sessions**: `bg-[--tag-modality-bg]` (#EBF1ED - green segment)
+- **Central number**: `text-[--jovial-jade]` (#3A5949)
 - **Legend text**: `text-[--text-secondary]` (#6B7280)
 - **Background**: `bg-[--surface]` (#FFFFFF)
 
@@ -45,7 +45,7 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 - **Accessibility**: Screen reader friendly data points and trend description
 
 #### Color Specifications (Exact Mapping)
-- **Trend line**: `bg-[--btn-accent-bg]` (#ffd9be - orange line)
+- **Trend line**: `bg-[--btn-accent-bg]` (#FFCBAA - orange line)
 - **Data points**: `bg-[--btn-accent-bg]` with `text-[--on-dark]` centers
 - **Grid lines**: `border-[--border]` (#E5E7EB - subtle, non-distracting)
 - **Y-axis labels**: `text-[--text-secondary]` (#6B7280)
@@ -162,7 +162,7 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 
 ## Examples
 
-### ✅ Good Chart Implementation
+### ? Good Chart Implementation
 ```tsx
 // Donut Chart for Income Details Widget
 <div className="bg-[--surface] p-4 rounded-lg border border-[--border]">
@@ -205,11 +205,11 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 </div>
 ```
 
-### ❌ Bad Chart Implementation
+### ? Bad Chart Implementation
 ```tsx
 // Wrong - missing accessibility, wrong colors, no design tokens
 <div className="bg-white p-4">
-  <h3 className="text-black">Income Details</h3>
+  <h3 className="text-[hsl(var(--ink-slate))]">Income Details</h3>
   <div className="w-32 h-32">
     <DonutChart 
       data={[

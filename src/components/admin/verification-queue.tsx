@@ -328,7 +328,7 @@ function ApplicationsList({
                             variant="outline"
                             size="sm"
                             onClick={() => onApprove(application.id)}
-                            className="text-success hover:bg-[hsl(var(--success-bg))] hover:text-[hsl(var(--success-text))] min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                            className="text-[hsl(var(--success-text))] hover:bg-[hsl(var(--success-bg))] hover:text-[hsl(var(--success-text))] min-h-[--touch-target-min] min-w-[--touch-target-min]"
                             aria-label={`Approve ${application.name}'s application`}
                           >
                             <CheckCircle className="h-4 w-4" />
@@ -479,7 +479,7 @@ function ApplicationDetailsDialog({
               <div className="flex items-center gap-3">
                 {application.backgroundCheck ? (
                   <>
-                    <CheckCircle className="h-5 w-5 text-success" />
+                    <CheckCircle className="h-5 w-5 text-[hsl(var(--success-text))]" />
                     <p className="font-secondary text-[hsl(var(--text-primary))]">Background check completed</p>
                   </>
                 ) : (

@@ -94,7 +94,7 @@ export default function TherapistAvailability() {
                     <CardTitle className="font-primary">Weekly Schedule</CardTitle>
                     <div className="flex items-center space-x-4">
                       <div className="flex items-center space-x-2">
-                        <div className="w-3 h-3 bg-success rounded-full"></div>
+                        <div className="w-3 h-3 bg-[hsl(var(--success-bg))] rounded-full"></div>
                         <span className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Available</span>
                       </div>
                       <div className="flex items-center space-x-2">
@@ -135,7 +135,7 @@ export default function TherapistAvailability() {
                                   isBooked
                                     ? "bg-primary hover:bg-primary/80"
                                     : isAvailable
-                                    ? "bg-success/20 hover:bg-success/30 border-success/40"
+                                    ? "bg-[hsl(var(--success-bg))]/20 hover:bg-[hsl(var(--success-bg))]/30 border-success/40"
                                     : "bg-surface-accent hover:bg-surface-accent/80"
                                 }`}
                                 title={`${day} ${time} - ${
@@ -225,7 +225,7 @@ export default function TherapistAvailability() {
                     <CardTitle className="font-primary text-lg">Upcoming Changes</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="flex items-center justify-between p-3 bg-warning/10 rounded-lg">
+                    <div className="flex items-center justify-between p-3 bg-[hsl(var(--warning-bg))]/10 rounded-lg">
                       <div>
                         <p className="font-secondary font-semibold text-[hsl(var(--text-primary))] text-sm">
                           Holiday Block

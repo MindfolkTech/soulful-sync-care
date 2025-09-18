@@ -82,7 +82,7 @@ export default function TherapistAnalytics() {
             <option>Last 6 months</option>
             <option>Last year</option>
           </select>
-          <Button variant="outline" className="min-h-touch-min">Export Report</Button>
+          <Button variant="outline" className="min-h-touch-min" onClick={() => console.log('Export analytics report')}>Export Report</Button>
         </HStack>
 
         {/* Key Performance Indicators */}

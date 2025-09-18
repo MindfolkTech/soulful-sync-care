@@ -14,71 +14,71 @@ alwaysApply: true
 Apply to all UI code (React/TSX/CSS/Tailwind). 
 ```css
 /* ── Core Brand Colors ───────────────────────────────────────── */
-    --jovial-jade: 155 28% 28%;   /* #305C45 */
-    --garden-green: 145 27% 35%;  /* #497557 */
-    --elated-emerald: 149 28% 32%;/* #3B674D */
+    --jovial-jade: 151 23% 29%;   /* #3A5949 - becomes Sage Deep */
+    --garden-green: 151 19% 46%;  /* #5E8C77 - becomes Sage Meadow */
+    --elated-emerald: 151 19% 46%;/* #5E8C77 - consolidated */
 ```
 
 ```css
     /* ── Surfaces & Backgrounds ─────────────────────────────────── */
-    --warm-white: 32 100% 97%;    /* #FFF8F2 */
-    --surface: 0 0% 100%;         /* #FFFFFF */
-    --surface-accent: 134 23% 92%;/* #E8F0E9 */
+    --warm-white: 33 71% 97%;    /* #FCF9F6 - subtle update */
+    --surface: 0 0% 100%;         /* #FFFFFF - no change */
+    --surface-accent: 150 22% 93%;/* #EBF1ED - becomes Sage Mist */
 ```
 ```css
     /* ── Text & Border ──────────────────────────────────────────── */
-    --text-primary: 145 23% 35%;  /* #466749 */
-    --text-secondary: 220 13% 46%;/* #6B7280 */
-    --text-muted: 220 13% 46%;    /* #6B7280 */
-    --ink-slate: 198 33% 17%;     /* #20323A */
-    --on-dark: 0 0% 100%;         /* #FFFFFF */
-    --text-black: 0 0% 0%;        /* #000000 */
-    --border: 220 13% 91%;        /* #E5E7EB */
+    --text-primary: 151 23% 29%;  /* #3A5949 - becomes Sage Deep */
+    --text-secondary: 210 8% 21%;/* #2F353A - becomes Ink Slate */
+    --text-muted: 210 4% 50%;    /* #7A8085 - new dedicated muted */
+    --ink-slate: 210 8% 21%;     /* #2F353A - subtle update */
+    --on-dark: 0 0% 100%;         /* #FFFFFF - becomes on-brand */
+    --text-black: 0 0% 0%;        /* #000000 - no change, for alerts */
+    --border: 31 27% 90%;        /* #EAE3DC - warmer border */
 ```
 ```css
     /* ── Buttons ────────────────────────────────────────────────── */
-    --btn-primary-bg: 145 27% 35%;/* #497557 */
-    --btn-primary-text: 0 0% 100%;/* #FFFFFF */
+    --btn-primary-bg: 151 19% 46%;/* #5E8C77 - Sage Meadow */
+    --btn-primary-text: 0 0% 100%;/* #FFFFFF - no change */
     --btn-secondary-bg: 0 0% 0%;  /* transparent (no hex) */
-    --btn-secondary-text: 145 27% 35%; /* #497557 */
-    --btn-tertiary-text: 155 28% 28%;  /* #305C45 */
-    --btn-accent-bg: 25 100% 87%; /* #FFD9BE */
-    --btn-accent-text: 155 28% 28%;/* #305C45 */
-    --btn-cta-bg: 134 23% 92%;   /* #E6EEE9 */
-    --btn-cta-text: 155 28% 28%; /* #305C45 */
+    --btn-secondary-text: 151 19% 46%; /* #5E8C77 - Sage Meadow */
+    --btn-tertiary-text: 151 23% 29%;  /* #3A5949 - Sage Deep */
+    --btn-accent-bg: 27 100% 83%; /* #FFCBAA - becomes Peach Sorbet */
+    --btn-accent-text: 151 23% 29%;/* #3A5949 - becomes on-accent */
+    --btn-cta-bg: 151 19% 46%;   /* #5E8C77 - aligns with Primary */
+    --btn-cta-text: 0 0% 100%; /* #FFFFFF - for contrast */
 ```
 ```css
     /* ── Tags (5 categories) ────────────────────────────────────── */
-    --tag-personality-bg: 25 100% 87%;   /* #FFD9BE */
-    --tag-personality-text: 155 28% 28%; /* #305C45 */
-    --tag-modality-bg: 134 23% 92%;      /* #E6EEE9 */
-    --tag-modality-text: 155 28% 28%;    /* #305C45 */
-    --tag-specialty-bg: 211 38% 93%;     /* #E3ECF5 */
-    --tag-specialty-text: 198 33% 17%;   /* #20323A */
-    --tag-language-bg: 267 55% 94%;      /* #EDE6FA */
-    --tag-language-text: 155 28% 28%;    /* #305C45 */
-    --tag-misc-bg: 22 41% 92%;           /* #F5E4DE */
-    --tag-misc-text: 155 28% 28%;        /* #305C45 */
+    --tag-personality-bg: 28 100% 96%;   /* #FFF3EB - becomes Peach Fuzz */
+    --tag-personality-text: 19 54% 47%; /* #B35F3A - Revised for AA */
+    --tag-modality-bg: 150 22% 93%;      /* #EBF1ED - becomes Sage Mist */
+    --tag-modality-text: 151 23% 29%;    /* #3A5949 - becomes Sage Deep */
+    --tag-specialty-bg: 150 22% 93%;     /* #EBF1ED - consolidated */
+    --tag-specialty-text: 151 23% 29%;   /* #3A5949 - consolidated */
+    --tag-language-bg: 31 27% 90%;      /* #EAE3DC - uses Border color */
+    --tag-language-text: 210 8% 21%;    /* #2F353A - uses Ink Slate */
+    --tag-misc-bg: 31 27% 90%;           /* #EAE3DC - uses Border color */
+    --tag-misc-text: 210 8% 21%;        /* #2F353A - uses Ink Slate */
 ```
 ```css
     /* ── System Messages ────────────────────────────────────────── */
-    --success-bg: 145 27% 35%;    /* #497557 */
-    --success-text: 0 0% 100%;    /* #FFFFFF */
-    --warning-bg: 14 88% 83%;     /* #FCBAAA */
-    --warning-text: 198 33% 17%;  /* #20323A */
-    --error-bg: 14 88% 83%;       /* #FCBAAA */
-    --error-text: 198 33% 17%;    /* #20323A */
-    --info-bg: 149 28% 32%;       /* #3B674D */
-    --info-text: 0 0% 100%;       /* #FFFFFF */
+    --success-bg: 150 22% 93%;    /* #EBF1ED - becomes Sage Mist */
+    --success-text: 151 23% 29%;    /* #3A5949 - for contrast */
+    --warning-bg: 28 100% 96%;     /* #FFF3EB - becomes Peach Fuzz */
+    --warning-text: 19 54% 47%;  /* #B35F3A - Revised for AA */
+    --error-bg: 5 78% 92%;       /* #FADBD8 - new dedicated error */
+    --error-text: 0 46% 42%;    /* #9E3B3B - new dedicated error */
+    --info-bg: 211 48% 93%;       /* #E3ECF5 - new dedicated info */
+    --info-text: 223 47% 42%;       /* #3B599E - new dedicated info */
 ```
 ```css
     /* ── Progress & Motion ──────────────────────────────────────── */
-    --progress-bar: 145 27% 35%;  /* uses #497557 */
+    --progress-bar: 151 19% 46%;  /* uses #5E8C77 */
 ```
 ```css
     /* ── Overlays (derived) ─────────────────────────────────────── */
-    --overlay-dark: 145 27% 15%;  /* derived from --garden-green (darker) */
-    --overlay-light: 145 23% 92%; /* derived from surface-accent */
+    --overlay-dark: 151 19% 15%;  /* derived from --garden-green (darker) */
+    --overlay-light: 150 22% 92%; /* derived from surface-accent */
     /* Backdrops below intentionally reference variables + alpha */
     --modal-backdrop: var(--overlay-dark) / 0.8;
     --video-overlay: var(--overlay-dark) / 0.6;
@@ -216,7 +216,7 @@ Apply to all UI code (React/TSX/CSS/Tailwind).
 // Forbidden Usage
 ```tsx
 // Wrong — hardcoded Tailwind colors
-<Button className="bg-green-600 text-white">Primary</Button>
+<Button className="bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))]">Primary</Button>
 
 // Wrong — hardcoded hex values
 <div className="bg-[#497557] text-[#ffffff]">Content</div>

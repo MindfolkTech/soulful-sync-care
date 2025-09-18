@@ -158,7 +158,7 @@ export function ModerationTable() {
   const getSeverityBadge = (severity: FlaggedContent["severity"]) => {
     switch (severity) {
       case "low":
-        return <Badge variant="secondary" className="bg-[hsl(var(--success-bg))]/20 text-success">Low</Badge>;
+        return <Badge variant="secondary" className="bg-[hsl(var(--success-bg))]/20 text-[hsl(var(--success-text))]">Low</Badge>;
       case "medium":
         return <Badge variant="secondary" className="bg-[hsl(var(--warning-bg))]/20 text-[hsl(var(--warning-text))]">Medium</Badge>;
       case "high":
@@ -456,7 +456,7 @@ function ModerationTableView({
                           variant="outline"
                           size="sm"
                           onClick={() => onApprove(item.id)}
-                          className="text-success hover:bg-[hsl(var(--success-bg))] hover:text-[hsl(var(--success-text))]"
+                          className="text-[hsl(var(--success-text))] hover:bg-[hsl(var(--success-bg))] hover:text-[hsl(var(--success-text))]"
                         >
                           <CheckCircle className="h-4 w-4" />
                         </Button>
