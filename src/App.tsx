@@ -8,8 +8,6 @@ import { ImpersonationProvider } from "@/contexts/impersonation-context";
 import { GlobalImpersonationBar } from "@/components/admin/global-impersonation-bar";
 import ErrorBoundary from "@/components/util/ErrorBoundary";
 import { AuthGuard } from "@/components/auth/auth-guard";
-import { ClerkProviderWrapper } from "@/lib/clerk";
-
 // Pages
 import Index from "./pages/Index";
 import TherapistLanding from "./pages/TherapistLanding";
@@ -72,8 +70,7 @@ import SessionManagementDemo from "./pages/dev/SessionManagementDemo";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <ClerkProviderWrapper>
-    <QueryClientProvider client={queryClient}>
+  <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
@@ -147,7 +144,6 @@ const App = () => (
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
-  </ClerkProviderWrapper>
 );
 
 export default App;
