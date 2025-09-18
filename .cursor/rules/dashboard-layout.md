@@ -1,301 +1,339 @@
-﻿---
-description: Dashboard layout and widget requirements for therapist and admin sections based on Figma design specifications
-globs: ["src/pages/therapist/**/*.tsx", "src/pages/admin/**/*.tsx"]
+---
+description: Dashboard layout requirements for therapist and admin sections using TherapistLayout and AdminLayout components
+globs: ["src/pages/therapist/**/*.tsx", "src/pages/admin/**/*.tsx", "src/components/layout/therapist-layout.tsx", "src/components/layout/admin-layout.tsx"]
+ignore: ["src/pages/therapist/Onboarding.tsx", "src/pages/client/onboarding/**/*.tsx"]
 alwaysApply: true
 ---
 
-# Rule: Dashboard Layout — Therapist & Admin Pattern (Figma Design Implementation)
+# Rule: Dashboard Layout — Therapist & Admin Pattern (Current Architecture)
 
 ## Scope
-Apply to all therapist and admin pages (React/TSX/CSS/Tailwind). Ensure consistent dashboard layout across all management interfaces.
-🚫 No deviations from the dashboard layout pattern and component hierarchy.
+Apply to all **post-authentication** therapist and admin pages (React/TSX/CSS/Tailwind). Ensure consistent dashboard layout across all management interfaces using the correct layout components.
 
-**Reference**: See `design-tokens.md` for complete token definitions and usage guidelines.
+**🚫 EXCLUDES**: Onboarding pages, pre-authentication flows, and public pages
+**✅ INCLUDES**: All authenticated therapist/admin dashboard pages
+
+🚫 No deviations from the TherapistLayout/AdminLayout pattern and component hierarchy.
+
+**Reference**: See `layout-components.md` for complete layout component requirements, `page-shell-rules.md` for onboarding pages, and `design-tokens.md` for token definitions.
+
+## What Pages Are Excluded
+
+### ❌ Pages That Do NOT Use Dashboard Layouts
+- **Onboarding flows**: `/t/onboarding`, `/client/onboarding`
+- **Pre-authentication pages**: Landing pages, sign-up, login
+- **Public pages**: About, pricing, terms of service
+- **Assessment flows**: Client discovery and matching flows
+- **Session pages**: Video call interfaces (use different layout)
+
+### ✅ Pages That DO Use Dashboard Layouts
+- **Therapist dashboard**: `/t/dashboard`, `/t/clients`, `/t/profile`, `/t/analytics`, etc.
+- **Admin dashboard**: `/admin/overview`, `/admin/users`, `/admin/therapists`, etc.
+- **All authenticated management interfaces**
 
 ## Dashboard Layout Requirements
 
-### Shared Dashboard Layout Component (Mandatory)
-**All therapist and admin pages MUST use the `DashboardLayout` component:**
+### Mandatory Layout Components
 
+**All therapist pages MUST use TherapistLayout:**
 ```tsx
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
+import { TherapistLayout } from "@/components/layout/therapist-layout";
+import { Container } from "@/components/ui/container";
 
-export default function YourPage() {
+export default function TherapistPage() {
   return (
-    <DashboardLayout 
-      title="Page Title"
-      subtitle="Optional page description"
-    >
-      {/* Your page content here */}
-    </DashboardLayout>
+    <TherapistLayout>
+      <div className="p-4 md:p-6 lg:p-8">
+        <Container>
+          <div className="space-y-6">
+            {/* Your page content here */}
+          </div>
+        </Container>
+      </div>
+    </TherapistLayout>
   );
 }
 ```
 
-### Layout Atoms (Required)
-**Use these components for consistent flexbox layouts:**
-
+**All admin pages MUST use AdminLayout:**
 ```tsx
-import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
+import { AdminLayout } from "@/components/layout/admin-layout";
+import { Container } from "@/components/ui/container";
 
-// Vertical stacking with gap-4
-<Stack className="space-y-6">...</Stack>
-
-// Horizontal layout with items-center gap-4  
-<HStack className="justify-between">...</HStack>
-
-// Wrapping layout for tags/chips with gap-2
-<Cluster>...</Cluster>
+export default function AdminPage() {
+  return (
+    <AdminLayout>
+      <div className="p-4 md:p-6 lg:p-8">
+        <Container>
+          <div className="space-y-6">
+            {/* Your page content here */}
+          </div>
+        </Container>
+      </div>
+    </AdminLayout>
+  );
+}
 ```
 
-### Header Section (Automated by DashboardLayout)
-- **Mindfolk logo** - `text-[hsl(var(--on-dark))]` on `bg-[hsl(var(--jovial-jade))]` background
-- **Search bar** - "Search Clients" placeholder with magnifying glass icon
-- **User avatar** - Circular with initials, positioned top-right
-- **Background**: Full-width `bg-[hsl(var(--jovial-jade))]` header bar
-- **Mobile menu toggle** - Hamburger menu for sidebar on mobile (always visible)
-- **Theme toggle** - Dark mode and high contrast toggle buttons (when implemented)
+## Layout Component Features
 
-### Sidebar Navigation (Automated by DashboardLayout)
-- **Background**: `bg-[hsl(var(--surface-accent))]`
-- **Active state**: `bg-[hsl(var(--jovial-jade))]` + `text-[hsl(var(--on-dark))]`
-- **Collapsible**: Slides out on mobile with overlay, always visible on desktop
-- **Navigation items**:
-  - Dashboard (house icon) - currently active
-  - My Clients (two-person icon)
-  - My Profile (single-person icon)
-  - Performance & Analytics (bar chart icon)
-- **Quick Actions section**:
-  - Update pricing
-  - Add a new video
-  - Learn engagement boost
-  - FAQ
-- **Sign out** link at bottom
+### TherapistLayout Features
+- ✅ **TherapistSidebar**: Navigation with therapist-specific menu items
+- ✅ **TherapistBottomNav**: Mobile navigation (hidden on desktop)
+- ✅ **Responsive behavior**: Sidebar hidden on mobile/tablet, visible on desktop
+- ✅ **Collapsible sidebar**: Smooth 300ms transitions on desktop
+- ✅ **Touch targets**: All interactive elements meet 44px minimum
+- ✅ **Overflow handling**: Proper scroll behavior and content constraints
 
-### Main Content Area (4-Widget Grid)
+### AdminLayout Features
+- ✅ **AdminSidebar**: Navigation with admin-specific menu items
+- ✅ **AdminBottomNav**: Mobile navigation (hidden on desktop)
+- ✅ **Responsive behavior**: Sidebar hidden on mobile/tablet, visible on desktop
+- ✅ **Collapsible sidebar**: Smooth 300ms transitions on desktop
+- ✅ **Touch targets**: All interactive elements meet 44px minimum
+- ✅ **Overflow handling**: Proper scroll behavior and content constraints
 
-#### Widget 1: Upcoming Appointments (Top Left)
-- **Title**: "Upcoming Appointments" with "EDIT" link
-- **Action**: "OPEN CALENDAR" with external link icon
-- **Content**:
-  - Client avatars (circular with initials)
-  - Full client names (not initials)
-  - Date and time (Apr 21 10:00am - 10:30am format)
-  - `bg-garden-green` "Join Now >" buttons for each appointment
-- **Scrollable**: Vertical scrollbar if more than 3 appointments
+## Content Structure Requirements (CRITICAL)
 
-#### Widget 2: My Client Dashboard (Top Right)
-- **Title**: "My Client Dashboard" with "EDIT" link
-- **Action**: "OPEN CLIENTS" with external link icon
-- **Content**:
-  - Client avatars (circular with initials)
-  - Full client names
-  - Email addresses displayed
-  - Status badges: "Active" (`bg-[hsl(var(--success-bg))]`) / "Inactive" (`bg-[hsl(var(--warning-bg))]`)
-  - "EDIT" link next to each status
+### Mandatory Content Wrapper Pattern
+**ALL pages using TherapistLayout or AdminLayout MUST follow this exact structure:**
 
-#### Widget 3: Income Details (Bottom Left)
-- **Title**: "Income Details" with "EDIT" link
-- **Action**: "OPEN ANALYTICS" with external link icon
-- **Content**:
-  - "Appointments" section label
-  - Large donut chart with central number (122)
-  - Color segments: orange, purple, green
-  - Represents: completed/cancelled/rescheduled sessions
+```tsx
+<TherapistLayout> {/* or AdminLayout */}
+  <div className="p-4 md:p-6 lg:p-8">  {/* ← REQUIRED: Responsive padding */}
+    <Container>                        {/* ← REQUIRED: Container wrapper */}
+      <div className="space-y-6">      {/* ← REQUIRED: Content spacing */}
+        {/* Page content goes here */}
+      </div>
+    </Container>
+  </div>
+</TherapistLayout>
+```
 
-#### Widget 4: My Business Profile (Bottom Right)
-- **Title**: "My Business Profile" with "EDIT" link
-- **Action**: "OPEN PROFILE" with external link icon
-- **Content**:
-  - "Profile Views in the last year" section label
-  - Line graph with upward trend (9k to 20k)
-  - Orange line color
-  - Y-axis labels: 9k, 11k, 14k, 17k, 20k
+### Why This Structure is Required
+- **Responsive Padding**: `p-4 md:p-6 lg:p-8` ensures proper scaling across devices
+- **Container Wrapper**: Provides max-width constraints and proper centering
+- **Content Spacing**: `space-y-6` maintains consistent vertical rhythm
+- **Prevents Issues**: Avoids padding/scaling problems and ensures consistent layout
 
-## Color Specifications
+## Responsive Design Requirements
 
-### Header Colors
-- **Background**: `bg-[hsl(var(--jovial-jade))]`
-- **Text**: `text-[hsl(var(--on-dark))]`
-- **Logo**: `text-[hsl(var(--on-dark))]`
+### Breakpoint Behavior
+- **Mobile (< 768px)**: Sidebar hidden, bottom navigation visible
+- **Tablet (768px - 1024px)**: Sidebar hidden, bottom navigation visible
+- **Desktop (≥ 1024px)**: Sidebar visible and collapsible, no bottom navigation
 
-### Sidebar Colors
-- **Background**: `bg-[hsl(var(--surface-accent))]`
-- **Text**: `text-[hsl(var(--jovial-jade))]`
-- **Active state**: `bg-[hsl(var(--jovial-jade))]` + `text-[hsl(var(--on-dark))]`
-- **Icons**: `text-[hsl(var(--jovial-jade))]`
+### Sidebar Behavior
+- **Desktop**: Always visible, fixed width (256px), collapsible
+- **Mobile/Tablet**: Hidden with overlay when toggled
+- **Animation**: Smooth 300ms ease-in-out transitions
+- **State management**: Controlled by layout components
 
-### Widget Colors
-- **Background**: `bg-card`
-- **Borders**: `border-border`
-- **Titles**: `text-[hsl(var(--jovial-jade))]`
-- **Action links**: `text-[hsl(var(--garden-green))]`
-- **Join buttons**: `bg-[hsl(var(--garden-green))]` + `text-[hsl(var(--on-dark))]`
-- **Status badges**: 
-  - Active: `bg-[hsl(var(--success-bg))]` + `text-[hsl(var(--success-text))]`
-  - Inactive: `bg-[hsl(var(--warning-bg))]` + `text-[hsl(var(--warning-text))]`
+### Content Areas
+- **Main content**: Uses `overflow-auto`, `min-w-0`, and `w-full` for proper flex behavior
+- **All cards**: Must use `min-w-0 overflow-hidden` to prevent horizontal overflow
+- **Card headers**: Must use responsive padding `p-4 md:p-5 lg:p-6 pb-0`
+- **Card content**: Must use responsive padding `p-4 md:p-5 lg:p-6`
+- **Scrollable regions**: Use `min-h-0` and `overflow-y-auto` when needed
+- **Grid containers**: Must use `w-full min-w-0` to prevent overflow
 
-### Chart Colors (Aligned with chart-components.md)
-- **Donut chart segments**: 
-  - Completed: `bg-btn-accent` (orange)
-  - Cancelled: `bg-tag-language` (purple)  
-  - Rescheduled: `bg-tag-modality` (green)
-- **Line graph**: `bg-btn-accent` (orange trend line)
-- **Chart text**: `text-jovial-jade` (central numbers), `text-muted-foreground` (labels)
+## Layout Patterns
 
-## Typography Requirements
+### Page Structure Example
+```tsx
+<TherapistLayout>
+  <div className="p-4 md:p-6 lg:p-8">
+    <Container>
+      <div className="space-y-6">
+        {/* Page header */}
+        <div>
+          <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Page Title</h1>
+          <p className="font-secondary text-[hsl(var(--text-secondary))]">Page description</p>
+        </div>
+        
+        {/* Action bar */}
+        <div className="flex justify-end">
+          <Button>Action</Button>
+        </div>
+        
+        {/* Stats cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <Card>...</Card>
+        </div>
+        
+        {/* Main content */}
+        <Card className="min-w-0 overflow-hidden">
+          <CardHeader className="p-4 md:p-5 lg:p-6 pb-0">
+            <CardTitle>Card Title</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 md:p-5 lg:p-6">
+            <div className="space-y-4">
+              {/* Content using layout atoms */}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </Container>
+  </div>
+</TherapistLayout>
+```
 
-### Headers
-- **Main title**: "Welcome Back, Sarah!" - `<h1 className="font-primary text-3xl font-bold text-[hsl(var(--jovial-jade))]">`
-- **Widget titles**: `<h2 className="font-primary text-[hsl(var(--jovial-jade))] text-sm md:text-base">` (e.g., "Upcoming Appointments", "My Client Dashboard")
-- **Widget subtitles**: `<h4 className="font-secondary text-muted-foreground text-xs">` (e.g., "Appointments", "Profile Views in the last year")
+### Grid Layout Patterns
+- **Stats cards**: `grid-cols-1 md:grid-cols-2 lg:grid-cols-4`
+- **Two-column**: `grid-cols-1 lg:grid-cols-2`
+- **Three-column**: `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`
+- **Messaging**: `grid-cols-1 lg:grid-cols-3` (1/3 + 2/3 split)
 
-### Content
-- **Client names**: `<h4 className="font-secondary font-bold text-foreground text-sm">` (special rule - H4 with bold)
-- **Email addresses**: `<p className="font-secondary text-muted-foreground text-xs">`
-- **Times/dates**: `<p className="font-secondary text-muted-foreground text-xs">`
-- **Action links**: `<Button className="font-secondary text-[hsl(var(--garden-green))] text-xs">`
+### Spacing System
+- **Page sections**: `space-y-6` or `space-y-8`
+- **Card content**: `space-y-4`
+- **Form fields**: `space-y-3`
+- **Inline elements**: `gap-2`, `gap-3`, or `gap-4`
 
-## Interactive Elements
+## Navigation Requirements
 
-### Buttons
-- **Join Now**: `bg-[hsl(var(--garden-green))]`, `text-[hsl(var(--on-dark))]`, rounded corners
-- **EDIT links**: `text-[hsl(var(--garden-green))]`, no background
-- **OPEN links**: `text-[hsl(var(--garden-green))]` with external link icon
-- **Status badges**: Rounded, colored backgrounds
+### Therapist Navigation Items
+- **Dashboard**: `/t/dashboard` - Main dashboard overview
+- **My Clients**: `/t/clients` - Client management
+- **My Profile**: `/t/profile` - Profile management
+- **Performance & Analytics**: `/t/analytics` - Analytics and insights
 
-### Touch Targets
-- **All buttons**: `min-h-touch-min` (44px)
-- **Action links**: `min-h-touch-min` (44px)
-- **Client rows**: Full row clickable for selection
-
-## Layout Specifications
-
-### Responsive Design (Built into DashboardLayout)
-- **Mobile-first**: Flexbox-based responsive design
-- **Collapsible sidebar**: Slides out on mobile with overlay (`fixed lg:fixed`)
-- **One-screen rule**: Content fits within viewport with proper overflow handling
-- **No horizontal scroll**: Perfect scaling on all screen sizes
-- **Touch targets**: All interactive elements meet `min-h-touch-min` (44px) minimum
-- **Container padding**: Uses responsive Container component with `px-6 md:px-8 lg:px-10`
-- **Grid layout**: Uses `grid grid-rows-[auto_1fr]` for header/content separation
-- **Overlay**: Dark overlay (`bg-black/50`) when sidebar is open on mobile
-
-### Grid System
-- **Dashboard page**: 4-widget layout (2x2 grid on desktop, single column on mobile)
-- **Other pages**: Flexible grid layouts using CSS Grid and Flexbox
-- **Spacing**: Consistent gaps using `gap-4` and `gap-6`
-- **Content areas**: Use Stack and HStack atoms for consistent spacing
-
-### Widget Dimensions
-- **Card padding**: `p-4 md:p-5 lg:p-6` for responsive internal padding
-- **Equal height**: Cards use `h-full` for consistent heights
-- **Scrollable content**: `overflow-y-auto` with `min-h-0` when needed
-
-## Token Usage Requirements
-- **Always use proper HSL token syntax** (e.g., `bg-[hsl(var(--jovial-jade))]` not `bg-[--jovial-jade]`)
-- **Follow design-tokens.md** for all token usage
-- **Use semantic class names** (e.g., `text-[hsl(var(--on-dark))]`, `text-[hsl(var(--text-primary))]`)
-- **Reference design-tokens.md** for complete token definitions
-- **Follow text-colors.md** for proper text color hierarchy
-- **Align with user-flows.md** specifications for all dashboard components
+### Admin Navigation Items
+- **Overview**: `/admin/overview` - System overview
+- **Users**: `/admin/users` - User management
+- **Therapists**: `/admin/therapists` - Therapist management
+- **Moderation**: `/admin/moderation` - Content moderation
+- **Bookings**: `/admin/bookings` - Booking management
 
 ## Accessibility Requirements
 
-### ARIA Labels
-- **Widget titles**: Proper heading hierarchy
-- **Charts**: Alt text and data labels
-- **Buttons**: Descriptive button text
-- **Status badges**: Screen reader friendly
-- **Icon-only buttons**: Must have `aria-label` attributes
-- **Navigation items**: Proper `aria-current` for active states
-
 ### Focus Management
-- **Tab order**: Logical flow through widgets
-- **Focus indicators**: Visible focus rings using `focus-visible:outline-2 focus-visible:outline-[hsl(var(--ring))]`
-- **Keyboard navigation**: All interactive elements accessible
-- **Input modality detection**: Focus rings only show for keyboard users, not mouse/touch
-- **Touch targets**: All buttons meet `min-h-touch-min` (44px) requirement
+- **Tab order**: Logical flow through all interactive elements
+- **Focus rings**: Visible focus indicators on all controls
+- **Skip links**: Proper navigation for screen readers
 
-### Error Handling
-- **Error boundaries**: All dashboard pages wrapped with ErrorBoundary component
-- **Skip links**: "Skip to content" link for keyboard navigation
-- **Live regions**: Announcements for dynamic content changes
+### Touch Targets
+- **Minimum size**: 44px (`min-h-touch-min`)
+- **Comfortable size**: 56px (`min-h-touch-comfort`) for primary actions
+- **Spacing**: Adequate space between touch targets
 
-## Page-Specific Requirements
+### Screen Readers
+- **Landmarks**: Proper `<header>`, `<nav>`, `<main>` structure
+- **Headings**: Logical heading hierarchy
+- **Labels**: All form controls properly labeled
 
-### Therapist Dashboard Page (Reference Implementation)
-- **4-widget grid layout** is mandatory - no other arrangements
-- **Full client names** must be displayed, not just initials
-- **Color specifications** must match Figma exactly
-- **Action links** must have external link icons
-- **Charts** must use specified colors (orange, purple, green)
-- **Status badges** must use exact color combinations
+## Performance Considerations
 
-### All Therapist Pages (Mandatory Pattern)
-**Every therapist page MUST follow this exact pattern:**
+### Component Loading
+- **Lazy loading**: Layout components load efficiently
+- **Bundle splitting**: Layout components in separate chunk
+- **Memoization**: Prevent unnecessary re-renders
 
+### Animation Performance
+- **Hardware acceleration**: Use `transform` and `opacity` for animations
+- **Reduced motion**: Respect `prefers-reduced-motion` settings
+- **Smooth transitions**: 300ms duration for UI state changes
+
+## Implementation Rules
+
+### Forbidden Patterns
+- ❌ Manual header/sidebar implementation
+- ❌ Hardcoded layout dimensions
+- ❌ Non-responsive grid systems
+- ❌ Missing touch target sizes (`min-h-touch-min`)
+- ❌ Horizontal scroll on any breakpoint
+- ❌ Layout without proper overflow handling
+- ❌ Cards without `min-w-0 overflow-hidden`
+- ❌ Missing responsive padding on cards
+- ❌ Grid containers without `w-full min-w-0`
+- ❌ **Content without responsive padding wrapper** (`p-4 md:p-6 lg:p-8`)
+- ❌ **Content without Container wrapper**
+- ❌ **Content without proper spacing** (`space-y-6`)
+- ❌ **Direct component usage** without proper content structure
+
+### Required Patterns
+- ✅ TherapistLayout component for all therapist pages
+- ✅ AdminLayout component for all admin pages
+- ✅ **Responsive padding wrapper** (`p-4 md:p-6 lg:p-8`) for all content
+- ✅ **Container wrapper** for all page content
+- ✅ **Content spacing** (`space-y-6`) for consistent vertical rhythm
+- ✅ Layout atoms for consistent spacing
+- ✅ Responsive grid systems
+- ✅ Proper touch target sizes
+- ✅ Mobile-first responsive design
+- ✅ Collapsible sidebar with animations
+
+## Testing Requirements
+
+### Responsive Testing
+- **Breakpoints**: Test at 320px, 768px, 1024px, 1440px
+- **Orientation**: Both portrait and landscape on mobile
+- **Zoom levels**: Up to 200% zoom without horizontal scroll
+
+### Interaction Testing
+- **Touch**: All elements accessible via touch on mobile
+- **Keyboard**: Full keyboard navigation support
+- **Screen reader**: Proper announcement of layout changes
+
+### Performance Testing
+- **Animation smoothness**: 60fps for all transitions
+- **Load times**: Layout components load within 100ms
+- **Memory usage**: No layout-related memory leaks
+
+## Common Violations and Fixes
+
+### ❌ Wrong: Missing Content Structure
 ```tsx
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import { Stack, HStack } from "@/components/layout/layout-atoms";
-
-export default function TherapistPageName() {
-  return (
-    <DashboardLayout 
-      title="Page Title"
-      subtitle="Page description"
-    >
-      <Stack className="space-y-6">
-        {/* Page content using proper layout atoms */}
-      </Stack>
-    </DashboardLayout>
-  );
-}
+<AdminLayout>
+  <ModerationTable />  {/* No padding wrapper */}
+</AdminLayout>
 ```
 
-### Page-Specific Content Requirements
+### ✅ Correct: Proper Content Structure
+```tsx
+<AdminLayout>
+  <div className="p-4 md:p-6 lg:p-8">
+    <Container>
+      <ModerationTable />
+    </Container>
+  </div>
+</AdminLayout>
+```
 
-#### Therapist Analytics Page
-- **Content**: KPIs grid, performance charts, improvement suggestions
-- **Layout**: Use `Stack` for main content, `HStack` for action buttons
-- **Widgets**: Analytics-specific cards with proper spacing
+### ❌ Wrong: Missing Container
+```tsx
+<TherapistLayout>
+  <div className="p-8">
+    <div className="space-y-6">  {/* No Container */}
+      {/* Content */}
+    </div>
+  </div>
+</TherapistLayout>
+```
 
-#### Therapist Clients Page  
-- **Content**: Client search, stats cards, client list with actions
-- **Layout**: Search bar in `HStack`, client list in scrollable container
-- **Widgets**: Client management interface with proper touch targets
+### ✅ Correct: With Container
+```tsx
+<TherapistLayout>
+  <div className="p-4 md:p-6 lg:p-8">
+    <Container>
+      <div className="space-y-6">
+        {/* Content */}
+      </div>
+    </Container>
+  </div>
+</TherapistLayout>
+```
 
-#### Therapist Bookings Page
-- **Content**: Booking stats, appointment tabs (upcoming/calendar/availability)
-- **Layout**: Tab interface with responsive booking cards
-- **Widgets**: Calendar integration and appointment management
+## Key Rules Summary
 
-#### Therapist Messages Page
-- **Content**: Conversation list + message thread (2-column layout)
-- **Layout**: Grid layout `grid-cols-1 lg:grid-cols-3` for responsive messaging
-- **Widgets**: Secure messaging interface with proper overflow handling
-
-#### Therapist Profile Page
-- **Content**: Profile photo, professional details, video upload, settings
-- **Layout**: Mixed grid layouts for different sections using `Stack` and `HStack`
-- **Widgets**: Profile management forms with proper validation
-
-#### Therapist Earnings Page
-- **Content**: Earnings overview, transaction history, payout management
-- **Layout**: Stats cards + tabbed interface for different views
-- **Widgets**: Financial data visualization and payout controls
-
-### Admin Pages (All)
-- **MUST use DashboardLayout component** with appropriate title/subtitle
-- **MUST use layout atoms** (Stack, HStack, Cluster) for consistent spacing
-- **MUST include admin-specific widgets** (user management, system overview, moderation tools)
-- **Content adapts** to admin needs while maintaining consistent layout pattern
-
-## Key Rules
-- **Dashboard layout pattern** is mandatory for all therapist and admin pages
-- **Typography hierarchy** must follow font specifications
-- **Touch targets** must meet accessibility requirements
-- **Color specifications** must match Figma exactly
-- **Header and sidebar** must be consistent across all pages
-- **Main content area** must follow dashboard layout principles
-- **All pages** must use design tokens consistently
+1. **Always use TherapistLayout for therapist pages** (except onboarding)
+2. **Always use AdminLayout for admin pages** (except onboarding)
+3. **Always wrap content in responsive padding wrapper**
+4. **Always use Container component for content**
+5. **Always maintain consistent spacing patterns**
+6. **Never skip the content structure requirements**
+7. **Follow responsive design principles**
+8. **Ensure accessibility compliance**
+9. **Test across all breakpoints**
+10. **Maintain performance standards**
+11. **🚫 NEVER apply to onboarding or pre-authentication pages**

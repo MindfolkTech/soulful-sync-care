@@ -144,7 +144,7 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 - ✅ Business profile widget: performance overview + action prompts
 
 **All Therapist Pages (Dashboard Pattern)**
-- ✅ **DashboardLayout Component**: Mandatory shared component for all therapist pages
+- ✅ **TherapistLayout Component**: Mandatory shared component for all therapist pages
 - ✅ **Layout Atoms**: Use Stack, HStack, Cluster for consistent spacing
 - ✅ **Responsive Design**: Collapsible sidebar, mobile-first, no horizontal scroll
 - ✅ **Typography**: `font-primary` for titles, `font-secondary` for content
@@ -285,16 +285,16 @@ Apply to all UI code (React/TSX/CSS/Tailwind). Ensure every screen maintains cor
 
 ### ✅ Good Flow Implementation
 ```tsx
-// Therapist page using DashboardLayout component
-import { DashboardLayout } from "@/components/layout/dashboard-layout";
+// Therapist page using TherapistLayout component
+import { TherapistLayout } from "@/components/layout/therapist-layout";
+import { Container } from "@/components/ui/container";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 
 export default function TherapistPage() {
   return (
-    <DashboardLayout 
-      title="Good morning, Dr. Chen"
-      subtitle="Here's your practice overview"
-    >
+    <TherapistLayout>
+      <div className="p-4 md:p-6 lg:p-8">
+        <Container>
       <Stack className="space-y-6">
         {/* Page content with proper layout atoms */}
         <HStack className="justify-between">

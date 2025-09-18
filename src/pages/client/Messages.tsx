@@ -149,7 +149,7 @@ export default function Messages() {
               <>
                 {/* Thread Header */}
                 <Card className="mb-4">
-                  <CardContent className="p-4">
+                  <CardContent className="p-4 md:p-5 lg:p-6">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <Avatar>

@@ -48,7 +48,7 @@ export default function Index() {
                 <div className="pt-4">
                   <Button
                     size="lg"
-                    className="text-lg px-8 py-4 min-h-[var(--touch-target-comfort)]"
+                    className="text-lg px-[var(--space-lg)] py-[var(--space-md)] min-h-touch-comfort"
                     style={{
                       backgroundColor: "hsl(var(--garden-green))",
                       color: "hsl(var(--btn-primary-text))",
@@ -94,7 +94,7 @@ export default function Index() {
                 The old way of finding a therapist is broken.
               </h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-[var(--space-lg)] mt-[var(--space-xl)]">
                 <div className="text-center space-y-4">
                   <div 
                     className="w-16 h-16 mx-auto rounded-full flex items-center justify-center"
@@ -197,7 +197,7 @@ export default function Index() {
                 You are a person. Not a <em className="italic">patient</em>.
               </h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-[var(--space-lg)] mt-[var(--space-xl)]">
                 <div className="space-y-6">
                   <div 
                     className="w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mx-auto"
@@ -336,7 +336,7 @@ export default function Index() {
                 Real Therapists, Real Personalities.
               </h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[var(--space-md)] mt-[var(--space-xl)]">
                 <div className="space-y-4">
                   <div className="relative overflow-hidden rounded-lg">
                     <img 
@@ -358,7 +358,7 @@ export default function Index() {
                     </h3>
                     <div className="flex flex-wrap gap-1 justify-center">
                       <span 
-                        className="px-2 py-1 rounded-full text-xs"
+                        className="px-2 py-1 rounded-full text-xs min-h-touch-min"
                         style={{
                           backgroundColor: "hsl(var(--tag-specialty-bg))",
                           color: "hsl(var(--tag-specialty-text))",
@@ -368,7 +368,7 @@ export default function Index() {
                         Neurodiversity Affirming
                       </span>
                       <span 
-                        className="px-2 py-1 rounded-full text-xs"
+                        className="px-2 py-1 rounded-full text-xs min-h-touch-min"
                         style={{
                           backgroundColor: "hsl(var(--tag-personality-bg))",
                           color: "hsl(var(--tag-personality-text))",
@@ -402,7 +402,7 @@ export default function Index() {
                     </h3>
                     <div className="flex flex-wrap gap-1 justify-center">
                       <span 
-                        className="px-2 py-1 rounded-full text-xs"
+                        className="px-2 py-1 rounded-full text-xs min-h-touch-min"
                         style={{
                           backgroundColor: "hsl(var(--tag-specialty-bg))",
                           color: "hsl(var(--tag-specialty-text))",
@@ -412,7 +412,7 @@ export default function Index() {
                         Life Transitions
                       </span>
                       <span 
-                        className="px-2 py-1 rounded-full text-xs"
+                        className="px-2 py-1 rounded-full text-xs min-h-touch-min"
                         style={{
                           backgroundColor: "hsl(var(--tag-modality-bg))",
                           color: "hsl(var(--tag-modality-text))",
@@ -446,7 +446,7 @@ export default function Index() {
                     </h3>
                     <div className="flex flex-wrap gap-1 justify-center">
                       <span 
-                        className="px-2 py-1 rounded-full text-xs"
+                        className="px-2 py-1 rounded-full text-xs min-h-touch-min"
                         style={{
                           backgroundColor: "hsl(var(--tag-personality-bg))",
                           color: "hsl(var(--tag-personality-text))",
@@ -456,7 +456,7 @@ export default function Index() {
                         Gender Affirming
                       </span>
                       <span 
-                        className="px-2 py-1 rounded-full text-xs"
+                        className="px-2 py-1 rounded-full text-xs min-h-touch-min"
                         style={{
                           backgroundColor: "hsl(var(--tag-specialty-bg))",
                           color: "hsl(var(--tag-specialty-text))",
@@ -490,7 +490,7 @@ export default function Index() {
                     </h3>
                     <div className="flex flex-wrap gap-1 justify-center">
                       <span 
-                        className="px-2 py-1 rounded-full text-xs"
+                        className="px-2 py-1 rounded-full text-xs min-h-touch-min"
                         style={{
                           backgroundColor: "hsl(var(--tag-modality-bg))",
                           color: "hsl(var(--tag-modality-text))",
@@ -500,7 +500,7 @@ export default function Index() {
                         Mindfulness
                       </span>
                       <span 
-                        className="px-2 py-1 rounded-full text-xs"
+                        className="px-2 py-1 rounded-full text-xs min-h-touch-min"
                         style={{
                           backgroundColor: "hsl(var(--tag-specialty-bg))",
                           color: "hsl(var(--tag-specialty-text))",
@@ -548,9 +548,9 @@ export default function Index() {
                 Join the thousands who are finally feeling understood.
               </h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-[var(--space-lg)] mt-[var(--space-xl)]">
                 <div 
-                  className="p-6 rounded-lg space-y-4"
+                  className="p-4 md:p-5 lg:p-6 rounded-lg space-y-4"
                   style={{ backgroundColor: "hsl(var(--surface))" }}
                 >
                   <div className="flex text-yellow-400 justify-center">
@@ -579,7 +579,7 @@ export default function Index() {
                 </div>
                 
                 <div 
-                  className="p-6 rounded-lg space-y-4"
+                  className="p-4 md:p-5 lg:p-6 rounded-lg space-y-4"
                   style={{ backgroundColor: "hsl(var(--surface))" }}
                 >
                   <div className="flex text-yellow-400 justify-center">
@@ -608,7 +608,7 @@ export default function Index() {
                 </div>
                 
                 <div 
-                  className="p-6 rounded-lg space-y-4"
+                  className="p-4 md:p-5 lg:p-6 rounded-lg space-y-4"
                   style={{ backgroundColor: "hsl(var(--surface))" }}
                 >
                   <div className="flex text-yellow-400 justify-center">
@@ -685,7 +685,7 @@ export default function Index() {
                 Explore MindFolk today and discover a more human way to find help.
               </p>
               
-              <div className="bg-white p-8 rounded-xl shadow-lg max-w-md mx-auto">
+              <div className="bg-white p-4 md:p-6 lg:p-8 rounded-xl shadow-lg max-w-md mx-auto">
                 <ClerkWaitlist />
               </div>
             </div>
@@ -757,7 +757,7 @@ export default function Index() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="px-8"
+                    className="px-[var(--space-lg)]"
                     style={{
                       borderColor: "hsl(var(--garden-green))",
                       color: "hsl(var(--garden-green))",
