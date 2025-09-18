@@ -1,7 +1,7 @@
 -- Create user profiles table
 CREATE TABLE public.profiles (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID NOT NULL UNIQUE REFERENCES auth.users(id) ON DELETE CASCADE,
+  user_id TEXT NOT NULL UNIQUE,
   email TEXT NOT NULL,
   first_name TEXT,
   last_name TEXT,
@@ -22,7 +22,7 @@ CREATE TABLE public.profiles (
 -- Create therapist profiles table
 CREATE TABLE public.therapist_profiles (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id UUID NOT NULL UNIQUE REFERENCES auth.users(id) ON DELETE CASCADE,
+  user_id TEXT NOT NULL UNIQUE,
   license_number TEXT,
   license_state TEXT,
   license_expiry DATE,

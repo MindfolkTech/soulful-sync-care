@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 export interface UserProfile {
   id: string;
   user_id: string;
+  clerk_user_id: string;
   email: string;
   first_name?: string;
   last_name?: string;
@@ -48,7 +49,7 @@ export function useAuth() {
       const { data: existingProfile, error: fetchError } = await supabase
         .from('profiles')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('clerk_user_id', user.id)
         .maybeSingle();
 
       if (fetchError) {
@@ -67,7 +68,7 @@ export function useAuth() {
         // Create new profile
         const intendedRole = user.unsafeMetadata?.intendedRole as 'client' | 'therapist' | undefined;
         const newProfile = {
-          user_id: user.id,
+          clerk_user_id: user.id,
           email: user.primaryEmailAddress?.emailAddress || '',
           first_name: user.firstName || '',
           last_name: user.lastName || '',
@@ -113,7 +114,7 @@ export function useAuth() {
       const { data, error } = await supabase
         .from('profiles')
         .update(updates)
-        .eq('user_id', profile.user_id)
+        .eq('clerk_user_id', profile.clerk_user_id)
         .select()
         .single();
 
