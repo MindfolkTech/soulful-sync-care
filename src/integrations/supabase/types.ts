@@ -14,16 +14,202 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          first_name: string | null
+          id: string
+          last_name: string | null
+          phone: string | null
+          role: Database["public"]["Enums"]["app_role"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          first_name?: string | null
+          id: string
+          last_name?: string | null
+          phone?: string | null
+          role?: Database["public"]["Enums"]["app_role"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          phone?: string | null
+          role?: Database["public"]["Enums"]["app_role"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      therapist_applications: {
+        Row: {
+          background_check: boolean
+          created_at: string
+          documents: Json
+          email: string
+          experience: string
+          id: string
+          license_number: string
+          name: string
+          specialties: string[]
+          status: Database["public"]["Enums"]["application_status"]
+          submitted_at: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          background_check?: boolean
+          created_at?: string
+          documents?: Json
+          email: string
+          experience: string
+          id?: string
+          license_number: string
+          name: string
+          specialties?: string[]
+          status?: Database["public"]["Enums"]["application_status"]
+          submitted_at?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          background_check?: boolean
+          created_at?: string
+          documents?: Json
+          email?: string
+          experience?: string
+          id?: string
+          license_number?: string
+          name?: string
+          specialties?: string[]
+          status?: Database["public"]["Enums"]["application_status"]
+          submitted_at?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      therapist_profiles: {
+        Row: {
+          accepts_new_clients: boolean
+          application_id: string
+          availability: Json
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          experience_years: number | null
+          id: string
+          in_person_sessions: boolean
+          languages: string[]
+          license_number: string
+          location_city: string | null
+          location_country: string | null
+          location_state: string | null
+          modalities: string[]
+          name: string
+          online_sessions: boolean
+          personality_tags: string[]
+          session_focus: string[]
+          session_rates: Json
+          specialties: string[]
+          tagline: string | null
+          timezone: string | null
+          updated_at: string
+          user_id: string
+          verification_date: string | null
+          verified: boolean
+        }
+        Insert: {
+          accepts_new_clients?: boolean
+          application_id: string
+          availability?: Json
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          experience_years?: number | null
+          id?: string
+          in_person_sessions?: boolean
+          languages?: string[]
+          license_number: string
+          location_city?: string | null
+          location_country?: string | null
+          location_state?: string | null
+          modalities?: string[]
+          name: string
+          online_sessions?: boolean
+          personality_tags?: string[]
+          session_focus?: string[]
+          session_rates?: Json
+          specialties?: string[]
+          tagline?: string | null
+          timezone?: string | null
+          updated_at?: string
+          user_id: string
+          verification_date?: string | null
+          verified?: boolean
+        }
+        Update: {
+          accepts_new_clients?: boolean
+          application_id?: string
+          availability?: Json
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          experience_years?: number | null
+          id?: string
+          in_person_sessions?: boolean
+          languages?: string[]
+          license_number?: string
+          location_city?: string | null
+          location_country?: string | null
+          location_state?: string | null
+          modalities?: string[]
+          name?: string
+          online_sessions?: boolean
+          personality_tags?: string[]
+          session_focus?: string[]
+          session_rates?: Json
+          specialties?: string[]
+          tagline?: string | null
+          timezone?: string | null
+          updated_at?: string
+          user_id?: string
+          verification_date?: string | null
+          verified?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "therapist_profiles_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_applications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_current_user_role: {
+        Args: Record<PropertyKey, never>
+        Returns: Database["public"]["Enums"]["app_role"]
+      }
+      is_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "client" | "therapist" | "admin"
+      application_status: "pending" | "under_review" | "approved" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +336,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["client", "therapist", "admin"],
+      application_status: ["pending", "under_review", "approved", "rejected"],
+    },
   },
 } as const
