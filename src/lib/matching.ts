@@ -1,59 +1,6 @@
 /**
  * MindFolk Personality-First Therapy Matching Algorithm
  * Based on JSON specification with weighted scoring factors
- * 
- * DATABASE INTEGRATION NOTES:
- * ==========================
- * 
- * When connecting to Supabase, the following data sources need to be replaced:
- * 
- * 1. THERAPIST DATA SOURCE:
- *    Current: mockTherapists array
- *    Future: Query from 'therapists' table
- *    
- *    Required fields: personality_tags, specialties, modalities, identity_tags, 
- *    languages, session_rates, availability, age_group, cultural_background
- * 
- * 2. CLIENT ASSESSMENT STORAGE:
- *    Current: localStorage
- *    Future: Store in 'client_assessments' table
- *    
- *    Required fields: communication_preferences, therapy_goals, identity_preferences,
- *    budget_range, language_preferences, age_group, cultural_identity
- * 
- * 3. MATCH RESULTS STORAGE:
- *    Current: Calculated on-the-fly
- *    Future: Store in 'match_results' table for analytics
- *    
- *    Required fields: client_id, therapist_id, compatibility_score, breakdown,
- *    hard_filter_passed, conditional_filters_passed
- * 
- * DATABASE SCHEMA REQUIRED:
- * =========================
- * 
- * therapists:
- * - id, personality_tags[], specialties[], modalities[], identity_tags[]
- * - languages[], session_rates{}, availability{}, age_group, cultural_background[]
- * - is_active, is_verified, gender_identity, years_experience
- * 
- * client_assessments:
- * - id, user_id, communication_preferences[], therapy_goals[], identity_preferences[]
- * - budget_range[2], language_preferences[], age_group, cultural_identity[]
- * - therapist_gender_preference, experience_preference, preferred_times[]
- * - prefers_similar_age, prefers_cultural_background_match
- * 
- * match_results:
- * - id, client_id, therapist_id, compatibility_score, breakdown{}
- * - hard_filter_passed, conditional_filters_passed, created_at
- * 
- * MIGRATION STRATEGY:
- * ==================
- * 1. Keep algorithm unchanged - only replace data sources
- * 2. Add database queries in findMatches() function
- * 3. Add assessment persistence in client flow
- * 4. Add match result storage for analytics
- * 
- * The matching algorithm logic remains the same - only data sources change.
  */
 
 export interface MatchingWeights {
@@ -449,9 +396,6 @@ export function calculateMatch(
 
 /**
  * Find matching therapists for a client
- * 
- * TODO: Replace mockTherapists with Supabase query when database is connected
- * Example: const therapists = await supabase.from('therapists').select('*').eq('is_active', true)
  */
 export function findMatches(
   assessment: ClientAssessment,
@@ -491,9 +435,6 @@ export function findMatches(
 
 /**
  * Mock data for development
- * 
- * TODO: Remove when Supabase integration is complete
- * This will be replaced with database queries
  */
 export const mockTherapists: TherapistProfile[] = [
   {
