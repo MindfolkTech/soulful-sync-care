@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 interface SocialLoginProps {
   mode: "signin" | "signup";
@@ -7,6 +9,57 @@ interface SocialLoginProps {
 
 export function SocialLogin({ mode }: SocialLoginProps) {
   const actionText = mode === "signin" ? "Sign in" : "Sign up";
+  const { toast } = useToast();
+
+  const handleGoogleAuth = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/`,
+        }
+      });
+      
+      if (error) {
+        toast({
+          title: "Authentication Error",
+          description: error.message,
+          variant: "destructive",
+        });
+      }
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "Failed to authenticate with Google",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleAppleAuth = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'apple',
+        options: {
+          redirectTo: `${window.location.origin}/`,
+        }
+      });
+      
+      if (error) {
+        toast({
+          title: "Authentication Error", 
+          description: error.message,
+          variant: "destructive",
+        });
+      }
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "Failed to authenticate with Apple",
+        variant: "destructive",
+      });
+    }
+  };
   
   return (
     <div className="space-y-4">
@@ -14,7 +67,7 @@ export function SocialLogin({ mode }: SocialLoginProps) {
         <Button 
           variant="outline" 
           className="w-full min-h-[--touch-target-min] max-w-[320px] mx-auto"
-          onClick={() => {/* TODO: Google OAuth */}}
+          onClick={handleGoogleAuth}
           aria-label={`${actionText} with Google account`}
         >
           <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
@@ -29,7 +82,7 @@ export function SocialLogin({ mode }: SocialLoginProps) {
         <Button 
           variant="outline" 
           className="w-full min-h-[--touch-target-min] max-w-[320px] mx-auto"
-          onClick={() => {/* TODO: Apple OAuth */}}
+          onClick={handleAppleAuth}
           aria-label={`${actionText} with Apple ID`}
         >
           <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
