@@ -40,7 +40,7 @@ A beautiful, accessible web application for connecting clients with therapists t
 - **Frontend**: React 18 + Vite + TypeScript
 - **Styling**: Tailwind CSS + shadcn/ui components
 - **State**: TanStack Query + Zustand
-- **Auth**: Clerk with RBAC (client/therapist/admin/support)
+- **Auth**: Supabase with RBAC (client/therapist/admin/support)
 - **Backend**: To be configured
 - **Video**: Daily.co (sessions) + Cloudflare Stream (profiles)
 - **Payments**: Stripe Connect + Billing
