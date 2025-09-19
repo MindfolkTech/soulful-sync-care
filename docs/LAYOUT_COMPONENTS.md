@@ -10,7 +10,7 @@ alwaysApply: true
 Apply to all layout components and pages using dashboard patterns. Ensure consistent responsive design and component architecture.
 🚫 No manual layout implementation - must use provided layout components.
 
-**Reference**: See `docs/design-system/patterns/dashboard-layout.md` for complete dashboard specifications.
+**Reference**: See `dashboard-layout.md` for complete dashboard specifications.
 
 ## Mandatory Layout Components
 

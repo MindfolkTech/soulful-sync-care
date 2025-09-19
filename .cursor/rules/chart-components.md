@@ -4,13 +4,13 @@ globs: ["src/components/charts/**/*.tsx", "src/pages/therapist/Dashboard.tsx", "
 alwaysApply: true
 ---
 
-# Rule: Chart Components � Dashboard Data Visualization (User-Flows Aligned)
+# Rule: Chart Components   Dashboard Data Visualization (User-Flows Aligned)
 
 ## Scope
 Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user-flows.md specifications and accessibility standards.
 ?? No deviations from specified colors, layouts, or accessibility requirements.
 
-**Reference**: See `design-tokens.md` for complete token definitions and usage guidelines.
+**Reference**: See `DESIGN_TOKENS.md` for complete token definitions and usage guidelines.
 **Alignment**: This file implements chart requirements specified in `user-flows.md` sections.
 
 ## Dashboard Widget Chart Requirements
@@ -163,71 +163,3 @@ Apply to all chart components (React/TSX/CSS/Tailwind). Ensure charts match user
 ## Examples
 
 ### ? Good Chart Implementation
-```tsx
-// Donut Chart for Income Details Widget
-<div className="bg-[hsl(var(--surface))] p-4 rounded-lg border border-[hsl(var(--border))]">
-  <div className="flex items-center justify-between mb-4">
-    <h3 className="font-primary text-[hsl(var(--jovial-jade))]">Income Details</h3>
-    <a href="#" className="text-[hsl(var(--garden-green))] text-sm">EDIT</a>
-  </div>
-  <div className="flex items-center justify-between mb-2">
-    <span className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Appointments</span>
-    <a href="#" className="text-[hsl(var(--garden-green))] text-sm flex items-center">
-      OPEN ANALYTICS <ExternalLink className="ml-1 w-4 h-4" />
-    </a>
-  </div>
-  <div 
-    className="relative w-32 h-32 mx-auto mb-4"
-    role="img"
-    aria-label="Appointment breakdown: 85 completed, 22 cancelled, 15 rescheduled out of 122 total"
-  >
-    <DonutChart
-      data={[
-        { label: "Completed", value: 85, color: "bg-[hsl(var(--btn-accent-bg))]" },
-        { label: "Cancelled", value: 22, color: "bg-[hsl(var(--tag-language-bg))]" },
-        { label: "Rescheduled", value: 15, color: "bg-[hsl(var(--tag-modality-bg))]" }
-      ]}
-      centerText="122"
-      centerTextClass="font-primary text-2xl text-[hsl(var(--jovial-jade))]"
-    />
-  </div>
-  <div className="space-y-2">
-    {data.map((item, index) => (
-      <div key={index} className="flex items-center justify-between text-sm">
-        <div className="flex items-center">
-          <div className={`w-3 h-3 rounded-full ${item.color} mr-2`} />
-          <span className="font-secondary text-[hsl(var(--text-secondary))]">{item.label}</span>
-        </div>
-        <span className="font-secondary text-[hsl(var(--text-primary))]">{item.value}</span>
-      </div>
-    ))}
-  </div>
-</div>
-```
-
-### ? Bad Chart Implementation
-```tsx
-// Wrong - missing accessibility, wrong colors, no design tokens
-<div className="bg-white p-4">
-  <h3 className="text-[hsl(var(--ink-slate))]">Income Details</h3>
-  <div className="w-32 h-32">
-    <DonutChart 
-      data={[
-        { label: "Done", value: 85, color: "#ff6b35" }, // Wrong: raw hex
-        { label: "Skip", value: 22, color: "purple" },  // Wrong: CSS color names
-        { label: "Move", value: 15, color: "green" }    // Wrong: generic names
-      ]}
-    />
-  </div>
-</div>
-```
-
-## Key Rules
-- **Use design tokens exclusively** - no raw colors or CSS color names
-- **Follow user-flows.md specifications** exactly for widget charts
-- **Implement full accessibility** with ARIA labels and screen reader support
-- **Maintain consistent typography** using font tokens from design-tokens.md
-- **Provide responsive behavior** across all breakpoints
-- **Include smooth animations** with respect for reduced motion preferences
-- **Test thoroughly** for accessibility and cross-browser compatibility
-- **Integrate seamlessly** with dashboard layout patterns

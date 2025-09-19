@@ -122,7 +122,7 @@ export default function Messages() {
                               <Shield className="h-3 w-3 text-[hsl(var(--success-text))]" />
                             )}
                             {thread.unread > 0 && (
-                              <Badge variant="default" className="text-xs px-2 py-0.5">
+                              <Badge variant="secondary" className="text-xs px-2 py-0.5">
                                 {thread.unread}
                               </Badge>
                             )}
@@ -149,7 +149,7 @@ export default function Messages() {
               <>
                 {/* Thread Header */}
                 <Card className="mb-4">
-                  <CardContent className="p-4">
+                  <CardContent className="p-4 md:p-5 lg:p-6">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <Avatar>
@@ -186,7 +186,7 @@ export default function Messages() {
                 {/* Messages */}
                 <Card className="flex-1 flex flex-col">
                   <CardContent className="flex-1 flex flex-col p-0">
-                    <MessageThread threadId={selectedThread} />
+                    <MessageThread conversationId={selectedThread} />
                     <MessageInput onSendMessage={(message) => console.log("Send:", message)} />
                   </CardContent>
                 </Card>

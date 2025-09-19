@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ChevronLeft, ChevronRight, Clock, Video, MessageCircle, SwipeLeft, SwipeRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock, Video, MessageCircle, ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Appointment {
@@ -145,9 +145,9 @@ export function MobileCalendar({
 
           {/* Swipe Instructions */}
           <div className="flex items-center justify-center gap-[--space-sm] text-[hsl(var(--text-muted))] text-xs">
-            <SwipeLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4" />
             <span className="font-secondary">Swipe to change days</span>
-            <SwipeRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4" />
           </div>
 
           {/* Appointments List */}

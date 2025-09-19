@@ -13,4 +13,6 @@ if (typeof window !== 'undefined' && (window as any).__REACT_DEVTOOLS_GLOBAL_HOO
   (window as any).__REACT_DEVTOOLS_GLOBAL_HOOK__.connectToDevTools?.();
 }
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(
+  <App />
+);

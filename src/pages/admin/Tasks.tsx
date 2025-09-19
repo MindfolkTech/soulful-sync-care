@@ -1,4 +1,5 @@
 import * as React from "react";
+import { AdminLayout } from "@/components/layout/admin-layout";
 import { TaskHubShell } from "@/components/organisms/task-hub-shell";
 import { mockAdminTasks } from "@/data/mock-tasks";
 import { TaskStats } from "@/types/tasks";
@@ -32,18 +33,20 @@ export default function AdminTasks() {
   }, []);
 
   return (
-    <TaskHubShell
-      role="admin"
-      tasks={mockAdminTasks}
-      stats={stats}
-      title="Admin Tasks"
-      subtitle="Platform oversight, moderation, and operational tasks"
-      loading={loading}
-      error={error}
-      onRetry={() => {
-        // TODO: Implement retry logic
-        console.log("Retrying...");
-      }}
-    />
+    <AdminLayout>
+      <TaskHubShell
+        role="admin"
+        tasks={mockAdminTasks}
+        stats={stats}
+        title="Admin Tasks"
+        subtitle="Platform oversight, moderation, and operational tasks"
+        loading={loading}
+        error={error}
+        onRetry={() => {
+          // TODO: Implement retry logic
+          console.log("Retrying...");
+        }}
+      />
+    </AdminLayout>
   );
 }

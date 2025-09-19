@@ -1,95 +1,102 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { TaskBadge } from "@/components/molecules/task-badge";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { Bell } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <header 
-      className="sticky top-0 z-50 w-full border-b backdrop-blur supports-[backdrop-filter]:bg-warm-white/60"
-      style={{ backgroundColor: "var(--warm-white)" }}
+      className="sticky top-0 z-50 w-full border-b backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      style={{ backgroundColor: "hsl(var(--warm-white))" }}
     >
       <Container>
         <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <Link 
-              to="/" 
-              className="flex items-center space-x-2 text-text-primary hover:text-jovial-jade transition-colors"
+          {/* Logo */}
+          <Link 
+            to="/" 
+            className="flex items-center space-x-2 text-[hsl(var(--text-primary))] hover:text-[hsl(var(--jovial-jade))] transition-colors"
+          >
+            <div 
+              className="h-8 w-8 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: "hsl(var(--garden-green))" }}
             >
-              <div className="h-8 w-8 rounded-full bg-garden-green flex items-center justify-center">
-                <span className="text-[hsl(var(--on-dark))] font-primary font-bold text-lg">M</span>
-              </div>
-              <span 
-                className="font-bold text-xl"
-                style={{ fontFamily: "var(--font-primary)" }}
-              >
-                Mindfolk
-              </span>
-            </Link>
-          </div>
+              <span className="text-[hsl(var(--btn-primary-text))] font-primary font-bold text-lg">M</span>
+            </div>
+            <span 
+              className="font-bold text-xl"
+              style={{ 
+                fontFamily: "var(--font-primary)",
+                color: "hsl(var(--text-primary))"
+              }}
+            >
+              MindFolk
+            </span>
+          </Link>
 
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link 
-              to="/discover" 
-              className="text-text-secondary hover:text-text-primary transition-colors font-secondary min-h-touch-target"
-            >
-              Find a Therapist
-            </Link>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-[--space-lg]">
             <Link 
               to="/therapist" 
-              className="text-text-secondary hover:text-text-primary transition-colors font-secondary min-h-touch-target"
+              className="font-secondary text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] transition-colors"
             >
               For Therapists
             </Link>
-            <Link 
-              to="/sign-in" 
-              className="text-text-secondary hover:text-text-primary transition-colors font-secondary min-h-touch-target"
-            >
-              Sign in
-            </Link>
+            
+            <div className="flex items-center space-x-[--space-md]">
+              <Button variant="ghost" asChild>
+                <Link to="/sign-in">Sign In</Link>
+              </Button>
+              <Button asChild>
+                <Link to="/sign-up">Get Started</Link>
+              </Button>
+            </div>
           </nav>
 
-          <div className="flex items-center space-x-3">
-            {/* Task notifications - shown when user is logged in */}
-            <TaskBadge count={3} role="client" />
-            
-            {/* Theme Toggle */}
-            <ThemeToggle />
-            
-            {/* Notifications */}
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="relative"
-              asChild
-            >
-              <Link to="/notifications" aria-label="View notifications">
-                <Bell className="h-5 w-5" />
-                <span className="absolute -top-1 -right-1 h-4 w-4 bg-destructive rounded-full flex items-center justify-center text-xs text-[hsl(var(--on-dark))]">
-                  2
-                </span>
+          {/* Mobile menu button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
+        </div>
+
+        {/* Mobile Navigation Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden">
+            {/* Mobile Navigation Links */}
+            <div className="px-4 py-2 space-y-1">
+              <Link 
+                to="/therapist"
+                className="block px-3 py-2 rounded-md font-secondary text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--surface-accent))]"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                For Therapists
               </Link>
-            </Button>
-            
-            <Button 
-              asChild
-              style={{ 
-                backgroundColor: "var(--btn-primary-bg)", 
-                color: "var(--btn-primary-text)" 
-              }}
-              className="min-h-touch-target"
-            >
+              
+              <Link 
+                to="/sign-in"
+                className="block px-3 py-2 rounded-md font-secondary text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--surface-accent))]"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Sign In
+              </Link>
               <Link 
                 to="/sign-up"
-                aria-label="Create account and start assessment"
+                className="block px-3 py-2 rounded-md font-secondary text-[hsl(var(--garden-green))] hover:text-[hsl(var(--jovial-jade))] font-medium"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Get Started
               </Link>
-            </Button>
+            </div>
           </div>
-        </div>
+        )}
       </Container>
     </header>
   );

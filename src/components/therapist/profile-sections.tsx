@@ -18,20 +18,8 @@ const SPECIALTIES = {
   "cultural-identity": ["LGBTQ+ affirmative", "Cultural competency", "Religious/spiritual", "Multilingual"]
 };
 
-interface TherapistProfile {
-  id: string;
-  name: string;
-  title: string;
-  bio: string;
-  specialties: string[];
-  languages: string[];
-  location: string;
-  rate: number;
-  availability: string[];
-  education: string[];
-  experience: string[];
-  certifications: string[];
-}
+// Import the shared TherapistProfile interface
+import { TherapistProfile } from '@/lib/matching';
 
 interface BasicInfoSectionProps {
   profile: TherapistProfile;
@@ -91,7 +79,7 @@ export function BasicInfoSection({ profile, onUpdate }: BasicInfoSectionProps) {
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="yearsExperience">Years of Experience</Label>
-            <Select value={profile.yearsExperience} onValueChange={(value) => onUpdate({ yearsExperience: value })}>
+            <Select value={profile.years_experience} onValueChange={(value) => onUpdate({ years_experience: value })}>
               <SelectTrigger>
                 <SelectValue placeholder="Select experience" />
               </SelectTrigger>
@@ -148,7 +136,7 @@ export function SpecialtiesSection({ profile, onUpdate }: SpecialtiesSectionProp
           {Object.keys(SPECIALTIES).map((category) => (
             <Button
               key={category}
-              variant={selectedCategory === category ? "default" : "outline"}
+              variant={selectedCategory === category ? "primary" : "outline"}
               size="sm"
               onClick={() => setSelectedCategory(category as keyof typeof SPECIALTIES)}
             >
@@ -216,7 +204,7 @@ export function RatesAndPoliciesSection({ profile, onUpdate }: RatesAndPoliciesS
                 placeholder="80"
                 className="pl-8"
                 value={profile.rate45min || ""}
-                onChange={(e) => onUpdate({ rate45min: e.target.value })}
+                onChange={(e) => onUpdate({ rate45min: Number(e.target.value) })}
               />
             </div>
           </div>
@@ -230,7 +218,7 @@ export function RatesAndPoliciesSection({ profile, onUpdate }: RatesAndPoliciesS
                 placeholder="100"
                 className="pl-8"
                 value={profile.rate60min || ""}
-                onChange={(e) => onUpdate({ rate60min: e.target.value })}
+                onChange={(e) => onUpdate({ rate60min: Number(e.target.value) })}
               />
             </div>
           </div>
@@ -253,8 +241,8 @@ export function RatesAndPoliciesSection({ profile, onUpdate }: RatesAndPoliciesS
             <div className="flex items-center space-x-2">
               <Checkbox 
                 id="videoSessions"
-                checked={profile.offersVideo || false}
-                onCheckedChange={(checked) => onUpdate({ offersVideo: checked })}
+              checked={profile.offersVideo || false}
+              onCheckedChange={(checked) => onUpdate({ offersVideo: !!checked })}
               />
               <label htmlFor="videoSessions" className="font-secondary text-sm">
                 Video sessions
@@ -263,8 +251,8 @@ export function RatesAndPoliciesSection({ profile, onUpdate }: RatesAndPoliciesS
             <div className="flex items-center space-x-2">
               <Checkbox 
                 id="phoneSessions"
-                checked={profile.offersPhone || false}
-                onCheckedChange={(checked) => onUpdate({ offersPhone: checked })}
+              checked={profile.offersPhone || false}
+              onCheckedChange={(checked) => onUpdate({ offersPhone: !!checked })}
               />
               <label htmlFor="phoneSessions" className="font-secondary text-sm">
                 Phone sessions

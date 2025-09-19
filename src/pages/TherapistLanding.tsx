@@ -50,7 +50,7 @@ export default function TherapistLanding() {
                     }}
                     asChild
                   >
-                    <Link to="/t/onboarding">Get Started</Link>
+                     <Link to="/sign-up?role=therapist">Get Started</Link>
                   </Button>
                   <Button
                     size="lg"
@@ -441,7 +441,7 @@ export default function TherapistLanding() {
                   }}
                   asChild
                 >
-                  <Link to="/t/onboarding">Start 7-Day Free Trial</Link>
+                  <Link to="/signup?role=therapist">Start 7-Day Free Trial</Link>
                 </Button>
               </div>
             </div>
@@ -477,7 +477,7 @@ export default function TherapistLanding() {
                   }}
                   asChild
                 >
-                  <Link to="/t/onboarding">Get Started</Link>
+                  <Link to="/signup?role=therapist">Get Started</Link>
                 </Button>
                 <Button
                   variant="outline"

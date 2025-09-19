@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Container } from "@/components/ui/container";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -208,12 +209,14 @@ export function ModerationTable() {
   const reviewedContent = flaggedContent.filter(item => item.status !== "pending");
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="font-primary text-2xl text-[hsl(var(--text-primary))]">Content Moderation</h2>
-          <p className="font-secondary text-[hsl(var(--text-secondary))]">Review and manage flagged content</p>
-        </div>
+    <div className="p-4 md:p-6 lg:p-8">
+      <Container>
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="font-primary text-2xl text-[hsl(var(--text-primary))]">Content Moderation</h2>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">Review and manage flagged content</p>
+            </div>
         <div className="flex items-center gap-4">
           <Badge variant="secondary" className="bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]">
             {pendingContent.length} Pending Review
@@ -332,6 +335,8 @@ export function ModerationTable() {
           formatDate={formatDate}
         />
       )}
+        </div>
+      </Container>
     </div>
   );
 }
