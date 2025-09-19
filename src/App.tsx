@@ -13,16 +13,28 @@ import { useAuth, AuthProvider } from "./context/AuthContext";
 const AuthGuard = ({ children, requiredRole }: { children: React.ReactNode; requiredRole?: string }) => {
   const { user, loading } = useAuth();
 
+  console.log('AuthGuard: Checking auth', { user: !!user, loading, requiredRole });
+
   if (loading) {
-    return <div>Loading...</div>; // Or a proper spinner component
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center space-y-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+          <p className="text-secondary text-sm">Loading your session...</p>
+        </div>
+      </div>
+    );
   }
 
   if (!user) {
-    return <Navigate to="/sign-in" />;
+    console.log('AuthGuard: No user, redirecting to sign-in');
+    return <Navigate to="/sign-in" replace />;
   }
 
   // TODO: Implement role checking
-  console.log(requiredRole);
+  if (requiredRole) {
+    console.log('AuthGuard: Role checking not implemented', { requiredRole });
+  }
 
   return <>{children}</>;
 };
@@ -86,8 +98,11 @@ import SessionManagementDemo from "./pages/dev/SessionManagementDemo";
 
 const queryClient = new QueryClient();
 
-const AppContent = () => (
-  <QueryClientProvider client={queryClient}>
+const AppContent = () => {
+  console.log('AppContent: Rendering app content');
+  
+  return (
+    <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
@@ -95,76 +110,81 @@ const AppContent = () => (
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <ImpersonationProvider>
             <GlobalImpersonationBar />
-            <ErrorBoundary>
             <Routes>
-          {/* Public routes */}
-          <Route path="/" element={<Index />} />
-          <Route path="/therapist" element={<TherapistLanding />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/legal/terms" element={<Terms />} />
-          <Route path="/legal/privacy" element={<Privacy />} />
+              {/* Public routes */}
+              <Route path="/" element={<Index />} />
+              <Route path="/therapist" element={<TherapistLanding />} />
+              <Route path="/sign-in" element={<SignIn />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/legal/terms" element={<Terms />} />
+              <Route path="/legal/privacy" element={<Privacy />} />
 
-          {/* Client routes */}
-          <Route path="/assessment" element={<AuthGuard><Assessment /></AuthGuard>} />
-          <Route path="/discover" element={<AuthGuard><Discover /></AuthGuard>} />
-          <Route path="/therapists/:id" element={<AuthGuard><TherapistDetail /></AuthGuard>} />
-          <Route path="/book/:id" element={<AuthGuard><BookAppointment /></AuthGuard>} />
-          <Route path="/appointments" element={<AuthGuard><Appointments /></AuthGuard>} />
-          <Route path="/favorites" element={<AuthGuard><Favorites /></AuthGuard>} />
-          <Route path="/notifications" element={<AuthGuard><Notifications /></AuthGuard>} />
-          <Route path="/account" element={<AuthGuard><Account /></AuthGuard>} />
-          <Route path="/messages" element={<AuthGuard><Messages /></AuthGuard>} />
-          <Route path="/billing" element={<AuthGuard><Billing /></AuthGuard>} />
-          <Route path="/client/tasks" element={<AuthGuard><ClientTasks /></AuthGuard>} />
+              {/* Client routes */}
+              <Route path="/assessment" element={<AuthGuard><Assessment /></AuthGuard>} />
+              <Route path="/discover" element={<AuthGuard><Discover /></AuthGuard>} />
+              <Route path="/therapists/:id" element={<AuthGuard><TherapistDetail /></AuthGuard>} />
+              <Route path="/book/:id" element={<AuthGuard><BookAppointment /></AuthGuard>} />
+              <Route path="/appointments" element={<AuthGuard><Appointments /></AuthGuard>} />
+              <Route path="/favorites" element={<AuthGuard><Favorites /></AuthGuard>} />
+              <Route path="/notifications" element={<AuthGuard><Notifications /></AuthGuard>} />
+              <Route path="/account" element={<AuthGuard><Account /></AuthGuard>} />
+              <Route path="/messages" element={<AuthGuard><Messages /></AuthGuard>} />
+              <Route path="/billing" element={<AuthGuard><Billing /></AuthGuard>} />
+              <Route path="/client/tasks" element={<AuthGuard><ClientTasks /></AuthGuard>} />
 
-          {/* Therapist routes */}
-          <Route path="/t/onboarding" element={<AuthGuard requiredRole="therapist"><TherapistOnboarding /></AuthGuard>} />
-          <Route path="/t/profile" element={<AuthGuard requiredRole="therapist"><TherapistProfile /></AuthGuard>} />
-          <Route path="/t/availability" element={<AuthGuard requiredRole="therapist"><TherapistAvailability /></AuthGuard>} />
-          <Route path="/t/bookings" element={<AuthGuard requiredRole="therapist"><TherapistBookings /></AuthGuard>} />
-          <Route path="/t/clients" element={<AuthGuard requiredRole="therapist"><TherapistClients /></AuthGuard>} />
-          <Route path="/t/clients/:id" element={<AuthGuard requiredRole="therapist"><ClientDetail /></AuthGuard>} />
-          <Route path="/t/analytics" element={<AuthGuard requiredRole="therapist"><TherapistAnalytics /></AuthGuard>} />
-          <Route path="/t/dashboard" element={<AuthGuard requiredRole="therapist"><TherapistDashboard /></AuthGuard>} />
-          <Route path="/t/messages" element={<AuthGuard requiredRole="therapist"><TherapistMessages /></AuthGuard>} />
-          <Route path="/t/payouts" element={<AuthGuard requiredRole="therapist"><TherapistPayouts /></AuthGuard>} />
-          <Route path="/t/earnings" element={<AuthGuard requiredRole="therapist"><TherapistEarnings /></AuthGuard>} />
-          <Route path="/t/tasks" element={<AuthGuard requiredRole="therapist"><TherapistTasks /></AuthGuard>} />
+              {/* Therapist routes */}
+              <Route path="/t/onboarding" element={<AuthGuard requiredRole="therapist"><TherapistOnboarding /></AuthGuard>} />
+              <Route path="/t/profile" element={<AuthGuard requiredRole="therapist"><TherapistProfile /></AuthGuard>} />
+              <Route path="/t/availability" element={<AuthGuard requiredRole="therapist"><TherapistAvailability /></AuthGuard>} />
+              <Route path="/t/bookings" element={<AuthGuard requiredRole="therapist"><TherapistBookings /></AuthGuard>} />
+              <Route path="/t/clients" element={<AuthGuard requiredRole="therapist"><TherapistClients /></AuthGuard>} />
+              <Route path="/t/clients/:id" element={<AuthGuard requiredRole="therapist"><ClientDetail /></AuthGuard>} />
+              <Route path="/t/analytics" element={<AuthGuard requiredRole="therapist"><TherapistAnalytics /></AuthGuard>} />
+              <Route path="/t/dashboard" element={<AuthGuard requiredRole="therapist"><TherapistDashboard /></AuthGuard>} />
+              <Route path="/t/messages" element={<AuthGuard requiredRole="therapist"><TherapistMessages /></AuthGuard>} />
+              <Route path="/t/payouts" element={<AuthGuard requiredRole="therapist"><TherapistPayouts /></AuthGuard>} />
+              <Route path="/t/earnings" element={<AuthGuard requiredRole="therapist"><TherapistEarnings /></AuthGuard>} />
+              <Route path="/t/tasks" element={<AuthGuard requiredRole="therapist"><TherapistTasks /></AuthGuard>} />
 
-          {/* Session routes */}
-          <Route path="/session/:sessionId" element={<AuthGuard><SessionRoom /></AuthGuard>} />
+              {/* Session routes */}
+              <Route path="/session/:sessionId" element={<AuthGuard><SessionRoom /></AuthGuard>} />
 
-          {/* Admin routes */}
-          <Route path="/admin/overview" element={<AuthGuard requiredRole="admin"><AdminOverview /></AuthGuard>} />
-          <Route path="/admin/users" element={<AuthGuard requiredRole="admin"><AdminUsers /></AuthGuard>} />
-          <Route path="/admin/therapists" element={<AuthGuard requiredRole="admin"><AdminTherapists /></AuthGuard>} />
-          <Route path="/admin/moderation" element={<AuthGuard requiredRole="admin"><AdminModeration /></AuthGuard>} />
-          <Route path="/admin/bookings" element={<AuthGuard requiredRole="admin"><AdminBookings /></AuthGuard>} />
-          <Route path="/admin/feature-flags" element={<AuthGuard requiredRole="admin"><AdminFeatureFlags /></AuthGuard>} />
-          <Route path="/admin/webhooks" element={<AuthGuard requiredRole="admin"><AdminWebhooks /></AuthGuard>} />
-          <Route path="/admin/audit" element={<AuthGuard requiredRole="admin"><AdminAudit /></AuthGuard>} />
-          <Route path="/admin/support" element={<AuthGuard requiredRole="admin"><AdminSupport /></AuthGuard>} />
-          <Route path="/admin/tasks" element={<AuthGuard requiredRole="admin"><AdminTasks /></AuthGuard>} />
+              {/* Admin routes */}
+              <Route path="/admin/overview" element={<AuthGuard requiredRole="admin"><AdminOverview /></AuthGuard>} />
+              <Route path="/admin/users" element={<AuthGuard requiredRole="admin"><AdminUsers /></AuthGuard>} />
+              <Route path="/admin/therapists" element={<AuthGuard requiredRole="admin"><AdminTherapists /></AuthGuard>} />
+              <Route path="/admin/moderation" element={<AuthGuard requiredRole="admin"><AdminModeration /></AuthGuard>} />
+              <Route path="/admin/bookings" element={<AuthGuard requiredRole="admin"><AdminBookings /></AuthGuard>} />
+              <Route path="/admin/feature-flags" element={<AuthGuard requiredRole="admin"><AdminFeatureFlags /></AuthGuard>} />
+              <Route path="/admin/webhooks" element={<AuthGuard requiredRole="admin"><AdminWebhooks /></AuthGuard>} />
+              <Route path="/admin/audit" element={<AuthGuard requiredRole="admin"><AdminAudit /></AuthGuard>} />
+              <Route path="/admin/support" element={<AuthGuard requiredRole="admin"><AdminSupport /></AuthGuard>} />
+              <Route path="/admin/tasks" element={<AuthGuard requiredRole="admin"><AdminTasks /></AuthGuard>} />
 
-          {/* Dev routes */}
-          <Route path="/dev/screenshots" element={<AuthGuard requiredRole="admin"><ScreenshotCapturePage /></AuthGuard>} />
-          <Route path="/dev/session-management" element={<AuthGuard requiredRole="admin"><SessionManagementDemo /></AuthGuard>} />
+              {/* Dev routes */}
+              <Route path="/dev/screenshots" element={<AuthGuard requiredRole="admin"><ScreenshotCapturePage /></AuthGuard>} />
+              <Route path="/dev/session-management" element={<AuthGuard requiredRole="admin"><SessionManagementDemo /></AuthGuard>} />
 
-          {/* Catch-all route */}
-          <Route path="*" element={<NotFound />} />
+              {/* Catch-all route */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
-          </ErrorBoundary>
-        </ImpersonationProvider>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+          </ImpersonationProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
-const App = () => (
-  <AuthProvider>
-    <AppContent />
-  </AuthProvider>
-);
+const App = () => {
+  console.log('App: Starting application');
+  
+  return (
+    <ErrorBoundary>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </ErrorBoundary>
+  );
+};
 
 export default App;
