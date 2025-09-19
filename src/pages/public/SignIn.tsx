@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth, useSignIn } from "@clerk/clerk-react";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
@@ -6,27 +8,50 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
 import { SocialLogin } from "@/components/auth/social-login";
 import { ForgotPasswordDialog } from "@/components/auth/forgot-password-dialog";
 import { AlertCircle } from "lucide-react";
+import { useUserRole, getRoleBasedRedirect } from "@/hooks/use-user-role";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [searchParams] = useSearchParams();
+  
+  const { isSignedIn } = useAuth();
+  const { signIn, setActive } = useSignIn();
+  const { role } = useUserRole();
+  const navigate = useNavigate();
+
+  // Redirect if already signed in
+  useEffect(() => {
+    if (isSignedIn) {
+      const redirectTo = searchParams.get("redirect") || getRoleBasedRedirect(role);
+      navigate(redirectTo, { replace: true });
+    }
+  }, [isSignedIn, role, navigate, searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
     
+    if (!signIn) return;
+    
     try {
-      // TODO: Implement sign in
-      console.log("Sign in:", { email, password });
-    } catch (err) {
-      setError("Invalid email or password. Please try again.");
+      const result = await signIn.create({
+        identifier: email,
+        password,
+      });
+
+      if (result.status === "complete") {
+        await setActive({ session: result.createdSessionId });
+        // Navigation will be handled by the useEffect above
+      }
+    } catch (err: any) {
+      setError(err.errors?.[0]?.message || "Invalid email or password. Please try again.");
     } finally {
       setIsLoading(false);
     }

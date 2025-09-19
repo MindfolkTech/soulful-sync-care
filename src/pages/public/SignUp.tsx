@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth, useSignUp } from "@clerk/clerk-react";
+import { useNavigate, Link } from "react-router-dom";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
@@ -7,9 +9,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from "react-router-dom";
 import { SocialLogin } from "@/components/auth/social-login";
 import { AlertCircle, Eye, EyeOff } from "lucide-react";
+import { useUserRole, getRoleBasedRedirect } from "@/hooks/use-user-role";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -29,6 +31,21 @@ export default function SignUp() {
   });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [pendingVerification, setPendingVerification] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
+  
+  const { isSignedIn } = useAuth();
+  const { signUp, setActive } = useSignUp();
+  const { role } = useUserRole();
+  const navigate = useNavigate();
+
+  // Redirect if already signed in
+  useEffect(() => {
+    if (isSignedIn) {
+      const redirectTo = getRoleBasedRedirect(role);
+      navigate(redirectTo, { replace: true });
+    }
+  }, [isSignedIn, role, navigate]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -53,6 +70,8 @@ export default function SignUp() {
       return;
     }
     
+    if (!signUp) return;
+    
     setIsLoading(true);
     
     try {
@@ -62,11 +81,40 @@ export default function SignUp() {
         timestamp: new Date().toISOString(),
         version: '2.0'
       }));
-      
-      // TODO: Implement sign up
-      console.log("Sign up:", formData, consentPreferences);
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
+
+      await signUp.create({
+        emailAddress: formData.email,
+        password: formData.password,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+      });
+
+      // Send verification email
+      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+      setPendingVerification(true);
+    } catch (err: any) {
+      setError(err.errors?.[0]?.message || "Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleVerification = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!signUp) return;
+    
+    setIsLoading(true);
+    try {
+      const result = await signUp.attemptEmailAddressVerification({
+        code: verificationCode,
+      });
+
+      if (result.status === "complete") {
+        await setActive({ session: result.createdSessionId });
+        navigate("/select-role", { replace: true });
+      }
+    } catch (err: any) {
+      setError(err.errors?.[0]?.message || "Invalid verification code.");
     } finally {
       setIsLoading(false);
     }
@@ -86,9 +134,11 @@ export default function SignUp() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-[--space-lg]">
-              <SocialLogin mode="signup" />
-              
-              <form onSubmit={handleSubmit} className="space-y-[--space-md]">
+              {!pendingVerification ? (
+                <>
+                  <SocialLogin mode="signup" />
+                  
+                  <form onSubmit={handleSubmit} className="space-y-[--space-md]">
                 {error && (
                   <div className="flex items-center space-x-[--space-xs] text-sm text-[hsl(var(--error-text))] bg-destructive/10 p-[--space-sm] rounded-md">
                     <AlertCircle className="w-4 h-4" />
@@ -275,16 +325,60 @@ export default function SignUp() {
                   </div>
                 </div>
                 
-                <Button type="submit" className="w-full min-h-touch-target max-w-[320px] mx-auto" aria-label="Create new account" disabled={isLoading}>
-                  {isLoading ? "Creating account..." : "Create Account"}
-                </Button>
-              </form>
-              
-              <div className="text-center space-y-[--space-xs]">
-                <Link to="/sign-in" className="text-sm text-text-secondary hover:text-text-primary font-secondary">
-                  Already have an account? Sign in
-                </Link>
-              </div>
+                    <Button type="submit" className="w-full min-h-touch-target max-w-[320px] mx-auto" aria-label="Create new account" disabled={isLoading}>
+                      {isLoading ? "Creating account..." : "Create Account"}
+                    </Button>
+                  </form>
+                  
+                  <div className="text-center space-y-[--space-xs]">
+                    <Link to="/sign-in" className="text-sm text-text-secondary hover:text-text-primary font-secondary">
+                      Already have an account? Sign in
+                    </Link>
+                  </div>
+                </>
+              ) : (
+                <form onSubmit={handleVerification} className="space-y-[--space-md]">
+                  {error && (
+                    <div className="flex items-center space-x-[--space-xs] text-sm text-[hsl(var(--error-text))] bg-destructive/10 p-[--space-sm] rounded-md">
+                      <AlertCircle className="w-4 h-4" />
+                      <span className="font-secondary">{error}</span>
+                    </div>
+                  )}
+                  
+                  <div className="space-y-2 text-center">
+                    <h3 className="font-primary text-[hsl(var(--text-xl))]">Check your email</h3>
+                    <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
+                      We sent a verification code to {formData.email}
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="verification">Verification Code</Label>
+                    <Input 
+                      id="verification" 
+                      placeholder="Enter verification code"
+                      value={verificationCode}
+                      onChange={(e) => setVerificationCode(e.target.value)}
+                      required
+                    />
+                  </div>
+                  
+                  <Button type="submit" className="w-full min-h-touch-target" disabled={isLoading}>
+                    {isLoading ? "Verifying..." : "Verify Email"}
+                  </Button>
+                  
+                  <div className="text-center">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={() => setPendingVerification(false)}
+                      className="text-sm font-secondary"
+                    >
+                      Back to sign up
+                    </Button>
+                  </div>
+                </form>
+              )}
             </CardContent>
           </Card>
         </Container>
