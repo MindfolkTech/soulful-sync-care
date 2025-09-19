@@ -7,27 +7,16 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ImpersonationProvider } from "@/contexts/impersonation-context";
 import { GlobalImpersonationBar } from "@/components/admin/global-impersonation-bar";
 import ErrorBoundary from "@/components/util/ErrorBoundary";
-import { ClerkProvider } from "@clerk/clerk-react";
-import { AuthGuard } from "@/components/auth/auth-guard";
-
-const CLERK_PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-
-if (!CLERK_PUBLISHABLE_KEY) {
-  throw new Error("Missing Clerk Publishable Key");
-}
+// Simple auth guard component
+const AuthGuard = ({ children, requiredRole }: { children: React.ReactNode; requiredRole?: string }) => <>{children}</>;
 // Pages
 import Index from "./pages/Index";
 import TherapistLanding from "./pages/TherapistLanding";
 import NotFound from "./pages/NotFound";
 
-// Auth pages
-import SSOCallback from "./pages/auth/SSOCallback";
-
 // Public pages
 import SignIn from "./pages/public/SignIn";
 import SignUp from "./pages/public/SignUp";
-import SignUpClient from "./pages/public/SignUpClient";
-import SignUpTherapist from "./pages/public/SignUpTherapist";
 import Terms from "./pages/public/Terms";
 import Privacy from "./pages/public/Privacy";
 
@@ -80,25 +69,21 @@ import SessionManagementDemo from "./pages/dev/SessionManagementDemo";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY}>
-    <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <CookieConsent />
-          <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-            <ImpersonationProvider>
-              <GlobalImpersonationBar />
-              <ErrorBoundary>
+  <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <CookieConsent />
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <ImpersonationProvider>
+            <GlobalImpersonationBar />
+            <ErrorBoundary>
             <Routes>
           {/* Public routes */}
           <Route path="/" element={<Index />} />
           <Route path="/therapist" element={<TherapistLanding />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/sign-up/client" element={<SignUpClient />} />
-          <Route path="/sign-up/therapist" element={<SignUpTherapist />} />
-          <Route path="/sso-callback" element={<SSOCallback />} />
           <Route path="/legal/terms" element={<Terms />} />
           <Route path="/legal/privacy" element={<Privacy />} />
 
@@ -152,11 +137,10 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
             </Routes>
           </ErrorBoundary>
-          </ImpersonationProvider>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </ClerkProvider>
+        </ImpersonationProvider>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
 );
 
 export default App;
