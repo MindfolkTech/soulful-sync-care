@@ -1,16 +1,3 @@
-/**
- * ARCHIVED COMPONENT - NOT CURRENTLY IN USE
- * 
- * This DashboardLayout component has been archived and is not being used
- * in the current application. The app now uses:
- * - TherapistLayout for all therapist pages
- * - AdminLayout for all admin pages
- * 
- * This component is kept for reference but should not be imported or used.
- * 
- * @deprecated Use TherapistLayout or AdminLayout instead
- */
-
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { 
@@ -25,7 +12,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { TherapistBottomNav } from "@/components/therapist/therapist-bottom-nav";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -33,10 +19,6 @@ interface DashboardLayoutProps {
   subtitle?: string;
 }
 
-/**
- * ARCHIVED - DO NOT USE
- * Use TherapistLayout or AdminLayout instead
- */
 export function DashboardLayout({ children, title, subtitle }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
@@ -208,9 +190,6 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
           </Container>
         </main>
       </div>
-      
-      {/* Bottom Navigation - Mobile Only */}
-      <TherapistBottomNav />
     </div>
   );
 }

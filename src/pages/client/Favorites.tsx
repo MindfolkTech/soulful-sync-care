@@ -196,7 +196,7 @@ export default function Favorites() {
                 Upcoming Appointments
               </span>
             </div>
-            <Badge variant="secondary" className="bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))]">
+            <Badge variant="default" className="bg-[hsl(var(--garden-green))] text-[hsl(var(--on-dark))]">
               2 scheduled
             </Badge>
           </div>

@@ -11,9 +11,10 @@ import { cn } from "@/lib/utils";
 
 const therapistNavItems = [
   { href: "/t/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-  { href: "/t/clients", icon: Users, label: "My Clients" },
-  { href: "/t/profile", icon: User, label: "My Profile" },
-  { href: "/t/analytics", icon: BarChart3, label: "Performance & Analytics" },
+  { href: "/t/clients", icon: Users, label: "Clients" },
+  { href: "/t/bookings", icon: Calendar, label: "Bookings" },
+  { href: "/t/analytics", icon: BarChart3, label: "Analytics" },
+  { href: "/t/profile", icon: User, label: "Profile" },
 ];
 
 export function TherapistBottomNav() {

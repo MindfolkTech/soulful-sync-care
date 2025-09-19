@@ -3,18 +3,18 @@ import { Link, useLocation } from "react-router-dom";
 import { 
   BarChart3, 
   Users, 
-  UserCheck, 
   Shield, 
-  Calendar 
+  Calendar, 
+  Settings 
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const adminNavItems = [
   { href: "/admin/overview", icon: BarChart3, label: "Overview" },
   { href: "/admin/users", icon: Users, label: "Users" },
-  { href: "/admin/therapists", icon: UserCheck, label: "Therapists" },
+  { href: "/admin/therapists", icon: Users, label: "Therapists" },
   { href: "/admin/moderation", icon: Shield, label: "Moderation" },
-  { href: "/admin/bookings", icon: Calendar, label: "Bookings" },
+  { href: "/admin/settings", icon: Settings, label: "Settings" },
 ];
 
 export function AdminBottomNav() {

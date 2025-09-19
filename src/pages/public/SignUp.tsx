@@ -1,23 +1,17 @@
 import { useState } from "react";
-import { useSignUp } from "@clerk/clerk-react";
-import { useNavigate, useSearchParams } from "react-router-dom";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "react-router-dom";
 import { SocialLogin } from "@/components/auth/social-login";
-import { RedirectAuthenticated } from "@/components/auth/redirect-authenticated";
 import { AlertCircle, Eye, EyeOff } from "lucide-react";
 
 export default function SignUp() {
-  const { isLoaded, signUp, setActive } = useSignUp();
-  const [searchParams] = useSearchParams();
-  const role = searchParams.get('role') as 'client' | 'therapist' | null;
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -35,15 +29,12 @@ export default function SignUp() {
   });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    if (!isLoaded) return;
-
     e.preventDefault();
     setError("");
     
@@ -72,50 +63,30 @@ export default function SignUp() {
         version: '2.0'
       }));
       
-      const result = await signUp.create({
-        emailAddress: formData.email,
-        password: formData.password,
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        unsafeMetadata: {
-          intendedRole: role || 'client'
-        }
-      });
-
-      if (result.status === "complete") {
-        await setActive({ session: result.createdSessionId });
-        navigate("/assessment", { replace: true });
-      } else {
-        // Handle cases where email verification is required
-        navigate("/sign-in", { 
-          replace: true,
-          state: { message: "Please check your email to verify your account before signing in." }
-        });
-      }
-    } catch (err: any) {
-      console.error("Sign up error:", err);
-      setError(err.errors?.[0]?.message || "Something went wrong. Please try again.");
+      // TODO: Implement sign up
+      console.log("Sign up:", formData, consentPreferences);
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <RedirectAuthenticated>
-      <div className="min-h-screen bg-background flex flex-col">
-        <Header />
-        
-        <main className="flex-1 flex items-center justify-center py-[--space-2xl]">
-          <Container size="sm">
-            <Card className="w-full max-w-md mx-auto">
-              <CardHeader className="text-center">
-                <h1 className="font-primary text-[hsl(var(--text-2xl))]">Get started</h1>
-                <CardDescription className="font-secondary text-[hsl(var(--text-secondary))]">
-                  Create your MindFolk account
-                </CardDescription>
-              </CardHeader>
+    <div className="min-h-screen bg-background flex flex-col">
+      <Header />
+      
+      <main className="flex-1 flex items-center justify-center py-[--space-2xl]">
+        <Container size="sm">
+          <Card className="w-full max-w-md mx-auto">
+            <CardHeader className="text-center">
+              <h1 className="font-primary text-[hsl(var(--text-2xl))]">Get started</h1>
+              <CardDescription className="font-secondary text-[hsl(var(--text-secondary))]">
+                Create your MindFolk account
+              </CardDescription>
+            </CardHeader>
             <CardContent className="space-y-[--space-lg]">
-              <SocialLogin mode="signup" role={role || 'client'} />
+              <SocialLogin mode="signup" />
               
               <form onSubmit={handleSubmit} className="space-y-[--space-md]">
                 {error && (
@@ -304,11 +275,9 @@ export default function SignUp() {
                   </div>
                 </div>
                 
-                <div className="flex justify-center">
-                  <Button type="submit" className="w-full min-h-touch-target max-w-[320px]" aria-label="Create new account" disabled={isLoading || !isLoaded}>
-                    {isLoading ? "Creating account..." : "Create Account"}
-                  </Button>
-                </div>
+                <Button type="submit" className="w-full min-h-touch-target max-w-[320px] mx-auto" aria-label="Create new account" disabled={isLoading}>
+                  {isLoading ? "Creating account..." : "Create Account"}
+                </Button>
               </form>
               
               <div className="text-center space-y-[--space-xs]">
@@ -316,14 +285,6 @@ export default function SignUp() {
                   Already have an account? Sign in
                 </Link>
               </div>
-              
-              {role && (
-                <div className="text-center">
-                  <p className="text-xs text-text-muted font-secondary">
-                    Signing up as: <span className="font-semibold capitalize">{role}</span>
-                  </p>
-                </div>
-              )}
             </CardContent>
           </Card>
         </Container>
@@ -331,6 +292,5 @@ export default function SignUp() {
 
       <Footer />
     </div>
-    </RedirectAuthenticated>
   );
 }

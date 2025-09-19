@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useClerk } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,40 +11,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Mail } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 
 export function ForgotPasswordDialog() {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const clerk = useClerk();
-  const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
-    
-    setIsLoading(true);
-    try {
-      await clerk.client.signIn.create({
-        strategy: "reset_password_email_code",
-        identifier: email,
-      });
-      setIsSubmitted(true);
-      toast({
-        title: "Reset link sent",
-        description: "Check your email for a password reset link.",
-      });
-    } catch (error) {
-      console.error("Password reset error:", error);
-      toast({
-        title: "Error",
-        description: "Failed to send reset link. Please check your email address.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    // TODO: Implement password reset
+    setIsSubmitted(true);
   };
 
   return (
@@ -76,8 +50,8 @@ export function ForgotPasswordDialog() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full" disabled={isLoading || !email}>
-              {isLoading ? "Sending..." : "Send reset link"}
+            <Button type="submit" className="w-full">
+              Send reset link
             </Button>
           </form>
         ) : (

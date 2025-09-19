@@ -20,13 +20,12 @@ describe('SessionReminderBanner', () => {
     const sessionTime = new Date('2024-01-15T12:00:00.000Z'); // 2 hours from now
     
     const { container } = render(
-      <MemoryRouter>
-        <SessionReminderBanner
-          sessionTime={sessionTime}
-          sessionId="test-session"
-          therapistName="Dr. Test"
-          sessionType="chemistry"
-        />
+      <SessionReminderBanner
+        sessionTime={sessionTime}
+        sessionId="test-session"
+        therapistName="Dr. Test"
+        sessionType="chemistry"
+      />
       </MemoryRouter>
     );
 
@@ -66,7 +65,7 @@ describe('SessionReminderBanner', () => {
     );
 
     expect(screen.getByText('10:08 AM')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Join Early' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'join early' })).toBeInTheDocument();
   });
 
   it('shows immediate styling and JOIN NOW for sessions within 5 minutes', () => {
@@ -104,7 +103,7 @@ describe('SessionReminderBanner', () => {
       </MemoryRouter>
     );
 
-    const dismissButton = screen.getByRole('button', { name: 'Dismiss reminder' });
+    const dismissButton = screen.getByRole('button', { name: 'dismiss reminder' });
     fireEvent.click(dismissButton);
 
     expect(mockOnDismiss).toHaveBeenCalled();
@@ -126,7 +125,7 @@ describe('SessionReminderBanner', () => {
       </MemoryRouter>
     );
 
-    const joinButton = screen.getByRole('button', { name: 'Join Early' });
+    const joinButton = screen.getByRole('button', { name: 'join early' });
     fireEvent.click(joinButton);
 
     expect(mockOnJoinSession).toHaveBeenCalledWith('test-session');
@@ -150,7 +149,7 @@ describe('SessionReminderBanner', () => {
       </MemoryRouter>
     );
 
-    const joinButton = screen.getByRole('button', { name: 'Join Early' });
+    const joinButton = screen.getByRole('button', { name: 'join early' });
     fireEvent.click(joinButton);
 
     expect(window.location.href).toBe('/session/test-session');
@@ -184,13 +183,12 @@ describe('SessionReminderBanner', () => {
     const sessionTime = new Date('2024-01-15T09:00:00.000Z'); // 1 hour ago
     
     const { container } = render(
-      <MemoryRouter>
-        <SessionReminderBanner
-          sessionTime={sessionTime}
-          sessionId="test-session"
-          therapistName="Dr. Test"
-          sessionType="chemistry"
-        />
+      <SessionReminderBanner
+        sessionTime={sessionTime}
+        sessionId="test-session"
+        therapistName="Dr. Test"
+        sessionType="chemistry"
+      />
       </MemoryRouter>
     );
 
@@ -201,26 +199,24 @@ describe('SessionReminderBanner', () => {
     const sessionTime = new Date('2024-01-15T10:30:00.000Z'); // 30 minutes from now
     
     const { rerender } = render(
-      <MemoryRouter>
-        <SessionReminderBanner
-          sessionTime={sessionTime}
-          sessionId="test-session"
-          therapistName="Dr. Test"
-          sessionType="chemistry"
-        />
+      <SessionReminderBanner
+        sessionTime={sessionTime}
+        sessionId="test-session"
+        therapistName="Dr. Test"
+        sessionType="chemistry"
+      />
       </MemoryRouter>
     );
 
     expect(screen.getByText('10:30 AM')).toBeInTheDocument();
 
     rerender(
-      <MemoryRouter>
-        <SessionReminderBanner
-          sessionTime={sessionTime}
-          sessionId="test-session"
-          therapistName="Dr. Test"
-          sessionType="therapy"
-        />
+      <SessionReminderBanner
+        sessionTime={sessionTime}
+        sessionId="test-session"
+        therapistName="Dr. Test"
+        sessionType="therapy"
+      />
       </MemoryRouter>
     );
 
@@ -231,13 +227,12 @@ describe('SessionReminderBanner', () => {
     const immediateSessionTime = new Date('2024-01-15T10:03:00.000Z'); // 3 minutes from now
     
     const { container, rerender } = render(
-      <MemoryRouter>
-        <SessionReminderBanner
-          sessionTime={immediateSessionTime}
-          sessionId="test-session"
-          therapistName="Dr. Test"
-          sessionType="chemistry"
-        />
+      <SessionReminderBanner
+        sessionTime={immediateSessionTime}
+        sessionId="test-session"
+        therapistName="Dr. Test"
+        sessionType="chemistry"
+      />
       </MemoryRouter>
     );
 
@@ -247,13 +242,12 @@ describe('SessionReminderBanner', () => {
     const urgentSessionTime = new Date('2024-01-15T10:08:00.000Z'); // 8 minutes from now
     
     rerender(
-      <MemoryRouter>
-        <SessionReminderBanner
-          sessionTime={urgentSessionTime}
-          sessionId="test-session"
-          therapistName="Dr. Test"
-          sessionType="chemistry"
-        />
+      <SessionReminderBanner
+        sessionTime={urgentSessionTime}
+        sessionId="test-session"
+        therapistName="Dr. Test"
+        sessionType="chemistry"
+      />
       </MemoryRouter>
     );
 

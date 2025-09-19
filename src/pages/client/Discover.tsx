@@ -16,26 +16,49 @@ import { VideoOverlay } from "@/components/discovery/video-overlay";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useSwipeGestures } from "@/hooks/use-swipe-gestures";
 import { useAriaLive } from "@/hooks/use-aria-live";
-import { findMatches, mockTherapists, ClientAssessment, TherapistProfile } from "@/lib/matching";
 
-// Convert TherapistProfile to TherapistData for UI display
-function convertTherapistProfile(profile: TherapistProfile, matchResult: any): TherapistData {
-  return {
-    id: profile.id,
-    name: `Dr. ${profile.id}`, // Mock name since TherapistProfile doesn't have name
-    title: "Clinical Psychologist", // Mock title
-    specialties: profile.specialties,
-    personality: profile.personality_tags,
-    languages: profile.languages,
-    rate: `£${Math.min(...Object.values(profile.session_rates))}/session`,
-    rating: 4.8, // Mock rating
+const mockTherapists: TherapistData[] = [
+  {
+    id: "1",
+    name: "Dr. Sarah Chen",
+    title: "Clinical Psychologist",
+    specialties: ["Anxiety", "Depression", "Trauma"],
+    personality: ["Empathetic", "Structured"],
+    languages: ["English", "Mandarin"],
+    rate: "£80/session",
+    rating: 4.9,
     quote: "I believe in creating a safe space where you can explore your authentic self.",
     image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face",
     video_url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    location: "London, UK",
-    compatibility_score: matchResult.compatibility_score
-  };
-}
+    location: "London, UK"
+  },
+  {
+    id: "2", 
+    name: "Michael Thompson",
+    title: "Counselling Psychologist",
+    specialties: ["Relationships", "Work Stress"],
+    personality: ["Flexible", "Calm"],
+    languages: ["English", "French"],
+    rate: "£70/session", 
+    rating: 4.8,
+    quote: "Together, we'll find practical solutions that work for your unique situation.",
+    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face",
+    location: "Manchester, UK"
+  },
+  {
+    id: "3",
+    name: "Dr. Priya Patel",
+    title: "Clinical Psychologist",
+    specialties: ["Identity", "Cultural Issues", "Anxiety"],
+    personality: ["Understanding", "Direct"],
+    languages: ["English", "Hindi", "Gujarati"],
+    rate: "£85/session",
+    rating: 4.9,
+    quote: "Your cultural identity is a strength in your healing journey.",
+    image: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=400&fit=crop&crop=face",
+    location: "Birmingham, UK"
+  }
+];
 
 export default function Discover() {
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -45,33 +68,10 @@ export default function Discover() {
   const [videoOpen, setVideoOpen] = React.useState(false);
   const [selectedTherapist, setSelectedTherapist] = React.useState<TherapistData | null>(null);
   const [filtersOpen, setFiltersOpen] = React.useState(false);
-  const [matchedTherapists, setMatchedTherapists] = React.useState<TherapistData[]>([]);
   
   const { announce, ariaLiveProps } = useAriaLive();
 
-  // Load assessment data and run matching algorithm
-  React.useEffect(() => {
-    const assessmentData = localStorage.getItem('assessmentData');
-    if (assessmentData) {
-      const { clientAssessment } = JSON.parse(assessmentData);
-      
-      // Run matching algorithm
-      const matches = findMatches(clientAssessment as ClientAssessment, mockTherapists);
-      
-      // Convert to UI format
-      const therapistData = matches.map(match => {
-        const profile = mockTherapists.find(t => t.id === match.therapist_id);
-        if (profile) {
-          return convertTherapistProfile(profile, match);
-        }
-        return null;
-      }).filter(Boolean) as TherapistData[];
-      
-      setMatchedTherapists(therapistData);
-    }
-  }, []);
-
-  const availableTherapists = matchedTherapists.filter(t => !viewedTherapists.has(t.id));
+  const availableTherapists = mockTherapists.filter(t => !viewedTherapists.has(t.id));
   const currentTherapist = availableTherapists[currentIndex];
 
   const handleNext = React.useCallback(() => {

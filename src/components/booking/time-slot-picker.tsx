@@ -65,7 +65,7 @@ export function TimeSlotPicker({ selectedDate, selectedTime, onTimeSelect, thera
     
     return (
       <Button
-        variant={selectedTime === slot.time ? "primary" : "outline"}
+        variant={selectedTime === slot.time ? "default" : "outline"}
         size="sm"
         className={cn(
           "min-h-touch-min w-full justify-start",

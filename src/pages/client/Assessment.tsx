@@ -130,8 +130,9 @@ export default function Assessment() {
       options.push("Culturally sensitive and aware");
     }
     
-    // Note: "Speaks my native language" removed from identity preferences
-    // Language matching is handled as a hard filter via language_preferences
+    if (demographicData.primaryLanguage && demographicData.primaryLanguage !== "English") {
+      options.push("Speaks my native language");
+    }
     
     return options;
   };
@@ -170,54 +171,8 @@ export default function Assessment() {
 
     if (currentStep === 9) {
       setIsMatching(true);
-      
-      // Map assessment responses to ClientAssessment format for matching algorithm
-      const clientAssessment = {
-        // Step 4: Communication preferences (personality tags)
-        communication_preferences: responses[4] || [],
-        
-        // Language preferences (auto-set from demographics)
-        language_preferences: demographicData.primaryLanguage && demographicData.primaryLanguage !== "English" 
-          ? [demographicData.primaryLanguage] 
-          : ["English"],
-        
-        // Step 6: Identity preferences (smart values)
-        identity_preferences: responses[6] || [],
-        
-        // Step 3: Therapy goals (specialties)
-        therapy_goals: responses[3] || [],
-        
-        // Modalities (not collected in current assessment - default empty)
-        therapy_modalities: [],
-        
-        // Gender preference (not collected in current assessment - default no preference)
-        therapist_gender_preference: 'no preference',
-        
-        // Budget (not collected in current assessment - default wide range)
-        budget_range: [0, 200] as [number, number],
-        
-        // Experience preference (not collected in current assessment - default no preference)
-        experience_preference: 'no_preference',
-        
-        // Preferred times (not collected in current assessment - default any time)
-        preferred_times: [],
-        
-        // Age group from demographics
-        age_group: demographicData.ageGroup || '25–34',
-        
-        // Age similarity preference (not collected - default false)
-        prefers_similar_age: false,
-        
-        // Cultural identity from demographics
-        cultural_identity: demographicData.culturalIdentity ? [demographicData.culturalIdentity] : [],
-        
-        // Cultural background match preference (not collected - default false)
-        prefers_cultural_background_match: false,
-      };
-      
       // Save assessment data with consent
       const assessmentData = {
-        clientAssessment,
         responses,
         demographicData,
         healthDataConsent,

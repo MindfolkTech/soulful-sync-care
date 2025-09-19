@@ -137,7 +137,7 @@ export const WithLivePreview: Story = {
   play: async ({ canvasElement }) => {
     // Enable preview toggle
     const previewButton = canvasElement.querySelector('button[aria-label*="preview"]');
-    if (previewButton) (previewButton as any).click();
+    if (previewButton) previewButton.click();
   },
   parameters: {
     viewport: { defaultViewport: 'desktop' },
@@ -161,13 +161,13 @@ export const WithPartialData: Story = {
     const lastNameInput = canvasElement.querySelector('input[id="lastName"]');
     const titleInput = canvasElement.querySelector('input[id="title"]');
     
-    if (firstNameInput) (firstNameInput as any).value = 'Sarah';
-    if (lastNameInput) (lastNameInput as any).value = 'Chen';
-    if (titleInput) (titleInput as any).value = 'Clinical Psychologist';
+    if (firstNameInput) firstNameInput.value = 'Sarah';
+    if (lastNameInput) lastNameInput.value = 'Chen';
+    if (titleInput) titleInput.value = 'Clinical Psychologist';
     
     // Trigger change events
     [firstNameInput, lastNameInput, titleInput].forEach(input => {
-      if (input) (input as any).dispatchEvent(new Event('change', { bubbles: true }));
+      if (input) input.dispatchEvent(new Event('change', { bubbles: true }));
     });
   },
   parameters: {
@@ -188,8 +188,8 @@ export const WithProgressSaving: Story = {
     
     const firstNameInput = canvasElement.querySelector('input[id="firstName"]');
     if (firstNameInput) {
-      (firstNameInput as any).value = 'Dr. Sarah';
-      (firstNameInput as any).dispatchEvent(new Event('change', { bubbles: true }));
+      firstNameInput.value = 'Dr. Sarah';
+      firstNameInput.dispatchEvent(new Event('change', { bubbles: true }));
     }
     
     // Wait for save indicator

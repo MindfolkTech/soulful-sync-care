@@ -10,47 +10,24 @@ alwaysApply: true
 Apply to all layout components and pages using dashboard patterns. Ensure consistent responsive design and component architecture.
 🚫 No manual layout implementation - must use provided layout components.
 
-**Reference**: See `docs/design-system/patterns/dashboard-layout.md` for complete dashboard specifications.
+**Reference**: See `dashboard-layout.md` for complete dashboard specifications.
 
 ## Mandatory Layout Components
 
-### Layout Components (Required)
-**All therapist pages MUST use TherapistLayout:**
+### DashboardLayout Component (Required)
+**All therapist and admin pages MUST use this component:**
+
 ```tsx
-import { TherapistLayout } from "@/components/layout/therapist-layout";
-import { Container } from "@/components/ui/container";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 
 export default function YourPage() {
   return (
-    <TherapistLayout>
-      <div className="p-4 md:p-6 lg:p-8">
-        <Container>
-          <div className="space-y-6">
-            {/* Your page content here */}
-          </div>
-        </Container>
-      </div>
-    </TherapistLayout>
-  );
-}
-```
-
-**All admin pages MUST use AdminLayout:**
-```tsx
-import { AdminLayout } from "@/components/layout/admin-layout";
-import { Container } from "@/components/ui/container";
-
-export default function YourPage() {
-  return (
-    <AdminLayout>
-      <div className="p-4 md:p-6 lg:p-8">
-        <Container>
-          <div className="space-y-6">
-            {/* Your page content here */}
-          </div>
-        </Container>
-      </div>
-    </AdminLayout>
+    <DashboardLayout 
+      title="Page Title"
+      subtitle="Optional page description"
+    >
+      {/* Your page content here */}
+    </DashboardLayout>
   );
 }
 ```
@@ -63,55 +40,6 @@ export default function YourPage() {
 - ✅ **No horizontal scroll** at any breakpoint with `overflow-hidden`
 - ✅ **One-screen rule compliance** with proper overflow handling
 - ✅ **Touch target compliance** - all interactive elements 44px minimum
-
-## Content Structure Requirements (CRITICAL)
-
-### Mandatory Content Wrapper Pattern
-**ALL pages using TherapistLayout or AdminLayout MUST follow this exact structure:**
-
-```tsx
-<TherapistLayout> {/* or AdminLayout */}
-  <div className="p-4 md:p-6 lg:p-8">  {/* ← REQUIRED: Responsive padding */}
-    <Container>                        {/* ← REQUIRED: Container wrapper */}
-      <div className="space-y-6">      {/* ← REQUIRED: Content spacing */}
-        {/* Page content goes here */}
-      </div>
-    </Container>
-  </div>
-</TherapistLayout>
-```
-
-### Why This Structure is Required
-- **Responsive Padding**: `p-4 md:p-6 lg:p-8` ensures proper scaling across devices
-- **Container Wrapper**: Provides max-width constraints and proper centering
-- **Content Spacing**: `space-y-6` maintains consistent vertical rhythm
-- **Prevents Issues**: Avoids the padding/scaling problems we fixed in ModerationTable
-
-### Common Violations (DO NOT DO)
-```tsx
-// ❌ WRONG: Missing responsive padding
-<AdminLayout>
-  <ModerationTable />  {/* No padding wrapper */}
-</AdminLayout>
-
-// ❌ WRONG: Missing Container wrapper  
-<TherapistLayout>
-  <div className="p-8">
-    <div className="space-y-6">  {/* No Container */}
-      {/* Content */}
-    </div>
-  </div>
-</TherapistLayout>
-
-// ❌ WRONG: Missing content spacing
-<AdminLayout>
-  <div className="p-4 md:p-6 lg:p-8">
-    <Container>
-      {/* Content without space-y-6 */}
-    </Container>
-  </div>
-</AdminLayout>
-```
 
 ### Layout Atoms (Required)
 **Use these components for consistent spacing and alignment:**
@@ -150,7 +78,7 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 - **Desktop**: Always visible, fixed width (256px)
 - **Mobile**: Collapsible with overlay, slides from left
 - **Animation**: Smooth 300ms ease-in-out transitions
-- **State management**: Controlled by TherapistLayout/AdminLayout components
+- **State management**: Controlled by DashboardLayout component
 
 ### Content Areas
 - **Main content**: Uses `overflow-auto`, `min-w-0`, and `w-full` for proper flex behavior
@@ -164,7 +92,7 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 
 ### Page Structure
 ```tsx
-<TherapistLayout>
+<DashboardLayout title="..." subtitle="...">
   <Stack className="space-y-6">
     {/* Action bar */}
     <HStack className="justify-end">
@@ -188,7 +116,7 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
       </CardContent>
     </Card>
   </Stack>
-</TherapistLayout>
+</DashboardLayout>
 ```
 
 ### Grid Layouts
@@ -223,7 +151,7 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 ## Performance Considerations
 
 ### Component Loading
-- **Lazy loading**: Layout components load efficiently
+- **Lazy loading**: DashboardLayout components load efficiently
 - **Bundle splitting**: Layout components in separate chunk
 - **Memoization**: Prevent unnecessary re-renders
 
@@ -244,17 +172,9 @@ import { Stack, HStack, Cluster } from "@/components/layout/layout-atoms";
 - ❌ Cards without `min-w-0 overflow-hidden`
 - ❌ Missing responsive padding on cards
 - ❌ Grid containers without `w-full min-w-0`
-- ❌ **Content without responsive padding wrapper** (`p-4 md:p-6 lg:p-8`)
-- ❌ **Content without Container wrapper**
-- ❌ **Content without proper spacing** (`space-y-6`)
-- ❌ **Direct component usage** without proper content structure
 
 ### Required Patterns
-- ✅ TherapistLayout component for all therapist pages
-- ✅ AdminLayout component for all admin pages
-- ✅ **Responsive padding wrapper** (`p-4 md:p-6 lg:p-8`) for all content
-- ✅ **Container wrapper** for all page content
-- ✅ **Content spacing** (`space-y-6`) for consistent vertical rhythm
+- ✅ DashboardLayout component for all dashboard pages
 - ✅ Layout atoms for consistent spacing
 - ✅ Responsive grid systems
 - ✅ Proper touch target sizes
