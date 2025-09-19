@@ -10,12 +10,15 @@ import { Link } from "react-router-dom";
 import { SocialLogin } from "@/components/auth/social-login";
 import { ForgotPasswordDialog } from "@/components/auth/forgot-password-dialog";
 import { AlertCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,8 +26,16 @@ export default function SignIn() {
     setError("");
     
     try {
-      // TODO: Implement sign in
-      console.log("Sign in:", { email, password });
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        setError(error.message);
+      } else {
+        navigate("/discover");
+      }
     } catch (err) {
       setError("Invalid email or password. Please try again.");
     } finally {

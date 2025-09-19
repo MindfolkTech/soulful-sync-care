@@ -3,12 +3,30 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { CookieConsent } from "@/components/legal/cookie-consent";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ImpersonationProvider } from "@/contexts/impersonation-context";
 import { GlobalImpersonationBar } from "@/components/admin/global-impersonation-bar";
 import ErrorBoundary from "@/components/util/ErrorBoundary";
+import { useAuth, AuthProvider } from "./context/AuthContext";
+
 // Simple auth guard component
-const AuthGuard = ({ children, requiredRole }: { children: React.ReactNode; requiredRole?: string }) => <>{children}</>;
+const AuthGuard = ({ children, requiredRole }: { children: React.ReactNode; requiredRole?: string }) => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div>Loading...</div>; // Or a proper spinner component
+  }
+
+  if (!user) {
+    return <Navigate to="/sign-in" />;
+  }
+
+  // TODO: Implement role checking
+  console.log(requiredRole);
+
+  return <>{children}</>;
+};
+
 // Pages
 import Index from "./pages/Index";
 import TherapistLanding from "./pages/TherapistLanding";
@@ -68,7 +86,7 @@ import SessionManagementDemo from "./pages/dev/SessionManagementDemo";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const AppContent = () => (
   <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
@@ -141,6 +159,12 @@ const App = () => (
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
+);
+
+const App = () => (
+  <AuthProvider>
+    <AppContent />
+  </AuthProvider>
 );
 
 export default App;

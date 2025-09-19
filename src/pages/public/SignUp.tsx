@@ -10,6 +10,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "react-router-dom";
 import { SocialLogin } from "@/components/auth/social-login";
 import { AlertCircle, Eye, EyeOff } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -29,6 +31,7 @@ export default function SignUp() {
   });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -63,8 +66,22 @@ export default function SignUp() {
         version: '2.0'
       }));
       
-      // TODO: Implement sign up
-      console.log("Sign up:", formData, consentPreferences);
+      const { error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+          },
+        },
+      });
+
+      if (error) {
+        setError(error.message);
+      } else {
+        navigate("/discover");
+      }
     } catch (err) {
       setError("Something went wrong. Please try again.");
     } finally {
