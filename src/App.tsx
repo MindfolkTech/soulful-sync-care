@@ -21,12 +21,13 @@ import TherapistLanding from "./pages/TherapistLanding";
 import NotFound from "./pages/NotFound";
 
 // Auth pages
-import RoleSelection from "./pages/auth/RoleSelection";
 import SSOCallback from "./pages/auth/SSOCallback";
 
 // Public pages
 import SignIn from "./pages/public/SignIn";
 import SignUp from "./pages/public/SignUp";
+import SignUpClient from "./pages/public/SignUpClient";
+import SignUpTherapist from "./pages/public/SignUpTherapist";
 import Terms from "./pages/public/Terms";
 import Privacy from "./pages/public/Privacy";
 
@@ -95,7 +96,8 @@ const App = () => (
           <Route path="/therapist" element={<TherapistLanding />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/select-role" element={<RoleSelection />} />
+          <Route path="/sign-up/client" element={<SignUpClient />} />
+          <Route path="/sign-up/therapist" element={<SignUpTherapist />} />
           <Route path="/sso-callback" element={<SSOCallback />} />
           <Route path="/legal/terms" element={<Terms />} />
           <Route path="/legal/privacy" element={<Privacy />} />
