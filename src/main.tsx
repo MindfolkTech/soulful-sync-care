@@ -13,6 +13,24 @@ if (typeof window !== 'undefined' && (window as any).__REACT_DEVTOOLS_GLOBAL_HOO
   (window as any).__REACT_DEVTOOLS_GLOBAL_HOOK__.connectToDevTools?.();
 }
 
-createRoot(document.getElementById("root")!).render(
-  <App />
-);
+// Error boundary wrapper
+function AppWithErrorBoundary() {
+  try {
+    return <App />;
+  } catch (error) {
+    console.log('App rendering error:', error);
+    return (
+      <div style={{ padding: '2rem', textAlign: 'center', fontFamily: 'system-ui' }}>
+        <h1>Loading...</h1>
+        <p>Starting your therapy platform...</p>
+      </div>
+    );
+  }
+}
+
+const root = document.getElementById("root");
+if (root) {
+  createRoot(root).render(<AppWithErrorBoundary />);
+} else {
+  console.error('Root element not found');
+}
