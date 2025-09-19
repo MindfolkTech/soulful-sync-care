@@ -1,0 +1,326 @@
+[33mcommit 87c7a373add08c65b6e9a7f789eafee54ba3358b[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Sep 19 22:13:57 2025 +0000
+
+    Fix preview issues
+
+[1mdiff --git a/vite.config.ts b/vite.config.ts[m
+[1mindex 9fbfdf6..16c8e6c 100644[m
+[1m--- a/vite.config.ts[m
+[1m+++ b/vite.config.ts[m
+[36m@@ -7,7 +7,7 @@[m [mimport { componentTagger } from "lovable-tagger";[m
+ export default defineConfig(({ mode }) => ({[m
+   server: {[m
+     host: "::",[m
+[31m-    port: 5173,[m
+[32m+[m[32m    port: 8080,[m
+   },[m
+   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),[m
+   resolve: {[m
+
+[33mcommit 739580a90934e6d7d7a4a6738599b084049e76e5[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Sep 19 22:08:46 2025 +0000
+
+    Fix port configuration and remove Firebase
+
+[1mdiff --git a/vite.config.ts b/vite.config.ts[m
+[1mindex 16c8e6c..9fbfdf6 100644[m
+[1m--- a/vite.config.ts[m
+[1m+++ b/vite.config.ts[m
+[36m@@ -7,7 +7,7 @@[m [mimport { componentTagger } from "lovable-tagger";[m
+ export default defineConfig(({ mode }) => ({[m
+   server: {[m
+     host: "::",[m
+[31m-    port: 8080,[m
+[32m+[m[32m    port: 5173,[m
+   },[m
+   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),[m
+   resolve: {[m
+
+[33mcommit f5de955ef4904c654ec23cb388fedb99107c43a0[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Sep 19 21:43:40 2025 +0000
+
+    Revert port change
+
+[1mdiff --git a/vite.config.ts b/vite.config.ts[m
+[1mindex 9fbfdf6..16c8e6c 100644[m
+[1m--- a/vite.config.ts[m
+[1m+++ b/vite.config.ts[m
+[36m@@ -7,7 +7,7 @@[m [mimport { componentTagger } from "lovable-tagger";[m
+ export default defineConfig(({ mode }) => ({[m
+   server: {[m
+     host: "::",[m
+[31m-    port: 5173,[m
+[32m+[m[32m    port: 8080,[m
+   },[m
+   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),[m
+   resolve: {[m
+
+[33mcommit 765cb698066e89bda127df24eb20f6d8a8f79335[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Sep 19 21:42:38 2025 +0000
+
+    Revert port change
+
+[1mdiff --git a/vite.config.ts b/vite.config.ts[m
+[1mindex 835c439..9fbfdf6 100644[m
+[1m--- a/vite.config.ts[m
+[1m+++ b/vite.config.ts[m
+[36m@@ -7,8 +7,7 @@[m [mimport { componentTagger } from "lovable-tagger";[m
+ export default defineConfig(({ mode }) => ({[m
+   server: {[m
+     host: "::",[m
+[31m-    port: 8080,[m
+[31m-    strictPort: false, // Allow Vite to find next available port if 8080 is taken[m
+[32m+[m[32m    port: 5173,[m
+   },[m
+   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),[m
+   resolve: {[m
+
+[33mcommit 66795c93fa6329927e4af9a37033e39fd2947f93[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Sep 19 21:30:56 2025 +0000
+
+    Implement Supabase plan
+
+[1mdiff --git a/vite.config.ts b/vite.config.ts[m
+[1mindex 5ba55e1..835c439 100644[m
+[1m--- a/vite.config.ts[m
+[1m+++ b/vite.config.ts[m
+[36m@@ -7,8 +7,8 @@[m [mimport { componentTagger } from "lovable-tagger";[m
+ export default defineConfig(({ mode }) => ({[m
+   server: {[m
+     host: "::",[m
+[31m-    port: 5173,[m
+[31m-    strictPort: false, // Allow Vite to find next available port if 5173 is taken[m
+[32m+[m[32m    port: 8080,[m
+[32m+[m[32m    strictPort: false, // Allow Vite to find next available port if 8080 is taken[m
+   },[m
+   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),[m
+   resolve: {[m
+
+[33mcommit 336c38ecc6dfa08171c5667b3bb05b5d586bb27f[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Sep 19 20:57:47 2025 +0000
+
+    Reverted to commit ce44f67b89fa4ca948792e5cd618d27da864b329
+
+[1mdiff --git a/vite.config.ts b/vite.config.ts[m
+[1mindex 835c439..5ba55e1 100644[m
+[1m--- a/vite.config.ts[m
+[1m+++ b/vite.config.ts[m
+[36m@@ -7,8 +7,8 @@[m [mimport { componentTagger } from "lovable-tagger";[m
+ export default defineConfig(({ mode }) => ({[m
+   server: {[m
+     host: "::",[m
+[31m-    port: 8080,[m
+[31m-    strictPort: false, // Allow Vite to find next available port if 8080 is taken[m
+[32m+[m[32m    port: 5173,[m
+[32m+[m[32m    strictPort: false, // Allow Vite to find next available port if 5173 is taken[m
+   },[m
+   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),[m
+   resolve: {[m
+
+[33mcommit 570d1acb6eef03663853d5bfc2722758061d7352[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Sep 19 19:40:50 2025 +0000
+
+    feat: Implement Clerk authentication
+
+[1mdiff --git a/vite.config.ts b/vite.config.ts[m
+[1mindex 5ba55e1..835c439 100644[m
+[1m--- a/vite.config.ts[m
+[1m+++ b/vite.config.ts[m
+[36m@@ -7,8 +7,8 @@[m [mimport { componentTagger } from "lovable-tagger";[m
+ export default defineConfig(({ mode }) => ({[m
+   server: {[m
+     host: "::",[m
+[31m-    port: 5173,[m
+[31m-    strictPort: false, // Allow Vite to find next available port if 5173 is taken[m
+[32m+[m[32m    port: 8080,[m
+[32m+[m[32m    strictPort: false, // Allow Vite to find next available port if 8080 is taken[m
+   },[m
+   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),[m
+   resolve: {[m
+
+[33mcommit 2a7e6a5fc9e712a4b7fb256bb56241116f95aed6[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Fri Sep 19 17:56:07 2025 +0000
+
+    Reverted to commit 4b15aa207eb8cb8254b64b99a08433384a0cbef2
+
+[1mdiff --git a/vite.config.ts b/vite.config.ts[m
+[1mindex 835c439..5ba55e1 100644[m
+[1m--- a/vite.config.ts[m
+[1m+++ b/vite.config.ts[m
+[36m@@ -7,8 +7,8 @@[m [mimport { componentTagger } from "lovable-tagger";[m
+ export default defineConfig(({ mode }) => ({[m
+   server: {[m
+     host: "::",[m
+[31m-    port: 8080,[m
+[31m-    strictPort: false, // Allow Vite to find next available port if 8080 is taken[m
+[32m+[m[32m    port: 5173,[m
+[32m+[m[32m    strictPort: false, // Allow Vite to find next available port if 5173 is taken[m
+   },[m
+   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),[m
+   resolve: {[m
+
+[33mcommit 50826b1aa95928c3eb98ed4a6b840dc8e457fe25[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Thu Sep 18 13:12:14 2025 +0000
+
+    Add Clerk publishable key
+
+[1mdiff --git a/vite.config.ts b/vite.config.ts[m
+[1mindex 5ba55e1..835c439 100644[m
+[1m--- a/vite.config.ts[m
+[1m+++ b/vite.config.ts[m
+[36m@@ -7,8 +7,8 @@[m [mimport { componentTagger } from "lovable-tagger";[m
+ export default defineConfig(({ mode }) => ({[m
+   server: {[m
+     host: "::",[m
+[31m-    port: 5173,[m
+[31m-    strictPort: false, // Allow Vite to find next available port if 5173 is taken[m
+[32m+[m[32m    port: 8080,[m
+[32m+[m[32m    strictPort: false, // Allow Vite to find next available port if 8080 is taken[m
+   },[m
+   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),[m
+   resolve: {[m
+
+[33mcommit 2e720bf0931a7f7148150ac4e0f7e92ab276a9c4[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Thu Sep 18 11:49:22 2025 +0000
+
+    Reverted to commit 4b15aa207eb8cb8254b64b99a08433384a0cbef2
+
+[1mdiff --git a/vite.config.ts b/vite.config.ts[m
+[1mindex 835c439..5ba55e1 100644[m
+[1m--- a/vite.config.ts[m
+[1m+++ b/vite.config.ts[m
+[36m@@ -7,8 +7,8 @@[m [mimport { componentTagger } from "lovable-tagger";[m
+ export default defineConfig(({ mode }) => ({[m
+   server: {[m
+     host: "::",[m
+[31m-    port: 8080,[m
+[31m-    strictPort: false, // Allow Vite to find next available port if 8080 is taken[m
+[32m+[m[32m    port: 5173,[m
+[32m+[m[32m    strictPort: false, // Allow Vite to find next available port if 5173 is taken[m
+   },[m
+   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),[m
+   resolve: {[m
+
+[33mcommit 0a4c593d7e61eb0974aa1fc9d8b9b97e18939740[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Thu Sep 18 11:40:11 2025 +0000
+
+    Add Clerk publishable key
+
+[1mdiff --git a/vite.config.ts b/vite.config.ts[m
+[1mindex 5ba55e1..835c439 100644[m
+[1m--- a/vite.config.ts[m
+[1m+++ b/vite.config.ts[m
+[36m@@ -7,8 +7,8 @@[m [mimport { componentTagger } from "lovable-tagger";[m
+ export default defineConfig(({ mode }) => ({[m
+   server: {[m
+     host: "::",[m
+[31m-    port: 5173,[m
+[31m-    strictPort: false, // Allow Vite to find next available port if 5173 is taken[m
+[32m+[m[32m    port: 8080,[m
+[32m+[m[32m    strictPort: false, // Allow Vite to find next available port if 8080 is taken[m
+   },[m
+   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),[m
+   resolve: {[m
+
+[33mcommit e5dd2e7f10c66e48112a32121c40da273bf30442[m
+Author: Caroline Stevenson <info@mindfolk.io>
+Date:   Wed Sep 17 17:55:31 2025 +0100
+
+    Update dependencies and enhance testing setup
+    
+    - Upgrade @radix-ui/react-dialog to version 1.1.15 and related dependencies for improved functionality.
+    - Add testing libraries: @testing-library/jest-dom, @testing-library/react, and @testing-library/user-event for enhanced testing capabilities.
+    - Introduce Vitest as the testing framework with new test scripts in package.json.
+    - Update Tailwind configuration to include new sidebar styles for improved UI consistency.
+    - Add session management demo page and session countdown features in the appointments component for better user experience.
+
+[1mdiff --git a/vite.config.ts b/vite.config.ts[m
+[1mindex 23f3906..5ba55e1 100644[m
+[1m--- a/vite.config.ts[m
+[1m+++ b/vite.config.ts[m
+[36m@@ -16,4 +16,15 @@[m [mexport default defineConfig(({ mode }) => ({[m
+       "@": path.resolve(__dirname, "./src"),[m
+     },[m
+   },[m
+[32m+[m[32m  optimizeDeps: {[m
+[32m+[m[32m    exclude: [[m
+[32m+[m[32m      '@playwright/test',[m
+[32m+[m[32m      'playwright-core',[m
+[32m+[m[32m      'chromium-bidi'[m
+[32m+[m[32m    ],[m
+[32m+[m[32m  },[m
+[32m+[m[32m  define: {[m
+[32m+[m[32m    // Exclude playwright from browser bundle[m
+[32m+[m[32m    'process.env.NODE_ENV': JSON.stringify(mode),[m
+[32m+[m[32m  },[m
+ }));[m
+
+[33mcommit 08ce6308b6db06ab4176d817225a56bc128eef3d[m
+Author: Caroline Stevenson <info@mindfolk.io>
+Date:   Wed Sep 17 13:39:32 2025 +0100
+
+    Enhance development tools and improve port detection for better usability
+    
+    - Implement a script to automatically connect to React DevTools on common ports (8097, 8098, 8099)
+    - Update package.json to set the default development port to 5173 and allow Vite to find the next available port if taken
+    - Modify Playwright configuration to use environment variable for base URL and increase server startup timeout
+    - Revise README and documentation to reflect new port detection features and development tools
+    - Remove outdated aesthetic analyzer and simple analyzer scripts, streamlining the analysis process
+    - Introduce smart port detection in screenshot capture and analysis scripts for improved flexibility
+
+[1mdiff --git a/vite.config.ts b/vite.config.ts[m
+[1mindex da25c6d..23f3906 100644[m
+[1m--- a/vite.config.ts[m
+[1m+++ b/vite.config.ts[m
+[36m@@ -7,7 +7,8 @@[m [mimport { componentTagger } from "lovable-tagger";[m
+ export default defineConfig(({ mode }) => ({[m
+   server: {[m
+     host: "::",[m
+[31m-    port: 8080,[m
+[32m+[m[32m    port: 5173,[m
+[32m+[m[32m    strictPort: false, // Allow Vite to find next available port if 5173 is taken[m
+   },[m
+   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),[m
+   resolve: {[m
+
+[33mcommit 20efbdbe9198f7378792a8d3d833e6749f3d964f[m
+Author: gpt-engineer-app[bot] <159125892+gpt-engineer-app[bot]@users.noreply.github.com>
+Date:   Sun Sep 14 18:26:17 2025 +0000
+
+    [skip lovable] Use tech stack vite_react_shadcn_ts_20250728_minor
+
+[1mdiff --git a/vite.config.ts b/vite.config.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..da25c6d[m
+[1m--- /dev/null[m
+[1m+++ b/vite.config.ts[m
+[36m@@ -0,0 +1,18 @@[m
+[32m+[m[32mimport { defineConfig } from "vite";[m
+[32m+[m[32mimport react from "@vitejs/plugin-react-swc";[m
+[32m+[m[32mimport path from "path";[m
+[32m+[m[32mimport { componentTagger } from "lovable-tagger";[m
+[32m+[m
+[32m+[m[32m// https://vitejs.dev/config/[m
+[32m+[m[32mexport default defineConfig(({ mode }) => ({[m
+[32m+[m[32m  server: {[m
+[32m+[m[32m    host: "::",[m
+[32m+[m[32m    port: 8080,[m
+[32m+[m[32m  },[m
+[32m+[m[32m  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),[m
+[32m+[m[32m  resolve: {[m
+[32m+[m[32m    alias: {[m
+[32m+[m[32m      "@": path.resolve(__dirname, "./src"),[m
+[32m+[m[32m    },[m
+[32m+[m[32m  },[m
+[32m+[m[32m}));[m
