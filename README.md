@@ -41,7 +41,7 @@ A beautiful, accessible web application for connecting clients with therapists t
 - **Styling**: Tailwind CSS + shadcn/ui components
 - **State**: TanStack Query + Zustand
 - **Auth**: Clerk with RBAC (client/therapist/admin/support)
-- **Backend**: Supabase (Database, Storage, Edge Functions, Realtime)
+- **Backend**: To be configured
 - **Video**: Daily.co (sessions) + Cloudflare Stream (profiles)
 - **Payments**: Stripe Connect + Billing
 - **Email/SMS**: Resend + Twilio
@@ -91,11 +91,11 @@ The personality-first matching system weighs:
 - **Testing**: 15/15 tests passing (unit + integration tests)
 - **Data Flow**: Assessment → localStorage → matching algorithm → ranked results
 
-### 🔄 Database Integration (When Supabase Connected)
+### 🔄 Database Integration (Future)
 The algorithm is ready for database integration. Current mock data will be replaced with:
-- **Therapist Data**: Query from `therapists` table
-- **Client Assessments**: Store in `client_assessments` table  
-- **Match Results**: Store in `match_results` table for analytics
+- **Therapist Data**: Query from backend database table
+- **Client Assessments**: Store in backend database table  
+- **Match Results**: Store for analytics
 
 See `src/lib/matching.ts` for detailed integration notes and schema requirements.
 

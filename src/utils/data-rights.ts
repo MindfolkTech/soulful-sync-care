@@ -208,7 +208,6 @@ export class DataRightsManager {
         marketingData: "Until consent withdrawn"
       },
       thirdParties: [
-        "Supabase (data storage)",
         "Stripe (payment processing)",
         "Daily.co (video sessions)",
         "Resend (email communications)"

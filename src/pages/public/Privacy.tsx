@@ -127,7 +127,6 @@ export default function Privacy() {
                   <div className="p-4 bg-background border rounded-lg">
                     <h3 className="font-primary font-semibold text-[hsl(var(--text-primary))] mb-2">Service Providers</h3>
                     <ul className="list-disc ml-6 space-y-1">
-                      <li><strong>Supabase:</strong> Data storage and backend services</li>
                       <li><strong>Stripe:</strong> Payment processing</li>
                       <li><strong>Daily.co:</strong> Video session technology</li>
                       <li><strong>Resend:</strong> Email communications</li>
