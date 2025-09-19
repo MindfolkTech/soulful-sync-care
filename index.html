@@ -45,9 +45,6 @@
     </script>
     <!-- Block problematic external services -->
     <script>
-      // Prevent Firebase initialization conflicts
-      window.__FIREBASE_DEFAULTS__ = null;
-      
       // Console error filtering to reduce noise during development
       const originalError = console.error;
       console.error = function(...args) {
