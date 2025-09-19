@@ -47,17 +47,39 @@
     <script>
       // Console error filtering to reduce noise during development
       const originalError = console.error;
+      const originalLog = console.log;
+      
       console.error = function(...args) {
         const message = args[0];
         if (typeof message === 'string' && (
           message.includes('Firebase') || 
           message.includes('net::ERR_BLOCKED_BY_CLIENT') ||
           message.includes('WebSocket connection') ||
-          message.includes('RS SDK')
+          message.includes('Permissions-Policy') ||
+          message.includes('RS SDK') ||
+          message.includes('plausible') ||
+          message.includes('facebook') ||
+          message.includes('tiktok')
         )) {
           return; // Suppress known external service errors
         }
         originalError.apply(console, args);
+      };
+
+      // Ensure our app logs are visible
+      console.log = function(...args) {
+        const message = args[0];
+        if (typeof message === 'string' && message.includes('AuthContext')) {
+          // Always show AuthContext logs with a prefix
+          originalLog('🔐', ...args);
+          return;
+        }
+        if (typeof message === 'string' && (message.includes('App:') || message.includes('AppContent:'))) {
+          // Always show App logs with a prefix  
+          originalLog('🚀', ...args);
+          return;
+        }
+        originalLog.apply(console, args);
       };
     </script>
     <script type="module" src="/src/main.tsx"></script>
