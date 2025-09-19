@@ -16,14 +16,22 @@ export function SocialLogin({ mode, role }: SocialLoginProps) {
   
   const handleGoogleSignIn = async () => {
     try {
+      console.log('Starting Google OAuth flow...', { mode, role });
+      
       const authMethod = mode === "signin" ? signIn : signUp;
-      if (!authMethod) return;
+      if (!authMethod) {
+        console.error('Auth method not available');
+        return;
+      }
       
       const redirectUrl = `${window.location.origin}/sso-callback`;
       const redirectUrlComplete = `${window.location.origin}/`;
       
+      console.log('OAuth redirect URLs:', { redirectUrl, redirectUrlComplete });
+      
       // Set role metadata for signup
       if (mode === "signup" && role) {
+        console.log('Signup with role metadata:', role);
         await authMethod.authenticateWithRedirect({
           strategy: "oauth_google",
           redirectUrl,
@@ -33,6 +41,7 @@ export function SocialLogin({ mode, role }: SocialLoginProps) {
           }
         });
       } else {
+        console.log('Standard OAuth flow');
         await authMethod.authenticateWithRedirect({
           strategy: "oauth_google",
           redirectUrl,
