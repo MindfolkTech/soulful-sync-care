@@ -8,9 +8,9 @@ const tagVariants = cva(
     variants: {
       variant: {
         personality: "bg-[hsl(var(--tag-personality-bg))] text-[hsl(var(--tag-personality-text))]",
-        modality: "bg-tag-modality text-tag-modality-foreground",
+        modality: "bg-[hsl(var(--tag-modality-bg))] text-[hsl(var(--tag-modality-text))]",
         specialty: "bg-[hsl(var(--tag-specialty-bg))] text-[hsl(var(--tag-specialty-text))]",
-        language: "bg-tag-language text-tag-language-foreground",
+        language: "bg-[hsl(var(--tag-language-bg))] text-[hsl(var(--tag-language-text))]",
         misc: "bg-[hsl(var(--tag-misc-bg))] text-[hsl(var(--tag-misc-text))]",
         default: "bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-primary))]",
       },

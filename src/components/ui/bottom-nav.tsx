@@ -1,48 +1,37 @@
-import * as React from "react";
-import { Link, useLocation } from "react-router-dom";
 import { Home, Heart, Calendar, User } from "lucide-react";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "/discover", icon: Home, label: "Home" },
-  { href: "/favorites", icon: Heart, label: "Favorites" },
-  { href: "/appointments", icon: Calendar, label: "Appointments" },
-  { href: "/account", icon: User, label: "Profile" },
+  { icon: Home, label: "Home", href: "/", active: true },
+  { icon: Heart, label: "Favorites", href: "/favorites" },
+  { icon: Calendar, label: "Appointments", href: "/appointments" },
+  { icon: User, label: "Profile", href: "/profile" },
 ];
 
 export function BottomNav() {
-  const location = useLocation();
-
   return (
-    <nav 
-      role="navigation" 
-      aria-label="Primary navigation"
-      className="fixed bottom-0 left-0 right-0 z-40 bg-surface border-t border-[hsl(var(--border))]"
-      style={{ height: "8vh" }}
+    <footer 
+      className="bg-surface"
+      style={{ height: '10vh' }}
     >
-      <div className="flex h-full">
-        {navItems.map(({ href, icon: Icon, label }) => {
-          const isActive = location.pathname === href;
-          return (
-            <Link
-              key={href}
-              to={href}
-              className={cn(
-                "flex-1 flex flex-col items-center justify-center gap-1 text-xs font-secondary transition-colors",
-                "min-h-touch-min focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-                isActive 
-                  ? "text-[hsl(var(--garden-green))]" 
-                  : "text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))]"
-              )}
-              aria-label={label}
-              aria-current={isActive ? "page" : undefined}
-            >
-              <Icon className="h-5 w-5" />
-              <span>{label}</span>
-            </Link>
-          );
-        })}
-      </div>
-    </nav>
+      <nav className="grid grid-cols-4 h-full max-w-lg mx-auto">
+        {navItems.map((item) => (
+          <a
+            key={item.label}
+            href={item.href}
+            className={cn(
+              "flex flex-col items-center justify-center text-xs font-medium h-full",
+              item.active ? "text-primary-garden-green" : "text-text-muted",
+              "hover:text-text-primary"
+            )}
+          >
+            <item.icon className="w-6 h-6 mb-1" />
+            <span className="text-xs font-medium">{item.label}</span>
+          </a>
+        ))}
+      </nav>
+    </footer>
   );
 }

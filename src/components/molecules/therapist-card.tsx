@@ -8,6 +8,12 @@ import { Cluster } from "@/components/ui/cluster";
 import { VideoPlayer } from "@/components/ui/video-player";
 import { cn } from "@/lib/utils";
 
+export interface MediaItem {
+  type: 'image' | 'video';
+  url: string;
+  poster?: string;
+}
+
 export interface TherapistData {
   id: string;
   name: string;
@@ -18,10 +24,11 @@ export interface TherapistData {
   rate: string;
   rating: number;
   quote: string;
-  image: string;
-  video_url?: string;
+  media: MediaItem[];
   location?: string;
   compatibility_score?: number;
+  years_experience?: string;
+  modalities?: string[];
 }
 
 interface TherapistCardProps {

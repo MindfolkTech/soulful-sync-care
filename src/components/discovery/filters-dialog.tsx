@@ -1,177 +1,128 @@
 import * as React from "react";
-import { Filter } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogFooter,
+  DialogDescription,
 } from "@/components/ui/dialog";
-import { Tag } from "@/components/ui/tag";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Slider } from "@/components/ui/slider";
 
 interface FiltersDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  trigger?: React.ReactNode;
+  // TODO: Add props for current filters and an onApplyFilters callback
 }
 
-const modalityOptions = ["CBT", "Psychodynamic", "Humanistic", "EMDR", "DBT"];
+// These options should eventually come from a central source or API
+const specialtyOptions = ["Anxiety", "Depression", "Trauma", "Relationships", "Work Stress", "Identity", "Grief", "ADHD"];
+const modalityOptions = ["CBT", "Psychodynamic", "Humanistic", "EMDR", "DBT", "Mindfulness-based"];
 const personalityOptions = ["Empathetic", "Structured", "Flexible", "Calm", "Direct", "Exploratory"];
-const specialtyOptions = ["Anxiety", "Depression", "Trauma", "Relationships", "Work Stress", "Identity"];
+const genderOptions = ["Male", "Female", "Non-binary", "No preference"];
+const experienceOptions = ["No preference", "Under 5 years", "5-10 years", "10+ years"];
 
-export function FiltersDialog({ open, onOpenChange, trigger }: FiltersDialogProps) {
-  const [selectedModality, setSelectedModality] = React.useState<string | null>(null);
-  const [selectedPersonality, setSelectedPersonality] = React.useState<string[]>([]);
-  const [selectedSpecialties, setSelectedSpecialties] = React.useState<string[]>([]);
+const FilterSection = ({ title, children }: { title: string, children: React.ReactNode }) => (
+  <div className="space-y-3">
+    <h3 className="font-primary font-semibold text-text-primary">{title}</h3>
+    {children}
+  </div>
+);
 
-  const handlePersonalityToggle = (personality: string) => {
-    if (selectedPersonality.includes(personality)) {
-      setSelectedPersonality(selectedPersonality.filter(p => p !== personality));
-    } else if (selectedPersonality.length < 3) {
-      setSelectedPersonality([...selectedPersonality, personality]);
-    }
-  };
+const CheckboxGroup = ({ options, selected, onToggle }: { options: string[], selected: string[], onToggle: (option: string) => void }) => (
+    <div className="grid grid-cols-2 gap-3">
+        {options.map(option => (
+            <div key={option} className="flex items-center space-x-2">
+                <Checkbox id={option} checked={selected.includes(option)} onCheckedChange={() => onToggle(option)} />
+                <Label htmlFor={option} className="font-secondary">{option}</Label>
+            </div>
+        ))}
+    </div>
+);
 
-  const handleSpecialtyToggle = (specialty: string) => {
-    if (selectedSpecialties.includes(specialty)) {
-      setSelectedSpecialties(selectedSpecialties.filter(s => s !== specialty));
-    } else if (selectedSpecialties.length < 3) {
-      setSelectedSpecialties([...selectedSpecialties, specialty]);
-    }
-  };
+
+export function FiltersDialog({ open, onOpenChange }: FiltersDialogProps) {
+    const [priceRange, setPriceRange] = React.useState([20, 150]);
+    const [therapistGender, setTherapistGender] = React.useState("No preference");
+    const [experience, setExperience] = React.useState("No preference");
+    const [specialties, setSpecialties] = React.useState<string[]>([]);
+    const [modalities, setModalities] = React.useState<string[]>([]);
+
+    const handleSpecialtyToggle = (specialty: string) => {
+        setSpecialties(prev => prev.includes(specialty) ? prev.filter(s => s !== specialty) : [...prev, specialty]);
+    };
+    
+    const handleModalityToggle = (modality: string) => {
+        setModalities(prev => prev.includes(modality) ? prev.filter(m => m !== modality) : [...prev, modality]);
+    };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle className="font-primary">Filter Therapists</DialogTitle>
+          <DialogTitle className="font-primary text-2xl">Filter Preferences</DialogTitle>
+          <DialogDescription>
+            Adjust your preferences to find the right therapist for you.
+          </DialogDescription>
         </DialogHeader>
         
-        <div className="space-y-6">
-          {/* Modality - Single Selection */}
-          <div>
-            <h3 className="font-primary font-semibold mb-2">Modality (select one)</h3>
-            <div className="flex flex-wrap gap-2">
-              {modalityOptions.map((modality) => (
-                <button
-                  key={modality}
-                  onClick={() => setSelectedModality(
-                    selectedModality === modality ? null : modality
-                  )}
-                  className={`${
-                    selectedModality === modality 
-                      ? "bg-tag-modality text-tag-modality-foreground" 
-                      : "bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-primary))] hover:bg-tag-modality hover:text-tag-modality-foreground"
-                  } px-3 py-1 text-sm rounded-pill transition-colors`}
-                >
-                  {modality}
-                </button>
-              ))}
-            </div>
-          </div>
+        <div className="space-y-6 py-4 max-h-[60vh] overflow-y-auto pr-4">
+            <FilterSection title="Therapy Goals (Specialties)">
+                <CheckboxGroup options={specialtyOptions} selected={specialties} onToggle={handleSpecialtyToggle} />
+            </FilterSection>
 
-          {/* Personality - Max 3 */}
-          <div>
-            <h3 className="font-primary font-semibold mb-2">
-              Personality (max 3) 
-              <span className="text-sm text-[hsl(var(--text-secondary))] ml-2">
-                {selectedPersonality.length}/3
-              </span>
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {personalityOptions.map((personality) => {
-                const isSelected = selectedPersonality.includes(personality);
-                const isDisabled = !isSelected && selectedPersonality.length >= 3;
-                
-                return (
-                  <button
-                    key={personality}
-                    onClick={() => handlePersonalityToggle(personality)}
-                    disabled={isDisabled}
-                    className={`${
-                      isSelected 
-                        ? "bg-[hsl(var(--tag-personality-bg))] text-[hsl(var(--tag-personality-text))]" 
-                        : isDisabled
-                          ? "bg-surface text-[hsl(var(--text-secondary))] cursor-not-allowed"
-                          : "bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--tag-personality-bg))] hover:text-[hsl(var(--tag-personality-text))]"
-                    } px-3 py-1 text-sm rounded-pill transition-colors`}
-                  >
-                    {personality}
-                  </button>
-                );
-              })}
-            </div>
-            {selectedPersonality.length >= 3 && (
-              <p className="text-sm text-[hsl(var(--text-secondary))] mt-2">
-                Maximum selections reached. Deselect to choose different options.
-              </p>
-            )}
-          </div>
+            <FilterSection title="Therapy Type (Modalities)">
+                <CheckboxGroup options={modalityOptions} selected={modalities} onToggle={handleModalityToggle} />
+            </FilterSection>
+            
+            <FilterSection title="Price Range per Session">
+                <Slider
+                    defaultValue={priceRange}
+                    max={250}
+                    step={10}
+                    onValueChange={setPriceRange}
+                />
+                <div className="flex justify-between font-secondary text-sm text-text-muted">
+                    <span>£{priceRange[0]}</span>
+                    <span>£{priceRange[1]}</span>
+                </div>
+            </FilterSection>
 
-          {/* Specialties - Max 3 */}
-          <div>
-            <h3 className="font-primary font-semibold mb-2">
-              Specialties (max 3)
-              <span className="text-sm text-[hsl(var(--text-secondary))] ml-2">
-                {selectedSpecialties.length}/3
-              </span>
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {specialtyOptions.map((specialty) => {
-                const isSelected = selectedSpecialties.includes(specialty);
-                const isDisabled = !isSelected && selectedSpecialties.length >= 3;
-                
-                return (
-                  <button
-                    key={specialty}
-                    onClick={() => handleSpecialtyToggle(specialty)}
-                    disabled={isDisabled}
-                    className={`${
-                      isSelected 
-                        ? "bg-[hsl(var(--tag-specialty-bg))] text-[hsl(var(--tag-specialty-text))]" 
-                        : isDisabled
-                          ? "bg-surface text-[hsl(var(--text-secondary))] cursor-not-allowed"
-                          : "bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--tag-specialty-bg))] hover:text-[hsl(var(--tag-specialty-text))]"
-                    } px-3 py-1 text-sm rounded-pill transition-colors`}
-                  >
-                    {specialty}
-                  </button>
-                );
-              })}
-            </div>
-            {selectedSpecialties.length >= 3 && (
-              <p className="text-sm text-[hsl(var(--text-secondary))] mt-2">
-                Maximum selections reached. Deselect to choose different options.
-              </p>
-            )}
-          </div>
+            <FilterSection title="Therapist Gender">
+                <RadioGroup value={therapistGender} onValueChange={setTherapistGender}>
+                    <div className="grid grid-cols-2 gap-3">
+                        {genderOptions.map(option => (
+                             <div key={option} className="flex items-center space-x-2">
+                                <RadioGroupItem value={option} id={option} />
+                                <Label htmlFor={option} className="font-secondary">{option}</Label>
+                            </div>
+                        ))}
+                    </div>
+                </RadioGroup>
+            </FilterSection>
+
+            <FilterSection title="Experience Level">
+                 <RadioGroup value={experience} onValueChange={setExperience}>
+                    <div className="space-y-2">
+                        {experienceOptions.map(option => (
+                             <div key={option} className="flex items-center space-x-2">
+                                <RadioGroupItem value={option} id={option} />
+                                <Label htmlFor={option} className="font-secondary">{option}</Label>
+                            </div>
+                        ))}
+                    </div>
+                </RadioGroup>
+            </FilterSection>
         </div>
 
-        <div className="flex gap-3 pt-4">
-          <Button 
-            variant="outline" 
-            onClick={() => onOpenChange(false)}
-            className="flex-1"
-          >
-            Cancel
-          </Button>
-          <Button 
-            onClick={() => {
-              // Apply filters logic here
-              console.log("Applying filters:", {
-                modality: selectedModality,
-                personality: selectedPersonality,
-                specialties: selectedSpecialties
-              });
-              onOpenChange(false);
-            }}
-            className="flex-1"
-          >
-            Save Filters
-          </Button>
-        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
+          <Button onClick={() => onOpenChange(false)}>Save Filters</Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

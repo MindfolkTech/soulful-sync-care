@@ -1,23 +1,21 @@
 import * as React from "react";
-import { Filter, RotateCcw } from "lucide-react";
-import { Header } from "@/components/layout/header";
+import { Filter, RotateCcw, ChevronLeft, ChevronRight } from "lucide-react";
 import { BottomNav } from "@/components/ui/bottom-nav";
 import { Button } from "@/components/ui/button";
 import { 
   Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
 } from "@/components/ui/dialog";
 import { TherapistCard, TherapistData } from "@/components/molecules/therapist-card";
 import { TherapistDetailsSheet } from "@/components/discovery/therapist-details-sheet";
 import { FiltersDialog } from "@/components/discovery/filters-dialog";
 import { VideoOverlay } from "@/components/discovery/video-overlay";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
-import { useSwipeGestures } from "@/hooks/use-swipe-gestures";
 import { useAriaLive } from "@/hooks/use-aria-live";
 import { findMatches, ClientAssessment, TherapistProfile, MatchResult } from "@/lib/matching";
 import { supabase } from "@/integrations/supabase/client";
+import { DesktopTherapistCard } from "@/components/discovery/desktop-therapist-card";
+import { DecisionButtons } from "@/components/discovery/decision-buttons";
+import { ReadyToConnectModal } from "@/components/discovery/ready-to-connect-modal";
 
 // Helper function to convert Supabase therapist profile to TherapistProfile format
 function convertSupabaseToTherapistProfile(supabaseProfile: any): TherapistProfile {
@@ -69,6 +67,18 @@ function convertSupabaseToClientAssessment(supabaseAssessment: any): ClientAsses
 
 // Convert match result to TherapistData for UI display
 function convertTherapistProfile(profile: TherapistProfile, matchResult: MatchResult, supabaseProfile: any): TherapistData {
+  const media = [];
+  if (supabaseProfile.avatar_url) {
+    media.push({ type: 'image', url: supabaseProfile.avatar_url });
+  } else {
+    // Fallback image
+    media.push({ type: 'image', url: '/images/therapist-white-female-40s.png' });
+  }
+  
+  // Add a mock video and a second image for demonstration purposes
+  media.push({ type: 'video', url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', poster: media[0].url });
+  media.push({ type: 'image', url: '/images/therapist-asian-male-40s.png' });
+
   return {
     id: profile.id,
     name: supabaseProfile.name || `Dr. ${profile.id}`,
@@ -79,10 +89,11 @@ function convertTherapistProfile(profile: TherapistProfile, matchResult: MatchRe
     rate: `£${profile.session_rates?.["60min"] || 100}/session`,
     rating: 4.8 + Math.random() * 0.2,
     quote: profile.bio?.substring(0, 120) + "..." || "I believe in creating a safe space where you can explore your authentic self.",
-    image: supabaseProfile.avatar_url || "/images/therapist-white-female-40s.png",
-    video_url: undefined, // Add video_url field if available in future
+    media: media,
     location: profile.location || "London, UK",
-    compatibility_score: Math.round(matchResult.compatibility_score)
+    compatibility_score: Math.round(matchResult.compatibility_score),
+    years_experience: profile.years_experience,
+    modalities: profile.modalities,
   };
 }
 
@@ -92,6 +103,7 @@ export default function Discover() {
   const [favorites, setFavorites] = React.useState<Set<string>>(new Set());
   const [detailsOpen, setDetailsOpen] = React.useState(false);
   const [videoOpen, setVideoOpen] = React.useState(false);
+  const [connectModalOpen, setConnectModalOpen] = React.useState(false);
   const [selectedTherapist, setSelectedTherapist] = React.useState<TherapistData | null>(null);
   const [filtersOpen, setFiltersOpen] = React.useState(false);
   const [matchedTherapists, setMatchedTherapists] = React.useState<TherapistData[]>([]);
@@ -167,6 +179,8 @@ export default function Discover() {
 
   const availableTherapists = matchedTherapists.filter(t => !viewedTherapists.has(t.id));
   const currentTherapist = availableTherapists[currentIndex];
+  const hasPrevious = currentIndex > 0;
+  const hasNext = currentIndex < availableTherapists.length - 1;
 
   const handleNext = React.useCallback(() => {
     if (currentIndex < availableTherapists.length - 1) {
@@ -183,23 +197,16 @@ export default function Discover() {
   const handlePass = React.useCallback((therapist: TherapistData) => {
     setViewedTherapists(prev => new Set([...prev, therapist.id]));
     announce(`Removed ${therapist.name}`);
-    
-    // Move to next card
-    if (currentIndex >= availableTherapists.length - 1) {
-      setCurrentIndex(Math.max(0, currentIndex - 1));
-    }
-  }, [currentIndex, availableTherapists.length, announce]);
+    handleNext();
+  }, [announce, handleNext]);
 
   const handleSave = React.useCallback((therapist: TherapistData) => {
     setFavorites(prev => new Set([...prev, therapist.id]));
     setViewedTherapists(prev => new Set([...prev, therapist.id]));
+    setSelectedTherapist(therapist);
+    setConnectModalOpen(true);
     announce(`Saved ${therapist.name} to favorites`);
-    
-    // Move to next card
-    if (currentIndex >= availableTherapists.length - 1) {
-      setCurrentIndex(Math.max(0, currentIndex - 1));
-    }
-  }, [currentIndex, availableTherapists.length, announce]);
+  }, [announce]);
 
   const handleShowDetails = React.useCallback((therapist: TherapistData) => {
     setSelectedTherapist(therapist);
@@ -215,11 +222,15 @@ export default function Discover() {
     console.log("Report therapist:", therapist.name);
     announce(`Reported ${therapist.name}`);
   }, [announce]);
+  
+  const handleConnectModalClose = (open: boolean) => {
+    setConnectModalOpen(open);
+    if (!open) {
+        handleNext();
+    }
+  }
 
-  const swipeRef = useSwipeGestures({
-    onSwipeLeft: () => currentTherapist && handlePass(currentTherapist),
-    onSwipeRight: () => currentTherapist && handleSave(currentTherapist),
-  }) as React.MutableRefObject<HTMLDivElement>;
+  const swipeRef = React.useRef<HTMLDivElement>(null);
 
   const handleCardKeyDown = React.useCallback((e: React.KeyboardEvent) => {
     if (!currentTherapist) return;
@@ -271,259 +282,109 @@ export default function Discover() {
 
   return (
     <div className="h-screen bg-warm-white flex flex-col overflow-hidden">
-      {/* Live region for announcements */}
-      <div aria-live="polite" className="sr-only" {...ariaLiveProps} />
-      {/* Header - 8% height */}
       <header 
         role="banner" 
         aria-label="Mindfolk"
-        className="sticky top-0 z-50 w-full border-b bg-surface/95 backdrop-blur"
-        style={{ height: "8vh" }}
+        className="bg-surface px-6 xl:px-8 flex justify-between items-center"
+        style={{ height: '10vh' }}
       >
-        <div className="flex h-full items-center justify-between px-6">
-          <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2">
             <div className="h-8 w-8 rounded-full bg-garden-green flex items-center justify-center">
-              <span className="text-[hsl(var(--on-dark))] font-primary font-bold text-lg">M</span>
+              <span className="text-on-dark font-primary font-bold text-lg">M</span>
             </div>
             <span className="font-primary font-bold text-xl text-text-primary">MindFolk</span>
-          </div>
-          
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={() => setFiltersOpen(true)}
-            aria-label="Open filters"
-            aria-pressed={filtersOpen}
-          >
-            <Filter className="w-4 h-4 mr-2" />
-            Filters
-          </Button>
         </div>
+        <Button 
+          variant="outline"
+          onClick={() => setFiltersOpen(true)}
+          aria-label="Open filters"
+          className="bg-surface border-2 border-border text-text-secondary rounded-lg px-4 py-2.5 font-semibold hover:bg-surface-accent"
+        >
+          <Filter className="w-4 h-4 mr-2" />
+          Filters
+        </Button>
       </header>
 
-      {/* Main Content - 84% height */}
       <main 
         role="main" 
-        aria-labelledby="discover-heading"
-        className="flex-1 relative"
-        style={{ height: "84vh" }}
+        className="flex-grow flex items-center justify-center relative"
+        style={{ height: 'calc(100vh - 10vh - 10vh)' }} // Full height minus header/footer
       >
-        <h1 id="discover-heading" className="sr-only">Discover therapists</h1>
-
-        {/* Mobile: Single Card View */}
+        {/* Mobile View */}
         <div className="block md:hidden h-full p-4">
           {currentTherapist ? (
-            <section role="region" aria-label="Therapist card deck">
-              <ul 
-                role="listbox" 
-                aria-orientation="horizontal" 
-                aria-live="polite"
-                className="h-full"
-              >
-                <li 
-                  role="option" 
-                  aria-selected="true"
-                  className="h-full"
-                >
-                  <div ref={swipeRef} className="h-full overflow-hidden">
-                    <TherapistCard
-                      therapist={currentTherapist}
-                      onPass={handlePass}
-                      onSave={handleSave}
-                      onShowDetails={handleShowDetails}
-                      onShowVideo={handleShowVideo}
-                      onKeyDown={handleCardKeyDown}
-                      className="h-full"
-                    />
-                  </div>
-                </li>
-              </ul>
-            </section>
+            <TherapistCard
+              therapist={currentTherapist}
+              onPass={handlePass}
+              onSave={handleSave}
+              onShowDetails={handleShowDetails}
+              onShowVideo={handleShowVideo}
+            />
           ) : (
             <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
-              <p className="font-secondary text-text-secondary text-lg">
-                No more matches — Adjust filters or browse all
-              </p>
-              <Button 
-                onClick={handleResetFilters}
-                variant="outline"
-                className="flex items-center gap-2"
-              >
-                <RotateCcw className="h-4 w-4" />
+              <p>No more matches.</p>
+              <Button onClick={handleResetFilters} variant="outline">
+                <RotateCcw className="h-4 w-4 mr-2" />
                 Reset & Browse All
               </Button>
             </div>
           )}
         </div>
 
-        {/* Tablet/Desktop: Split View */}
-        <div className="hidden md:grid md:grid-cols-[60%_40%] lg:grid-cols-[40%_60%] h-full">
-          {/* List Section */}
-          <section 
-            role="region" 
-            aria-label="Therapist list" 
-            aria-describedby="list-help"
-            className="border-r border-border overflow-y-auto p-4"
-          >
-            <p id="list-help" className="sr-only">
-              Use arrow keys to move; H to save, X to pass, Enter for details.
-            </p>
-            
-            {availableTherapists.length > 0 ? (
-              <ul role="listbox" aria-orientation="vertical" className="space-y-4">
-                {availableTherapists.map((therapist, index) => (
-                  <li 
-                    key={therapist.id}
-                    role="option" 
-                    aria-selected={index === currentIndex}
-                    className={`${index === currentIndex ? 'ring-2 ring-garden-green' : ''}`}
-                  >
-                    <div 
-                      className={`cursor-pointer ${index === currentIndex ? 'ring-2 ring-garden-green' : ''}`}
-                      onClick={() => setCurrentIndex(index)}
-                    >
-                      <TherapistCard
-                        therapist={therapist}
-                        onPass={handlePass}
-                        onSave={handleSave}
-                        onShowDetails={handleShowDetails}
-                        onShowVideo={handleShowVideo}
-                        showDetailsButton={false}
-                        showActionButtons={false}
-                      />
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
-                <p className="font-secondary text-text-secondary">
-                  No more matches — Adjust filters or browse all
-                </p>
-                <Button 
-                  onClick={handleResetFilters}
-                  variant="outline"
-                  className="flex items-center gap-2"
-                >
-                  <RotateCcw className="h-4 w-4" />
-                  Reset & Browse All
-                </Button>
-              </div>
-            )}
-          </section>
+        {/* Desktop View */}
+        <div className="hidden md:flex h-full w-full items-center justify-center relative px-8 py-12">
+           {currentTherapist ? (
+            <div className="relative w-full max-w-5xl">
+                <DesktopTherapistCard 
+                    therapist={currentTherapist} 
+                    onShowVideo={handleShowVideo}
+                />
+                <DecisionButtons 
+                    therapist={currentTherapist}
+                    onPass={handlePass}
+                    onSave={handleSave}
+                />
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
+              <p>No more matches.</p>
+              <Button onClick={handleResetFilters} variant="outline">
+                <RotateCcw className="h-4 w-4 mr-2" />
+                Reset & Browse All
+              </Button>
+            </div>
+          )}
 
-          {/* Detail Section */}
-          <aside 
-            role="region" 
-            aria-label="Therapist detail"
-            className="p-6 overflow-y-auto"
-          >
-            {currentTherapist ? (
-              <div className="space-y-6">
-                {/* Video Section */}
-                <div className="aspect-video rounded-lg overflow-hidden bg-surface-accent">
-                  {currentTherapist.video_url ? (
-                    <video
-                      className="w-full h-full object-cover"
-                      poster={currentTherapist.image}
-                      controls
-                      muted
-                      playsInline
-                      preload="metadata"
-                    >
-                      <source src={currentTherapist.video_url} type="video/mp4" />
-                      <track kind="captions" src="" label="English captions" default />
-                      Your browser does not support the video tag.
-                    </video>
-                  ) : (
-                    <img
-                      src={currentTherapist.image}
-                      alt={`${currentTherapist.name} profile`}
-                      className="w-full h-full object-cover"
-                    />
-                  )}
-                </div>
+          {hasPrevious && (
+            <Button size="icon" variant="ghost" onClick={handlePrevious} className="absolute left-8 h-14 w-14 rounded-full bg-surface/80 hover:bg-surface border" aria-label="Previous therapist">
+              <ChevronLeft className="h-7 w-7" />
+            </Button>
+          )}
 
-                {/* Details */}
-                <div className="space-y-4">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h2 className="font-primary text-2xl font-semibold text-text-primary">
-                        {currentTherapist.name}
-                      </h2>
-                      <p className="text-text-secondary font-secondary">{currentTherapist.title}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-semibold text-text-primary">{currentTherapist.rate}</p>
-                      <p className="text-sm text-text-secondary">per session</p>
-                    </div>
-                  </div>
-
-                  <blockquote className="font-secondary text-text-secondary italic border-l-4 border-surface-accent pl-4">
-                    "{currentTherapist.quote}"
-                  </blockquote>
-
-                  {/* Sticky Action Row */}
-                  <div className="sticky bottom-0 bg-surface border-t border-border p-4 -mx-6 flex gap-3">
-                    <Button 
-                      className="flex-1"
-                      onClick={() => {
-                        console.log("Book chemistry call for", currentTherapist.name);
-                      }}
-                    >
-                      Book Chemistry Call
-                    </Button>
-                    <Button 
-                      variant="outline"
-                      onClick={() => handleSave(currentTherapist)}
-                      className="flex-1"
-                    >
-                      Save to Favorites
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="flex items-center justify-center h-full text-center">
-                <p className="font-secondary text-text-secondary">
-                  Select a therapist from the list to view details
-                </p>
-              </div>
-            )}
-          </aside>
+          {hasNext && (
+            <Button size="icon" variant="ghost" onClick={handleNext} className="absolute right-8 h-14 w-14 rounded-full bg-surface/80 hover:bg-surface border" aria-label="Next therapist">
+              <ChevronRight className="h-7 w-7" />
+            </Button>
+          )}
         </div>
       </main>
 
-      {/* Bottom Navigation - 8% height */}
       <BottomNav />
 
-      {/* Mobile Details Sheet */}
-      <TherapistDetailsSheet
-        open={detailsOpen}
-        onOpenChange={setDetailsOpen}
-        therapist={selectedTherapist}
-        onSave={handleSave}
-        onReport={handleReport}
-      />
-
-      {/* Video Overlay */}
-      {selectedTherapist?.video_url && (
-        <VideoOverlay
-          open={videoOpen}
-          onOpenChange={setVideoOpen}
-          videoUrl={selectedTherapist.video_url}
-          posterUrl={selectedTherapist.image}
-          title={selectedTherapist.name}
+      {/* Modals and Sheets */}
+      <TherapistDetailsSheet open={detailsOpen} onOpenChange={setDetailsOpen} therapist={selectedTherapist} onSave={handleSave} onReport={handleReport} />
+      {selectedTherapist && videoOpen && (
+        <VideoOverlay 
+            open={videoOpen} 
+            onOpenChange={setVideoOpen} 
+            videoUrl={selectedTherapist.media.find(m => m.type === 'video')?.url || ""} 
+            posterUrl={selectedTherapist.media.find(m => m.type === 'video')?.poster}
+            title={selectedTherapist.name} 
         />
       )}
-
-      {/* Filters Dialog */}
-      <FiltersDialog
-        open={filtersOpen}
-        onOpenChange={setFiltersOpen}
-      />
-
-      {/* ARIA Live Region */}
+      <ReadyToConnectModal open={connectModalOpen} onOpenChange={handleConnectModalClose} therapist={selectedTherapist} />
+      <FiltersDialog open={filtersOpen} onOpenChange={setFiltersOpen} />
+      
       <div {...ariaLiveProps} />
     </div>
   );
