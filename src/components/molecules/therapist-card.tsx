@@ -1,13 +1,12 @@
 import * as React from "react";
-import { X, Heart, ChevronDown, Play } from "lucide-react";
+import { X, Heart, ChevronDown, Play, ChevronLeft, ChevronRight, BadgeCheck, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
-import { Stack } from "@/components/ui/stack";
-import { HStack } from "@/components/ui/hstack";
-import { Cluster } from "@/components/ui/cluster";
-import { VideoPlayer } from "@/components/ui/video-player";
 import { cn } from "@/lib/utils";
+import { MediaItem, TherapistData } from "@/components/molecules/therapist-card";
 
+// Re-defining TherapistData here temporarily to avoid circular dependencies
+// In a real app, this would be in a shared types file.
 export interface MediaItem {
   type: 'image' | 'video';
   url: string;
@@ -31,6 +30,86 @@ export interface TherapistData {
   modalities?: string[];
 }
 
+const MediaCarousel = ({ media, onShowVideo, therapistName, tags }: { media: MediaItem[], onShowVideo: () => void, therapistName: string, tags: {label: string, category: 'personality' | 'modality' | 'specialty' | 'language' | 'misc'}[] }) => {
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+    const currentMedia = media[currentIndex];
+
+    const handlePrevious = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setCurrentIndex((prev) => (prev === 0 ? media.length - 1 : prev - 1));
+    };
+
+    const handleNext = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setCurrentIndex((prev) => (prev === media.length - 1 ? 0 : prev + 1));
+    };
+
+    return (
+        <div className="relative aspect-[3/4] rounded-lg overflow-hidden group bg-surface-accent">
+            {/* Tag Overlays */}
+            <div className="absolute top-2 left-2 z-20 flex flex-wrap gap-2">
+                {tags.slice(0, 2).map(tag => (
+                    <Tag key={tag.label} category={tag.category} shape="pill" className="bg-black/50 text-white border-none">
+                        {tag.label}
+                    </Tag>
+                ))}
+            </div>
+
+            <div 
+                className="w-full h-full"
+                onClick={() => { if (currentMedia.type === 'video') onShowVideo()}}
+            >
+                {currentMedia.type === 'image' ? (
+                    <img src={currentMedia.url} alt={therapistName} className="w-full h-full object-cover" />
+                ) : (
+                    <video src={currentMedia.url} poster={currentMedia.poster} className="w-full h-full object-cover" />
+                )}
+            </div>
+            {currentMedia.type === 'video' && (
+                <div className="absolute inset-0 bg-ink-slate/30 flex items-center justify-center pointer-events-none">
+                    <div className="bg-ink-slate/60 rounded-full p-3">
+                        <Play className="h-6 w-6 text-on-dark" />
+                    </div>
+                </div>
+            )}
+             {media.length > 1 && (
+                <>
+                    <Button variant="ghost" size="icon" onClick={handlePrevious} className="absolute top-1/2 -translate-y-1/2 left-2 bg-surface/50 hover:bg-surface/80 h-8 w-8 rounded-full opacity-0 group-hover:opacity-100"><ChevronLeft className="h-5 w-5" /></Button>
+                    <Button variant="ghost" size="icon" onClick={handleNext} className="absolute top-1/2 -translate-y-1/2 right-2 bg-surface/50 hover:bg-surface/80 h-8 w-8 rounded-full opacity-0 group-hover:opacity-100"><ChevronRight className="h-5 w-5" /></Button>
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+                        {media.map((_, index) => <div key={index} className={`h-1.5 w-1.5 rounded-full ${currentIndex === index ? 'bg-white' : 'bg-white/50'}`} />)}
+                    </div>
+                </>
+            )}
+        </div>
+    );
+};
+
+const Credentials = () => (
+    <div className="space-y-1">
+        <div className="flex items-center gap-2"><BadgeCheck className="h-4 w-4 text-text-primary" /><span className="font-secondary text-xs text-text-primary">Accredited Therapist</span></div>
+        <div className="flex items-center gap-2"><BadgeCheck className="h-4 w-4 text-text-primary" /><span className="font-secondary text-xs text-text-primary">BACP Member</span></div>
+    </div>
+);
+
+const StarRating = ({ rating }: { rating: number }) => (
+    <div className="flex items-center">
+        {[...Array(5)].map((_, i) => (
+            <svg key={i} className={`w-4 h-4 ${i < Math.round(rating) ? 'text-yellow-400' : 'text-gray-300'}`} fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+            </svg>
+        ))}
+    </div>
+);
+
+const IdentityStatement = ({ icon, text }: { icon: React.ReactNode, text: string }) => (
+    <div className="flex items-center gap-2">
+        {icon}
+        <span className="font-secondary text-xs text-text-secondary">{text}</span>
+    </div>
+);
+
+
 interface TherapistCardProps {
   therapist: TherapistData;
   onPass: (therapist: TherapistData) => void;
@@ -38,197 +117,59 @@ interface TherapistCardProps {
   onShowDetails: (therapist: TherapistData) => void;
   onShowVideo?: (therapist: TherapistData) => void;
   className?: string;
-  showDetailsButton?: boolean;
-  showActionButtons?: boolean;
-  onKeyDown?: (e: React.KeyboardEvent) => void;
 }
 
 export function TherapistCard({ 
   therapist, 
   onPass, 
   onSave, 
-  onShowDetails, 
+  onShowDetails,
   onShowVideo,
   className,
-  showDetailsButton = true,
-  showActionButtons = true,
-  onKeyDown
 }: TherapistCardProps) {
-  
-  const handleMediaClick = () => {
-    if (therapist.video_url && onShowVideo) {
-      onShowVideo(therapist);
-    } else {
-      onShowDetails(therapist);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (onKeyDown) {
-      onKeyDown(e);
-    }
-  };
-
-  // Generate initials for fallback
-  const initials = therapist.name
-    .split(' ')
-    .map(n => n[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2);
-
+    const [isExpanded, setIsExpanded] = React.useState(false);
   return (
-    <article
-      role="article"
-      aria-labelledby={`therapist-name-${therapist.id}`}
-      aria-label={`Therapist card. Swipe left to pass, right to save. Press Enter to open video.`}
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
-      className={cn(
-        "relative w-full bg-surface rounded-lg shadow-sm border border-border overflow-hidden p-4 focus:outline-none focus-visible:outline-2 focus-visible:outline-[hsl(var(--ring))] focus-visible:outline-offset-2",
-        className
-      )}
+    <article 
+        className={cn("relative w-full h-full bg-surface rounded-2xl shadow-lg border border-border overflow-hidden flex flex-col cursor-pointer", className)}
+        onClick={() => onShowDetails(therapist)}
     >
-      <Stack spacing="sm">
-        {/* Personality/Identity Chips Row - Above Media per Style Guide */}
-        <Cluster spacing="xs">
-          {therapist.personality.slice(0, 2).map((trait) => (
-            <Tag key={trait} category="personality" size="sm">
-              {trait}
-            </Tag>
-          ))}
-          {therapist.specialties.slice(0, 1).map((specialty) => (
-            <Tag key={specialty} category="specialty" size="sm">
-              {specialty}
-            </Tag>
-          ))}
-        </Cluster>
-
-        {/* Portrait Media Area with Play Overlay */}
-        <div 
-          className="relative w-full aspect-[3/4] rounded-lg overflow-hidden bg-surface-accent cursor-pointer group"
-          onClick={handleMediaClick}
-        >
-          {/* Image or Video */}
-          {therapist.image ? (
-            <img
-              src={therapist.image}
-              alt={`${therapist.name} profile photo`}
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-          ) : therapist.video_url ? (
-            <VideoPlayer
-              src={therapist.video_url}
-              className="w-full h-full"
-              showControls={false}
-              onPlay={() => onShowVideo?.(therapist)}
-            />
-          ) : (
-            <div className="w-full h-full bg-gradient-to-br from-garden-green to-elated-emerald flex items-center justify-center">
-              <span className="text-[hsl(var(--on-dark))] font-primary font-bold text-4xl">
-                {initials}
-              </span>
+        <MediaCarousel 
+            media={therapist.media}
+            onShowVideo={() => onShowVideo?.(therapist)}
+            therapistName={therapist.name}
+            tags={[
+                ...therapist.personality.slice(0,1).map(p => ({ label: p, category: 'personality' as const })),
+                // Assuming communication style is part of personality for now
+                ...therapist.personality.slice(1,2).map(p => ({ label: p, category: 'personality' as const }))
+            ]}
+        />
+        
+        <div className="relative flex-1 flex flex-col p-3 space-y-2 overflow-hidden">
+            <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                    <BadgeCheck className="h-5 w-5 text-green-600 flex-shrink-0" />
+                    <h2 className="font-primary text-xl font-bold text-text-primary leading-tight">{therapist.name}</h2>
+                </div>
+                <p className="font-secondary text-base font-bold text-text-primary">{therapist.rate}</p>
             </div>
-          )}
 
-          {/* Corner action buttons for desktop/tablet */}
-          <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity md:opacity-100">
-            <Button
-              size="icon"
-              variant="outline"
-              onClick={(e) => {
-                e.stopPropagation();
-                onPass(therapist);
-              }}
-              className="h-8 w-8 rounded-full bg-surface/90 hover:bg-surface border-border backdrop-blur-sm"
-              aria-label="Pass"
-            >
-              <X className="h-4 w-4" />
-            </Button>
-            <Button
-              size="icon"
-              variant="outline"
-              onClick={(e) => {
-                e.stopPropagation();
-                onSave(therapist);
-              }}
-              className="h-8 w-8 rounded-full bg-surface/90 hover:bg-surface border-border backdrop-blur-sm"
-              aria-label="Save to favorites"
-            >
-              <Heart className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
+            <div className={cn("space-y-2 transition-all duration-300", isExpanded ? 'max-h-full' : 'max-h-[50px] overflow-hidden')}>
+                <div className="flex flex-wrap gap-2">
+                    {therapist.personality.slice(0, 3).map(p => <Tag key={p} category="personality" shape="rounded" size="sm">{p}</Tag>)}
+                </div>
+            </div>
 
-        {/* Info Stack */}
-        <Stack spacing="sm">
-          {/* Credentials + Price Row */}
-          <HStack justify="between" align="center">
-            <span className="text-sm font-secondary text-text-secondary">
-              {therapist.title}
-            </span>
-            <span className="font-semibold text-text-primary">
-              {therapist.rate}
-            </span>
-          </HStack>
-
-          {/* Name Row */}
-          <h2 
-            id={`therapist-name-${therapist.id}`}
-            className="font-primary text-xl font-semibold text-text-primary leading-tight"
-          >
-            {therapist.name}
-          </h2>
-
-          {/* Location + One-liner Row */}
-          <div className="text-sm text-text-secondary font-secondary w-full">
-            <p className="line-clamp-1 italic">"{therapist.quote}"</p>
-            {therapist.location && (
-              <p className="text-xs mt-1 text-text-muted">{therapist.location}</p>
-            )}
-          </div>
-        </Stack>
-
-        {/* Mobile Details Chevron */}
-        {showDetailsButton && (
-          <div className="flex justify-center md:hidden">
+            {/* Fade and Expand Button */}
+            <div 
+                className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-surface to-transparent"
+            />
             <button
-              onClick={() => onShowDetails(therapist)}
-              className="flex items-center gap-1 text-sm text-text-secondary hover:text-text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-md px-2 py-1"
-              aria-label="More details"
+                onClick={(e) => { e.stopPropagation(); onShowDetails(therapist); }}
+                className="absolute bottom-0 left-1/2 -translate-x-1/2 z-10"
             >
-              <span>More details</span>
-              <ChevronDown className="h-4 w-4" />
+                <ChevronDown className="h-5 w-5 text-text-muted" />
             </button>
-          </div>
-        )}
-
-        {/* Mobile Action Buttons - Only show on mobile and if enabled */}
-        {showActionButtons && (
-          <HStack justify="center" spacing="lg" className="md:hidden">
-            <Button
-              size="icon"
-              variant="outline"
-              onClick={() => onPass(therapist)}
-              className="rounded-full bg-surface hover:bg-surface-accent border-border h-14 w-14"
-              aria-label="Pass"
-            >
-              <X className="h-6 w-6" />
-            </Button>
-            
-            <Button
-              size="icon"
-              variant="outline"
-              onClick={() => onSave(therapist)}
-              className="rounded-full bg-surface hover:bg-surface-accent border-border h-14 w-14"
-              aria-label="Save to favorites"
-            >
-              <Heart className="h-6 w-6" />
-            </Button>
-          </HStack>
-        )}
-      </Stack>
+        </div>
     </article>
   );
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Play, Check, ChevronLeft, ChevronRight } from "lucide-react";
+import { Play, Check, ChevronLeft, ChevronRight, BadgeCheck } from "lucide-react";
 import { TherapistData } from "@/components/molecules/therapist-card";
 import { Tag } from "@/components/ui/tag";
 import { Button } from "@/components/ui/button";
@@ -99,11 +99,11 @@ const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) =>
 const Credentials = () => (
     <div className="space-y-2 pt-2">
         <div className="flex items-center gap-2">
-            <Check className="h-5 w-5 text-text-primary" />
+            <BadgeCheck className="h-5 w-5 text-text-primary" />
             <span className="font-secondary text-sm text-text-primary">Accredited Therapist</span>
         </div>
         <div className="flex items-center gap-2">
-            <Check className="h-5 w-5 text-text-primary" />
+            <BadgeCheck className="h-5 w-5 text-text-primary" />
             <span className="font-secondary text-sm text-text-primary">BACP Member</span>
         </div>
     </div>

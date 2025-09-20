@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Filter, RotateCcw, ChevronLeft, ChevronRight } from "lucide-react";
+import { Filter, RotateCcw, ChevronLeft, ChevronRight, X, Heart } from "lucide-react";
 import { BottomNav } from "@/components/ui/bottom-nav";
 import { Button } from "@/components/ui/button";
 import { 
@@ -16,6 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { DesktopTherapistCard } from "@/components/discovery/desktop-therapist-card";
 import { DecisionButtons } from "@/components/discovery/decision-buttons";
 import { ReadyToConnectModal } from "@/components/discovery/ready-to-connect-modal";
+import ErrorBoundary from "@/components/util/error-boundary";
 
 // Helper function to convert Supabase therapist profile to TherapistProfile format
 function convertSupabaseToTherapistProfile(supabaseProfile: any): TherapistProfile {
@@ -281,111 +282,156 @@ export default function Discover() {
   };
 
   return (
-    <div className="h-screen bg-warm-white flex flex-col overflow-hidden">
-      <header 
-        role="banner" 
-        aria-label="Mindfolk"
-        className="bg-surface px-6 xl:px-8 flex justify-between items-center"
-        style={{ height: '10vh' }}
-      >
-        <div className="flex items-center space-x-2">
-            <div className="h-8 w-8 rounded-full bg-garden-green flex items-center justify-center">
-              <span className="text-on-dark font-primary font-bold text-lg">M</span>
-            </div>
-            <span className="font-primary font-bold text-xl text-text-primary">MindFolk</span>
+    <ErrorBoundary>
+        <div className="h-screen bg-warm-white flex flex-col overflow-hidden">
+            <header 
+                role="banner" 
+                aria-label="Mindfolk"
+                className="bg-surface px-6 xl:px-8 flex justify-between items-center"
+                style={{ height: '10vh' }}
+            >
+                <div className="flex items-center space-x-2">
+                    <div className="h-8 w-8 rounded-full bg-garden-green flex items-center justify-center">
+                      <span className="text-on-dark font-primary font-bold text-lg">M</span>
+                    </div>
+                    <span className="font-primary font-bold text-xl text-text-primary">MindFolk</span>
+                </div>
+                <Button 
+                  variant="outline"
+                  onClick={() => setFiltersOpen(true)}
+                  aria-label="Open filters"
+                  className="bg-surface border-2 border-border text-text-secondary rounded-lg px-4 py-2.5 font-semibold hover:bg-surface-accent"
+                >
+                  <Filter className="w-4 h-4 mr-2" />
+                  Filters
+                </Button>
+            </header>
+
+            <main 
+                role="main" 
+                className="flex-grow flex items-center justify-center relative"
+                style={{ height: 'calc(100vh - 10vh - 10vh)' }}
+            >
+                <h1 id="discover-heading" className="sr-only">Discover therapists</h1>
+
+                {/* Mobile: Swipeable Card View */}
+                <div className="block md:hidden h-full p-4 flex flex-col items-center justify-center">
+                  {currentTherapist ? (
+                    <div className="w-full h-full flex flex-col gap-4">
+                        <div className="flex-grow">
+                            <TherapistCard
+                                therapist={currentTherapist}
+                                onPass={handlePass}
+                                onSave={handleSave}
+                                onShowDetails={handleShowDetails}
+                                onShowVideo={handleShowVideo}
+                            />
+                        </div>
+                        <div className="flex justify-center items-center gap-4">
+                            <Button
+                                size="icon"
+                                onClick={() => handlePass(currentTherapist)}
+                                className="h-16 w-16 rounded-full bg-[hsl(var(--btn-accent-bg))] text-[hsl(var(--btn-accent-text))] shadow-md"
+                                aria-label="Pass"
+                            >
+                                <X className="h-7 w-7" />
+                            </Button>
+                            <Button
+                                size="icon"
+                                onClick={() => handleSave(currentTherapist)}
+                                className="h-16 w-16 rounded-full bg-[hsl(var(--btn-primary-bg))] text-[hsl(var(--btn-primary-text))] shadow-md"
+                                aria-label="Save to favorites"
+                            >
+                                <Heart className="h-7 w-7" />
+                            </Button>
+                        </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
+                      <p>No more matches.</p>
+                      <Button onClick={handleResetFilters} variant="outline">
+                        <RotateCcw className="h-4 w-4 mr-2" />
+                        Reset & Browse All
+                      </Button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Tablet View */}
+                <div className="hidden md:flex lg:hidden h-full w-full items-center justify-center relative p-8">
+                    {currentTherapist ? (
+                        <div className="relative w-full max-w-md">
+                            <TherapistCard 
+                                therapist={currentTherapist}
+                                onPass={handlePass}
+                                onSave={handleSave}
+                                onShowDetails={handleShowDetails}
+                                onShowVideo={handleShowVideo}
+                            />
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
+                            <p>No more matches.</p>
+                        </div>
+                    )}
+                </div>
+
+                {/* Desktop View */}
+                <div className="hidden lg:flex h-full w-full items-center justify-center relative px-8 py-12">
+                   {currentTherapist ? (
+                    <div className="relative w-full max-w-5xl">
+                        <DesktopTherapistCard 
+                            therapist={currentTherapist} 
+                            onShowVideo={handleShowVideo}
+                        />
+                        <DecisionButtons 
+                            therapist={currentTherapist}
+                            onPass={handlePass}
+                            onSave={handleSave}
+                        />
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
+                      <p>No more matches.</p>
+                      <Button onClick={handleResetFilters} variant="outline">
+                        <RotateCcw className="h-4 w-4 mr-2" />
+                        Reset & Browse All
+                      </Button>
+                    </div>
+                  )}
+
+                  {hasPrevious && (
+                    <Button size="icon" variant="ghost" onClick={handlePrevious} className="absolute left-8 h-14 w-14 rounded-full bg-surface/80 hover:bg-surface border" aria-label="Previous therapist">
+                      <ChevronLeft className="h-7 w-7" />
+                    </Button>
+                  )}
+
+                  {hasNext && (
+                    <Button size="icon" variant="ghost" onClick={handleNext} className="absolute right-8 h-14 w-14 rounded-full bg-surface/80 hover:bg-surface border" aria-label="Next therapist">
+                      <ChevronRight className="h-7 w-7" />
+                    </Button>
+                  )}
+                </div>
+            </main>
+
+            <BottomNav />
+
+            {/* Modals and Sheets */}
+            <TherapistDetailsSheet open={detailsOpen} onOpenChange={setDetailsOpen} therapist={selectedTherapist} onSave={handleSave} onReport={handleReport} />
+            {selectedTherapist && videoOpen && (
+              <VideoOverlay 
+                  open={videoOpen} 
+                  onOpenChange={setVideoOpen} 
+                  videoUrl={selectedTherapist.media.find(m => m.type === 'video')?.url || ""} 
+                  posterUrl={selectedTherapist.media.find(m => m.type === 'video')?.poster}
+                  title={selectedTherapist.name} 
+              />
+            )}
+            <ReadyToConnectModal open={connectModalOpen} onOpenChange={handleConnectModalClose} therapist={selectedTherapist} />
+            <FiltersDialog open={filtersOpen} onOpenChange={setFiltersOpen} />
+            
+            <div {...ariaLiveProps} />
         </div>
-        <Button 
-          variant="outline"
-          onClick={() => setFiltersOpen(true)}
-          aria-label="Open filters"
-          className="bg-surface border-2 border-border text-text-secondary rounded-lg px-4 py-2.5 font-semibold hover:bg-surface-accent"
-        >
-          <Filter className="w-4 h-4 mr-2" />
-          Filters
-        </Button>
-      </header>
-
-      <main 
-        role="main" 
-        className="flex-grow flex items-center justify-center relative"
-        style={{ height: 'calc(100vh - 10vh - 10vh)' }} // Full height minus header/footer
-      >
-        {/* Mobile View */}
-        <div className="block md:hidden h-full p-4">
-          {currentTherapist ? (
-            <TherapistCard
-              therapist={currentTherapist}
-              onPass={handlePass}
-              onSave={handleSave}
-              onShowDetails={handleShowDetails}
-              onShowVideo={handleShowVideo}
-            />
-          ) : (
-            <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
-              <p>No more matches.</p>
-              <Button onClick={handleResetFilters} variant="outline">
-                <RotateCcw className="h-4 w-4 mr-2" />
-                Reset & Browse All
-              </Button>
-            </div>
-          )}
-        </div>
-
-        {/* Desktop View */}
-        <div className="hidden md:flex h-full w-full items-center justify-center relative px-8 py-12">
-           {currentTherapist ? (
-            <div className="relative w-full max-w-5xl">
-                <DesktopTherapistCard 
-                    therapist={currentTherapist} 
-                    onShowVideo={handleShowVideo}
-                />
-                <DecisionButtons 
-                    therapist={currentTherapist}
-                    onPass={handlePass}
-                    onSave={handleSave}
-                />
-            </div>
-          ) : (
-            <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
-              <p>No more matches.</p>
-              <Button onClick={handleResetFilters} variant="outline">
-                <RotateCcw className="h-4 w-4 mr-2" />
-                Reset & Browse All
-              </Button>
-            </div>
-          )}
-
-          {hasPrevious && (
-            <Button size="icon" variant="ghost" onClick={handlePrevious} className="absolute left-8 h-14 w-14 rounded-full bg-surface/80 hover:bg-surface border" aria-label="Previous therapist">
-              <ChevronLeft className="h-7 w-7" />
-            </Button>
-          )}
-
-          {hasNext && (
-            <Button size="icon" variant="ghost" onClick={handleNext} className="absolute right-8 h-14 w-14 rounded-full bg-surface/80 hover:bg-surface border" aria-label="Next therapist">
-              <ChevronRight className="h-7 w-7" />
-            </Button>
-          )}
-        </div>
-      </main>
-
-      <BottomNav />
-
-      {/* Modals and Sheets */}
-      <TherapistDetailsSheet open={detailsOpen} onOpenChange={setDetailsOpen} therapist={selectedTherapist} onSave={handleSave} onReport={handleReport} />
-      {selectedTherapist && videoOpen && (
-        <VideoOverlay 
-            open={videoOpen} 
-            onOpenChange={setVideoOpen} 
-            videoUrl={selectedTherapist.media.find(m => m.type === 'video')?.url || ""} 
-            posterUrl={selectedTherapist.media.find(m => m.type === 'video')?.poster}
-            title={selectedTherapist.name} 
-        />
-      )}
-      <ReadyToConnectModal open={connectModalOpen} onOpenChange={handleConnectModalClose} therapist={selectedTherapist} />
-      <FiltersDialog open={filtersOpen} onOpenChange={setFiltersOpen} />
-      
-      <div {...ariaLiveProps} />
-    </div>
+    </ErrorBoundary>
   );
 }
