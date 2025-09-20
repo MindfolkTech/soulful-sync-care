@@ -14,6 +14,75 @@ export type Database = {
   }
   public: {
     Tables: {
+      client_assessments: {
+        Row: {
+          age_group: string | null
+          budget_range: number[]
+          communication_preferences: string[]
+          created_at: string
+          crisis_support: boolean | null
+          cultural_considerations: string[] | null
+          gender_preferences: string[] | null
+          id: string
+          identity_preferences: string[]
+          language_preferences: string[]
+          preferred_times: string[]
+          previous_therapy: boolean | null
+          religious_preferences: string[] | null
+          session_frequency: string | null
+          session_length_preference: number | null
+          therapist_age_preference: string | null
+          therapy_goals: string[]
+          therapy_modalities: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          age_group?: string | null
+          budget_range?: number[]
+          communication_preferences?: string[]
+          created_at?: string
+          crisis_support?: boolean | null
+          cultural_considerations?: string[] | null
+          gender_preferences?: string[] | null
+          id?: string
+          identity_preferences?: string[]
+          language_preferences?: string[]
+          preferred_times?: string[]
+          previous_therapy?: boolean | null
+          religious_preferences?: string[] | null
+          session_frequency?: string | null
+          session_length_preference?: number | null
+          therapist_age_preference?: string | null
+          therapy_goals?: string[]
+          therapy_modalities?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          age_group?: string | null
+          budget_range?: number[]
+          communication_preferences?: string[]
+          created_at?: string
+          crisis_support?: boolean | null
+          cultural_considerations?: string[] | null
+          gender_preferences?: string[] | null
+          id?: string
+          identity_preferences?: string[]
+          language_preferences?: string[]
+          preferred_times?: string[]
+          previous_therapy?: boolean | null
+          religious_preferences?: string[] | null
+          session_frequency?: string | null
+          session_length_preference?: number | null
+          therapist_age_preference?: string | null
+          therapy_goals?: string[]
+          therapy_modalities?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -98,14 +167,19 @@ export type Database = {
       therapist_profiles: {
         Row: {
           accepts_new_clients: boolean
+          age_group: string | null
           application_id: string
           availability: Json
           avatar_url: string | null
           bio: string | null
           created_at: string
+          cultural_background: string[]
           experience_years: number | null
+          gender_identity: string | null
           id: string
+          identity_tags: string[]
           in_person_sessions: boolean
+          is_active: boolean
           languages: string[]
           license_number: string
           location_city: string | null
@@ -124,17 +198,23 @@ export type Database = {
           user_id: string
           verification_date: string | null
           verified: boolean
+          years_experience: string | null
         }
         Insert: {
           accepts_new_clients?: boolean
+          age_group?: string | null
           application_id: string
           availability?: Json
           avatar_url?: string | null
           bio?: string | null
           created_at?: string
+          cultural_background?: string[]
           experience_years?: number | null
+          gender_identity?: string | null
           id?: string
+          identity_tags?: string[]
           in_person_sessions?: boolean
+          is_active?: boolean
           languages?: string[]
           license_number: string
           location_city?: string | null
@@ -153,17 +233,23 @@ export type Database = {
           user_id: string
           verification_date?: string | null
           verified?: boolean
+          years_experience?: string | null
         }
         Update: {
           accepts_new_clients?: boolean
+          age_group?: string | null
           application_id?: string
           availability?: Json
           avatar_url?: string | null
           bio?: string | null
           created_at?: string
+          cultural_background?: string[]
           experience_years?: number | null
+          gender_identity?: string | null
           id?: string
+          identity_tags?: string[]
           in_person_sessions?: boolean
+          is_active?: boolean
           languages?: string[]
           license_number?: string
           location_city?: string | null
@@ -182,6 +268,7 @@ export type Database = {
           user_id?: string
           verification_date?: string | null
           verified?: boolean
+          years_experience?: string | null
         }
         Relationships: [
           {

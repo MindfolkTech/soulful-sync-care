@@ -16,24 +16,73 @@ import { VideoOverlay } from "@/components/discovery/video-overlay";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useSwipeGestures } from "@/hooks/use-swipe-gestures";
 import { useAriaLive } from "@/hooks/use-aria-live";
-import { findMatches, mockTherapists, ClientAssessment, TherapistProfile } from "@/lib/matching";
+import { findMatches, ClientAssessment, TherapistProfile, MatchResult } from "@/lib/matching";
+import { supabase } from "@/integrations/supabase/client";
 
-// Convert TherapistProfile to TherapistData for UI display
-function convertTherapistProfile(profile: TherapistProfile, matchResult: any): TherapistData {
+// Helper function to convert Supabase therapist profile to TherapistProfile format
+function convertSupabaseToTherapistProfile(supabaseProfile: any): TherapistProfile {
+  return {
+    id: supabaseProfile.id,
+    personality_tags: supabaseProfile.personality_tags || [],
+    languages: supabaseProfile.languages || [],
+    identity_tags: supabaseProfile.identity_tags || [],
+    specialties: supabaseProfile.specialties || [],
+    modalities: supabaseProfile.modalities || [],
+    gender_identity: supabaseProfile.gender_identity || '',
+    session_rates: typeof supabaseProfile.session_rates === 'object' 
+      ? supabaseProfile.session_rates 
+      : { "60min": 100 },
+    years_experience: supabaseProfile.years_experience || `${supabaseProfile.experience_years || 0}+ years`,
+    availability: typeof supabaseProfile.availability === 'object'
+      ? supabaseProfile.availability
+      : {},
+    age_group: supabaseProfile.age_group || '',
+    cultural_background: supabaseProfile.cultural_background || [],
+    is_verified: supabaseProfile.verified === true,
+    is_active: supabaseProfile.is_active !== false,
+    
+    // UI fields for backward compatibility
+    title: supabaseProfile.tagline || "Licensed Therapist",
+    bio: supabaseProfile.bio,
+    location: `${supabaseProfile.location_city || 'London'}, ${supabaseProfile.location_country || 'UK'}`,
+  };
+}
+
+// Helper function to convert Supabase assessment to ClientAssessment format  
+function convertSupabaseToClientAssessment(supabaseAssessment: any): ClientAssessment {
+  return {
+    communication_preferences: supabaseAssessment.communication_preferences || [],
+    language_preferences: supabaseAssessment.language_preferences || [],
+    identity_preferences: supabaseAssessment.identity_preferences || [],
+    therapy_goals: supabaseAssessment.therapy_goals || [],
+    therapy_modalities: supabaseAssessment.therapy_modalities || [],
+    budget_range: supabaseAssessment.budget_range || [0, 200],
+    age_group: supabaseAssessment.age_group || "25–34",
+    preferred_times: supabaseAssessment.preferred_times || [],
+    experience_preference: supabaseAssessment.experience_preference || "no preference",
+    cultural_identity: supabaseAssessment.cultural_considerations || [],
+    therapist_gender_preference: supabaseAssessment.gender_preferences?.[0],
+    prefers_similar_age: false,
+    prefers_cultural_background_match: false,
+  };
+}
+
+// Convert match result to TherapistData for UI display
+function convertTherapistProfile(profile: TherapistProfile, matchResult: MatchResult, supabaseProfile: any): TherapistData {
   return {
     id: profile.id,
-    name: `Dr. ${profile.id}`, // Mock name since TherapistProfile doesn't have name
-    title: "Clinical Psychologist", // Mock title
+    name: supabaseProfile.name || `Dr. ${profile.id}`,
+    title: profile.title || "Licensed Therapist",
     specialties: profile.specialties,
     personality: profile.personality_tags,
     languages: profile.languages,
-    rate: `£${Math.min(...Object.values(profile.session_rates))}/session`,
-    rating: 4.8, // Mock rating
-    quote: "I believe in creating a safe space where you can explore your authentic self.",
-    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face",
-    video_url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    location: "London, UK",
-    compatibility_score: matchResult.compatibility_score
+    rate: `£${profile.session_rates?.["60min"] || 100}/session`,
+    rating: 4.8 + Math.random() * 0.2,
+    quote: profile.bio?.substring(0, 120) + "..." || "I believe in creating a safe space where you can explore your authentic self.",
+    image: supabaseProfile.avatar_url || "/images/therapist-white-female-40s.png",
+    video_url: undefined, // Add video_url field if available in future
+    location: profile.location || "London, UK",
+    compatibility_score: Math.round(matchResult.compatibility_score)
   };
 }
 
@@ -51,24 +100,72 @@ export default function Discover() {
 
   // Load assessment data and run matching algorithm
   React.useEffect(() => {
-    const assessmentData = localStorage.getItem('assessmentData');
-    if (assessmentData) {
-      const { clientAssessment } = JSON.parse(assessmentData);
-      
-      // Run matching algorithm
-      const matches = findMatches(clientAssessment as ClientAssessment, mockTherapists);
-      
-      // Convert to UI format
-      const therapistData = matches.map(match => {
-        const profile = mockTherapists.find(t => t.id === match.therapist_id);
-        if (profile) {
-          return convertTherapistProfile(profile, match);
+    const loadTherapistData = async () => {
+      try {
+        // Fetch verified therapist profiles from Supabase
+        const { data: supabaseProfiles, error: profilesError } = await supabase
+          .from('therapist_profiles')
+          .select('*')
+          .eq('verified', true)
+          .eq('accepts_new_clients', true)
+          .eq('is_active', true);
+
+        if (profilesError) {
+          console.error('Error fetching therapist profiles:', profilesError);
+          return;
         }
-        return null;
-      }).filter(Boolean) as TherapistData[];
-      
-      setMatchedTherapists(therapistData);
-    }
+
+        // Fetch mock assessment data from Supabase
+        const { data: supabaseAssessment, error: assessmentError } = await supabase
+          .from('client_assessments')
+          .select('*')
+          .limit(1)
+          .maybeSingle();
+
+        if (assessmentError) {
+          console.error('Error fetching assessment:', assessmentError);
+        }
+
+        // Convert Supabase data to matching algorithm format
+        const therapistProfiles = (supabaseProfiles || []).map(convertSupabaseToTherapistProfile);
+        
+        if (supabaseAssessment && therapistProfiles.length > 0) {
+          // Use real assessment data
+          const assessment = convertSupabaseToClientAssessment(supabaseAssessment);
+          const matches = findMatches(assessment, therapistProfiles);
+          const therapistData = matches.map(match => {
+            const supabaseProfile = supabaseProfiles.find(p => p.id === match.therapist_id);
+            const profile = therapistProfiles.find(p => p.id === match.therapist_id);
+            return convertTherapistProfile(profile!, match, supabaseProfile);
+          });
+          setMatchedTherapists(therapistData);
+        } else if (therapistProfiles.length > 0) {
+          // Show all therapists without matching when no assessment data
+          const therapistData = therapistProfiles.map(profile => {
+            const supabaseProfile = supabaseProfiles.find(p => p.id === profile.id);
+            const mockMatchResult: MatchResult = {
+              therapist_id: profile.id,
+              compatibility_score: 80,
+              breakdown: {
+                personality_compatibility: 80,
+                identity_affirming: 80,
+                specialty_match: 80,
+                modality_preferences: 80,
+                availability_fit: 80
+              },
+              hard_filter_passed: true,
+              conditional_filters_passed: true
+            };
+            return convertTherapistProfile(profile, mockMatchResult, supabaseProfile);
+          });
+          setMatchedTherapists(therapistData);
+        }
+      } catch (error) {
+        console.error('Error loading therapist data:', error);
+      }
+    };
+
+    loadTherapistData();
   }, []);
 
   const availableTherapists = matchedTherapists.filter(t => !viewedTherapists.has(t.id));
