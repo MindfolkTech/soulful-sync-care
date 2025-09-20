@@ -102,13 +102,10 @@ export default function Discover() {
   React.useEffect(() => {
     const loadTherapistData = async () => {
       try {
-        // Fetch verified therapist profiles from Supabase
+        // Fetch verified therapist profiles from Supabase (using secure public view)
         const { data: supabaseProfiles, error: profilesError } = await supabase
-          .from('therapist_profiles')
-          .select('*')
-          .eq('verified', true)
-          .eq('accepts_new_clients', true)
-          .eq('is_active', true);
+          .from('therapist_profiles_public')
+          .select('*');
 
         if (profilesError) {
           console.error('Error fetching therapist profiles:', profilesError);

@@ -282,7 +282,81 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      therapist_profiles_public: {
+        Row: {
+          accepts_new_clients: boolean | null
+          age_group: string | null
+          availability: Json | null
+          avatar_url: string | null
+          bio: string | null
+          created_at: string | null
+          cultural_background: string[] | null
+          id: string | null
+          identity_tags: string[] | null
+          in_person_sessions: boolean | null
+          languages: string[] | null
+          modalities: string[] | null
+          name: string | null
+          online_sessions: boolean | null
+          personality_tags: string[] | null
+          session_focus: string[] | null
+          session_rates: Json | null
+          specialties: string[] | null
+          tagline: string | null
+          updated_at: string | null
+          verified: boolean | null
+          years_experience: string | null
+        }
+        Insert: {
+          accepts_new_clients?: boolean | null
+          age_group?: string | null
+          availability?: Json | null
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          cultural_background?: string[] | null
+          id?: string | null
+          identity_tags?: string[] | null
+          in_person_sessions?: boolean | null
+          languages?: string[] | null
+          modalities?: string[] | null
+          name?: string | null
+          online_sessions?: boolean | null
+          personality_tags?: string[] | null
+          session_focus?: string[] | null
+          session_rates?: Json | null
+          specialties?: string[] | null
+          tagline?: string | null
+          updated_at?: string | null
+          verified?: boolean | null
+          years_experience?: string | null
+        }
+        Update: {
+          accepts_new_clients?: boolean | null
+          age_group?: string | null
+          availability?: Json | null
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          cultural_background?: string[] | null
+          id?: string | null
+          identity_tags?: string[] | null
+          in_person_sessions?: boolean | null
+          languages?: string[] | null
+          modalities?: string[] | null
+          name?: string | null
+          online_sessions?: boolean | null
+          personality_tags?: string[] | null
+          session_focus?: string[] | null
+          session_rates?: Json | null
+          specialties?: string[] | null
+          tagline?: string | null
+          updated_at?: string | null
+          verified?: boolean | null
+          years_experience?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_current_user_role: {
