@@ -89,7 +89,10 @@ function convertTherapistProfile(profile: TherapistProfile, matchResult: MatchRe
     languages: profile.languages,
     rate: `£${profile.session_rates?.["60min"] || 100}/session`,
     rating: 4.8 + Math.random() * 0.2,
-    quote: profile.bio?.substring(0, 120) + "..." || "I believe in creating a safe space where you can explore your authentic self.",
+    quote: supabaseProfile.quote || 
+      (profile.bio ? 
+        profile.bio.length > 80 ? `${profile.bio.substring(0, 77)}...` : profile.bio 
+        : "I believe in creating a safe space where you can explore your authentic self."),
     media: media,
     location: profile.location || "London, UK",
     compatibility_score: Math.round(matchResult.compatibility_score),

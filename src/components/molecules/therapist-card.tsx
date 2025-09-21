@@ -188,9 +188,9 @@ export function TherapistCard({
                      </span>
                 </div>
                 
-                {/* Bio Quote - max ~120 characters for mobile readability */}
+                {/* Quote - max 80 characters for optimal mobile display */}
                 <p className="text-base italic text-text-secondary border-l-2 border-l-[hsl(var(--jovial-jade))] pl-3 font-secondary leading-relaxed">
-                    {therapist.quote.length > 120 ? `${therapist.quote.substring(0, 117)}...` : therapist.quote}
+                    {therapist.quote.length > 80 ? `${therapist.quote.substring(0, 77)}...` : therapist.quote}
                 </p>
                 
                 <div className="flex flex-wrap gap-2">

@@ -412,7 +412,7 @@ export default function TherapistOnboarding() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="quote">Client Quote (50-100 words)</Label>
+                      <Label htmlFor="quote">Client Quote (60-80 characters recommended)</Label>
                       <Textarea 
                         id="quote" 
                         placeholder="A warm, welcoming message for potential clients..."
@@ -421,7 +421,7 @@ export default function TherapistOnboarding() {
                         onChange={(e) => setProfileData({...profileData, quote: e.target.value})}
                       />
                       <p className="text-xs text-text-muted font-secondary">
-                        {profileData.quote.length}/100 characters
+                        {profileData.quote.length}/100 characters • {profileData.quote.length <= 80 ? '✓ Optimized for mobile' : 'Consider shortening for mobile display'}
                       </p>
                     </div>
 
