@@ -64,11 +64,11 @@ const MediaCarousel = ({ media, onShowVideo, therapistName, tags }: { media: Med
                 </div>
             )}
             
-            {/* Tags Overlay - Bottom of image */}
-            <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
-                <div className="flex flex-wrap gap-1 justify-start">
+            {/* Tags Overlay - Bottom of image - Enhanced contrast for personality focus */}
+            <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 via-black/60 to-transparent">
+                <div className="flex flex-wrap gap-1.5 justify-start">
                     {tags.map((tag, index) => (
-                        <Tag key={`${tag.category}-${tag.label}-${index}`} category={tag.category} size="sm" className="bg-white/20 text-white border-white/30 backdrop-blur-sm">
+                        <Tag key={`${tag.category}-${tag.label}-${index}`} category={tag.category} size="sm" className="bg-white/90 text-slate-900 border-white/30 backdrop-blur-sm font-medium shadow-sm">
                             {tag.label}
                         </Tag>
                     ))}
@@ -174,16 +174,10 @@ export function TherapistCard({
                         <h2 className="text-2xl font-bold text-text-primary font-primary leading-tight">{therapist.name}</h2>
                         <p className="text-sm text-text-muted mt-1 font-secondary">
                             {therapist.title}
-                            {therapist.specialties?.[0] && (
-                                <>
-                                    <span className="mx-1">•</span>
-                                    {therapist.specialties[0]} Specialist
-                                </>
-                            )}
                             {therapist.years_experience && (
                                 <>
                                     <span className="mx-1">•</span>
-                                    {therapist.years_experience}+ years
+                                    {therapist.years_experience}
                                 </>
                             )}
                         </p>
@@ -198,28 +192,28 @@ export function TherapistCard({
                     {therapist.quote.length > 80 ? `${therapist.quote.substring(0, 77)}...` : therapist.quote}
                 </p>
                 
-                {/* Credential Badges */}
-                <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1">
-                        <BadgeCheck className="h-4 w-4 text-[hsl(var(--jovial-jade))]" />
-                        <span className="font-secondary text-xs text-text-secondary">BACP</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                        <BadgeCheck className="h-4 w-4 text-[hsl(var(--jovial-jade))]" />
-                        <span className="font-secondary text-xs text-text-secondary">Accredited</span>
-                    </div>
-                    {therapist.rating && (
+                {/* Credential Badges & Testimonials */}
+                <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
                         <div className="flex items-center gap-1">
-                            <div className="flex">
-                                {[...Array(5)].map((_, i) => (
-                                    <svg key={i} className={`w-3 h-3 ${i < Math.round(therapist.rating) ? 'text-yellow-400' : 'text-gray-300'}`} fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                                    </svg>
-                                ))}
-                            </div>
-                            <span className="font-secondary text-xs text-text-secondary">{therapist.rating.toFixed(1)}</span>
+                            <BadgeCheck className="h-4 w-4 text-[hsl(var(--jovial-jade))]" />
+                            <span className="font-secondary text-xs text-text-secondary">BACP</span>
                         </div>
-                    )}
+                        <div className="flex items-center gap-1">
+                            <BadgeCheck className="h-4 w-4 text-[hsl(var(--jovial-jade))]" />
+                            <span className="font-secondary text-xs text-text-secondary">Accredited</span>
+                        </div>
+                    </div>
+                    {/* Testimonials count instead of star rating */}
+                    <button 
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onShowDetails(therapist);
+                        }}
+                        className="text-xs text-text-secondary hover:text-text-primary transition-colors font-secondary underline"
+                    >
+                        View 24 testimonials
+                    </button>
                 </div>
             </div>
             
