@@ -66,6 +66,12 @@ import ClientTasks from "./pages/client/Tasks";
 // Therapist pages
 import TherapistSignUp from "./pages/therapist/SignUp";
 import TherapistOnboarding from "./pages/therapist/Onboarding";
+import OnboardingWelcome from "./pages/therapist/onboarding/Welcome";
+import OnboardingCredentials from "./pages/therapist/onboarding/Credentials";
+import OnboardingApproach from "./pages/therapist/onboarding/Approach";
+import OnboardingProfile from "./pages/therapist/onboarding/Profile";
+import OnboardingVideo from "./pages/therapist/onboarding/Video";
+import OnboardingVerification from "./pages/therapist/onboarding/Verification";
 import TherapistProfile from "./pages/therapist/Profile";
 import TherapistAvailability from "./pages/therapist/Availability";
 import TherapistBookings from "./pages/therapist/Bookings";
@@ -116,6 +122,8 @@ const AppContent = () => {
               <Route path="/" element={<Index />} />
               <Route path="/therapist" element={<TherapistLanding />} />
               <Route path="/therapist/signup" element={<TherapistSignUp />} />
+              {/* Redirect old therapist onboarding URLs */}
+              <Route path="/therapist/onboarding/*" element={<Navigate to="/t/onboarding" replace />} />
               <Route path="/sign-in" element={<SignIn />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/legal/terms" element={<Terms />} />
@@ -135,7 +143,12 @@ const AppContent = () => {
               <Route path="/client/tasks" element={<AuthGuard><ClientTasks /></AuthGuard>} />
 
               {/* Therapist routes */}
-              <Route path="/t/onboarding" element={<AuthGuard requiredRole="therapist"><TherapistOnboarding /></AuthGuard>} />
+              <Route path="/t/onboarding" element={<AuthGuard requiredRole="therapist"><OnboardingWelcome /></AuthGuard>} />
+              <Route path="/t/onboarding/credentials" element={<AuthGuard requiredRole="therapist"><OnboardingCredentials /></AuthGuard>} />
+              <Route path="/t/onboarding/approach" element={<AuthGuard requiredRole="therapist"><OnboardingApproach /></AuthGuard>} />
+              <Route path="/t/onboarding/profile" element={<AuthGuard requiredRole="therapist"><OnboardingProfile /></AuthGuard>} />
+              <Route path="/t/onboarding/video" element={<AuthGuard requiredRole="therapist"><OnboardingVideo /></AuthGuard>} />
+              <Route path="/t/onboarding/verification" element={<AuthGuard requiredRole="therapist"><OnboardingVerification /></AuthGuard>} />
               <Route path="/t/profile" element={<AuthGuard requiredRole="therapist"><TherapistProfile /></AuthGuard>} />
               <Route path="/t/availability" element={<AuthGuard requiredRole="therapist"><TherapistAvailability /></AuthGuard>} />
               <Route path="/t/bookings" element={<AuthGuard requiredRole="therapist"><TherapistBookings /></AuthGuard>} />
