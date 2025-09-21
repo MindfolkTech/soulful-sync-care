@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from "react";
-import { TherapistData } from "@/components/discovery/therapist-card";
+import { TherapistData } from "@/components/molecules/therapist-card";
 
 interface UseKeyboardNavigationProps {
   therapists: TherapistData[];

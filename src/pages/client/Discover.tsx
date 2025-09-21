@@ -247,7 +247,7 @@ export default function Discover() {
         break;
       case 'Enter':
         e.preventDefault();
-        if (currentTherapist.video_url) {
+        if (currentTherapist.media?.find(m => m.type === 'video')) {
           handleShowVideo(currentTherapist);
         } else {
           handleShowDetails(currentTherapist);
@@ -255,7 +255,7 @@ export default function Discover() {
         break;
       case ' ':
         e.preventDefault();
-        if (currentTherapist.video_url) {
+        if (currentTherapist.media?.find(m => m.type === 'video')) {
           handleShowVideo(currentTherapist);
         } else {
           handleShowDetails(currentTherapist);
@@ -271,7 +271,7 @@ export default function Discover() {
     onPrevious: handlePrevious,
     onPass: handlePass,
     onSave: handleSave,
-    onShowDetails: currentTherapist?.video_url ? handleShowVideo : handleShowDetails,
+    onShowDetails: currentTherapist?.media?.find(m => m.type === 'video') ? handleShowVideo : handleShowDetails,
     onOpenFilters: () => setFiltersOpen(true),
   });
 

@@ -3,7 +3,7 @@ import { X, Heart, ChevronDown, Play, ChevronLeft, ChevronRight, BadgeCheck, Map
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
 import { cn } from "@/lib/utils";
-import { MediaItem, TherapistData } from "@/components/molecules/therapist-card";
+
 
 // Re-defining TherapistData here temporarily to avoid circular dependencies
 // In a real app, this would be in a shared types file.

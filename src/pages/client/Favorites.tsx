@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { TherapistCard, TherapistData } from "@/components/discovery/therapist-card";
+import { TherapistCard, TherapistData } from "@/components/molecules/therapist-card";
 import { TherapistDetailsSheet } from "@/components/discovery/therapist-details-sheet";
 import { VideoOverlay } from "@/components/discovery/video-overlay";
 import { useAriaLive } from "@/hooks/use-aria-live";
@@ -25,8 +25,16 @@ const mockFavorites: TherapistData[] = [
     rate: "£80/session",
     rating: 4.9,
     quote: "I believe in creating a safe space where you can explore your authentic self.",
-    image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face",
-    video_url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    media: [
+      { 
+        type: 'image' as const, 
+        url: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face" 
+      },
+      { 
+        type: 'video' as const, 
+        url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" 
+      }
+    ],
     location: "London, UK"
   },
   {
@@ -39,7 +47,12 @@ const mockFavorites: TherapistData[] = [
     rate: "£70/session", 
     rating: 4.8,
     quote: "Together, we'll find practical solutions that work for your unique situation.",
-    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face",
+    media: [
+      { 
+        type: 'image' as const, 
+        url: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face" 
+      }
+    ],
     location: "Manchester, UK"
   },
   {
@@ -52,7 +65,12 @@ const mockFavorites: TherapistData[] = [
     rate: "£85/session",
     rating: 4.9,
     quote: "Your cultural identity is a strength in your healing journey.",
-    image: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=400&fit=crop&crop=face",
+    media: [
+      { 
+        type: 'image' as const, 
+        url: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=400&fit=crop&crop=face" 
+      }
+    ],
     location: "Birmingham, UK"
   }
 ];
@@ -213,7 +231,7 @@ export default function Favorites() {
                       {/* Therapist Image */}
                       <div className="w-20 h-20 rounded-lg overflow-hidden bg-surface-accent flex-shrink-0">
                         <img
-                          src={therapist.image}
+                          src={therapist.media.find(m => m.type === 'image')?.url || ''}
                           alt={`${therapist.name} profile`}
                           className="w-full h-full object-cover"
                         />
@@ -274,11 +292,11 @@ export default function Favorites() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => therapist.video_url ? handleShowVideo(therapist) : handleShowDetails(therapist)}
+                            onClick={() => therapist.media?.find(m => m.type === 'video') ? handleShowVideo(therapist) : handleShowDetails(therapist)}
                             className="min-h-[--touch-target-min] text-[hsl(var(--garden-green))]"
-                            aria-label={therapist.video_url ? `Watch introduction video from ${therapist.name}` : `View ${therapist.name}'s full profile`}
+                            aria-label={therapist.media?.find(m => m.type === 'video') ? `Watch introduction video from ${therapist.name}` : `View ${therapist.name}'s full profile`}
                           >
-                            {therapist.video_url ? "📹" : "👁️"}
+                            {therapist.media?.find(m => m.type === 'video') ? "📹" : "👁️"}
                           </Button>
                         </div>
                       </div>
@@ -319,12 +337,12 @@ export default function Favorites() {
       />
 
       {/* Video Overlay */}
-      {selectedTherapist?.video_url && (
+      {selectedTherapist?.media?.find(m => m.type === 'video') && (
         <VideoOverlay
           open={videoOpen}
           onOpenChange={setVideoOpen}
-          videoUrl={selectedTherapist.video_url}
-          posterUrl={selectedTherapist.image}
+          videoUrl={selectedTherapist.media.find(m => m.type === 'video')?.url || ''}
+          posterUrl={selectedTherapist.media.find(m => m.type === 'image')?.url}
           title={selectedTherapist.name}
         />
       )}
