@@ -68,7 +68,7 @@ const MediaCarousel = ({ media, onShowVideo, therapistName, tags }: { media: Med
             <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 via-black/60 to-transparent">
                 <div className="flex flex-wrap gap-1.5 justify-start">
                     {tags.map((tag, index) => (
-                        <Tag key={`${tag.category}-${tag.label}-${index}`} category={tag.category} size="sm" className="bg-white/90 text-slate-900 border-white/30 backdrop-blur-sm font-medium shadow-sm">
+                        <Tag key={`${tag.category}-${tag.label}-${index}`} category={tag.category} size="sm" className="bg-[hsl(var(--tag-personality-bg)/0.9)] text-[hsl(var(--tag-personality-text))] border-[hsl(var(--tag-personality-bg)/0.3)] backdrop-blur-sm font-medium shadow-sm">
                             {tag.label}
                         </Tag>
                     ))}
