@@ -147,8 +147,7 @@ export function TherapistCard({
               onShowVideo={() => onShowVideo?.(therapist)}
               therapistName={therapist.name}
               tags={[
-                  ...therapist.personality.slice(0,2).map(p => ({ label: p, category: 'personality' as const })),
-                  ...therapist.specialties.slice(0,1).map(s => ({ label: s, category: 'specialty' as const }))
+                  ...therapist.personality.slice(0,3).map(p => ({ label: p, category: 'personality' as const }))
               ]}
           />
           {/* Progress indicators for media carousel */}
@@ -175,10 +174,16 @@ export function TherapistCard({
                         <h2 className="text-2xl font-bold text-text-primary font-primary leading-tight">{therapist.name}</h2>
                         <p className="text-sm text-text-muted mt-1 font-secondary">
                             {therapist.title}
+                            {therapist.specialties?.[0] && (
+                                <>
+                                    <span className="mx-1">•</span>
+                                    {therapist.specialties[0]} Specialist
+                                </>
+                            )}
                             {therapist.years_experience && (
                                 <>
                                     <span className="mx-1">•</span>
-                                    {therapist.years_experience}
+                                    {therapist.years_experience}+ years
                                 </>
                             )}
                         </p>
@@ -193,13 +198,28 @@ export function TherapistCard({
                     {therapist.quote.length > 80 ? `${therapist.quote.substring(0, 77)}...` : therapist.quote}
                 </p>
                 
-                <div className="flex flex-wrap gap-2">
-                   {therapist.specialties.slice(0, 1).map(specialty => (
-                     <Tag key={specialty} category="specialty" size="sm" shape="pill">{specialty}</Tag>
-                   ))}
-                   {therapist.modalities?.slice(0, 1).map(modality => (
-                     <Tag key={modality} category="modality" size="sm" shape="pill">{modality}</Tag>
-                   ))}
+                {/* Credential Badges */}
+                <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1">
+                        <BadgeCheck className="h-4 w-4 text-[hsl(var(--jovial-jade))]" />
+                        <span className="font-secondary text-xs text-text-secondary">BACP</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                        <BadgeCheck className="h-4 w-4 text-[hsl(var(--jovial-jade))]" />
+                        <span className="font-secondary text-xs text-text-secondary">Accredited</span>
+                    </div>
+                    {therapist.rating && (
+                        <div className="flex items-center gap-1">
+                            <div className="flex">
+                                {[...Array(5)].map((_, i) => (
+                                    <svg key={i} className={`w-3 h-3 ${i < Math.round(therapist.rating) ? 'text-yellow-400' : 'text-gray-300'}`} fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                                    </svg>
+                                ))}
+                            </div>
+                            <span className="font-secondary text-xs text-text-secondary">{therapist.rating.toFixed(1)}</span>
+                        </div>
+                    )}
                 </div>
             </div>
             
