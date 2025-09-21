@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Plus, Trash2 } from "lucide-react";
+import { useScrollToHash } from "@/hooks/use-scroll-to-hash";
 
 const weekDays = [
   "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
@@ -18,6 +19,7 @@ const timeSlots = [
 
 export default function TherapistAvailability() {
   const { open, setOpen, dismiss } = useCoachHint({ stepId: "availability" });
+  useScrollToHash();
   return (
     <TherapistLayout>
       <div className="p-8">
@@ -28,7 +30,7 @@ export default function TherapistAvailability() {
               <p className="font-secondary text-[hsl(var(--text-secondary))]">Set your working hours and availability</p>
             </div>
             <div className="space-y-8">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between" id="focus-availability">
               <div>
                 <h1 className="font-primary text-3xl font-bold text-[hsl(var(--text-primary))]">
                   Availability

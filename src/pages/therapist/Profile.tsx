@@ -13,9 +13,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useCoachHint } from "@/hooks/use-coach-hint";
 import { Edit, Upload, Eye, Play } from "lucide-react";
+import { useScrollToHash } from "@/hooks/use-scroll-to-hash";
 
 export default function TherapistProfile() {
   const headshotHint = useCoachHint({ stepId: "profile" });
+  useScrollToHash();
   return (
     <TherapistLayout>
       <div className="p-8">
@@ -32,7 +34,7 @@ export default function TherapistProfile() {
             <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Profile Overview</CardTitle>
           </CardHeader>
           <CardContent className="p-4 md:p-5 lg:p-6">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6" id="focus-profile">
               {/* Profile Photo Section */}
               <div className="space-y-4">
                 <Avatar className="w-32 h-32 mx-auto lg:mx-0">
@@ -201,7 +203,7 @@ export default function TherapistProfile() {
         </Card>
 
         {/* Session Settings */}
-        <Card>
+        <Card id="focus-rates">
           <CardHeader>
             <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Session Settings</CardTitle>
           </CardHeader>

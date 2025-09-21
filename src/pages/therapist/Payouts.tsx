@@ -22,10 +22,12 @@ import {
   BarChart3,
   Settings
 } from "lucide-react";
+import { useScrollToHash } from "@/hooks/use-scroll-to-hash";
 
 export default function TherapistPayouts() {
   const payoutsHint = useCoachHint({ stepId: "payouts" });
   const [selectedPeriod, setSelectedPeriod] = useState("current");
+  useScrollToHash();
   
   // Mock earnings data
   const earnings = {
@@ -245,7 +247,7 @@ export default function TherapistPayouts() {
                 <TooltipProvider>
                   <Tooltip open={payoutsHint.open} onOpenChange={payoutsHint.setOpen}>
                     <TooltipTrigger asChild>
-                      <Button className="w-full" onClick={payoutsHint.dismiss}>
+                      <Button className="w-full" onClick={payoutsHint.dismiss} id="connect">
                         <DollarSign className="h-4 w-4 mr-2" />
                         Connect payouts to get paid
                       </Button>
