@@ -45,18 +45,9 @@ const MediaCarousel = ({ media, onShowVideo, therapistName, tags }: { media: Med
     };
 
     return (
-        <div className="relative aspect-[3/4] rounded-lg overflow-hidden group bg-surface-accent">
-            {/* Tag Overlays */}
-            <div className="absolute top-2 left-2 z-20 flex flex-wrap gap-2">
-                {tags.slice(0, 2).map(tag => (
-                    <Tag key={tag.label} category={tag.category} shape="pill" className="bg-black/50 text-white border-none">
-                        {tag.label}
-                    </Tag>
-                ))}
-            </div>
-
+        <div className="relative w-full h-full group bg-surface-accent">
             <div 
-                className="w-full h-full"
+                className="w-full h-full cursor-pointer"
                 onClick={() => { if (currentMedia.type === 'video') onShowVideo()}}
             >
                 {currentMedia.type === 'image' ? (
@@ -76,9 +67,6 @@ const MediaCarousel = ({ media, onShowVideo, therapistName, tags }: { media: Med
                 <>
                     <Button variant="ghost" size="icon" onClick={handlePrevious} className="absolute top-1/2 -translate-y-1/2 left-2 bg-surface/50 hover:bg-surface/80 h-8 w-8 rounded-full opacity-0 group-hover:opacity-100"><ChevronLeft className="h-5 w-5" /></Button>
                     <Button variant="ghost" size="icon" onClick={handleNext} className="absolute top-1/2 -translate-y-1/2 right-2 bg-surface/50 hover:bg-surface/80 h-8 w-8 rounded-full opacity-0 group-hover:opacity-100"><ChevronRight className="h-5 w-5" /></Button>
-                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
-                        {media.map((_, index) => <div key={index} className={`h-1.5 w-1.5 rounded-full ${currentIndex === index ? 'bg-white' : 'bg-white/50'}`} />)}
-                    </div>
                 </>
             )}
         </div>
@@ -128,47 +116,89 @@ export function TherapistCard({
   className,
 }: TherapistCardProps) {
     const [isExpanded, setIsExpanded] = React.useState(false);
+  
   return (
     <article 
-        className={cn("relative w-full h-full bg-surface rounded-2xl shadow-lg border border-border overflow-hidden flex flex-col cursor-pointer", className)}
-        onClick={() => onShowDetails(therapist)}
+        className={cn("relative w-full h-full bg-surface rounded-2xl shadow-lg overflow-hidden flex flex-col", className)}
     >
-        <MediaCarousel 
-            media={therapist.media}
-            onShowVideo={() => onShowVideo?.(therapist)}
-            therapistName={therapist.name}
-            tags={[
-                ...therapist.personality.slice(0,1).map(p => ({ label: p, category: 'personality' as const })),
-                // Assuming communication style is part of personality for now
-                ...therapist.personality.slice(1,2).map(p => ({ label: p, category: 'personality' as const }))
-            ]}
-        />
+        {/* Media Section - 55% height */}
+        <div className="relative h-[55%] w-full" onClick={() => {
+          const videoMedia = therapist.media.find(m => m.type === 'video');
+          if (videoMedia) {
+            onShowVideo?.(therapist);
+          } else {
+            onShowDetails(therapist);
+          }
+        }}>
+          <MediaCarousel 
+              media={therapist.media}
+              onShowVideo={() => onShowVideo?.(therapist)}
+              therapistName={therapist.name}
+              tags={[
+                  ...therapist.personality.slice(0,1).map(p => ({ label: p, category: 'personality' as const })),
+                  ...therapist.personality.slice(1,2).map(p => ({ label: p, category: 'personality' as const }))
+              ]}
+          />
+          {/* Progress indicators for media carousel */}
+          {therapist.media.length > 1 && (
+            <div className="absolute top-2 left-2 right-2 flex items-center gap-1">
+              {therapist.media.map((_, index) => (
+                <div 
+                  key={index} 
+                  className={cn(
+                    "h-1 flex-1 rounded-full",
+                    index === 0 ? "bg-white/90" : "bg-white/40"
+                  )} 
+                />
+              ))}
+            </div>
+          )}
+        </div>
         
-        <div className="relative flex-1 flex flex-col p-3 space-y-2 overflow-hidden">
-            <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                    <BadgeCheck className="h-5 w-5 text-green-600 flex-shrink-0" />
-                    <h2 className="font-primary text-xl font-bold text-text-primary leading-tight">{therapist.name}</h2>
+        {/* Info Panel - 45% height */}
+        <div className="relative h-[45%] w-full bg-surface p-4 flex flex-col justify-between">
+            <div>
+                {/* Bio Quote */}
+                <p className="text-lg italic text-text-secondary border-l-2 border-l-[hsl(var(--jovial-jade))] pl-3 mb-4 font-secondary">
+                    {therapist.quote}
+                </p>
+                
+                <div className="flex justify-between items-start mb-4">
+                     <div>
+                        <h2 className="text-3xl font-bold text-text-primary font-primary">{therapist.name}</h2>
+                        <p className="text-md text-text-muted mt-1 font-secondary">{therapist.title}</p>
+                     </div>
+                     <span className="text-2xl font-bold text-text-primary font-secondary">
+                       {therapist.rate.replace('/session', '')}<span className="text-sm font-medium text-text-muted">/hr</span>
+                     </span>
                 </div>
-                <p className="font-secondary text-base font-bold text-text-primary">{therapist.rate}</p>
-            </div>
-
-            <div className={cn("space-y-2 transition-all duration-300", isExpanded ? 'max-h-full' : 'max-h-[50px] overflow-hidden')}>
+                
                 <div className="flex flex-wrap gap-2">
-                    {therapist.personality.slice(0, 3).map(p => <Tag key={p} category="personality" shape="rounded" size="sm">{p}</Tag>)}
+                   {therapist.specialties.slice(0, 1).map(specialty => (
+                     <Tag key={specialty} category="specialty" size="sm" shape="pill">{specialty}</Tag>
+                   ))}
+                   {therapist.modalities?.slice(0, 1).map(modality => (
+                     <Tag key={modality} category="modality" size="sm" shape="pill">{modality}</Tag>
+                   ))}
+                   {therapist.personality.slice(0, 1).map(trait => (
+                     <Tag key={trait} category="personality" size="sm" shape="pill">{trait}</Tag>
+                   ))}
                 </div>
             </div>
-
-            {/* Fade and Expand Button */}
-            <div 
-                className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-surface to-transparent"
-            />
-            <button
-                onClick={(e) => { e.stopPropagation(); onShowDetails(therapist); }}
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 z-10"
-            >
-                <ChevronDown className="h-5 w-5 text-text-muted" />
-            </button>
+            
+            {/* View Profile Button */}
+            <div className="text-center">
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onShowDetails(therapist);
+                  }}
+                  className="w-10 h-10 rounded-full bg-surface-accent flex items-center justify-center mx-auto hover:bg-[hsl(var(--surface-accent)/0.8)] transition-colors"
+                  aria-label="View full profile"
+                >
+                    <ChevronDown className="w-5 h-5 text-[hsl(var(--garden-green))]" />
+                </button>
+            </div>
         </div>
     </article>
   );

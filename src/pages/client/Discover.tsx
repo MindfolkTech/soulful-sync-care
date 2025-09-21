@@ -283,69 +283,75 @@ export default function Discover() {
 
   return (
     <ErrorBoundary>
-        <div className="h-screen bg-warm-white flex flex-col overflow-hidden">
+        <div className="h-dvh bg-warm-white flex flex-col overflow-hidden">
             <header 
                 role="banner" 
                 aria-label="Mindfolk"
-                className="bg-surface px-6 xl:px-8 flex justify-between items-center"
-                style={{ height: '10vh' }}
+                className="flex-shrink-0 bg-surface px-4 pt-4 pb-2 flex justify-between items-center"
             >
-                <div className="flex items-center space-x-2">
-                    <div className="h-8 w-8 rounded-full bg-garden-green flex items-center justify-center">
-                      <span className="text-on-dark font-primary font-bold text-lg">M</span>
-                    </div>
-                    <span className="font-primary font-bold text-xl text-text-primary">MindFolk</span>
-                </div>
+                <h1 className="text-2xl font-bold text-[hsl(var(--jovial-jade))] font-primary">MINDFOLK</h1>
                 <Button 
                   variant="outline"
                   onClick={() => setFiltersOpen(true)}
                   aria-label="Open filters"
-                  className="bg-surface border-2 border-border text-text-secondary rounded-lg px-4 py-2.5 font-semibold hover:bg-surface-accent"
+                  className="w-10 h-10 rounded-full bg-surface-accent flex items-center justify-center"
                 >
-                  <Filter className="w-4 h-4 mr-2" />
-                  Filters
+                  <Filter className="w-5 h-5 text-[hsl(var(--garden-green))]" />
                 </Button>
             </header>
 
             <main 
                 role="main" 
-                className="flex-grow flex items-center justify-center relative"
-                style={{ height: 'calc(100vh - 10vh - 10vh)' }}
+                className="flex-grow relative"
             >
-                <h1 id="discover-heading" className="sr-only">Discover therapists</h1>
+                <h2 id="discover-heading" className="sr-only">Discover therapists</h2>
 
-                {/* Mobile: Swipeable Card View */}
-                <div className="block md:hidden h-full p-4 flex flex-col items-center justify-center">
+                {/* Mobile: Full viewport card with dedicated action bar */}
+                <div className="block md:hidden h-full flex flex-col">
                   {currentTherapist ? (
-                    <div className="w-full h-full flex flex-col gap-4">
-                        <div className="flex-grow">
+                    <>
+                        {/* Main Card Area */}
+                        <div className="flex-grow p-2.5 pb-0">
                             <TherapistCard
                                 therapist={currentTherapist}
                                 onPass={handlePass}
                                 onSave={handleSave}
                                 onShowDetails={handleShowDetails}
                                 onShowVideo={handleShowVideo}
+                                className="w-full h-full"
                             />
                         </div>
-                        <div className="flex justify-center items-center gap-4">
-                            <Button
-                                size="icon"
-                                onClick={() => handlePass(currentTherapist)}
-                                className="h-16 w-16 rounded-full bg-[hsl(var(--btn-accent-bg))] text-[hsl(var(--btn-accent-text))] shadow-md"
-                                aria-label="Pass"
-                            >
-                                <X className="h-7 w-7" />
-                            </Button>
-                            <Button
-                                size="icon"
-                                onClick={() => handleSave(currentTherapist)}
-                                className="h-16 w-16 rounded-full bg-[hsl(var(--btn-primary-bg))] text-[hsl(var(--btn-primary-text))] shadow-md"
-                                aria-label="Save to favorites"
-                            >
-                                <Heart className="h-7 w-7" />
-                            </Button>
+                        
+                        {/* Dedicated Action Bar */}
+                        <div className="flex-shrink-0 px-4 pt-4 pb-6 pb-[env(safe-area-inset-bottom)]">
+                            <div className="flex justify-evenly items-center">
+                                <Button
+                                    size="icon"
+                                    onClick={() => handlePass(currentTherapist)}
+                                    className="w-14 h-14 rounded-full bg-surface shadow-md border border-border"
+                                    aria-label="Pass"
+                                >
+                                    <X className="h-6 w-6 text-text-muted" />
+                                </Button>
+                                <Button
+                                    size="icon"
+                                    onClick={() => handlePass(currentTherapist)}
+                                    className="w-16 h-16 rounded-full bg-surface shadow-md border border-border"
+                                    aria-label="Pass"
+                                >
+                                    <X className="h-8 w-8 text-[hsl(var(--tag-personality-text))]" />
+                                </Button>
+                                <Button
+                                    size="icon"
+                                    onClick={() => handleSave(currentTherapist)}
+                                    className="w-20 h-20 rounded-full bg-[hsl(var(--jovial-jade))] shadow-lg"
+                                    aria-label="Save to favorites"
+                                >
+                                    <Heart className="h-10 w-10 text-white fill-white" />
+                                </Button>
+                            </div>
                         </div>
-                    </div>
+                    </>
                   ) : (
                     <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
                       <p>No more matches.</p>

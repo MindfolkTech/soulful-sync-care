@@ -1,5 +1,5 @@
 import * as React from "react";
-import { X, Heart, Flag } from "lucide-react";
+import { X, Heart, Flag, ChevronDown, BadgeCheck } from "lucide-react";
 import { 
   Sheet, 
   SheetContent, 
@@ -42,67 +42,81 @@ export function TherapistDetailsSheet({
   onSave,
   onReport
 }: TherapistDetailsSheetProps) {
-  const videoRef = React.useRef<HTMLVideoElement>(null);
-
   if (!therapist) return null;
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent 
         side="bottom" 
-        className="h-[90vh] flex flex-col p-4"
+        className="h-dvh flex flex-col p-0 bg-surface"
         aria-labelledby="detail-title"
       >
-        <SheetHeader className="p-2">
-          <SheetTitle id="detail-title" className="sr-only">
-            {therapist.name}'s Details
-          </SheetTitle>
-          <SheetDescription className="sr-only">
-            More information about {therapist.name}.
-          </SheetDescription>
-           <SheetClose className="absolute top-4 right-4 text-text-muted opacity-80 hover:opacity-100">
-                <X className="h-5 w-5" />
-            </SheetClose>
-        </SheetHeader>
-
-        <div className="flex-1 overflow-y-auto space-y-6 pb-20 px-2">
-            {/* This media carousel can be a simplified version or just the main image */}
-            <div className="aspect-[4/3] rounded-lg overflow-hidden bg-surface-accent">
-                 <img src={therapist.media[0].url} alt={therapist.name} className="w-full h-full object-cover" />
+        <div className="w-full h-full overflow-y-auto overflow-x-hidden scrollbar-hide">
+            {/* Header section with close button */}
+            <div className="p-4 sticky top-0 bg-surface/80 backdrop-blur-sm z-10">
+                 <button 
+                   onClick={() => onOpenChange(false)}
+                   className="w-10 h-10 rounded-full bg-surface-accent flex items-center justify-center mx-auto hover:bg-[hsl(var(--surface-accent)/0.8)] transition-colors"
+                   aria-label="Close details"
+                 >
+                    <ChevronDown className="w-5 h-5 text-[hsl(var(--garden-green))]" />
+                 </button>
+            </div>
+            
+            <div className="px-4 pb-4">
+                 <h2 className="text-3xl font-bold text-text-primary font-primary">{therapist.name}</h2>
+                 <p className="text-md text-text-muted mt-1 font-secondary">{therapist.title}, {therapist.years_experience}</p>
             </div>
 
-            <h3 className="font-primary text-3xl font-bold text-text-primary">{therapist.name}</h3>
-            
-            <DetailSection title="About me">
-                <p className="font-secondary text-text-secondary leading-relaxed">{therapist.quote}</p>
-            </DetailSection>
+            <div className="px-4 pb-4 border-b border-border">
+                <h3 className="text-xl font-semibold text-text-primary mb-2 font-secondary">About Me</h3>
+                <p className="text-text-secondary leading-relaxed font-secondary">I help clients navigate anxiety, depression, and trauma using an integrative approach that combines evidence-based techniques with mindfulness practices. My therapy style is warm, collaborative, and focused on your goals.</p>
+            </div>
 
-            <DetailSection title="Specialities">
+            <div className="px-4 py-4 border-b border-border">
+                <h3 className="text-xl font-semibold text-text-primary mb-3 font-secondary">Specialities</h3>
                 <TagGroup tags={therapist.specialties} category="specialty" />
-            </DetailSection>
+            </div>
             
-            <DetailSection title="Modalities">
+            <div className="px-4 py-4 border-b border-border">
+                <h3 className="text-xl font-semibold text-text-primary mb-3 font-secondary">Modalities</h3>
                 <TagGroup tags={therapist.modalities || []} category="modality" />
-            </DetailSection>
-
-            <DetailSection title="Personality">
-                <TagGroup tags={therapist.personality} category="personality" />
-            </DetailSection>
+            </div>
             
-            <DetailSection title="Communication Style">
-                <TagGroup tags={therapist.personality || []} category="personality" />
-            </DetailSection>
-
-            <DetailSection title="Languages">
+            <div className="px-4 py-4 border-b border-border">
+                <h3 className="text-xl font-semibold text-text-primary mb-3 font-secondary">Personality</h3>
+                <TagGroup tags={therapist.personality} category="personality" />
+            </div>
+            
+            <div className="px-4 py-4 border-b border-border">
+                <h3 className="text-xl font-semibold text-text-primary mb-3 font-secondary">Languages</h3>
                 <TagGroup tags={therapist.languages} category="language" />
-            </DetailSection>
+            </div>
+
+            <div className="px-4 py-4 pb-24">
+                <h3 className="text-xl font-semibold text-text-primary mb-3 font-secondary">Credentials</h3>
+                <div className="space-y-3">
+                    <div className="flex items-center">
+                      <div className="w-10 h-10 rounded-lg bg-surface-accent mr-3 flex items-center justify-center">
+                        <BadgeCheck className="w-6 h-6 text-[hsl(var(--garden-green))]" />
+                      </div>
+                      <span className="text-text-secondary font-secondary">Ph.D. in Clinical Psychology</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-10 h-10 rounded-lg bg-surface-accent mr-3 flex items-center justify-center">
+                        <BadgeCheck className="w-6 h-6 text-[hsl(var(--garden-green))]" />
+                      </div>
+                      <span className="text-text-secondary font-secondary">Licensed Psychologist (#12345)</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        {/* Sticky Action Row */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-surface border-t border-border">
+        {/* Fixed Action Bar */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 bg-surface border-t border-border pb-[env(safe-area-inset-bottom)]">
           <div className="flex gap-3">
             <Button 
-              className="flex-1 bg-btn-primary-bg text-btn-primary-text"
+              className="flex-1 bg-[hsl(var(--btn-primary-bg))] text-[hsl(var(--btn-primary-text))] font-secondary"
               onClick={() => {
                 onSave(therapist);
                 onOpenChange(false);
@@ -112,15 +126,23 @@ export function TherapistDetailsSheet({
               Connect
             </Button>
             <Button 
-              variant="tertiary" 
+              variant="outline" 
               size="icon"
               onClick={() => onReport(therapist)}
               aria-label="Report therapist"
+              className="bg-surface border-border"
             >
               <Flag className="h-4 w-4" />
             </Button>
           </div>
         </div>
+        
+        <SheetTitle id="detail-title" className="sr-only">
+          {therapist.name}'s Details
+        </SheetTitle>
+        <SheetDescription className="sr-only">
+          More information about {therapist.name}.
+        </SheetDescription>
       </SheetContent>
     </Sheet>
   );
