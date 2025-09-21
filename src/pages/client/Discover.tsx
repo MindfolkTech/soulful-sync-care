@@ -283,11 +283,11 @@ export default function Discover() {
 
   return (
     <ErrorBoundary>
-        <div className="h-dvh bg-warm-white flex flex-col overflow-hidden">
+        <div className="h-dvh bg-warm-white grid grid-rows-[auto_1fr] overflow-hidden">
             <header 
                 role="banner" 
                 aria-label="Mindfolk"
-                className="flex-shrink-0 bg-surface px-4 pt-4 pb-2 flex justify-between items-center"
+                className="bg-surface px-4 pt-4 pb-2 flex justify-between items-center"
             >
                 <h1 className="text-2xl font-bold text-[hsl(var(--jovial-jade))] font-primary">MINDFOLK</h1>
                 <Button 
@@ -302,16 +302,16 @@ export default function Discover() {
 
             <main 
                 role="main" 
-                className="flex-grow relative"
+                className="relative min-h-0"
             >
                 <h2 id="discover-heading" className="sr-only">Discover therapists</h2>
 
                 {/* Mobile: Full viewport card with dedicated action bar */}
-                <div className="block md:hidden h-full flex flex-col">
+                <div className="block md:hidden h-full grid grid-rows-[1fr_auto]">
                   {currentTherapist ? (
                     <>
                         {/* Main Card Area */}
-                        <div className="flex-grow p-2.5 pb-0">
+                        <div className="p-2.5 pb-0 min-h-0">
                             <TherapistCard
                                 therapist={currentTherapist}
                                 onPass={handlePass}
@@ -323,7 +323,7 @@ export default function Discover() {
                         </div>
                         
                         {/* Dedicated Action Bar */}
-                        <div className="flex-shrink-0 px-4 pt-4 pb-6 pb-[env(safe-area-inset-bottom)]">
+                        <div className="px-4 pt-4 pb-6 pb-[env(safe-area-inset-bottom)]">
                             <div className="flex justify-evenly items-center">
                                 <Button
                                     size="icon"
