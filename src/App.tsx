@@ -64,6 +64,7 @@ import Billing from "./pages/client/Billing";
 import ClientTasks from "./pages/client/Tasks";
 
 // Therapist pages
+import TherapistSignUp from "./pages/therapist/SignUp";
 import TherapistOnboarding from "./pages/therapist/Onboarding";
 import TherapistProfile from "./pages/therapist/Profile";
 import TherapistAvailability from "./pages/therapist/Availability";
@@ -114,6 +115,7 @@ const AppContent = () => {
               {/* Public routes */}
               <Route path="/" element={<Index />} />
               <Route path="/therapist" element={<TherapistLanding />} />
+              <Route path="/therapist/signup" element={<TherapistSignUp />} />
               <Route path="/sign-in" element={<SignIn />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/legal/terms" element={<Terms />} />
