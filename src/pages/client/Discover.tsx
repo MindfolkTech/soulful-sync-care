@@ -41,7 +41,7 @@ function convertSupabaseToTherapistProfile(supabaseProfile: any): TherapistProfi
     is_active: supabaseProfile.is_active !== false,
     
     // UI fields for backward compatibility
-    title: supabaseProfile.tagline || "Licensed Therapist",
+    title: supabaseProfile.professional_title || supabaseProfile.title || "Licensed Therapist",
     bio: supabaseProfile.bio,
     location: `${supabaseProfile.location_city || 'London'}, ${supabaseProfile.location_country || 'UK'}`,
   };
