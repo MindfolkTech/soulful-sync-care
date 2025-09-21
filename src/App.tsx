@@ -84,7 +84,6 @@ import TherapistEarnings from "./pages/therapist/Earnings";
 import TherapistTasks from "./pages/therapist/Tasks";
 import ClientDetail from "./pages/therapist/ClientDetail";
 import TherapistSetup from "./pages/therapist/Setup";
-import { SetupGuard } from "@/components/therapist/setup/SetupGuard";
 
 // Session pages
 import SessionRoom from "./pages/session/SessionRoom";
@@ -154,12 +153,12 @@ const AppContent = () => {
               <Route path="/t/setup" element={<AuthGuard requiredRole="therapist"><TherapistSetup /></AuthGuard>} />
               <Route path="/t/profile" element={<AuthGuard requiredRole="therapist"><TherapistProfile /></AuthGuard>} />
               <Route path="/t/availability" element={<AuthGuard requiredRole="therapist"><TherapistAvailability /></AuthGuard>} />
-              <Route path="/t/bookings" element={<AuthGuard requiredRole="therapist"><SetupGuard><TherapistBookings /></SetupGuard></AuthGuard>} />
-              <Route path="/t/clients" element={<AuthGuard requiredRole="therapist"><SetupGuard><TherapistClients /></SetupGuard></AuthGuard>} />
-              <Route path="/t/clients/:id" element={<AuthGuard requiredRole="therapist"><SetupGuard><ClientDetail /></SetupGuard></AuthGuard>} />
+              <Route path="/t/bookings" element={<AuthGuard requiredRole="therapist"><TherapistBookings /></AuthGuard>} />
+              <Route path="/t/clients" element={<AuthGuard requiredRole="therapist"><TherapistClients /></AuthGuard>} />
+              <Route path="/t/clients/:id" element={<AuthGuard requiredRole="therapist"><ClientDetail /></AuthGuard>} />
               <Route path="/t/analytics" element={<AuthGuard requiredRole="therapist"><TherapistAnalytics /></AuthGuard>} />
               <Route path="/t/dashboard" element={<AuthGuard requiredRole="therapist"><TherapistDashboard /></AuthGuard>} />
-              <Route path="/t/messages" element={<AuthGuard requiredRole="therapist"><SetupGuard><TherapistMessages /></SetupGuard></AuthGuard>} />
+              <Route path="/t/messages" element={<AuthGuard requiredRole="therapist"><TherapistMessages /></AuthGuard>} />
               <Route path="/t/payouts" element={<AuthGuard requiredRole="therapist"><TherapistPayouts /></AuthGuard>} />
               <Route path="/t/earnings" element={<AuthGuard requiredRole="therapist"><TherapistEarnings /></AuthGuard>} />
               <Route path="/t/tasks" element={<AuthGuard requiredRole="therapist"><TherapistTasks /></AuthGuard>} />

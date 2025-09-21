@@ -3,6 +3,8 @@ import { TherapistLayout } from "@/components/layout/therapist-layout";
 import { Container } from "@/components/ui/container";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useCoachHint } from "@/hooks/use-coach-hint";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
@@ -22,6 +24,7 @@ import {
 } from "lucide-react";
 
 export default function TherapistPayouts() {
+  const payoutsHint = useCoachHint({ stepId: "payouts" });
   const [selectedPeriod, setSelectedPeriod] = useState("current");
   
   // Mock earnings data
@@ -239,10 +242,19 @@ export default function TherapistPayouts() {
                   <Progress value={(currentEarnings.sessions / 30) * 100} className="h-2" />
                 </div>
 
-                <Button className="w-full">
-                  <DollarSign className="h-4 w-4 mr-2" />
-                  Request Payout - ${currentEarnings.available.toLocaleString()}
-                </Button>
+                <TooltipProvider>
+                  <Tooltip open={payoutsHint.open} onOpenChange={payoutsHint.setOpen}>
+                    <TooltipTrigger asChild>
+                      <Button className="w-full" onClick={payoutsHint.dismiss}>
+                        <DollarSign className="h-4 w-4 mr-2" />
+                        Connect payouts to get paid
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="font-secondary text-sm">Connect Stripe to enable earnings and mark Payouts as done.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </CardContent>
             </Card>
 

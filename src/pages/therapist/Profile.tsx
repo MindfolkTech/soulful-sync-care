@@ -10,9 +10,12 @@ import { Switch } from "@/components/ui/switch";
 import { Tag } from "@/components/ui/tag";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useCoachHint } from "@/hooks/use-coach-hint";
 import { Edit, Upload, Eye, Play } from "lucide-react";
 
 export default function TherapistProfile() {
+  const headshotHint = useCoachHint({ stepId: "profile" });
   return (
     <TherapistLayout>
       <div className="p-8">
@@ -42,10 +45,19 @@ export default function TherapistProfile() {
                   </AvatarFallback>
                 </Avatar>
                 <div className="text-center lg:text-left space-y-2">
-                  <Button variant="outline" size="sm" className="min-h-[--touch-target-min]" aria-label="Upload or change profile photo">
-                    <Upload className="w-4 h-4 mr-2" />
-                    Change Photo
-                  </Button>
+                  <TooltipProvider>
+                    <Tooltip open={headshotHint.open} onOpenChange={headshotHint.setOpen}>
+                      <TooltipTrigger asChild>
+                        <Button variant="outline" size="sm" className="min-h-[--touch-target-min]" aria-label="Upload or change profile photo" onClick={headshotHint.dismiss}>
+                          <Upload className="w-4 h-4 mr-2" />
+                          Change Photo
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="font-secondary text-sm">Add a clear, friendly headshot to boost profile views.</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                   <p className="font-secondary text-muted-foreground text-xs">
                     JPG or PNG, max 5MB
                   </p>

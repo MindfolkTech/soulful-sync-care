@@ -19,7 +19,10 @@ export default function TherapistSignUp() {
     lastName: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    notifyEmail: true,
+    notifySMS: false,
+    enable2FA: true,
   });
   const [showPassword, setShowPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
@@ -76,6 +79,9 @@ export default function TherapistSignUp() {
             first_name: formData.firstName,
             last_name: formData.lastName,
             user_type: 'therapist', // Mark this as a therapist sign-up
+            notify_email: !!formData.notifyEmail,
+            notify_sms: !!formData.notifySMS,
+            mfa_enroll_on_first_login: !!formData.enable2FA,
           },
         },
       });
@@ -207,6 +213,24 @@ export default function TherapistSignUp() {
                   />
                 </div>
                 
+              {/* Notifications & Security (pre-dashboard) */}
+              <div className="space-y-3 p-4 border rounded-lg">
+                <h4 className="font-primary font-semibold text-[hsl(var(--text-primary))] text-sm">Notifications & Security</h4>
+                <div className="flex items-center space-x-2">
+                  <Checkbox id="notifyEmail" checked={formData.notifyEmail} onCheckedChange={(c) => handleInputChange("notifyEmail", String(c === true))} />
+                  <label htmlFor="notifyEmail" className="text-sm font-secondary text-text-secondary">Email notifications</label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox id="notifySMS" checked={formData.notifySMS} onCheckedChange={(c) => handleInputChange("notifySMS", String(c === true))} />
+                  <label htmlFor="notifySMS" className="text-sm font-secondary text-text-secondary">SMS notifications</label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox id="enable2FA" checked={formData.enable2FA} onCheckedChange={(c) => handleInputChange("enable2FA", String(c === true))} />
+                  <label htmlFor="enable2FA" className="text-sm font-secondary text-text-secondary">Require 2FA on first login</label>
+                </div>
+                <p className="text-[10px] text-text-muted font-secondary">You can change these later in settings.</p>
+              </div>
+
                 <Stack className="space-y-4">
                   <div className="flex items-center space-x-2">
                     <Checkbox 

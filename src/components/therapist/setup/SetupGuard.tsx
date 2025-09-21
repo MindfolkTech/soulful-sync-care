@@ -16,6 +16,7 @@ export function SetupGuard({ children }: SetupGuardProps) {
   const { user } = useAuth();
   const [loading, setLoading] = React.useState(true);
   const [published, setPublished] = React.useState<boolean>(false);
+  const [nextFocus, setNextFocus] = React.useState<string>("verification");
 
   React.useEffect(() => {
     let isMounted = true;
@@ -27,7 +28,7 @@ export function SetupGuard({ children }: SetupGuardProps) {
         }
         const { data, error } = await supabase
           .from("therapist_profiles")
-          .select("verified, is_active, accepts_new_clients, setup_completed")
+          .select("verified, is_active, accepts_new_clients, setup_completed, setup_steps")
           .eq("user_id", user.id)
           .maybeSingle();
 
@@ -37,6 +38,22 @@ export function SetupGuard({ children }: SetupGuardProps) {
 
         const isPublished = !!(data?.verified && data?.is_active && data?.accepts_new_clients);
         if (isMounted) setPublished(isPublished);
+
+        if (!isPublished) {
+          const stepsOrder = [
+            "verification",
+            "payouts",
+            "rates",
+            "availability",
+            "profile",
+            "policies",
+            "details",
+            "review",
+          ];
+          const steps = ((data as any)?.setup_steps as Record<string, boolean>) || {};
+          const missing = stepsOrder.find((id) => (id === "verification" ? !data?.verified : !steps[id]));
+          if (isMounted && missing) setNextFocus(missing);
+        }
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -59,7 +76,10 @@ export function SetupGuard({ children }: SetupGuardProps) {
   }
 
   if (!published) {
-    return <Navigate to="/t/setup" replace />;
+    // Capture current path to show contextual banner on setup page
+    const origin = typeof window !== "undefined" ? window.location.pathname : "/t/dashboard";
+    const to = `/t/setup?origin=${encodeURIComponent(origin)}&focus=${encodeURIComponent(nextFocus)}`;
+    return <Navigate to={to} replace />;
   }
 
   return <>{children}</>;

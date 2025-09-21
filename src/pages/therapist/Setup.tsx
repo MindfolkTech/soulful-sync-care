@@ -22,7 +22,6 @@ const steps: Step[] = [
   { id: "profile", label: "Profile Basics", required: true },
   { id: "policies", label: "Practice Policies", required: true },
   { id: "details", label: "Therapeutic Details", required: true },
-  { id: "notifications", label: "Notifications & Security", required: true },
   { id: "review", label: "Final Review", required: true },
 ];
 
@@ -31,8 +30,17 @@ export default function TherapistSetup() {
   const [status, setStatus] = React.useState<Record<string, boolean>>({});
   const [verificationState, setVerificationState] = React.useState<"pending" | "approved" | "rejected">("pending");
   const [publishing, setPublishing] = React.useState(false);
+  const [origin, setOrigin] = React.useState<string | null>(null);
+  const [focus, setFocus] = React.useState<string | null>(null);
 
   React.useEffect(() => {
+    // Parse origin and focus from query to drive contextual banners and autofocus
+    const params = new URLSearchParams(window.location.search);
+    const o = params.get("origin");
+    const f = params.get("focus");
+    setOrigin(o);
+    setFocus(f);
+
     let isMounted = true;
     const load = async () => {
       if (!user) return;
@@ -92,6 +100,11 @@ export default function TherapistSetup() {
       <div className="p-4 md:p-6 lg:p-8">
         <Container>
           <Stack className="space-y-6">
+            {origin && (
+              <div className="p-3 border rounded-md bg-[hsl(var(--surface-accent))] font-secondary text-sm text-[hsl(var(--text-secondary))]" role="status">
+                You tried to open <span className="font-medium text-[hsl(var(--text-primary))]">{origin}</span>. Complete setup to unlock it.
+              </div>
+            )}
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="font-primary text-2xl md:text-3xl text-[hsl(var(--text-primary))]">Finish setting up your practice</h1>
@@ -125,7 +138,7 @@ export default function TherapistSetup() {
                   <CardHeader>
                     <CardTitle className="font-primary text-base">{step.label}</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent id={`focus-${step.id}`}>
                     <HStack className="justify-between">
                       <div className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
                         {status[step.id] ? "Completed" : "Incomplete"}

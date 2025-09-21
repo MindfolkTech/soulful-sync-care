@@ -30,7 +30,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { TherapistLayout } from "@/components/layout/therapist-layout";
 import { Container } from "@/components/ui/container";
 import { useNavigate } from "react-router-dom";
-import { SetupProgressPill } from "@/components/therapist/setup/SetupProgressPill";
+import { OnboardingChecklist } from "@/components/therapist/setup/OnboardingChecklist";
 
 // Custom component for appointment items with JOIN NOW logic
 function AppointmentItem({ appointment }: { appointment: any }) {
@@ -383,7 +383,7 @@ export default function TherapistDashboard() {
         </Container>
       </div>
     </TherapistLayout>
-    <SetupProgressPill />
+    <OnboardingChecklist />
     </>
   );
 }

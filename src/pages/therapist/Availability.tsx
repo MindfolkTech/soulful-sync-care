@@ -1,6 +1,8 @@
 import { TherapistLayout } from "@/components/layout/therapist-layout";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useCoachHint } from "@/hooks/use-coach-hint";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +17,7 @@ const timeSlots = [
 ];
 
 export default function TherapistAvailability() {
+  const { open, setOpen, dismiss } = useCoachHint({ stepId: "availability" });
   return (
     <TherapistLayout>
       <div className="p-8">
@@ -39,10 +42,19 @@ export default function TherapistAvailability() {
                   <Calendar className="w-4 h-4 mr-2" />
                   Sync Calendar
                 </Button>
-                <Button>
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add Time Block
-                </Button>
+                <TooltipProvider>
+                  <Tooltip open={open} onOpenChange={setOpen}>
+                    <TooltipTrigger asChild>
+                      <Button onClick={dismiss}>
+                        <Plus className="w-4 h-4 mr-2" />
+                        Add Time Block
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="font-secondary text-sm">Add at least one block to enable bookings.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             </div>
 
