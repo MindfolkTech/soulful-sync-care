@@ -3,7 +3,7 @@ alwaysApply: true
 ---
 Always enforce the following project rules when applying changes:
 - Use ONLY design tokens from styles/design-tokens.css (source of truth).
-- All therapist pages must use TherapistLayout + layout atoms.
+- All therapist pages must use TherapistLayout + layout atoms (except onboarding which uses OnboardingLayout).
 - All admin pages must use AdminLayout + layout atoms.
 - All flows must include required navigation/progress per user-flows.md.
 - All charts must follow chart-components.md specs.
@@ -22,6 +22,7 @@ Reference documentation:
 
 Component locations:
 - TherapistLayout: src/components/layout/therapist-layout.tsx
+- OnboardingLayout: src/components/layout/onboarding-layout.tsx
 - AdminLayout: src/components/layout/admin-layout.tsx
 - PageShell: src/components/ui/page-shell.tsx
 - Container: src/components/ui/container.tsx

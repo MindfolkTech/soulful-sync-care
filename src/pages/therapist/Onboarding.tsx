@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { Container } from "@/components/ui/container";
+import { OnboardingLayout } from "@/components/layout/onboarding-layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -24,6 +22,7 @@ import {
   Users,
   Heart
 } from "lucide-react";
+import { Stack } from "@/components/layout/layout-atoms";
 
 const onboardingSteps = [
   {
@@ -93,7 +92,7 @@ export default function TherapistOnboarding() {
     documents: {}
   });
 
-  const progress = (currentStep / onboardingSteps.length) * 100;
+  
   const currentStepData = onboardingSteps.find(s => s.id === currentStep);
 
   // Auto-save progress
@@ -160,72 +159,57 @@ export default function TherapistOnboarding() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-warm-white flex flex-col">
-      <Header />
-      
-      <main className="flex-1 py-8" role="main" aria-label="Therapist onboarding process">
-        <Container>
-          <div className="max-w-6xl mx-auto">
-            {/* Enhanced Progress Header */}
-            <div className="mb-8" role="region" aria-label="Onboarding progress">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-4 flex-1">
-                  <Button asChild variant="outline" size="sm" className="hover:bg-surface-accent">
-                    <Link to="/therapist">
-                      <ArrowLeft className="w-4 h-4 mr-2" />
-                      Back to Therapist Info
-                    </Link>
-                  </Button>
-                  <Progress
-                    value={progress}
-                    className="h-3 flex-1 bg-surface-accent rounded-full overflow-hidden"
-                    aria-label={`Progress: ${Math.round(progress)}% complete`}
-                  />
-                  <span className="text-sm text-[hsl(var(--text-secondary))] font-secondary whitespace-nowrap bg-surface px-3 py-1 rounded-full" aria-live="polite">
-                    Step {currentStep} of {onboardingSteps.length}
-                  </span>
+    <OnboardingLayout currentStep={currentStep} totalSteps={onboardingSteps.length}>
+      <div className="p-4 md:p-6 lg:p-8">
+        <Stack className="space-y-6">
+          {/* Header Controls */}
+          <div className="flex items-center justify-between">
+            <Button asChild variant="outline" size="sm" className="hover:bg-surface-accent">
+              <Link to="/therapist">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Therapist Info
+              </Link>
+            </Button>
+            <div className="flex items-center gap-3">
+              {savedProgress && (
+                <div className="flex items-center gap-2 bg-[hsl(var(--success-bg))]-bg text-[hsl(var(--success-text))]-text px-3 py-1 rounded-full" role="status" aria-live="polite">
+                  <Save className="w-4 h-4" aria-hidden="true" />
+                  <span className="text-sm font-secondary font-medium">Saved</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  {savedProgress && (
-                    <div className="flex items-center gap-2 bg-[hsl(var(--success-bg))]-bg text-[hsl(var(--success-text))]-text px-3 py-1 rounded-full" role="status" aria-live="polite">
-                      <Save className="w-4 h-4" aria-hidden="true" />
-                      <span className="text-sm font-secondary font-medium">Saved</span>
-                    </div>
-                  )}
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={() => setShowPreview(!showPreview)}
-                    className="hover:bg-surface-accent transition-colors duration-200"
-                    aria-label={showPreview ? "Hide preview" : "Show preview"}
-                  >
-                    <Eye className="w-4 h-4 mr-2" aria-hidden="true" />
-                    {showPreview ? 'Hide' : 'Show'} Preview
-                  </Button>
-                </div>
+              )}
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => setShowPreview(!showPreview)}
+                className="hover:bg-surface-accent transition-colors duration-200"
+                aria-label={showPreview ? "Hide preview" : "Show preview"}
+              >
+                <Eye className="w-4 h-4 mr-2" aria-hidden="true" />
+                {showPreview ? 'Hide' : 'Show'} Preview
+              </Button>
+            </div>
+          </div>
+          
+          {/* Enhanced Step Tip */}
+          <div className="bg-surface-accent p-6 rounded-xl shadow-sm border border-border" role="region" aria-label="Step tip and example">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 bg-[hsl(var(--garden-green))] rounded-full flex items-center justify-center flex-shrink-0">
+                <Lightbulb className="w-5 h-5 text-[hsl(var(--on-dark))]" aria-hidden="true" />
               </div>
-              
-              {/* Enhanced Step Tip */}
-              <div className="bg-surface-accent p-6 rounded-xl mb-8 shadow-sm border border-border" role="region" aria-label="Step tip and example">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-[hsl(var(--garden-green))] rounded-full flex items-center justify-center flex-shrink-0">
-                    <Lightbulb className="w-5 h-5 text-[hsl(var(--on-dark))]" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <p className="font-primary text-[hsl(var(--jovial-jade))] text-base font-semibold mb-2">
-                      💡 Tip: {currentStepData?.tip}
-                    </p>
-                    <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm leading-relaxed">
-                      Example: {currentStepData?.example}
-                    </p>
-                  </div>
-                </div>
+              <div>
+                <p className="font-primary text-[hsl(var(--jovial-jade))] text-base font-semibold mb-2">
+                  💡 Tip: {currentStepData?.tip}
+                </p>
+                <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm leading-relaxed">
+                  Example: {currentStepData?.example}
+                </p>
               </div>
             </div>
+          </div>
 
-            <div className="grid lg:grid-cols-3 gap-8">
-              {/* Main Content */}
-              <div className="lg:col-span-2">
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Main Content */}
+            <div className="lg:col-span-2">
 
             <Card className="min-h-[500px] shadow-lg border-0" role="region" aria-label={`Step ${currentStep} content`}>
               <CardHeader className="text-center pb-8">
@@ -698,11 +682,8 @@ export default function TherapistOnboarding() {
                 </div>
               )}
             </div>
-          </div>
-        </Container>
-      </main>
-
-      <Footer />
-    </div>
+        </Stack>
+      </div>
+    </OnboardingLayout>
   );
 }
