@@ -327,17 +327,20 @@ export default function Discover() {
                             <div className="flex justify-evenly items-center">
                                 <Button
                                     size="icon"
-                                    onClick={() => handlePass(currentTherapist)}
-                                    className="w-14 h-14 rounded-full bg-surface shadow-md border border-border"
-                                    aria-label="Pass"
+                                    onClick={() => {
+                                        setCurrentIndex(prev => prev > 0 ? prev - 1 : availableTherapists.length - 1);
+                                    }}
+                                    disabled={availableTherapists.length <= 1}
+                                    className="w-14 h-14 rounded-full bg-surface shadow-md border border-border disabled:opacity-50"
+                                    aria-label="Go back to previous therapist"
                                 >
-                                    <X className="h-6 w-6 text-text-muted" />
+                                    <ChevronLeft className="h-6 w-6 text-text-muted" />
                                 </Button>
                                 <Button
                                     size="icon"
                                     onClick={() => handlePass(currentTherapist)}
                                     className="w-16 h-16 rounded-full bg-surface shadow-md border border-border"
-                                    aria-label="Pass"
+                                    aria-label="Pass on this therapist"
                                 >
                                     <X className="h-8 w-8 text-[hsl(var(--tag-personality-text))]" />
                                 </Button>

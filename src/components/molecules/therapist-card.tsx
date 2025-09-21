@@ -63,6 +63,18 @@ const MediaCarousel = ({ media, onShowVideo, therapistName, tags }: { media: Med
                     </div>
                 </div>
             )}
+            
+            {/* Tags Overlay - Bottom of image */}
+            <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
+                <div className="flex flex-wrap gap-1 justify-start">
+                    {tags.map((tag, index) => (
+                        <Tag key={`${tag.category}-${tag.label}-${index}`} category={tag.category} size="sm" className="bg-white/20 text-white border-white/30 backdrop-blur-sm">
+                            {tag.label}
+                        </Tag>
+                    ))}
+                </div>
+            </div>
+            
              {media.length > 1 && (
                 <>
                     <Button variant="ghost" size="icon" onClick={handlePrevious} className="absolute top-1/2 -translate-y-1/2 left-2 bg-surface/50 hover:bg-surface/80 h-8 w-8 rounded-full opacity-0 group-hover:opacity-100"><ChevronLeft className="h-5 w-5" /></Button>
@@ -135,8 +147,8 @@ export function TherapistCard({
               onShowVideo={() => onShowVideo?.(therapist)}
               therapistName={therapist.name}
               tags={[
-                  ...therapist.personality.slice(0,1).map(p => ({ label: p, category: 'personality' as const })),
-                  ...therapist.personality.slice(1,2).map(p => ({ label: p, category: 'personality' as const }))
+                  ...therapist.personality.slice(0,2).map(p => ({ label: p, category: 'personality' as const })),
+                  ...therapist.specialties.slice(0,1).map(s => ({ label: s, category: 'specialty' as const }))
               ]}
           />
           {/* Progress indicators for media carousel */}
@@ -157,21 +169,29 @@ export function TherapistCard({
         
         {/* Info Panel - 45% height */}
         <div className="relative h-[45%] w-full bg-surface p-4 flex flex-col justify-between">
-            <div>
-                {/* Bio Quote */}
-                <p className="text-lg italic text-text-secondary border-l-2 border-l-[hsl(var(--jovial-jade))] pl-3 mb-4 font-secondary">
-                    {therapist.quote}
-                </p>
-                
-                <div className="flex justify-between items-start mb-4">
-                     <div>
-                        <h2 className="text-3xl font-bold text-text-primary font-primary">{therapist.name}</h2>
-                        <p className="text-md text-text-muted mt-1 font-secondary">{therapist.title}</p>
+            <div className="space-y-3">
+                <div className="flex justify-between items-start">
+                     <div className="flex-1">
+                        <h2 className="text-2xl font-bold text-text-primary font-primary leading-tight">{therapist.name}</h2>
+                        <p className="text-sm text-text-muted mt-1 font-secondary">
+                            {therapist.title}
+                            {therapist.years_experience && (
+                                <>
+                                    <span className="mx-1">•</span>
+                                    {therapist.years_experience}
+                                </>
+                            )}
+                        </p>
                      </div>
-                     <span className="text-2xl font-bold text-text-primary font-secondary">
+                     <span className="text-xl font-bold text-text-primary font-secondary ml-2">
                        {therapist.rate.replace('/session', '')}<span className="text-sm font-medium text-text-muted">/hr</span>
                      </span>
                 </div>
+                
+                {/* Bio Quote - max ~120 characters for mobile readability */}
+                <p className="text-base italic text-text-secondary border-l-2 border-l-[hsl(var(--jovial-jade))] pl-3 font-secondary leading-relaxed">
+                    {therapist.quote.length > 120 ? `${therapist.quote.substring(0, 117)}...` : therapist.quote}
+                </p>
                 
                 <div className="flex flex-wrap gap-2">
                    {therapist.specialties.slice(0, 1).map(specialty => (
@@ -179,9 +199,6 @@ export function TherapistCard({
                    ))}
                    {therapist.modalities?.slice(0, 1).map(modality => (
                      <Tag key={modality} category="modality" size="sm" shape="pill">{modality}</Tag>
-                   ))}
-                   {therapist.personality.slice(0, 1).map(trait => (
-                     <Tag key={trait} category="personality" size="sm" shape="pill">{trait}</Tag>
                    ))}
                 </div>
             </div>
