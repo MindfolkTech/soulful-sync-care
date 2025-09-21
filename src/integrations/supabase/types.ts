@@ -12,6 +12,31 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "13.0.5"
   }
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          extensions?: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       client_assessments: {
@@ -191,6 +216,8 @@ export type Database = {
           personality_tags: string[]
           session_focus: string[]
           session_rates: Json
+          setup_completed: boolean
+          setup_steps: Json
           specialties: string[]
           tagline: string | null
           timezone: string | null
@@ -226,6 +253,8 @@ export type Database = {
           personality_tags?: string[]
           session_focus?: string[]
           session_rates?: Json
+          setup_completed?: boolean
+          setup_steps?: Json
           specialties?: string[]
           tagline?: string | null
           timezone?: string | null
@@ -261,6 +290,8 @@ export type Database = {
           personality_tags?: string[]
           session_focus?: string[]
           session_rates?: Json
+          setup_completed?: boolean
+          setup_steps?: Json
           specialties?: string[]
           tagline?: string | null
           timezone?: string | null
@@ -282,6 +313,45 @@ export type Database = {
       }
     }
     Views: {
+      therapist_profiles_internal: {
+        Row: {
+          accepts_new_clients: boolean | null
+          id: string | null
+          is_active: boolean | null
+          name: string | null
+          published: boolean | null
+          setup_completed: boolean | null
+          setup_steps: Json | null
+          updated_at: string | null
+          user_id: string | null
+          verified: boolean | null
+        }
+        Insert: {
+          accepts_new_clients?: boolean | null
+          id?: string | null
+          is_active?: boolean | null
+          name?: string | null
+          published?: never
+          setup_completed?: boolean | null
+          setup_steps?: Json | null
+          updated_at?: string | null
+          user_id?: string | null
+          verified?: boolean | null
+        }
+        Update: {
+          accepts_new_clients?: boolean | null
+          id?: string | null
+          is_active?: boolean | null
+          name?: string | null
+          published?: never
+          setup_completed?: boolean | null
+          setup_steps?: Json | null
+          updated_at?: string | null
+          user_id?: string | null
+          verified?: boolean | null
+        }
+        Relationships: []
+      }
       therapist_profiles_public: {
         Row: {
           accepts_new_clients: boolean | null
@@ -496,6 +566,9 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
+  graphql_public: {
+    Enums: {},
+  },
   public: {
     Enums: {
       app_role: ["client", "therapist", "admin"],
