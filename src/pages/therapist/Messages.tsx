@@ -158,9 +158,9 @@ export default function TherapistMessages() {
                   >
                     <div className="flex items-start gap-3">
                       <div className="relative">
-                        <Avatar className="w-10 h-10">
+                        <Avatar className="w-10 h-10 sm:w-12 sm:h-12">
                           <AvatarImage src={conversation.clientAvatar} alt={conversation.clientInitials} />
-                          <AvatarFallback className="bg-surface-accent text-[hsl(var(--jovial-jade))] font-secondary font-semibold text-sm">
+                          <AvatarFallback className="bg-[hsl(var(--surface-accent))] text-[hsl(var(--jovial-jade))] font-secondary font-semibold text-sm">
                             {conversation.clientInitials}
                           </AvatarFallback>
                         </Avatar>
@@ -207,9 +207,9 @@ export default function TherapistMessages() {
             <CardHeader className="flex-shrink-0">
               <HStack className="justify-between">
                 <HStack>
-                  <Avatar className="w-8 h-8">
+                  <Avatar className="w-8 h-8 sm:w-10 sm:h-10">
                     <AvatarImage src={selectedConversation.clientAvatar} alt={selectedConversation.clientInitials} />
-                    <AvatarFallback className="bg-surface-accent text-[hsl(var(--jovial-jade))] font-secondary font-semibold text-sm">
+                    <AvatarFallback className="bg-[hsl(var(--surface-accent))] text-[hsl(var(--jovial-jade))] font-secondary font-semibold text-sm">
                       {selectedConversation.clientInitials}
                     </AvatarFallback>
                   </Avatar>

@@ -71,14 +71,14 @@ function AppointmentItem({ appointment }: { appointment: any }) {
   };
 
   return (
-    <div className="flex items-center justify-between p-2 border rounded-lg min-h-[--touch-target-min]" role="listitem">
-      <div className="flex items-center gap-[--space-xs] min-w-0 flex-1">
-        <div className="w-8 h-8 bg-surface-accent rounded-full flex items-center justify-center flex-shrink-0">
-                        <span className="font-secondary text-foreground text-xs">{appointment.clientInitials}</span>
+    <div className="flex items-center justify-between p-3 sm:p-4 border rounded-lg min-h-[var(--touch-target-comfort)]" role="listitem">
+      <div className="flex items-center gap-3 min-w-0 flex-1">
+        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[hsl(var(--surface-accent))] rounded-full flex items-center justify-center flex-shrink-0">
+          <span className="font-secondary text-[hsl(var(--text-primary))] text-sm font-medium">{appointment.clientInitials}</span>
         </div>
         <div className="min-w-0 flex-1">
-          <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-sm truncate">{appointment.clientName}</h4>
-          <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs truncate">
+          <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-sm sm:text-base truncate">{appointment.clientName}</h4>
+          <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs sm:text-sm truncate">
             {appointment.sessionTime.toLocaleDateString('en-US', { 
               month: 'short', 
               day: 'numeric' 
@@ -91,8 +91,8 @@ function AppointmentItem({ appointment }: { appointment: any }) {
         </div>
       </div>
       
-      <div className="flex items-center gap-[--space-xs] flex-shrink-0">
-        <span className="font-secondary text-xs text-[hsl(var(--text-secondary))] tabular-nums">
+      <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 sm:gap-3 flex-shrink-0">
+        <span className="font-secondary text-xs sm:text-sm text-[hsl(var(--text-secondary))] tabular-nums whitespace-nowrap">
           {formatTimeDisplay()}
         </span>
         
@@ -100,7 +100,7 @@ function AppointmentItem({ appointment }: { appointment: any }) {
           <Button 
             variant="primary"
             onClick={handleJoinSession}
-            className="min-h-[--touch-target-min] font-secondary font-semibold animate-pulse"
+            className="min-h-[var(--touch-target-min)] min-w-[var(--touch-target-min)] font-secondary font-semibold animate-pulse text-xs sm:text-sm px-3 sm:px-4"
             aria-label={`Join ${appointment.clientName}'s ${appointment.type}`}
           >
             JOIN NOW
@@ -108,7 +108,7 @@ function AppointmentItem({ appointment }: { appointment: any }) {
         ) : (
           <Button 
             variant="tertiary"
-            className="min-h-[--touch-target-min] font-secondary text-xs bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-secondary))]"
+            className="min-h-[var(--touch-target-min)] min-w-[var(--touch-target-min)] font-secondary text-xs sm:text-sm bg-[hsl(var(--surface-accent))] text-[hsl(var(--text-secondary))] px-3 sm:px-4"
           >
             Scheduled
           </Button>
@@ -222,7 +222,7 @@ export default function TherapistDashboard() {
             </div>
             
             {/* 4-Widget Grid Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         
               {/* Widget 1: Upcoming Appointments */}
               <Card>
@@ -261,19 +261,19 @@ export default function TherapistDashboard() {
                     </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-2">
+                <CardContent className="space-y-3">
                   {recentClients.slice(0, 3).map(client => (
-                    <div key={client.id} className="flex items-center justify-between p-2 border rounded-lg">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-[hsl(var(--surface-accent))] rounded-full flex items-center justify-center flex-shrink-0">
-                          <span className="font-secondary text-[hsl(var(--text-primary))] text-xs">{client.initials}</span>
+                    <div key={client.id} className="flex items-center justify-between p-3 sm:p-4 border rounded-lg min-h-[var(--touch-target-comfort)]">
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[hsl(var(--surface-accent))] rounded-full flex items-center justify-center flex-shrink-0">
+                          <span className="font-secondary text-[hsl(var(--text-primary))] text-sm font-medium">{client.initials}</span>
                         </div>
-                        <div>
-                          <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-sm">{client.name}</h4>
-                          <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs">Last session: {client.lastSession}</p>
+                        <div className="min-w-0 flex-1">
+                          <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-sm sm:text-base truncate">{client.name}</h4>
+                          <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs sm:text-sm truncate">Last session: {client.lastSession}</p>
                         </div>
                       </div>
-                      <Badge variant={client.status === "Active" ? "secondary" : "outline"} className={`text-xs ${client.status === "Active" ? "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]" : "bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]"}`}>
+                      <Badge variant={client.status === "Active" ? "secondary" : "outline"} className={`text-xs sm:text-sm flex-shrink-0 ${client.status === "Active" ? "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]" : "bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]"}`}>
                         {client.status}
                       </Badge>
                     </div>
@@ -296,14 +296,14 @@ export default function TherapistDashboard() {
                     </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-2">
+                <CardContent className="space-y-3">
                   {mockTherapistTasks.slice(0, 3).map(task => (
-                      <div key={task.id} className="flex items-center justify-between p-2 border rounded-lg">
-                        <div className="flex items-center gap-3">
-                          <CheckCircle2 className={`w-5 h-5 ${task.status === 'done' ? 'text-[hsl(var(--success-text))]' : 'text-[hsl(var(--text-secondary)))]'}`} />
-                          <div>
-                          <h4 className={`font-secondary text-sm ${task.status === 'done' ? 'line-through text-[hsl(var(--text-secondary))]' : 'text-[hsl(var(--text-primary))]'}`}>{task.title}</h4>
-                          <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs">{task.due ? new Date(task.due).toLocaleDateString() : 'No due date'}</p>
+                      <div key={task.id} className="flex items-center justify-between p-3 sm:p-4 border rounded-lg min-h-[var(--touch-target-comfort)]">
+                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                          <CheckCircle2 className={`w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 ${task.status === 'done' ? 'text-[hsl(var(--success-text))]' : 'text-[hsl(var(--text-secondary)))]'}`} />
+                          <div className="min-w-0 flex-1">
+                          <h4 className={`font-secondary text-sm sm:text-base truncate ${task.status === 'done' ? 'line-through text-[hsl(var(--text-secondary))]' : 'text-[hsl(var(--text-primary))]'}`}>{task.title}</h4>
+                          <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs sm:text-sm truncate">{task.due ? new Date(task.due).toLocaleDateString() : 'No due date'}</p>
                           </div>
                         </div>
                       </div>
@@ -327,7 +327,7 @@ export default function TherapistDashboard() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div style={{ width: '100%', height: 150 }}>
+                  <div className="w-full h-32 sm:h-36 md:h-40 lg:h-44">
                     <ResponsiveContainer>
                       <BarChart data={[{name: 'Weekly Revenue', value: practiceMetrics.weeklyRevenue}]} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
                         <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false}/>

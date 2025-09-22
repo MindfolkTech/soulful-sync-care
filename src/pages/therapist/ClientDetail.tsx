@@ -329,13 +329,13 @@ export default function ClientDetail() {
               </CardHeader>
               <CardContent className="space-y-[--space-sm]">
                 {client.upcomingAppointments.map((appointment) => (
-                  <div key={appointment.id} className="flex items-center justify-between p-2 border rounded-lg">
-                    <div>
-                      <p className="font-secondary font-semibold text-sm">{appointment.date}</p>
-                      <p className="font-secondary text-xs text-[hsl(var(--text-secondary))]">{appointment.duration} {appointment.type}</p>
+                  <div key={appointment.id} className="flex items-center justify-between p-3 sm:p-4 border rounded-lg min-h-[var(--touch-target-comfort)]">
+                    <div className="min-w-0 flex-1">
+                      <p className="font-secondary font-semibold text-sm sm:text-base truncate">{appointment.date}</p>
+                      <p className="font-secondary text-xs sm:text-sm text-[hsl(var(--text-secondary))] truncate">{appointment.duration} {appointment.type}</p>
                     </div>
-                    <Button variant="ghost" size="sm">
-                      <Calendar className="w-4 h-4" />
+                    <Button variant="ghost" size="sm" className="min-h-[var(--touch-target-min)] min-w-[var(--touch-target-min)] flex-shrink-0">
+                      <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                     </Button>
                   </div>
                 ))}
@@ -389,16 +389,16 @@ export default function ClientDetail() {
                 <CardTitle className="font-primary text-base">NOTIFICATION SETTINGS</CardTitle>
               </CardHeader>
               <CardContent className="space-y-[--space-sm]">
-                <div className="flex items-center justify-between p-2 border rounded-lg">
-                  <span className="font-secondary text-sm">Apt Reminders</span>
-                  <Button variant="ghost" size="sm">
-                    <Calendar className="w-4 h-4" />
+                <div className="flex items-center justify-between p-3 sm:p-4 border rounded-lg min-h-[var(--touch-target-comfort)]">
+                  <span className="font-secondary text-sm sm:text-base">Apt Reminders</span>
+                  <Button variant="ghost" size="sm" className="min-h-[var(--touch-target-min)] min-w-[var(--touch-target-min)]">
+                    <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
                   </Button>
                 </div>
-                <div className="flex items-center justify-between p-2 border rounded-lg">
-                  <span className="font-secondary text-sm">Document Reminders</span>
-                  <Button variant="ghost" size="sm">
-                    <FileText className="w-4 h-4" />
+                <div className="flex items-center justify-between p-3 sm:p-4 border rounded-lg min-h-[var(--touch-target-comfort)]">
+                  <span className="font-secondary text-sm sm:text-base">Document Reminders</span>
+                  <Button variant="ghost" size="sm" className="min-h-[var(--touch-target-min)] min-w-[var(--touch-target-min)]">
+                    <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
                   </Button>
                 </div>
               </CardContent>

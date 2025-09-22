@@ -71,7 +71,7 @@ const EarningsView = () => {
                                     <div key={transaction.id} className={`p-4 md:p-5 lg:p-6 ${index !== recentTransactions.length - 1 ? 'border-b border-border' : ''}`}>
                                         <div className="flex items-center justify-between">
                                             <div className="flex items-center gap-3">
-                                                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${transaction.type === 'payout' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}`}>{transaction.type === 'payout' ? <Download className="w-4 h-4" /> : <DollarSign className="w-4 h-4" />}</div>
+                                                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center ${transaction.type === 'payout' ? 'bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]' : 'bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]'}`}>{transaction.type === 'payout' ? <Download className="w-4 h-4 sm:w-5 sm:h-5" /> : <DollarSign className="w-4 h-4 sm:w-5 sm:h-5" />}</div>
                                                 <div>
                                                     <p className="font-secondary font-semibold text-foreground">{transaction.client}</p>
                                                     <p className="font-secondary text-muted-foreground text-sm">{new Date(transaction.date).toLocaleDateString()}</p>
@@ -79,7 +79,7 @@ const EarningsView = () => {
                                             </div>
                                             <div className="text-right">
                                                 <p className={`font-secondary font-semibold ${transaction.amount > 0 ? 'text-green-600' : 'text-foreground'}`}>{transaction.amount > 0 ? '+' : ''}£{Math.abs(transaction.amount)}</p>
-                                                <Badge variant={transaction.status === 'completed' ? 'secondary' : 'outline'} className={transaction.status === 'completed' ? 'bg-green-100 text-green-800' : ''}>{transaction.status}</Badge>
+                                                <Badge variant={transaction.status === 'completed' ? 'secondary' : 'outline'} className={transaction.status === 'completed' ? 'bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]' : ''}>{transaction.status}</Badge>
                                             </div>
                                         </div>
                                     </div>
