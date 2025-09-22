@@ -36,6 +36,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { mockTherapistTasks } from "@/data/mock-tasks";
 import { useTherapistAppointments, useTherapistEarnings, useTherapistAnalytics } from "@/hooks/use-therapist-data";
+import { AddTaskDialog } from "@/components/therapist/add-task-dialog";
+import { TaskItem } from "@/types/tasks";
 
 // Custom component for appointment items with JOIN NOW logic
 function AppointmentItem({ appointment }: { appointment: any }) {
@@ -122,28 +124,52 @@ function AppointmentItem({ appointment }: { appointment: any }) {
 export default function TherapistDashboard() {
   const { user } = useAuth();
   const [therapist, setTherapist] = React.useState<{first_name: string} | null>(null);
+  const [tasks, setTasks] = React.useState<TaskItem[]>(mockTherapistTasks);
+  const [testimonials, setTestimonials] = React.useState<{testimonial_text: string}[]>([]);
   const { appointments } = useTherapistAppointments();
   const { getTotalEarnings } = useTherapistEarnings();
   const { analytics, getTotalStats } = useTherapistAnalytics();
 
   React.useEffect(() => {
-    const fetchTherapistName = async () => {
+    const fetchTherapistData = async () => {
       if (user) {
-        const { data, error } = await supabase
+        // Fetch therapist name
+        const { data: profileData, error: profileError } = await supabase
           .from('therapist_profiles')
           .select('name')
           .eq('user_id', user.id)
           .single();
-        if (data) {
-          // Split the name into first_name for display
-          const nameParts = data.name.split(' ');
+        
+        if (profileData) {
+          const nameParts = profileData.name.split(' ');
           setTherapist({ first_name: nameParts[0] });
         }
-        else if (error) console.error("Error fetching therapist name", error);
+        else if (profileError) console.error("Error fetching therapist name", profileError);
+
+        // Fetch testimonials
+        const { data: testimonialsData, error: testimonialsError } = await supabase
+          .from('client_testimonials')
+          .select('testimonial_text')
+          .eq('therapist_id', user.id)
+          .eq('is_public', true)
+          .order('created_at', { ascending: false })
+          .limit(1);
+
+        if (testimonialsData) {
+          setTestimonials(testimonialsData);
+        }
       }
     };
-    fetchTherapistName();
+    fetchTherapistData();
   }, [user]);
+
+  const handleAddTask = (newTask: Omit<TaskItem, 'id'>) => {
+    const taskWithId = {
+      ...newTask,
+      id: `task_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+    };
+    setTasks(prev => [taskWithId, ...prev]);
+  };
 
   // Filter real appointments for upcoming sessions
   const now = new Date();
@@ -199,16 +225,16 @@ export default function TherapistDashboard() {
             {/* 4-Widget Grid Layout */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         
-              {/* Widget 1: Upcoming Appointments */}
+              {/* Widget 1: My Schedule */}
               <Card>
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <h2 className="font-primary text-lg font-semibold text-[hsl(var(--jovial-jade))]">
-                      Upcoming Appointments
+                      My Schedule
                     </h2>
                     <Button variant="ghost" size="sm" asChild>
                       <Link to="/t/schedule">
-                        VIEW ALL
+                        MANAGE
                         <ExternalLink className="w-3 h-3 ml-1" />
                       </Link>
                     </Button>
@@ -221,15 +247,15 @@ export default function TherapistDashboard() {
                 </CardContent>
               </Card>
 
-              {/* Widget 2: Recent Clients */}
+              {/* Widget 2: My Clients */}
               <Card>
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <h2 className="font-primary text-lg font-semibold text-[hsl(var(--jovial-jade))]">
-                      Recent Clients
+                      My Clients
                     </h2>
                     <Button variant="ghost" size="sm" asChild>
-                      <Link to="/t/clients?tab=recent">
+                      <Link to="/t/clients">
                         VIEW ALL
                         <ExternalLink className="w-3 h-3 ml-1" />
                       </Link>
@@ -263,16 +289,19 @@ export default function TherapistDashboard() {
                     <h2 className="font-primary text-lg font-semibold text-[hsl(var(--jovial-jade))]">
                       My Tasks
                     </h2>
+                    <div className="flex items-center gap-2">
+                      <AddTaskDialog onAddTask={handleAddTask} />
                       <Button variant="ghost" size="sm" asChild>
-                      <Link to="/t/schedule?tab=tasks">
-                        VIEW ALL
-                        <ExternalLink className="w-3 h-3 ml-1" />
-                      </Link>
-                    </Button>
+                        <Link to="/t/schedule?tab=tasks">
+                          VIEW ALL
+                          <ExternalLink className="w-3 h-3 ml-1" />
+                        </Link>
+                      </Button>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  {mockTherapistTasks.slice(0, 3).map(task => (
+                  {tasks.slice(0, 3).map(task => (
                       <div key={task.id} className="flex items-center justify-between p-3 sm:p-4 border rounded-lg min-h-[var(--touch-target-comfort)]">
                         <div className="flex items-center gap-3 min-w-0 flex-1">
                           <CheckCircle2 className={`w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 ${task.status === 'done' ? 'text-[hsl(var(--success-text))]' : 'text-[hsl(var(--text-secondary)))]'}`} />
@@ -286,12 +315,12 @@ export default function TherapistDashboard() {
                 </CardContent>
               </Card>
 
-              {/* Widget 4: Business Summary */}
+              {/* Widget 4: My Business */}
               <Card>
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <h2 className="font-primary text-lg font-semibold text-[hsl(var(--jovial-jade))]">
-                      Business Summary
+                      My Business
                     </h2>
                     <Button variant="ghost" size="sm" asChild>
                       <Link to="/t/business">
@@ -307,11 +336,12 @@ export default function TherapistDashboard() {
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
                         <DollarSign className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-xs text-muted-foreground">Total Earned</span>
+                        <span className="text-xs text-muted-foreground">Total Earned (Net)</span>
                       </div>
                       <div className="text-xl font-bold">
                         £{weeklyRevenue.toLocaleString()}
                       </div>
+                      <p className="text-xs text-muted-foreground">After 15% platform fee</p>
                       <div className="h-[40px]">
                         <ResponsiveContainer width="100%" height="100%">
                           <BarChart data={[{revenue: weeklyRevenue}]}>
@@ -359,9 +389,9 @@ export default function TherapistDashboard() {
                         <span className="text-xs text-muted-foreground">Latest Feedback</span>
                       </div>
                       <div className="text-xs italic text-muted-foreground">
-                        {recentClients.length > 0 
-                          ? "Great progress with therapy sessions"
-                          : "No recent feedback"}
+                        {testimonials.length > 0 
+                          ? `"${testimonials[0].testimonial_text.substring(0, 50)}..."`
+                          : "No testimonials yet"}
                       </div>
                     </div>
                   </div>

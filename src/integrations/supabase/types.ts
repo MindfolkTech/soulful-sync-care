@@ -210,6 +210,50 @@ export type Database = {
           },
         ]
       }
+      client_testimonials: {
+        Row: {
+          appointment_id: string | null
+          client_id: string
+          created_at: string
+          id: string
+          is_public: boolean
+          rating: number | null
+          testimonial_text: string | null
+          therapist_id: string
+          updated_at: string
+        }
+        Insert: {
+          appointment_id?: string | null
+          client_id: string
+          created_at?: string
+          id?: string
+          is_public?: boolean
+          rating?: number | null
+          testimonial_text?: string | null
+          therapist_id: string
+          updated_at?: string
+        }
+        Update: {
+          appointment_id?: string | null
+          client_id?: string
+          created_at?: string
+          id?: string
+          is_public?: boolean
+          rating?: number | null
+          testimonial_text?: string | null
+          therapist_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_testimonials_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       languages: {
         Row: {
           created_at: string
