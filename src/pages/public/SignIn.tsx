@@ -36,11 +36,16 @@ export default function SignIn() {
       if (error) {
         setError(error.message);
       } else if (data.user) {
-        // Refresh session to get latest user metadata
-        const refreshedSession = await refreshSession();
-        const roles = refreshedSession?.user?.user_metadata?.roles || [];
+        // Get user role from database (source of truth)
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", data.user.id)
+          .single();
 
-        if (roles.includes('therapist')) {
+        const userRole = profile?.role || 'client';
+
+        if (userRole === 'therapist') {
           navigate("/t/dashboard");
         } else {
           navigate("/discover");

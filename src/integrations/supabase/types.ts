@@ -294,7 +294,7 @@ export type Database = {
         Row: {
           accepts_new_clients: boolean
           age_group: string | null
-          application_id: string
+          application_id: string | null
           availability: Json
           avatar_url: string | null
           bio: string | null
@@ -340,7 +340,7 @@ export type Database = {
         Insert: {
           accepts_new_clients?: boolean
           age_group?: string | null
-          application_id: string
+          application_id?: string | null
           availability?: Json
           avatar_url?: string | null
           bio?: string | null
@@ -386,7 +386,7 @@ export type Database = {
         Update: {
           accepts_new_clients?: boolean
           age_group?: string | null
-          application_id?: string
+          application_id?: string | null
           availability?: Json
           avatar_url?: string | null
           bio?: string | null

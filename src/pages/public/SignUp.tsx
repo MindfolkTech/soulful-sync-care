@@ -74,6 +74,7 @@ export default function SignUp() {
           data: {
             first_name: formData.firstName,
             last_name: formData.lastName,
+            role: 'client',
           },
         },
       });
