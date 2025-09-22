@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { MessageSquareText, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import {
   Dialog,
   DialogContent,
@@ -20,7 +21,19 @@ interface ReadyToConnectModalProps {
 }
 
 export function ReadyToConnectModal({ open, onOpenChange, therapist }: ReadyToConnectModalProps) {
+  const navigate = useNavigate();
+  
   if (!therapist) return null;
+
+  const handleBookChemistryCall = () => {
+    navigate(`/book/${therapist.id}`);
+    onOpenChange(false);
+  };
+
+  const handleBookTherapySession = () => {
+    navigate(`/book/${therapist.id}`);
+    onOpenChange(false);
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -41,10 +54,10 @@ export function ReadyToConnectModal({ open, onOpenChange, therapist }: ReadyToCo
             </DialogDescription>
             </DialogHeader>
             <DialogFooter className="grid grid-cols-2 gap-4 items-center">
-                <Button variant="ghost" className="text-primary font-semibold">
+                <Button variant="ghost" className="text-primary font-semibold" onClick={handleBookChemistryCall}>
                     Book Free Chemistry Call
                 </Button>
-                <Button variant="ghost" className="text-primary font-semibold">
+                <Button variant="ghost" className="text-primary font-semibold" onClick={handleBookTherapySession}>
                     Book Therapy Session
                 </Button>
                 <div className="col-span-2">

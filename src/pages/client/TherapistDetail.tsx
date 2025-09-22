@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
@@ -10,6 +10,16 @@ import { Star, Heart, Calendar, Play } from "lucide-react";
 
 export default function TherapistDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const handleBookChemistryCall = () => {
+    navigate(`/book/${id}`);
+  };
+
+  const handleAddToFavorites = () => {
+    // TODO: Implement favorites functionality
+    console.log('Add to favorites clicked for therapist:', id);
+  };
 
   const therapist = {
     id: "1",
@@ -189,11 +199,11 @@ export default function TherapistDetail() {
                   </div>
 
                   <div className="space-y-3">
-                    <Button className="w-full" size="lg">
+                    <Button className="w-full" size="lg" onClick={handleBookChemistryCall}>
                       <Calendar className="w-4 h-4 mr-2" />
                       Book Free Chemistry Call
                     </Button>
-                    <Button variant="outline" className="w-full" size="lg">
+                    <Button variant="outline" className="w-full" size="lg" onClick={handleAddToFavorites}>
                       <Heart className="w-4 h-4 mr-2" />
                       Add to Favorites
                     </Button>
