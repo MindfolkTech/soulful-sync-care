@@ -19,6 +19,32 @@ import {
 } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 
+// Define communication styles options that align with the matching algorithm
+// Using safe IDs for DOM elements but storing the full strings for processing compatibility
+const communicationStyles = [
+  { id: 'empathetic', value: 'Empathetic and understanding', label: 'Empathetic and understanding', description: 'I focus on creating a warm, supportive environment where clients feel heard and validated.' },
+  { id: 'structured', value: 'Structured and goal-oriented', label: 'Structured and goal-oriented', description: 'I help clients set clear goals and work systematically toward measurable outcomes.' },
+  { id: 'flexible', value: 'Flexible and adaptable', label: 'Flexible and adaptable', description: 'I adjust my approach based on each client\'s unique needs and preferences.' },
+  { id: 'calm', value: 'Calm and process-focused', label: 'Calm and process-focused', description: 'I help clients explore their thoughts and feelings at a comfortable pace.' },
+];
+
+// Define session format options
+const sessionFormats = [
+  { id: 'structured', label: 'Structured', description: 'I follow a clear agenda with specific goals for each session.' },
+  { id: 'flexible', label: 'Flexible', description: 'I adapt the session flow based on what emerges in our time together.' },
+  { id: 'balanced', label: 'Balanced', description: 'I balance structure with flexibility, having a general framework while remaining responsive to client needs.' },
+];
+
+// Define prides options
+const prides = [
+  { id: 'empathy', label: 'Empathy' },
+  { id: 'authenticity', label: 'Authenticity' },
+  { id: 'cultural_sensitivity', label: 'Cultural Sensitivity' },
+  { id: 'inclusivity', label: 'Inclusivity' },
+  { id: 'continuing_education', label: 'Continuing Education' },
+  { id: 'work_life_balance', label: 'Work-Life Balance' },
+];
+
 export default function OnboardingApproach() {
   const navigate = useNavigate();
   const [modalities, setModalities] = useState<{name: string}[]>([]);
@@ -154,7 +180,11 @@ export default function OnboardingApproach() {
               {/* Communication Style */}
               <div className="space-y-3">
                 <Label className="font-bold">When working with a therapy client, my communication style tends to lean towards... (select one)</Label>
-                <RadioGroup value={formData.communicationStyle} onValueChange={(val) => setFormData(p => ({...p, communicationStyle: val}))}>
+                <RadioGroup value={formData.communicationStyle} onValueChange={(val) => {
+                  // Find the full string value for the selected ID
+                  const selectedStyle = communicationStyles.find(s => s.id === val);
+                  setFormData(p => ({...p, communicationStyle: selectedStyle ? selectedStyle.value : val}));
+                }}>
                   {communicationStyles.map(s => (
                     <div key={s.id} className="flex items-start space-x-2 p-3 rounded-md border">
                       <RadioGroupItem value={s.id} id={`comm-${s.id}`} />

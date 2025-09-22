@@ -30,6 +30,8 @@ export interface ClientAssessment {
 export interface TherapistProfile {
   id: string;
   // Matching algorithm fields
+  communication_style?: string;
+  session_format?: string;
   personality_tags: string[];
   languages: string[];
   identity_tags: string[];
@@ -88,6 +90,17 @@ export const MATCHING_WEIGHTS: MatchingWeights = {
  */
 function normalize(v: string): string {
   return v.trim().toLowerCase();
+}
+
+/**
+ * NEW - Helper function to parse style sentences into keywords.
+ * Takes a string like "Structured & Goal-oriented (..." and returns ['structured', 'goal-oriented']
+ */
+function parseStyleSentence(sentence: string): string[] {
+  if (!sentence) return [];
+  // Take the part before the parenthesis, replace '&' with space, and split into words.
+  const mainPart = sentence.split('(')[0].trim();
+  return mainPart.replace(/&/g, ' ').split(/\s+/).map(normalize);
 }
 
 /**
@@ -319,10 +332,19 @@ export function calculateMatch(
   }
 
   // Calculate weighted scores
-  const personalityScore = calculateOverlapExact(
-    assessment.communication_preferences,
-    therapist.personality_tags
-  );
+  const personalityScore = (() => {
+    // If the therapist has the new fields, combine them for a rich profile.
+    if (therapist.communication_style || therapist.session_format) {
+      const clientWants = assessment.communication_preferences.flatMap(parseStyleSentence);
+      const therapistHaves = [
+        ...parseStyleSentence(therapist.communication_style || ''),
+        ...parseStyleSentence(therapist.session_format || '')
+      ];
+      return calculateOverlapExact(clientWants, therapistHaves);
+    }
+    // Otherwise, fall back to the old personality_tags for backward compatibility.
+    return calculateOverlapExact(assessment.communication_preferences, therapist.personality_tags);
+  })();
 
   const identityScore = calculateOverlapExact(
     assessment.identity_preferences,
