@@ -50,7 +50,7 @@ export function EmailConfirmationModal({ userEmail, isOpen }: EmailConfirmationM
 
   return (
     <Dialog open={isOpen}>
-      <DialogContent showCloseButton={false}>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-center">Confirm Your Email</DialogTitle>
           <DialogDescription className="text-center">

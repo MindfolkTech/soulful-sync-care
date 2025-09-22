@@ -120,7 +120,7 @@ export const saveTherapistProfile = async (userId: string, profileData: Therapis
         .from('therapist_profiles')
         .insert({
           ...profilePayload,
-          created_at: new Date().toISOString(),
+          license_number: 'PENDING_SETUP', // Required field
         })
         .select()
         .single();
