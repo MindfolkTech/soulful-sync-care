@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -11,7 +12,9 @@ import { Badge } from "@/components/ui/badge";
 export default function OnboardingVideo() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    video: null as File | null
+    video: null as File | null,
+    uploading: false as boolean,
+    videoUrl: undefined as string | undefined,
   });
 
   // Load saved data
@@ -20,43 +23,68 @@ export default function OnboardingVideo() {
     if (saved) {
       const { profileData } = JSON.parse(saved);
       setFormData({
-        video: profileData.video || null
+        video: profileData.video || null,
+        uploading: false,
+        videoUrl: profileData.videoUrl || undefined,
       });
     }
   }, []);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const saved = localStorage.getItem('therapistOnboarding');
     const existing = saved ? JSON.parse(saved) : { currentStep: 5, profileData: {} };
     
+    let videoUrl = formData.videoUrl;
+    // If a new video file is selected and we don't have a URL yet, upload it
+    if (formData.video && !videoUrl) {
+      setFormData(prev => ({ ...prev, uploading: true }));
+      const file = formData.video;
+      const bucket = "therapist-videos";
+      const filePath = `${crypto.randomUUID()}_${file.name}`;
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from(bucket)
+        .upload(filePath, file, { upsert: false, contentType: file.type });
+      if (uploadError) {
+        console.error('Video upload error:', uploadError);
+        setFormData(prev => ({ ...prev, uploading: false }));
+        // fallback: keep videoUrl undefined
+      } else {
+        const { data: publicData } = supabase.storage.from(bucket).getPublicUrl(filePath);
+        videoUrl = publicData?.publicUrl;
+        setFormData(prev => ({ ...prev, uploading: false, videoUrl }));
+      }
+    }
+
     localStorage.setItem('therapistOnboarding', JSON.stringify({
       ...existing,
       currentStep: 5,
       profileData: {
         ...existing.profileData,
         ...formData,
-        video: videoMeta,
+        videoUrl,
+        // Remove raw File reference before persisting
+        video: undefined,
       },
       timestamp: Date.now()
     }));
   };
 
-  const handleNext = () => {
-    handleSave();
+  const handleNext = async () => {
+    await handleSave();
     navigate("/t/onboarding/verification");
   };
 
-  const handleSkip = () => {
+  const handleSkip = async () => {
     // Clear any selected video before skipping
-    setFormData({ video: null });
-    handleSave();
+    setFormData(prev => ({ ...prev, video: null }));
+    await handleSave();
     navigate("/t/onboarding/verification");
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setFormData(prev => ({...prev, video: file}));
+      setFormData(prev => ({ ...prev, video: file, videoUrl: undefined }));
     }
   };
 
@@ -148,6 +176,9 @@ export default function OnboardingVideo() {
                   </label>
                 </div>
               </div>
+              {formData.uploading && (
+                <p className="text-xs text-muted-foreground mt-2">Uploading video… please wait.</p>
+              )}
 
               <HStack className="justify-between pt-6">
                 <Button 
@@ -158,10 +189,10 @@ export default function OnboardingVideo() {
                   Back
                 </Button>
                 <HStack className="space-x-3">
-                  <Button variant="outline" onClick={handleSkip}>
+                  <Button variant="outline" onClick={handleSkip} disabled={formData.uploading}>
                     Skip for now
                   </Button>
-                  <Button onClick={handleNext}>
+                  <Button onClick={handleNext} disabled={formData.uploading}>
                     Next
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>

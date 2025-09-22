@@ -155,9 +155,6 @@ export function OnboardingChecklist() {
       },
     ];
 
-    const percent = computeProgress(steps);
-    const displayPercent = Math.min(99, baseOffset + percent);
-    const canPublish = verified && steps.every((s) => s.completed);
 
     // Reorder to always surface actionable items if verification is pending
     if (!verified) {
