@@ -23,7 +23,7 @@ interface BlockedTime {
   endDate: string;
   startTime: string;
   endTime: string;
-  recurring: boolean;
+  recurring: 'none' | 'daily' | 'weekly' | 'monthly';
 }
 
 const weekDays = [
@@ -65,7 +65,7 @@ export function EnhancedAvailabilityManager() {
     startTime: '09:00',
     endTime: '17:00',
     allDay: false,
-    recurring: false,
+    recurring: 'none' as 'none' | 'daily' | 'weekly' | 'monthly',
     notes: ''
   });
 
@@ -85,7 +85,7 @@ export function EnhancedAvailabilityManager() {
         start_time: newBlock.allDay ? null : newBlock.startTime,
         end_time: newBlock.allDay ? null : newBlock.endTime,
         all_day: newBlock.allDay,
-        recurring: newBlock.recurring,
+        recurring: newBlock.recurring !== 'none',
         notes: newBlock.notes
       };
       
@@ -99,7 +99,7 @@ export function EnhancedAvailabilityManager() {
         startTime: '09:00',
         endTime: '17:00',
         allDay: false,
-        recurring: false,
+        recurring: 'none' as 'none' | 'daily' | 'weekly' | 'monthly',
         notes: ''
       });
       setIsAddingBlock(false);
@@ -214,79 +214,9 @@ export function EnhancedAvailabilityManager() {
         </Card>
       </div>
 
-      <div className="grid lg:grid-cols-4 gap-6">
-        {/* Weekly Schedule Grid */}
-        <div className="lg:col-span-3 space-y-6">
-          {/* Visual Weekly Schedule */}
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="font-primary">Weekly Schedule</CardTitle>
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-[hsl(var(--success-bg))] rounded-full"></div>
-                  <span className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Available</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-[hsl(var(--primary))] rounded-full"></div>
-                  <span className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Booked</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-3 h-3 bg-[hsl(var(--surface-accent))] rounded-full"></div>
-                  <span className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Unavailable</span>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-8 gap-1 text-xs">
-                {/* Header */}
-                <div className="font-secondary text-[hsl(var(--text-secondary))] p-2"></div>
-                {weekDays.map((day) => (
-                  <div key={day} className="font-secondary text-[hsl(var(--text-secondary))] p-2 text-center">
-                    {day.slice(0, 3)}
-                  </div>
-                ))}
-
-                {/* Time slots */}
-                {timeSlots.map((time) => (
-                  <div key={time} className="contents">
-                    <div className="font-secondary text-[hsl(var(--text-secondary))] p-2 text-right">
-                      {time}
-                    </div>
-                    {weekDays.map((day, dayIndex) => {
-                      const dayHours = workingHours.find(h => h.day === day);
-                      const hasAvailability = dayHours?.enabled && 
-                        dayHours.startTime <= time && 
-                        dayHours.endTime > time;
-                      
-                      const hasAppointment = appointments.some(apt => {
-                        const aptDate = new Date(apt.session_date);
-                        const aptDay = aptDate.getDay();
-                        return aptDay === dayIndex && apt.session_time === time;
-                      });
-                      
-                      return (
-                        <div
-                          key={`${day}-${time}`}
-                          className={`h-8 border rounded cursor-pointer transition-colors ${
-                            hasAppointment
-                              ? "bg-[hsl(var(--primary))] hover:bg-[hsl(var(--primary))]/80"
-                              : hasAvailability
-                              ? "bg-[hsl(var(--success-bg))]/20 hover:bg-[hsl(var(--success-bg))]/30 border-[hsl(var(--success-bg))]/40"
-                              : "bg-[hsl(var(--surface-accent))] hover:bg-[hsl(var(--surface-accent))]/80"
-                          }`}
-                          title={`${day} ${time} - ${
-                            hasAppointment ? "Booked" : hasAvailability ? "Available" : "Unavailable"
-                          }`}
-                        />
-                      );
-                    })}
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Working Hours Management */}
+      <div className="grid lg:grid-cols-3 gap-6">
+        {/* Working Hours Management */}
+        <div className="lg:col-span-2 space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="font-primary">Working Hours</CardTitle>
@@ -302,7 +232,7 @@ export function EnhancedAvailabilityManager() {
                   };
                   
                   return (
-                    <div key={day} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div key={day} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border rounded-lg gap-3">
                       <div className="flex items-center gap-4">
                         <Switch
                           checked={dayHours.enabled}
@@ -314,7 +244,7 @@ export function EnhancedAvailabilityManager() {
                       </div>
                       
                       {dayHours.enabled && (
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 ml-auto">
                           <Clock className="w-4 h-4 text-[hsl(var(--text-secondary))]" />
                           <Input
                             type="time"
@@ -394,38 +324,6 @@ export function EnhancedAvailabilityManager() {
             </CardContent>
           </Card>
 
-          {/* Schedule Templates */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="font-primary text-lg">Schedule Templates</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Button 
-                variant="outline" 
-                className="w-full justify-start"
-                onClick={() => handleTemplateApply('standard')}
-              >
-                <Clock className="w-4 h-4 mr-2" />
-                Standard Week
-              </Button>
-              <Button 
-                variant="outline" 
-                className="w-full justify-start"
-                onClick={() => handleTemplateApply('busy')}
-              >
-                <Clock className="w-4 h-4 mr-2" />
-                Busy Week
-              </Button>
-              <Button 
-                variant="outline" 
-                className="w-full justify-start"
-                onClick={() => handleTemplateApply('light')}
-              >
-                <Clock className="w-4 h-4 mr-2" />
-                Light Week
-              </Button>
-            </CardContent>
-          </Card>
 
           {/* Blocked Time Management */}
           <Card>
@@ -502,13 +400,21 @@ export function EnhancedAvailabilityManager() {
                         </div>
                       </div>
                     )}
-                    <div className="flex items-center space-x-2">
-                      <Switch
-                        id="recurring"
-                        checked={newBlock.recurring}
-                        onCheckedChange={(checked) => setNewBlock({...newBlock, recurring: checked})}
-                      />
-                      <Label htmlFor="recurring">Recurring weekly</Label>
+                    <div>
+                      <Label htmlFor="recurring-dropdown" className="font-secondary text-[hsl(var(--text-primary))] text-sm">
+                        Recurrence
+                      </Label>
+                      <select
+                        id="recurring-dropdown"
+                        value={newBlock.recurring}
+                        onChange={(e) => setNewBlock({...newBlock, recurring: e.target.value as 'none' | 'daily' | 'weekly' | 'monthly'})}
+                        className="w-full mt-1 p-2 border border-[hsl(var(--border))] rounded-md bg-[hsl(var(--surface-primary))] text-[hsl(var(--text-primary))] font-secondary text-sm"
+                      >
+                        <option value="none">One-time only</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                      </select>
                     </div>
                     <div className="flex justify-end space-x-2">
                       <Button variant="outline" onClick={() => setIsAddingBlock(false)}>
