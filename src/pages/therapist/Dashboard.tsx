@@ -302,15 +302,68 @@ export default function TherapistDashboard() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="w-full h-32 sm:h-36 md:h-40 lg:h-44">
-                    <ResponsiveContainer>
-                      <BarChart data={[{name: 'Weekly Revenue', value: weeklyRevenue}]} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                        <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false}/>
-                        <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `£${value}`}/>
-                        <Tooltip />
-                        <Bar dataKey="value" fill="hsl(var(--jovial-jade))" radius={[4, 4, 0, 0]} />
-                      </BarChart>
-                    </ResponsiveContainer>
+                  <div className="grid grid-cols-2 gap-4">
+                    {/* Monthly Revenue Trend */}
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <DollarSign className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">Total Earned</span>
+                      </div>
+                      <div className="text-xl font-bold">
+                        £{weeklyRevenue.toLocaleString()}
+                      </div>
+                      <div className="h-[40px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <BarChart data={[{revenue: weeklyRevenue}]}>
+                            <Bar 
+                              dataKey="revenue" 
+                              fill="hsl(var(--jovial-jade))" 
+                              radius={[2, 2, 0, 0]}
+                            />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
+                    </div>
+
+                    {/* Session Completion Rate */}
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">Completion Rate</span>
+                      </div>
+                      <div className="text-xl font-bold">
+                        {appointments.length > 0 ? Math.round((appointments.filter(apt => apt.status === 'completed').length / appointments.length) * 100) : 0}%
+                      </div>
+                      <Progress 
+                        value={appointments.length > 0 ? (appointments.filter(apt => apt.status === 'completed').length / appointments.length) * 100 : 0} 
+                        className="h-2"
+                      />
+                    </div>
+
+                    {/* Upcoming This Week */}
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <Calendar className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">This Week</span>
+                      </div>
+                      <div className="text-xl font-bold">
+                        {upcomingAppointments.length}
+                      </div>
+                      <p className="text-xs text-muted-foreground">sessions scheduled</p>
+                    </div>
+
+                    {/* Client Testimonial Preview */}
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <MessageSquare className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">Latest Feedback</span>
+                      </div>
+                      <div className="text-xs italic text-muted-foreground">
+                        {recentClients.length > 0 
+                          ? "Great progress with therapy sessions"
+                          : "No recent feedback"}
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
