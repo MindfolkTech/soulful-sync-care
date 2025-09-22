@@ -63,10 +63,9 @@ export default function OnboardingVerification() {
   
   const handleComplete = () => {
     handleSave();
-    // Here you would typically have validation to ensure all required docs are uploaded
-    // before allowing completion and clearing localStorage.
-    // localStorage.removeItem('therapistOnboarding');
-    navigate("/t/onboarding/policies");
+    // Fast-track onboarding complete - redirect to dashboard
+    // Detailed setup can be completed through Practice section
+    navigate("/t/dashboard");
   };
 
   const handleFileUpload = (docType: string, event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +91,7 @@ export default function OnboardingVerification() {
     .every(doc => formData.documents[doc.key]);
 
   return (
-    <OnboardingLayout currentStep={6} totalSteps={6}>
+    <OnboardingLayout currentStep={3} totalSteps={3}>
       <div className="p-4 md:p-6 lg:p-8">
         <Stack className="space-y-6">
           <Card className="min-h-[500px] shadow-lg border-0">
@@ -101,7 +100,7 @@ export default function OnboardingVerification() {
                 Professional Verification
               </h1>
               <p className="font-secondary text-[hsl(var(--text-secondary))] text-lg">
-                Upload your credentials securely. You can save and return later.
+                Upload your credentials for verification. Complete setup continues after dashboard access.
               </p>
             </CardHeader>
 
@@ -168,7 +167,7 @@ export default function OnboardingVerification() {
               <HStack className="justify-between pt-6">
                 <Button 
                   variant="outline" 
-                  onClick={() => navigate("/t/onboarding/video")}
+                  onClick={() => navigate("/t/onboarding/credentials")}
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back
@@ -178,7 +177,7 @@ export default function OnboardingVerification() {
                         Finish Later
                     </Button>
                     <Button onClick={handleComplete} disabled={!allRequiredDocsUploaded}>
-                      Next
+                      Complete Setup
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                 </div>

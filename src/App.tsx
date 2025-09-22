@@ -110,11 +110,7 @@ import ClientFeedback from "./pages/client/Feedback";
 import TherapistSignUp from "./pages/therapist/SignUp";
 import OnboardingWelcome from "./pages/therapist/onboarding/Welcome";
 import OnboardingCredentials from "./pages/therapist/onboarding/Credentials";
-import OnboardingApproach from "./pages/therapist/onboarding/Approach";
-import OnboardingProfile from "./pages/therapist/onboarding/Profile";
-import OnboardingVideo from "./pages/therapist/onboarding/Video";
 import OnboardingVerification from "./pages/therapist/onboarding/Verification";
-import OnboardingPolicies from "./pages/therapist/onboarding/Policies";
 import TherapistProfile from "./pages/therapist/Profile";
 import PracticeProfile from "./pages/therapist/practice/Profile";
 import PracticeCredentials from "./pages/therapist/practice/Credentials";
@@ -206,11 +202,7 @@ const AppContent = () => {
               {/* Therapist routes */}
               <Route path="/t/onboarding" element={<AuthGuard requiredRole="therapist"><OnboardingWelcome /></AuthGuard>} />
               <Route path="/t/onboarding/credentials" element={<AuthGuard requiredRole="therapist"><OnboardingCredentials /></AuthGuard>} />
-              <Route path="/t/onboarding/approach" element={<AuthGuard requiredRole="therapist"><OnboardingApproach /></AuthGuard>} />
-              <Route path="/t/onboarding/profile" element={<AuthGuard requiredRole="therapist"><OnboardingProfile /></AuthGuard>} />
-              <Route path="/t/onboarding/video" element={<AuthGuard requiredRole="therapist"><OnboardingVideo /></AuthGuard>} />
               <Route path="/t/onboarding/verification" element={<AuthGuard requiredRole="therapist"><OnboardingVerification /></AuthGuard>} />
-              <Route path="/t/onboarding/policies" element={<AuthGuard requiredRole="therapist"><OnboardingPolicies /></AuthGuard>} />
               <Route path="/t/setup" element={<AuthGuard requiredRole="therapist"><TherapistSetup /></AuthGuard>} />
               <Route path="/t/profile" element={<AuthGuard requiredRole="therapist"><TherapistProfile /></AuthGuard>} />
               

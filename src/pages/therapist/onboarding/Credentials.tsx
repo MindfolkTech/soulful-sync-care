@@ -30,7 +30,7 @@ export default function OnboardingCredentials() {
     lastName: "",
     title: "",
     experience: "",
-    registrations: [] as { body: string; registrationNumber: string }[],
+    registration: { body: "", registrationNumber: "" }, // Single registration only
     otherBody: "",
     hasInsurance: false,
   });
@@ -62,7 +62,7 @@ export default function OnboardingCredentials() {
         lastName: profileData.lastName || "",
         title: profileData.title || "",
         experience: profileData.experience || "",
-        registrations: profileData.registrations || [],
+        registration: profileData.registration || { body: "", registrationNumber: "" },
         otherBody: profileData.otherBody || "",
         hasInsurance: profileData.hasInsurance || false,
       });
@@ -86,29 +86,11 @@ export default function OnboardingCredentials() {
 
   const handleNext = () => {
     handleSave();
-    navigate("/t/onboarding/approach");
-  };
-
-  const handleAddRegistration = () => {
-    setFormData(prev => ({
-      ...prev,
-      registrations: [...prev.registrations, { body: "", registrationNumber: "" }]
-    }));
-  };
-  
-  const handleRegistrationChange = (index: number, field: 'body' | 'registrationNumber', value: string) => {
-    const newRegistrations = [...formData.registrations];
-    newRegistrations[index][field] = value;
-    setFormData(prev => ({ ...prev, registrations: newRegistrations }));
-  };
-
-  const handleRemoveRegistration = (index: number) => {
-    const newRegistrations = formData.registrations.filter((_, i) => i !== index);
-    setFormData(prev => ({ ...prev, registrations: newRegistrations }));
+    navigate("/t/onboarding/verification");
   };
 
   return (
-    <OnboardingLayout currentStep={2} totalSteps={6}>
+    <OnboardingLayout currentStep={2} totalSteps={3}>
       <div className="p-4 md:p-6 lg:p-8">
         <Stack className="space-y-6">
           <Card className="min-h-[500px] shadow-lg border-0">
@@ -117,7 +99,7 @@ export default function OnboardingCredentials() {
                 Professional Credentials
               </h1>
               <p className="font-secondary text-[hsl(var(--text-secondary))] text-lg">
-                Tell us about your qualifications
+                Basic information for verification
               </p>
             </CardHeader>
 
@@ -172,41 +154,48 @@ export default function OnboardingCredentials() {
               </div>
 
               <div className="space-y-4">
-                <Label>Professional Body Registration(s)</Label>
-                {formData.registrations.map((reg, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <Select
-                      value={reg.body}
-                      onValueChange={(value) => handleRegistrationChange(index, 'body', value)}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select professional body" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {professionalBodies.map(body => (
-                          <SelectItem key={body.abbreviation} value={body.abbreviation}>{body.name}</SelectItem>
-                        ))}
-                        <SelectItem value="OTHER">Other Recognised Professional Register</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    
-                    {reg.body === 'OTHER' && (
-                      <Input
-                        placeholder="Please specify"
-                        value={formData.otherBody}
-                        onChange={(e) => setFormData(prev => ({...prev, otherBody: e.target.value}))}
-                      />
-                    )}
-
+                <Label>Primary Professional Registration</Label>
+                <div className="space-y-2">
+                  <Select
+                    value={formData.registration.body}
+                    onValueChange={(value) => setFormData(prev => ({
+                      ...prev, 
+                      registration: { ...prev.registration, body: value }
+                    }))}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select professional body" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {professionalBodies.map(body => (
+                        <SelectItem key={body.abbreviation} value={body.abbreviation}>
+                          {body.name}
+                        </SelectItem>
+                      ))}
+                      <SelectItem value="OTHER">Other Recognised Professional Register</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  
+                  {formData.registration.body === 'OTHER' && (
                     <Input
-                      placeholder="Registration Number"
-                      value={reg.registrationNumber}
-                      onChange={(e) => handleRegistrationChange(index, 'registrationNumber', e.target.value)}
+                      placeholder="Please specify"
+                      value={formData.otherBody}
+                      onChange={(e) => setFormData(prev => ({...prev, otherBody: e.target.value}))}
                     />
-                    <Button variant="ghost" size="sm" onClick={() => handleRemoveRegistration(index)}>Remove</Button>
-                  </div>
-                ))}
-                <Button variant="outline" size="sm" onClick={handleAddRegistration}>Add another registration</Button>
+                  )}
+
+                  <Input
+                    placeholder="Registration Number"
+                    value={formData.registration.registrationNumber}
+                    onChange={(e) => setFormData(prev => ({
+                      ...prev, 
+                      registration: { ...prev.registration, registrationNumber: e.target.value }
+                    }))}
+                  />
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  You can add additional registrations later in your practice settings.
+                </p>
               </div>
 
               <div className="space-y-2 pt-4">

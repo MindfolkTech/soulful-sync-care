@@ -98,7 +98,7 @@ export function OnboardingChecklist() {
       {
         id: "documents",
         title: "Upload Documents",
-        tip: "Submit your credentials for verification",
+        tip: "Submit your credentials for verification via Practice > Credentials",
         estimate: "5 min",
         completed: !!setupSteps["documents"],
         locked: published, // Lock this step once verification is complete
@@ -112,8 +112,8 @@ export function OnboardingChecklist() {
       },
       {
         id: "rates",
-        title: "Set rates",
-        tip: "Add at least one session length + price",
+        title: "Set rates & services",
+        tip: "Configure pricing and session options",
         estimate: "2 min",
         completed: !!setupSteps["rates"],
       },
@@ -126,22 +126,22 @@ export function OnboardingChecklist() {
       },
       {
         id: "profile",
-        title: "Profile basics",
-        tip: "Photo, headline, short bio",
+        title: "Complete profile",
+        tip: "Photo, bio, headline, and therapeutic approach",
         estimate: "5 min",
         completed: !!setupSteps["profile"],
       },
       {
         id: "policies",
-        title: "Policies",
-        tip: "Cancellation and duty-of-care",
+        title: "Practice policies",
+        tip: "Cancellation, rescheduling, and communication policies",
         estimate: "2 min",
         completed: !!setupSteps["policies"],
       },
       {
         id: "details",
-        title: "Therapeutic details",
-        tip: "Specialties, modalities, languages",
+        title: "Therapeutic approach",
+        tip: "Modalities, communication style, and professional qualities",
         estimate: "3 min",
         completed: !!setupSteps["details"],
       },
@@ -215,13 +215,13 @@ export function OnboardingChecklist() {
                       onClick={() => {
                         const routeMap: Record<StepId, string> = {
                           verification: "/t/settings/verification",
-                          documents: "/t/onboarding/verification",
+                          documents: "/t/practice/credentials", // Updated to point to Practice section
                           payouts: "/t/settings/payouts?setup=1",
-                          rates: "/t/settings/rates",
+                          rates: "/t/practice/services", // Updated to point to Practice section
                           availability: "/t/schedule/availability",
-                          profile: "/t/profile/edit",
-                          policies: "/t/settings/policies",
-                          details: "/t/profile/edit#details",
+                          profile: "/t/practice/profile", // Updated to point to Practice section
+                          policies: "/t/practice/policies", // Updated to point to Practice section
+                          details: "/t/practice/profile#therapeutic-approach", // Updated to point to Practice section
                           review: "/t/profile?preview=true",
                         };
                         navigate(routeMap[step.id]);
