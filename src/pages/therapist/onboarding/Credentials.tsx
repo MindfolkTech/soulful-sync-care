@@ -8,16 +8,49 @@ import { OnboardingLayout } from "@/components/layout/onboarding-layout";
 import { useNavigate } from "react-router-dom";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { ArrowRight, ArrowLeft } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { supabase } from "@/integrations/supabase/client";
+
+type ProfessionalBody = {
+  abbreviation: string;
+  name: string;
+};
 
 export default function OnboardingCredentials() {
   const navigate = useNavigate();
+  const [professionalBodies, setProfessionalBodies] = useState<ProfessionalBody[]>([]);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     title: "",
     experience: "",
-    registrations: [] as string[]
+    registrations: [] as { body: string; registrationNumber: string }[],
+    otherBody: "",
+    hasInsurance: false,
   });
+
+  // Fetch professional bodies
+  useEffect(() => {
+    const fetchBodies = async () => {
+      const { data, error } = await supabase
+        .from('professional_bodies')
+        .select('abbreviation, name')
+        .order('name');
+      
+      if (error) {
+        console.error("Error fetching professional bodies:", error);
+      } else {
+        setProfessionalBodies(data || []);
+      }
+    };
+    fetchBodies();
+  }, []);
 
   // Load saved data
   useEffect(() => {
@@ -29,7 +62,9 @@ export default function OnboardingCredentials() {
         lastName: profileData.lastName || "",
         title: profileData.title || "",
         experience: profileData.experience || "",
-        registrations: profileData.registrations || []
+        registrations: profileData.registrations || [],
+        otherBody: profileData.otherBody || "",
+        hasInsurance: profileData.hasInsurance || false,
       });
     }
   }, []);
@@ -54,18 +89,22 @@ export default function OnboardingCredentials() {
     navigate("/t/onboarding/approach");
   };
 
-  const handleRegistrationChange = (body: string, checked: boolean) => {
-    if (checked) {
-      setFormData(prev => ({
-        ...prev,
-        registrations: [...prev.registrations, body]
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        registrations: prev.registrations.filter(r => r !== body)
-      }));
-    }
+  const handleAddRegistration = () => {
+    setFormData(prev => ({
+      ...prev,
+      registrations: [...prev.registrations, { body: "", registrationNumber: "" }]
+    }));
+  };
+  
+  const handleRegistrationChange = (index: number, field: 'body' | 'registrationNumber', value: string) => {
+    const newRegistrations = [...formData.registrations];
+    newRegistrations[index][field] = value;
+    setFormData(prev => ({ ...prev, registrations: newRegistrations }));
+  };
+
+  const handleRemoveRegistration = (index: number) => {
+    const newRegistrations = formData.registrations.filter((_, i) => i !== index);
+    setFormData(prev => ({ ...prev, registrations: newRegistrations }));
   };
 
   return (
@@ -116,35 +155,70 @@ export default function OnboardingCredentials() {
 
               <div className="space-y-2">
                 <Label htmlFor="experience">Years of Experience</Label>
-                <select 
-                  id="experience"
-                  className="w-full p-2 border rounded-md bg-background"
+                <Select
                   value={formData.experience}
-                  onChange={(e) => setFormData(prev => ({...prev, experience: e.target.value}))}
+                  onValueChange={(value) => setFormData(prev => ({...prev, experience: value}))}
                 >
-                  <option value="">Select experience level</option>
-                  <option value="0-2 years">0-2 years</option>
-                  <option value="2-5 years">2-5 years</option>
-                  <option value="5-10 years">5-10 years</option>
-                  <option value="10+ years">10+ years</option>
-                </select>
+                  <SelectTrigger id="experience">
+                    <SelectValue placeholder="Select experience level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="0-2 years">0-2 years</SelectItem>
+                    <SelectItem value="2-5 years">2-5 years</SelectItem>
+                    <SelectItem value="5-10 years">5-10 years</SelectItem>
+                    <SelectItem value="10+ years">10+ years</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label>Professional Body Registration</Label>
-                <div className="space-y-2">
-                  {["BACP", "UKCP", "HCPC", "BABCP", "BPS"].map((body) => (
-                    <div key={body} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={body}
-                        checked={formData.registrations.includes(body)}
-                        onCheckedChange={(checked) => handleRegistrationChange(body, checked as boolean)}
+              <div className="space-y-4">
+                <Label>Professional Body Registration(s)</Label>
+                {formData.registrations.map((reg, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <Select
+                      value={reg.body}
+                      onValueChange={(value) => handleRegistrationChange(index, 'body', value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select professional body" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {professionalBodies.map(body => (
+                          <SelectItem key={body.abbreviation} value={body.abbreviation}>{body.name}</SelectItem>
+                        ))}
+                        <SelectItem value="OTHER">Other Recognised Professional Register</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    
+                    {reg.body === 'OTHER' && (
+                      <Input
+                        placeholder="Please specify"
+                        value={formData.otherBody}
+                        onChange={(e) => setFormData(prev => ({...prev, otherBody: e.target.value}))}
                       />
-                      <label htmlFor={body} className="font-secondary text-[hsl(var(--text-primary))]">
-                        {body}
-                      </label>
-                    </div>
-                  ))}
+                    )}
+
+                    <Input
+                      placeholder="Registration Number"
+                      value={reg.registrationNumber}
+                      onChange={(e) => handleRegistrationChange(index, 'registrationNumber', e.target.value)}
+                    />
+                    <Button variant="ghost" size="sm" onClick={() => handleRemoveRegistration(index)}>Remove</Button>
+                  </div>
+                ))}
+                <Button variant="outline" size="sm" onClick={handleAddRegistration}>Add another registration</Button>
+              </div>
+
+              <div className="space-y-2 pt-4">
+                <div className="flex items-center space-x-2">
+                  <Checkbox 
+                    id="insurance"
+                    checked={formData.hasInsurance}
+                    onCheckedChange={(checked) => setFormData(prev => ({...prev, hasInsurance: checked as boolean}))}
+                  />
+                  <label htmlFor="insurance" className="font-secondary text-[hsl(var(--text-primary))]">
+                    I confirm I hold valid professional liability insurance
+                  </label>
                 </div>
               </div>
 
@@ -156,7 +230,7 @@ export default function OnboardingCredentials() {
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back
                 </Button>
-                <Button onClick={handleNext}>
+                <Button onClick={handleNext} disabled={!formData.hasInsurance}>
                   Next
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>

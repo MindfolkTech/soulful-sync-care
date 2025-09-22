@@ -65,23 +65,20 @@ import ClientTasks from "./pages/client/Tasks";
 
 // Therapist pages
 import TherapistSignUp from "./pages/therapist/SignUp";
-import TherapistOnboarding from "./pages/therapist/Onboarding";
 import OnboardingWelcome from "./pages/therapist/onboarding/Welcome";
 import OnboardingCredentials from "./pages/therapist/onboarding/Credentials";
 import OnboardingApproach from "./pages/therapist/onboarding/Approach";
 import OnboardingProfile from "./pages/therapist/onboarding/Profile";
 import OnboardingVideo from "./pages/therapist/onboarding/Video";
 import OnboardingVerification from "./pages/therapist/onboarding/Verification";
+import OnboardingPolicies from "./pages/therapist/onboarding/Policies";
 import TherapistProfile from "./pages/therapist/Profile";
 import TherapistAvailability from "./pages/therapist/Availability";
-import TherapistBookings from "./pages/therapist/Bookings";
 import TherapistClients from "./pages/therapist/Clients";
-import TherapistAnalytics from "./pages/therapist/Analytics";
-import TherapistDashboard from "./pages/therapist/Dashboard";
-import TherapistMessages from "./pages/therapist/Messages";
-import TherapistPayouts from "./pages/therapist/Payouts";
+import TherapistSchedule from "./pages/therapist/Schedule";
 import TherapistEarnings from "./pages/therapist/Earnings";
-import TherapistTasks from "./pages/therapist/Tasks";
+import TherapistSettings from "./pages/therapist/Settings";
+import TherapistDashboard from "./pages/therapist/Dashboard";
 import ClientDetail from "./pages/therapist/ClientDetail";
 import TherapistSetup from "./pages/therapist/Setup";
 
@@ -99,6 +96,7 @@ import AdminWebhooks from "./pages/admin/Webhooks";
 import AdminAudit from "./pages/admin/Audit";
 import AdminSupport from "./pages/admin/Support";
 import AdminTasks from "./pages/admin/Tasks";
+import AdminTaxonomy from "./pages/admin/Taxonomy";
 
 // Dev pages
 import ScreenshotCapturePage from "./pages/dev/ScreenshotCapture";
@@ -150,18 +148,16 @@ const AppContent = () => {
               <Route path="/t/onboarding/profile" element={<AuthGuard requiredRole="therapist"><OnboardingProfile /></AuthGuard>} />
               <Route path="/t/onboarding/video" element={<AuthGuard requiredRole="therapist"><OnboardingVideo /></AuthGuard>} />
               <Route path="/t/onboarding/verification" element={<AuthGuard requiredRole="therapist"><OnboardingVerification /></AuthGuard>} />
+              <Route path="/t/onboarding/policies" element={<AuthGuard requiredRole="therapist"><OnboardingPolicies /></AuthGuard>} />
               <Route path="/t/setup" element={<AuthGuard requiredRole="therapist"><TherapistSetup /></AuthGuard>} />
               <Route path="/t/profile" element={<AuthGuard requiredRole="therapist"><TherapistProfile /></AuthGuard>} />
               <Route path="/t/availability" element={<AuthGuard requiredRole="therapist"><TherapistAvailability /></AuthGuard>} />
-              <Route path="/t/bookings" element={<AuthGuard requiredRole="therapist"><TherapistBookings /></AuthGuard>} />
               <Route path="/t/clients" element={<AuthGuard requiredRole="therapist"><TherapistClients /></AuthGuard>} />
+              <Route path="/t/schedule" element={<AuthGuard requiredRole="therapist"><TherapistSchedule /></AuthGuard>} />
               <Route path="/t/clients/:id" element={<AuthGuard requiredRole="therapist"><ClientDetail /></AuthGuard>} />
-              <Route path="/t/analytics" element={<AuthGuard requiredRole="therapist"><TherapistAnalytics /></AuthGuard>} />
               <Route path="/t/dashboard" element={<AuthGuard requiredRole="therapist"><TherapistDashboard /></AuthGuard>} />
-              <Route path="/t/messages" element={<AuthGuard requiredRole="therapist"><TherapistMessages /></AuthGuard>} />
-              <Route path="/t/payouts" element={<AuthGuard requiredRole="therapist"><TherapistPayouts /></AuthGuard>} />
               <Route path="/t/earnings" element={<AuthGuard requiredRole="therapist"><TherapistEarnings /></AuthGuard>} />
-              <Route path="/t/tasks" element={<AuthGuard requiredRole="therapist"><TherapistTasks /></AuthGuard>} />
+              <Route path="/t/settings" element={<AuthGuard requiredRole="therapist"><TherapistSettings /></AuthGuard>} />
 
               {/* Session routes */}
               <Route path="/session/:sessionId" element={<AuthGuard><SessionRoom /></AuthGuard>} />
@@ -177,6 +173,7 @@ const AppContent = () => {
               <Route path="/admin/audit" element={<AuthGuard requiredRole="admin"><AdminAudit /></AuthGuard>} />
               <Route path="/admin/support" element={<AuthGuard requiredRole="admin"><AdminSupport /></AuthGuard>} />
               <Route path="/admin/tasks" element={<AuthGuard requiredRole="admin"><AdminTasks /></AuthGuard>} />
+              <Route path="/admin/taxonomy" element={<AuthGuard requiredRole="admin"><AdminTaxonomy /></AuthGuard>} />
 
               {/* Dev routes */}
               <Route path="/dev/screenshots" element={<AuthGuard requiredRole="admin"><ScreenshotCapturePage /></AuthGuard>} />

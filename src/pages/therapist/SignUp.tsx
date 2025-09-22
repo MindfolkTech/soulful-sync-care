@@ -35,6 +35,7 @@ export default function TherapistSignUp() {
   });
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [signupSuccess, setSignupSuccess] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (field: string, value: string) => {
@@ -90,7 +91,8 @@ export default function TherapistSignUp() {
         setError(error.message);
       } else {
         // Redirect to onboarding for therapists
-        navigate("/t/onboarding");
+        // navigate("/t/onboarding");
+        setSignupSuccess(true);
       }
     } catch (err) {
       setError("Something went wrong. Please try again.");
@@ -98,6 +100,32 @@ export default function TherapistSignUp() {
       setIsLoading(false);
     }
   };
+
+  if (signupSuccess) {
+    return (
+      <div className="min-h-screen bg-[hsl(var(--background))] flex flex-col">
+        <Header />
+        <main className="flex-grow">
+          <Container className="py-12 md:py-24 lg:py-32">
+            <div className="mx-auto max-w-lg text-center">
+              <div className="p-8 border rounded-lg shadow-lg bg-card text-card-foreground">
+                <UserCheck className="w-16 h-16 mx-auto text-green-500" />
+                <h1 className="text-3xl font-bold mt-4">Confirm your email</h1>
+                <p className="text-muted-foreground mt-2">
+                  We've sent a confirmation link to <strong>{formData.email}</strong>.
+                  Please check your inbox (and spam folder!) to continue.
+                </p>
+                <Button onClick={() => navigate("/t/onboarding")} className="mt-6">
+                  Go to Onboarding
+                </Button>
+              </div>
+            </div>
+          </Container>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[hsl(var(--background))] flex flex-col">

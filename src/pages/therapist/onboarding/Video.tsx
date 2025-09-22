@@ -6,6 +6,7 @@ import { OnboardingLayout } from "@/components/layout/onboarding-layout";
 import { useNavigate } from "react-router-dom";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { ArrowRight, ArrowLeft, Upload, Play } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 export default function OnboardingVideo() {
   const navigate = useNavigate();
@@ -33,7 +34,8 @@ export default function OnboardingVideo() {
       currentStep: 5,
       profileData: {
         ...existing.profileData,
-        ...formData
+        ...formData,
+        video: videoMeta,
       },
       timestamp: Date.now()
     }));
@@ -45,6 +47,8 @@ export default function OnboardingVideo() {
   };
 
   const handleSkip = () => {
+    // Clear any selected video before skipping
+    setFormData({ video: null });
     handleSave();
     navigate("/t/onboarding/verification");
   };
@@ -62,11 +66,14 @@ export default function OnboardingVideo() {
         <Stack className="space-y-6">
           <Card className="min-h-[500px] shadow-lg border-0">
             <CardHeader className="text-center pb-8">
-              <h1 className="font-primary text-[hsl(var(--text-2xl))] tracking-tight">
-                Video Introduction
-              </h1>
+              <div className="flex items-center justify-center gap-2">
+                <h1 className="font-primary text-[hsl(var(--text-2xl))] tracking-tight">
+                  Video Introduction
+                </h1>
+                <Badge variant="secondary">Optional</Badge>
+              </div>
               <p className="font-secondary text-[hsl(var(--text-secondary))] text-lg">
-                Optional but strongly encouraged
+                Optional but strongly encouraged to increase client trust
               </p>
             </CardHeader>
 
@@ -129,11 +136,11 @@ export default function OnboardingVideo() {
                           {formData.video ? 'Change video' : 'Click to upload video'}
                         </p>
                         <p className="font-secondary text-xs text-text-muted mt-1">
-                          MP4, MOV, or AVI (max 50MB)
+                          MP4, MOV, or WebM (max 100MB)
                         </p>
                         {formData.video && (
                           <p className="text-xs text-primary mt-1">
-                            {formData.video.name} selected
+                            {formData.video instanceof File ? formData.video.name : "Video uploaded"}
                           </p>
                         )}
                       </div>

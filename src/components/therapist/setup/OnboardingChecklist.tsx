@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 type StepId =
   | "verification"
+  | "documents"
   | "payouts"
   | "rates"
   | "availability"
@@ -83,14 +84,24 @@ export function OnboardingChecklist() {
     };
   }, [user]);
 
+  const published = verified && isActive && accepts;
+
   const steps: ChecklistStep[] = React.useMemo(() => {
     const base: ChecklistStep[] = [
       {
         id: "verification",
-        title: "Verification",
-        tip: verified ? "Approved by Mindfolk" : "Pending (3–5 business days)",
+        title: "Admin Verification",
+        tip: verified ? "Your identity and credentials have been approved" : "Pending review (typically 3–5 business days)",
         estimate: "-",
         completed: verified,
+      },
+      {
+        id: "documents",
+        title: "Upload Documents",
+        tip: "Submit your credentials for verification",
+        estimate: "5 min",
+        completed: !!setupSteps["documents"],
+        locked: published, // Lock this step once verification is complete
       },
       {
         id: "payouts",
@@ -140,25 +151,29 @@ export function OnboardingChecklist() {
         tip: "Preview and publish",
         estimate: "1 min",
         completed: !!setupSteps["review"],
+        locked: published,
       },
     ];
+
+    const percent = computeProgress(steps);
+    const displayPercent = Math.min(99, baseOffset + percent);
+    const canPublish = verified && steps.every((s) => s.completed);
 
     // Reorder to always surface actionable items if verification is pending
     if (!verified) {
       const [ver, ...rest] = base;
       // keep verification first but also bubble key do-now tasks near top
-      const priorityOrder: StepId[] = ["verification", "payouts", "rates", "availability"];
+      const priorityOrder: StepId[] = ["verification", "documents", "payouts", "rates", "availability"];
       const prioritized = base
         .slice(1)
         .sort((a, b) => priorityOrder.indexOf(a.id) - priorityOrder.indexOf(b.id));
       return [ver, ...prioritized];
     }
     return base;
-  }, [verified, setupSteps]);
+  }, [verified, setupSteps, published]);
 
   const percent = computeProgress(steps);
   const displayPercent = Math.min(99, baseOffset + percent);
-  const published = verified && isActive && accepts;
   const canPublish = verified && steps.every((s) => s.completed);
 
   if (loading) return null;
@@ -202,14 +217,15 @@ export function OnboardingChecklist() {
                       className="ml-2 min-h-[--touch-target-min]"
                       onClick={() => {
                         const routeMap: Record<StepId, string> = {
-                          verification: "/t/setup?focus=verification",
-                          payouts: "/t/payouts?setup=1#connect",
-                          rates: "/t/profile#focus-rates",
-                          availability: "/t/availability#focus-availability",
-                          profile: "/t/profile#focus-profile",
-                          policies: "/t/setup?focus=policies",
-                          details: "/t/profile#focus-details",
-                          review: "/t/setup?focus=review",
+                          verification: "/t/settings/verification",
+                          documents: "/t/onboarding/verification",
+                          payouts: "/t/settings/payouts?setup=1",
+                          rates: "/t/settings/rates",
+                          availability: "/t/schedule/availability",
+                          profile: "/t/profile/edit",
+                          policies: "/t/settings/policies",
+                          details: "/t/profile/edit#details",
+                          review: "/t/profile?preview=true",
                         };
                         navigate(routeMap[step.id]);
                       }}

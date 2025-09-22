@@ -1,14 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import { TherapistLayout } from "@/components/layout/therapist-layout";
 import { Container } from "@/components/ui/container";
-import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { Search, MessageCircle, Calendar, FileText, MoreHorizontal, Filter } from "lucide-react";
+import { Search, MoreHorizontal, Users, Calendar, Clock } from "lucide-react";
 import * as React from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const clients = [
   {
@@ -19,11 +19,9 @@ const clients = [
     avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b196?w=100&h=100&fit=crop&crop=face",
     status: "Active",
     joinDate: "2024-01-10",
-    lastSession: "2024-01-12",
-    nextSession: "2024-01-15 10:00 AM",
+    lastSession: "2024-09-20", // Recent
+    nextSession: "2024-09-25T10:00:00Z", // Upcoming
     totalSessions: 3,
-    sessionType: "Chemistry Call",
-    notes: "Making good progress with anxiety management techniques"
   },
   {
     id: "2",
@@ -33,11 +31,9 @@ const clients = [
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
     status: "Active",
     joinDate: "2024-01-08",
-    lastSession: "2024-01-11",
-    nextSession: "2024-01-16 2:00 PM",
+    lastSession: "2024-09-18", // Recent
+    nextSession: "2024-09-26T14:00:00Z", // Upcoming
     totalSessions: 5,
-    sessionType: "Therapy Session",
-    notes: "Working on communication skills and relationship building"
   },
   {
     id: "3",
@@ -47,11 +43,9 @@ const clients = [
     avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
     status: "Inactive",
     joinDate: "2023-12-15",
-    lastSession: "2023-12-20",
+    lastSession: "2023-12-20", // Not recent
     nextSession: null,
     totalSessions: 2,
-    sessionType: "Chemistry Call",
-    notes: "Completed initial sessions, considering ongoing therapy"
   },
   {
     id: "4",
@@ -83,188 +77,85 @@ const clients = [
   }
 ];
 
+const ClientRow = ({ client, onRowClick }: { client: any, onRowClick: (id: string) => void }) => (
+    <div
+        className="block p-4 hover:bg-muted/50 transition-colors cursor-pointer border-b"
+        onClick={() => onRowClick(client.id)}
+    >
+        <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4 flex-1 min-w-0">
+                <Avatar className="w-12 h-12">
+                    <AvatarImage src={client.avatar} alt={client.initials} />
+                    <AvatarFallback>{client.initials}</AvatarFallback>
+                </Avatar>
+                <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-3 mb-1">
+                        <h4 className="font-semibold truncate">{client.name}</h4>
+                        <Badge variant={client.status === "Active" ? "secondary" : "outline"}>
+                            {client.status}
+                        </Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground truncate">{client.email}</p>
+                </div>
+            </div>
+            <Button variant="ghost" size="icon"><MoreHorizontal className="w-4 h-4" /></Button>
+        </div>
+    </div>
+);
+
+
 export default function TherapistClients() {
   const navigate = useNavigate();
-  const [clientList, setClientList] = React.useState(clients);
-
+  
   const handleClientClick = (clientId: string) => {
     navigate(`/t/clients/${clientId}`);
   };
 
-  const handleStatusToggle = (clientId: string, event: React.MouseEvent) => {
-    event.preventDefault(); // Prevent navigation when clicking the badge
-    event.stopPropagation();
-    
-    setClientList(prevClients => 
-      prevClients.map(client => 
-        client.id === clientId 
-          ? { ...client, status: client.status === "Active" ? "Inactive" : "Active" }
-          : client
-      )
-    );
-  };
+  const upcomingClients = clients.filter(c => c.nextSession && new Date(c.nextSession) > new Date());
+  
+  const recentClients = clients.filter(c => {
+      if (!c.lastSession) return false;
+      const lastSessionDate = new Date(c.lastSession);
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      return lastSessionDate > thirtyDaysAgo;
+  });
 
   return (
     <TherapistLayout>
-      <div className="p-8">
+      <div className="p-4 md:p-6 lg:p-8">
         <Container>
-          <div className="space-y-6">
+          <div className="space-y-4">
             <div>
-              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">My Clients</h1>
-              <p className="font-secondary text-[hsl(var(--text-secondary))]">Manage your client relationships and session history</p>
+              <h1 className="font-primary text-3xl">My Clients</h1>
+              <p className="text-muted-foreground">Manage your client relationships and session history.</p>
             </div>
-      <Stack className="space-y-[--space-lg]">
-        {/* Search and Filter Controls */}
-        <HStack className="justify-between">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input 
-              placeholder="Search clients..." 
-              className="pl-10 min-h-touch-min"
-            />
-          </div>
-          <HStack>
-            <Button variant="outline" className="min-h-touch-min" aria-label="Filter clients">
-              <Filter className="w-4 h-4 mr-2" />
-              Filter
-            </Button>
-            <select className="px-3 py-2 border rounded-md bg-background font-secondary text-foreground min-h-touch-min">
-              <option>All Clients</option>
-              <option>Active</option>
-              <option>Inactive</option>
-            </select>
-          </HStack>
-        </HStack>
 
-        {/* Client Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[--space-md]">
-          <Card>
-            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
-              <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-foreground">5</div>
-                <div className="font-secondary text-muted-foreground text-sm">Total Clients</div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
-              <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-[hsl(var(--success-text))]">4</div>
-                <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Active</div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
-              <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-foreground">20</div>
-                <div className="font-secondary text-muted-foreground text-sm">Total Sessions</div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
-              <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-foreground">4.9</div>
-                <div className="font-secondary text-muted-foreground text-sm">Avg Rating</div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Client List */}
-        <Card>
-          <CardContent className="p-0">
-            <div className="space-y-0">
-              {clientList.map((client, index) => (
-                <div
-                  key={client.id}
-                  className={`block p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl] hover:bg-muted/50 transition-colors cursor-pointer ${
-                    index !== clientList.length - 1 ? 'border-b border-border' : ''
-                  }`}
-                  onClick={() => handleClientClick(client.id)}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 flex-1 min-w-0">
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleClientClick(client.id);
-                        }}
-                        className="w-12 h-12 rounded-full overflow-hidden hover:opacity-80 transition-opacity cursor-pointer"
-                        aria-label={`View ${client.name}'s profile`}
-                      >
-                        <Avatar className="w-12 h-12">
-                          <AvatarImage src={client.avatar} alt={client.initials} />
-                          <AvatarFallback className="bg-surface-accent text-[hsl(var(--jovial-jade))] font-secondary font-semibold">
-                            {client.initials}
-                          </AvatarFallback>
-                        </Avatar>
-                      </button>
-                      
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-3 mb-1">
-                          <h4 className="font-secondary font-bold text-foreground truncate">
-                            {client.name || 'Unknown Client'}
-                          </h4>
-                          <button
-                            onClick={(e) => handleStatusToggle(client.id, e)}
-                            className="cursor-pointer"
-                            aria-label={`Toggle ${client.name} status between Active and Inactive`}
-                          >
-                            <Badge 
-                              variant={client.status === "Active" ? "secondary" : "outline"}
-                              className={client.status === "Active" ? "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))] hover:bg-[hsl(var(--success-bg))]/90" : "bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))] hover:bg-[hsl(var(--warning-bg))]/90"}
-                            >
-                              {client.status}
-                            </Badge>
-                          </button>
-                        </div>
-                        
-                        <div className="flex flex-col sm:flex-row sm:gap-4 gap-1 text-sm text-muted-foreground">
-                          <div className="flex-1">
-                            <span className="font-secondary font-medium">Sessions:</span> {client.totalSessions}
-                          </div>
-                          <div className="flex-1">
-                            <span className="font-secondary font-medium">Last:</span> {new Date(client.lastSession).toLocaleDateString()}
-                          </div>
-                          {client.nextSession && (
-                            <div className="flex-1">
-                              <span className="font-secondary font-medium">Next:</span> {client.nextSession}
-                            </div>
-                          )}
-                        </div>
-                        
-                        {client.notes && (
-                          <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
-                            {client.notes}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                    
-                    {/* Action buttons - Mobile: Vertical stack, Desktop: Horizontal */}
-                    <div className="flex flex-col md:flex-row gap-2">
-                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`Send message to ${client.name}`}>
-                        <MessageCircle className="w-4 h-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`Schedule appointment with ${client.name}`}>
-                        <Calendar className="w-4 h-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`View notes for ${client.name}`}>
-                        <FileText className="w-4 h-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`More options for ${client.name}`}>
-                        <MoreHorizontal className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <div className="relative flex-1 max-w-md">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input placeholder="Search clients..." className="pl-10" />
             </div>
-          </CardContent>
-        </Card>
-        </Stack>
+
+            <Tabs defaultValue="all" className="w-full">
+                <TabsList>
+                    <TabsTrigger value="all"><Users className="w-4 h-4 mr-2" /> All Clients</TabsTrigger>
+                    <TabsTrigger value="upcoming"><Calendar className="w-4 h-4 mr-2" /> Upcoming</TabsTrigger>
+                    <TabsTrigger value="recent"><Clock className="w-4 h-4 mr-2" /> Recent</TabsTrigger>
+                </TabsList>
+                <Card className="mt-4">
+                    <CardContent className="p-0">
+                        <TabsContent value="all">
+                            {clients.map(client => <ClientRow key={client.id} client={client} onRowClick={handleClientClick} />)}
+                        </TabsContent>
+                        <TabsContent value="upcoming">
+                             {upcomingClients.map(client => <ClientRow key={client.id} client={client} onRowClick={handleClientClick} />)}
+                        </TabsContent>
+                        <TabsContent value="recent">
+                            {recentClients.map(client => <ClientRow key={client.id} client={client} onRowClick={handleClientClick} />)}
+                        </TabsContent>
+                    </CardContent>
+                </Card>
+            </Tabs>
           </div>
         </Container>
       </div>

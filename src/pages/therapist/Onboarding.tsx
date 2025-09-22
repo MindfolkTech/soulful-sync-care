@@ -23,6 +23,8 @@ import {
   Heart
 } from "lucide-react";
 import { Stack } from "@/components/layout/layout-atoms";
+import { useAuth } from '@/context/AuthContext';
+import { EmailConfirmationModal } from '@/components/therapist/setup/EmailConfirmationModal';
 
 const onboardingSteps = [
   {
@@ -66,6 +68,13 @@ const onboardingSteps = [
     subtitle: "Upload your credentials",
     tip: "Verification typically takes 24-48 hours - you can start with chemistry calls while waiting",
     example: "Clear photos of documents work best - ensure text is readable"
+  },
+  {
+    id: 7,
+    title: "Practice Policies",
+    subtitle: "Set your professional boundaries",
+    tip: "Clear policies prevent misunderstandings with clients",
+    example: "e.g., Cancellation policy, communication between sessions"
   }
 ];
 
@@ -74,6 +83,7 @@ export default function TherapistOnboarding() {
   const [currentStep, setCurrentStep] = useState(1);
   const [showPreview, setShowPreview] = useState(false);
   const [savedProgress, setSavedProgress] = useState(false);
+  const { user, loading: authLoading } = useAuth();
   
   // Profile data state
   const [profileData, setProfileData] = useState({
@@ -92,6 +102,13 @@ export default function TherapistOnboarding() {
     documents: {}
   });
 
+  const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setIsEmailConfirmed(!!user.email_confirmed_at);
+    }
+  }, [user]);
   
   const currentStepData = onboardingSteps.find(s => s.id === currentStep);
 
@@ -158,8 +175,16 @@ export default function TherapistOnboarding() {
     }
   }, []);
 
+  if (authLoading) {
+    return <div>Loading...</div>; // Or a spinner
+  }
+
   return (
     <OnboardingLayout currentStep={currentStep} totalSteps={onboardingSteps.length}>
+      <EmailConfirmationModal 
+        isOpen={!isEmailConfirmed} 
+        userEmail={user?.email} 
+      />
       <div className="p-4 md:p-6 lg:p-8">
         <Stack className="space-y-6">
           {/* Header Controls */}
