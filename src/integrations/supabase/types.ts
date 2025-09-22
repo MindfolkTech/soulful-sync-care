@@ -1,4 +1,4 @@
-﻿export type Json =
+export type Json =
   | string
   | number
   | boolean
@@ -83,6 +83,81 @@ export type Database = {
         }
         Relationships: []
       }
+      languages: {
+        Row: {
+          created_at: string
+          id: string
+          iso_code: string | null
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          iso_code?: string | null
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          iso_code?: string | null
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      modalities: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      professional_bodies: {
+        Row: {
+          abbreviation: string | null
+          created_at: string
+          id: string
+          name: string
+          region: string
+          updated_at: string
+        }
+        Insert: {
+          abbreviation?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          region?: string
+          updated_at?: string
+        }
+        Update: {
+          abbreviation?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          region?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -112,6 +187,30 @@ export type Database = {
           last_name?: string | null
           phone?: string | null
           role?: Database["public"]["Enums"]["app_role"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      specialities: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
           updated_at?: string
         }
         Relationships: []
@@ -199,6 +298,9 @@ export type Database = {
           availability: Json
           avatar_url: string | null
           bio: string | null
+          cancellation_policy: string | null
+          communication_policy: string | null
+          communication_style: string | null
           created_at: string
           cultural_background: string[]
           experience_years: number | null
@@ -208,6 +310,7 @@ export type Database = {
           in_person_sessions: boolean
           is_active: boolean
           languages: string[]
+          lateness_policy: string | null
           license_number: string
           location_city: string | null
           location_country: string | null
@@ -216,10 +319,14 @@ export type Database = {
           name: string
           online_sessions: boolean
           personality_tags: string[]
+          pride_attributes: string[] | null
+          rescheduling_policy: string | null
           session_focus: string[]
+          session_format: string | null
           session_rates: Json
           setup_completed: boolean
           setup_steps: Json
+          specialities: string[] | null
           specialties: string[]
           tagline: string | null
           timezone: string | null
@@ -227,6 +334,7 @@ export type Database = {
           user_id: string
           verification_date: string | null
           verified: boolean
+          video_url: string | null
           years_experience: string | null
         }
         Insert: {
@@ -236,6 +344,9 @@ export type Database = {
           availability?: Json
           avatar_url?: string | null
           bio?: string | null
+          cancellation_policy?: string | null
+          communication_policy?: string | null
+          communication_style?: string | null
           created_at?: string
           cultural_background?: string[]
           experience_years?: number | null
@@ -245,6 +356,7 @@ export type Database = {
           in_person_sessions?: boolean
           is_active?: boolean
           languages?: string[]
+          lateness_policy?: string | null
           license_number: string
           location_city?: string | null
           location_country?: string | null
@@ -253,10 +365,14 @@ export type Database = {
           name: string
           online_sessions?: boolean
           personality_tags?: string[]
+          pride_attributes?: string[] | null
+          rescheduling_policy?: string | null
           session_focus?: string[]
+          session_format?: string | null
           session_rates?: Json
           setup_completed?: boolean
           setup_steps?: Json
+          specialities?: string[] | null
           specialties?: string[]
           tagline?: string | null
           timezone?: string | null
@@ -264,6 +380,7 @@ export type Database = {
           user_id: string
           verification_date?: string | null
           verified?: boolean
+          video_url?: string | null
           years_experience?: string | null
         }
         Update: {
@@ -273,6 +390,9 @@ export type Database = {
           availability?: Json
           avatar_url?: string | null
           bio?: string | null
+          cancellation_policy?: string | null
+          communication_policy?: string | null
+          communication_style?: string | null
           created_at?: string
           cultural_background?: string[]
           experience_years?: number | null
@@ -282,6 +402,7 @@ export type Database = {
           in_person_sessions?: boolean
           is_active?: boolean
           languages?: string[]
+          lateness_policy?: string | null
           license_number?: string
           location_city?: string | null
           location_country?: string | null
@@ -290,10 +411,14 @@ export type Database = {
           name?: string
           online_sessions?: boolean
           personality_tags?: string[]
+          pride_attributes?: string[] | null
+          rescheduling_policy?: string | null
           session_focus?: string[]
+          session_format?: string | null
           session_rates?: Json
           setup_completed?: boolean
           setup_steps?: Json
+          specialities?: string[] | null
           specialties?: string[]
           tagline?: string | null
           timezone?: string | null
@@ -301,6 +426,7 @@ export type Database = {
           user_id?: string
           verification_date?: string | null
           verified?: boolean
+          video_url?: string | null
           years_experience?: string | null
         }
         Relationships: [
