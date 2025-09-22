@@ -30,6 +30,17 @@ const CalendarView = () => {
     const [isBookingModalOpen, setIsBookingModalOpen] = React.useState(false);
     const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
     const [selectedTime, setSelectedTime] = React.useState<string>('');
+    const [isIntegrationModalOpen, setIsIntegrationModalOpen] = React.useState(false);
+    const [connectedCalendars, setConnectedCalendars] = React.useState({
+        google: false,
+        outlook: false
+    });
+    const [filters, setFilters] = React.useState({
+        dateRange: 'week' as 'today' | 'week' | 'month' | 'custom',
+        appointmentType: [] as string[],
+        status: [] as string[],
+        client: ''
+    });
     
     const handleAppointmentClick = (appointment: any) => { 
         setSelectedAppointment(appointment); 
@@ -53,14 +64,70 @@ const CalendarView = () => {
         setIsBookingModalOpen(false);
     };
 
+    const handleCalendarConnect = (provider: 'google' | 'outlook') => {
+        console.log(`Connecting to ${provider} calendar...`);
+        setConnectedCalendars(prev => ({ ...prev, [provider]: true }));
+        // TODO: Implement actual calendar integration
+    };
+
+    const handleCalendarDisconnect = (provider: 'google' | 'outlook') => {
+        console.log(`Disconnecting from ${provider} calendar...`);
+        setConnectedCalendars(prev => ({ ...prev, [provider]: false }));
+        // TODO: Implement actual calendar disconnection
+    };
+
+    const handleFilterChange = (newFilters: typeof filters) => {
+        setFilters(newFilters);
+        console.log('Filters changed:', newFilters);
+        // TODO: Apply filters to appointments
+    };
+
+    // Filter available appointment types and clients from bookings
+    const availableTypes = Array.from(new Set(bookings.map(b => b.type)));
+    const availableClients = Array.from(new Set(bookings.map(b => b.clientName)));
+
     return (
         <>
+            {/* Calendar Toolbar */}
+            <div className="mb-6 space-y-4">
+                <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+                    <div className="flex flex-wrap gap-3">
+                        <Button
+                            variant="outline"
+                            onClick={() => setIsIntegrationModalOpen(true)}
+                            className="flex items-center gap-2"
+                        >
+                            <CalendarIcon className="w-4 h-4" />
+                            Calendar Integration
+                            {(connectedCalendars.google || connectedCalendars.outlook) && (
+                                <div className="w-2 h-2 bg-success-bg rounded-full"></div>
+                            )}
+                        </Button>
+                        
+                        <FilterDropdown
+                            onFilterChange={handleFilterChange}
+                            currentFilters={filters}
+                            availableClients={availableClients}
+                            availableTypes={availableTypes}
+                        />
+                    </div>
+                    
+                    <div className="text-sm text-text-muted">
+                        {connectedCalendars.google && "Google Calendar connected"}
+                        {connectedCalendars.google && connectedCalendars.outlook && " • "}
+                        {connectedCalendars.outlook && "Outlook connected"}
+                        {!connectedCalendars.google && !connectedCalendars.outlook && "No calendars connected"}
+                    </div>
+                </div>
+            </div>
+
             <InteractiveCalendar 
                 appointments={bookings} 
                 onAppointmentClick={handleAppointmentClick} 
                 onTimeSlotClick={handleTimeSlotClick} 
                 onAppointmentMove={handleAppointmentMove} 
             />
+            
             <AppointmentDetailsModal 
                 isOpen={isAppointmentModalOpen} 
                 onClose={() => setIsAppointmentModalOpen(false)} 
@@ -71,12 +138,21 @@ const CalendarView = () => {
                 onJoinSession={() => {}} 
                 onMessageClient={() => {}} 
             />
+            
             <BookingModal
                 isOpen={isBookingModalOpen}
                 onClose={() => setIsBookingModalOpen(false)}
                 selectedDate={selectedDate}
                 selectedTime={selectedTime}
                 onBookTime={handleBookTime}
+            />
+            
+            <CalendarIntegrationModal
+                isOpen={isIntegrationModalOpen}
+                onClose={() => setIsIntegrationModalOpen(false)}
+                onConnect={handleCalendarConnect}
+                onDisconnect={handleCalendarDisconnect}
+                connectedCalendars={connectedCalendars}
             />
         </>
     );
