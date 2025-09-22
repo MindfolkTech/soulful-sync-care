@@ -1,9 +1,9 @@
-import { PageShell } from "@/components/ui/page-shell";
+import { PublicPageLayout } from "@/components/layout/public-page-layout";
 import { Container } from "@/components/ui/container";
 
 export default function Terms() {
   return (
-    <PageShell>
+    <PublicPageLayout>
       <div className="py-16">
         <Container>
           <div className="max-w-4xl mx-auto prose prose-slate">
@@ -63,6 +63,6 @@ export default function Terms() {
           </div>
         </Container>
       </div>
-    </PageShell>
+    </PublicPageLayout>
   );
 }

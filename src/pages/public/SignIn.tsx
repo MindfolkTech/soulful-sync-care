@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PageShell } from "@/components/ui/page-shell";
+import { PublicPageLayout } from "@/components/layout/public-page-layout";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -58,7 +58,7 @@ export default function SignIn() {
   };
 
   return (
-    <PageShell>
+    <PublicPageLayout>
       <Container size="sm">
         <div className="flex items-center justify-center min-h-[60vh] py-12">
           <Card className="w-full max-w-md mx-auto">
@@ -119,6 +119,6 @@ export default function SignIn() {
           </Card>
         </div>
       </Container>
-    </PageShell>
+    </PublicPageLayout>
   );
 }

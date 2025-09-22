@@ -2,12 +2,12 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { PageShell } from "@/components/ui/page-shell";
+import { PublicPageLayout } from "@/components/layout/public-page-layout";
 import { Clock, Wallet, Frown, CheckCircle, Star, Shield } from "lucide-react";
 
 export default function Index() {
   return (
-    <PageShell>
+    <PublicPageLayout>
         {/* 1. Hero Section - The "Aha!" Moment */}
         <section 
           className="py-xl lg:py-2xl"
@@ -775,6 +775,6 @@ export default function Index() {
             </div>
           </Container>
         </section>
-    </PageShell>
+    </PublicPageLayout>
   );
 }

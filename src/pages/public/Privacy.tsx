@@ -1,9 +1,9 @@
-import { PageShell } from "@/components/ui/page-shell";
+import { PublicPageLayout } from "@/components/layout/public-page-layout";
 import { Container } from "@/components/ui/container";
 
 export default function Privacy() {
   return (
-    <PageShell>
+    <PublicPageLayout>
       <div className="py-16">
         <Container>
           <div className="max-w-4xl mx-auto prose prose-slate">
@@ -298,6 +298,6 @@ export default function Privacy() {
           </div>
         </Container>
       </div>
-    </PageShell>
+    </PublicPageLayout>
   );
 }
