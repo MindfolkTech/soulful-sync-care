@@ -1,13 +1,10 @@
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { PageShell } from "@/components/ui/page-shell";
 import { Container } from "@/components/ui/container";
 
 export default function Terms() {
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      
-      <main className="flex-1 py-16">
+    <PageShell>
+      <div className="py-16">
         <Container>
           <div className="max-w-4xl mx-auto prose prose-slate">
             <h1 className="font-primary text-3xl font-bold text-[hsl(var(--text-primary))] mb-8">
@@ -65,9 +62,7 @@ export default function Terms() {
             </div>
           </div>
         </Container>
-      </main>
-
-      <Footer />
-    </div>
+      </div>
+    </PageShell>
   );
 }

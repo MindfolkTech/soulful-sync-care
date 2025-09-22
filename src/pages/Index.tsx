@@ -2,19 +2,12 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { PageShell } from "@/components/ui/page-shell";
 import { Clock, Wallet, Frown, CheckCircle, Star, Shield } from "lucide-react";
 
 export default function Index() {
   return (
-    <div 
-      className="grid grid-rows-[auto_1fr_auto] min-h-dvh overflow-x-hidden"
-      style={{ backgroundColor: "hsl(var(--warm-white))" }}
-    >
-      <Header />
-
-      <main className="flex-1">
+    <PageShell>
         {/* 1. Hero Section - The "Aha!" Moment */}
         <section 
           className="py-xl lg:py-2xl"
@@ -782,9 +775,6 @@ export default function Index() {
             </div>
           </Container>
         </section>
-      </main>
-
-      <Footer />
-    </div>
+    </PageShell>
   );
 }

@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { PageShell } from "@/components/ui/page-shell";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -59,24 +58,22 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      
-      <main className="flex-1 flex items-center justify-center py-[--space-2xl]">
-        <Container size="sm">
+    <PageShell>
+      <Container size="sm">
+        <div className="flex items-center justify-center min-h-[60vh] py-12">
           <Card className="w-full max-w-md mx-auto">
             <CardHeader className="text-center">
-              <h1 className="font-primary text-[hsl(var(--text-2xl))]">Welcome back</h1>
-              <CardDescription className="font-secondary text-[hsl(var(--text-secondary))]">
+              <h1 className="font-primary text-3xl">Welcome back</h1>
+              <CardDescription className="font-secondary text-muted-foreground">
                 Sign in to your MindFolk account
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-[--space-lg]">
+            <CardContent className="space-y-6">
               <SocialLogin mode="signin" />
               
-              <form onSubmit={handleSubmit} className="space-y-[--space-md]">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 {error && (
-                  <div className="flex items-center space-x-[--space-xs] text-sm text-[hsl(var(--error-text))] bg-destructive/10 p-[--space-sm] rounded-md">
+                  <div className="flex items-center space-x-2 text-sm text-destructive bg-destructive/10 p-3 rounded-md">
                     <AlertCircle className="w-4 h-4" />
                     <span className="font-secondary">{error}</span>
                   </div>
@@ -113,17 +110,15 @@ export default function SignIn() {
                 </Button>
               </form>
               
-              <div className="text-center space-y-[--space-xs]">
-                <Link to="/sign-up" className="text-sm text-text-secondary hover:text-text-primary font-secondary">
+              <div className="text-center space-y-2">
+                <Link to="/sign-up" className="text-sm text-muted-foreground hover:text-primary font-secondary">
                   Don't have an account? Sign up
                 </Link>
               </div>
             </CardContent>
           </Card>
-        </Container>
-      </main>
-
-      <Footer />
-    </div>
+        </div>
+      </Container>
+    </PageShell>
   );
 }

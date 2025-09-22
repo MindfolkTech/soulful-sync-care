@@ -247,23 +247,23 @@ export default function Assessment() {
           <div className="max-w-2xl mx-auto">
             <div className="mb-8">
               <Progress value={progress} className="h-2 mb-4" />
-              <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary text-center">
+              <p className="text-sm text-muted-foreground font-secondary text-center">
                 Step {currentStep} of {assessmentSteps.length}
               </p>
             </div>
 
             <Card className="min-h-[400px]">
               <CardHeader className="text-center">
-                <h1 className="font-primary text-[hsl(var(--text-2xl))] text-[hsl(var(--text-primary))]">
+                <h1 className="font-primary text-3xl text-primary">
                   {currentStepData?.title}
                 </h1>
                 {currentStepData?.content && (
-                  <p className="font-secondary text-[hsl(var(--text-secondary))] mt-2">
+                  <p className="font-secondary text-muted-foreground mt-2">
                     {currentStepData.content}
                   </p>
                 )}
                 {currentStepData?.subtitle && (
-                  <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm mt-1">
+                  <p className="font-secondary text-muted-foreground text-sm mt-1">
                     {currentStepData.subtitle}
                   </p>
                 )}
@@ -290,7 +290,7 @@ export default function Assessment() {
 
                 {currentStepData?.type === "signup" && (
                   <div className="text-center space-y-4">
-                    <p className="font-secondary text-[hsl(var(--text-secondary))]">
+                    <p className="font-secondary text-muted-foreground">
                       We'll create your account during this assessment
                     </p>
                     <Button size="lg" className="w-full" onClick={handleContinue}>
@@ -314,7 +314,7 @@ export default function Assessment() {
                         />
                         <label 
                           htmlFor={option}
-                          className="font-secondary text-[hsl(var(--text-primary))] cursor-pointer flex-1"
+                          className="font-secondary text-foreground cursor-pointer flex-1"
                         >
                           {option}
                         </label>
@@ -333,7 +333,7 @@ export default function Assessment() {
                         <RadioGroupItem value={option} id={option} />
                         <label 
                           htmlFor={option}
-                          className="font-secondary text-[hsl(var(--text-primary))] cursor-pointer flex-1"
+                          className="font-secondary text-foreground cursor-pointer flex-1"
                         >
                           {option}
                         </label>

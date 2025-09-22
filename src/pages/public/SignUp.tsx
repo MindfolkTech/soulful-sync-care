@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { PageShell } from "@/components/ui/page-shell";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -92,24 +91,22 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      
-      <main className="flex-1 flex items-center justify-center py-[--space-2xl]">
-        <Container size="sm">
+    <PageShell>
+      <Container size="sm">
+        <div className="flex items-center justify-center min-h-[60vh] py-12">
           <Card className="w-full max-w-md mx-auto">
             <CardHeader className="text-center">
-              <h1 className="font-primary text-[hsl(var(--text-2xl))]">Get started</h1>
-              <CardDescription className="font-secondary text-[hsl(var(--text-secondary))]">
+              <h1 className="font-primary text-3xl">Get started</h1>
+              <CardDescription className="font-secondary text-muted-foreground">
                 Create your MindFolk account
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-[--space-lg]">
+            <CardContent className="space-y-6">
               <SocialLogin mode="signup" />
               
-              <form onSubmit={handleSubmit} className="space-y-[--space-md]">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 {error && (
-                  <div className="flex items-center space-x-[--space-xs] text-sm text-[hsl(var(--error-text))] bg-destructive/10 p-[--space-sm] rounded-md">
+                  <div className="flex items-center space-x-2 text-sm text-destructive bg-destructive/10 p-3 rounded-md">
                     <AlertCircle className="w-4 h-4" />
                     <span className="font-secondary">{error}</span>
                   </div>
@@ -121,7 +118,7 @@ export default function SignUp() {
                     <Input 
                       id="firstName" 
                       placeholder="First name"
-                      className="min-h-[--touch-target-min]"
+                      className="min-h-touch-target"
                       value={formData.firstName}
                       onChange={(e) => handleInputChange("firstName", e.target.value)}
                       required
@@ -133,7 +130,7 @@ export default function SignUp() {
                     <Input 
                       id="lastName" 
                       placeholder="Last name"
-                      className="min-h-[--touch-target-min]"
+                      className="min-h-touch-target"
                       value={formData.lastName}
                       onChange={(e) => handleInputChange("lastName", e.target.value)}
                       required
@@ -148,7 +145,7 @@ export default function SignUp() {
                     id="email" 
                     type="email" 
                     placeholder="Enter your email"
-                    className="min-h-[--touch-target-min]"
+                    className="min-h-touch-target"
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
                     required
@@ -163,7 +160,7 @@ export default function SignUp() {
                       id="password" 
                       type={showPassword ? "text" : "password"}
                       placeholder="Create a password"
-                      className="min-h-[--touch-target-min] pr-12"
+                      className="min-h-touch-target pr-12"
                       value={formData.password}
                       onChange={(e) => handleInputChange("password", e.target.value)}
                       required
@@ -173,7 +170,7 @@ export default function SignUp() {
                       type="button"
                       variant="ghost"
                       size="sm"
-                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent min-h-touch-target min-w-touch-target"
                       onClick={() => setShowPassword(!showPassword)}
                       aria-label={showPassword ? "Hide password" : "Show password"}
                     >
@@ -195,7 +192,7 @@ export default function SignUp() {
                     id="confirmPassword" 
                     type="password"
                     placeholder="Confirm your password"
-                    className="min-h-[--touch-target-min]"
+                    className="min-h-touch-target"
                     value={formData.confirmPassword}
                     onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
                     required
@@ -209,7 +206,7 @@ export default function SignUp() {
                       id="terms" 
                       checked={agreedToTerms}
                       onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
-                      className="min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                      className="min-h-touch-target min-w-touch-target"
                       aria-describedby="terms-description"
                     />
                     <label htmlFor="terms" className="text-sm font-secondary text-text-secondary">
@@ -238,7 +235,7 @@ export default function SignUp() {
                           id="essential" 
                           checked={consentPreferences.essential}
                           disabled
-                          className="min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                          className="min-h-touch-target min-w-touch-target"
                           aria-describedby="essential-description"
                         />
                         <label htmlFor="essential" className="text-xs font-secondary text-text-secondary">
@@ -253,7 +250,7 @@ export default function SignUp() {
                           onCheckedChange={(checked) => 
                             setConsentPreferences(prev => ({ ...prev, therapyData: checked === true }))
                           }
-                          className="min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                          className="min-h-touch-target min-w-touch-target"
                           aria-describedby="therapy-data-description"
                         />
                         <label htmlFor="therapy-data" className="text-xs font-secondary text-text-secondary">
@@ -268,7 +265,7 @@ export default function SignUp() {
                           onCheckedChange={(checked) => 
                             setConsentPreferences(prev => ({ ...prev, analytics: checked === true }))
                           }
-                          className="min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                          className="min-h-touch-target min-w-touch-target"
                           aria-describedby="analytics-description"
                         />
                         <label htmlFor="analytics" className="text-xs font-secondary text-text-secondary">
@@ -283,7 +280,7 @@ export default function SignUp() {
                           onCheckedChange={(checked) => 
                             setConsentPreferences(prev => ({ ...prev, marketing: checked === true }))
                           }
-                          className="min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                          className="min-h-touch-target min-w-touch-target"
                           aria-describedby="marketing-description"
                         />
                         <label htmlFor="marketing" className="text-xs font-secondary text-text-secondary">
@@ -299,17 +296,15 @@ export default function SignUp() {
                 </Button>
               </form>
               
-              <div className="text-center space-y-[--space-xs]">
-                <Link to="/sign-in" className="text-sm text-text-secondary hover:text-text-primary font-secondary">
+              <div className="text-center space-y-2">
+                <Link to="/sign-in" className="text-sm text-muted-foreground hover:text-primary font-secondary">
                   Already have an account? Sign in
                 </Link>
               </div>
             </CardContent>
           </Card>
-        </Container>
-      </main>
-
-      <Footer />
-    </div>
+        </div>
+      </Container>
+    </PageShell>
   );
 }
