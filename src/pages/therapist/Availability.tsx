@@ -85,7 +85,7 @@ export default function TherapistAvailability() {
                   <div className="text-center">
                     <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Remaining</p>
                     <p className="font-primary text-2xl font-bold text-[hsl(var(--success-text))]">6</p>
-                    <p className="font-secondary text-text-muted text-xs">Open slots</p>
+                    <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs">Open slots</p>
                   </div>
                 </CardContent>
               </Card>
@@ -94,7 +94,7 @@ export default function TherapistAvailability() {
                   <div className="text-center">
                     <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Utilization</p>
                     <p className="font-primary text-2xl font-bold text-[hsl(var(--warning-text))]">67%</p>
-                    <p className="font-secondary text-text-muted text-xs">Of available hours</p>
+                    <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs">Of available hours</p>
                   </div>
                 </CardContent>
               </Card>
@@ -112,11 +112,11 @@ export default function TherapistAvailability() {
                         <span className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Available</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <div className="w-3 h-3 bg-primary rounded-full"></div>
+                        <div className="w-3 h-3 bg-[hsl(var(--primary))] rounded-full"></div>
                         <span className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Booked</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <div className="w-3 h-3 bg-surface-accent rounded-full"></div>
+                        <div className="w-3 h-3 bg-[hsl(var(--surface-accent))] rounded-full"></div>
                         <span className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Unavailable</span>
                       </div>
                     </div>
@@ -147,10 +147,10 @@ export default function TherapistAvailability() {
                                 key={`${day}-${time}`}
                                 className={`h-10 border rounded cursor-pointer transition-colors ${
                                   isBooked
-                                    ? "bg-primary hover:bg-primary/80"
+                                    ? "bg-[hsl(var(--primary))] hover:bg-[hsl(var(--primary))]/80"
                                     : isAvailable
-                                    ? "bg-[hsl(var(--success-bg))]/20 hover:bg-[hsl(var(--success-bg))]/30 border-success/40"
-                                    : "bg-surface-accent hover:bg-surface-accent/80"
+                                    ? "bg-[hsl(var(--success-bg))]/20 hover:bg-[hsl(var(--success-bg))]/30 border-[hsl(var(--success-bg))]/40"
+                                    : "bg-[hsl(var(--surface-accent))] hover:bg-[hsl(var(--surface-accent))]/80"
                                 }`}
                                 title={`${day} ${time} - ${
                                   isBooked ? "Booked" : isAvailable ? "Available" : "Unavailable"
@@ -227,7 +227,7 @@ export default function TherapistAvailability() {
                       <Clock className="w-4 h-4 mr-2" />
                       Light Week
                     </Button>
-                    <Button variant="ghost" className="w-full justify-start text-text-muted">
+                    <Button variant="ghost" className="w-full justify-start text-[hsl(var(--text-secondary))]">
                       <Plus className="w-4 h-4 mr-2" />
                       Create Template
                     </Button>
@@ -244,7 +244,7 @@ export default function TherapistAvailability() {
                         <p className="font-secondary font-semibold text-[hsl(var(--text-primary))] text-sm">
                           Holiday Block
                         </p>
-                        <p className="font-secondary text-text-muted text-xs">
+                        <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs">
                           Dec 23 - Jan 2
                         </p>
                       </div>
@@ -253,7 +253,7 @@ export default function TherapistAvailability() {
                       </Button>
                     </div>
                     
-                    <Button variant="ghost" className="w-full justify-start text-text-muted">
+                    <Button variant="ghost" className="w-full justify-start text-[hsl(var(--text-secondary))]">
                       <Plus className="w-4 h-4 mr-2" />
                       Add Time Off
                     </Button>

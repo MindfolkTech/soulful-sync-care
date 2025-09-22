@@ -29,35 +29,35 @@ const EarningsView = () => {
         <Stack className="space-y-8">
             <HStack className="justify-end"><Button variant="outline" className="min-h-touch-min"><Download className="w-4 h-4 mr-2" />Export Report</Button><Button variant="primary" className="min-h-touch-min">Request Payout</Button></HStack>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <Card><CardContent className="p-6"><div className="flex items-center justify-between"><div><p className="font-secondary text-muted-foreground text-sm">This Week</p><p className="font-primary text-2xl font-bold text-foreground">£{earningsData.currentWeek}</p></div><div className={`flex items-center text-sm ${weeklyChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>{weeklyChange >= 0 ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}<span className="font-secondary font-medium">{Math.abs(weeklyChange).toFixed(1)}%</span></div></div></CardContent></Card>
-                <Card><CardContent className="p-6"><div className="flex items-center justify-between"><div><p className="font-secondary text-muted-foreground text-sm">This Month</p><p className="font-primary text-2xl font-bold text-foreground">£{earningsData.thisMonth}</p></div><div className={`flex items-center text-sm ${monthlyChange >= 0 ? 'text-green-600' : 'text-red-600'}`}>{monthlyChange >= 0 ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}<span className="font-secondary font-medium">{Math.abs(monthlyChange).toFixed(1)}%</span></div></div></CardContent></Card>
-                <Card><CardContent className="p-6"><div className="flex items-center justify-between"><div><p className="font-secondary text-muted-foreground text-sm">This Year</p><p className="font-primary text-2xl font-bold text-foreground">£{earningsData.thisYear.toLocaleString()}</p></div><div className="flex items-center text-sm text-green-600"><TrendingUp className="w-4 h-4" /><span className="font-secondary font-medium">27.6%</span></div></div></CardContent></Card>
+                <Card><CardContent className="p-6"><div className="flex items-center justify-between"><div><p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">This Week</p><p className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">£{earningsData.currentWeek}</p></div><div className={`flex items-center text-sm ${weeklyChange >= 0 ? 'text-[hsl(var(--success-text))]' : 'text-[hsl(var(--error-text))]'}`}>{weeklyChange >= 0 ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}<span className="font-secondary font-medium">{Math.abs(weeklyChange).toFixed(1)}%</span></div></div></CardContent></Card>
+                <Card><CardContent className="p-6"><div className="flex items-center justify-between"><div><p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">This Month</p><p className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">£{earningsData.thisMonth}</p></div><div className={`flex items-center text-sm ${monthlyChange >= 0 ? 'text-[hsl(var(--success-text))]' : 'text-[hsl(var(--error-text))]'}`}>{monthlyChange >= 0 ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />}<span className="font-secondary font-medium">{Math.abs(monthlyChange).toFixed(1)}%</span></div></div></CardContent></Card>
+                <Card><CardContent className="p-6"><div className="flex items-center justify-between"><div><p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">This Year</p><p className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">£{earningsData.thisYear.toLocaleString()}</p></div><div className="flex items-center text-sm text-[hsl(var(--success-text))]"><TrendingUp className="w-4 h-4" /><span className="font-secondary font-medium">27.6%</span></div></div></CardContent></Card>
             </div>
             <Tabs defaultValue="overview" className="space-y-6">
                 <TabsList className="grid w-full grid-cols-4"><TabsTrigger value="overview">Overview</TabsTrigger><TabsTrigger value="transactions">Transactions</TabsTrigger><TabsTrigger value="payouts">Payouts</TabsTrigger><TabsTrigger value="tax">Tax Documents</TabsTrigger></TabsList>
                 <TabsContent value="overview" className="space-y-6">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <Card>
-                            <CardHeader><CardTitle className="font-primary text-jovial-jade">Earnings Trend</CardTitle></CardHeader>
+                            <CardHeader><CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Earnings Trend</CardTitle></CardHeader>
                             <CardContent>
-                                <div className="h-64 flex items-center justify-center border-2 border-dashed border-border rounded-lg">
-                                    <div className="text-center"><TrendingUp className="w-12 h-12 text-muted-foreground mx-auto mb-2" /><p className="font-secondary text-muted-foreground">Earnings chart would go here</p></div>
+                                <div className="h-64 flex items-center justify-center border-2 border-dashed border-[hsl(var(--border))] rounded-lg">
+                                    <div className="text-center"><TrendingUp className="w-12 h-12 text-[hsl(var(--text-secondary))] mx-auto mb-2" /><p className="font-secondary text-[hsl(var(--text-secondary))]">Earnings chart would go here</p></div>
                                 </div>
                             </CardContent>
                         </Card>
                         <Card>
-                            <CardHeader><CardTitle className="font-primary text-jovial-jade">Session Breakdown</CardTitle></CardHeader>
+                            <CardHeader><CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Session Breakdown</CardTitle></CardHeader>
                             <CardContent>
-                                <div className="space-y-4">
-                                    <div className="flex items-center justify-between"><span className="font-secondary text-muted-foreground">Chemistry Calls</span><span className="font-secondary font-semibold text-foreground">12 × £15 = £180</span></div>
-                                    <div className="flex items-center justify-between"><span className="font-secondary text-muted-foreground">Therapy Sessions</span><span className="font-secondary font-semibold text-foreground">31 × £75 = £2,325</span></div>
-                                    <div className="flex items-center justify-between"><span className="font-secondary text-muted-foreground">Follow-up Sessions</span><span className="font-secondary font-semibold text-foreground">8 × £60 = £480</span></div>
-                                    <div className="border-t pt-4">
-                                        <div className="flex items-center justify-between"><span className="font-secondary font-semibold text-foreground">Total Gross</span><span className="font-primary text-lg font-bold text-foreground">£2,985</span></div>
-                                        <div className="flex items-center justify-between text-sm text-muted-foreground mt-1"><span>Platform Fee (15%)</span><span>-£447.75</span></div>
-                                        <div className="flex items-center justify-between font-semibold text-green-600 mt-2"><span>Net Earnings</span><span>£2,537.25</span></div>
+                                    <div className="space-y-4">
+                                        <div className="flex items-center justify-between"><span className="font-secondary text-[hsl(var(--text-secondary))]">Chemistry Calls</span><span className="font-secondary font-semibold text-[hsl(var(--text-primary))]">12 × £15 = £180</span></div>
+                                        <div className="flex items-center justify-between"><span className="font-secondary text-[hsl(var(--text-secondary))]">Therapy Sessions</span><span className="font-secondary font-semibold text-[hsl(var(--text-primary))]">31 × £75 = £2,325</span></div>
+                                        <div className="flex items-center justify-between"><span className="font-secondary text-[hsl(var(--text-secondary))]">Follow-up Sessions</span><span className="font-secondary font-semibold text-[hsl(var(--text-primary))]">8 × £60 = £480</span></div>
+                                        <div className="border-t pt-4">
+                                            <div className="flex items-center justify-between"><span className="font-secondary font-semibold text-[hsl(var(--text-primary))]">Total Gross</span><span className="font-primary text-lg font-bold text-[hsl(var(--text-primary))]">£2,985</span></div>
+                                            <div className="flex items-center justify-between text-sm text-[hsl(var(--text-secondary))] mt-1"><span>Platform Fee (15%)</span><span>-£447.75</span></div>
+                                            <div className="flex items-center justify-between font-semibold text-[hsl(var(--success-text))] mt-2"><span>Net Earnings</span><span>£2,537.25</span></div>
+                                        </div>
                                     </div>
-                                </div>
                             </CardContent>
                         </Card>
                     </div>

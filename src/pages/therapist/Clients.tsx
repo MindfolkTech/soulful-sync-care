@@ -135,7 +135,7 @@ export default function TherapistClients() {
                   {/* Search and Filter Controls */}
                   <HStack className="justify-between">
                     <div className="relative flex-1 max-w-md">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[hsl(var(--text-secondary))]" />
                       <Input 
                         placeholder="Search clients..." 
                         className="pl-10 min-h-touch-min"
@@ -146,7 +146,7 @@ export default function TherapistClients() {
                         <Filter className="w-4 h-4 mr-2" />
                         Filter
                       </Button>
-                      <select className="px-3 py-2 border rounded-md bg-background font-secondary text-foreground min-h-touch-min">
+                      <select className="px-3 py-2 border rounded-md bg-background font-secondary text-[hsl(var(--text-primary))] min-h-touch-min">
                         <option>All Clients</option>
                         <option>Active</option>
                         <option>Inactive</option>
@@ -159,8 +159,8 @@ export default function TherapistClients() {
                     <Card>
                       <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
                         <div className="text-center">
-                          <div className="font-primary text-2xl font-bold text-foreground">5</div>
-                          <div className="font-secondary text-muted-foreground text-sm">Total Clients</div>
+                          <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">5</div>
+                          <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Total Clients</div>
                         </div>
                       </CardContent>
                     </Card>
@@ -175,16 +175,16 @@ export default function TherapistClients() {
                     <Card>
                       <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
                         <div className="text-center">
-                          <div className="font-primary text-2xl font-bold text-foreground">20</div>
-                          <div className="font-secondary text-muted-foreground text-sm">Total Sessions</div>
+                          <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">20</div>
+                          <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Total Sessions</div>
                         </div>
                       </CardContent>
                     </Card>
                     <Card>
                       <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
                         <div className="text-center">
-                          <div className="font-primary text-2xl font-bold text-foreground">4.9</div>
-                          <div className="font-secondary text-muted-foreground text-sm">Avg Rating</div>
+                          <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">4.9</div>
+                          <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Avg Rating</div>
                         </div>
                       </CardContent>
                     </Card>
@@ -220,11 +220,11 @@ export default function TherapistClients() {
                                   </Avatar>
                                 </button>
                                 
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-center gap-3 mb-1">
-                                    <h4 className="font-secondary font-bold text-foreground truncate">
-                                      {client.name || 'Unknown Client'}
-                                    </h4>
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-3 mb-1">
+                                      <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))] truncate">
+                                        {client.name || 'Unknown Client'}
+                                      </h4>
                                     <button
                                       onClick={(e) => handleStatusToggle(client.id, e)}
                                       className="cursor-pointer"
@@ -239,25 +239,25 @@ export default function TherapistClients() {
                                     </button>
                                   </div>
                                   
-                                  <div className="flex flex-col sm:flex-row sm:gap-4 gap-1 text-sm text-muted-foreground">
-                                    <div className="flex-1">
-                                      <span className="font-secondary font-medium">Sessions:</span> {client.totalSessions}
-                                    </div>
-                                    <div className="flex-1">
-                                      <span className="font-secondary font-medium">Last:</span> {new Date(client.lastSession).toLocaleDateString()}
-                                    </div>
-                                    {client.nextSession && (
+                                    <div className="flex flex-col sm:flex-row sm:gap-4 gap-1 text-sm text-[hsl(var(--text-secondary))]">
                                       <div className="flex-1">
-                                        <span className="font-secondary font-medium">Next:</span> {client.nextSession}
+                                        <span className="font-secondary font-medium">Sessions:</span> {client.totalSessions}
                                       </div>
+                                      <div className="flex-1">
+                                        <span className="font-secondary font-medium">Last:</span> {new Date(client.lastSession).toLocaleDateString()}
+                                      </div>
+                                      {client.nextSession && (
+                                        <div className="flex-1">
+                                          <span className="font-secondary font-medium">Next:</span> {client.nextSession}
+                                        </div>
+                                      )}
+                                    </div>
+                                    
+                                    {client.notes && (
+                                      <p className="text-sm text-[hsl(var(--text-secondary))] mt-2 line-clamp-2">
+                                        {client.notes}
+                                      </p>
                                     )}
-                                  </div>
-                                  
-                                  {client.notes && (
-                                    <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
-                                      {client.notes}
-                                    </p>
-                                  )}
                                 </div>
                               </div>
                               
@@ -290,7 +290,7 @@ export default function TherapistClients() {
                   {upcomingSessions.length > 0 ? (
                     upcomingSessions.map(booking => <BookingItem key={booking.id} booking={booking} />)
                   ) : (
-                    <p className="text-muted-foreground text-center py-8">No upcoming sessions.</p>
+                    <p className="text-[hsl(var(--text-secondary))] text-center py-8">No upcoming sessions.</p>
                   )}
                 </Stack>
               </TabsContent>
@@ -300,7 +300,7 @@ export default function TherapistClients() {
                   {recentSessions.length > 0 ? (
                     recentSessions.map(booking => <BookingItem key={booking.id} booking={booking} />)
                   ) : (
-                    <p className="text-muted-foreground text-center py-8">No recent sessions.</p>
+                    <p className="text-[hsl(var(--text-secondary))] text-center py-8">No recent sessions.</p>
                   )}
                 </Stack>
               </TabsContent>

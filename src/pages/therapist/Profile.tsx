@@ -60,7 +60,7 @@ export default function TherapistProfile() {
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
-                  <p className="font-secondary text-muted-foreground text-xs">
+                  <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs">
                     JPG or PNG, max 5MB
                   </p>
                 </div>
@@ -70,7 +70,7 @@ export default function TherapistProfile() {
               <div className="lg:col-span-2 space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="firstName" className="font-secondary text-foreground">First Name</Label>
+                    <Label htmlFor="firstName" className="font-secondary text-[hsl(var(--text-primary))]">First Name</Label>
                     <Input 
                       id="firstName" 
                       defaultValue="Dr. Charlotte" 
@@ -79,7 +79,7 @@ export default function TherapistProfile() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="lastName" className="font-secondary text-foreground">Last Name</Label>
+                    <Label htmlFor="lastName" className="font-secondary text-[hsl(var(--text-primary))]">Last Name</Label>
                     <Input 
                       id="lastName" 
                       defaultValue="Thompson" 
@@ -90,7 +90,7 @@ export default function TherapistProfile() {
                 </div>
                 
                 <div>
-                  <Label htmlFor="title" className="font-secondary text-foreground">Professional Title</Label>
+                  <Label htmlFor="title" className="font-secondary text-[hsl(var(--text-primary))]">Professional Title</Label>
                   <Input 
                     id="title" 
                     defaultValue="Licensed Clinical Psychologist" 
@@ -100,7 +100,7 @@ export default function TherapistProfile() {
                 </div>
 
                 <div>
-                  <Label htmlFor="bio" className="font-secondary text-foreground">Bio</Label>
+                  <Label htmlFor="bio" className="font-secondary text-[hsl(var(--text-primary))]">Bio</Label>
                   <Textarea 
                     id="bio" 
                     defaultValue="I specialize in anxiety, depression, and relationship counseling with over 10 years of experience helping clients achieve their mental health goals."
@@ -175,10 +175,10 @@ export default function TherapistProfile() {
               </div>
               <div className="space-y-4">
                 <div>
-                  <h3 className="font-primary font-semibold text-foreground mb-2">
+                  <h3 className="font-primary font-semibold text-[hsl(var(--text-primary))] mb-2">
                     Why add a video?
                   </h3>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
+                  <ul className="space-y-2 text-sm text-[hsl(var(--text-secondary))]">
                     <li className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 bg-[hsl(var(--garden-green))] rounded-full mt-2 flex-shrink-0"></span>
                       Profiles with videos get 3x more bookings
@@ -211,11 +211,11 @@ export default function TherapistProfile() {
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <Label htmlFor="sessionPrice" className="font-secondary text-foreground">
+                  <Label htmlFor="sessionPrice" className="font-secondary text-[hsl(var(--text-primary))]">
                     Session Price (per hour)
                   </Label>
                   <div className="relative mt-1">
-                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">£</span>
+                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[hsl(var(--text-secondary))]">£</span>
                     <Input 
                       id="sessionPrice" 
                       type="number" 
@@ -226,13 +226,13 @@ export default function TherapistProfile() {
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor="sessionDuration" className="font-secondary text-foreground">
+                  <Label htmlFor="sessionDuration" className="font-secondary text-[hsl(var(--text-primary))]">
                     Default Session Duration
                   </Label>
                   <select 
                     id="sessionDuration" 
                     defaultValue="60 minutes"
-                    className="w-full px-3 py-2 border rounded-md bg-background font-secondary text-foreground min-h-[--touch-target-min] mt-1"
+                    className="w-full px-3 py-2 border rounded-md bg-background font-secondary text-[hsl(var(--text-primary))] min-h-[--touch-target-min] mt-1"
                     aria-label="Select default session duration"
                   >
                     <option>30 minutes</option>
@@ -246,24 +246,24 @@ export default function TherapistProfile() {
               <div className="space-y-4">
                 <HStack className="justify-between">
                   <div>
-                    <Label className="font-secondary text-foreground">Accept new clients</Label>
-                    <p className="text-sm text-muted-foreground">Allow new clients to book sessions</p>
+                    <Label className="font-secondary text-[hsl(var(--text-primary))]">Accept new clients</Label>
+                    <p className="text-sm text-[hsl(var(--text-secondary))]">Allow new clients to book sessions</p>
                   </div>
                   <Switch defaultChecked aria-label="Toggle accepting new clients" />
                 </HStack>
 
                 <HStack className="justify-between">
                   <div>
-                    <Label className="font-secondary text-foreground">Instant booking</Label>
-                    <p className="text-sm text-muted-foreground">Clients can book without approval</p>
+                    <Label className="font-secondary text-[hsl(var(--text-primary))]">Instant booking</Label>
+                    <p className="text-sm text-[hsl(var(--text-secondary))]">Clients can book without approval</p>
                   </div>
                   <Switch defaultChecked aria-label="Toggle instant booking for clients" />
                 </HStack>
 
                 <HStack className="justify-between">
                   <div>
-                    <Label className="font-secondary text-foreground">Weekend availability</Label>
-                    <p className="text-sm text-muted-foreground">Available for weekend sessions</p>
+                    <Label className="font-secondary text-[hsl(var(--text-primary))]">Weekend availability</Label>
+                    <p className="text-sm text-[hsl(var(--text-secondary))]">Available for weekend sessions</p>
                   </div>
                   <Switch aria-label="Toggle weekend availability" />
                 </HStack>
@@ -286,19 +286,19 @@ export default function TherapistProfile() {
           <CardContent className="p-4 md:p-5 lg:p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-foreground">127</div>
-                <div className="font-secondary text-muted-foreground text-sm">Profile Views</div>
+                <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">127</div>
+                <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Profile Views</div>
                 <div className="text-xs text-[hsl(var(--success-text))]">+12% this month</div>
               </div>
               <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-foreground">28</div>
-                <div className="font-secondary text-muted-foreground text-sm">Favorites</div>
+                <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">28</div>
+                <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Favorites</div>
                 <div className="text-xs text-[hsl(var(--success-text))]">+15% this month</div>
               </div>
               <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-foreground">4.9</div>
-                <div className="font-secondary text-muted-foreground text-sm">Average Rating</div>
-                <div className="text-xs text-muted-foreground">27 reviews</div>
+                <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">4.9</div>
+                <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Average Rating</div>
+                <div className="text-xs text-[hsl(var(--text-secondary))]">27 reviews</div>
               </div>
             </div>
           </CardContent>

@@ -169,7 +169,7 @@ export default function ClientDetail() {
                         placeholder="Search Client Notes, Keywords, past notes"
                         className="pl-10 min-h-[--touch-target-min]"
                       />
-                      <FileText className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <FileText className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[hsl(var(--text-secondary))]" />
                     </div>
                     
                     <Textarea
@@ -229,14 +229,14 @@ export default function ClientDetail() {
                             </div>
                             <div>
                               <h4 className="font-secondary font-semibold text-sm">{note.title}</h4>
-                              <p className="font-secondary text-xs text-muted-foreground">{note.date}</p>
+                              <p className="font-secondary text-xs text-[hsl(var(--text-secondary))]">{note.date}</p>
                             </div>
                           </div>
                           <Button variant="ghost" size="sm">
                             <Settings className="w-4 h-4" />
                           </Button>
                         </div>
-                        <p className="font-secondary text-sm text-foreground ml-8">
+                        <p className="font-secondary text-sm text-[hsl(var(--text-primary))] ml-8">
                           {note.content}
                         </p>
                       </div>
@@ -307,15 +307,15 @@ export default function ClientDetail() {
                 
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-muted-foreground" />
+                    <Phone className="w-4 h-4 text-[hsl(var(--text-secondary))]" />
                     <span className="font-secondary">{client.phone}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-muted-foreground" />
+                    <Mail className="w-4 h-4 text-[hsl(var(--text-secondary))]" />
                     <span className="font-secondary">{client.email}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Bell className="w-4 h-4 text-muted-foreground" />
+                    <Bell className="w-4 h-4 text-[hsl(var(--text-secondary))]" />
                     <span className="font-secondary">Prefers email notifications</span>
                   </div>
                 </div>
@@ -332,7 +332,7 @@ export default function ClientDetail() {
                   <div key={appointment.id} className="flex items-center justify-between p-2 border rounded-lg">
                     <div>
                       <p className="font-secondary font-semibold text-sm">{appointment.date}</p>
-                      <p className="font-secondary text-xs text-muted-foreground">{appointment.duration} {appointment.type}</p>
+                      <p className="font-secondary text-xs text-[hsl(var(--text-secondary))]">{appointment.duration} {appointment.type}</p>
                     </div>
                     <Button variant="ghost" size="sm">
                       <Calendar className="w-4 h-4" />
@@ -374,10 +374,10 @@ export default function ClientDetail() {
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <span className="text-2xl font-bold">{client.gadScore}</span>
-                    <span className="text-xs text-muted-foreground">Moderate</span>
+                    <span className="text-xs text-[hsl(var(--text-secondary))]">Moderate</span>
                   </div>
                 </div>
-                <p className="font-secondary text-xs text-muted-foreground">
+                <p className="font-secondary text-xs text-[hsl(var(--text-secondary))]">
                   {client.gadScoreChange < 0 ? "↓" : "↑"} {Math.abs(client.gadScoreChange)} points since last assessment
                 </p>
               </CardContent>

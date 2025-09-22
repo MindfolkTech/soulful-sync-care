@@ -74,11 +74,11 @@ function AppointmentItem({ appointment }: { appointment: any }) {
     <div className="flex items-center justify-between p-2 border rounded-lg min-h-[--touch-target-min]" role="listitem">
       <div className="flex items-center gap-[--space-xs] min-w-0 flex-1">
         <div className="w-8 h-8 bg-surface-accent rounded-full flex items-center justify-center flex-shrink-0">
-          <span className="font-secondary text-foreground text-xs">{appointment.clientInitials}</span>
+                        <span className="font-secondary text-foreground text-xs">{appointment.clientInitials}</span>
         </div>
         <div className="min-w-0 flex-1">
-          <h4 className="font-secondary font-bold text-foreground text-sm truncate">{appointment.clientName}</h4>
-          <p className="font-secondary text-muted-foreground text-xs truncate">
+          <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-sm truncate">{appointment.clientName}</h4>
+          <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs truncate">
             {appointment.sessionTime.toLocaleDateString('en-US', { 
               month: 'short', 
               day: 'numeric' 
@@ -92,7 +92,7 @@ function AppointmentItem({ appointment }: { appointment: any }) {
       </div>
       
       <div className="flex items-center gap-[--space-xs] flex-shrink-0">
-        <span className="font-secondary text-xs text-muted-foreground tabular-nums">
+        <span className="font-secondary text-xs text-[hsl(var(--text-secondary))] tabular-nums">
           {formatTimeDisplay()}
         </span>
         
@@ -265,15 +265,15 @@ export default function TherapistDashboard() {
                   {recentClients.slice(0, 3).map(client => (
                     <div key={client.id} className="flex items-center justify-between p-2 border rounded-lg">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 bg-surface-accent rounded-full flex items-center justify-center flex-shrink-0">
-                          <span className="font-secondary text-foreground text-xs">{client.initials}</span>
+                        <div className="w-8 h-8 bg-[hsl(var(--surface-accent))] rounded-full flex items-center justify-center flex-shrink-0">
+                          <span className="font-secondary text-[hsl(var(--text-primary))] text-xs">{client.initials}</span>
                         </div>
                         <div>
-                          <h4 className="font-secondary font-bold text-foreground text-sm">{client.name}</h4>
-                          <p className="font-secondary text-muted-foreground text-xs">Last session: {client.lastSession}</p>
+                          <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-sm">{client.name}</h4>
+                          <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs">Last session: {client.lastSession}</p>
                         </div>
                       </div>
-                      <Badge variant={client.status === "Active" ? "secondary" : "outline"} className={`text-xs ${client.status === "Active" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"}`}>
+                      <Badge variant={client.status === "Active" ? "secondary" : "outline"} className={`text-xs ${client.status === "Active" ? "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]" : "bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]"}`}>
                         {client.status}
                       </Badge>
                     </div>
@@ -300,10 +300,10 @@ export default function TherapistDashboard() {
                   {mockTherapistTasks.slice(0, 3).map(task => (
                       <div key={task.id} className="flex items-center justify-between p-2 border rounded-lg">
                         <div className="flex items-center gap-3">
-                          <CheckCircle2 className={`w-5 h-5 ${task.status === 'done' ? 'text-green-500' : 'text-muted-foreground'}`} />
+                          <CheckCircle2 className={`w-5 h-5 ${task.status === 'done' ? 'text-[hsl(var(--success-text))]' : 'text-[hsl(var(--text-secondary)))]'}`} />
                           <div>
-                          <h4 className={`font-secondary text-sm ${task.status === 'done' ? 'line-through text-muted-foreground' : 'text-foreground'}`}>{task.title}</h4>
-                          <p className="font-secondary text-muted-foreground text-xs">{task.due ? new Date(task.due).toLocaleDateString() : 'No due date'}</p>
+                          <h4 className={`font-secondary text-sm ${task.status === 'done' ? 'line-through text-[hsl(var(--text-secondary))]' : 'text-[hsl(var(--text-primary))]'}`}>{task.title}</h4>
+                          <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs">{task.due ? new Date(task.due).toLocaleDateString() : 'No due date'}</p>
                           </div>
                         </div>
                       </div>

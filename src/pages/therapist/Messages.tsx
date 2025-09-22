@@ -102,18 +102,18 @@ export default function TherapistMessages() {
           <div className="grid grid-cols-2 gap-[--space-md]">
             <Card>
               <CardContent className="p-4">
-                <div className="text-center">
-                  <div className="font-primary text-2xl font-bold text-foreground">{totalUnread}</div>
-                  <div className="font-secondary text-muted-foreground text-sm">Unread</div>
-                </div>
+                  <div className="text-center">
+                    <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">{totalUnread}</div>
+                    <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Unread</div>
+                  </div>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="p-4">
-                <div className="text-center">
-                  <div className="font-primary text-2xl font-bold text-foreground">{conversations.length}</div>
-                  <div className="font-secondary text-muted-foreground text-sm">Active</div>
-                </div>
+                  <div className="text-center">
+                    <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">{conversations.length}</div>
+                    <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Active</div>
+                  </div>
               </CardContent>
             </Card>
           </div>
@@ -123,7 +123,7 @@ export default function TherapistMessages() {
             <CardContent className="p-4">
               <Stack className="space-y-3">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[hsl(var(--text-secondary))]" />
                   <Input
                     placeholder="Search conversations..."
                     value={searchTerm}
@@ -171,9 +171,9 @@ export default function TherapistMessages() {
                       
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
-                          <h4 className="font-secondary font-bold text-foreground text-sm truncate">
-                            {conversation.clientName}
-                          </h4>
+            <h4 className="font-secondary font-bold text-[hsl(var(--text-primary))] text-sm truncate">
+              {conversation.clientName}
+            </h4>
                           <div className="flex items-center gap-2">
                             {getPriorityIcon(conversation.priority)}
                             {conversation.unreadCount > 0 && (
@@ -184,11 +184,11 @@ export default function TherapistMessages() {
                           </div>
                         </div>
                         
-                        <p className="text-xs text-muted-foreground line-clamp-2 mb-1">
+                        <p className="text-xs text-[hsl(var(--text-secondary))] line-clamp-2 mb-1">
                           {conversation.lastMessage}
                         </p>
                         
-                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-1 text-xs text-[hsl(var(--text-secondary))]">
                           <Clock className="w-3 h-3" />
                           {conversation.timestamp}
                         </div>
@@ -214,11 +214,11 @@ export default function TherapistMessages() {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <h3 className="font-primary font-semibold text-foreground">
+                    <h3 className="font-primary font-semibold text-[hsl(var(--text-primary))]">
                       {selectedConversation.clientName}
                     </h3>
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <div className={`w-2 h-2 rounded-full ${selectedConversation.isOnline ? 'bg-[hsl(var(--success-bg))]' : 'bg-muted-foreground'}`}></div>
+                    <div className="flex items-center gap-1 text-xs text-[hsl(var(--text-secondary))]">
+                      <div className={`w-2 h-2 rounded-full ${selectedConversation.isOnline ? 'bg-[hsl(var(--success-bg))]' : 'bg-[hsl(var(--text-secondary))]'}`}></div>
                       {selectedConversation.isOnline ? 'Online' : 'Offline'}
                     </div>
                   </div>
