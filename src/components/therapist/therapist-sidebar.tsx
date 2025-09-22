@@ -64,8 +64,19 @@ const mainNavItems: NavItem[] = [
     label: "Business", 
     icon: Briefcase,
     subItems: [
-      { path: "/t/business", label: "Analytics" },
-      { path: "/t/business?tab=earnings", label: "Earnings" }
+      { path: "/t/business", label: "Earnings" },
+      { path: "/t/business?tab=analytics", label: "Analytics" }
+    ]
+  },
+  { 
+    path: "/t/practice", 
+    label: "Practice", 
+    icon: UserIcon,
+    subItems: [
+      { path: "/t/practice/profile", label: "Profile" },
+      { path: "/t/practice/credentials", label: "Credentials" },
+      { path: "/t/practice/services", label: "Services & Pricing" },
+      { path: "/t/practice/policies", label: "Policies" }
     ]
   },
 ];
@@ -277,7 +288,7 @@ export function TherapistSidebar({ className = "" }: TherapistSidebarProps) {
 
         {/* Footer with User Profile and Sign Out */}
         <div className="p-4 border-t border-border">
-          <Link to="/t/profile" aria-label="Manage Profile" className="flex items-center gap-3 group">
+          <Link to="/t/practice/profile" aria-label="Manage Profile" className="flex items-center gap-3 group">
             <Avatar className="h-10 w-10">
               <AvatarImage src={userProfile?.avatar_url} alt="Therapist avatar" />
               <AvatarFallback>{getInitials()}</AvatarFallback>

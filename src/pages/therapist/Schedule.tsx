@@ -1,7 +1,6 @@
 import { TherapistLayout } from "@/components/layout/therapist-layout";
 import { Container } from "@/components/ui/container";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar as CalendarIcon, Clock } from "lucide-react";
+import { Calendar as CalendarIcon } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import * as React from "react";
 
@@ -159,31 +158,27 @@ const ManageAvailabilityView = () => {
 
 
 export default function TherapistSchedule() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const activeTab = searchParams.get('tab') || 'calendar';
+  const [searchParams] = useSearchParams();
+  const activeTab = searchParams.get('tab');
+  const isAvailability = activeTab === 'availability';
+
+  // Dynamic page title based on active view
+  const pageTitle = isAvailability ? 'Manage Availability' : 'Schedule Calendar';
+  const pageDescription = isAvailability 
+    ? 'Set your working hours and availability preferences.' 
+    : 'Manage your appointments and calendar.';
 
   return (
     <TherapistLayout>
       <div className="p-4 md:p-6 lg:p-8">
         <Container>
-            <div className="space-y-4">
-                <div className="space-y-1">
-                    <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))]">Schedule</h1>
-                    <p className="font-secondary text-[hsl(var(--text-secondary))]">Manage your appointments and working hours.</p>
-                </div>
-                <Tabs value={activeTab} onValueChange={(value) => setSearchParams({ tab: value })} className="w-full">
-                    <TabsList>
-                        <TabsTrigger value="calendar"><CalendarIcon className="w-4 h-4 mr-2" /> Calendar</TabsTrigger>
-                        <TabsTrigger value="availability"><Clock className="w-4 h-4 mr-2" /> Availability</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="calendar" className="mt-4">
-                        <CalendarView />
-                    </TabsContent>
-                    <TabsContent value="availability" className="mt-4">
-                        <ManageAvailabilityView />
-                    </TabsContent>
-                </Tabs>
+          <div className="space-y-4">
+            <div className="space-y-1">
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))]">{pageTitle}</h1>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">{pageDescription}</p>
             </div>
+            {isAvailability ? <ManageAvailabilityView /> : <CalendarView />}
+          </div>
         </Container>
       </div>
     </TherapistLayout>

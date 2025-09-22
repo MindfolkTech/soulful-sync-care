@@ -1,7 +1,6 @@
 import { TherapistLayout } from "@/components/layout/therapist-layout";
 import { Container } from "@/components/ui/container";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BarChart2, Eye } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import * as React from "react";
 import { useTherapistEarnings, useTherapistAnalytics } from "@/hooks/use-therapist-data";
@@ -16,7 +15,7 @@ import { DollarSign, TrendingUp, Download, CreditCard, Calendar, ArrowUp, ArrowD
 // --- END: Imports from original Earnings.tsx ---
 
 // --- START: Imports from original Analytics.tsx ---
-import { Star } from "lucide-react";
+import { Star, Eye } from "lucide-react";
 // --- END: Imports from original Analytics.tsx ---
 
 const EarningsView = () => {
@@ -289,31 +288,27 @@ const AnalyticsView = () => {
 };
 
 export default function TherapistBusiness() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const activeTab = searchParams.get('tab') || 'overview';
+  const [searchParams] = useSearchParams();
+  const activeTab = searchParams.get('tab');
+  const isAnalytics = activeTab === 'analytics';
+
+  // Dynamic page title based on active view
+  const pageTitle = isAnalytics ? 'Business Analytics' : 'Business Earnings';
+  const pageDescription = isAnalytics 
+    ? 'Track your profile performance and client engagement metrics.' 
+    : 'View your earnings and financial summaries.';
 
   return (
     <TherapistLayout>
       <div className="p-4 md:p-6 lg:p-8">
         <Container>
-            <div className="space-y-4">
-                <div className="space-y-1">
-                    <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))]">Business & Analytics</h1>
-                    <p className="font-secondary text-[hsl(var(--text-secondary))]">Track your income, performance, and growth opportunities.</p>
-                </div>
-                <Tabs value={activeTab} onValueChange={(value) => setSearchParams({ tab: value })} className="w-full">
-                    <TabsList>
-                        <TabsTrigger value="overview"><Eye className="w-4 h-4 mr-2" /> Overview</TabsTrigger>
-                        <TabsTrigger value="analytics"><BarChart2 className="w-4 h-4 mr-2" /> Analytics</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="overview" className="mt-4">
-                        <EarningsView />
-                    </TabsContent>
-                    <TabsContent value="analytics" className="mt-4">
-                        <AnalyticsView />
-                    </TabsContent>
-                </Tabs>
+          <div className="space-y-4">
+            <div className="space-y-1">
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))]">{pageTitle}</h1>
+              <p className="font-secondary text-[hsl(var(--text-secondary))]">{pageDescription}</p>
             </div>
+            {isAnalytics ? <AnalyticsView /> : <EarningsView />}
+          </div>
         </Container>
       </div>
     </TherapistLayout>
