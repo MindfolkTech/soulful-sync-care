@@ -116,7 +116,7 @@ import OnboardingVideo from "./pages/therapist/onboarding/Video";
 import OnboardingVerification from "./pages/therapist/onboarding/Verification";
 import OnboardingPolicies from "./pages/therapist/onboarding/Policies";
 import TherapistProfile from "./pages/therapist/Profile";
-import TherapistAvailability from "./pages/therapist/Availability";
+
 import TherapistClients from "./pages/therapist/Clients";
 import TherapistSchedule from "./pages/therapist/Schedule";
 import TherapistBusiness from "./pages/therapist/Business";
@@ -208,7 +208,7 @@ const AppContent = () => {
               <Route path="/t/onboarding/policies" element={<AuthGuard requiredRole="therapist"><OnboardingPolicies /></AuthGuard>} />
               <Route path="/t/setup" element={<AuthGuard requiredRole="therapist"><TherapistSetup /></AuthGuard>} />
               <Route path="/t/profile" element={<AuthGuard requiredRole="therapist"><TherapistProfile /></AuthGuard>} />
-              <Route path="/t/availability" element={<AuthGuard requiredRole="therapist"><TherapistAvailability /></AuthGuard>} />
+              
               <Route path="/t/clients" element={<AuthGuard requiredRole="therapist"><TherapistClients /></AuthGuard>} />
               <Route path="/t/schedule" element={<AuthGuard requiredRole="therapist"><TherapistSchedule /></AuthGuard>} />
               <Route path="/t/clients/:id" element={<AuthGuard requiredRole="therapist"><ClientDetail /></AuthGuard>} />

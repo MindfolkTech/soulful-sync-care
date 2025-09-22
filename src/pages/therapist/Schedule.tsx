@@ -10,7 +10,7 @@ import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { Button } from "@/components/ui/button";
 import { CalendarIntegrationModal } from "@/components/calendar/calendar-integration-modal";
 import { InteractiveCalendar } from "@/components/calendar/interactive-calendar";
-import { AvailabilityManager } from "@/components/calendar/availability-manager";
+import { EnhancedAvailabilityManager } from "@/components/calendar/enhanced-availability-manager";
 import { AppointmentDetailsModal } from "@/components/calendar/appointment-details-modal";
 import { BookingModal } from "@/components/calendar/booking-modal";
 import { FilterDropdown } from "@/components/calendar/filter-dropdown";
@@ -159,16 +159,7 @@ const CalendarView = () => {
 }
 
 const ManageAvailabilityView = () => {
-    // State and handlers from original AvailabilityManager
-    const [workingHours, setWorkingHours] = React.useState([ { day: 'Monday', enabled: true, startTime: '09:00', endTime: '17:00' }, { day: 'Tuesday', enabled: true, startTime: '09:00', endTime: '17:00' }, { day: 'Wednesday', enabled: true, startTime: '09:00', endTime: '17:00' }, { day: 'Thursday', enabled: true, startTime: '09:00', endTime: '17:00' }, { day: 'Friday', enabled: true, startTime: '09:00', endTime: '17:00' }, { day: 'Saturday', enabled: false, startTime: '10:00', endTime: '14:00' }, { day: 'Sunday', enabled: false, startTime: '10:00', endTime: '14:00' } ]);
-    const [blockedTimes, setBlockedTimes] = React.useState([ { id: '1', title: 'Lunch Break', startDate: '2024-01-15', endDate: '2024-01-15', startTime: '12:00', endTime: '13:00', recurring: true } ]);
-    const handleAddBlockedTime = (blockedTime: any) => { const newBlockedTime = { ...blockedTime, id: Date.now().toString() }; setBlockedTimes(prev => [...prev, newBlockedTime]); };
-    const handleRemoveBlockedTime = (id: string) => { setBlockedTimes(prev => prev.filter(bt => bt.id !== id)); };
-    const handleSaveAvailability = () => { console.log('Saving availability:', { workingHours, blockedTimes }); };
-
-    return (
-        <AvailabilityManager workingHours={workingHours} blockedTimes={blockedTimes} onUpdateWorkingHours={setWorkingHours} onAddBlockedTime={handleAddBlockedTime} onRemoveBlockedTime={handleRemoveBlockedTime} onSave={handleSaveAvailability} />
-    )
+    return <EnhancedAvailabilityManager />;
 }
 
 const TaskHubView = () => {
