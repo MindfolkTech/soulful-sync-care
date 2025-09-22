@@ -32,16 +32,24 @@ const AuthGuard = ({ children, requiredRole }: { children: React.ReactNode; requ
       if (user && requiredRole) {
         setRoleLoading(true);
         try {
-          const { data: profile } = await supabase
+          console.log('AuthGuard: Checking role for user:', user.id, 'Required role:', requiredRole);
+          const { data: profile, error } = await supabase
             .from("profiles")
             .select("role")
             .eq("id", user.id)
             .single();
           
-          const role = profile?.role || 'client';
-          setUserRole(role);
+          console.log('AuthGuard: Profile data:', profile, 'Error:', error);
+          if (error) {
+            console.error('AuthGuard: Database error:', error);
+            setUserRole('client'); // Default to client on error
+          } else {
+            const role = profile?.role || 'client';
+            setUserRole(role);
+            console.log('AuthGuard: User role set to:', role);
+          }
         } catch (error) {
-          console.error('AuthGuard: Error fetching user role:', error);
+          console.error('AuthGuard: Exception while fetching user role:', error);
           setUserRole('client');
         } finally {
           setRoleLoading(false);
@@ -49,24 +57,36 @@ const AuthGuard = ({ children, requiredRole }: { children: React.ReactNode; requ
       } else if (!requiredRole) {
         // No role required, allow access
         setUserRole('any');
+        setRoleLoading(false);
       }
     };
 
     checkUserRole();
   }, [user, requiredRole]);
 
-  if (loading || (requiredRole && roleLoading)) {
+  console.log('AuthGuard: Current state - loading:', loading, 'roleLoading:', roleLoading, 'userRole:', userRole, 'requiredRole:', requiredRole, 'user:', user?.id);
+
+  if (loading) {
+    console.log('AuthGuard: Showing loading screen (auth loading)');
     return <AppLoadingScreen />;
   }
 
   if (!user) {
+    console.log('AuthGuard: No user, redirecting to sign-in');
     return <Navigate to="/sign-in" replace />;
   }
 
-  if (requiredRole && userRole !== requiredRole) {
+  if (requiredRole && roleLoading) {
+    console.log('AuthGuard: Showing loading screen (role loading)');
+    return <AppLoadingScreen />;
+  }
+
+  if (requiredRole && userRole && userRole !== requiredRole) {
+    console.log('AuthGuard: Role mismatch, redirecting to home. UserRole:', userRole, 'RequiredRole:', requiredRole);
     return <Navigate to="/" replace />;
   }
 
+  console.log('AuthGuard: Access granted, rendering children');
   return <>{children}</>;
 };
 
