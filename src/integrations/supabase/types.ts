@@ -14,6 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
+      appointments: {
+        Row: {
+          client_id: string
+          created_at: string | null
+          duration_minutes: number
+          id: string
+          notes: string | null
+          session_date: string
+          session_rate: number | null
+          session_time: string
+          session_type: string
+          status: string
+          therapist_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          client_id: string
+          created_at?: string | null
+          duration_minutes?: number
+          id?: string
+          notes?: string | null
+          session_date: string
+          session_rate?: number | null
+          session_time: string
+          session_type?: string
+          status?: string
+          therapist_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          client_id?: string
+          created_at?: string | null
+          duration_minutes?: number
+          id?: string
+          notes?: string | null
+          session_date?: string
+          session_rate?: number | null
+          session_time?: string
+          session_type?: string
+          status?: string
+          therapist_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "appointments_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_profiles_internal"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       client_assessments: {
         Row: {
           age_group: string | null
@@ -82,6 +142,73 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      client_session_notes: {
+        Row: {
+          appointment_id: string
+          client_id: string
+          client_progress: string | null
+          created_at: string | null
+          id: string
+          mood_rating: number | null
+          next_session_goals: string | null
+          private_notes: string | null
+          session_notes: string | null
+          session_rating: number | null
+          therapist_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          appointment_id: string
+          client_id: string
+          client_progress?: string | null
+          created_at?: string | null
+          id?: string
+          mood_rating?: number | null
+          next_session_goals?: string | null
+          private_notes?: string | null
+          session_notes?: string | null
+          session_rating?: number | null
+          therapist_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          appointment_id?: string
+          client_id?: string
+          client_progress?: string | null
+          created_at?: string | null
+          id?: string
+          mood_rating?: number | null
+          next_session_goals?: string | null
+          private_notes?: string | null
+          session_notes?: string | null
+          session_rating?: number | null
+          therapist_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_session_notes_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_session_notes_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "client_session_notes_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_profiles_internal"
+            referencedColumns: ["user_id"]
+          },
+        ]
       }
       languages: {
         Row: {
@@ -191,6 +318,67 @@ export type Database = {
         }
         Relationships: []
       }
+      session_earnings: {
+        Row: {
+          appointment_id: string
+          created_at: string | null
+          gross_amount: number
+          id: string
+          net_amount: number
+          payout_date: string | null
+          payout_status: string
+          platform_fee: number
+          therapist_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          appointment_id: string
+          created_at?: string | null
+          gross_amount: number
+          id?: string
+          net_amount: number
+          payout_date?: string | null
+          payout_status?: string
+          platform_fee?: number
+          therapist_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          appointment_id?: string
+          created_at?: string | null
+          gross_amount?: number
+          id?: string
+          net_amount?: number
+          payout_date?: string | null
+          payout_status?: string
+          platform_fee?: number
+          therapist_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "session_earnings_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "session_earnings_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "session_earnings_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_profiles_internal"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       specialities: {
         Row: {
           created_at: string
@@ -214,6 +402,69 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      therapist_analytics: {
+        Row: {
+          average_session_rating: number | null
+          cancelled_sessions: number
+          completed_sessions: number
+          created_at: string | null
+          id: string
+          metric_date: string
+          new_clients: number
+          no_show_sessions: number
+          returning_clients: number
+          therapist_id: string
+          total_earnings: number
+          total_sessions: number
+          updated_at: string | null
+        }
+        Insert: {
+          average_session_rating?: number | null
+          cancelled_sessions?: number
+          completed_sessions?: number
+          created_at?: string | null
+          id?: string
+          metric_date: string
+          new_clients?: number
+          no_show_sessions?: number
+          returning_clients?: number
+          therapist_id: string
+          total_earnings?: number
+          total_sessions?: number
+          updated_at?: string | null
+        }
+        Update: {
+          average_session_rating?: number | null
+          cancelled_sessions?: number
+          completed_sessions?: number
+          created_at?: string | null
+          id?: string
+          metric_date?: string
+          new_clients?: number
+          no_show_sessions?: number
+          returning_clients?: number
+          therapist_id?: string
+          total_earnings?: number
+          total_sessions?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "therapist_analytics_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "therapist_analytics_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_profiles_internal"
+            referencedColumns: ["user_id"]
+          },
+        ]
       }
       therapist_applications: {
         Row: {
@@ -289,6 +540,117 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      therapist_availability: {
+        Row: {
+          created_at: string | null
+          day_of_week: number
+          end_time: string
+          id: string
+          is_available: boolean
+          recurring: boolean
+          start_time: string
+          therapist_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          day_of_week: number
+          end_time: string
+          id?: string
+          is_available?: boolean
+          recurring?: boolean
+          start_time: string
+          therapist_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          day_of_week?: number
+          end_time?: string
+          id?: string
+          is_available?: boolean
+          recurring?: boolean
+          start_time?: string
+          therapist_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "therapist_availability_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "therapist_availability_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_profiles_internal"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      therapist_blocked_times: {
+        Row: {
+          all_day: boolean
+          created_at: string | null
+          end_date: string
+          end_time: string | null
+          id: string
+          notes: string | null
+          recurring: boolean
+          start_date: string
+          start_time: string | null
+          therapist_id: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          all_day?: boolean
+          created_at?: string | null
+          end_date: string
+          end_time?: string | null
+          id?: string
+          notes?: string | null
+          recurring?: boolean
+          start_date: string
+          start_time?: string | null
+          therapist_id: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          all_day?: boolean
+          created_at?: string | null
+          end_date?: string
+          end_time?: string | null
+          id?: string
+          notes?: string | null
+          recurring?: boolean
+          start_date?: string
+          start_time?: string | null
+          therapist_id?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "therapist_blocked_times_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "therapist_blocked_times_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapist_profiles_internal"
+            referencedColumns: ["user_id"]
+          },
+        ]
       }
       therapist_profiles: {
         Row: {

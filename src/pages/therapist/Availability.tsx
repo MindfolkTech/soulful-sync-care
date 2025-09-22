@@ -8,6 +8,11 @@ import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Plus, Trash2 } from "lucide-react";
 import { useScrollToHash } from "@/hooks/use-scroll-to-hash";
+import { useTherapistAvailability, useTherapistAppointments } from "@/hooks/use-therapist-data";
+import { useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const weekDays = [
   "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
@@ -19,6 +24,30 @@ const timeSlots = [
 
 export default function TherapistAvailability() {
   const { open, setOpen, dismiss } = useCoachHint({ stepId: "availability" });
+  const { availability, blockedTimes, loading, error, saveAvailabilitySlot, addBlockedTime } = useTherapistAvailability();
+  const { appointments } = useTherapistAppointments();
+  
+  const [isAddingSlot, setIsAddingSlot] = useState(false);
+  const [newSlot, setNewSlot] = useState({
+    day_of_week: 1,
+    start_time: '09:00',
+    end_time: '17:00',
+    is_available: true,
+    recurring: true
+  });
+
+  const [isAddingBlock, setIsAddingBlock] = useState(false);
+  const [newBlock, setNewBlock] = useState({
+    title: '',
+    start_date: new Date().toISOString().split('T')[0],
+    end_date: new Date().toISOString().split('T')[0],
+    start_time: '09:00',
+    end_time: '17:00',
+    all_day: false,
+    recurring: false,
+    notes: ''
+  });
+
   useScrollToHash();
   return (
     <TherapistLayout>
@@ -66,7 +95,7 @@ export default function TherapistAvailability() {
                 <CardContent className="p-6">
                   <div className="text-center">
                     <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">This Week</p>
-                    <p className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">18</p>
+                    <p className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">{availability.length * 8}</p>
                     <p className="font-secondary text-text-muted text-xs">Available hours</p>
                   </div>
                 </CardContent>
@@ -75,7 +104,7 @@ export default function TherapistAvailability() {
                 <CardContent className="p-6">
                   <div className="text-center">
                     <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Booked</p>
-                    <p className="font-primary text-2xl font-bold text-primary">12</p>
+                    <p className="font-primary text-2xl font-bold text-primary">{appointments.filter(a => a.status === 'confirmed').length}</p>
                     <p className="font-secondary text-text-muted text-xs">Sessions scheduled</p>
                   </div>
                 </CardContent>
@@ -83,9 +112,9 @@ export default function TherapistAvailability() {
               <Card>
                 <CardContent className="p-6">
                   <div className="text-center">
-                    <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Remaining</p>
-                    <p className="font-primary text-2xl font-bold text-[hsl(var(--success-text))]">6</p>
-                    <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs">Open slots</p>
+                    <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Blocked</p>
+                    <p className="font-primary text-2xl font-bold text-[hsl(var(--success-text))]">{blockedTimes.length}</p>
+                    <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs">Time blocks</p>
                   </div>
                 </CardContent>
               </Card>
@@ -93,7 +122,9 @@ export default function TherapistAvailability() {
                 <CardContent className="p-6">
                   <div className="text-center">
                     <p className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Utilization</p>
-                    <p className="font-primary text-2xl font-bold text-[hsl(var(--warning-text))]">67%</p>
+                    <p className="font-primary text-2xl font-bold text-[hsl(var(--warning-text))]">
+                      {availability.length > 0 ? Math.round((appointments.filter(a => a.status === 'confirmed').length / (availability.length * 5)) * 100) : 0}%
+                    </p>
                     <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs">Of available hours</p>
                   </div>
                 </CardContent>
@@ -137,23 +168,34 @@ export default function TherapistAvailability() {
                           <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm p-2 text-right">
                             {time}
                           </div>
-                          {weekDays.map((day) => {
-                            // Mock availability data
-                            const isAvailable = Math.random() > 0.4;
-                            const isBooked = isAvailable && Math.random() > 0.7;
+                          {weekDays.map((day, dayIndex) => {
+                            // Check if this day/time has availability
+                            const hasAvailability = availability.some(slot => 
+                              slot.day_of_week === dayIndex && 
+                              slot.start_time <= time && 
+                              slot.end_time > time &&
+                              slot.is_available
+                            );
+                            
+                            // Check if this day/time has an appointment
+                            const hasAppointment = appointments.some(apt => {
+                              const aptDate = new Date(apt.session_date);
+                              const aptDay = aptDate.getDay();
+                              return aptDay === dayIndex && apt.session_time === time;
+                            });
                             
                             return (
                               <div
                                 key={`${day}-${time}`}
                                 className={`h-10 border rounded cursor-pointer transition-colors ${
-                                  isBooked
+                                  hasAppointment
                                     ? "bg-[hsl(var(--primary))] hover:bg-[hsl(var(--primary))]/80"
-                                    : isAvailable
+                                    : hasAvailability
                                     ? "bg-[hsl(var(--success-bg))]/20 hover:bg-[hsl(var(--success-bg))]/30 border-[hsl(var(--success-bg))]/40"
                                     : "bg-[hsl(var(--surface-accent))] hover:bg-[hsl(var(--surface-accent))]/80"
                                 }`}
                                 title={`${day} ${time} - ${
-                                  isBooked ? "Booked" : isAvailable ? "Available" : "Unavailable"
+                                  hasAppointment ? "Booked" : hasAvailability ? "Available" : "Unavailable"
                                 }`}
                               />
                             );
@@ -253,10 +295,94 @@ export default function TherapistAvailability() {
                       </Button>
                     </div>
                     
-                    <Button variant="ghost" className="w-full justify-start text-[hsl(var(--text-secondary))]">
-                      <Plus className="w-4 h-4 mr-2" />
-                      Add Time Off
-                    </Button>
+                    <Dialog open={isAddingBlock} onOpenChange={setIsAddingBlock}>
+                      <DialogTrigger asChild>
+                        <Button variant="ghost" className="w-full justify-start text-[hsl(var(--text-secondary))]">
+                          <Plus className="w-4 h-4 mr-2" />
+                          Add Time Off
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>Block Time</DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          <div>
+                            <Label htmlFor="title">Title</Label>
+                            <Input
+                              id="title"
+                              value={newBlock.title}
+                              onChange={(e) => setNewBlock({...newBlock, title: e.target.value})}
+                              placeholder="e.g., Holiday, Personal Time"
+                            />
+                          </div>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <Label htmlFor="start_date">Start Date</Label>
+                              <Input
+                                id="start_date"
+                                type="date"
+                                value={newBlock.start_date}
+                                onChange={(e) => setNewBlock({...newBlock, start_date: e.target.value})}
+                              />
+                            </div>
+                            <div>
+                              <Label htmlFor="end_date">End Date</Label>
+                              <Input
+                                id="end_date"
+                                type="date"
+                                value={newBlock.end_date}
+                                onChange={(e) => setNewBlock({...newBlock, end_date: e.target.value})}
+                              />
+                            </div>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Switch
+                              id="all_day"
+                              checked={newBlock.all_day}
+                              onCheckedChange={(checked) => setNewBlock({...newBlock, all_day: checked})}
+                            />
+                            <Label htmlFor="all_day">All Day</Label>
+                          </div>
+                          {!newBlock.all_day && (
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <Label htmlFor="start_time">Start Time</Label>
+                                <Input
+                                  id="start_time"
+                                  type="time"
+                                  value={newBlock.start_time}
+                                  onChange={(e) => setNewBlock({...newBlock, start_time: e.target.value})}
+                                />
+                              </div>
+                              <div>
+                                <Label htmlFor="end_time">End Time</Label>
+                                <Input
+                                  id="end_time"
+                                  type="time"
+                                  value={newBlock.end_time}
+                                  onChange={(e) => setNewBlock({...newBlock, end_time: e.target.value})}
+                                />
+                              </div>
+                            </div>
+                          )}
+                          <div className="flex gap-2">
+                            <Button 
+                              onClick={() => {
+                                addBlockedTime(newBlock);
+                                setIsAddingBlock(false);
+                              }}
+                              className="flex-1"
+                            >
+                              Block Time
+                            </Button>
+                            <Button variant="outline" onClick={() => setIsAddingBlock(false)}>
+                              Cancel
+                            </Button>
+                          </div>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
                   </CardContent>
                 </Card>
               </div>

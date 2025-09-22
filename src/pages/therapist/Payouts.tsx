@@ -23,29 +23,20 @@ import {
   Settings
 } from "lucide-react";
 import { useScrollToHash } from "@/hooks/use-scroll-to-hash";
+import { useTherapistEarnings, useTherapistAppointments } from "@/hooks/use-therapist-data";
 
 export default function TherapistPayouts() {
   const payoutsHint = useCoachHint({ stepId: "payouts" });
   const [selectedPeriod, setSelectedPeriod] = useState("current");
+  const { earnings, loading, error, getTotalEarnings, getPendingEarnings, getAvailableEarnings } = useTherapistEarnings();
+  const { appointments } = useTherapistAppointments();
   useScrollToHash();
   
-  // Mock earnings data
-  const earnings = {
-    currentMonth: {
-      total: 2875.50,
-      sessions: 23,
-      hourlyRate: 125,
-      pending: 425.00,
-      available: 2450.50
-    },
-    lastMonth: {
-      total: 3250.00,
-      sessions: 26,
-      hourlyRate: 125,
-      pending: 0,
-      available: 3250.00
-    }
-  };
+  // Calculate real earnings data
+  const currentMonthEarnings = getTotalEarnings();
+  const pendingEarnings = getPendingEarnings();
+  const availableEarnings = getAvailableEarnings();
+  const completedSessions = appointments.filter(a => a.status === 'completed').length;
 
   // Mock payout history
   const payoutHistory = [
@@ -121,8 +112,6 @@ export default function TherapistPayouts() {
     }
   };
 
-  const currentEarnings = selectedPeriod === "current" ? earnings.currentMonth : earnings.lastMonth;
-
   return (
     <TherapistLayout>
       <div className="p-4 md:p-6 lg:p-8">
@@ -140,7 +129,7 @@ export default function TherapistPayouts() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">This Month</p>
-                  <p className="text-2xl font-bold">${earnings.currentMonth.total.toLocaleString()}</p>
+                  <p className="text-2xl font-bold">${currentMonthEarnings.toFixed(2)}</p>
                 </div>
                 <DollarSign className="h-8 w-8 text-[hsl(var(--success-text))]" />
               </div>
@@ -152,7 +141,7 @@ export default function TherapistPayouts() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Sessions</p>
-                  <p className="text-2xl font-bold">{earnings.currentMonth.sessions}</p>
+                  <p className="text-2xl font-bold">{completedSessions}</p>
                 </div>
                 <Users className="h-8 w-8 text-[hsl(var(--garden-green))]" />
               </div>
@@ -164,7 +153,7 @@ export default function TherapistPayouts() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Hourly Rate</p>
-                  <p className="text-2xl font-bold">${earnings.currentMonth.hourlyRate}</p>
+                  <p className="text-2xl font-bold">${completedSessions > 0 ? (currentMonthEarnings / completedSessions).toFixed(0) : '0'}</p>
                 </div>
                 <BarChart3 className="h-8 w-8 text-[hsl(var(--elated-emerald))]" />
               </div>
@@ -176,7 +165,7 @@ export default function TherapistPayouts() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Available</p>
-                  <p className="text-2xl font-bold">${earnings.currentMonth.available.toLocaleString()}</p>
+                  <p className="text-2xl font-bold">${availableEarnings.toFixed(2)}</p>
                 </div>
                 <CheckCircle2 className="h-8 w-8 text-[hsl(var(--success-text))]" />
               </div>
@@ -221,7 +210,7 @@ export default function TherapistPayouts() {
                       <span className="text-sm font-medium">Available for Payout</span>
                     </div>
                     <div className="text-2xl font-bold text-[var(--success-text)]">
-                      ${currentEarnings.available.toLocaleString()}
+                      ${availableEarnings.toFixed(2)}
                     </div>
                   </div>
                   
@@ -231,18 +220,18 @@ export default function TherapistPayouts() {
                       <span className="text-sm font-medium">Pending Sessions</span>
                     </div>
                     <div className="text-2xl font-bold text-[var(--warning-text)]">
-                      ${currentEarnings.pending.toLocaleString()}
+                      ${pendingEarnings.toFixed(2)}
                     </div>
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>Progress to next payout</span>
-                    <span>{currentEarnings.sessions}/30 sessions</span>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span>Progress to next payout</span>
+                      <span>{completedSessions}/30 sessions</span>
+                    </div>
+                    <Progress value={(completedSessions / 30) * 100} className="h-2" />
                   </div>
-                  <Progress value={(currentEarnings.sessions / 30) * 100} className="h-2" />
-                </div>
 
                 <TooltipProvider>
                   <Tooltip open={payoutsHint.open} onOpenChange={payoutsHint.setOpen}>

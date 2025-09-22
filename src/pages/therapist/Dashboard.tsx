@@ -35,6 +35,7 @@ import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { mockTherapistTasks } from "@/data/mock-tasks";
+import { useTherapistAppointments, useTherapistEarnings, useTherapistAnalytics } from "@/hooks/use-therapist-data";
 
 // Custom component for appointment items with JOIN NOW logic
 function AppointmentItem({ appointment }: { appointment: any }) {
@@ -121,6 +122,9 @@ function AppointmentItem({ appointment }: { appointment: any }) {
 export default function TherapistDashboard() {
   const { user } = useAuth();
   const [therapist, setTherapist] = React.useState<{first_name: string} | null>(null);
+  const { appointments } = useTherapistAppointments();
+  const { getTotalEarnings } = useTherapistEarnings();
+  const { analytics, getTotalStats } = useTherapistAnalytics();
 
   React.useEffect(() => {
     const fetchTherapistName = async () => {
@@ -141,64 +145,36 @@ export default function TherapistDashboard() {
     fetchTherapistName();
   }, [user]);
 
-  // Create realistic upcoming session times for demo
+  // Filter real appointments for upcoming sessions
   const now = new Date();
-  const upcomingAppointments = [
-    {
-      id: "1",
-      clientName: "Deborah Young",
-      clientInitials: "DY",
-      type: "Chemistry Call",
-      sessionTime: new Date(now.getTime() + 8 * 60 * 1000), // 8 minutes from now (will show JOIN NOW)
-      duration: "30 min",
-      status: "confirmed",
-      priority: "high"
-    },
-    {
-      id: "2", 
-      clientName: "Lindsey Jacobs",
-      clientInitials: "LJ",
-      type: "Therapy Session",
-      sessionTime: new Date(now.getTime() + 45 * 60 * 1000), // 45 minutes from now
-      duration: "60 min",
-      status: "confirmed",
-      priority: "medium"
-    },
-    {
-      id: "3",
-      clientName: "John Smith",
-      clientInitials: "JS",
-      type: "Therapy Session", 
-      sessionTime: new Date(now.getTime() + 2 * 60 * 60 * 1000), // 2 hours from now
-      duration: "60 min",
-      status: "confirmed",
-      priority: "high"
-    }
-  ];
+  const upcomingAppointments = appointments
+    .filter(apt => {
+      const aptDateTime = new Date(`${apt.session_date}T${apt.session_time}`);
+      return aptDateTime > now && apt.status === 'confirmed';
+    })
+    .slice(0, 3)
+    .map(apt => ({
+      id: apt.id,
+      clientName: `Client ${apt.client_id.slice(-4)}`, // Placeholder - should fetch client names
+      clientInitials: `C${apt.client_id.slice(-2)}`,
+      type: apt.session_type,
+      sessionTime: new Date(`${apt.session_date}T${apt.session_time}`),
+      duration: `${apt.duration_minutes} min`,
+      status: apt.status,
+      priority: "medium" as const
+    }));
 
-  const recentClients = [
-    { 
-      id: "1", 
-      name: "Jessica Stewarts", 
-      initials: "JS", 
-      status: "Active", 
-      lastSession: "2 days ago", 
-    },
-    { 
-      id: "2", 
-      name: "Debbie Vectra", 
-      initials: "DV", 
-      status: "Active", 
-      lastSession: "1 week ago", 
-    },
-    { 
-      id: "3", 
-      name: "Paul Sung", 
-      initials: "PS", 
-      status: "Inactive", 
-      lastSession: "3 weeks ago", 
-    }
-  ];
+  // Get recent completed sessions as clients
+  const recentClients = appointments
+    .filter(apt => apt.status === 'completed')
+    .slice(0, 3)
+    .map(apt => ({
+      id: apt.client_id,
+      name: `Client ${apt.client_id.slice(-4)}`, // Placeholder
+      initials: `C${apt.client_id.slice(-2)}`,
+      status: "Active" as const,
+      lastSession: new Date(apt.session_date).toLocaleDateString(),
+    }));
 
   const notifications = [
     { id: "1", type: "urgent", message: "Client A.R. has rescheduled 3 times", icon: AlertTriangle },
@@ -206,9 +182,8 @@ export default function TherapistDashboard() {
     { id: "3", type: "success", message: "Payment received: £120", icon: CheckCircle2 }
   ];
 
-  const practiceMetrics = {
-    weeklyRevenue: 640,
-  };
+  const totalStats = getTotalStats();
+  const weeklyRevenue = getTotalEarnings();
 
   return (
     <>
@@ -329,7 +304,7 @@ export default function TherapistDashboard() {
                 <CardContent>
                   <div className="w-full h-32 sm:h-36 md:h-40 lg:h-44">
                     <ResponsiveContainer>
-                      <BarChart data={[{name: 'Weekly Revenue', value: practiceMetrics.weeklyRevenue}]} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                      <BarChart data={[{name: 'Weekly Revenue', value: weeklyRevenue}]} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
                         <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false}/>
                         <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `£${value}`}/>
                         <Tooltip />

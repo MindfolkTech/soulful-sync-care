@@ -7,11 +7,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { Search, MessageCircle, FileText, MoreHorizontal, Filter, Users, Clock } from "lucide-react";
+import { Search, MessageCircle, FileText, MoreHorizontal, Filter, Users, Clock, Calendar as CalendarIcon } from "lucide-react";
 import * as React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookingItem, bookings } from "@/data/mock-bookings.tsx";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { useTherapistAppointments } from "@/hooks/use-therapist-data";
 
 
 const clients = [
@@ -90,8 +90,40 @@ const clients = [
 export default function TherapistClients() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [clientList, setClientList] = React.useState(clients);
+  const { appointments } = useTherapistAppointments();
   const activeTab = searchParams.get('tab') || 'all';
+
+  // Generate unique clients from appointments
+  const uniqueClients = React.useMemo(() => {
+    const clientMap = new Map();
+    
+    appointments.forEach(apt => {
+      if (!clientMap.has(apt.client_id)) {
+        clientMap.set(apt.client_id, {
+          id: apt.client_id,
+          name: `Client ${apt.client_id.slice(-4)}`, // Placeholder - should fetch real names
+          initials: `C${apt.client_id.slice(-2)}`,
+          email: "client@example.com", // Placeholder
+          avatar: "", // Placeholder
+          status: apt.status === 'completed' ? "Active" : "Inactive",
+          joinDate: apt.created_at.split('T')[0],
+          lastSession: apt.session_date,
+          nextSession: apt.status === 'scheduled' ? `${apt.session_date} ${apt.session_time}` : null,
+          totalSessions: appointments.filter(a => a.client_id === apt.client_id && a.status === 'completed').length,
+          sessionType: apt.session_type,
+          notes: apt.notes || "No notes available"
+        });
+      }
+    });
+    
+    return Array.from(clientMap.values());
+  }, [appointments]);
+
+  const [clientList, setClientList] = React.useState(uniqueClients);
+
+  React.useEffect(() => {
+    setClientList(uniqueClients);
+  }, [uniqueClients]);
 
   const handleClientClick = (clientId: string) => {
     navigate(`/t/clients/${clientId}`);
@@ -159,7 +191,7 @@ export default function TherapistClients() {
                     <Card>
                       <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
                         <div className="text-center">
-                          <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">5</div>
+                          <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">{uniqueClients.length}</div>
                           <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Total Clients</div>
                         </div>
                       </CardContent>
@@ -167,7 +199,7 @@ export default function TherapistClients() {
                     <Card>
                       <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
                         <div className="text-center">
-                          <div className="font-primary text-2xl font-bold text-[hsl(var(--success-text))]">4</div>
+                          <div className="font-primary text-2xl font-bold text-[hsl(var(--success-text))]">{uniqueClients.filter(c => c.status === 'Active').length}</div>
                           <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Active</div>
                         </div>
                       </CardContent>
@@ -175,7 +207,7 @@ export default function TherapistClients() {
                     <Card>
                       <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
                         <div className="text-center">
-                          <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">20</div>
+                          <div className="font-primary text-2xl font-bold text-[hsl(var(--text-primary))]">{appointments.filter(a => a.status === 'completed').length}</div>
                           <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Total Sessions</div>
                         </div>
                       </CardContent>
