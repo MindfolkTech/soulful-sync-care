@@ -79,6 +79,8 @@ export default function TherapistSignUp() {
           data: {
             first_name: formData.firstName,
             last_name: formData.lastName,
+            role: 'therapist',
+            roles: ['therapist'], // <--- THIS IS THE FIX
             user_type: 'therapist', // Mark this as a therapist sign-up
             notify_email: !!formData.notifyEmail,
             notify_sms: !!formData.notifySMS,

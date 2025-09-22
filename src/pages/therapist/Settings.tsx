@@ -15,7 +15,6 @@ export default function TherapistSettings() {
                 <h1 className="font-primary text-3xl">Settings</h1>
                 <p className="text-muted-foreground">Manage your account and notification preferences.</p>
                 <div className="space-y-8">
-                    {/* Notification Preferences */}
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2"><Bell className="w-5 h-5"/> Notification Preferences</CardTitle>
@@ -25,19 +24,15 @@ export default function TherapistSettings() {
                             <p>Notification settings form will go here.</p>
                         </CardContent>
                     </Card>
-
-                    {/* Account Details */}
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2"><User className="w-5 h-5"/> Account Details</CardTitle>
                             <CardDescription>Manage your personal information and login details.</CardDescription>
                         </CardHeader>
                         <CardContent>
-                             <p>Account details form will go here.</p>
+                            <p>Account details form will go here.</p>
                         </CardContent>
                     </Card>
-
-                    {/* Profile & Verification */}
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2"><Shield className="w-5 h-5"/> Profile & Verification</CardTitle>
@@ -51,7 +46,7 @@ export default function TherapistSettings() {
                                 </div>
                                 <ArrowRight className="w-5 h-5" />
                             </Link>
-                             <Link to="/t/onboarding/verification" className="flex items-center justify-between p-3 bg-muted/50 rounded-md hover:bg-muted">
+                            <Link to="/t/onboarding/verification" className="flex items-center justify-between p-3 bg-muted/50 rounded-md hover:bg-muted">
                                 <div>
                                     <h3 className="font-semibold">Manage Verification</h3>
                                     <p className="text-sm text-muted-foreground">View or update your verification documents.</p>

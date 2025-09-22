@@ -31,6 +31,10 @@ import { TherapistLayout } from "@/components/layout/therapist-layout";
 import { Container } from "@/components/ui/container";
 import { useNavigate } from "react-router-dom";
 import { OnboardingChecklist } from "@/components/therapist/setup/OnboardingChecklist";
+import { useAuth } from "@/context/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { mockTherapistTasks } from "@/data/mock-tasks";
 
 // Custom component for appointment items with JOIN NOW logic
 function AppointmentItem({ appointment }: { appointment: any }) {
@@ -115,6 +119,28 @@ function AppointmentItem({ appointment }: { appointment: any }) {
 }
 
 export default function TherapistDashboard() {
+  const { user } = useAuth();
+  const [therapist, setTherapist] = React.useState<{first_name: string} | null>(null);
+
+  React.useEffect(() => {
+    const fetchTherapistName = async () => {
+      if (user) {
+        const { data, error } = await supabase
+          .from('therapist_profiles')
+          .select('name')
+          .eq('user_id', user.id)
+          .single();
+        if (data) {
+          // Split the name into first_name for display
+          const nameParts = data.name.split(' ');
+          setTherapist({ first_name: nameParts[0] });
+        }
+        else if (error) console.error("Error fetching therapist name", error);
+      }
+    };
+    fetchTherapistName();
+  }, [user]);
+
   // Create realistic upcoming session times for demo
   const now = new Date();
   const upcomingAppointments = [
@@ -155,31 +181,22 @@ export default function TherapistDashboard() {
       id: "1", 
       name: "Jessica Stewarts", 
       initials: "JS", 
-      email: "Prabodhan@gmail.com", 
       status: "Active", 
       lastSession: "2 days ago", 
-      progress: 75, 
-      satisfaction: 4.8 
     },
     { 
       id: "2", 
       name: "Debbie Vectra", 
       initials: "DV", 
-      email: "dv1092@gmail.com", 
       status: "Active", 
       lastSession: "1 week ago", 
-      progress: 60, 
-      satisfaction: 4.6 
     },
     { 
       id: "3", 
       name: "Paul Sung", 
       initials: "PS", 
-      email: "p.sung0982@gmail.com", 
       status: "Inactive", 
-      lastSession: "Never", 
-      progress: 25, 
-      satisfaction: 0 
+      lastSession: "3 weeks ago", 
     }
   ];
 
@@ -190,11 +207,7 @@ export default function TherapistDashboard() {
   ];
 
   const practiceMetrics = {
-    clientRetention: 85,
-    avgSatisfaction: 4.7,
     weeklyRevenue: 640,
-    profileViews: 28,
-    profileViewsChange: 12
   };
 
   return (
@@ -204,180 +217,128 @@ export default function TherapistDashboard() {
         <Container>
           <div className="space-y-6">
             <div>
-              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Welcome Back, Sarah!</h1>
+              <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Welcome Back, {therapist?.first_name || '...'}!</h1>
               <p className="font-secondary text-[hsl(var(--text-secondary))]">Here's your professional dashboard overview</p>
             </div>
             
-            {/* 4-Widget Grid Layout with ONE PAGE VIEWPORT RULE compliance */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full min-w-0 max-h-[calc(100vh-200px)] overflow-hidden">
+            {/* 4-Widget Grid Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         
-        {/* Widget 1: Upcoming Appointments */}
-        <Card className="min-w-0 overflow-hidden flex flex-col h-full max-h-[calc(50vh-120px)]">
-          <CardHeader className="flex-shrink-0 p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
-            <div className="flex items-center justify-between">
-              <h2 className="font-primary text-[hsl(var(--jovial-jade))] text-sm md:text-base">
-                Upcoming Appointments
-              </h2>
-              <div className="flex items-center gap-[--space-xs]">
-                <Button variant="ghost" size="sm" className="text-[hsl(var(--btn-secondary-text))] text-xs px-2 min-h-[--touch-target-min]" asChild aria-label="View all appointments">
-                  <Link to="/t/bookings">
-                    VIEW ALL
-                    <ExternalLink className="w-3 h-3 ml-1" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="flex-1 min-h-0 p-[--space-sm] md:p-[--space-md] pt-0">
-            <div className="space-y-[--space-xs] h-full overflow-y-auto" role="list" aria-label="Upcoming appointments list">
-              {upcomingAppointments.map(appointment => (
-                <AppointmentItem key={appointment.id} appointment={appointment} />
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Widget 2: My Client Dashboard */}
-        <Card className="min-w-0 overflow-hidden flex flex-col h-full max-h-[calc(50vh-120px)]">
-          <CardHeader className="flex-shrink-0 p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
-            <div className="flex items-center justify-between">
-              <h2 className="font-primary text-[hsl(var(--jovial-jade))] text-sm md:text-base">
-                My Client Dashboard
-              </h2>
-              <div className="flex items-center gap-[--space-xs]">
-                <Button variant="ghost" size="sm" className="text-[hsl(var(--btn-secondary-text))] text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="Manage client dashboard">
-                  MANAGE
-                  <ExternalLink className="w-3 h-3 ml-1" />
-                </Button>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="flex-1 min-h-0 p-[--space-sm] md:p-[--space-md] pt-0">
-            <div className="space-y-[--space-xs] h-full overflow-y-auto" role="list" aria-label="Client dashboard list">
-              {recentClients.map(client => (
-                <div key={client.id} className="flex items-center justify-between p-2 border rounded-lg min-h-[--touch-target-min]" role="listitem" aria-label={`Client ${client.name}, status: ${client.status}, email: ${client.email}`}>
-                  <div className="flex items-center gap-[--space-xs]">
-                    <div className="w-8 h-8 bg-surface-accent rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="font-secondary text-foreground text-xs">{client.initials}</span>
-                    </div>
-                    <div className="min-w-0">
-                      <h4 className="font-secondary font-bold text-foreground text-sm truncate">{client.name}</h4>
-                      <p className="font-secondary text-muted-foreground text-xs truncate">{client.email}</p>
-                    </div>
+              {/* Widget 1: Upcoming Appointments */}
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <h2 className="font-primary text-lg font-semibold text-[hsl(var(--jovial-jade))]">
+                      Upcoming Appointments
+                    </h2>
+                    <Button variant="ghost" size="sm" asChild>
+                      <Link to="/t/schedule">
+                        VIEW ALL
+                        <ExternalLink className="w-3 h-3 ml-1" />
+                      </Link>
+                    </Button>
                   </div>
-                  <div className="flex items-center gap-[--space-xs] flex-shrink-0">
-                    <Badge 
-                      variant={client.status === "Active" ? "secondary" : "outline"}
-                      className={`text-xs ${client.status === "Active" ? "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]" : "bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]"}`}
-                    >
-                      {client.status}
-                    </Badge>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  {upcomingAppointments.map(appointment => (
+                    <AppointmentItem key={appointment.id} appointment={appointment} />
+                  ))}
+                </CardContent>
+              </Card>
+
+              {/* Widget 2: Recent Clients */}
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <h2 className="font-primary text-lg font-semibold text-[hsl(var(--jovial-jade))]">
+                      Recent Clients
+                    </h2>
+                    <Button variant="ghost" size="sm" asChild>
+                      <Link to="/t/clients?tab=recent">
+                        VIEW ALL
+                        <ExternalLink className="w-3 h-3 ml-1" />
+                      </Link>
+                    </Button>
                   </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  {recentClients.slice(0, 3).map(client => (
+                    <div key={client.id} className="flex items-center justify-between p-2 border rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-surface-accent rounded-full flex items-center justify-center flex-shrink-0">
+                          <span className="font-secondary text-foreground text-xs">{client.initials}</span>
+                        </div>
+                        <div>
+                          <h4 className="font-secondary font-bold text-foreground text-sm">{client.name}</h4>
+                          <p className="font-secondary text-muted-foreground text-xs">Last session: {client.lastSession}</p>
+                        </div>
+                      </div>
+                      <Badge variant={client.status === "Active" ? "secondary" : "outline"} className={`text-xs ${client.status === "Active" ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"}`}>
+                        {client.status}
+                      </Badge>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
 
-        {/* Widget 3: Income Details with Fixed Chart */}
-        <Card className="min-w-0 overflow-hidden flex flex-col h-full max-h-[calc(50vh-120px)]">
-          <CardHeader className="flex-shrink-0 p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
-            <div className="flex items-center justify-between">
-              <h2 className="font-primary text-[hsl(var(--jovial-jade))] text-sm md:text-base">Income Details</h2>
-              <div className="flex items-center gap-[--space-xs]">
-                <Button variant="ghost" size="sm" className="text-[hsl(var(--btn-secondary-text))] text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="View analytics dashboard">
-                  VIEW
-                  <ExternalLink className="w-3 h-3 ml-1" />
-                </Button>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="flex-1 min-h-0 p-[--space-sm] md:p-[--space-md] pt-0">
-            <div className="h-full flex flex-col">
-              <h4 className="font-secondary text-muted-foreground text-xs mb-2">Appointments</h4>
-              <div className="flex-1 min-h-0 flex items-center justify-center relative">
-                <div className="absolute inset-0 flex items-center justify-center z-10">
-                  <span className="font-primary text-2xl md:text-3xl font-bold text-[hsl(var(--jovial-jade))]">122</span>
-                </div>
-                <svg className="w-full h-full max-w-[200px] max-h-[200px]" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Appointment breakdown chart showing 122 total appointments with completed, cancelled, and rescheduled segments">
-                  <circle
-                    cx="100"
-                    cy="100"
-                    r="70"
-                    fill="none"
-                    stroke="hsl(var(--btn-accent-bg))"
-                    strokeWidth="12"
-                    strokeDasharray="263 176"
-                    transform="rotate(-90 100 100)"
-                  />
-                  <circle
-                    cx="100"
-                    cy="100"
-                    r="70"
-                    fill="none"
-                    stroke="hsl(var(--tag-language-bg))"
-                    strokeWidth="12"
-                    strokeDasharray="110 329"
-                    strokeDashoffset="-263"
-                    transform="rotate(-90 100 100)"
-                  />
-                  <circle
-                    cx="100"
-                    cy="100"
-                    r="70"
-                    fill="none"
-                    stroke="hsl(var(--surface-accent))"
-                    strokeWidth="12"
-                    strokeDasharray="66 373"
-                    strokeDashoffset="-373"
-                    transform="rotate(-90 100 100)"
-                  />
-                </svg>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+              {/* Widget 3: My Tasks */}
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <h2 className="font-primary text-lg font-semibold text-[hsl(var(--jovial-jade))]">
+                      My Tasks
+                    </h2>
+                      <Button variant="ghost" size="sm" asChild>
+                      <Link to="/t/schedule?tab=tasks">
+                        VIEW ALL
+                        <ExternalLink className="w-3 h-3 ml-1" />
+                      </Link>
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  {mockTherapistTasks.slice(0, 3).map(task => (
+                      <div key={task.id} className="flex items-center justify-between p-2 border rounded-lg">
+                        <div className="flex items-center gap-3">
+                          <CheckCircle2 className={`w-5 h-5 ${task.status === 'done' ? 'text-green-500' : 'text-muted-foreground'}`} />
+                          <div>
+                          <h4 className={`font-secondary text-sm ${task.status === 'done' ? 'line-through text-muted-foreground' : 'text-foreground'}`}>{task.title}</h4>
+                          <p className="font-secondary text-muted-foreground text-xs">{task.due ? new Date(task.due).toLocaleDateString() : 'No due date'}</p>
+                          </div>
+                        </div>
+                      </div>
+                  ))}
+                </CardContent>
+              </Card>
 
-        {/* Widget 4: My Business Profile */}
-        <Card className="min-w-0 overflow-hidden flex flex-col h-full max-h-[calc(50vh-120px)]">
-          <CardHeader className="flex-shrink-0 p-[--space-sm] md:p-[--space-md] pb-[--space-xs]">
-            <div className="flex items-center justify-between">
-              <h2 className="font-primary text-[hsl(var(--jovial-jade))] text-sm md:text-base">My Business Profile</h2>
-              <div className="flex items-center gap-[--space-xs]">
-                <Button variant="ghost" size="sm" className="text-[hsl(var(--btn-secondary-text))] text-xs px-[--space-xs] min-h-[--touch-target-min]" aria-label="Manage business profile">
-                  MANAGE
-                  <ExternalLink className="w-3 h-3 ml-1" />
-                </Button>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="flex-1 min-h-0 p-[--space-sm] md:p-[--space-md] pt-0">
-            <div className="h-full flex flex-col">
-              <h4 className="font-secondary text-muted-foreground text-xs mb-2">Profile Views in the last year</h4>
-                <div className="flex-1 min-h-0 p-[--space-xs]">
-                <svg className="w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Profile views trend chart showing growth from 9k to 20k views over the last year">
-                  <defs>
-                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--border))" strokeWidth="1"/>
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#grid)" />
-                  <path
-                    d="M 20 160 L 80 140 L 140 120 L 200 100 L 260 80 L 320 60 L 380 40"
-                    fill="none"
-                    stroke="hsl(var(--btn-accent-bg))"
-                    strokeWidth="3"
-                  />
-                  <circle cx="20" cy="160" r="4" fill="hsl(var(--btn-accent-bg))" />
-                  <circle cx="80" cy="140" r="4" fill="hsl(var(--btn-accent-bg))" />
-                  <circle cx="140" cy="120" r="4" fill="hsl(var(--btn-accent-bg))" />
-                  <circle cx="200" cy="100" r="4" fill="hsl(var(--btn-accent-bg))" />
-                  <circle cx="260" cy="80" r="4" fill="hsl(var(--btn-accent-bg))" />
-                </svg>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+              {/* Widget 4: Business Summary */}
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <h2 className="font-primary text-lg font-semibold text-[hsl(var(--jovial-jade))]">
+                      Business Summary
+                    </h2>
+                    <Button variant="ghost" size="sm" asChild>
+                      <Link to="/t/business">
+                        VIEW ALL
+                        <ExternalLink className="w-3 h-3 ml-1" />
+                      </Link>
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div style={{ width: '100%', height: 150 }}>
+                    <ResponsiveContainer>
+                      <BarChart data={[{name: 'Weekly Revenue', value: practiceMetrics.weeklyRevenue}]} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
+                        <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false}/>
+                        <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `£${value}`}/>
+                        <Tooltip />
+                        <Bar dataKey="value" fill="hsl(var(--jovial-jade))" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </Container>

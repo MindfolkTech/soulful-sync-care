@@ -9,31 +9,33 @@ import { GlobalImpersonationBar } from "@/components/admin/global-impersonation-
 import ErrorBoundary from "@/components/util/ErrorBoundary";
 import { useAuth, AuthProvider } from "./context/AuthContext";
 
+// App-level loading component
+const AppLoadingScreen = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background">
+    <div className="text-center space-y-4">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+      <p className="text-secondary text-sm">Loading your session...</p>
+    </div>
+  </div>
+);
+
 // Simple auth guard component
 const AuthGuard = ({ children, requiredRole }: { children: React.ReactNode; requiredRole?: string }) => {
-  const { user, loading } = useAuth();
-
-  console.log('AuthGuard: Checking auth', { user: !!user, loading, requiredRole });
+  const { user, loading, session } = useAuth();
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center space-y-4">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-          <p className="text-secondary text-sm">Loading your session...</p>
-        </div>
-      </div>
-    );
+    return <AppLoadingScreen />;
   }
 
   if (!user) {
-    console.log('AuthGuard: No user, redirecting to sign-in');
     return <Navigate to="/sign-in" replace />;
   }
 
-  // TODO: Implement role checking
   if (requiredRole) {
-    console.log('AuthGuard: Role checking not implemented', { requiredRole });
+    const userRoles = session?.user?.user_metadata?.roles || [];
+    if (!userRoles.includes(requiredRole)) {
+      return <Navigate to="/" replace />; // Redirect to a safe page if role mismatch
+    }
   }
 
   return <>{children}</>;
@@ -76,7 +78,7 @@ import TherapistProfile from "./pages/therapist/Profile";
 import TherapistAvailability from "./pages/therapist/Availability";
 import TherapistClients from "./pages/therapist/Clients";
 import TherapistSchedule from "./pages/therapist/Schedule";
-import TherapistEarnings from "./pages/therapist/Earnings";
+import TherapistBusiness from "./pages/therapist/Business";
 import TherapistSettings from "./pages/therapist/Settings";
 import TherapistDashboard from "./pages/therapist/Dashboard";
 import ClientDetail from "./pages/therapist/ClientDetail";
@@ -105,7 +107,13 @@ import SessionManagementDemo from "./pages/dev/SessionManagementDemo";
 const queryClient = new QueryClient();
 
 const AppContent = () => {
-  console.log('AppContent: Rendering app content');
+  const { loading } = useAuth();
+
+  // Show a loading screen for the entire app until the initial session is loaded.
+  // This prevents the AuthGuard from running with incomplete data.
+  if (loading) {
+    return <AppLoadingScreen />;
+  }
   
   return (
     <QueryClientProvider client={queryClient}>
@@ -156,7 +164,7 @@ const AppContent = () => {
               <Route path="/t/schedule" element={<AuthGuard requiredRole="therapist"><TherapistSchedule /></AuthGuard>} />
               <Route path="/t/clients/:id" element={<AuthGuard requiredRole="therapist"><ClientDetail /></AuthGuard>} />
               <Route path="/t/dashboard" element={<AuthGuard requiredRole="therapist"><TherapistDashboard /></AuthGuard>} />
-              <Route path="/t/earnings" element={<AuthGuard requiredRole="therapist"><TherapistEarnings /></AuthGuard>} />
+              <Route path="/t/business" element={<AuthGuard requiredRole="therapist"><TherapistBusiness /></AuthGuard>} />
               <Route path="/t/settings" element={<AuthGuard requiredRole="therapist"><TherapistSettings /></AuthGuard>} />
 
               {/* Session routes */}

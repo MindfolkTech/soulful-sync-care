@@ -149,7 +149,7 @@ function WeekView({
       </div>
 
       {/* Time Grid - ONE VIEWPORT rule */}
-      <div className="space-y-[--space-xs] h-[400px] overflow-y-auto">
+      <div className="space-y-[--space-xs] h-[500px] overflow-y-auto">
         {timeSlots.map(time => (
           <div key={time} className="grid grid-cols-8 gap-[--space-xs] items-center">
             {/* Time Column */}
@@ -251,7 +251,7 @@ function MonthView({
       </div>
 
       {/* Month Grid - Fixed height for ONE VIEWPORT, no overflow */}
-      <div className="grid grid-cols-7 gap-[--space-xs] h-[400px] overflow-hidden">
+      <div className="grid grid-cols-7 gap-[--space-xs]">
         {monthDays.map((day, index) => {
           const appointmentsForDay = getAppointmentsForDate(day);
           const isCurrentMonth = day.getMonth() === currentDate.getMonth();
@@ -261,7 +261,7 @@ function MonthView({
             <div 
               key={index}
               className={cn(
-                "border rounded-[--radius-sm] p-[--space-xs] cursor-pointer transition-all duration-200 flex flex-col",
+                "border rounded-[--radius-sm] p-[--space-xs] cursor-pointer transition-all duration-200 flex flex-col h-24",
                 isCurrentMonth ? "border-[hsl(var(--border))]" : "border-[hsl(var(--border))]/30",
                 isToday && "bg-[hsl(var(--surface-accent))] border-[hsl(var(--garden-green))]",
                 "hover:border-[hsl(var(--garden-green))] hover:bg-[hsl(var(--surface-accent))]/30"

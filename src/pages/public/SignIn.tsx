@@ -12,6 +12,7 @@ import { ForgotPasswordDialog } from "@/components/auth/forgot-password-dialog";
 import { AlertCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -19,6 +20,7 @@ export default function SignIn() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { refreshSession } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,15 +28,23 @@ export default function SignIn() {
     setError("");
     
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (error) {
         setError(error.message);
-      } else {
-        navigate("/discover");
+      } else if (data.user) {
+        // Refresh session to get latest user metadata
+        const refreshedSession = await refreshSession();
+        const roles = refreshedSession?.user?.user_metadata?.roles || [];
+
+        if (roles.includes('therapist')) {
+          navigate("/t/dashboard");
+        } else {
+          navigate("/discover");
+        }
       }
     } catch (err) {
       setError("Invalid email or password. Please try again.");

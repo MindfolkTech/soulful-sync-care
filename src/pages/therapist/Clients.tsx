@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { TherapistLayout } from "@/components/layout/therapist-layout";
 import { Container } from "@/components/ui/container";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
@@ -7,8 +7,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { Search, MessageCircle, Calendar, FileText, MoreHorizontal, Filter } from "lucide-react";
+import { Search, MessageCircle, FileText, MoreHorizontal, Filter, Users, Clock } from "lucide-react";
 import * as React from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { BookingItem, bookings } from "@/data/mock-bookings.tsx";
+import { Calendar as CalendarIcon } from "lucide-react";
+
 
 const clients = [
   {
@@ -85,7 +89,9 @@ const clients = [
 
 export default function TherapistClients() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [clientList, setClientList] = React.useState(clients);
+  const activeTab = searchParams.get('tab') || 'all';
 
   const handleClientClick = (clientId: string) => {
     navigate(`/t/clients/${clientId}`);
@@ -104,6 +110,9 @@ export default function TherapistClients() {
     );
   };
 
+  const upcomingSessions = bookings.filter(b => b.sessionTime > new Date());
+  const recentSessions = bookings.filter(b => b.sessionTime <= new Date());
+
   return (
     <TherapistLayout>
       <div className="p-8">
@@ -113,158 +122,189 @@ export default function TherapistClients() {
               <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">My Clients</h1>
               <p className="font-secondary text-[hsl(var(--text-secondary))]">Manage your client relationships and session history</p>
             </div>
-      <Stack className="space-y-[--space-lg]">
-        {/* Search and Filter Controls */}
-        <HStack className="justify-between">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input 
-              placeholder="Search clients..." 
-              className="pl-10 min-h-touch-min"
-            />
-          </div>
-          <HStack>
-            <Button variant="outline" className="min-h-touch-min" aria-label="Filter clients">
-              <Filter className="w-4 h-4 mr-2" />
-              Filter
-            </Button>
-            <select className="px-3 py-2 border rounded-md bg-background font-secondary text-foreground min-h-touch-min">
-              <option>All Clients</option>
-              <option>Active</option>
-              <option>Inactive</option>
-            </select>
-          </HStack>
-        </HStack>
+            
+            <Tabs value={activeTab} onValueChange={(value) => setSearchParams({ tab: value })} className="w-full">
+              <TabsList>
+                <TabsTrigger value="all"><Users className="w-4 h-4 mr-2" />All Clients</TabsTrigger>
+                <TabsTrigger value="upcoming"><CalendarIcon className="w-4 h-4 mr-2" />Upcoming</TabsTrigger>
+                <TabsTrigger value="recent"><Clock className="w-4 h-4 mr-2" />Recent</TabsTrigger>
+              </TabsList>
 
-        {/* Client Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[--space-md]">
-          <Card>
-            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
-              <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-foreground">5</div>
-                <div className="font-secondary text-muted-foreground text-sm">Total Clients</div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
-              <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-[hsl(var(--success-text))]">4</div>
-                <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Active</div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
-              <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-foreground">20</div>
-                <div className="font-secondary text-muted-foreground text-sm">Total Sessions</div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
-              <div className="text-center">
-                <div className="font-primary text-2xl font-bold text-foreground">4.9</div>
-                <div className="font-secondary text-muted-foreground text-sm">Avg Rating</div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+              <TabsContent value="all" className="mt-6">
+                <Stack className="space-y-[--space-lg]">
+                  {/* Search and Filter Controls */}
+                  <HStack className="justify-between">
+                    <div className="relative flex-1 max-w-md">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <Input 
+                        placeholder="Search clients..." 
+                        className="pl-10 min-h-touch-min"
+                      />
+                    </div>
+                    <HStack>
+                      <Button variant="outline" className="min-h-touch-min" aria-label="Filter clients">
+                        <Filter className="w-4 h-4 mr-2" />
+                        Filter
+                      </Button>
+                      <select className="px-3 py-2 border rounded-md bg-background font-secondary text-foreground min-h-touch-min">
+                        <option>All Clients</option>
+                        <option>Active</option>
+                        <option>Inactive</option>
+                      </select>
+                    </HStack>
+                  </HStack>
 
-        {/* Client List */}
-        <Card>
-          <CardContent className="p-0">
-            <div className="space-y-0">
-              {clientList.map((client, index) => (
-                <div
-                  key={client.id}
-                  className={`block p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl] hover:bg-muted/50 transition-colors cursor-pointer ${
-                    index !== clientList.length - 1 ? 'border-b border-border' : ''
-                  }`}
-                  onClick={() => handleClientClick(client.id)}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 flex-1 min-w-0">
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleClientClick(client.id);
-                        }}
-                        className="w-12 h-12 rounded-full overflow-hidden hover:opacity-80 transition-opacity cursor-pointer"
-                        aria-label={`View ${client.name}'s profile`}
-                      >
-                        <Avatar className="w-12 h-12">
-                          <AvatarImage src={client.avatar} alt={client.initials} />
-                          <AvatarFallback className="bg-surface-accent text-[hsl(var(--jovial-jade))] font-secondary font-semibold">
-                            {client.initials}
-                          </AvatarFallback>
-                        </Avatar>
-                      </button>
-                      
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-3 mb-1">
-                          <h4 className="font-secondary font-bold text-foreground truncate">
-                            {client.name || 'Unknown Client'}
-                          </h4>
-                          <button
-                            onClick={(e) => handleStatusToggle(client.id, e)}
-                            className="cursor-pointer"
-                            aria-label={`Toggle ${client.name} status between Active and Inactive`}
-                          >
-                            <Badge 
-                              variant={client.status === "Active" ? "secondary" : "outline"}
-                              className={client.status === "Active" ? "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))] hover:bg-[hsl(var(--success-bg))]/90" : "bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))] hover:bg-[hsl(var(--warning-bg))]/90"}
-                            >
-                              {client.status}
-                            </Badge>
-                          </button>
+                  {/* Client Stats */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[--space-md]">
+                    <Card>
+                      <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
+                        <div className="text-center">
+                          <div className="font-primary text-2xl font-bold text-foreground">5</div>
+                          <div className="font-secondary text-muted-foreground text-sm">Total Clients</div>
                         </div>
-                        
-                        <div className="flex flex-col sm:flex-row sm:gap-4 gap-1 text-sm text-muted-foreground">
-                          <div className="flex-1">
-                            <span className="font-secondary font-medium">Sessions:</span> {client.totalSessions}
-                          </div>
-                          <div className="flex-1">
-                            <span className="font-secondary font-medium">Last:</span> {new Date(client.lastSession).toLocaleDateString()}
-                          </div>
-                          {client.nextSession && (
-                            <div className="flex-1">
-                              <span className="font-secondary font-medium">Next:</span> {client.nextSession}
-                            </div>
-                          )}
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
+                        <div className="text-center">
+                          <div className="font-primary text-2xl font-bold text-[hsl(var(--success-text))]">4</div>
+                          <div className="font-secondary text-[hsl(var(--text-secondary))] text-sm">Active</div>
                         </div>
-                        
-                        {client.notes && (
-                          <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
-                            {client.notes}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                    
-                    {/* Action buttons - Mobile: Vertical stack, Desktop: Horizontal */}
-                    <div className="flex flex-col md:flex-row gap-2">
-                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`Send message to ${client.name}`}>
-                        <MessageCircle className="w-4 h-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`Schedule appointment with ${client.name}`}>
-                        <Calendar className="w-4 h-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`View notes for ${client.name}`}>
-                        <FileText className="w-4 h-4" />
-                      </Button>
-                      <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`More options for ${client.name}`}>
-                        <MoreHorizontal className="w-4 h-4" />
-                      </Button>
-                    </div>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
+                        <div className="text-center">
+                          <div className="font-primary text-2xl font-bold text-foreground">20</div>
+                          <div className="font-secondary text-muted-foreground text-sm">Total Sessions</div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                    <Card>
+                      <CardContent className="p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl]">
+                        <div className="text-center">
+                          <div className="font-primary text-2xl font-bold text-foreground">4.9</div>
+                          <div className="font-secondary text-muted-foreground text-sm">Avg Rating</div>
+                        </div>
+                      </CardContent>
+                    </Card>
                   </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-        </Stack>
+
+                  {/* Client List */}
+                  <Card>
+                    <CardContent className="p-0">
+                      <div className="space-y-0">
+                        {clientList.map((client, index) => (
+                          <div
+                            key={client.id}
+                            className={`block p-[--space-md] md:p-[--space-lg] lg:p-[--space-xl] hover:bg-muted/50 transition-colors cursor-pointer ${
+                              index !== clientList.length - 1 ? 'border-b border-border' : ''
+                            }`}
+                            onClick={() => handleClientClick(client.id)}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-4 flex-1 min-w-0">
+                                <button 
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleClientClick(client.id);
+                                  }}
+                                  className="w-12 h-12 rounded-full overflow-hidden hover:opacity-80 transition-opacity cursor-pointer"
+                                  aria-label={`View ${client.name}'s profile`}
+                                >
+                                  <Avatar className="w-12 h-12">
+                                    <AvatarImage src={client.avatar} alt={client.initials} />
+                                    <AvatarFallback className="bg-surface-accent text-[hsl(var(--jovial-jade))] font-secondary font-semibold">
+                                      {client.initials}
+                                    </AvatarFallback>
+                                  </Avatar>
+                                </button>
+                                
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-3 mb-1">
+                                    <h4 className="font-secondary font-bold text-foreground truncate">
+                                      {client.name || 'Unknown Client'}
+                                    </h4>
+                                    <button
+                                      onClick={(e) => handleStatusToggle(client.id, e)}
+                                      className="cursor-pointer"
+                                      aria-label={`Toggle ${client.name} status between Active and Inactive`}
+                                    >
+                                      <Badge 
+                                        variant={client.status === "Active" ? "secondary" : "outline"}
+                                        className={client.status === "Active" ? "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))] hover:bg-[hsl(var(--success-bg))]/90" : "bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))] hover:bg-[hsl(var(--warning-bg))]/90"}
+                                      >
+                                        {client.status}
+                                      </Badge>
+                                    </button>
+                                  </div>
+                                  
+                                  <div className="flex flex-col sm:flex-row sm:gap-4 gap-1 text-sm text-muted-foreground">
+                                    <div className="flex-1">
+                                      <span className="font-secondary font-medium">Sessions:</span> {client.totalSessions}
+                                    </div>
+                                    <div className="flex-1">
+                                      <span className="font-secondary font-medium">Last:</span> {new Date(client.lastSession).toLocaleDateString()}
+                                    </div>
+                                    {client.nextSession && (
+                                      <div className="flex-1">
+                                        <span className="font-secondary font-medium">Next:</span> {client.nextSession}
+                                      </div>
+                                    )}
+                                  </div>
+                                  
+                                  {client.notes && (
+                                    <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
+                                      {client.notes}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                              
+                              {/* Action buttons - Mobile: Vertical stack, Desktop: Horizontal */}
+                              <div className="flex flex-col md:flex-row gap-2">
+                                <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`Send message to ${client.name}`}>
+                                  <MessageCircle className="w-4 h-4" />
+                                </Button>
+                                <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`Schedule appointment with ${client.name}`}>
+                                  <CalendarIcon className="w-4 h-4" />
+                                </Button>
+                                <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`View notes for ${client.name}`}>
+                                  <FileText className="w-4 h-4" />
+                                </Button>
+                                <Button variant="ghost" size="sm" className="min-h-touch-min" aria-label={`More options for ${client.name}`}>
+                                  <MoreHorizontal className="w-4 h-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Stack>
+              </TabsContent>
+
+              <TabsContent value="upcoming" className="mt-6">
+                 <Stack className="space-y-4">
+                  {upcomingSessions.length > 0 ? (
+                    upcomingSessions.map(booking => <BookingItem key={booking.id} booking={booking} />)
+                  ) : (
+                    <p className="text-muted-foreground text-center py-8">No upcoming sessions.</p>
+                  )}
+                </Stack>
+              </TabsContent>
+              
+              <TabsContent value="recent" className="mt-6">
+                <Stack className="space-y-4">
+                  {recentSessions.length > 0 ? (
+                    recentSessions.map(booking => <BookingItem key={booking.id} booking={booking} />)
+                  ) : (
+                    <p className="text-muted-foreground text-center py-8">No recent sessions.</p>
+                  )}
+                </Stack>
+              </TabsContent>
+            </Tabs>
           </div>
         </Container>
       </div>
