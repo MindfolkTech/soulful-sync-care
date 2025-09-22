@@ -32,17 +32,14 @@ const AuthGuard = ({ children, requiredRole }: { children: React.ReactNode; requ
       if (user && requiredRole) {
         setRoleLoading(true);
         try {
-          console.log('AuthGuard: Checking role for user:', user.id, 'Required role:', requiredRole);
-          const { data: profile, error } = await supabase
+          const { data: profile } = await supabase
             .from("profiles")
             .select("role")
             .eq("id", user.id)
             .single();
           
-          console.log('AuthGuard: Profile data:', profile, 'Error:', error);
           const role = profile?.role || 'client';
           setUserRole(role);
-          console.log('AuthGuard: User role set to:', role);
         } catch (error) {
           console.error('AuthGuard: Error fetching user role:', error);
           setUserRole('client');
@@ -58,24 +55,18 @@ const AuthGuard = ({ children, requiredRole }: { children: React.ReactNode; requ
     checkUserRole();
   }, [user, requiredRole]);
 
-  console.log('AuthGuard: Current state - loading:', loading, 'roleLoading:', roleLoading, 'userRole:', userRole, 'requiredRole:', requiredRole);
-
   if (loading || (requiredRole && roleLoading)) {
-    console.log('AuthGuard: Showing loading screen');
     return <AppLoadingScreen />;
   }
 
   if (!user) {
-    console.log('AuthGuard: No user, redirecting to sign-in');
     return <Navigate to="/sign-in" replace />;
   }
 
   if (requiredRole && userRole !== requiredRole) {
-    console.log('AuthGuard: Role mismatch, redirecting to home. UserRole:', userRole, 'RequiredRole:', requiredRole);
     return <Navigate to="/" replace />;
   }
 
-  console.log('AuthGuard: Access granted, rendering children');
   return <>{children}</>;
 };
 
