@@ -90,6 +90,7 @@ import SignIn from "./pages/public/SignIn";
 import SignUp from "./pages/public/SignUp";
 import Terms from "./pages/public/Terms";
 import Privacy from "./pages/public/Privacy";
+import DocumentPolicy from "./pages/public/DocumentPolicy";
 
 // Client pages
 import Assessment from "./pages/client/Assessment";
@@ -103,6 +104,7 @@ import Account from "./pages/client/Account";
 import Messages from "./pages/client/Messages";
 import Billing from "./pages/client/Billing";
 import ClientTasks from "./pages/client/Tasks";
+import ClientFeedback from "./pages/client/Feedback";
 
 // Therapist pages
 import TherapistSignUp from "./pages/therapist/SignUp";
@@ -180,6 +182,7 @@ const AppContent = () => {
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/legal/terms" element={<Terms />} />
               <Route path="/legal/privacy" element={<Privacy />} />
+              <Route path="/legal/document-policy" element={<DocumentPolicy />} />
 
               {/* Client routes */}
               <Route path="/assessment" element={<AuthGuard><Assessment /></AuthGuard>} />
@@ -193,6 +196,7 @@ const AppContent = () => {
               <Route path="/messages" element={<AuthGuard><Messages /></AuthGuard>} />
               <Route path="/billing" element={<AuthGuard><Billing /></AuthGuard>} />
               <Route path="/client/tasks" element={<AuthGuard><ClientTasks /></AuthGuard>} />
+              <Route path="/client/feedback/:id" element={<AuthGuard><ClientFeedback /></AuthGuard>} />
 
               {/* Therapist routes */}
               <Route path="/t/onboarding" element={<AuthGuard requiredRole="therapist"><OnboardingWelcome /></AuthGuard>} />

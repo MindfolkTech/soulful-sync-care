@@ -517,7 +517,7 @@ export default function Index() {
                 }}
                 asChild
               >
-                <Link to="#waitlist">See More Therapists</Link>
+                <Link to="/discover">See More Therapists</Link>
               </Button>
             </div>
           </Container>
