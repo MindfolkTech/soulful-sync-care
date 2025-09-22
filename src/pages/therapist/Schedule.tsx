@@ -27,14 +27,57 @@ const CalendarView = () => {
     // State and handlers from original TherapistBookings component, simplified for this view
     const [isAppointmentModalOpen, setIsAppointmentModalOpen] = React.useState(false);
     const [selectedAppointment, setSelectedAppointment] = React.useState<any>(null);
-    const handleAppointmentClick = (appointment: any) => { setSelectedAppointment(appointment); setIsAppointmentModalOpen(true); };
-    const handleTimeSlotClick = (date: Date, time: string) => { console.log("Time slot clicked", date, time); };
-    const handleAppointmentMove = (appointmentId: string, newDate: Date, newTime: string) => { console.log('Appointment moved:', appointmentId, newDate, newTime); };
+    const [isBookingModalOpen, setIsBookingModalOpen] = React.useState(false);
+    const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
+    const [selectedTime, setSelectedTime] = React.useState<string>('');
+    
+    const handleAppointmentClick = (appointment: any) => { 
+        setSelectedAppointment(appointment); 
+        setIsAppointmentModalOpen(true); 
+    };
+    
+    const handleTimeSlotClick = (date: Date, time: string) => { 
+        console.log("Time slot clicked", date, time);
+        setSelectedDate(date);
+        setSelectedTime(time);
+        setIsBookingModalOpen(true);
+    };
+    
+    const handleAppointmentMove = (appointmentId: string, newDate: Date, newTime: string) => { 
+        console.log('Appointment moved:', appointmentId, newDate, newTime); 
+    };
+    
+    const handleBookTime = (bookingData: any) => {
+        console.log('Booking time:', bookingData);
+        // TODO: Integrate with backend to save blocked time
+        setIsBookingModalOpen(false);
+    };
 
     return (
         <>
-            <InteractiveCalendar appointments={bookings} onAppointmentClick={handleAppointmentClick} onTimeSlotClick={handleTimeSlotClick} onAppointmentMove={handleAppointmentMove} />
-            <AppointmentDetailsModal isOpen={isAppointmentModalOpen} onClose={() => setIsAppointmentModalOpen(false)} appointment={selectedAppointment} onEdit={() => {}} onReschedule={() => {}} onCancel={() => {}} onJoinSession={() => {}} onMessageClient={() => {}} />
+            <InteractiveCalendar 
+                appointments={bookings} 
+                onAppointmentClick={handleAppointmentClick} 
+                onTimeSlotClick={handleTimeSlotClick} 
+                onAppointmentMove={handleAppointmentMove} 
+            />
+            <AppointmentDetailsModal 
+                isOpen={isAppointmentModalOpen} 
+                onClose={() => setIsAppointmentModalOpen(false)} 
+                appointment={selectedAppointment} 
+                onEdit={() => {}} 
+                onReschedule={() => {}} 
+                onCancel={() => {}} 
+                onJoinSession={() => {}} 
+                onMessageClient={() => {}} 
+            />
+            <BookingModal
+                isOpen={isBookingModalOpen}
+                onClose={() => setIsBookingModalOpen(false)}
+                selectedDate={selectedDate}
+                selectedTime={selectedTime}
+                onBookTime={handleBookTime}
+            />
         </>
     );
 }
