@@ -118,6 +118,7 @@ import OnboardingPolicies from "./pages/therapist/onboarding/Policies";
 import TherapistProfile from "./pages/therapist/Profile";
 
 import TherapistClients from "./pages/therapist/Clients";
+import TherapistClientTasks from "./pages/therapist/ClientTasks";
 import TherapistSchedule from "./pages/therapist/Schedule";
 import TherapistBusiness from "./pages/therapist/Business";
 import TherapistSettings from "./pages/therapist/Settings";
@@ -210,6 +211,7 @@ const AppContent = () => {
               <Route path="/t/profile" element={<AuthGuard requiredRole="therapist"><TherapistProfile /></AuthGuard>} />
               
               <Route path="/t/clients" element={<AuthGuard requiredRole="therapist"><TherapistClients /></AuthGuard>} />
+              <Route path="/t/clients/tasks" element={<AuthGuard requiredRole="therapist"><TherapistClientTasks /></AuthGuard>} />
               <Route path="/t/schedule" element={<AuthGuard requiredRole="therapist"><TherapistSchedule /></AuthGuard>} />
               <Route path="/t/clients/:id" element={<AuthGuard requiredRole="therapist"><ClientDetail /></AuthGuard>} />
               <Route path="/t/dashboard" element={<AuthGuard requiredRole="therapist"><TherapistDashboard /></AuthGuard>} />

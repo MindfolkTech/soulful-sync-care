@@ -1,7 +1,7 @@
 import { TherapistLayout } from "@/components/layout/therapist-layout";
 import { Container } from "@/components/ui/container";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar as CalendarIcon, CheckSquare, Clock } from "lucide-react";
+import { Calendar as CalendarIcon, Clock } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import * as React from "react";
 
@@ -17,11 +17,6 @@ import { FilterDropdown } from "@/components/calendar/filter-dropdown";
 import { bookings } from "@/data/mock-bookings.tsx";
 // --- END: Imports from original Bookings.tsx ---
 
-// --- START: Imports from original Tasks.tsx ---
-import { TaskHubShell } from "@/components/organisms/task-hub-shell";
-import { mockTherapistTasks } from "@/data/mock-tasks";
-import { TaskStats } from "@/types/tasks";
-// --- END: Imports from original Tasks.tsx ---
 
 const CalendarView = () => {
     // State and handlers from original TherapistBookings component, simplified for this view
@@ -162,27 +157,6 @@ const ManageAvailabilityView = () => {
     return <EnhancedAvailabilityManager />;
 }
 
-const TaskHubView = () => {
-    // All state and handlers from original TherapistTasks component
-    const [loading] = React.useState(false);
-    const [error] = React.useState<string | null>(null);
-    const stats: TaskStats = React.useMemo(() => {
-        const now = new Date();
-        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        return {
-            total: mockTherapistTasks.filter(t => t.status !== 'done').length,
-            dueToday: mockTherapistTasks.filter(t => t.due && new Date(t.due) >= today && new Date(t.due) < tomorrow && t.status !== 'done' ).length,
-            overdue: mockTherapistTasks.filter(t => t.due && new Date(t.due) < today && t.status !== 'done').length,
-            completed: mockTherapistTasks.filter(t => t.status === 'done').length
-        };
-    }, []);
-
-    return (
-        <TaskHubShell role="therapist" tasks={mockTherapistTasks} stats={stats} title="" subtitle="" loading={loading} error={error} onRetry={() => { console.log("Retrying..."); }} />
-    )
-}
 
 export default function TherapistSchedule() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -194,20 +168,16 @@ export default function TherapistSchedule() {
         <Container>
             <div className="space-y-4">
                 <div className="space-y-1">
-                    <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))]">Schedule & Tasks</h1>
-                    <p className="font-secondary text-[hsl(var(--text-secondary))]">Manage your appointments, tasks, and working hours.</p>
+                    <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))]">Schedule</h1>
+                    <p className="font-secondary text-[hsl(var(--text-secondary))]">Manage your appointments and working hours.</p>
                 </div>
                 <Tabs value={activeTab} onValueChange={(value) => setSearchParams({ tab: value })} className="w-full">
                     <TabsList>
                         <TabsTrigger value="calendar"><CalendarIcon className="w-4 h-4 mr-2" /> Calendar</TabsTrigger>
-                        <TabsTrigger value="tasks"><CheckSquare className="w-4 h-4 mr-2" /> Task Hub</TabsTrigger>
-                        <TabsTrigger value="availability"><Clock className="w-4 h-4 mr-2" /> Manage Availability</TabsTrigger>
+                        <TabsTrigger value="availability"><Clock className="w-4 h-4 mr-2" /> Availability</TabsTrigger>
                     </TabsList>
                     <TabsContent value="calendar" className="mt-4">
                         <CalendarView />
-                    </TabsContent>
-                    <TabsContent value="tasks" className="mt-4">
-                        <TaskHubView />
                     </TabsContent>
                     <TabsContent value="availability" className="mt-4">
                         <ManageAvailabilityView />

@@ -4,14 +4,19 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
   ChevronLeft, 
-  ChevronRight, 
+  ChevronRight,
+  ChevronDown,
+  ChevronUp,
   LayoutDashboard, 
   Users, 
   Calendar, 
   Briefcase,
   Settings,
   User as UserIcon,
-  LogOut
+  LogOut,
+  ListTodo,
+  UserCheck,
+  MessageCircle
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -21,20 +26,82 @@ interface TherapistSidebarProps {
   className?: string;
 }
 
-const mainNavItems = [
+interface SubNavItem {
+  path: string;
+  label: string;
+  icon?: any;
+}
+
+interface NavItem {
+  path: string;
+  label: string;
+  icon: any;
+  subItems?: SubNavItem[];
+}
+
+const mainNavItems: NavItem[] = [
   { path: "/t/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { path: "/t/clients", label: "Clients", icon: Users },
-  { path: "/t/schedule", label: "Schedule", icon: Calendar },
-  { path: "/t/business", label: "Business", icon: Briefcase },
+  { 
+    path: "/t/clients", 
+    label: "Clients", 
+    icon: Users,
+    subItems: [
+      { path: "/t/clients", label: "All Clients" },
+      { path: "/t/clients/tasks", label: "Client Tasks", icon: ListTodo }
+    ]
+  },
+  { 
+    path: "/t/schedule", 
+    label: "Schedule", 
+    icon: Calendar,
+    subItems: [
+      { path: "/t/schedule", label: "Calendar" },
+      { path: "/t/schedule?tab=availability", label: "Availability" }
+    ]
+  },
+  { 
+    path: "/t/business", 
+    label: "Business", 
+    icon: Briefcase,
+    subItems: [
+      { path: "/t/business", label: "Analytics" },
+      { path: "/t/business?tab=earnings", label: "Earnings" }
+    ]
+  },
 ];
 
 const settingsNavItem = { path: "/t/settings", label: "Settings", icon: Settings };
 
 export function TherapistSidebar({ className = "" }: TherapistSidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const location = useLocation();
   const { user } = useAuth();
   const [userProfile, setUserProfile] = useState<{ first_name: string; last_name: string; avatar_url: string; } | null>(null);
+
+  // Auto-expand current section
+  useEffect(() => {
+    const currentPath = location.pathname;
+    const currentItem = mainNavItems.find(item => 
+      currentPath.startsWith(item.path) || 
+      item.subItems?.some(sub => currentPath.startsWith(sub.path))
+    );
+    if (currentItem && currentItem.subItems) {
+      setExpandedItems(prev => new Set([...prev, currentItem.path]));
+    }
+  }, [location.pathname]);
+
+  const toggleExpanded = (itemPath: string) => {
+    setExpandedItems(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(itemPath)) {
+        newSet.delete(itemPath);
+      } else {
+        newSet.add(itemPath);
+      }
+      return newSet;
+    });
+  };
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -118,24 +185,72 @@ export function TherapistSidebar({ className = "" }: TherapistSidebarProps) {
       {/* Navigation */}
       <nav className="flex-grow p-2 space-y-1 overflow-y-auto">
         {mainNavItems.map((item) => {
-          const isActive = location.pathname.startsWith(item.path);
+          const isMainActive = location.pathname.startsWith(item.path);
+          const isExpanded = expandedItems.has(item.path);
           const Icon = item.icon;
+          
           return (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors group ${
-                isActive
-                  ? 'bg-muted text-foreground'
-                  : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
-              }`}
-              title={isCollapsed ? item.label : undefined}
-            >
-              <Icon className="h-5 w-5 flex-shrink-0" />
-              {!isCollapsed && (
-                <span className="font-secondary text-sm font-medium">{item.label}</span>
+            <div key={item.path}>
+              {/* Main nav item */}
+              <div className="flex items-center">
+                <Link
+                  to={item.path}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-md transition-colors group flex-1 ${
+                    isMainActive
+                      ? 'bg-muted text-foreground'
+                      : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+                  }`}
+                  title={isCollapsed ? item.label : undefined}
+                >
+                  <Icon className="h-5 w-5 flex-shrink-0" />
+                  {!isCollapsed && (
+                    <span className="font-secondary text-sm font-medium">{item.label}</span>
+                  )}
+                </Link>
+                
+                {/* Expand/collapse button for items with subitems */}
+                {item.subItems && !isCollapsed && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => toggleExpanded(item.path)}
+                    className="h-8 w-8 p-0 ml-1"
+                    aria-label={isExpanded ? `Collapse ${item.label}` : `Expand ${item.label}`}
+                  >
+                    {isExpanded ? (
+                      <ChevronUp className="h-4 w-4" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4" />
+                    )}
+                  </Button>
+                )}
+              </div>
+              
+              {/* Sub-navigation */}
+              {item.subItems && !isCollapsed && isExpanded && (
+                <div className="ml-8 mt-1 space-y-1">
+                  {item.subItems.map((subItem) => {
+                    const isSubActive = location.pathname === subItem.path || 
+                      (subItem.path.includes('?') && location.pathname + location.search === subItem.path);
+                    
+                    return (
+                      <Link
+                        key={subItem.path}
+                        to={subItem.path}
+                        className={`flex items-center gap-2 px-3 py-1.5 rounded-md transition-colors text-sm ${
+                          isSubActive
+                            ? 'bg-muted/50 text-foreground font-medium'
+                            : 'text-muted-foreground hover:bg-muted/25 hover:text-foreground'
+                        }`}
+                      >
+                        {subItem.icon && <subItem.icon className="h-4 w-4 flex-shrink-0" />}
+                        <span className="font-secondary">{subItem.label}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
               )}
-            </Link>
+            </div>
           );
         })}
       </nav>
