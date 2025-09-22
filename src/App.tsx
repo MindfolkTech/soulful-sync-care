@@ -8,6 +8,8 @@ import { ImpersonationProvider } from "@/contexts/impersonation-context";
 import { GlobalImpersonationBar } from "@/components/admin/global-impersonation-bar";
 import ErrorBoundary from "@/components/util/ErrorBoundary";
 import { useAuth, AuthProvider } from "./context/AuthContext";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 // App-level loading component
 const AppLoadingScreen = () => (
@@ -21,9 +23,35 @@ const AppLoadingScreen = () => (
 
 // Simple auth guard component
 const AuthGuard = ({ children, requiredRole }: { children: React.ReactNode; requiredRole?: string }) => {
-  const { user, loading, session } = useAuth();
+  const { user, loading } = useAuth();
+  const [userRole, setUserRole] = useState<string | null>(null);
+  const [roleLoading, setRoleLoading] = useState(false);
 
-  if (loading) {
+  useEffect(() => {
+    const checkUserRole = async () => {
+      if (user && requiredRole) {
+        setRoleLoading(true);
+        try {
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("role")
+            .eq("id", user.id)
+            .single();
+          
+          setUserRole(profile?.role || 'client');
+        } catch (error) {
+          console.error('Error fetching user role:', error);
+          setUserRole('client');
+        } finally {
+          setRoleLoading(false);
+        }
+      }
+    };
+
+    checkUserRole();
+  }, [user, requiredRole]);
+
+  if (loading || (requiredRole && roleLoading)) {
     return <AppLoadingScreen />;
   }
 
@@ -31,11 +59,8 @@ const AuthGuard = ({ children, requiredRole }: { children: React.ReactNode; requ
     return <Navigate to="/sign-in" replace />;
   }
 
-  if (requiredRole) {
-    const userRoles = session?.user?.user_metadata?.roles || [];
-    if (!userRoles.includes(requiredRole)) {
-      return <Navigate to="/" replace />; // Redirect to a safe page if role mismatch
-    }
+  if (requiredRole && userRole !== requiredRole) {
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;
