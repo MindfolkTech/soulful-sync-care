@@ -88,7 +88,7 @@ export default function TherapistMessages() {
 
   return (
     <TherapistLayout>
-      <div className="p-8">
+      <div className="p-4 md:p-6 lg:p-8">
         <Container>
           <div className="space-y-6">
             <div>

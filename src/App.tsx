@@ -168,8 +168,14 @@ const AppContent = () => {
               <Route path="/" element={<Index />} />
               <Route path="/therapist" element={<TherapistLanding />} />
               <Route path="/therapist/signup" element={<TherapistSignUp />} />
-              {/* Redirect old therapist onboarding URLs */}
+              {/* Redirect old therapist URLs to correct /t/ paths */}
               <Route path="/therapist/onboarding/*" element={<Navigate to="/t/onboarding" replace />} />
+              <Route path="/therapist/dashboard" element={<Navigate to="/t/dashboard" replace />} />
+              <Route path="/therapist/profile" element={<Navigate to="/t/profile" replace />} />
+              <Route path="/therapist/clients" element={<Navigate to="/t/clients" replace />} />
+              <Route path="/therapist/schedule" element={<Navigate to="/t/schedule" replace />} />
+              <Route path="/therapist/business" element={<Navigate to="/t/business" replace />} />
+              <Route path="/therapist/settings" element={<Navigate to="/t/settings" replace />} />
               <Route path="/sign-in" element={<SignIn />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/legal/terms" element={<Terms />} />

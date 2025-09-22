@@ -13,7 +13,7 @@ export default function TherapistSettings() {
         <Container>
             <div className="space-y-4">
                 <h1 className="font-primary text-3xl">Settings</h1>
-                <p className="text-muted-foreground">Manage your account and notification preferences.</p>
+                <p className="text-[hsl(var(--text-secondary))]">Manage your account and notification preferences.</p>
                 <div className="space-y-8">
                     <Card>
                         <CardHeader>
@@ -39,17 +39,17 @@ export default function TherapistSettings() {
                             <CardDescription>Shortcuts to manage your public profile and verification status.</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                            <Link to="/t/profile" className="flex items-center justify-between p-3 bg-muted/50 rounded-md hover:bg-muted">
+                            <Link to="/t/profile" className="flex items-center justify-between p-3 bg-[hsl(var(--surface-accent))]/50 rounded-md hover:bg-[hsl(var(--surface-accent))]">
                                 <div>
                                     <h3 className="font-semibold">Manage Profile</h3>
-                                    <p className="text-sm text-muted-foreground">Edit your public bio, photo, and therapeutic approach.</p>
+                                    <p className="text-sm text-[hsl(var(--text-secondary))]">Edit your public bio, photo, and therapeutic approach.</p>
                                 </div>
                                 <ArrowRight className="w-5 h-5" />
                             </Link>
-                            <Link to="/t/onboarding/verification" className="flex items-center justify-between p-3 bg-muted/50 rounded-md hover:bg-muted">
+                            <Link to="/t/onboarding/verification" className="flex items-center justify-between p-3 bg-[hsl(var(--surface-accent))]/50 rounded-md hover:bg-[hsl(var(--surface-accent))]">
                                 <div>
                                     <h3 className="font-semibold">Manage Verification</h3>
-                                    <p className="text-sm text-muted-foreground">View or update your verification documents.</p>
+                                    <p className="text-sm text-[hsl(var(--text-secondary))]">View or update your verification documents.</p>
                                 </div>
                                 <ArrowRight className="w-5 h-5" />
                             </Link>
