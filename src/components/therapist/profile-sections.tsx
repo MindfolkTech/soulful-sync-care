@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Upload, X, Play, Pause } from "lucide-react";
+import { VideoUpload } from "./VideoUpload";
 
 // Specialties and Tags from PRD
 const SPECIALTIES = {
@@ -271,66 +272,10 @@ interface VideoUploadSectionProps {
 }
 
 export function VideoUploadSection({ profile, onUpdate }: VideoUploadSectionProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="font-primary">Introduction Video</CardTitle>
-        <p className="text-sm text-[hsl(var(--text-secondary))] font-secondary">
-          Upload a 30-60 second video introducing yourself to potential clients
-        </p>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {profile.videoUrl ? (
-          <div className="space-y-4">
-            <div className="relative bg-surface-secondary rounded-lg overflow-hidden">
-              <video
-                src={profile.videoUrl}
-                className="w-full h-48 object-cover"
-                controls={false}
-              />
-              <div className="absolute inset-0 flex items-center justify-center bg-[hsl(var(--hover-overlay))]">
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  className="rounded-full w-16 h-16"
-                  onClick={() => setIsPlaying(!isPlaying)}
-                >
-                  {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
-                </Button>
-              </div>
-            </div>
-            <div className="flex space-x-2">
-              <Button variant="outline" className="flex-1">
-                <Upload className="w-4 h-4 mr-2" />
-                Replace Video
-              </Button>
-              <Button 
-                variant="destructive" 
-                onClick={() => onUpdate({ videoUrl: null })}
-              >
-                Remove
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <div className="border-2 border-dashed border-border rounded-lg p-8 text-center">
-            <Upload className="w-12 h-12 mx-auto text-text-muted mb-4" />
-            <div className="space-y-2">
-              <p className="font-secondary text-sm text-[hsl(var(--text-primary))]">
-                Click to upload your introduction video
-              </p>
-              <p className="font-secondary text-xs text-text-muted">
-                MP4, MOV up to 50MB • 30-60 seconds recommended
-              </p>
-            </div>
-            <Button className="mt-4">
-              Choose File
-            </Button>
-          </div>
-        )}
-      </CardContent>
-    </Card>
+    <VideoUpload
+      currentVideoUrl={profile.videoUrl}
+      onVideoUploaded={(videoUrl) => onUpdate({ videoUrl })}
+    />
   );
 }

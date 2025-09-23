@@ -6,6 +6,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { CheckCircle, XCircle, FileText, User, Calendar, Clock, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -24,6 +26,7 @@ interface TherapistApplication {
     cv: string;
   };
   backgroundCheck: boolean;
+  decision_reason?: string;
 }
 
 // Mock data
@@ -83,10 +86,10 @@ export function VerificationQueue() {
   const [selectedApplication, setSelectedApplication] = useState<TherapistApplication | null>(null);
   const { toast } = useToast();
 
-  const handleApprove = (id: string) => {
+  const handleApprove = (id: string, reason?: string) => {
     setApplications(prev => 
       prev.map(app => 
-        app.id === id ? { ...app, status: "approved" as const } : app
+        app.id === id ? { ...app, status: "approved" as const, decision_reason: reason } : app
       )
     );
     toast({
@@ -95,10 +98,10 @@ export function VerificationQueue() {
     });
   };
 
-  const handleReject = (id: string) => {
+  const handleReject = (id: string, reason?: string) => {
     setApplications(prev =>
       prev.map(app =>
-        app.id === id ? { ...app, status: "rejected" as const } : app
+        app.id === id ? { ...app, status: "rejected" as const, decision_reason: reason } : app
       )
     );
     toast({
@@ -359,8 +362,8 @@ function ApplicationsList({
 interface ApplicationDetailsDialogProps {
   application: TherapistApplication;
   onClose: () => void;
-  onApprove: (id: string) => void;
-  onReject: (id: string) => void;
+  onApprove: (id: string, reason?: string) => void;
+  onReject: (id: string, reason?: string) => void;
   getStatusBadge: (status: TherapistApplication["status"]) => JSX.Element;
   formatDate: (dateString: string) => string;
 }
@@ -373,6 +376,7 @@ function ApplicationDetailsDialog({
   getStatusBadge,
   formatDate
 }: ApplicationDetailsDialogProps) {
+  const [decisionReason, setDecisionReason] = useState("");
   return (
     <Dialog open={!!application} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -469,6 +473,43 @@ function ApplicationDetailsDialog({
               </div>
             </CardContent>
           </Card>
+          
+          {/* Decision Reason */}
+          {application.status === "pending" && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-primary text-lg">Decision Reason</CardTitle>
+                <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
+                  Please provide a reason for your decision. This will be shared with the therapist.
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <Label htmlFor="decisionReason">Reason</Label>
+                  <Textarea
+                    id="decisionReason"
+                    placeholder="Enter your reason for approving or rejecting this application..."
+                    rows={3}
+                    value={decisionReason}
+                    onChange={(e) => setDecisionReason(e.target.value)}
+                    className="w-full"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          )}
+          
+          {/* Display decision reason for approved/rejected applications */}
+          {(application.status === "approved" || application.status === "rejected") && application.decision_reason && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="font-primary text-lg">Decision Reason</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="font-secondary text-[hsl(var(--text-primary))]">{application.decision_reason}</p>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Background Check */}
           <Card>
@@ -498,22 +539,24 @@ function ApplicationDetailsDialog({
               <Button
                 variant="outline"
                 onClick={() => {
-                  onReject(application.id);
+                  onReject(application.id, decisionReason);
                   onClose();
                 }}
                 className="text-[hsl(var(--error-text))] hover:bg-[hsl(var(--error-bg))] hover:text-[hsl(var(--error-text))] min-h-[--touch-target-min] max-w-[280px]"
                 aria-label={`Reject ${application.name}'s application permanently`}
+                disabled={!decisionReason}
               >
                 <XCircle className="h-4 w-4 mr-2" />
                 Reject Application
               </Button>
               <Button
                 onClick={() => {
-                  onApprove(application.id);
+                  onApprove(application.id, decisionReason);
                   onClose();
                 }}
                 className="bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))] hover:bg-[hsl(var(--success-bg))]/90 min-h-[--touch-target-min] max-w-[280px]"
                 aria-label={`Approve ${application.name}'s application and grant access`}
+                disabled={!decisionReason}
               >
                 <CheckCircle className="h-4 w-4 mr-2" />
                 Approve Application
