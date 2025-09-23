@@ -12,7 +12,7 @@ Finding a compatible therapist requires expensive trial-and-error, with people t
 
 ## **Product Vision**
 
-[CHANGED] Mindfolk enables personality-first therapy matching through comprehensive therapist profiles that include therapist introductory videos, and a weighted matching algorithm. Clients can browse and filter therapists based on their assessment preferences before booking sessions, while therapists maintain full control over rates, availability, and practice policies.
+[CHANGED] Mindfolk enables personality-first therapy matching through comprehensive therapist profiles that include therapist introductory videos [TODO], and a weighted matching algorithm. Clients can browse and filter therapists based on their assessment preferences before booking sessions, while therapists maintain full control over rates, availability, and practice policies.
 
 ## **Core User Value**
 
@@ -482,16 +482,16 @@ Mindfolk has two core user journeys with distinct flow patterns and requirements
 | Feature | Description | Priority | Acceptance Criteria |
 | --- | --- | --- | --- |
 | [CHANGED] **Assessment Flow** | Basic personality questionnaire with preferences | P0 | 85% completion rate, 5–7 min duration; Communication preferences, therapy goals, modalities, budget, demographics; Data stored in `client_assessments` table; Supabase Auth integration |
-| [CHANGED] **Therapist Discovery** | Browse therapists with filtering and matching | P0 | Grid/list view with filters; 5-category tag system; Matching algorithm implementation; Favorites functionality; No video profiles |
-| **Chemistry Call Booking** | Multi-session booking with calendar integration | P0 | 15-min free calls + 30/60-min paid options; Native calendar picker with month navigation; Session type selection, recurring options; Additional comments field; Payment method selection; Appointment confirmation with security assurances |
-| [CHANGED] **Direct Booking** | Book sessions without chemistry calls | P0 | Calendar integration UI; Session type selection (30/60/90 min); Appointment creation in database; No payment processing |
-| **Session Management** | Complete appointment lifecycle | P0 | Dashboard with Today/Upcoming/Past sections; "In X days (/hours/minutes)" countdown that switches to a "JOIN NOW" button 5 minutes before appointment time; Session reminders with tiering notifications; Live video interface with chat panel; Post-call feedback collection after chemistry call (confidential); Post-session testimonial option (after verification) |
+| [CHANGED] **Therapist Discovery** | Browse therapists with filtering and matching | P0 | Grid/list view with filters; 5-category tag system; Matching algorithm implementation; Favorites functionality; No video profiles [TODO] |
+| **Chemistry Call Booking** [TODO] | Multi-session booking with calendar integration | P0 | 15-min free calls + 30/60-min paid options; Native calendar picker with month navigation; Session type selection, recurring options; Additional comments field; Payment method selection; Appointment confirmation with security assurances |
+| [CHANGED] **Direct Booking** | Book sessions without chemistry calls | P0 | Calendar integration UI; Session type selection (30/60/90 min); Appointment creation in database; No payment processing [TODO] |
+| **Session Management** | Complete appointment lifecycle | P0 | Dashboard with Today/Upcoming/Past sections; "In X days (/hours/minutes)" countdown that switches to a "JOIN NOW" button 5 minutes before appointment time [TODO]; Session reminders with tiering notifications [TODO]; Live video interface with chat panel [TODO]; Post-call feedback collection after chemistry call (confidential) [TODO]; Post-session testimonial option (after verification) [TODO] |
 | [CHANGED] **Favorites** | Save therapists for later | P0 | Favorites page implemented; Add/remove functionality; Direct booking from favorites |
 
 *Recommended implementation for Session Management based on the existing codebase: The appointments page and database structure exist. Add a countdown timer component using React hooks. Implement reminder notifications via Supabase Edge Functions with Resend/Twilio. For post-call feedback, create a feedback form component that appears after session end time. Store feedback in a new `session_feedback` table. The session room UI is ready for Daily.co integration.*
-| **Favorites & Communication** | Enhanced therapist management | P0 | Dedicated favorites screen with search; Upcoming appointments indicator; "BOOK NOW" button within search ("Book Free Chemistry Call" AND "Book Therapy Session" if the user has not previously had a chemistry call that has taken place with that therapist previous, otherwise just "Book Therapy Session"); Notifications system (forms, summaries, homework); File attachments and sharing |
-| **Payment Processing** | Pay-per-session with transparent pricing | P0 | Stripe integration for client to pay the rate set by the therapist, with 15% of that going to Mindfolk as a commission and 85% to therapist; Multiple payment methods; Automated receipts; Refund/dispute handling; Session-based billing |
-| **Account Management** | Profile and preferences | P0 | Email verification, secure authentication; Notification settings; Document preferences; Data privacy management; Photo upload; Help centre and FAQs, customer support ticketing |
+| **Favorites & Communication** | Enhanced therapist management | P0 | Dedicated favorites screen with search; Upcoming appointments indicator [TODO]; "BOOK NOW" button within search ("Book Free Chemistry Call" AND "Book Therapy Session" if the user has not previously had a chemistry call that has taken place with that therapist previous, otherwise just "Book Therapy Session") [TODO]; Notifications system (forms, summaries, homework) [TODO]; File attachments and sharing [TODO] |
+| **Payment Processing** [TODO] | Pay-per-session with transparent pricing | P0 | Stripe integration for client to pay the rate set by the therapist, with 15% of that going to Mindfolk as a commission and 85% to therapist; Multiple payment methods; Automated receipts; Refund/dispute handling; Session-based billing |
+| **Account Management** | Profile and preferences | P0 | Email verification, secure authentication; Notification settings [TODO]; Document preferences [TODO]; Data privacy management; Photo upload [TODO]; Help centre and FAQs [TODO], customer support ticketing [TODO] |
 
 *Recommended implementation for Favorites & Communication based on the existing codebase: The favorites functionality is partially implemented. Enhance the existing favorites page to show upcoming appointments by joining with appointments table. Add conditional booking buttons based on past chemistry call history. For notifications, create a `notifications` table and use Supabase Realtime for push updates. File attachments can use Supabase Storage with proper RLS policies.*
 
@@ -505,11 +505,11 @@ Mindfolk has two core user journeys with distinct flow patterns and requirements
 
 | Feature | Description | Priority | Acceptance Criteria |
 | --- | --- | --- | --- |
-| **Enhanced Dashboard** | Comprehensive practice overview | P0 | Welcome message with personalized greeting; Upcoming appointments widget with countdown as client countdown (each "JOIN NOW" button 10 minutes before start time); Client dashboard with Active/Inactive status; Income detail with appointment breakdown; Business profile updates |
-| **Calendar Management** | Advanced scheduling system | P0 | Google/Outlook integration buttons; List/Calendar view toggle; TODAY/WEEK/MONTH filters; Appointment details with full details; Color-coding from calendar; Session reminders with tiering - Must research best practice for event calendars across desktop, tablet and mobile, using shadcn/ui where possible and flexbox/grid |
-| **Client Relationship Management** | Complete client portfolio system | P0 | Client directory with search/filtering; Status management (Active, Awaiting, Prospective, etc.); Match percentage to click on client to open individual client file; Individual client file holds Session notes with templates; Scoring metrics for that client and progress tracking |
-| **Session Notes & Documentation** | Clinical documentation system | P1 | Add New Summary with search; Date/time stamps; Past appointment notes with filtering; Assessment tracking (GAD-7, PHQ-9 scales); Progress visualization; Communication workflow |
-| **Analytics & Business Intelligence** | Performance metrics dashboard | P0 | Key metrics: profile views, sessions booked, favorites, rating; Profile views growth chart; Cancellation analytics (happened/cancelled/rescheduled); Income tracking with trends; Ways to improve section |
+| **Enhanced Dashboard** | Comprehensive practice overview | P0 | Welcome message with personalized greeting [TODO]; Upcoming appointments widget with countdown as client countdown (each "JOIN NOW" button 10 minutes before start time) [TODO]; Client dashboard with Active/Inactive status [TODO]; Income detail with appointment breakdown [TODO]; Business profile updates |
+| **Calendar Management** | Advanced scheduling system | P0 | Google/Outlook integration buttons [TODO]; List/Calendar view toggle; TODAY/WEEK/MONTH filters; Appointment details with full details; Color-coding from calendar [TODO]; Session reminders with tiering [TODO] - Must research best practice for event calendars across desktop, tablet and mobile, using shadcn/ui where possible and flexbox/grid |
+| **Client Relationship Management** | Complete client portfolio system | P0 | Client directory with search/filtering; Status management (Active, Awaiting, Prospective, etc.) [TODO]; Match percentage to click on client to open individual client file [TODO]; Individual client file holds Session notes with templates [TODO]; Scoring metrics for that client and progress tracking [TODO] |
+| **Session Notes & Documentation** | Clinical documentation system | P1 | Add New Summary with search; Date/time stamps; Past appointment notes with filtering; Assessment tracking (GAD-7, PHQ-9 scales) [TODO]; Progress visualization [TODO]; Communication workflow [TODO] |
+| **Analytics & Business Intelligence** | Performance metrics dashboard | P0 | Key metrics: profile views, sessions booked, favorites, rating [TODO - currently mock data]; Profile views growth chart [TODO]; Cancellation analytics (happened/cancelled/rescheduled) [TODO]; Income tracking with trends [TODO]; Ways to improve section [TODO] |
 
 *Recommended implementation for Enhanced Dashboard based on the existing codebase: The dashboard page with widgets exists. Add personalized greeting using profile data. Create countdown timer component similar to client side. Use existing appointments table to show upcoming sessions. Add income calculations using session_earnings table.*
 
@@ -531,11 +531,11 @@ Mindfolk has two core user journeys with distinct flow patterns and requirements
 
 | Feature | Description | Priority | Acceptance Criteria |
 | --- | --- | --- | --- |
-| **User Impersonation System** | Safe UX testing and support | P0 | Search users by name/email/role; Masquerade mode with preview tokens; Read-only mode (not-only by default); Clear elevation controls; Full audit trail |
-| **User & Therapist Management** | Account lifecycle management | P0 | Directory with search/filter; Role change actions (suspend, restore, delete); Profile timeline with auth events; GDPR compliance tools; Bulk operations |
-| **Verification Queue** | Therapist approval workflow | P0 | Document previews with auto-signals; Approve/reject with mandatory reasons; Request more info option; Template notifications; Decision audit trail |
-| **Content Moderation** | Safety and compliance | P0 | Content booking details scan; Appeal process and compliance tracking; Moderation inbox by type/severity; Media preview panels; Policy reference system; Remove/escalate actions; Appeal process |
-| **Platform Analytics** | System-wide insights | P0 | Uptime monitoring; Active sessions tracking; Moderation backlogs; User growth metrics; Revenue analytics |
+| **User Impersonation System** | Safe UX testing and support | P0 | Search users by name/email/role; Masquerade mode with preview tokens; Read-only mode (not-only by default); Clear elevation controls; Full audit trail [TODO] |
+| **User & Therapist Management** | Account lifecycle management | P0 | Directory with search/filter; Role change actions (suspend, restore, delete) [TODO]; Profile timeline with auth events [TODO]; GDPR compliance tools [TODO]; Bulk operations [TODO] |
+| **Verification Queue** | Therapist approval workflow | P0 | Document previews with auto-signals [TODO]; Approve/reject with mandatory reasons [TODO]; Request more info option [TODO]; Template notifications [TODO]; Decision audit trail [TODO] |
+| **Content Moderation** | Safety and compliance | P0 | Content booking details scan [TODO]; Appeal process and compliance tracking [TODO]; Moderation inbox by type/severity [TODO]; Media preview panels [TODO]; Policy reference system [TODO]; Remove/escalate actions [TODO]; Appeal process [TODO] |
+| **Platform Analytics** | System-wide insights | P0 | Uptime monitoring [TODO]; Active sessions tracking [TODO]; Moderation backlogs [TODO]; User growth metrics [TODO]; Revenue analytics [TODO] |
 
 *Recommended implementation for User Impersonation System based on the existing codebase: The impersonation context provider exists. Add audit logging to track all impersonation sessions. Implement read-only mode by modifying the context to prevent write operations. Add search functionality using existing user search patterns. Create audit trail table for compliance.*
 
@@ -551,8 +551,8 @@ Mindfolk has two core user journeys with distinct flow patterns and requirements
 
 | Feature | Description | Priority | Acceptance Criteria |
 | --- | --- | --- | --- |
-| **Video Session Infrastructure** | [Daily.co](http://Daily.co) WebRTC implementation | P0 | Mobile: 8% header, 80% video, 12% controls; Tablet: 60/40 split; Desktop: 65/35 split; PiP self-view; Encrypted chat panel; Recording consent workflow |
-| **Payment Infrastructure** | Stripe Connect financial system | P0 | Multi-payment methods; Weekly therapist payouts; 15% platform fee calculation; Subscription billing (£19.50/month); Tax document generation |
+| **Video Session Infrastructure** [TODO] | [Daily.co](http://Daily.co) WebRTC implementation | P0 | Mobile: 8% header, 80% video, 12% controls; Tablet: 60/40 split; Desktop: 65/35 split; PiP self-view; Encrypted chat panel; Recording consent workflow |
+| **Payment Infrastructure** [TODO] | Stripe Connect financial system | P0 | Multi-payment methods; Weekly therapist payouts; 15% platform fee calculation; Subscription billing (£19.50/month); Tax document generation |
 
 *Recommended implementation for Video Session Infrastructure based on the existing codebase: Integrate Daily.co using the existing session room UI at `/src/pages/session/SessionRoom.tsx`. Create Supabase Edge Functions to generate secure room tokens. Use the existing appointments table to trigger session creation and track attendance. The UI components are already in place with mock functionality.*
 
@@ -597,14 +597,14 @@ Mindfolk has two core user journeys with distinct flow patterns and requirements
 
 | System | Purpose | Implementation Status |
 | --- | --- | --- |
-| [**Daily.co**](http://Daily.co) | Live video sessions | *Not integrated - UI ready* |
-| **Cloudflare Stream** | Profile video hosting | *Not integrated* |
-| **Stripe Connect** | Payment processing | *Not integrated - Payment form UI exists* |
+| [**Daily.co**](http://Daily.co) | Live video sessions | *Not integrated - UI ready* [TODO] |
+| **Cloudflare Stream** | Profile video hosting | *Not integrated* [TODO] |
+| **Stripe Connect** | Payment processing | *Not integrated - Payment form UI exists* [TODO] |
 | **[CHANGED] Supabase Auth** | Authentication | **Implemented** - JWT tokens, role-based access |
 | **Supabase** | Backend infrastructure | **Implemented** - RLS policies, database, storage |
-| **PostHog** | Analytics | *Not integrated* |
-| **Resend** | Email delivery | *Not integrated* |
-| **Twilio** | SMS notifications | *Not integrated* |
+| **PostHog** | Analytics | *Not integrated* [TODO] |
+| **Resend** | Email delivery | *Not integrated* [TODO] |
+| **Twilio** | SMS notifications | *Not integrated* [TODO] |
 
 *Recommended implementation for Daily.co integration based on the existing codebase: The session room UI components are ready. Install @daily-co/daily-js SDK. Create Edge Function to generate room tokens with proper expiry. Update SessionRoom component to initialize Daily client. Add device selection UI using existing form components.*
 
@@ -2912,3 +2912,69 @@ create table conversations (
    - Report functionality for users
    - Admin review queue for flagged content
    - Emergency escalation protocols
+
+---
+
+## **TODO SUMMARY TABLE**
+
+| Section | Line # | Feature/Item | Current Status | What's Left to Do | Priority | Recommended Implementation | Potential Risks |
+|---------|--------|--------------|----------------|-------------------|----------|----------------------------|------------------|
+| Product Vision | 15 | Therapist intro videos | Not implemented | Add video recording/upload for therapist profiles | P1 | Use browser MediaRecorder API for recording. Upload to Supabase Storage with size limits. Add video preview component similar to existing session room UI. Store video URL in therapist_profiles table which already has the field defined | Reduced differentiation |
+| Client Features | 485 | Video profiles | UI exists, no video | Integrate Cloudflare Stream for video hosting | P1 | Use for hosting therapist intro videos. Configure Cloudflare Stream API. Upload videos from the existing upload UI to Cloudflare. Store video URLs in therapist_profiles table. Add video player component with streaming optimization | Less engaging discovery |
+| Client Features | 486 | Chemistry Call Booking | Not implemented | Extend appointment system for 15-min free calls | P0 | Extend the existing appointment booking system to add a chemistry call type with 15-minute duration limit. Use the current calendar UI and appointment creation flow, but add logic to make these calls free and track conversion to paid sessions. The database structure already supports different appointment types | Missing key conversion feature |
+| Client Features | 487 | Direct Booking Payment | UI only | Integrate Stripe payment processing | P0 | The payment form UI components already exist at `/src/components/payment/`. Integrate Stripe using Supabase Edge Functions for secure server-side processing. Use the existing session_earnings table to track therapist payouts and platform fees. Add webhook handlers for payment events | Cannot transact |
+| Client Features | 488 | Session countdown timer | Not implemented | Add React countdown component | P1 | The appointments page and database structure exist. Add a countdown timer component using React hooks. Switch to JOIN NOW button 5 minutes before appointment time | Poor user experience |
+| Client Features | 488 | Session reminders | Not implemented | Setup Resend/Twilio notifications | P0 | Implement reminder notifications via Supabase Edge Functions with Resend/Twilio | Missed appointments |
+| Client Features | 488 | Live video interface | UI only | Integrate Daily.co WebRTC | P0 | The session room UI is ready for Daily.co integration. Integrate Daily.co using the existing session room UI at `/src/pages/session/SessionRoom.tsx`. Create Supabase Edge Functions to generate secure room tokens. Use the existing appointments table to trigger session creation and track attendance | Cannot deliver therapy |
+| Client Features | 488 | Post-call feedback | Not implemented | Create feedback forms and tables | P1 | For post-call feedback, create a feedback form component that appears after session end time. Store feedback in a new `session_feedback` table | No quality metrics |
+| Client Features | 488 | Post-session testimonial | Not implemented | Add review system | P2 | Add review component after session verification. Store in reviews table | No social proof |
+| Client Features | 492 | Upcoming appointments | Partial | Join appointments with favorites | P2 | The favorites functionality is partially implemented. Enhance the existing favorites page to show upcoming appointments by joining with appointments table | Incomplete UX |
+| Client Features | 492 | Chemistry call logic | Not implemented | Add conditional booking buttons | P1 | Add conditional booking buttons based on past chemistry call history | Confusing flow |
+| Client Features | 492 | Notifications system | Not implemented | Create notifications table and UI | P1 | For notifications, create a `notifications` table and use Supabase Realtime for push updates | Poor engagement |
+| Client Features | 492 | File attachments | Not implemented | Setup Supabase Storage with RLS | P2 | File attachments can use Supabase Storage with proper RLS policies | Cannot share documents |
+| Client Features | 493 | Payment Processing | UI only | Full Stripe integration | P0 | The payment form UI components already exist at `/src/components/payment/`. Integrate Stripe using Supabase Edge Functions for secure server-side processing. Use the existing session_earnings table to track therapist payouts and platform fees. Add webhook handlers for payment events | No revenue |
+| Client Features | 494 | Notification settings | Not implemented | Add preferences UI | P2 | Email verification is handled by Supabase Auth. Extend the settings page to include notification preferences (stored in profiles table) | No user control |
+| Client Features | 494 | Document preferences | Not implemented | Add document management | P2 | Add document upload using Supabase Storage | GDPR compliance gap |
+| Client Features | 494 | Photo upload | Not implemented | Add avatar upload | P2 | Add avatar upload to Supabase Storage with image optimization | Incomplete profiles |
+| Client Features | 494 | Help centre/FAQs | Not implemented | Create help pages | P1 | Create a help center page with FAQ content | Poor support |
+| Client Features | 494 | Support ticketing | Table exists, no UI | Build ticket submission UI | P1 | The support ticketing system table structure exists (`support_tickets`) but needs UI implementation | No support system |
+| Therapist Features | 508 | Personalized greeting | Not implemented | Add dynamic welcome message | P2 | The dashboard page with widgets exists. Add personalized greeting using profile data | Less engaging |
+| Therapist Features | 508 | Appointment countdown | Not implemented | Reuse client countdown component | P2 | Create countdown timer component similar to client side | Inconsistent UX |
+| Therapist Features | 508 | Client status dashboard | Not implemented | Create client status tracking | P2 | Use existing appointments table to show upcoming sessions | Poor client management |
+| Therapist Features | 508 | Income tracking | Mock data only | Connect to real earnings data | P1 | Add income calculations using session_earnings table | No financial visibility |
+| Therapist Features | 509 | Google/Outlook sync | Not implemented | OAuth2 calendar integration | P1 | The calendar page exists. Add OAuth2 integration for Google Calendar API and Microsoft Graph API for Outlook. Store tokens in encrypted format in profiles table. Use existing availability system as base | Manual scheduling |
+| Therapist Features | 509 | Calendar color-coding | Not implemented | Add appointment type colors | P2 | Add color-coding by mapping appointment types to colors | Poor visual organization |
+| Therapist Features | 509 | Session reminders | Not implemented | Notification system | P0 | Research and implement shadcn/ui calendar components | Missed sessions |
+| Therapist Features | 510 | Client status management | Not implemented | Add status field to relationships | P2 | The clients page exists. Extend with status field in a new client_relationships table | Poor organization |
+| Therapist Features | 510 | Match percentage | Not implemented | Calculate reverse matching | P2 | Calculate match percentage using existing matching algorithm in reverse | Missing insights |
+| Therapist Features | 510 | Session note templates | Not implemented | Create template system | P1 | Create client file pages with tabs for different sections. Store session notes in existing client_session_notes table with template support | Inefficient documentation |
+| Therapist Features | 510 | Progress tracking | Not implemented | Add metrics visualization | P2 | Add metrics visualization using existing charting library | No outcome tracking |
+| Therapist Features | 511 | GAD-7/PHQ-9 scales | Not implemented | Add assessment forms | P1 | Notes UI exists. Add standardized assessment forms (GAD-7, PHQ-9) as React components. Store scores in JSONB field in client_session_notes | No clinical tools |
+| Therapist Features | 511 | Progress visualization | Not implemented | Add charts for metrics | P2 | Use existing charting library for progress visualization | No visual insights |
+| Therapist Features | 511 | Communication workflow | Not implemented | Create workflow system | P2 | Add template system for common note types | Poor communication |
+| Therapist Features | 512 | Analytics - all metrics | Mock data only | Connect to real data sources | P1 | Business page with charts exists but uses mock data. Connect to real data: profile views from analytics events, sessions from appointments table, favorites from favorites table, ratings from reviews/feedback. Calculate income from session_earnings. Add trend analysis using date ranges | No business intelligence |
+| Admin Features | 534 | Audit trail | Not implemented | Add audit logging table | P1 | The impersonation context provider exists. Add audit logging to track all impersonation sessions. Implement read-only mode by modifying the context to prevent write operations. Add search functionality using existing user search patterns. Create audit trail table for compliance | Compliance risk |
+| Admin Features | 535 | Role change actions | Not implemented | Add suspension/deletion | P1 | Users and therapists pages exist. Add role change actions using Supabase Auth admin API. Implement soft delete with status field | Cannot manage users |
+| Admin Features | 535 | Profile timeline | Not implemented | Add auth event tracking | P2 | Add auth event tracking using Supabase hooks | No user history |
+| Admin Features | 535 | GDPR tools | Not implemented | Add export/deletion | P1 | Add GDPR export using database queries. Create bulk operations UI with checkbox selection pattern | Legal compliance risk |
+| Admin Features | 535 | Bulk operations | Not implemented | Add checkbox selection UI | P2 | Create bulk operations UI with checkbox selection pattern | Inefficient management |
+| Admin Features | 536 | Document previews | Not implemented | Add Storage preview | P1 | Basic approval workflow exists. Add document preview using Supabase Storage URLs | Cannot verify therapists |
+| Admin Features | 536 | Mandatory reasons | Not implemented | Add reason field | P2 | Add decision reasons field to therapist_applications table | No decision tracking |
+| Admin Features | 536 | Request more info | Not implemented | Add request workflow | P2 | Create notification templates in Edge Functions | Incomplete verification |
+| Admin Features | 536 | Template notifications | Not implemented | Create email templates | P2 | Create notification templates in Edge Functions | Manual communication |
+| Admin Features | 536 | Decision audit trail | Not implemented | Add audit logging | P1 | Implement audit trail for all verification decisions | No accountability |
+| Admin Features | 537 | Content scanning | Not implemented | Add keyword detection | P2 | Moderation page UI exists. Create moderation_queue table for flagged content. Add content scanning using keyword detection | Safety risk |
+| Admin Features | 537 | Appeal process | Not implemented | Create appeal workflow | P2 | Implement appeal process with status tracking. Add policy reference documentation page | No dispute resolution |
+| Admin Features | 537 | Moderation inbox | UI only | Implement queue system | P2 | Create flagged content queue system | No content moderation |
+| Admin Features | 537 | Media preview | Not implemented | Add preview components | P2 | Add media preview panels for content review | Cannot review content |
+| Admin Features | 537 | Policy reference | Not implemented | Create policy docs | P2 | Add policy reference documentation page | No guidelines |
+| Admin Features | 537 | Remove/escalate | Not implemented | Add action handlers | P2 | Add remove/escalate action handlers | Cannot moderate |
+| Admin Features | 538 | All platform analytics | Mock data only | Connect real data | P1 | Overview page with KPI cards exists. Connect to real data sources: uptime from health checks, active sessions from auth, user growth from profiles table, revenue from session_earnings. Add time-series charts using existing charting library | No platform insights |
+| Platform Core | 554 | Video Sessions | UI only | Daily.co integration | P0 | Integrate Daily.co using the existing session room UI at `/src/pages/session/SessionRoom.tsx`. Create Supabase Edge Functions to generate secure room tokens. Use the existing appointments table to trigger session creation and track attendance. The UI components are already in place with mock functionality | Cannot deliver therapy |
+| Platform Core | 555 | Payment Infrastructure | UI only | Stripe Connect setup | P0 | Integrate Stripe using the existing payment form UI components at `/src/components/payment/`. Create Supabase Edge Functions for server-side payment processing. Use the existing session_earnings table structure to track therapist earnings and platform fees. The database schema already supports financial tracking | No revenue |
+| Integrations | 600 | Daily.co | Not integrated | WebRTC implementation | P0 | The session room UI components are ready. Install @daily-co/daily-js SDK. Create Edge Function to generate room tokens with proper expiry. Update SessionRoom component to initialize Daily client. Add device selection UI using existing form components | No video calls |
+| Integrations | 601 | Cloudflare Stream | Not integrated | Video hosting setup | P1 | Use for hosting therapist intro videos. Configure Cloudflare Stream API. Upload videos from the existing upload UI to Cloudflare. Store video URLs in therapist_profiles table. Add video player component with streaming optimization | No video profiles |
+| Integrations | 602 | Stripe Connect | UI only | Payment processing | P0 | Payment form UI exists. Setup Stripe Connect onboarding for therapists. Create Edge Functions for payment processing. Use webhooks to update session_earnings table. Implement weekly payout scheduling. Add invoice generation for tax compliance | No transactions |
+| Integrations | 605 | PostHog | Not integrated | Analytics tracking | P1 | Install PostHog JS SDK. Configure privacy-compliant tracking. Create custom events for key actions (booking, matching, conversion). Build dashboards for product metrics. Export data to existing analytics pages | No product metrics |
+| Integrations | 606 | Resend | Not integrated | Email notifications | P0 | Create Edge Functions for email sending. Design email templates matching brand. Setup triggers for key events (booking confirmation, reminders). Add unsubscribe management. Track email metrics | No communications |
+| Integrations | 607 | Twilio | Not integrated | SMS notifications | P0 | Setup Twilio account with UK phone numbers. Create Edge Functions for SMS sending. Implement appointment reminders. Add opt-in/opt-out management. Handle international number formatting | No reminders |
