@@ -31,14 +31,24 @@ Critical Blockers: **GDPR compliance, Video profiles, Payment + Chemistry calls,
 
 **Prompt:**
 ```
-I need you to implement Sprint 1.1 (Compliance & Trust) for Mindfolk therapy platform. I am a non-technical solo developer.
+You are helping me (a non-technical solo developer with ADHD) implement Sprint 1.1 (Compliance & Trust) for Mindfolk therapy platform.
 
-CONTEXT:
+IMPORTANT CONTEXT FOR YOU (THE AI):
+- I am ONE person, not a team
+- I am completely non-technical 
+- I have ADHD - please give me VERY clear, step-by-step instructions
+- Explain things like I'm 5 years old
+- The Supabase MCP lets you QUERY/READ data but CANNOT make changes
+- You can run SELECT queries to look at data
+- I must manually copy and paste any SQL changes into my Supabase Dashboard
+
+FILES YOU SHOULD READ:
 - Read the PRD at: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\docs\MINDFOLK_PRD.md
-- Use Supabase MCP to query existing tables: run mcp0_list_tables first
+- Use mcp0_list_tables to see all tables
+- Use mcp0_execute_sql to query data (SELECT statements only)
 - Current migration files are in: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\supabase\migrations\
 
-DELIVERABLES (create these exact files):
+DELIVERABLES (create these files for me to use):
 1. File: supabase/migrations/[timestamp]_audit_trail_and_gdpr.sql
    - CREATE TABLE audit_trail (id, user_id, action, table_name, record_id, old_data JSONB, new_data JSONB, ip_address, user_agent, created_at)
    - CREATE TABLE moderation_queue (id, content_type, content_id, reported_by, reason, status, reviewed_by, reviewed_at)
@@ -72,14 +82,20 @@ CONSTRAINTS:
 - Edge functions must use Deno/TypeScript
 - Must follow existing RLS patterns from other tables
 
-ACCEPTANCE CRITERIA:
-✓ All 3 new tables created with proper columns
+ACCEPTANCE CRITERIA (tell me how to check each one):
+✓ All 5 new tables created with proper columns
 ✓ RLS policies allow users to see own data, admins see all
 ✓ Audit trail automatically logs changes
 ✓ GDPR export returns complete user data as JSON
 ✓ GDPR delete anonymizes data properly
 ✓ Content moderation flags inappropriate content
 ✓ Favorites and support_tickets have RLS
+
+HOW TO HELP ME:
+1. Create the SQL file - I will copy it to Supabase Dashboard
+2. Create the Edge Function files - I will deploy them
+3. Tell me EXACTLY what to click and where in simple steps
+4. Check your work using MCP queries after I apply changes
 ```
 
 ### **Sprint 1.2: Video Profiles & Quick Wins**
@@ -97,9 +113,20 @@ ACCEPTANCE CRITERIA:
 
 **Prompt:**
 ```
-I need you to implement Sprint 1.2 (Video Profiles & Quick Wins) for Mindfolk. I am a non-technical solo developer.
+You are helping me (a non-technical solo developer with ADHD) implement Sprint 1.2 (Video Profiles & Quick Wins) for Mindfolk.
 
-CONTEXT:
+IMPORTANT CONTEXT FOR YOU (THE AI):
+- I am ONE person working alone
+- I am completely non-technical
+- I have ADHD - give me baby steps, one thing at a time
+- The Supabase MCP DOES allow you to query/read data
+- The Supabase MCP DOES allow you to list tables and see structure
+- The Supabase MCP DOES allow you to run SELECT queries to look at data
+- The Supabase MCP DOES NOT allow you (The AI) to write/change data
+- You can only make files, I will copy them to Supabase
+- Tell me EXACTLY what to copy, where to paste it, what button to click
+
+FILES YOU SHOULD READ:
 - Read the PRD at: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\docs\MINDFOLK_PRD.md
 - Design system at: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\src\styles\design-tokens.css
 - Therapist profile component: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\src\components\therapist\TherapistProfileForm.tsx
@@ -146,13 +173,19 @@ CONSTRAINTS:
 - Keep Cloudflare API keys in environment variables
 - Do NOT create new pages, only components
 
-ACCEPTANCE CRITERIA:
+ACCEPTANCE CRITERIA (I'll test each one):
 ✓ Therapists can record/upload 2-minute intro videos
 ✓ Videos display in discovery flow
 ✓ Admin can see document previews
 ✓ Decision reasons are saved and displayed
 ✓ Analytics show real data from database
 ✓ All components are accessible and responsive
+
+REMEMBER:
+- Create files for me to use
+- Tell me step-by-step how to test
+- Use simple words
+- One instruction at a time
 ```
 
 **Phase 1 Deliverables:** GDPR compliant, moderation ready, therapist verification professional, video profiles working
@@ -183,11 +216,23 @@ ACCEPTANCE CRITERIA:
 
 **Prompt:**
 ```
-I need you to implement Sprint 2.1 (Email Infrastructure) for Mindfolk. I am a non-technical solo developer.
+You are helping me (a non-technical solo developer with ADHD) implement Sprint 2.1 (Email Infrastructure) for Mindfolk.
 
-CONTEXT:
+IMPORTANT CONTEXT FOR YOU (THE AI):
+- I am ONE person working alone
+- I am completely non-technical
+- I have ADHD - give me baby steps, one thing at a time
+- The Supabase MCP DOES allow you to query/read data
+- The Supabase MCP DOES allow you to list tables and see structure
+- The Supabase MCP DOES allow you to run SELECT queries to look at data
+- The Supabase MCP DOES NOT allow you (The AI) to write/change data
+- You can only make files, I will copy them to Supabase
+- Tell me EXACTLY what to copy, where to paste it, what button to click
+- I need exact instructions: "Click this button" "Copy this text" "Paste it here"
+
+WHAT YOU SHOULD CHECK:
 - Read PRD: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\docs\MINDFOLK_PRD.md
-- Query schema using Supabase MCP: run mcp0_list_tables and mcp0_execute_sql
+- Look at existing tables with: mcp0_list_tables (you can only READ)
 - Email templates should match brand colors from: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\src\styles\design-tokens.css
 
 DELIVERABLES:
@@ -224,13 +269,19 @@ CONSTRAINTS:
 - Test with Resend test mode first
 - Do NOT send real emails until approved
 
-ACCEPTANCE CRITERIA:
+ACCEPTANCE CRITERIA (how I know it works):
 ✓ Email logs table created with RLS
 ✓ Send-email function connects to Resend
 ✓ All 5 templates created and styled
 ✓ Emails log to database
 ✓ Test email sends successfully
 ✓ Error handling works properly
+
+WHAT YOU MUST DO:
+1. Create SQL file - I copy to Supabase
+2. Create Edge Function - I deploy it
+3. Create email templates - I use them
+4. Show me how to test step-by-step
 ```
 
 ### **Sprint 2.2: SMS Infrastructure (P0)**
@@ -246,12 +297,24 @@ ACCEPTANCE CRITERIA:
 
 **Prompt:**
 ```
-I need you to implement Sprint 2.2 (SMS Infrastructure) for Mindfolk UK therapy platform. I am a non-technical solo developer.
+You are helping me (a non-technical solo developer with ADHD) implement Sprint 2.2 (SMS Infrastructure) for Mindfolk UK therapy platform.
 
-CONTEXT:
+IMPORTANT CONTEXT FOR YOU (THE AI):
+- I am ONE person working alone
+- I am completely non-technical
+- I have ADHD - give me baby steps, one thing at a time
+- The Supabase MCP DOES allow you to query/read data
+- The Supabase MCP DOES allow you to list tables and see structure
+- The Supabase MCP DOES allow you to run SELECT queries to look at data
+- The Supabase MCP DOES NOT allow you (The AI) to write/change data
+- You can only make files, I will copy them to Supabase
+- Tell me EXACTLY what to copy, where to paste it, what button to click
+- Give me exact instructions: "Click here" "Type this" "Paste there"
+
+CONTEXT TO CHECK:
 - Read PRD: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\docs\MINDFOLK_PRD.md
 - UK phone numbers format: +44 7XXX XXXXXX
-- Use Supabase MCP to check profiles table structure
+- Look at profiles table with MCP (REMEMBER: you can only READ)
 - SMS consent must be GDPR compliant
 
 DELIVERABLES:
@@ -291,13 +354,20 @@ CONSTRAINTS:
 - Handle STOP replies automatically
 - Test with Twilio test credentials first
 
-ACCEPTANCE CRITERIA:
+ACCEPTANCE CRITERIA (I'll check each one):
 ✓ Phone verification works
 ✓ SMS only sends with consent
 ✓ UK number validation works
 ✓ Opt-out process works
 ✓ SMS logs track all messages
 ✓ Costs are calculated correctly
+
+WHAT YOU NEED TO DO:
+1. Create SQL file - I'll copy to Supabase Dashboard
+2. Create SMS Edge Functions - I'll deploy them
+3. Create React component - I'll use it
+4. Tell me EXACTLY how to set up Twilio (every click)
+5. Give me simple test steps
 ```
 
 ### **Sprint 2.3: Automated Scheduling**
@@ -312,11 +382,23 @@ ACCEPTANCE CRITERIA:
 
 **Prompt:**
 ```
-I need you to implement Sprint 2.3 (Automated Scheduling) for Mindfolk. I am a non-technical solo developer.
+You are helping me (a non-technical solo developer with ADHD) implement Sprint 2.3 (Automated Scheduling) for Mindfolk.
 
-CONTEXT:
+IMPORTANT CONTEXT FOR YOU (THE AI):
+- I am ONE person working alone
+- I am completely non-technical
+- I have ADHD - give me baby steps, one thing at a time
+- The Supabase MCP DOES allow you to query/read data
+- The Supabase MCP DOES allow you to list tables and see structure
+- The Supabase MCP DOES allow you to run SELECT queries to look at data
+- The Supabase MCP DOES NOT allow you (The AI) to write/change data
+- You can only make files, I will copy them to Supabase
+- Tell me EXACTLY what to copy, where to paste it, what button to click
+- Tell me exactly what to click, where to go, what to type
+
+CHECK THIS FIRST:
 - Read PRD: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\docs\MINDFOLK_PRD.md
-- Query appointments table structure with Supabase MCP
+- Look at appointments table with MCP (you can only READ)
 - Platform operates in UK timezone (GMT/BST)
 - Cron jobs run on Supabase infrastructure
 
@@ -356,7 +438,7 @@ CONSTRAINTS:
 - Maximum 2 reminders per appointment
 - Include error recovery
 
-ACCEPTANCE CRITERIA:
+ACCEPTANCE CRITERIA (how I test):
 ✓ pg_cron enabled successfully
 ✓ Cron jobs created and scheduled
 ✓ 24-hour reminders send correctly
@@ -364,6 +446,12 @@ ACCEPTANCE CRITERIA:
 ✓ Missed appointment alerts work
 ✓ Timezone handling is correct
 ✓ No duplicate reminders sent
+
+YOUR TASKS:
+1. Create SQL files for cron setup - I paste in Supabase
+2. Create reminder Edge Function - I deploy it
+3. Show me how to check if cron is working
+4. Give me test steps a child could follow
 ```
 
 **Phase 2 Deliverables:** Full email/SMS capability, automated reminders
@@ -390,11 +478,23 @@ ACCEPTANCE CRITERIA:
 
 **Prompt:**
 ```
-I need you to implement Sprint 3.1 (Stripe Foundation) for Mindfolk UK therapy platform. I am a non-technical solo developer.
+You are helping me (a non-technical solo developer with ADHD) implement Sprint 3.1 (Stripe Foundation) for Mindfolk UK therapy platform.
 
-CONTEXT:
+IMPORTANT CONTEXT FOR YOU (THE AI):
+- I am ONE person working alone
+- I am completely non-technical
+- I have ADHD - give me baby steps, one thing at a time
+- The Supabase MCP DOES allow you to query/read data
+- The Supabase MCP DOES allow you to list tables and see structure
+- The Supabase MCP DOES allow you to run SELECT queries to look at data
+- The Supabase MCP DOES NOT allow you (The AI) to write/change data
+- You can only make files, I will copy them to Supabase
+- Tell me EXACTLY what to copy, where to paste it, what button to click
+- Tell me EXACTLY where to click, what to type
+
+CONTEXT TO CHECK:
 - Read PRD: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\docs\MINDFOLK_PRD.md
-- Query session_earnings table with Supabase MCP: mcp0_execute_sql
+- Look at session_earnings table with: mcp0_execute_sql (REMEMBER: READ-ONLY)
 - UK pricing in GBP, platform takes 20% commission
 - Therapists need Stripe Connect accounts for payouts
 - Check existing payment UI at: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\src\components\payment\
@@ -445,13 +545,19 @@ CONSTRAINTS:
 - Use Stripe Elements in frontend
 - Implement idempotency keys
 
-ACCEPTANCE CRITERIA:
+ACCEPTANCE CRITERIA (I'll test each):
 ✓ Payment intent creation works
 ✓ Webhook receives events
 ✓ Session earnings auto-calculate
 ✓ Therapist onboarding flow works
 ✓ Test payment succeeds
 ✓ Failed payments handled correctly
+
+YOUR JOB:
+1. Create SQL migration file - I'll paste in Supabase
+2. Create Edge Functions - I'll deploy them
+3. Tell me EXACTLY how to set up Stripe (which buttons to click)
+4. Give me test steps that a 5-year-old could follow
 ```
 
 ### **Sprint 3.2: Payment Flows & Chemistry Calls**
@@ -470,9 +576,21 @@ ACCEPTANCE CRITERIA:
 
 **Prompt:**
 ```
-I need you to implement Sprint 3.2 (Payment Flows & Chemistry Calls) for Mindfolk. I am a non-technical solo developer.
+You are helping me (a non-technical solo developer with ADHD) implement Sprint 3.2 (Payment Flows & Chemistry Calls) for Mindfolk.
 
-CONTEXT:
+IMPORTANT CONTEXT FOR YOU (THE AI):
+- I am ONE person working alone
+- I am completely non-technical
+- I have ADHD - give me baby steps, one thing at a time
+- The Supabase MCP DOES allow you to query/read data
+- The Supabase MCP DOES allow you to list tables and see structure
+- The Supabase MCP DOES allow you to run SELECT queries to look at data
+- The Supabase MCP DOES NOT allow you (The AI) to write/change data
+- You can only make files, I will copy them to Supabase
+- Tell me EXACTLY what to copy, where to paste it, what button to click
+- Tell me EXACTLY where to click/type/paste
+
+CONTEXT TO READ:
 - Read PRD: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\docs\MINDFOLK_PRD.md
 - Chemistry calls are FREE 15-minute video sessions
 - After chemistry call, clients can book paid sessions
@@ -529,7 +647,7 @@ CONSTRAINTS:
 - Mobile-responsive checkout
 - Clear pricing display
 
-ACCEPTANCE CRITERIA:
+ACCEPTANCE CRITERIA (I'll verify):
 ✓ Chemistry calls book without payment
 ✓ Paid sessions require payment
 ✓ Conversion tracking works
@@ -537,6 +655,13 @@ ACCEPTANCE CRITERIA:
 ✓ 3D Secure handled
 ✓ Invoice generated
 ✓ End-to-end test passes
+
+WHAT YOU DO:
+1. Create SQL migration - I paste in Supabase
+2. Create React components - I add to app
+3. Update existing pages - show me exactly what to change
+4. Create test file - I run tests
+5. Give me click-by-click test instructions
 ```
 
 **Phase 3 Deliverables:** Full payment processing, chemistry calls working, conversion tracking ready
@@ -565,12 +690,23 @@ ACCEPTANCE CRITERIA:
 
 **Prompt:**
 ```
-I need you to implement Sprint 4.1 (Daily.co Video Integration) for Mindfolk therapy platform. I am a non-technical solo developer.
+You are helping me (a non-technical solo developer with ADHD) implement Sprint 4.1 (Daily.co Video Integration) for Mindfolk therapy platform.
 
-CONTEXT:
+IMPORTANT CONTEXT FOR YOU (THE AI):
+- I am ONE person working alone
+- I am completely non-technical
+- I have ADHD - give me baby steps, one thing at a time
+- The Supabase MCP DOES allow you to query/read data
+- The Supabase MCP DOES allow you to list tables and see structure
+- The Supabase MCP DOES allow you to run SELECT queries to look at data
+- The Supabase MCP DOES NOT allow you (The AI) to write/change data
+- You can only make files, I will copy them to Supabase
+- Tell me EXACTLY what to copy, where to paste it, what button to click
+
+CONTEXT FILES:
 - Read PRD: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\docs\MINDFOLK_PRD.md
 - Session room UI exists at: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\src\pages\session\SessionRoom.tsx
-- Query appointments table with Supabase MCP to understand structure
+- Look at appointments table with MCP (REMEMBER: READ-ONLY)
 - Video calls are 50-minute therapy sessions
 - Chemistry calls are 15-minute sessions
 
@@ -631,7 +767,7 @@ CONSTRAINTS:
 - Record sessions only with consent
 - Mobile-responsive video UI
 
-ACCEPTANCE CRITERIA:
+ACCEPTANCE CRITERIA (I'll test):
 ✓ Video room creates for appointment
 ✓ Both participants can join
 ✓ Audio/video controls work
@@ -639,6 +775,14 @@ ACCEPTANCE CRITERIA:
 ✓ Waiting room shows correctly
 ✓ Session ends automatically
 ✓ Mobile video works
+
+YOUR JOB:
+1. Create SQL migration - I paste to Supabase
+2. Create Edge Functions - I deploy them
+3. Update SessionRoom page - show me exact changes
+4. Create video components - I add them
+5. Tell me how to set up Daily.co (every single click)
+6. Give me simple test steps
 ```
 
 **Phase 4 Deliverables:** Working video therapy sessions
@@ -663,14 +807,25 @@ ACCEPTANCE CRITERIA:
 
 **Prompt:**
 ```
-I need you to implement Sprint 5.1 (Essential P1 Features) for Mindfolk. I am a non-technical solo developer.
+You are helping me (a non-technical solo developer with ADHD) implement Sprint 5.1 (Essential P1 Features) for Mindfolk.
 
-CONTEXT:
+IMPORTANT CONTEXT FOR YOU (THE AI):
+- I am ONE person working alone
+- I am completely non-technical
+- I have ADHD - give me baby steps, one thing at a time
+- The Supabase MCP DOES allow you to query/read data
+- The Supabase MCP DOES allow you to list tables and see structure
+- The Supabase MCP DOES allow you to run SELECT queries to look at data
+- The Supabase MCP DOES NOT allow you (The AI) to write/change data
+- You can only make files, I will copy them to Supabase
+- Tell me EXACTLY what to copy, where to paste it, what button to click
+
+CONTEXT TO CHECK:
 - Read PRD: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\docs\MINDFOLK_PRD.md
 - Support tickets table exists, needs UI
 - Clinical tools needed for professional therapy
 - Moderation for safety
-- Query existing tables with Supabase MCP
+- Look at existing tables with MCP (REMEMBER: READ-ONLY)
 
 DELIVERABLES:
 1. Update: src/pages/client/Support.tsx
@@ -728,7 +883,7 @@ CONSTRAINTS:
 - Support tickets need email notifications
 - Use existing design tokens
 
-ACCEPTANCE CRITERIA:
+ACCEPTANCE CRITERIA (I verify each):
 ✓ Support tickets can be created/viewed
 ✓ GAD-7 form calculates correctly
 ✓ PHQ-9 form with risk assessment
@@ -736,6 +891,13 @@ ACCEPTANCE CRITERIA:
 ✓ Moderation queue displays flagged items
 ✓ Report content flow works
 ✓ Calendar sync structure ready
+
+WHAT YOU MUST DO:
+1. Create/update React pages - I add to app
+2. Create clinical form components - I use them
+3. Create moderation UI - I deploy it
+4. Show me exactly what to change in existing files
+5. Give me test steps I can follow easily
 ```
 
 ### **Sprint 5.2: Testing & Launch Prep**
@@ -751,9 +913,20 @@ ACCEPTANCE CRITERIA:
 
 **Prompt:**
 ```
-I need you to implement Sprint 5.2 (Testing & Launch Prep) for Mindfolk. I am a non-technical solo developer preparing for production launch.
+You are helping me (a non-technical solo developer with ADHD) implement Sprint 5.2 (Testing & Launch Prep) for Mindfolk production launch.
 
-CONTEXT:
+IMPORTANT CONTEXT FOR YOU (THE AI):
+- I am ONE person working alone
+- I am completely non-technical
+- I have ADHD - give me baby steps, one thing at a time
+- The Supabase MCP DOES allow you to query/read data
+- The Supabase MCP DOES allow you to list tables and see structure
+- The Supabase MCP DOES allow you to run SELECT queries to look at data
+- The Supabase MCP DOES NOT allow you (The AI) to write/change data
+- You can only make files, I will copy them to Supabase
+- Tell me EXACTLY what to copy, where to paste it, what button to click
+
+WHAT TO CHECK:
 - Read PRD: c:\Users\carol\Desktop\Mindfolk Cursor\soulful-sync-care\docs\MINDFOLK_PRD.md
 - All previous sprints completed
 - Need comprehensive testing before launch
@@ -822,7 +995,7 @@ CONSTRAINTS:
 - Documentation must be comprehensive
 - All tests must pass before launch
 
-ACCEPTANCE CRITERIA:
+ACCEPTANCE CRITERIA (final checks):
 ✓ All critical path tests pass
 ✓ Security audit finds no P0 issues
 ✓ Performance meets targets
@@ -830,6 +1003,14 @@ ACCEPTANCE CRITERIA:
 ✓ Runbook covers common scenarios
 ✓ Production env configured
 ✓ Seed data works correctly
+
+YOUR TASKS:
+1. Create all test files - I run them
+2. Create launch checklist - I follow it
+3. Create runbook - I use for problems
+4. Create seed data - I load it
+5. Tell me EXACTLY how to run each test
+6. Give me a launch day checklist with baby steps
 ```
 
 **Phase 5 Deliverables:** Production-ready MVP
