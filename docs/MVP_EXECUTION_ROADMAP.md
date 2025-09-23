@@ -95,7 +95,7 @@ HOW TO HELP ME:
 1. Create the SQL file - I will copy it to Supabase Dashboard
 2. Create the Edge Function files - I will deploy them
 3. Tell me EXACTLY what to click and where in simple steps
-4. Check your work using MCP queries after I apply changes
+4. Check your work using MCP queries and tests after I apply changes
 ```
 
 ### **Sprint 1.2: Video Profiles & Quick Wins**
@@ -182,10 +182,13 @@ ACCEPTANCE CRITERIA (I'll test each one):
 ✓ All components are accessible and responsive
 
 REMEMBER:
+- All supabase changes will be made by me wtihin the supabase browser interface. You just need to tell me step-by-step what I should copy and where I should paste it within the superbase interface
 - Create files for me to use
 - Tell me step-by-step how to test
 - Use simple words
 - One instruction at a time
+
+First, reiterate these instructions back to me so I can check your comprehensive understanding of your tasks
 ```
 
 **Phase 1 Deliverables:** GDPR compliant, moderation ready, therapist verification professional, video profiles working
@@ -281,7 +284,18 @@ WHAT YOU MUST DO:
 1. Create SQL file - I copy to Supabase
 2. Create Edge Function - I deploy it
 3. Create email templates - I use them
-4. Show me how to test step-by-step
+4. Show me how to test step-by-step and remember that YOU can test Supabase via the MCP server
+
+REMEMBER:
+- All supabase changes will be made by me wtihin the supabase browser interface. You just need to tell me step-by-step what I should copy and where I should paste it within the superbase interface
+- Create files for me to use
+- Tell me step-by-step how to test
+- Use simple words
+- One instruction at a time
+- Remember that YOU can test Supabase via the MCP server
+
+
+FIRST! You must reiterate these instructions back to me so I can check your comprehensive understanding of your tasks
 ```
 
 ### **Sprint 2.2: SMS Infrastructure (P0)**
@@ -367,7 +381,17 @@ WHAT YOU NEED TO DO:
 2. Create SMS Edge Functions - I'll deploy them
 3. Create React component - I'll use it
 4. Tell me EXACTLY how to set up Twilio (every click)
-5. Give me simple test steps
+5. Give me simple test steps - and - Remember that YOU can test Supabase via the MCP server
+
+REMEMBER:
+- All supabase changes will be made by me wtihin the supabase browser interface. You just need to tell me step-by-step what I should copy and where I should paste it within the superbase interface
+- Create files for me to use
+- Remember that YOU can test Supabase via the MCP server
+- IF I need to conduct a test myself, tell me step-by-step how to test
+- Use simple words
+- One instruction at a time
+
+FIRST! You must reiterate these instructions back to me so I can check your comprehensive understanding of your tasks
 ```
 
 ### **Sprint 2.3: Automated Scheduling**
@@ -452,6 +476,16 @@ YOUR TASKS:
 2. Create reminder Edge Function - I deploy it
 3. Show me how to check if cron is working
 4. Give me test steps a child could follow
+
+REMEMBER:
+- All supabase changes will be made by me wtihin the supabase browser interface. You just need to tell me step-by-step what I should copy and where I should paste it within the superbase interface
+- Create files for me to use
+- Remember that YOU can test Supabase via the MCP server
+- IF I need to conduct a test myself, tell me step-by-step how to test
+- Use simple words
+- One instruction at a time
+
+FIRST! You must reiterate these instructions back to me so I can check your comprehensive understanding of your tasks
 ```
 
 **Phase 2 Deliverables:** Full email/SMS capability, automated reminders
@@ -558,6 +592,16 @@ YOUR JOB:
 2. Create Edge Functions - I'll deploy them
 3. Tell me EXACTLY how to set up Stripe (which buttons to click)
 4. Give me test steps that a 5-year-old could follow
+
+REMEMBER:
+- All supabase changes will be made by me wtihin the supabase browser interface. You just need to tell me step-by-step what I should copy and where I should paste it within the superbase interface
+- Create files for me to use
+- Remember that YOU can test Supabase via the MCP server
+- IF I need to conduct a test myself, tell me step-by-step how to test
+- Use simple words
+- One instruction at a time
+
+FIRST! You must reiterate these instructions back to me so I can check your comprehensive understanding of your tasks
 ```
 
 ### **Sprint 3.2: Payment Flows & Chemistry Calls**
@@ -662,6 +706,16 @@ WHAT YOU DO:
 3. Update existing pages - show me exactly what to change
 4. Create test file - I run tests
 5. Give me click-by-click test instructions
+
+REMEMBER:
+- All supabase changes will be made by me wtihin the supabase browser interface. You just need to tell me step-by-step what I should copy and where I should paste it within the superbase interface
+- Create files for me to use
+- Remember that YOU can test Supabase via the MCP server
+- IF I need to conduct a test myself, tell me step-by-step how to test
+- Use simple words
+- One instruction at a time
+
+FIRST! You must reiterate these instructions back to me so I can check your comprehensive understanding of your tasks
 ```
 
 **Phase 3 Deliverables:** Full payment processing, chemistry calls working, conversion tracking ready
@@ -783,6 +837,16 @@ YOUR JOB:
 4. Create video components - I add them
 5. Tell me how to set up Daily.co (every single click)
 6. Give me simple test steps
+
+REMEMBER:
+- All supabase changes will be made by me wtihin the supabase browser interface. You just need to tell me step-by-step what I should copy and where I should paste it within the superbase interface
+- Create files for me to use
+- Remember that YOU can test Supabase via the MCP server
+- IF I need to conduct a test myself, tell me step-by-step how to test
+- Use simple words
+- One instruction at a time
+
+FIRST! You must reiterate these instructions back to me so I can check your comprehensive understanding of your tasks
 ```
 
 **Phase 4 Deliverables:** Working video therapy sessions
@@ -898,6 +962,16 @@ WHAT YOU MUST DO:
 3. Create moderation UI - I deploy it
 4. Show me exactly what to change in existing files
 5. Give me test steps I can follow easily
+
+REMEMBER:
+- All supabase changes will be made by me wtihin the supabase browser interface. You just need to tell me step-by-step what I should copy and where I should paste it within the superbase interface
+- Create files for me to use
+- Remember that YOU can test Supabase via the MCP server
+- IF I need to conduct a test myself, tell me step-by-step how to test
+- Use simple words
+- One instruction at a time
+
+FIRST! You must reiterate these instructions back to me so I can check your comprehensive understanding of your tasks
 ```
 
 ### **Sprint 5.2: Testing & Launch Prep**
@@ -1009,8 +1083,11 @@ YOUR TASKS:
 2. Create launch checklist - I follow it
 3. Create runbook - I use for problems
 4. Create seed data - I load it
-5. Tell me EXACTLY how to run each test
-6. Give me a launch day checklist with baby steps
+5. Remember that YOU can test Supabase via the MCP server
+6. IF I need to conduct a test myself, tell me step-by-step how to test
+7. Tell me EXACTLY how to run each test
+8. Give me a launch day checklist with baby steps
+
 ```
 
 **Phase 5 Deliverables:** Production-ready MVP
