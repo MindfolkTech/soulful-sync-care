@@ -11,54 +11,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { User, Bell, CreditCard, Shield, Upload, Download, Trash2 } from "lucide-react";
-import { DataRightsManager } from "@/utils/data-rights";
+import { GDPRRequestForm } from "@/components/gdpr/GDPRRequestForm";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 
 export default function Account() {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [isDownloading, setIsDownloading] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  const handleDownloadData = async () => {
-    setIsDownloading(true);
-    try {
-      await DataRightsManager.downloadUserData('current-user');
-      toast({
-        title: "Data Export Complete",
-        description: "Your data has been downloaded successfully.",
-      });
-    } catch (error) {
-      toast({
-        title: "Export Failed",
-        description: error instanceof Error ? error.message : "Failed to export your data.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsDownloading(false);
-    }
-  };
-
-  const handleDeleteAccount = async () => {
-    setIsDeleting(true);
-    try {
-      await DataRightsManager.deleteUserAccount('current-user');
-      toast({
-        title: "Account Deleted",
-        description: "Your account and all data have been permanently deleted.",
-      });
-      navigate('/');
-    } catch (error) {
-      toast({
-        title: "Deletion Failed",
-        description: error instanceof Error ? error.message : "Failed to delete your account.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsDeleting(false);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -303,58 +262,7 @@ export default function Account() {
                       <h4 className="font-secondary font-semibold text-[hsl(var(--text-primary))]">
                         Data Management
                       </h4>
-                      <div className="flex space-x-4">
-                        <Button 
-                          variant="outline" 
-                          onClick={handleDownloadData}
-                          disabled={isDownloading}
-                          className="font-secondary"
-                        >
-                          <Download className="w-4 h-4 mr-2" />
-                          {isDownloading ? "Downloading..." : "Download My Data"}
-                        </Button>
-                        
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button 
-                              variant="outline" 
-                              className="font-secondary text-[hsl(var(--error-text))] hover:text-[hsl(var(--error-text))]"
-                            >
-                              <Trash2 className="w-4 h-4 mr-2" />
-                              Delete Account
-                            </Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle className="font-primary">
-                                Delete Your Account
-                              </AlertDialogTitle>
-                              <AlertDialogDescription className="font-secondary">
-                                This action cannot be undone. This will permanently delete your account 
-                                and remove all your data from our servers, including:
-                                <ul className="mt-2 ml-4 list-disc">
-                                  <li>Your profile and assessment data</li>
-                                  <li>All therapy sessions and messages</li>
-                                  <li>Your preferences and settings</li>
-                                  <li>Your account history</li>
-                                </ul>
-                              </AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel className="font-secondary">
-                                Cancel
-                              </AlertDialogCancel>
-                              <AlertDialogAction
-                                onClick={handleDeleteAccount}
-                                disabled={isDeleting}
-                                className="bg-destructive text-[hsl(var(--error-text))]-foreground hover:bg-destructive/90 font-secondary"
-                              >
-                                {isDeleting ? "Deleting..." : "Yes, Delete My Account"}
-                              </AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      </div>
+                      <GDPRRequestForm />
                     </div>
                   </CardContent>
                 </Card>
