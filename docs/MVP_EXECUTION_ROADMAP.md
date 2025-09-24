@@ -22,6 +22,7 @@ Critical Blockers: **GDPR compliance, Video profiles, Payment + Chemistry calls,
 | **Basic keyword detection system** | 0% | 100% | 6h | **P1 - Content safety** |
 | **Therapist doc preview (Storage)** | 10% | 100% | 6h | **Professional verification** |
 | **Decision reasons UI** | 50% | 100% | 4h | **Trust/transparency** |
+| **Impersonation logging in audit_trail** | 0% | 100% | 6h | **Security & support** |
 | Add RLS policies to `favorites` table | 40% | 100% | 2h | Enables favorites |
 | Add RLS policies to `support_tickets` table | 30% | 100% | 2h | Support system |
 | Create `notifications` table with RLS | 0% | 100% | 4h | Foundation for comms |
@@ -72,6 +73,7 @@ DELIVERABLES (create these files for me to use):
    - Add flagged items to moderation_queue
 
 5. Update existing files:
+   - ADD impersonation logging trigger to audit_trail (supabase/migrations/[new_timestamp]_impersonation_logging.sql)
    - ADD RLS to favorites table (supabase/migrations/[new_timestamp]_favorites_rls.sql)
    - ADD RLS to support_tickets table (supabase/migrations/[new_timestamp]_support_tickets_rls.sql)
 
@@ -99,6 +101,14 @@ HOW TO HELP ME:
 ```
 
 ### **Sprint 1.2: Video Profiles & Quick Wins**
+
+
+---
+
+| Task | Current % | Target % | Effort | Impact |
+|------|-----------|----------|--------|--------|
+```
+
 | Task | Current % | Target % | Effort | Impact |
 |------|-----------|----------|--------|--------|
 | **Setup Cloudflare Stream API** | 0% | 100% | 4h | **P0 - Personality-first** |
@@ -194,6 +204,55 @@ First, reiterate these instructions back to me so I can check your comprehensive
 **Phase 1 Deliverables:** GDPR compliant, moderation ready, therapist verification professional, video profiles working
 
 ---
+
+### **Sprint 1.3: Admin Management & Ops (P1)**
+| Task | Current % | Target % | Effort | Impact |
+|------|-----------|----------|--------|--------|
+| **Role change actions (suspension / delete)** | 10% | 100% | 6h | User management |
+| **Bulk operations UI (checkbox batch)** | 0% | 100% | 6h | Admin efficiency |
+| **Profile timeline (auth event tracking)** | 0% | 100% | 8h | Auditability |
+| **Decision audit trail trigger** | 30% | 100% | 4h | Accountability |
+| **Moderation inbox wiring** | 40% | 100% | 8h | Content safety |
+| **Media preview panels** | 0% | 100% | 6h | Verification UX |
+| **Policy reference docs page** | 0% | 100% | 4h | Clarity |
+| **Remove/Escalate moderation actions** | 0% | 100% | 6h | Safety compliance |
+| **All platform analytics (real data)** | 20% | 100% | 6h | Insights |
+
+#### **AI Execution Guide: Sprint 1.3**
+**Model:** Claude 3 Sonnet – Balanced reasoning & code generation for admin dashboards.
+
+**Prompt:**
+```markdown
+You are helping me (a non-technical solo developer with ADHD) implement Sprint 1.3 (Admin Management & Ops) for Mindfolk.
+
+IMPORTANT CONTEXT FOR YOU (THE AI):
+- I work alone and need baby-step instructions
+- Supabase MCP is READ-ONLY; you provide files/migrations I can copy
+- Follow design tokens & existing UI patterns
+
+FILES TO READ:
+- PRD: docs/MINDFOLK_PRD.md
+- Admin pages: src/pages/admin/*
+- Hooks: src/hooks/useAdmin*
+
+DELIVERABLES:
+1. Migration: add auth_event table + triggers; add role_status field; create audit trigger for decisions
+2. React components: BulkOperationsPanel.tsx, TimelineView.tsx, MediaPreview.tsx
+3. Update existing admin pages to import new components
+4. Docs page: /docs/policies.mdx for policy reference
+
+CONSTRAINTS:
+- Use existing shadcn/ui components
+- All SQL reversible
+- No breaking changes to current tables
+
+ACCEPTANCE CRITERIA:
+✓ Admin can change roles, suspend, delete users
+✓ Bulk checkbox actions work
+✓ Profile timeline shows auth events
+✓ Moderation inbox displays live data & media previews
+✓ Analytics page shows real metrics
+```
 
 ## **PHASE 2: CORE COMMUNICATIONS (Week 3-4)**
 *Establish notification infrastructure before features that depend on it*
