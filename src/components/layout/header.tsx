@@ -9,8 +9,12 @@ export function Header() {
 
   return (
     <header 
-      className="sticky top-0 z-50 w-full border-b backdrop-blur supports-[backdrop-filter]:bg-background/60"
-      style={{ backgroundColor: "hsl(var(--warm-white))" }}
+      className="sticky top-0 z-50 w-full border-b backdrop-blur"
+      style={{ 
+        backgroundColor: "hsl(var(--warm-white) / 0.7)",
+        WebkitBackdropFilter: "blur(10px)",
+        backdropFilter: "blur(10px)"
+      }}
     >
       <Container>
         <div className="flex h-16 items-center justify-between">

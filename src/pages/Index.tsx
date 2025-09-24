@@ -11,33 +11,38 @@ export default function Index() {
         {/* 1. Hero Section - The "Aha!" Moment */}
         <section 
           className="py-xl lg:py-2xl"
-          style={{ backgroundColor: "hsl(var(--warm-white))" }}
+          style={{ 
+            backgroundImage: "radial-gradient(1200px 400px at 100% -100px, hsl(var(--surface-accent)) 0%, transparent 60%)",
+            backgroundColor: "hsl(var(--warm-white))"
+          }}
         >
           <Container>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-lg items-center">
-              <div className="lg:col-span-6 space-y-md">
+            <div className="grid grid-cols-1 lg:grid-cols-12 items-center" style={{ gap: "var(--space-xl)" }}>
+              <div className="lg:col-span-6" style={{ maxWidth: "52ch" }}>
                 <h1 
-                  className="font-bold leading-tight"
+                  className="font-bold"
                   style={{
                     fontFamily: "var(--font-primary)",
                     color: "hsl(var(--text-primary))",
-                    fontSize: "clamp(2.5rem, 5vw, 4rem)",
+                    fontSize: "clamp(2.75rem, 5.5vw, 4.25rem)",
+                    lineHeight: 1.15,
                   }}
                 >
                   Find a therapist who actually <em className="italic" style={{ color: "hsl(var(--garden-green))" }}>gets you</em>.
                 </h1>
                 
                 <p 
-                  className="leading-relaxed text-lg"
+                  className="text-lg"
                   style={{
                     fontFamily: "var(--font-secondary)",
                     color: "hsl(var(--text-secondary))",
+                    lineHeight: 1.7,
                   }}
                 >
                   Stop scrolling through therapist directories. Swipe through short, authentic videos to find a fit that clicks.
                 </p>
                 
-                <div className="pt-4">
+                <div className="pt-4 flex items-center gap-3 flex-wrap">
                   <Button
                     size="lg"
                     className="text-lg px-[var(--space-lg)] py-[var(--space-md)] min-h-touch-comfort"
@@ -51,18 +56,87 @@ export default function Index() {
                   >
                     <Link to="/sign-up?role=client">Start Matching for Free</Link>
                   </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="text-lg px-[var(--space-lg)] py-[var(--space-md)] min-h-touch-comfort"
+                    style={{
+                      borderColor: "hsl(var(--garden-green))",
+                      color: "hsl(var(--garden-green))",
+                      fontFamily: "var(--font-secondary)",
+                      fontWeight: 600,
+                    }}
+                    asChild
+                  >
+                    <a href="#how-it-works">How it works</a>
+                  </Button>
+                </div>
+
+                <div
+                  className="mt-3 flex items-center gap-4 flex-wrap"
+                  style={{ fontFamily: "var(--font-secondary)", color: "hsl(var(--text-secondary))" }}
+                >
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-current" style={{ color: "#F5C518" }} aria-hidden="true" />
+                    ))}
+                    <span className="text-sm">4.9 average rating</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Shield className="w-4 h-4" style={{ color: "hsl(var(--garden-green))" }} aria-hidden="true" />
+                    <span className="text-sm">Private & secure</span>
+                  </div>
                 </div>
               </div>
 
               <div className="lg:col-span-6">
                 <div className="relative">
+                  {/* Sage blob */}
+                  <div
+                    className="pointer-events-none absolute -z-10 right-0 top-6 rounded-full"
+                    style={{
+                      width: "18rem",
+                      height: "18rem",
+                      backgroundColor: "hsl(var(--surface-accent))",
+                      filter: "blur(12px)",
+                      opacity: 0.7
+                    }}
+                    aria-hidden="true"
+                  />
+
+                  {/* Main hero image */}
                   <img
                     src="/images/hero-mix.png"
                     alt="Diverse, warm, approachable therapist faces in a swipe interface showing authentic video profiles"
-                    className="w-full h-auto drop-shadow-lg"
+                    className="w-full h-auto drop-shadow-lg responsive-fade-in"
                     style={{ borderRadius: "var(--radius-lg)" }}
                     loading="eager"
                   />
+
+                  {/* Collage chips */}
+                  <figure
+                    className="hidden md:block absolute -left-6 -top-4 w-28 rotate-[-6deg] overflow-hidden responsive-shadow"
+                    style={{ borderRadius: "var(--radius-lg)" }}
+                    aria-hidden="true"
+                  >
+                    <img src="/images/therapist-white-female-20s.png" alt="" className="w-full h-full object-cover" />
+                  </figure>
+
+                  <figure
+                    className="hidden md:block absolute -right-8 top-8 w-24 rotate-[8deg] overflow-hidden responsive-shadow"
+                    style={{ borderRadius: "var(--radius-lg)" }}
+                    aria-hidden="true"
+                  >
+                    <img src="/images/client-white-male-20s-neutral-shirt.png" alt="" className="w-full h-full object-cover" />
+                  </figure>
+
+                  <figure
+                    className="hidden md:block absolute left-10 -bottom-6 w-24 rotate-[3deg] overflow-hidden responsive-shadow"
+                    style={{ borderRadius: "var(--radius-lg)" }}
+                    aria-hidden="true"
+                  >
+                    <img src="/images/therapist-asian-male-40s.png" alt="" className="w-full h-full object-cover" />
+                  </figure>
                 </div>
               </div>
             </div>
@@ -75,19 +149,20 @@ export default function Index() {
           style={{ backgroundColor: "hsl(var(--surface))" }}
         >
           <Container>
-            <div className="text-center space-y-lg">
+            <div className="text-center" style={{ gap: "var(--space-xl)" }}>
               <h2 
                 className="text-3xl lg:text-4xl font-bold"
                 style={{
                   fontFamily: "var(--font-primary)",
                   color: "hsl(var(--text-primary))",
+                  lineHeight: 1.2,
                 }}
               >
                 The old way of finding a therapist is broken.
               </h2>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-[var(--space-lg)] mt-[var(--space-xl)]">
-                <div className="text-center space-y-4">
+                <div className="text-center" style={{ gap: "var(--space-sm)" }}>
                   <div 
                     className="w-16 h-16 mx-auto rounded-full flex items-center justify-center"
                     style={{ backgroundColor: "hsl(var(--surface-accent))" }}
@@ -99,15 +174,17 @@ export default function Index() {
                     style={{
                       fontFamily: "var(--font-secondary)",
                       color: "hsl(var(--text-primary))",
+                      lineHeight: 1.3,
                     }}
                   >
                     Wasted Time
                   </h3>
                   <p 
-                    className="leading-relaxed"
+                    className=""
                     style={{
                       fontFamily: "var(--font-secondary)",
                       color: "hsl(var(--text-secondary))",
+                      lineHeight: 1.7,
                     }}
                   >
                     Endless scrolling through text-heavy directories.
@@ -172,10 +249,10 @@ export default function Index() {
           </Container>
         </section>
 
-        {/* 3. The Solution - "Here's a Better Way" */}
+        {/* Benefits - "Why this feels better" */}
         <section 
           className="py-xl lg:py-2xl"
-          style={{ backgroundColor: "hsl(var(--surface-accent))" }}
+          style={{ backgroundColor: "hsl(var(--surface))" }}
         >
           <Container>
             <div className="text-center space-y-lg">
@@ -184,6 +261,78 @@ export default function Index() {
                 style={{
                   fontFamily: "var(--font-primary)",
                   color: "hsl(var(--text-primary))",
+                }}
+              >
+                Why MindFolk feels better
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-[var(--space-lg)] mt-[var(--space-xl)]">
+                <article
+                  className="p-6 rounded-lg border transition-all responsive-fade-in hover:-translate-y-1 hover:shadow-lg"
+                  style={{ backgroundColor: "hsl(var(--surface))", borderColor: "hsl(var(--border))" }}
+                >
+                  <div className="flex items-center justify-center w-12 h-12 mx-auto rounded-full"
+                       style={{ backgroundColor: "hsl(var(--surface-accent))" }}>
+                    <CheckCircle className="w-6 h-6" style={{ color: "hsl(var(--garden-green))" }} />
+                  </div>
+                  <h3 className="mt-4 text-xl font-bold" style={{ fontFamily: "var(--font-secondary)", color: "hsl(var(--text-primary))" }}>
+                    Feel seen faster
+                  </h3>
+                  <p className="mt-1" style={{ fontFamily: "var(--font-secondary)", color: "hsl(var(--text-secondary))" }}>
+                    Video intros and personality-first matching help you click sooner.
+                  </p>
+                </article>
+
+                <article
+                  className="p-6 rounded-lg border transition-all responsive-fade-in hover:-translate-y-1 hover:shadow-lg"
+                  style={{ backgroundColor: "hsl(var(--surface))", borderColor: "hsl(var(--border))" }}
+                >
+                  <div className="flex items-center justify-center w-12 h-12 mx-auto rounded-full"
+                       style={{ backgroundColor: "hsl(var(--surface-accent))" }}>
+                    <Shield className="w-6 h-6" style={{ color: "hsl(var(--garden-green))" }} />
+                  </div>
+                  <h3 className="mt-4 text-xl font-bold" style={{ fontFamily: "var(--font-secondary)", color: "hsl(var(--text-primary))" }}>
+                    Private & secure
+                  </h3>
+                  <p className="mt-1" style={{ fontFamily: "var(--font-secondary)", color: "hsl(var(--text-secondary))" }}>
+                    GDPR-compliant by design with clear controls and consent.
+                  </p>
+                </article>
+
+                <article
+                  className="p-6 rounded-lg border transition-all responsive-fade-in hover:-translate-y-1 hover:shadow-lg"
+                  style={{ backgroundColor: "hsl(var(--surface))", borderColor: "hsl(var(--border))" }}
+                >
+                  <div className="flex items-center justify-center w-12 h-12 mx-auto rounded-full"
+                       style={{ backgroundColor: "hsl(var(--surface-accent))" }}>
+                    <Star className="w-6 h-6" style={{ color: "#F5C518" }} />
+                  </div>
+                  <h3 className="mt-4 text-xl font-bold" style={{ fontFamily: "var(--font-secondary)", color: "hsl(var(--text-primary))" }}>
+                    Licensed, vetted pros
+                  </h3>
+                  <p className="mt-1" style={{ fontFamily: "var(--font-secondary)", color: "hsl(var(--text-secondary))" }}>
+                    Verified therapists with transparent specialties and availability.
+                  </p>
+                </article>
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* 3. The Solution - "Here's a Better Way" */}
+        <section 
+          id="how-it-works"
+          className="py-xl lg:py-2xl"
+          style={{ backgroundColor: "hsl(var(--surface-accent))" }}
+        >
+          <Container>
+            <div className="text-center" style={{ gap: "var(--space-xl)" }}>
+              <h2 
+                className="text-3xl lg:text-4xl font-bold"
+                style={{
+                  fontFamily: "var(--font-primary)",
+                  color: "hsl(var(--text-primary))",
+                  lineHeight: 1.2,
                 }}
               >
                 You are a person. Not a <em className="italic">patient</em>.
@@ -207,15 +356,17 @@ export default function Index() {
                       style={{
                         fontFamily: "var(--font-secondary)",
                         color: "hsl(var(--text-primary))",
+                        lineHeight: 1.3,
                       }}
                     >
                       Watch & Swipe
                     </h3>
                     <p 
-                      className="leading-relaxed"
+                      className=""
                       style={{
                         fontFamily: "var(--font-secondary)",
                         color: "hsl(var(--text-secondary))",
+                        lineHeight: 1.7,
                       }}
                     >
                       Get a real feel for a therapist's personality with short video intros. See who you vibe with.
@@ -246,15 +397,17 @@ export default function Index() {
                       style={{
                         fontFamily: "var(--font-secondary)",
                         color: "hsl(var(--text-primary))",
+                        lineHeight: 1.3,
                       }}
                     >
                       Chat & Check
                     </h3>
                     <p 
-                      className="leading-relaxed"
+                      className=""
                       style={{
                         fontFamily: "var(--font-secondary)",
                         color: "hsl(var(--text-secondary))",
+                        lineHeight: 1.7,
                       }}
                     >
                       Book a free 15-minute chemistry call with your favs. No commitment.
@@ -285,15 +438,17 @@ export default function Index() {
                       style={{
                         fontFamily: "var(--font-secondary)",
                         color: "hsl(var(--text-primary))",
+                        lineHeight: 1.3,
                       }}
                     >
                       Book with Confidence
                     </h3>
                     <p 
-                      className="leading-relaxed"
+                      className=""
                       style={{
                         fontFamily: "var(--font-secondary)",
                         color: "hsl(var(--text-secondary))",
+                        lineHeight: 1.7,
                       }}
                     >
                       Start your therapy journey knowing you've already made a genuine connection.
@@ -629,21 +784,22 @@ export default function Index() {
                 </div>
               </div>
               
-              <div 
-                className="flex items-center justify-center gap-3 mt-8 p-4 rounded-lg"
-                style={{ backgroundColor: "hsl(var(--surface))" }}
-              >
-                <Shield className="w-6 h-6" style={{ color: "hsl(var(--garden-green))" }} />
-                <p 
-                  className="text-sm"
-                  style={{
-                    fontFamily: "var(--font-secondary)",
-                    color: "hsl(var(--text-primary))",
-                  }}
-                >
-                  <strong>Your privacy is our priority.</strong> Our platform is secure and GDPR-compliant.
-                </p>
-              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* Privacy Band */}
+        <section 
+          className="py-xl"
+          style={{ backgroundColor: "hsl(var(--surface))" }}
+          aria-label="Privacy & security"
+        >
+          <Container>
+            <div className="flex items-center justify-center gap-3 p-4 rounded-lg" style={{ backgroundColor: "hsl(var(--surface))" }}>
+              <Shield className="w-6 h-6" style={{ color: "hsl(var(--garden-green))" }} />
+              <p className="text-sm" style={{ fontFamily: "var(--font-secondary)", color: "hsl(var(--text-primary))" }}>
+                <strong>Your privacy is our priority.</strong> Our platform is secure and GDPR-compliant.
+              </p>
             </div>
           </Container>
         </section>
