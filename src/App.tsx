@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ImpersonationProvider } from "@/contexts/impersonation-context";
 import { GlobalImpersonationBar } from "@/components/admin/global-impersonation-bar";
+import { RoleSwitchingProvider, useRoleSwitching } from "@/contexts/role-switching-context";
 import ErrorBoundary from "@/components/util/ErrorBoundary";
 import { useAuth, AuthProvider } from "./context/AuthContext";
 import { useState, useEffect } from "react";
@@ -21,59 +22,50 @@ const AppLoadingScreen = () => (
   </div>
 );
 
-// Simple auth guard component
+// Enhanced auth guard component with role switching support
 const AuthGuard = ({ children, requiredRole }: { children: React.ReactNode; requiredRole?: string }) => {
   const { user, loading } = useAuth();
-  const [userRole, setUserRole] = useState<string | null>(null);
-  const [roleLoading, setRoleLoading] = useState(false);
-
-  useEffect(() => {
-    const checkUserRole = async () => {
-      if (user && requiredRole) {
-        setRoleLoading(true);
-        try {
-          const { data: profile, error } = await supabase
-            .from("profiles")
-            .select("role")
-            .eq("id", user.id)
-            .single();
-          
-          if (error) {
-            console.error('AuthGuard: Database error:', error);
-            setUserRole('client'); // Default to client on error
-          } else {
-            const role = profile?.role || 'client';
-            setUserRole(role);
-          }
-        } catch (error) {
-          console.error('AuthGuard: Exception while fetching user role:', error);
-          setUserRole('client');
-        } finally {
-          setRoleLoading(false);
-        }
-      } else if (!requiredRole) {
-        // No role required, allow access
-        setUserRole('any');
-        setRoleLoading(false);
-      }
-    };
-
-    checkUserRole();
-  }, [user, requiredRole]);
+  const { currentViewRole, actualUserRole, isAdmin } = useRoleSwitching();
 
   if (loading) {
     return <AppLoadingScreen />;
   }
 
   if (!user) {
+    console.log('AuthGuard: No user, redirecting to sign-in');
     return <Navigate to="/sign-in" replace />;
   }
 
-  if (requiredRole && roleLoading) {
+  // If no role required, allow access
+  if (!requiredRole) {
+    return <>{children}</>;
+  }
+
+  console.log('AuthGuard: Required role:', requiredRole, 'Current view role:', currentViewRole, 'Actual user role:', actualUserRole);
+
+  // If we haven't loaded the actual user role yet, wait
+  if (actualUserRole === null) {
+    console.log('AuthGuard: Waiting for role to load...');
     return <AppLoadingScreen />;
   }
 
-  if (requiredRole && userRole && userRole !== requiredRole) {
+  // For admins: always allow access to admin pages, use view role for other pages
+  if (isAdmin) {
+    if (requiredRole === 'admin') {
+      console.log('AuthGuard: Admin access granted to admin page');
+      return <>{children}</>;
+    } else if (currentViewRole === requiredRole) {
+      console.log('AuthGuard: Admin access granted via role switching');
+      return <>{children}</>;
+    } else {
+      console.log('AuthGuard: Admin access denied - wrong view role for non-admin page');
+      return <Navigate to="/" replace />;
+    }
+  }
+
+  // For non-admins, check if they have the required role
+  if (actualUserRole !== requiredRole) {
+    console.log('AuthGuard: Access denied, redirecting to home');
     return <Navigate to="/" replace />;
   }
 
@@ -141,6 +133,7 @@ import AdminAudit from "./pages/admin/Audit";
 import AdminSupport from "./pages/admin/Support";
 import AdminTasks from "./pages/admin/Tasks";
 import AdminTaxonomy from "./pages/admin/Taxonomy";
+import AdminRoleSwitcher from "./pages/admin/RoleSwitcher";
 
 // Dev pages
 import ScreenshotCapturePage from "./pages/dev/ScreenshotCapture";
@@ -164,8 +157,9 @@ const AppContent = () => {
         <Sonner />
         <CookieConsent />
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-          <ImpersonationProvider>
-            <GlobalImpersonationBar />
+          <RoleSwitchingProvider>
+            <ImpersonationProvider>
+              <GlobalImpersonationBar />
             <Routes>
               {/* Public routes */}
               <Route path="/" element={<Index />} />
@@ -186,18 +180,22 @@ const AppContent = () => {
               <Route path="/legal/document-policy" element={<DocumentPolicy />} />
 
               {/* Client routes */}
-              <Route path="/assessment" element={<AuthGuard><Assessment /></AuthGuard>} />
-              <Route path="/discover" element={<AuthGuard><Discover /></AuthGuard>} />
-              <Route path="/therapists/:id" element={<AuthGuard><TherapistDetail /></AuthGuard>} />
-              <Route path="/book/:id" element={<AuthGuard><BookAppointment /></AuthGuard>} />
-              <Route path="/appointments" element={<AuthGuard><Appointments /></AuthGuard>} />
-              <Route path="/favorites" element={<AuthGuard><Favorites /></AuthGuard>} />
-              <Route path="/notifications" element={<AuthGuard><Notifications /></AuthGuard>} />
-              <Route path="/account" element={<AuthGuard><Account /></AuthGuard>} />
-              <Route path="/messages" element={<AuthGuard><Messages /></AuthGuard>} />
-              <Route path="/billing" element={<AuthGuard><Billing /></AuthGuard>} />
-              <Route path="/client/tasks" element={<AuthGuard><ClientTasks /></AuthGuard>} />
-              <Route path="/client/feedback/:id" element={<AuthGuard><ClientFeedback /></AuthGuard>} />
+              <Route path="/assessment" element={<AuthGuard requiredRole="client"><Assessment /></AuthGuard>} />
+              <Route path="/discover" element={<AuthGuard requiredRole="client"><Discover /></AuthGuard>} />
+              <Route path="/therapists/:id" element={<AuthGuard requiredRole="client"><TherapistDetail /></AuthGuard>} />
+              <Route path="/book/:id" element={<AuthGuard requiredRole="client"><BookAppointment /></AuthGuard>} />
+              <Route path="/appointments" element={<AuthGuard requiredRole="client"><Appointments /></AuthGuard>} />
+              <Route path="/favorites" element={<AuthGuard requiredRole="client"><Favorites /></AuthGuard>} />
+              <Route path="/notifications" element={<AuthGuard requiredRole="client"><Notifications /></AuthGuard>} />
+              <Route path="/account" element={<AuthGuard requiredRole="client"><Account /></AuthGuard>} />
+              <Route path="/messages" element={<AuthGuard requiredRole="client"><Messages /></AuthGuard>} />
+              <Route path="/billing" element={<AuthGuard requiredRole="client"><Billing /></AuthGuard>} />
+              <Route path="/client/tasks" element={<AuthGuard requiredRole="client"><ClientTasks /></AuthGuard>} />
+              <Route path="/client/feedback/:id" element={<AuthGuard requiredRole="client"><ClientFeedback /></AuthGuard>} />
+              
+              {/* Client Onboarding - for admin testing */}
+              <Route path="/client/onboarding" element={<AuthGuard requiredRole="client"><Assessment /></AuthGuard>} />
+              <Route path="/client/onboarding/assessment" element={<AuthGuard requiredRole="client"><Assessment /></AuthGuard>} />
 
               {/* Therapist routes */}
               <Route path="/t/onboarding" element={<AuthGuard requiredRole="therapist"><OnboardingWelcome /></AuthGuard>} />
@@ -235,6 +233,7 @@ const AppContent = () => {
               <Route path="/admin/support" element={<AuthGuard requiredRole="admin"><AdminSupport /></AuthGuard>} />
               <Route path="/admin/tasks" element={<AuthGuard requiredRole="admin"><AdminTasks /></AuthGuard>} />
               <Route path="/admin/taxonomy" element={<AuthGuard requiredRole="admin"><AdminTaxonomy /></AuthGuard>} />
+              <Route path="/admin/role-switcher" element={<AuthGuard requiredRole="admin"><AdminRoleSwitcher /></AuthGuard>} />
 
               {/* Dev routes */}
               <Route path="/dev/screenshots" element={<AuthGuard requiredRole="admin"><ScreenshotCapturePage /></AuthGuard>} />
@@ -243,7 +242,8 @@ const AppContent = () => {
               {/* Catch-all route */}
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </ImpersonationProvider>
+            </ImpersonationProvider>
+          </RoleSwitchingProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

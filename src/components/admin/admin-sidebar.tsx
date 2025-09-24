@@ -15,8 +15,10 @@ import {
   HeadphonesIcon,
   CheckSquare,
   BarChart3,
-  Settings
+  Settings,
+  RefreshCw
 } from "lucide-react";
+import { NotificationBell } from "@/components/notifications/NotificationBell";
 
 interface AdminSidebarProps {
   className?: string;
@@ -44,34 +46,16 @@ const adminNavItems = [
     badge: "3"
   },
   {
-    path: "/admin/moderation",
-    label: "Moderation",
-    icon: Shield,
-    description: "Content and behavior moderation"
-  },
-  {
     path: "/admin/bookings",
-    label: "Bookings",
+    label: "Appointments",
     icon: Calendar,
     description: "Manage all appointments"
   },
   {
-    path: "/admin/feature-flags",
-    label: "Feature Flags",
-    icon: Flag,
-    description: "Control feature rollouts"
-  },
-  {
-    path: "/admin/webhooks",
-    label: "Webhooks",
-    icon: Webhook,
-    description: "API integrations"
-  },
-  {
-    path: "/admin/audit",
-    label: "Audit Logs",
-    icon: FileText,
-    description: "System activity logs"
+    path: "/admin/moderation",
+    label: "Moderation",
+    icon: Shield,
+    description: "Content and behavior moderation"
   },
   {
     path: "/admin/support",
@@ -80,10 +64,10 @@ const adminNavItems = [
     description: "Customer support tools"
   },
   {
-    path: "/admin/tasks",
-    label: "Tasks",
-    icon: CheckSquare,
-    description: "Admin task management"
+    path: "/admin/role-switcher",
+    label: "Role Switcher",
+    icon: RefreshCw,
+    description: "Test user experiences"
   }
 ];
 
@@ -120,12 +104,14 @@ export function AdminSidebar({ className = "" }: AdminSidebarProps) {
             </div>
           </Link>
         )}
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={toggleSidebar}
-          className="h-8 w-8 p-0"
-          aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+        <div className="flex items-center gap-2">
+          {!isCollapsed && <NotificationBell />}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={toggleSidebar}
+            className="h-8 w-8 p-0 min-h-[--touch-target-min] min-w-[--touch-target-min]"
+            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {isCollapsed ? (
             <ChevronRight className="h-4 w-4" />
@@ -133,6 +119,7 @@ export function AdminSidebar({ className = "" }: AdminSidebarProps) {
             <ChevronLeft className="h-4 w-4" />
           )}
         </Button>
+        </div>
       </div>
 
       {/* Navigation */}
@@ -187,20 +174,20 @@ export function AdminSidebar({ className = "" }: AdminSidebarProps) {
       {!isCollapsed && (
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-[hsl(var(--border))] bg-[hsl(var(--surface))]">
           <div className="flex items-center gap-3 mb-3">
-            <div className="h-8 w-8 rounded-full bg-[hsl(var(--surface))]-accent flex items-center justify-center">
+            <div className="h-8 w-8 rounded-full bg-[hsl(var(--surface-accent))] flex items-center justify-center">
               <Settings className="h-4 w-4 text-[hsl(var(--text-primary))]" />
             </div>
             <div className="min-w-0">
               <p className="font-secondary text-sm font-medium text-[hsl(var(--text-primary))] truncate">
                 Admin User
               </p>
-              <p className="font-secondary text-xs text-text-secondary truncate">
+              <p className="font-secondary text-xs text-[hsl(var(--text-secondary))] truncate">
                 System Administrator
               </p>
             </div>
           </div>
           <button 
-            className="w-full text-left px-3 py-2 text-sm text-text-secondary hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--surface))]-accent rounded-md transition-colors"
+            className="w-full text-left px-3 py-2 text-sm text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--surface-accent))] rounded-md transition-colors"
             onClick={() => {
               // TODO: Implement sign out logic
               console.log('Sign out clicked');

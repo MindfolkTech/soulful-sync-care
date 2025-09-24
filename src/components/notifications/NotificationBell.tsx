@@ -4,6 +4,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/context/AuthContext";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface NotificationItem {
   id: string;
@@ -15,7 +20,6 @@ interface NotificationItem {
 
 export function NotificationBell() {
   const { user } = useAuth();
-  const [open, setOpen] = React.useState(false);
   const [unreadCount, setUnreadCount] = React.useState(0);
   const [items, setItems] = React.useState<NotificationItem[]>([]);
   const [loading, setLoading] = React.useState(false);
@@ -80,38 +84,48 @@ export function NotificationBell() {
   };
 
   return (
-    <div className="relative">
-      <Button variant="ghost" size="icon" onClick={() => setOpen((v) => !v)} aria-label="Open notifications" className="min-h-[--touch-target-min] min-w-[--touch-target-min]">
-        <Bell className="h-5 w-5" />
-        {unreadCount > 0 && (
-          <Badge className="absolute -top-1 -right-1 h-5 min-w-[20px] px-1 text-xs flex items-center justify-center rounded-full bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))]">
-            {unreadCount}
-          </Badge>
-        )}
-      </Button>
-
-      {open && (
-        <div className="absolute right-0 mt-2 w-80 max-h-96 overflow-y-auto rounded-md border bg-surface shadow-lg z-50">
-          <div className="flex items-center justify-between p-3 border-b">
-            <p className="font-primary">Notifications</p>
-            <Button variant="ghost" size="sm" onClick={markAllRead} disabled={loading || unreadCount === 0}>
-              Mark all read
-            </Button>
-          </div>
-          <div className="divide-y" role="list" aria-label="Notifications">
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon" aria-label="Open notifications" className="relative min-h-[--touch-target-min] min-w-[--touch-target-min]">
+          <Bell className="h-5 w-5" />
+          {unreadCount > 0 && (
+            <Badge className="absolute -top-1 -right-1 h-5 min-w-[20px] px-1 text-xs flex items-center justify-center rounded-full bg-[hsl(var(--error-bg))] text-[hsl(var(--error-text))]">
+              {unreadCount}
+            </Badge>
+          )}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-80 max-h-96 overflow-y-auto">
+        <div className="flex items-center justify-between p-4 md:p-5 lg:p-6 pb-0 border-b border-[hsl(var(--border))]">
+          <h3 className="font-primary text-lg font-semibold text-[hsl(var(--text-primary))] leading-none">Notifications</h3>
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={(e) => { e.stopPropagation(); markAllRead(); }} 
+            disabled={loading || unreadCount === 0}
+            className="min-h-[--touch-target-min] font-secondary"
+          >
+            Mark all read
+          </Button>
+        </div>
+        <div className="p-4 md:p-5 lg:p-6">
+          <div className="divide-y divide-[hsl(var(--border))]" role="list" aria-label="Notifications">
             {items.length === 0 && (
-              <div className="p-4 text-sm text-[hsl(var(--text-secondary))]">No notifications</div>
+              <div className="py-8 text-center">
+                <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">No notifications yet</p>
+                <p className="font-secondary text-xs text-[hsl(var(--text-secondary))] mt-1">You'll see updates here when they arrive</p>
+              </div>
             )}
             {items.map((n) => (
-              <div key={n.id} className="p-3 hover:bg-[hsl(var(--surface-accent))]" role="listitem">
-                <p className="font-secondary font-medium text-[hsl(var(--text-primary))]">{n.title}</p>
-                <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">{n.message}</p>
-                <p className="text-xs text-[hsl(var(--text-secondary))] mt-1">{new Date(n.created_at).toLocaleString()}</p>
+              <div key={n.id} className="py-3 hover:bg-[hsl(var(--surface-accent))] rounded-md px-2 -mx-2 transition-colors duration-200" role="listitem">
+                <p className="font-secondary font-medium text-[hsl(var(--text-primary))] leading-relaxed">{n.title}</p>
+                <p className="font-secondary text-sm text-[hsl(var(--text-secondary))] mt-1 leading-relaxed">{n.message}</p>
+                <p className="font-secondary text-xs text-[hsl(var(--text-secondary))] mt-2">{new Date(n.created_at).toLocaleString()}</p>
               </div>
             ))}
           </div>
         </div>
-      )}
-    </div>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

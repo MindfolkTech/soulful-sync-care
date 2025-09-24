@@ -21,6 +21,7 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { NotificationBell } from "@/components/notifications/NotificationBell";
 
 interface TherapistSidebarProps {
   className?: string;
@@ -156,7 +157,7 @@ export function TherapistSidebar({ className = "" }: TherapistSidebarProps) {
   return (
     <div className={`hidden lg:block fixed left-0 top-0 h-screen bg-surface border-r border-border transition-all duration-300 flex flex-col ${isCollapsed ? 'w-16' : 'w-64'} ${className}`}>
       {/* Header */}
-      <div className="flex-shrink-0 flex items-center justify-between p-4 border-b border-border">
+      <div className="flex-shrink-0 flex items-center justify-between p-4 border-b border-[hsl(var(--border))]">
         {!isCollapsed ? (
           <Link 
             to="/" 
@@ -178,19 +179,22 @@ export function TherapistSidebar({ className = "" }: TherapistSidebarProps) {
             </div>
           </Link>
         )}
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={toggleSidebar}
-          className="h-8 w-8 p-0"
-          aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-        >
-          {isCollapsed ? (
-            <ChevronRight className="h-4 w-4" />
-          ) : (
-            <ChevronLeft className="h-4 w-4" />
-          )}
-        </Button>
+        <div className="flex items-center gap-2">
+          {!isCollapsed && <NotificationBell />}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={toggleSidebar}
+            className="h-8 w-8 p-0 min-h-[--touch-target-min] min-w-[--touch-target-min]"
+            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            {isCollapsed ? (
+              <ChevronRight className="h-4 w-4" />
+            ) : (
+              <ChevronLeft className="h-4 w-4" />
+            )}
+          </Button>
+        </div>
       </div>
 
       {/* Navigation */}

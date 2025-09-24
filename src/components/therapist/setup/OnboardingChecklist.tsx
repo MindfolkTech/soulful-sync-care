@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/context/AuthContext";
+import { useRoleSwitching } from "@/contexts/role-switching-context";
 import { CheckCircle2, ChevronDown, ChevronUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -37,6 +38,7 @@ function computeProgress(steps: ChecklistStep[]): number {
 
 export function OnboardingChecklist() {
   const { user } = useAuth();
+  const { currentViewRole, isAdmin } = useRoleSwitching();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
@@ -46,6 +48,10 @@ export function OnboardingChecklist() {
   const [setupSteps, setSetupSteps] = React.useState<Record<string, boolean>>({});
   const [setupCompleted, setSetupCompleted] = React.useState(false);
   const [baseOffset, setBaseOffset] = React.useState(0);
+  
+  // Admin test mode - simulate fresh therapist state
+  const isAdminTestMode = isAdmin && currentViewRole === 'therapist';
+  const [adminTestSteps, setAdminTestSteps] = React.useState<Record<string, boolean>>({});
 
   React.useEffect(() => {
     let mounted = true;
@@ -62,15 +68,26 @@ export function OnboardingChecklist() {
           return;
         }
         if (!mounted) return;
-        setVerified(!!data?.verified);
-        setIsActive(!!data?.is_active);
-        setAccepts(!!data?.accepts_new_clients);
-        setSetupSteps(((data as any)?.setup_steps as Record<string, boolean>) || {});
-        setSetupCompleted(!!data?.setup_completed);
-        // Baseline progress from public sign-up (notifications/2FA)
-        const meta: any = user?.user_metadata || {};
-        const baseline = meta.notify_email || meta.notify_sms || meta.mfa_enroll_on_first_login ? 10 : 5;
-        setBaseOffset(baseline);
+        
+        // In admin test mode, simulate fresh therapist state
+        if (isAdminTestMode) {
+          setVerified(false);
+          setIsActive(false);
+          setAccepts(false);
+          setSetupSteps({});
+          setSetupCompleted(false);
+          setBaseOffset(5);
+        } else {
+          setVerified(!!data?.verified);
+          setIsActive(!!data?.is_active);
+          setAccepts(!!data?.accepts_new_clients);
+          setSetupSteps(((data as any)?.setup_steps as Record<string, boolean>) || {});
+          setSetupCompleted(!!data?.setup_completed);
+          // Baseline progress from public sign-up (notifications/2FA)
+          const meta: any = user?.user_metadata || {};
+          const baseline = meta.notify_email || meta.notify_sms || meta.mfa_enroll_on_first_login ? 10 : 5;
+          setBaseOffset(baseline);
+        }
       } finally {
         if (mounted) setLoading(false);
       }
@@ -82,11 +99,14 @@ export function OnboardingChecklist() {
       mounted = false;
       window.clearInterval(id);
     };
-  }, [user]);
+  }, [user, isAdminTestMode]);
 
   const published = verified && isActive && accepts;
 
   const steps: ChecklistStep[] = React.useMemo(() => {
+    // Use admin test steps in test mode, otherwise use real setup steps
+    const currentSteps = isAdminTestMode ? adminTestSteps : setupSteps;
+    
     const base: ChecklistStep[] = [
       {
         id: "verification",
@@ -100,7 +120,7 @@ export function OnboardingChecklist() {
         title: "Upload Documents",
         tip: "Submit your credentials for verification via Practice > Credentials",
         estimate: "5 min",
-        completed: !!setupSteps["documents"],
+        completed: !!currentSteps["documents"],
         locked: published, // Lock this step once verification is complete
       },
       {
@@ -108,49 +128,49 @@ export function OnboardingChecklist() {
         title: "Connect payouts",
         tip: "Enable getting paid via Stripe",
         estimate: "3 min",
-        completed: !!setupSteps["payouts"],
+        completed: !!currentSteps["payouts"],
       },
       {
         id: "rates",
         title: "Set rates & services",
         tip: "Configure pricing and session options",
         estimate: "2 min",
-        completed: !!setupSteps["rates"],
+        completed: !!currentSteps["rates"],
       },
       {
         id: "availability",
         title: "Add availability",
         tip: "Add your weekly hours",
         estimate: "3 min",
-        completed: !!setupSteps["availability"],
+        completed: !!currentSteps["availability"],
       },
       {
         id: "profile",
         title: "Complete profile",
         tip: "Photo, bio, headline, and therapeutic approach",
         estimate: "5 min",
-        completed: !!setupSteps["profile"],
+        completed: !!currentSteps["profile"],
       },
       {
         id: "policies",
         title: "Practice policies",
         tip: "Cancellation, rescheduling, and communication policies",
         estimate: "2 min",
-        completed: !!setupSteps["policies"],
+        completed: !!currentSteps["policies"],
       },
       {
         id: "details",
         title: "Therapeutic approach",
         tip: "Modalities, communication style, and professional qualities",
         estimate: "3 min",
-        completed: !!setupSteps["details"],
+        completed: !!currentSteps["details"],
       },
       {
         id: "review",
         title: "Final review",
         tip: "Preview and publish",
         estimate: "1 min",
-        completed: !!setupSteps["review"],
+        completed: !!currentSteps["review"],
         locked: published,
       },
     ];
@@ -167,14 +187,15 @@ export function OnboardingChecklist() {
       return [ver, ...prioritized];
     }
     return base;
-  }, [verified, setupSteps, published]);
+  }, [verified, setupSteps, published, isAdminTestMode, adminTestSteps]);
 
   const percent = computeProgress(steps);
   const displayPercent = Math.min(99, baseOffset + percent);
   const canPublish = verified && steps.every((s) => s.completed);
 
   if (loading) return null;
-  if (published || setupCompleted) return null; // Hide once fully live
+  // In admin test mode, always show the checklist
+  if (!isAdminTestMode && (published || setupCompleted)) return null; // Hide once fully live
 
   return (
     <div className="fixed right-6 bottom-6 z-50 w-[320px] max-w-[90vw]">
@@ -182,7 +203,14 @@ export function OnboardingChecklist() {
         <CardHeader className="pb-3">
           <HStack className="justify-between items-start">
             <div>
-              <CardTitle className="font-primary text-[hsl(var(--text-primary))]">Get set up</CardTitle>
+              <CardTitle className="font-primary text-[hsl(var(--text-primary))]">
+                Get set up
+                {isAdminTestMode && (
+                  <Badge variant="secondary" className="ml-2 bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))] text-xs">
+                    Admin Test Mode
+                  </Badge>
+                )}
+              </CardTitle>
               <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">{displayPercent}% complete</p>
             </div>
             <Button variant="ghost" size="icon" aria-label={collapsed ? "Expand" : "Collapse"} onClick={() => setCollapsed((c) => !c)}>
@@ -202,42 +230,63 @@ export function OnboardingChecklist() {
                     <div className="font-secondary font-medium text-[hsl(var(--text-primary))] truncate">{step.title}</div>
                     <div className="text-xs font-secondary text-[hsl(var(--text-secondary))] truncate">{step.tip}</div>
                   </div>
-                  {step.id === "verification" ? (
+                  {step.id === "verification" && (
                     <Badge className={`ml-2 ${verified ? "bg-[hsl(var(--success-bg))] text-[hsl(var(--success-text))]" : "bg-[hsl(var(--warning-bg))] text-[hsl(var(--warning-text))]"}`}>
                       {verified ? "Approved" : "Pending"}
                     </Badge>
-                  ) : step.completed ? (
+                  )}
+
+                  {step.id !== "verification" && step.completed && (
                     <CheckCircle2 className="h-5 w-5 text-[hsl(var(--success-text))]" />
-                  ) : (
+                  )}
+
+                  {step.id !== "verification" && !step.completed && (
                     <Button
                       size="sm"
                       className="ml-2 min-h-[--touch-target-min]"
                       onClick={() => {
+                        if (isAdminTestMode) {
+                          setAdminTestSteps(prev => ({ ...prev, [step.id]: true }));
+                          return;
+                        }
                         const routeMap: Record<StepId, string> = {
                           verification: "/t/settings/verification",
-                          documents: "/t/practice/credentials", // Updated to point to Practice section
+                          documents: "/t/practice/credentials",
                           payouts: "/t/settings/payouts?setup=1",
-                          rates: "/t/practice/services", // Updated to point to Practice section
+                          rates: "/t/practice/services",
                           availability: "/t/schedule/availability",
-                          profile: "/t/practice/profile", // Updated to point to Practice section
-                          policies: "/t/practice/policies", // Updated to point to Practice section
-                          details: "/t/practice/profile#therapeutic-approach", // Updated to point to Practice section
+                          profile: "/t/practice/profile",
+                          policies: "/t/practice/policies",
+                          details: "/t/practice/profile#therapeutic-approach",
                           review: "/t/profile?preview=true",
                         };
                         navigate(routeMap[step.id]);
                       }}
                     >
-                      Go
+                      {isAdminTestMode ? 'Mark Done' : 'Go'}
                     </Button>
                   )}
                 </HStack>
               ))}
 
-              <HStack className="justify-end pt-1">
+              <HStack className="justify-between pt-1">
+                {isAdminTestMode && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setAdminTestSteps({});
+                      setVerified(false);
+                    }}
+                    className="text-xs"
+                  >
+                    Reset Test
+                  </Button>
+                )}
                 <Button
                   disabled={!canPublish}
                   onClick={() => navigate("/t/setup?focus=review")}
-                  className="min-h-touch-comfort"
+                  className="min-h-touch-comfort ml-auto"
                 >
                   {canPublish ? "Publish profile" : "Complete remaining"}
                 </Button>

@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { TherapistSidebar } from "@/components/therapist/therapist-sidebar";
 import { TherapistBottomNav } from "@/components/therapist/therapist-bottom-nav";
 import { Container } from "@/components/ui/container";
+import { AdminQuickNav } from "@/components/admin/AdminQuickNav";
 
 /**
  * TherapistLayout - Base layout component for all therapist pages
