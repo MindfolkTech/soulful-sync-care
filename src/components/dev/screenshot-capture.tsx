@@ -57,7 +57,7 @@ export function ScreenshotCapture({ className }: ScreenshotCaptureProps) {
       await capture.initialize();
 
       let routes = MIND_FOLK_ROUTES;
-      let config = { fullPage: true, quality: 90 };
+      const config = { fullPage: true, quality: 90 };
 
       switch (device) {
         case 'mobile':
