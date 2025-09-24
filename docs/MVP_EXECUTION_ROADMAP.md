@@ -459,6 +459,7 @@ FIRST! You must reiterate these instructions back to me so I can check your comp
 | Enable pg_cron extension | 0% | 100% | 1h | Scheduled jobs |
 | Create reminder cron jobs | 0% | 100% | 6h | Automated reminders |
 | Test notification delivery | 0% | 100% | 4h | Reliability |
+| **Client status management (relationship statuses dashboard)** | 0% | 100% | 6h | Client organisation |
 
 #### **AI Execution Guide: Sprint 2.3**
 **Model:** DeepSeek R1 - Excellent at complex scheduling logic and cron patterns.
