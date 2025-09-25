@@ -13,6 +13,8 @@ import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useAriaLive } from "@/hooks/use-aria-live";
 import { findMatches, ClientAssessment, TherapistProfile, MatchResult } from "@/lib/matching";
 import { supabase } from "@/integrations/supabase/client";
+import { useImpersonation } from "@/contexts/impersonation-context";
+import { useAuth } from "@/context/AuthContext";
 import { DesktopTherapistCard } from "@/components/discovery/desktop-therapist-card";
 import { DecisionButtons } from "@/components/discovery/decision-buttons";
 import { ReadyToConnectModal } from "@/components/discovery/ready-to-connect-modal";
@@ -112,7 +114,13 @@ export default function Discover() {
   const [filtersOpen, setFiltersOpen] = React.useState(false);
   const [matchedTherapists, setMatchedTherapists] = React.useState<TherapistData[]>([]);
   
+  // Get current user (real user or impersonated user)
+  const { user } = useAuth();
+  const { isImpersonating, impersonatedUser } = useImpersonation();
   const { announce, ariaLiveProps } = useAriaLive();
+  
+  // Determine the current effective user ID
+  const currentUserId = isImpersonating && impersonatedUser ? impersonatedUser.id : user?.id;
 
   // Load assessment data and run matching algorithm
   React.useEffect(() => {
@@ -128,12 +136,29 @@ export default function Discover() {
           return;
         }
 
-        // Fetch mock assessment data from Supabase
-        const { data: supabaseAssessment, error: assessmentError } = await supabase
-          .from('client_assessments')
-          .select('*')
-          .limit(1)
-          .maybeSingle();
+        // Fetch assessment data for the current user (real or impersonated)
+        let supabaseAssessment = null;
+        let assessmentError = null;
+        
+        if (currentUserId) {
+          // Use the current user's specific assessment data
+          const { data, error } = await supabase
+            .from('client_assessments')
+            .select('*')
+            .eq('user_id', currentUserId)
+            .maybeSingle();
+          supabaseAssessment = data;
+          assessmentError = error;
+        } else {
+          // Only fallback to any assessment if no user is available at all
+          const { data, error } = await supabase
+            .from('client_assessments')
+            .select('*')
+            .limit(1)
+            .maybeSingle();
+          supabaseAssessment = data;
+          assessmentError = error;
+        }
 
         if (assessmentError) {
           console.error('Error fetching assessment:', assessmentError);
@@ -179,7 +204,7 @@ export default function Discover() {
     };
 
     loadTherapistData();
-  }, []);
+  }, [currentUserId]); // Re-run when the effective user changes
 
   const availableTherapists = matchedTherapists.filter(t => !viewedTherapists.has(t.id));
   const currentTherapist = availableTherapists[currentIndex];

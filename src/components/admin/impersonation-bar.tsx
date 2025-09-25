@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +11,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Shield, User, LogOut, Search, ChevronDown, Eye, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useImpersonation } from "@/contexts/impersonation-context";
+import { supabase } from "@/integrations/supabase/client";
 
 interface User {
   id: string;
@@ -20,41 +22,52 @@ interface User {
   joinDate: string;
 }
 
-// Mock data
-const mockUsers: User[] = [
-  {
-    id: "1",
-    name: "Sarah Johnson",
-    email: "sarah.johnson@email.com",
-    role: "therapist",
-    status: "active",
-    joinDate: "2024-01-15"
-  },
-  {
-    id: "2", 
-    name: "Michael Chen",
-    email: "michael.chen@email.com",
-    role: "client",
-    status: "active",
-    joinDate: "2024-01-10"
-  },
-  {
-    id: "3",
-    name: "Emily Rodriguez",
-    email: "emily.rodriguez@email.com",
-    role: "therapist", 
-    status: "active",
-    joinDate: "2024-01-08"
-  },
-  {
-    id: "4",
-    name: "James Wilson",
-    email: "james.wilson@email.com",
-    role: "client",
-    status: "suspended",
-    joinDate: "2024-01-05"
+// Hook to fetch real users from database
+const useRealUsers = () => {
+  return useQuery<User[], Error>({
+    queryKey: ['impersonation_users'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select(`
+          id,
+          email,
+          first_name,
+          last_name,
+          role,
+          created_at
+        `)
+        .in('role', ['client', 'therapist'])
+        .order('created_at', { ascending: false });
+      
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      // Transform to User interface format
+      return data.map(profile => ({
+        id: profile.id,
+        name: `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || 'Unknown User',
+        email: profile.email,
+        role: profile.role as "client" | "therapist" | "admin",
+        status: determineUserStatus(profile),
+        joinDate: new Date(profile.created_at).toISOString().split('T')[0]
+      }));
+    },
+  });
+};
+
+// Helper function to determine user status
+const determineUserStatus = (profile: any): "active" | "inactive" | "suspended" => {
+  // For seed clients, all are active
+  if (profile.email?.includes('@seedclient.com')) {
+    return 'active';
   }
-];
+  
+  // For real users, you could add more sophisticated logic here
+  // For now, assume all are active
+  return 'active';
+};
 
 interface ImpersonationBarProps {
   // No props needed since we use context
@@ -176,22 +189,28 @@ interface UserSearchDialogProps {
 function UserSearchDialog({ onSelectUser }: UserSearchDialogProps) {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredUsers, setFilteredUsers] = useState<User[]>(mockUsers);
+  const { data: users = [], isLoading, isError } = useRealUsers();
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+
+  // Update filtered users when users data changes or search query changes
+  React.useEffect(() => {
+    if (users.length > 0) {
+      const filtered = users.filter(user =>
+        user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredUsers(filtered);
+    }
+  }, [users, searchQuery]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    const filtered = mockUsers.filter(user =>
-      user.name.toLowerCase().includes(query.toLowerCase()) ||
-      user.email.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredUsers(filtered);
   };
 
   const handleSelectUser = (user: User) => {
     onSelectUser(user);
     setOpen(false);
     setSearchQuery("");
-    setFilteredUsers(mockUsers);
   };
 
   const getRoleBadgeClass = (role: User["role"]) => {
@@ -241,7 +260,17 @@ function UserSearchDialog({ onSelectUser }: UserSearchDialogProps) {
           </div>
 
           <div className="max-h-96 overflow-y-auto space-y-2">
-            {filteredUsers.length === 0 ? (
+            {isLoading ? (
+              <div className="text-center py-8">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[hsl(var(--text-primary))] mx-auto mb-2"></div>
+                <p className="font-secondary text-[hsl(var(--text-secondary))]">Loading users...</p>
+              </div>
+            ) : isError ? (
+              <div className="text-center py-8">
+                <AlertTriangle className="mx-auto h-12 w-12 text-[hsl(var(--error-text))] mb-2" />
+                <p className="font-secondary text-[hsl(var(--error-text))]">Error loading users</p>
+              </div>
+            ) : filteredUsers.length === 0 ? (
               <div className="text-center py-8">
                 <User className="mx-auto h-12 w-12 text-[hsl(var(--text-secondary))] mb-2" />
                 <p className="font-secondary text-[hsl(var(--text-secondary))]">No users found</p>
