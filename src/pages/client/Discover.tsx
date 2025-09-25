@@ -80,9 +80,10 @@ function convertTherapistProfile(profile: TherapistProfile, matchResult: MatchRe
     media.push({ type: 'image', url: '/images/therapist-white-female-40s.png' });
   }
   
-  // Add a mock video and a second image for demonstration purposes
-  media.push({ type: 'video', url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', poster: media[0].url });
-  media.push({ type: 'image', url: '/images/therapist-asian-male-40s.png' });
+  // Add video if available in the therapist profile
+  if (supabaseProfile.video_url) {
+    media.push({ type: 'video', url: supabaseProfile.video_url, poster: media[0].url });
+  }
 
   return {
     id: profile.id,
@@ -231,13 +232,41 @@ export default function Discover() {
     handleNext();
   }, [announce, handleNext]);
 
-  const handleSave = React.useCallback((therapist: TherapistData) => {
+  const handleSave = React.useCallback(async (therapist: TherapistData) => {
+    if (!user) {
+      // Handle case when user is not authenticated
+      announce("Please sign in to save favorites");
+      return;
+    }
+
+    // Add to local state
     setFavorites(prev => new Set([...prev, therapist.id]));
     setViewedTherapists(prev => new Set([...prev, therapist.id]));
     setSelectedTherapist(therapist);
     setConnectModalOpen(true);
-    announce(`Saved ${therapist.name} to favorites`);
-  }, [announce]);
+    
+    try {
+      // Actually save to the database
+      const { data, error } = await supabase
+        .from('favorites')
+        .insert([
+          { 
+            user_id: currentUserId, 
+            therapist_id: therapist.id 
+          }
+        ]);
+      
+      if (error) {
+        console.error("Error saving favorite:", error);
+        announce(`Error saving ${therapist.name} to favorites`);
+      } else {
+        announce(`Saved ${therapist.name} to favorites`);
+      }
+    } catch (error) {
+      console.error("Error in saving favorite:", error);
+      announce(`Error saving ${therapist.name} to favorites`);
+    }
+  }, [announce, user, currentUserId]);
 
   const handleShowDetails = React.useCallback((therapist: TherapistData) => {
     setSelectedTherapist(therapist);
