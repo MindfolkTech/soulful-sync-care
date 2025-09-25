@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Play, Check, ChevronLeft, ChevronRight, BadgeCheck } from "lucide-react";
+import { Play, Check, ChevronLeft, ChevronRight, BadgeCheck, Shield } from "lucide-react";
 import { TherapistData } from "@/components/molecules/therapist-card";
 import { Tag } from "@/components/ui/tag";
 import { Button } from "@/components/ui/button";
@@ -23,13 +23,8 @@ const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) =>
 
     return (
         <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
-            {/* Decorative Background */}
-            <div className="absolute inset-0 bg-surface-accent z-0">
-                <svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="none" className="absolute top-0 left-0">
-                    <circle cx="200" cy="150" r="120" fill="hsl(var(--garden-green) / 0.1)" />
-                    <path d="M 50,150 Q 200,100 350,150" stroke="hsl(var(--garden-green) / 0.5)" fill="none" strokeWidth="2" />
-                </svg>
-            </div>
+            {/* Media Background */}
+            <div className="absolute inset-0 bg-[#2F353A] z-0"></div>
             
             <div
             className="relative z-10 h-full w-full cursor-pointer"
@@ -42,7 +37,7 @@ const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) =>
                     className="w-full h-full object-contain object-bottom"
                 />
             ) : (
-                 <div className="w-full h-full bg-black">
+                <div className="w-full h-full bg-black">
                     <video
                         src={currentMedia.url}
                         poster={currentMedia.poster}
@@ -53,10 +48,10 @@ const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) =>
             )}
             
             {currentMedia.type === 'video' && (
-                <div className="absolute inset-0 bg-ink-slate/30 flex items-center justify-center">
-                <div className="bg-ink-slate/60 rounded-full p-4">
-                    <Play className="h-8 w-8 text-on-dark" />
-                </div>
+                <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                    <div className="bg-black/60 rounded-full p-4">
+                        <Play className="h-8 w-8 text-white" fill="white" />
+                    </div>
                 </div>
             )}
             </div>
@@ -68,17 +63,17 @@ const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) =>
                         variant="ghost"
                         size="icon"
                         onClick={handlePrevious}
-                        className="absolute top-1/2 -translate-y-1/2 left-2 bg-surface/50 hover:bg-surface/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute top-1/2 -translate-y-1/2 left-2 bg-white/80 hover:bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                     >
-                        <ChevronLeft className="h-6 w-6" />
+                        <ChevronLeft className="h-6 w-6 text-[#2F353A]" />
                     </Button>
                     <Button
                         variant="ghost"
                         size="icon"
                         onClick={handleNext}
-                        className="absolute top-1/2 -translate-y-1/2 right-2 bg-surface/50 hover:bg-surface/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute top-1/2 -translate-y-1/2 right-2 bg-white/80 hover:bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
                     >
-                        <ChevronRight className="h-6 w-6" />
+                        <ChevronRight className="h-6 w-6 text-[#2F353A]" />
                     </Button>
                 </>
             )}
@@ -98,28 +93,28 @@ const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) =>
 
 const Credentials = () => (
     <div className="space-y-2 pt-2">
-        <div className="flex items-center gap-2">
-            <BadgeCheck className="h-5 w-5 text-text-primary" />
-            <span className="font-secondary text-sm text-text-primary">Accredited Therapist</span>
+        <div className="flex items-center gap-3">
+            <Shield className="h-5 w-5 text-[hsl(var(--jovial-jade))]" />
+            <span className="font-semibold">Accredited Therapist</span>
         </div>
-        <div className="flex items-center gap-2">
-            <BadgeCheck className="h-5 w-5 text-text-primary" />
-            <span className="font-secondary text-sm text-text-primary">BACP Member</span>
+        <div className="flex items-center gap-3">
+            <Shield className="h-5 w-5 text-[hsl(var(--jovial-jade))]" />
+            <span className="font-semibold">BACP Member</span>
         </div>
     </div>
 );
 
 const InfoSection = ({ title, text }: { title: string; text: string }) => (
     <div>
-        <h3 className="font-secondary font-semibold text-text-primary mb-2">{title}</h3>
-        <p className="font-secondary text-text-secondary leading-relaxed">{text}</p>
+        <h4 className="font-bold text-lg text-[hsl(var(--text-primary))]">{title}</h4>
+        <p className="text-sm mt-1">{text}</p>
     </div>
 );
 
-const TagGroup = ({ title, tags, category }: { title: string; tags: string[]; category: 'specialty' | 'modality' | 'personality' }) => (
+const TagGroup = ({ title, tags, category }: { title: string; tags: string[]; category: 'specialty' | 'modality' | 'personality' | 'language' | 'misc' }) => (
     <div>
-        <h3 className="font-secondary font-semibold text-text-primary mb-2">{title}</h3>
-        <div className="flex flex-wrap gap-2">
+        <h4 className="font-bold text-lg text-[hsl(var(--text-primary))]">{title}</h4>
+        <div className="flex flex-wrap gap-2 mt-1">
             {tags.map(tag => <Tag key={tag} category={category} size="sm" shape="rounded">{tag}</Tag>)}
         </div>
     </div>
@@ -128,40 +123,79 @@ const TagGroup = ({ title, tags, category }: { title: string; tags: string[]; ca
 
 export function DesktopTherapistCard({ therapist, onShowVideo }: DesktopTherapistCardProps) {
   return (
-    <div className="bg-surface p-6 rounded-2xl shadow-xl border border-border grid grid-cols-2 gap-8">
-      {/* Left Column */}
-      <div className="flex flex-col space-y-3">
-        <MediaCarousel therapist={therapist} onShowVideo={onShowVideo} />
-        <div className="space-y-2">
-            <h2 className="font-primary text-3xl font-bold text-text-primary">
-              {therapist.name}
-            </h2>
-            <p className="font-secondary text-lg text-text-muted">
-              {therapist.title}
-            </p>
-            <p className="font-secondary text-xl font-bold text-text-primary pt-1">
-              {therapist.rate}
-            </p>
-        </div>
-        <div className="space-y-3">
+    <div className="bg-white p-10 rounded-2xl shadow-xl border border-[hsl(var(--border))] w-full">
+      <div className="grid grid-cols-2 gap-10">
+        {/* Left Column */}
+        <div className="space-y-4">
+          <MediaCarousel therapist={therapist} onShowVideo={onShowVideo} />
+          
+          <h2 className="text-4xl pt-4 font-primary">{therapist.name}</h2>
+          
+          <p className="text-lg -mt-2 text-[hsl(var(--text-muted))]">
+            {therapist.title} • {therapist.years_experience}
+          </p>
+          
+          <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">
+            {therapist.rate}
+          </p>
+          
+          <div className="mt-2">
             <div className="flex flex-wrap gap-2">
-                {therapist.languages.map((language) => (
-                    <Tag key={language} category="language" size="sm" shape="rounded">
-                    {language}
-                    </Tag>
-                ))}
+              {therapist.languages.map((language) => (
+                <Tag key={language} category="misc" size="sm" shape="rounded">
+                  {language}
+                </Tag>
+              ))}
             </div>
-            <Credentials />
+          </div>
+          
+          <Credentials />
         </div>
-      </div>
 
-      {/* Right Column */}
-      <div className="flex flex-col gap-3 pt-2">
-        <InfoSection title="About me:" text={therapist.quote} />
-        <TagGroup title="Specialities:" tags={therapist.specialties} category="specialty" />
-        <TagGroup title="Modalities:" tags={therapist.modalities || []} category="modality" />
-        <TagGroup title="Personality:" tags={therapist.personality} category="personality" />
-        <TagGroup title="Communication Style:" tags={['Direct', 'Supportive']} category="personality" />
+        {/* Right Column */}
+        <div className="space-y-5">
+          <InfoSection 
+            title="About me:" 
+            text={therapist.quote || 'I help clients navigate anxiety, depression, and trauma using an integrative approach that combines evidence-based techniques with mindfulness practices. My therapy style is warm and collaborative.'} 
+          />
+          
+          <TagGroup 
+            title="Specialities:" 
+            tags={therapist.specialties} 
+            category="specialty" 
+          />
+          
+          <TagGroup 
+            title="Modalities:" 
+            tags={therapist.modalities || []} 
+            category="modality" 
+          />
+          
+          <TagGroup 
+            title="Personality:" 
+            tags={therapist.personality} 
+            category="personality" 
+          />
+          
+          {/* Communication Style tags - using personality tags if available */}
+          <TagGroup 
+            title="Communication Style:" 
+            tags={therapist.personality.filter(tag => 
+              tag.toLowerCase().includes('direct') || 
+              tag.toLowerCase().includes('supportive') || 
+              tag.toLowerCase().includes('collaborative') || 
+              tag.toLowerCase().includes('warm')
+            ).length > 0 ? 
+              therapist.personality.filter(tag => 
+                tag.toLowerCase().includes('direct') || 
+                tag.toLowerCase().includes('supportive') || 
+                tag.toLowerCase().includes('collaborative') || 
+                tag.toLowerCase().includes('warm')
+              ) : 
+              ['Direct', 'Supportive']} 
+            category="personality" 
+          />
+        </div>
       </div>
     </div>
   );
