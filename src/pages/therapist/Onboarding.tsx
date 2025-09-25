@@ -95,6 +95,7 @@ export default function TherapistOnboarding() {
     modalities: [],
     specialties: [],
     communicationStyle: "",
+    sessionFormat: "",
     bio: "",
     quote: "",
     headshot: null,
@@ -350,7 +351,7 @@ export default function TherapistOnboarding() {
                     <div className="space-y-2">
                       <Label>Therapeutic Modalities (Select up to 3)</Label>
                       <div className="grid grid-cols-2 gap-2">
-                        {["CBT", "EMDR", "Psychodynamic", "Humanistic", "Mindfulness", "Gestalt", "Family Therapy", "Solution-Focused"].map((modality) => (
+                        {["Cognitive Behavioural Therapy (CBT)", "Compassion Focused Therapy (CFT)", "EMDR Therapy", "Family systems therapy", "Integrative/eclectic approach", "Interpersonal Therapy", "Mindfulness-based Therapy (MBCT)", "Person-centered Therapy", "Psychodynamic therapy", "Trauma-focused therapy"].map((modality) => (
                           <div key={modality} className="flex items-center space-x-2">
                             <Checkbox 
                               id={modality}
@@ -378,7 +379,7 @@ export default function TherapistOnboarding() {
                     <div className="space-y-2">
                       <Label>Specialties (Select up to 5)</Label>
                       <div className="grid grid-cols-2 gap-2">
-                        {["Anxiety", "Depression", "Trauma", "Relationships", "Work Stress", "Grief", "Identity", "Addiction"].map((specialty) => (
+                        {["Anger management", "Anxiety", "Autism", "Bipolar disorder", "Bullying", "Career difficulties", "Chronic illness", "Concentration, memory and focus (ADHD)", "Coping with addictions", "Depression", "Eating disorders", "Executive and Professional coaching", "Family conflict", "Grief and loss", "LGBT-related issues", "Motivation and self-esteem", "OCD", "Parenting issues", "Phobias", "PTSD", "Race and racial identity", "Relationship and intimacy issues", "Tourettes syndrome", "Trauma and abuse"].map((specialty) => (
                           <div key={specialty} className="flex items-center space-x-2">
                             <Checkbox 
                               id={specialty}
@@ -404,17 +405,31 @@ export default function TherapistOnboarding() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label>Communication Style</Label>
+                      <Label>When working with a therapy client, my communication style tended to lean towards... (select one)</Label>
                       <select 
                         className="w-full p-2 border rounded-md bg-background"
                         value={profileData.communicationStyle}
                         onChange={(e) => setProfileData({...profileData, communicationStyle: e.target.value})}
                       >
                         <option value="">Select your communication style</option>
-                        <option value="Empathetic and understanding">Empathetic and understanding</option>
-                        <option value="Structured and goal-oriented">Structured and goal-oriented</option>
-                        <option value="Flexible and adaptable">Flexible and adaptable</option>
-                        <option value="Calm and process-focused">Calm and process-focused</option>
+                        <option value="Supportive & Relational (I focus on creating safety, trust, and emotional validation)">Supportive & Relational (I focus on creating safety, trust, and emotional validation)</option>
+                        <option value="Motivational & Encouraging (I focus on boosting morale, using encouragement and gentle challenge)">Motivational & Encouraging (I focus on boosting morale, using encouragement and gentle challenge)</option>
+                        <option value="Pragmatic & Problem-solving (I focus on offering clear, solution-oriented feedback with actionable takeaways)">Pragmatic & Problem-solving (I focus on offering clear, solution-oriented feedback with actionable takeaways)</option>
+                        <option value="Flexible & Adaptive (I am constantly shifting tone/style depending on the client's needs in the moment)">Flexible & Adaptive (I am constantly shifting tone/style depending on the client's needs in the moment)</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label>In terms of how I format my sessions with clients, I tend to be more... (select one)</Label>
+                      <select 
+                        className="w-full p-2 border rounded-md bg-background"
+                        value={profileData.sessionFormat}
+                        onChange={(e) => setProfileData({...profileData, sessionFormat: e.target.value})}
+                      >
+                        <option value="">Select your session format</option>
+                        <option value="Structured & Goal-oriented (Sessions follow a clear agenda with measurable progress markers)">Structured & Goal-oriented (Sessions follow a clear agenda with measurable progress markers)</option>
+                        <option value="Exploratory & Insight-based (Sessions unfold organically, focusing on deep reflection and meaning-making)">Exploratory & Insight-based (Sessions unfold organically, focusing on deep reflection and meaning-making)</option>
+                        <option value="Interactive & Dynamic (I switch it up with various techniques and exercises to keep energy high)">Interactive & Dynamic (I switch it up with various techniques and exercises to keep energy high)</option>
+                        <option value="Calm & Process-Focused (My sessions emphasise pacing, safety, and careful exploration of feelings)">Calm & Process-Focused (My sessions emphasise pacing, safety, and careful exploration of feelings)</option>
                       </select>
                     </div>
                   </div>

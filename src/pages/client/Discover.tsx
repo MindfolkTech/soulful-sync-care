@@ -29,6 +29,8 @@ function convertSupabaseToTherapistProfile(supabaseProfile: any): TherapistProfi
     identity_tags: supabaseProfile.identity_tags || [],
     specialties: supabaseProfile.specialties || [],
     modalities: supabaseProfile.modalities || [],
+    communication_style: supabaseProfile.communication_style || '',
+    session_format: supabaseProfile.session_format || '',
     gender_identity: supabaseProfile.gender_identity || '',
     session_rates: typeof supabaseProfile.session_rates === 'object' 
       ? supabaseProfile.session_rates 
