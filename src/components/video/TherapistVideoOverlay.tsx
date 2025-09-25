@@ -33,22 +33,43 @@ export function TherapistVideoOverlay({
   
   // Handle device orientation and screen size
   useEffect(() => {
-    const checkOrientation = () => {
-      // Check if mobile
-      setIsMobile(window.matchMedia('(max-width: 640px)').matches);
+    // More precise device detection
+    const checkDevice = () => {
+      // Check if mobile (smaller screens)
+      const isMobileDevice = window.matchMedia('(max-width: 640px)').matches;
+      setIsMobile(isMobileDevice);
       
-      // Check if landscape
-      setIsLandscape(window.matchMedia('(orientation: landscape)').matches);
+      // Check orientation
+      const isLandscapeOrientation = window.matchMedia('(orientation: landscape)').matches;
+      setIsLandscape(isLandscapeOrientation);
+      
+      // Handle iOS-specific quirks
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+      if (isIOS && isLandscapeOrientation) {
+        // iOS needs special handling for landscape fullscreen
+        document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+      } else {
+        document.documentElement.style.removeProperty('--vh');
+      }
+      
+      // Log device info for debugging
+      console.debug('Device:', { 
+        isMobile: isMobileDevice, 
+        isLandscape: isLandscapeOrientation,
+        viewportHeight: window.innerHeight,
+        viewportWidth: window.innerWidth
+      });
     };
     
     // Initial check
-    checkOrientation();
+    checkDevice();
     
-    // Listen for orientation changes
-    window.addEventListener('resize', checkOrientation);
-    window.addEventListener('orientationchange', checkOrientation);
+    // Listen for various orientation and size changes
+    window.addEventListener('resize', checkDevice);
+    window.addEventListener('orientationchange', checkDevice);
+    window.addEventListener('deviceorientation', checkDevice);
     
-    // Setup back button handler for mobile
+    // Setup back button handler for mobile - critical for good UX
     const handleBackButton = (e: PopStateEvent) => {
       if (open) {
         // Prevent default back action
@@ -62,14 +83,25 @@ export function TherapistVideoOverlay({
     
     // Push state when opening to enable back button for closing
     if (open) {
+      // Ensure we only push state once when opening
       window.history.pushState(null, document.title, window.location.href);
       window.addEventListener('popstate', handleBackButton);
+      
+      // Lock body scroll when overlay is open
+      document.body.style.overflow = 'hidden';
     }
     
     return () => {
-      window.removeEventListener('resize', checkOrientation);
-      window.removeEventListener('orientationchange', checkOrientation);
+      window.removeEventListener('resize', checkDevice);
+      window.removeEventListener('orientationchange', checkDevice);
+      window.removeEventListener('deviceorientation', checkDevice);
       window.removeEventListener('popstate', handleBackButton);
+      
+      // Restore scroll when overlay is closed
+      document.body.style.overflow = '';
+      
+      // Clean up any custom properties
+      document.documentElement.style.removeProperty('--vh');
     };
   }, [open, onOpenChange]);
   
@@ -102,8 +134,10 @@ export function TherapistVideoOverlay({
       <DialogContent 
         className={cn(
           "bg-transparent border-none shadow-none p-0 w-full",
-          isMobile ? "max-w-[95vw] sm:max-w-none h-[85vh]" : "max-w-4xl",
-          isLandscape && isMobile ? "h-[90vh] max-h-[90vh]" : "",
+          isMobile ? "max-w-[100vw] sm:max-w-none" : "max-w-4xl",
+          // Use CSS custom property for height in mobile landscape
+          isMobile && !isLandscape ? "h-[85vh]" : "",
+          isMobile && isLandscape ? "h-[calc(var(--vh,1vh)*90)]" : "",
           className
         )}
       >

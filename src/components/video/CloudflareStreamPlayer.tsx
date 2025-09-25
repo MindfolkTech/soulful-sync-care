@@ -279,22 +279,70 @@ export function CloudflareStreamPlayer({
   // Determine video source type
   const videoSourceType = getVideoSourceType(src);
   
-  // Load captions if available for Cloudflare Stream
+  // Generate caption URL for Cloudflare Stream videos
+  const getCaptionUrl = React.useMemo(() => {
+    if (!src) return null;
+    
+    // For Cloudflare Stream videos
+    if (videoSourceType === 'cloudflare' || src.includes('cloudflarestream.com') || src.includes('.m3u8')) {
+      // Extract video ID from various Cloudflare Stream URL formats
+      let videoId = '';
+      
+      // Format: https://customer-<id>.cloudflarestream.com/<id>/manifest/video.m3u8
+      const manifestMatch = src.match(/\/([a-zA-Z0-9_-]+)\/manifest\/video\.m3u8/i);
+      if (manifestMatch && manifestMatch[1]) {
+        videoId = manifestMatch[1];
+      }
+      
+      // Format: https://videodelivery.net/<id>/manifest/video.m3u8
+      const deliveryMatch = src.match(/videodelivery\.net\/([a-zA-Z0-9_-]+)/i);
+      if (deliveryMatch && deliveryMatch[1]) {
+        videoId = deliveryMatch[1];
+      }
+      
+      // Format: https://watch.cloudflarestream.com/<id>
+      const watchMatch = src.match(/watch\.cloudflarestream\.com\/([a-zA-Z0-9_-]+)/i);
+      if (watchMatch && watchMatch[1]) {
+        videoId = watchMatch[1];
+      }
+      
+      if (videoId) {
+        // Auto-generated captions URL
+        return `https://customer-${videoId}.cloudflarestream.com/${videoId}/subtitles/eng.vtt`;
+      }
+    }
+    
+    return null;
+  }, [src, videoSourceType]);
+  
+  // Load and enable captions
   React.useEffect(() => {
-    if (videoSourceType === 'cloudflare' && videoRef.current) {
-      // For Cloudflare Stream videos, attempt to load captions
-      const textTracks = videoRef.current.textTracks;
+    if (!videoRef.current) return;
+    
+    // Attempt to enable captions when video loads
+    const handleLoadedMetadata = () => {
+      const textTracks = videoRef.current?.textTracks;
       if (textTracks?.length > 0) {
         // Enable the first available track
         for (let i = 0; i < textTracks.length; i++) {
           if (textTracks[i].kind === 'captions' || textTracks[i].kind === 'subtitles') {
             textTracks[i].mode = showCaptions ? 'showing' : 'hidden';
-            break;
           }
         }
       }
+    };
+    
+    videoRef.current.addEventListener('loadedmetadata', handleLoadedMetadata);
+    
+    // Try to enable immediately if metadata already loaded
+    if (videoRef.current.readyState >= 1) {
+      handleLoadedMetadata();
     }
-  }, [videoRef, videoSourceType, showCaptions]);
+    
+    return () => {
+      videoRef.current?.removeEventListener('loadedmetadata', handleLoadedMetadata);
+    };
+  }, [videoRef, showCaptions]);
   
   // Render YouTube player
   if (videoSourceType === 'youtube') {
@@ -353,23 +401,24 @@ export function CloudflareStreamPlayer({
         onClick={() => handlePlayPause()}
         aria-label={title ? `Video: ${title}` : "Video player"}
       >
-        {/* If captions URL is available, add it here */}
+        {/* Caption tracks */}
         {showCaptions && (
           <>
-            {/* Default English captions */}
+            {/* Default empty track for browser-generated captions */}
             <track 
               kind="captions" 
               srcLang="en" 
               label="English" 
               default 
             />
-            {/* Support for WebVTT captions if available */}
-            {src.includes('cloudflarestream.com') && (
+            
+            {/* Cloudflare Stream auto-generated captions */}
+            {getCaptionUrl && (
               <track 
                 kind="captions" 
                 srcLang="en" 
                 label="English" 
-                src={`${src.replace('/manifest/video.m3u8', '')}/subtitles/eng.vtt`}
+                src={getCaptionUrl}
                 default 
               />
             )}

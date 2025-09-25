@@ -100,7 +100,7 @@ const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) =>
                         variant="ghost"
                         size="icon"
                         onClick={handlePrevious}
-                        className="absolute top-1/2 -translate-y-1/2 left-2 bg-white/90 hover:bg-white rounded-full shadow-md z-20 w-10 h-10"
+                        className="absolute top-1/2 -translate-y-1/2 left-2 bg-white/90 hover:bg-white rounded-full shadow-md z-50 w-10 h-10"
                         aria-label="Previous media"
                     >
                         <ChevronLeft className="h-5 w-5 text-[#2F353A]" />
@@ -111,7 +111,7 @@ const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) =>
                         variant="ghost"
                         size="icon"
                         onClick={handleNext}
-                        className="absolute top-1/2 -translate-y-1/2 right-2 bg-white/90 hover:bg-white rounded-full shadow-md z-20 w-10 h-10"
+                        className="absolute top-1/2 -translate-y-1/2 right-2 bg-white/90 hover:bg-white rounded-full shadow-md z-50 w-10 h-10"
                         aria-label="Next media"
                     >
                         <ChevronRight className="h-5 w-5 text-[#2F353A]" />
@@ -121,7 +121,7 @@ const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) =>
 
             {/* Pagination Dots - Enhanced to match design */}
             {sortedMedia.length > 1 && (
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-50">
                     {sortedMedia.map((_, index) => (
                         <div
                             key={index}

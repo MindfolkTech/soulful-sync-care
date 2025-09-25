@@ -28,14 +28,70 @@ export function VideoPlayer({
   const [duration, setDuration] = useState(0);
   const [showFallback, setShowFallback] = useState(!videoUrl);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showCaptions, setShowCaptions] = useState(false);
+  const [showCaptions, setShowCaptions] = useState(true); // Default captions ON
   const containerRef = useRef<HTMLDivElement>(null);
   const [loadFailed, setLoadFailed] = useState(false);
+  const [controlsVisible, setControlsVisible] = useState(true);
+  const fadeTimeoutRef = useRef<number | null>(null);
   
   // Initialize player when video URL changes
   useEffect(() => {
     setShowFallback(!videoUrl || loadFailed);
   }, [videoUrl, loadFailed]);
+  
+  // Reset fade timeout when user interacts
+  const resetFadeTimeout = () => {
+    if (fadeTimeoutRef.current) {
+      window.clearTimeout(fadeTimeoutRef.current);
+      fadeTimeoutRef.current = null;
+    }
+    
+    setControlsVisible(true);
+    
+    // Only start the fade timeout if the video is playing
+    if (isPlaying && showControls) {
+      fadeTimeoutRef.current = window.setTimeout(() => {
+        setControlsVisible(false);
+      }, 3500); // 3.5 seconds of inactivity before fading
+    }
+  };
+  
+  // Set up mouse/touch move listeners
+  useEffect(() => {
+    if (!showControls) return;
+    
+    const handleUserActivity = () => {
+      resetFadeTimeout();
+    };
+    
+    document.addEventListener('mousemove', handleUserActivity);
+    document.addEventListener('touchmove', handleUserActivity);
+    document.addEventListener('click', handleUserActivity);
+    
+    return () => {
+      document.removeEventListener('mousemove', handleUserActivity);
+      document.removeEventListener('touchmove', handleUserActivity);
+      document.removeEventListener('click', handleUserActivity);
+      
+      if (fadeTimeoutRef.current) {
+        window.clearTimeout(fadeTimeoutRef.current);
+      }
+    };
+  }, [isPlaying, showControls]);
+  
+  // Start/reset fade timeout when play state changes
+  useEffect(() => {
+    if (isPlaying && showControls) {
+      resetFadeTimeout();
+    } else if (!isPlaying && showControls) {
+      // Always show controls when paused
+      setControlsVisible(true);
+      if (fadeTimeoutRef.current) {
+        window.clearTimeout(fadeTimeoutRef.current);
+        fadeTimeoutRef.current = null;
+      }
+    }
+  }, [isPlaying, showControls]);
   
   // Set up video event listeners
   useEffect(() => {
@@ -264,7 +320,11 @@ export function VideoPlayer({
           
           {/* Custom Controls (shown when showControls is true) */}
           {showControls && (
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2 transition-opacity duration-300">
+            <div 
+              className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2 transition-opacity duration-300 ${controlsVisible ? 'opacity-100' : 'opacity-0'}`}
+              onMouseEnter={() => setControlsVisible(true)}
+              onMouseLeave={() => isPlaying && resetFadeTimeout()}
+            >
               <div className="flex flex-col gap-1">
                 {/* Progress Bar */}
                 <div className="flex items-center gap-2">
