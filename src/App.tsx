@@ -49,18 +49,10 @@ const AuthGuard = ({ children, requiredRole }: { children: React.ReactNode; requ
     return <AppLoadingScreen />;
   }
 
-  // For admins: always allow access to admin pages, use view role for other pages
+  // For admins: always allow access to all pages regardless of role
   if (isAdmin) {
-    if (requiredRole === 'admin') {
-      console.log('AuthGuard: Admin access granted to admin page');
-      return <>{children}</>;
-    } else if (currentViewRole === requiredRole) {
-      console.log('AuthGuard: Admin access granted via role switching');
-      return <>{children}</>;
-    } else {
-      console.log('AuthGuard: Admin access denied - wrong view role for non-admin page');
-      return <Navigate to="/" replace />;
-    }
+    console.log('AuthGuard: Admin access granted to all pages - admin override');
+    return <>{children}</>;
   }
 
   // For non-admins, check if they have the required role
