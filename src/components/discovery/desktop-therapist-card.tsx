@@ -4,6 +4,7 @@ import { TherapistData } from "@/components/molecules/therapist-card";
 import { Tag } from "@/components/ui/tag";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { VideoPlayer } from "@/components/discovery/VideoPlayer";
 
 interface DesktopTherapistCardProps {
   therapist: TherapistData;
@@ -70,31 +71,24 @@ const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) =>
                         loading="lazy"
                     />
                 ) : (
-                    <div className="relative w-full h-full bg-[#2F353A]">
-                        {/* Use poster image if available, otherwise use first image as poster */}
-                        <img
-                            src={currentMedia.poster || therapist.media.find(m => m.type === 'image')?.url || '/images/placeholder.svg'}
-                            alt={`${therapist.name} video thumbnail`}
-                            className="w-full h-full object-cover"
-                            loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-black/20"></div>
-                    </div>
+                    <VideoPlayer
+                        videoUrl={currentMedia.url}
+                        fallbackImageUrl={currentMedia.poster || therapist.media.find(m => m.type === 'image')?.url || '/images/placeholder.svg'}
+                        therapistName={therapist.name}
+                        showControls={false}
+                        className="w-full h-full"
+                    />
                 )}
             </div>
             
-            {/* Video Play Button Overlay */}
+            {/* The VideoPlayer component handles its own play button overlay */}
             {currentMedia.type === 'video' && (
-                <div className="absolute inset-0 flex items-center justify-center cursor-pointer" onClick={handleMediaClick}>
-                    <div className="bg-black/60 hover:bg-black/70 transition-colors rounded-full p-5 shadow-lg">
-                        <Play className="h-8 w-8 text-white" fill="white" />
-                    </div>
-                    <span className="sr-only">Play video</span>
-                    
-                    {/* Video Label (top-center) */}
-                    <div className="absolute top-4 left-0 right-0 text-center">
-                        <span className="text-white font-medium text-lg">Therapist Video</span>
-                    </div>
+                <div 
+                    className="absolute inset-0 cursor-pointer z-10" 
+                    onClick={handleMediaClick}
+                    aria-label="Click to play full video"
+                >
+                    {/* Transparent overlay to capture clicks without affecting visuals */}
                 </div>
             )}
 
