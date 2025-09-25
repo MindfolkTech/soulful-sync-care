@@ -12,6 +12,7 @@ import { CheckCircle, XCircle, FileText, User, Calendar, Clock, Eye, ExternalLin
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { DecisionReasonSelector } from "./DecisionReasonSelector";
+import { DocumentPreview } from "./DocumentPreview";
 import { format } from "date-fns";
 import type { Database } from "@/database.types";
 
@@ -58,6 +59,17 @@ export function EnhancedVerificationQueue() {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [decisionReason, setDecisionReason] = useState("");
   const [decisionType, setDecisionType] = useState<'approve' | 'reject' | null>(null);
+  const [documentPreview, setDocumentPreview] = useState<{
+    isOpen: boolean;
+    documentType: string;
+    documentPath: string;
+    therapistName: string;
+  }>({
+    isOpen: false,
+    documentType: "",
+    documentPath: "",
+    therapistName: "",
+  });
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -165,6 +177,24 @@ export function EnhancedVerificationQueue() {
     setDetailsOpen(true);
     setDecisionReason("");
     setDecisionType(null);
+  };
+
+  const handleDocumentPreview = (documentType: string, documentPath: string, therapistName: string) => {
+    setDocumentPreview({
+      isOpen: true,
+      documentType,
+      documentPath,
+      therapistName,
+    });
+  };
+
+  const closeDocumentPreview = () => {
+    setDocumentPreview({
+      isOpen: false,
+      documentType: "",
+      documentPath: "",
+      therapistName: "",
+    });
   };
 
   const getStatusBadge = (status: TherapistApplication["status"]) => {
@@ -448,7 +478,12 @@ export function EnhancedVerificationQueue() {
                             <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">{filename}</p>
                           </div>
                         </div>
-                        <Button variant="outline" size="sm" className="min-h-[--touch-target-min]">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="min-h-[--touch-target-min]"
+                          onClick={() => handleDocumentPreview(type, filename as string, selectedApplication.name)}
+                        >
                           <Eye className="h-4 w-4 mr-2" />
                           View
                         </Button>
@@ -557,6 +592,15 @@ export function EnhancedVerificationQueue() {
           </DialogContent>
         </Dialog>
       )}
+
+      {/* Document Preview Modal */}
+      <DocumentPreview
+        isOpen={documentPreview.isOpen}
+        onClose={closeDocumentPreview}
+        documentType={documentPreview.documentType}
+        documentPath={documentPreview.documentPath}
+        therapistName={documentPreview.therapistName}
+      />
     </div>
   );
 }

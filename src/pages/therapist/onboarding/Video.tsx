@@ -8,84 +8,74 @@ import { useNavigate } from "react-router-dom";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { ArrowRight, ArrowLeft, Upload, Play } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { VideoUpload } from "@/components/therapist/VideoUpload";
+import { useAuth } from "@/context/AuthContext";
 
 export default function OnboardingVideo() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    video: null as File | null,
-    uploading: false as boolean,
-    videoUrl: undefined as string | undefined,
-  });
+  const { user } = useAuth();
+  const [currentVideoUrl, setCurrentVideoUrl] = useState<string>("");
 
-  // Load saved data
+  // Load saved data and current video URL from therapist profile
   useEffect(() => {
-    const saved = localStorage.getItem('therapistOnboarding');
-    if (saved) {
-      const { profileData } = JSON.parse(saved);
-      setFormData({
-        video: profileData.video || null,
-        uploading: false,
-        videoUrl: profileData.videoUrl || undefined,
-      });
-    }
-  }, []);
+    const loadVideoUrl = async () => {
+      if (user) {
+        const { data: profile } = await supabase
+          .from('therapist_profiles')
+          .select('video_url')
+          .eq('user_id', user.id)
+          .single();
+        
+        if (profile?.video_url) {
+          setCurrentVideoUrl(profile.video_url);
+        }
+      }
+      
+      // Also check localStorage for any saved data
+      const saved = localStorage.getItem('therapistOnboarding');
+      if (saved) {
+        const { profileData } = JSON.parse(saved);
+        if (profileData.videoUrl) {
+          setCurrentVideoUrl(profileData.videoUrl);
+        }
+      }
+    };
+    
+    loadVideoUrl();
+  }, [user]);
 
-  const handleSave = async () => {
+  const handleVideoUploaded = async (videoUrl: string) => {
+    setCurrentVideoUrl(videoUrl);
+    
+    // Save to localStorage for onboarding flow
     const saved = localStorage.getItem('therapistOnboarding');
     const existing = saved ? JSON.parse(saved) : { currentStep: 5, profileData: {} };
     
-    let videoUrl = formData.videoUrl;
-    // If a new video file is selected and we don't have a URL yet, upload it
-    if (formData.video && !videoUrl) {
-      setFormData(prev => ({ ...prev, uploading: true }));
-      const file = formData.video;
-      const bucket = "therapist-videos";
-      const filePath = `${crypto.randomUUID()}_${file.name}`;
-      const { data: uploadData, error: uploadError } = await supabase.storage
-        .from(bucket)
-        .upload(filePath, file, { upsert: false, contentType: file.type });
-      if (uploadError) {
-        console.error('Video upload error:', uploadError);
-        setFormData(prev => ({ ...prev, uploading: false }));
-        // fallback: keep videoUrl undefined
-      } else {
-        const { data: publicData } = supabase.storage.from(bucket).getPublicUrl(filePath);
-        videoUrl = publicData?.publicUrl;
-        setFormData(prev => ({ ...prev, uploading: false, videoUrl }));
-      }
-    }
-
     localStorage.setItem('therapistOnboarding', JSON.stringify({
       ...existing,
       currentStep: 5,
       profileData: {
         ...existing.profileData,
-        ...formData,
         videoUrl,
-        // Remove raw File reference before persisting
-        video: undefined,
       },
       timestamp: Date.now()
     }));
+
+    // Also update the therapist profile directly
+    if (user) {
+      await supabase
+        .from('therapist_profiles')
+        .update({ video_url: videoUrl })
+        .eq('user_id', user.id);
+    }
   };
 
   const handleNext = async () => {
-    await handleSave();
     navigate("/t/onboarding/verification");
   };
 
   const handleSkip = async () => {
-    // Clear any selected video before skipping
-    setFormData(prev => ({ ...prev, video: null }));
-    await handleSave();
     navigate("/t/onboarding/verification");
-  };
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setFormData(prev => ({ ...prev, video: file, videoUrl: undefined }));
-    }
   };
 
   return (
@@ -142,43 +132,11 @@ export default function OnboardingVideo() {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="video">Upload Video Introduction</Label>
-                <div className="border-2 border-dashed border-border rounded-lg p-8 text-center">
-                  <input
-                    type="file"
-                    id="video"
-                    accept="video/*"
-                    onChange={handleFileUpload}
-                    className="hidden"
-                  />
-                  <label htmlFor="video" className="cursor-pointer">
-                    <div className="flex flex-col items-center space-y-3">
-                      {formData.video ? (
-                        <Play className="w-12 h-12 text-primary" />
-                      ) : (
-                        <Upload className="w-12 h-12 text-text-muted" />
-                      )}
-                      <div>
-                        <p className="font-secondary text-sm text-text-primary font-medium">
-                          {formData.video ? 'Change video' : 'Click to upload video'}
-                        </p>
-                        <p className="font-secondary text-xs text-text-muted mt-1">
-                          MP4, MOV, or WebM (max 100MB)
-                        </p>
-                        {formData.video && (
-                          <p className="text-xs text-primary mt-1">
-                            {formData.video instanceof File ? formData.video.name : "Video uploaded"}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </label>
-                </div>
-              </div>
-              {formData.uploading && (
-                <p className="text-xs text-muted-foreground mt-2">Uploading video… please wait.</p>
-              )}
+              {/* Professional VideoUpload Component */}
+              <VideoUpload 
+                currentVideoUrl={currentVideoUrl}
+                onVideoUploaded={handleVideoUploaded}
+              />
 
               <HStack className="justify-between pt-6">
                 <Button 
@@ -189,10 +147,10 @@ export default function OnboardingVideo() {
                   Back
                 </Button>
                 <HStack className="space-x-3">
-                  <Button variant="outline" onClick={handleSkip} disabled={formData.uploading}>
+                  <Button variant="outline" onClick={handleSkip}>
                     Skip for now
                   </Button>
-                  <Button onClick={handleNext} disabled={formData.uploading}>
+                  <Button onClick={handleNext}>
                     Next
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
