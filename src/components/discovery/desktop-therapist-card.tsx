@@ -3,6 +3,7 @@ import { Play, Check, ChevronLeft, ChevronRight, BadgeCheck, Shield } from "luci
 import { TherapistData } from "@/components/molecules/therapist-card";
 import { Tag } from "@/components/ui/tag";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface DesktopTherapistCardProps {
   therapist: TherapistData;
@@ -10,15 +11,44 @@ interface DesktopTherapistCardProps {
 }
 
 const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) => {
+    // Sort media to prioritize videos first
+    const sortedMedia = React.useMemo(() => {
+        // Make a copy to avoid mutation
+        const mediaItems = [...therapist.media];
+        
+        // If there are both videos and images, make sure videos come first
+        const hasVideo = mediaItems.some(item => item.type === 'video');
+        const hasImages = mediaItems.some(item => item.type === 'image');
+        
+        if (hasVideo && hasImages) {
+            return mediaItems.sort((a, b) => {
+                if (a.type === 'video' && b.type !== 'video') return -1;
+                if (a.type !== 'video' && b.type === 'video') return 1;
+                return 0;
+            });
+        }
+        
+        return mediaItems;
+    }, [therapist.media]);
+    
     const [currentIndex, setCurrentIndex] = React.useState(0);
-    const currentMedia = therapist.media[currentIndex];
+    const currentMedia = sortedMedia[currentIndex];
 
-    const handlePrevious = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === 0 ? therapist.media.length - 1 : prevIndex - 1));
+    const handlePrevious = (e?: React.MouseEvent) => {
+        e?.stopPropagation(); // Prevent triggering container click
+        setCurrentIndex((prevIndex) => (prevIndex === 0 ? sortedMedia.length - 1 : prevIndex - 1));
     };
 
-    const handleNext = () => {
-        setCurrentIndex((prevIndex) => (prevIndex === therapist.media.length - 1 ? 0 : prevIndex + 1));
+    const handleNext = (e?: React.MouseEvent) => {
+        e?.stopPropagation(); // Prevent triggering container click
+        setCurrentIndex((prevIndex) => (prevIndex === sortedMedia.length - 1 ? 0 : prevIndex + 1));
+    };
+    
+    // Handle click on the media container
+    const handleMediaClick = () => {
+        if (currentMedia.type === 'video') {
+            onShowVideo(therapist);
+        }
     };
 
     return (
@@ -26,66 +56,112 @@ const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) =>
             {/* Media Background */}
             <div className="absolute inset-0 bg-[#2F353A] z-0"></div>
             
+            {/* Media Content */}
             <div
-            className="relative z-10 h-full w-full cursor-pointer"
-            onClick={() => currentMedia.type === 'video' && onShowVideo(therapist)}
+                className="relative z-10 h-full w-full cursor-pointer"
+                onClick={handleMediaClick}
+                aria-label={currentMedia.type === 'video' ? 'Click to play video' : 'Therapist profile image'}
             >
-            {currentMedia.type === 'image' ? (
-                <img
-                    src={currentMedia.url}
-                    alt={`${therapist.name} profile`}
-                    className="w-full h-full object-contain object-bottom"
-                />
-            ) : (
-                <div className="w-full h-full bg-black">
-                    <video
+                {currentMedia.type === 'image' ? (
+                    <img
                         src={currentMedia.url}
-                        poster={currentMedia.poster}
-                        className="w-full h-full object-contain"
-                        preload="metadata"
+                        alt={`${therapist.name} profile`}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
                     />
-                </div>
-            )}
+                ) : (
+                    <div className="relative w-full h-full bg-[#2F353A]">
+                        {/* Use poster image if available, otherwise use first image as poster */}
+                        <img
+                            src={currentMedia.poster || therapist.media.find(m => m.type === 'image')?.url || '/images/placeholder.svg'}
+                            alt={`${therapist.name} video thumbnail`}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black/20"></div>
+                    </div>
+                )}
+            </div>
             
+            {/* Video Play Button Overlay */}
             {currentMedia.type === 'video' && (
-                <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    <div className="bg-black/60 rounded-full p-4">
+                <div className="absolute inset-0 flex items-center justify-center cursor-pointer" onClick={handleMediaClick}>
+                    <div className="bg-black/60 hover:bg-black/70 transition-colors rounded-full p-5 shadow-lg">
                         <Play className="h-8 w-8 text-white" fill="white" />
+                    </div>
+                    <span className="sr-only">Play video</span>
+                    
+                    {/* Video Label (top-center) */}
+                    <div className="absolute top-4 left-0 right-0 text-center">
+                        <span className="text-white font-medium text-lg">Therapist Video</span>
                     </div>
                 </div>
             )}
-            </div>
 
-            {/* Navigation Arrows */}
-            {therapist.media.length > 1 && (
+            {/* Navigation Arrows - Always visible on desktop, show on hover for mobile */}
+            {sortedMedia.length > 1 && (
                 <>
+                    {/* Left Arrow */}
                     <Button
                         variant="ghost"
                         size="icon"
                         onClick={handlePrevious}
-                        className="absolute top-1/2 -translate-y-1/2 left-2 bg-white/80 hover:bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute top-1/2 -translate-y-1/2 left-2 bg-white/90 hover:bg-white rounded-full shadow-md z-20 w-10 h-10"
+                        aria-label="Previous media"
                     >
-                        <ChevronLeft className="h-6 w-6 text-[#2F353A]" />
+                        <ChevronLeft className="h-5 w-5 text-[#2F353A]" />
                     </Button>
+                    
+                    {/* Right Arrow */}
                     <Button
                         variant="ghost"
                         size="icon"
                         onClick={handleNext}
-                        className="absolute top-1/2 -translate-y-1/2 right-2 bg-white/80 hover:bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute top-1/2 -translate-y-1/2 right-2 bg-white/90 hover:bg-white rounded-full shadow-md z-20 w-10 h-10"
+                        aria-label="Next media"
                     >
-                        <ChevronRight className="h-6 w-6 text-[#2F353A]" />
+                        <ChevronRight className="h-5 w-5 text-[#2F353A]" />
                     </Button>
                 </>
             )}
 
-            {/* Pagination Dots */}
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
-                {therapist.media.map((_, index) => (
-                    <div
-                        key={index}
-                        className={`h-2 w-2 rounded-full ${currentIndex === index ? 'bg-white' : 'bg-white/50'}`}
-                    />
-                ))}
+            {/* Pagination Dots - Enhanced to match design */}
+            {sortedMedia.length > 1 && (
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+                    {sortedMedia.map((_, index) => (
+                        <div
+                            key={index}
+                            className={cn(
+                                "h-2 w-2 rounded-full transition-all", 
+                                currentIndex === index 
+                                  ? "bg-[hsl(var(--garden-green))]" 
+                                  : "bg-white opacity-50 hover:opacity-70"
+                            )}
+                            role="button"
+                            tabIndex={0}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setCurrentIndex(index);
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    setCurrentIndex(index);
+                                }
+                            }}
+                            aria-label={`Go to media ${index + 1} of ${sortedMedia.length}`}
+                            aria-current={currentIndex === index}
+                        />
+                    ))}
+                </div>
+            )}
+            
+            {/* Media Type Indicator for Screen Readers */}
+            <div className="sr-only" aria-live="polite">
+                {currentMedia.type === 'video' 
+                    ? `Video ${currentIndex + 1} of ${sortedMedia.length}. Click to play.` 
+                    : `Image ${currentIndex + 1} of ${sortedMedia.length}.`
+                }
             </div>
         </div>
     );

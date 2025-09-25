@@ -492,7 +492,7 @@ export default function Discover() {
                   onOpenChange={setVideoOpen} 
                   videoUrl={selectedTherapist.media.find(m => m.type === 'video')?.url || ""} 
                   posterUrl={selectedTherapist.media.find(m => m.type === 'video')?.poster}
-                  title={selectedTherapist.name} 
+                  title={selectedTherapist.name}
               />
             )}
             <ReadyToConnectModal open={connectModalOpen} onOpenChange={handleConnectModalClose} therapist={selectedTherapist} />
