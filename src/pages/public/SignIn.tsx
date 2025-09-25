@@ -44,7 +44,9 @@ export default function SignIn() {
 
         const userRole = profile?.role || 'client';
 
-        if (userRole === 'therapist') {
+        if (userRole === 'admin') {
+          navigate("/admin/overview");
+        } else if (userRole === 'therapist') {
           navigate("/t/dashboard");
         } else {
           navigate("/discover");

@@ -1,3 +1,17 @@
+/**
+ * Official Supabase TypeScript definitions for database schema.
+ * 
+ * TO UPDATE THIS FILE:
+ * 1. Make schema changes in Supabase
+ * 2. Run: npx supabase gen types typescript --project-id your-project-id --schema public > database.types.ts.new
+ * 3. Review the generated file and then replace this file
+ * 
+ * NOTE: This file should NOT be modified directly or by AI tools.
+ * Any custom type extensions should go in a separate file.
+ * 
+ * Last updated: September 25, 2025
+ */
+
 export type Json =
   | string
   | number
@@ -1105,6 +1119,14 @@ export type Database = {
           updated_at: string | null
           verified: boolean | null
           years_experience: string | null
+          // The following fields exist in the SQL view but were missing from the types
+          quote: string | null
+          video_url: string | null
+          communication_style: string | null
+          session_format: string | null
+          gender_identity: string | null
+          location_city: string | null
+          location_country: string | null
         }
         Insert: {
           accepts_new_clients?: boolean | null
@@ -1129,6 +1151,14 @@ export type Database = {
           updated_at?: string | null
           verified?: boolean | null
           years_experience?: string | null
+          // Fields added to match the SQL view
+          quote?: string | null
+          video_url?: string | null
+          communication_style?: string | null
+          session_format?: string | null
+          gender_identity?: string | null
+          location_city?: string | null
+          location_country?: string | null
         }
         Update: {
           accepts_new_clients?: boolean | null
@@ -1153,6 +1183,14 @@ export type Database = {
           updated_at?: string | null
           verified?: boolean | null
           years_experience?: string | null
+          // Fields added to match the SQL view
+          quote?: string | null
+          video_url?: string | null
+          communication_style?: string | null
+          session_format?: string | null
+          gender_identity?: string | null
+          location_city?: string | null
+          location_country?: string | null
         }
         Relationships: []
       }

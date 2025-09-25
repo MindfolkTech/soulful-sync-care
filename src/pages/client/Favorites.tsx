@@ -23,12 +23,13 @@ type Appointment = Database['public']['Tables']['appointments']['Row'];
 
 // Define types for our data
 
+// Use the database types directly now that they've been updated to match the SQL schema
+type TherapistProfilePublic = Database['public']['Views']['therapist_profiles_public']['Row'];
+
 interface FavoriteTherapist extends TherapistData {
   appointments: Appointment[];
   favorite_id: string;
 }
-
-// Custom hook to fetch favorites and their upcoming appointments
 
 // Custom hook to fetch favorites and their upcoming appointments
 const useFavoritesWithAppointments = () => {
@@ -54,9 +55,13 @@ const useFavoritesWithAppointments = () => {
 
       // Step 2: Fetch all therapist profiles for those favorites
       const { data: profiles, error: profilesError } = await supabase
-        .from('therapist_profiles')
+        .from('therapist_profiles_public')
         .select('*')
-        .in('user_id', therapistIds);
+        .in('id', therapistIds);
+
+      // Cast to the TherapistProfilePublic type from database.types.ts
+      // The database.types.ts file has been updated to include all fields from the SQL view
+      const therapistProfiles = profiles as TherapistProfilePublic[] | null;
 
       if (profilesError) throw new Error(`Profiles Error: ${profilesError.message}`);
 
@@ -75,23 +80,23 @@ const useFavoritesWithAppointments = () => {
       const apptToDate = (appt: Appointment) => new Date(`${appt.session_date}T${appt.session_time}`);
 
       // Step 4: Combine the data in JavaScript
-      const combinedData = profiles.map(profile => {
-        const favoriteRecord = favorites.find(f => f.therapist_id === profile.user_id);
-        const therapistAppointments = (appointments?.filter(a => a.therapist_id === profile.user_id) || [])
+      const combinedData = therapistProfiles?.map(profile => {
+        const favoriteRecord = favorites.find(f => f.therapist_id === profile.id);
+        const therapistAppointments = (appointments?.filter(a => a.therapist_id === profile.id) || [])
           .sort((a, b) => apptToDate(a).getTime() - apptToDate(b).getTime());
         
         const typedProfile = profile as { session_rates: { standard?: number } };
 
         const mappedProfile: TherapistData = {
-            id: profile.user_id,
+            id: profile.id,
             name: profile.name || 'No Name',
             title: profile.tagline || 'Therapist',
             specialties: profile.specialties || [],
             personality: profile.personality_tags || [],
             languages: profile.languages || [],
-            rate: typedProfile?.session_rates?.standard ? `£${typedProfile.session_rates.standard}/session` : 'N/A',
-            rating: 4.8, // Mock rating
-            quote: profile.bio?.substring(0, 100) + '...' || '',
+            rate: profile.session_rates?.['60min'] ? `£${profile.session_rates['60min']}/session` : 'N/A',
+            rating: 4.8, // TODO: Calculate from real reviews
+            quote: profile.quote || profile.bio?.substring(0, 100) + '...' || '',
             media: [
               { type: 'image', url: profile.avatar_url || '' },
               ...(profile.video_url ? [{ type: 'video' as const, url: profile.video_url }] : [])
@@ -106,7 +111,7 @@ const useFavoritesWithAppointments = () => {
         };
       });
 
-      return combinedData;
+      return combinedData || [];
     },
     enabled: !!user && !!supabase,
   });
@@ -171,15 +176,15 @@ export default function Favorites() {
         break;
       case "price_asc":
         filtered.sort((a, b) => {
-          const priceA = parseInt(a.rate.replace(/[^\d]/g, ''));
-          const priceB = parseInt(b.rate.replace(/[^\d]/g, ''));
+          const priceA = a.rate === 'N/A' ? Infinity : parseInt(a.rate.replace(/[^\d]/g, '')) || 0;
+          const priceB = b.rate === 'N/A' ? Infinity : parseInt(b.rate.replace(/[^\d]/g, '')) || 0;
           return priceA - priceB;
         });
         break;
       case "price_desc":
          filtered.sort((a, b) => {
-          const priceA = parseInt(a.rate.replace(/[^\d]/g, ''));
-          const priceB = parseInt(b.rate.replace(/[^\d]/g, ''));
+          const priceA = a.rate === 'N/A' ? -1 : parseInt(a.rate.replace(/[^\d]/g, '')) || 0;
+          const priceB = b.rate === 'N/A' ? -1 : parseInt(b.rate.replace(/[^\d]/g, '')) || 0;
           return priceB - priceA;
         });
         break;
@@ -243,7 +248,7 @@ export default function Favorites() {
             <p className="font-secondary text-[hsl(var(--text-secondary))] mb-4">
               Start discovering therapists and add them to your favorites
             </p>
-            <Button onClick={() => navigate('/discover')} className="min-h-[--touch-target-min]" aria-label="Go to therapist discovery page">
+            <Button onClick={() => navigate('/discover')} className="min-h-touch-target" aria-label="Go to therapist discovery page">
               Discover Therapists
             </Button>
           </div>
@@ -285,7 +290,7 @@ export default function Favorites() {
                       variant="ghost"
                       size="icon"
                       onClick={() => removeFavoriteMutation.mutate(therapist.favorite_id)}
-                      className="text-[hsl(var(--text-secondary))] hover:text-error min-h-[--touch-target-min] min-w-[--touch-target-min]"
+                      className="text-[hsl(var(--text-secondary))] hover:text-error min-h-touch-target min-w-touch-target"
                       aria-label={`Remove ${therapist.name} from favorites`}
                       disabled={removeFavoriteMutation.isPending}
                     >
@@ -309,7 +314,7 @@ export default function Favorites() {
                     <Button
                       size="sm"
                       onClick={() => handleBookSession(therapist)}
-                      className="flex-1 min-h-[--touch-target-min]"
+                      className="flex-1 min-h-touch-target"
                       aria-label={`Book therapy session with ${therapist.name}`}
                     >
                       Book Session
@@ -318,7 +323,7 @@ export default function Favorites() {
                       variant="ghost"
                       size="sm"
                       onClick={() => therapist.media?.find(m => m.type === 'video') ? handleShowVideo(therapist) : handleShowDetails(therapist)}
-                      className="min-h-[--touch-target-min] text-[hsl(var(--garden-green))]"
+                      className="min-h-touch-target text-[hsl(var(--garden-green))]"
                       aria-label={therapist.media?.find(m => m.type === 'video') ? `Watch introduction video from ${therapist.name}` : `View ${therapist.name}'s full profile`}
                     >
                       {therapist.media?.find(m => m.type === 'video') ? "📹" : "👁️"}
@@ -355,7 +360,7 @@ export default function Favorites() {
             size="sm"
             onClick={() => navigate('/discover')}
             aria-label="Back to discovery"
-            className="min-h-[--touch-target-min]"
+            className="min-h-touch-target"
           >
             <Filter className="w-4 h-4 mr-2" />
             Discover More
@@ -379,12 +384,12 @@ export default function Favorites() {
                 placeholder="Search favorites..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 min-h-[--touch-target-min]"
+                className="pl-10 min-h-touch-target"
                 aria-label="Search favorites"
               />
             </div>
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-full sm:w-48 min-h-[--touch-target-min]" aria-label="Sort favorites by criteria">
+              <SelectTrigger className="w-full sm:w-48 min-h-touch-target" aria-label="Sort favorites by criteria">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>

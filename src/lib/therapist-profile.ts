@@ -1,5 +1,7 @@
 import { supabase } from "@/integrations/supabase/client";
-import type { Database } from "@/integrations/supabase/types";
+import type { Database } from "@/database.types";
+
+// Note: Previously imported from @/integrations/supabase/types - now using centralized types
 
 type TherapistProfileData = {
   // Basic info
