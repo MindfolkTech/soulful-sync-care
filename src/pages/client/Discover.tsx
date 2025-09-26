@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { TherapistCard, TherapistData } from "@/components/molecules/therapist-card";
 import { TherapistDetailsSheet } from "@/components/discovery/therapist-details-sheet";
-import { FiltersDialog } from "@/components/discovery/filters-dialog";
+import { FiltersDialog, FilterPreferences } from "@/components/discovery/filters-dialog";
 import { VideoOverlay } from "@/components/discovery/video-overlay";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useAriaLive } from "@/hooks/use-aria-live";
@@ -119,6 +119,14 @@ export default function Discover() {
   const [filtersOpen, setFiltersOpen] = React.useState(false);
   const [matchedTherapists, setMatchedTherapists] = React.useState<TherapistData[]>([]);
   const [lastPassedTherapist, setLastPassedTherapist] = React.useState<TherapistData | null>(null);
+  const [activeFilters, setActiveFilters] = React.useState<FilterPreferences>({
+    specialties: [],
+    modalities: [],
+    budget_range: [20, 150],
+    therapist_gender: "No preference",
+    experience_level: "No preference",
+    preferred_times: []
+  });
   
   // Get current user (real user or impersonated user)
   const { user } = useAuth();
@@ -175,8 +183,26 @@ export default function Discover() {
         const therapistProfiles = (supabaseProfiles || []).map(convertSupabaseToTherapistProfile);
         
         if (supabaseAssessment && therapistProfiles.length > 0) {
-          // Use real assessment data
+          // Use real assessment data merged with active filters
           const assessment = convertSupabaseToClientAssessment(supabaseAssessment);
+          
+          // Merge filter preferences into assessment
+          if (activeFilters.specialties.length > 0) {
+            assessment.therapy_goals = activeFilters.specialties;
+          }
+          if (activeFilters.modalities.length > 0) {
+            assessment.therapy_modalities = activeFilters.modalities;
+          }
+          if (activeFilters.budget_range) {
+            assessment.budget_range = activeFilters.budget_range;
+          }
+          if (activeFilters.therapist_gender !== "No preference") {
+            assessment.therapist_gender_preference = activeFilters.therapist_gender;
+          }
+          if (activeFilters.preferred_times.length > 0) {
+            assessment.preferred_times = activeFilters.preferred_times;
+          }
+          
           const matches = findMatches(assessment, therapistProfiles);
           const therapistData = matches.map(match => {
             const supabaseProfile = supabaseProfiles.find(p => p.id === match.therapist_id);
@@ -211,7 +237,14 @@ export default function Discover() {
     };
 
     loadTherapistData();
-  }, [currentUserId]); // Re-run when the effective user changes
+  }, [currentUserId, activeFilters]); // Re-run when the effective user or filters change
+
+  // Handler for applying filters
+  const handleApplyFilters = (filters: FilterPreferences) => {
+    setActiveFilters(filters);
+    setCurrentIndex(0); // Reset to first therapist when filters change
+    announce("Filters applied. Showing updated matches.");
+  };
 
   const availableTherapists = matchedTherapists.filter(t => !viewedTherapists.has(t.id));
   const currentTherapist = availableTherapists[currentIndex];
@@ -544,7 +577,12 @@ export default function Discover() {
               />
             )}
             <ReadyToConnectModal open={connectModalOpen} onOpenChange={handleConnectModalClose} therapist={selectedTherapist} />
-            <FiltersDialog open={filtersOpen} onOpenChange={setFiltersOpen} />
+            <FiltersDialog 
+              open={filtersOpen} 
+              onOpenChange={setFiltersOpen}
+              currentFilters={activeFilters}
+              onApplyFilters={handleApplyFilters}
+            />
             
             <div {...ariaLiveProps} />
         </div>
