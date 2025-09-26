@@ -2,6 +2,7 @@ import * as React from "react";
 import { X, Heart, ChevronDown, Play, ChevronLeft, ChevronRight, BadgeCheck, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
+import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 
@@ -45,7 +46,7 @@ const MediaCarousel = ({ media, onShowVideo, therapistName, tags }: { media: Med
     };
 
     return (
-        <div className="relative w-full h-full group bg-surface-accent">
+        <div className="relative w-full h-full group bg-surface-accent rounded-lg overflow-hidden">
             <div 
                 className="w-full h-full cursor-pointer"
                 onClick={() => { if (currentMedia.type === 'video') onShowVideo()}}
@@ -56,11 +57,30 @@ const MediaCarousel = ({ media, onShowVideo, therapistName, tags }: { media: Med
                     <video src={currentMedia.url} poster={currentMedia.poster} className="w-full h-full object-cover" />
                 )}
             </div>
+            
+            {/* Video Play Overlay - Always visible with proper gradient */}
             {currentMedia.type === 'video' && (
-                <div className="absolute inset-0 bg-ink-slate/30 flex items-center justify-center pointer-events-none">
-                    <div className="bg-ink-slate/60 rounded-full p-3">
-                        <Play className="h-6 w-6 text-on-dark" />
-                    </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none">
+                    <Button
+                        size="icon"
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/90 hover:bg-white shadow-lg pointer-events-auto"
+                        aria-label="Play therapist introduction video"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onShowVideo();
+                        }}
+                    >
+                        <Play className="h-6 w-6 text-black fill-black" />
+                    </Button>
+                </div>
+            )}
+            
+            {/* CC Badge - Shows caption availability */}
+            {currentMedia.type === 'video' && (
+                <div className="absolute top-2 left-2 z-10">
+                    <Badge variant="secondary" className="bg-black/70 text-white text-xs px-2 py-0.5">
+                        CC on
+                    </Badge>
                 </div>
             )}
             
@@ -75,12 +95,7 @@ const MediaCarousel = ({ media, onShowVideo, therapistName, tags }: { media: Med
                 </div>
             </div>
             
-             {media.length > 1 && (
-                <>
-                    <Button variant="ghost" size="icon" onClick={handlePrevious} className="absolute top-1/2 -translate-y-1/2 left-2 bg-surface/50 hover:bg-surface/80 h-8 w-8 rounded-full opacity-0 group-hover:opacity-100"><ChevronLeft className="h-5 w-5" /></Button>
-                    <Button variant="ghost" size="icon" onClick={handleNext} className="absolute top-1/2 -translate-y-1/2 right-2 bg-surface/50 hover:bg-surface/80 h-8 w-8 rounded-full opacity-0 group-hover:opacity-100"><ChevronRight className="h-5 w-5" /></Button>
-                </>
-            )}
+            {/* Remove carousel arrows - navigation via action bar only */}
         </div>
     );
 };

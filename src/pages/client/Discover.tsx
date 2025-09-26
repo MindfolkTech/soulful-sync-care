@@ -188,7 +188,9 @@ export default function Discover() {
           
           // Merge filter preferences into assessment
           if (activeFilters.specialties.length > 0) {
-            assessment.therapy_goals = activeFilters.specialties;
+            // Note: We keep therapy_goals as the client's original selections
+            // Filter specialties are for refining search, not replacing goals
+            // The matching algorithm will handle specialty filtering separately
           }
           if (activeFilters.modalities.length > 0) {
             assessment.therapy_modalities = activeFilters.modalities;

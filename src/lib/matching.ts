@@ -93,14 +93,47 @@ function normalize(v: string): string {
 }
 
 /**
+ * Map therapy goals to specific specialties
+ * This maps client assessment options to therapist specialties for accurate matching
+ */
+function mapTherapyGoalToSpecialties(goal: string): string[] {
+  const goalMapping: Record<string, string[]> = {
+    "Anxiety and everyday worries": ["Anxiety"],
+    "Feeling low or depressed": ["Depression"],
+    "Relationship challenges": ["Relationship and intimacy issues"],
+    "Work and life stress": ["Career difficulties", "Motivation and self-esteem"],
+    "Family and parenting": ["Family conflict", "Parenting issues"],
+    "Identity and self-discovery": ["LGBT-related issues", "Race and racial identity", "Motivation and self-esteem"],
+    "Past experiences and trauma": ["Trauma and abuse", "PTSD"]
+  };
+  
+  return goalMapping[goal] || [];
+}
+
+/**
  * NEW - Helper function to parse style sentences into keywords.
  * Takes a string like "Structured & Goal-oriented (..." and returns ['structured', 'goal-oriented']
+ * IMPORTANT: Preserves hyphenated terms like 'goal-oriented' and 'solution-oriented'
  */
 function parseStyleSentence(sentence: string): string[] {
   if (!sentence) return [];
-  // Take the part before the parenthesis, replace '&' with space, and split into words.
+  
+  // Take the part before the parenthesis
   const mainPart = sentence.split('(')[0].trim();
-  return mainPart.replace(/&/g, ' ').split(/\s+/).map(normalize);
+  
+  // Replace '&' and 'and' with spaces, but preserve hyphens
+  const cleanedPart = mainPart
+    .replace(/\s+&\s+/g, ' ')  // Replace & with space
+    .replace(/\s+and\s+/g, ' ') // Replace 'and' with space
+    .trim();
+  
+  // Split by spaces but keep hyphenated terms together
+  const words = cleanedPart.split(/\s+/);
+  
+  // Normalize each word (lowercase, trim) but keep hyphens
+  return words
+    .map(word => word.toLowerCase().trim())
+    .filter(word => word.length > 0);
 }
 
 /**
@@ -351,8 +384,13 @@ export function calculateMatch(
     therapist.identity_tags
   );
 
+  // Map therapy goals to actual specialties for matching
+  const mappedSpecialties = assessment.therapy_goals
+    .flatMap(goal => mapTherapyGoalToSpecialties(goal))
+    .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
+  
   const specialtyScore = calculateOverlapExact(
-    assessment.therapy_goals,
+    mappedSpecialties,
     therapist.specialties
   );
 
