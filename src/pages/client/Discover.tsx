@@ -1,7 +1,9 @@
-import * as React from "react";
-import { Filter, RotateCcw, ChevronLeft, ChevronRight, X, Heart } from "lucide-react";
-import { BottomNav } from "@/components/ui/bottom-nav";
+import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import { Heart, X, ChevronLeft, ChevronRight, SlidersHorizontal, Loader2, RotateCcw, Undo2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { BottomNav } from "@/components/ui/bottom-nav";
 import { 
   Dialog,
 } from "@/components/ui/dialog";
@@ -116,11 +118,13 @@ export default function Discover() {
   const [selectedTherapist, setSelectedTherapist] = React.useState<TherapistData | null>(null);
   const [filtersOpen, setFiltersOpen] = React.useState(false);
   const [matchedTherapists, setMatchedTherapists] = React.useState<TherapistData[]>([]);
+  const [lastPassedTherapist, setLastPassedTherapist] = React.useState<TherapistData | null>(null);
   
   // Get current user (real user or impersonated user)
   const { user } = useAuth();
   const { isImpersonating, impersonatedUser } = useImpersonation();
   const { announce, ariaLiveProps } = useAriaLive();
+  const { toast } = useToast();
   
   // Determine the current effective user ID
   const currentUserId = isImpersonating && impersonatedUser ? impersonatedUser.id : user?.id;
@@ -227,10 +231,54 @@ export default function Discover() {
   }, [currentIndex]);
 
   const handlePass = React.useCallback((therapist: TherapistData) => {
+    // Store the passed therapist for potential undo
+    setLastPassedTherapist(therapist);
     setViewedTherapists(prev => new Set([...prev, therapist.id]));
     announce(`Removed ${therapist.name}`);
+    
+    // Show toast with undo option
+    toast({
+      title: `Passed on ${therapist.name}`,
+      description: "You can undo this action",
+      action: (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => handleUndo()}
+          className="gap-2"
+        >
+          <Undo2 className="h-4 w-4" />
+          Undo
+        </Button>
+      ),
+      duration: 5000, // 5 seconds to undo
+    });
+    
     handleNext();
-  }, [announce, handleNext]);
+  }, [announce, handleNext, toast]);
+  
+  const handleUndo = React.useCallback(() => {
+    if (lastPassedTherapist) {
+      // Remove from viewed therapists to show again
+      setViewedTherapists(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(lastPassedTherapist.id);
+        return newSet;
+      });
+      
+      // Reset to show the therapist again
+      setCurrentIndex(0);
+      
+      // Clear the last passed therapist
+      setLastPassedTherapist(null);
+      
+      announce(`Restored ${lastPassedTherapist.name}`);
+      toast({
+        title: `Restored ${lastPassedTherapist.name}`,
+        description: "Therapist is back in your matches",
+      });
+    }
+  }, [lastPassedTherapist, announce, toast]);
 
   const handleSave = React.useCallback(async (therapist: TherapistData) => {
     if (!user) {
@@ -355,7 +403,7 @@ export default function Discover() {
                   aria-label="Open filters"
                   className="w-10 h-10 rounded-full bg-surface-accent flex items-center justify-center"
                 >
-                  <Filter className="w-5 h-5 text-[hsl(var(--garden-green))]" />
+                  <SlidersHorizontal className="w-5 h-5 text-[hsl(var(--garden-green))]" />
                 </Button>
             </header>
 

@@ -112,10 +112,10 @@ export function TherapistCard({
           </div>
         )}
 
-        {/* Play Overlay - only show if video exists */}
+        {/* Play Overlay - always visible when video exists */}
         {therapist.video_url && (
-          <div className="absolute inset-0 bg-[hsl(var(--overlay-dark))]/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="bg-[hsl(var(--overlay-dark))]/60 rounded-full p-4">
+          <div className="absolute inset-0 bg-[hsl(var(--overlay-dark))]/20 flex items-center justify-center transition-all hover:bg-[hsl(var(--overlay-dark))]/30">
+            <div className="bg-[hsl(var(--overlay-dark))]/60 hover:bg-[hsl(var(--overlay-dark))]/80 rounded-full p-4 transition-colors">
               <Play className="h-8 w-8 text-[hsl(var(--on-dark))]" />
             </div>
           </div>

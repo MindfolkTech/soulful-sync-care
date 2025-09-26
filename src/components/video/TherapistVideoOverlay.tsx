@@ -1,12 +1,16 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { 
   Dialog,
   DialogContent,
-  DialogOverlay
+  DialogOverlay,
+  DialogClose
 } from "@/components/ui/dialog";
 import { CloudflareStreamPlayer } from "./CloudflareStreamPlayer";
 import { cn } from "@/lib/utils";
+import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useEscapeKey, useFocusTrap } from "@/hooks/accessibility";
 
 interface TherapistVideoOverlayProps {
   open: boolean;
@@ -18,6 +22,32 @@ interface TherapistVideoOverlayProps {
   className?: string;
 }
 
+// Custom hook to manage focus within the video overlay
+const useFocusManagement = (open: boolean, containerRef: React.RefObject<HTMLDivElement>) => {
+  // Keep track of the element that had focus before the overlay opened
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+  
+  useEffect(() => {
+    if (open) {
+      // Save current focus
+      previousFocusRef.current = document.activeElement as HTMLElement;
+      
+      // Focus the container
+      if (containerRef.current) {
+        containerRef.current.focus();
+      }
+    } else if (previousFocusRef.current) {
+      // Restore focus when overlay closes
+      try {
+        previousFocusRef.current.focus();
+      } catch (e) {
+        // Handle edge case where element might no longer be in the DOM
+        console.log('Could not restore focus');
+      }
+    }
+  }, [open, containerRef]);
+};
+
 export function TherapistVideoOverlay({
   open,
   onOpenChange,
@@ -27,9 +57,17 @@ export function TherapistVideoOverlay({
   therapistRate,
   className
 }: TherapistVideoOverlayProps) {
+  // Refs for focus management
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoPlayerRef = useRef<HTMLDivElement>(null);
+
   // Handle media query for responsive sizing
   const [isMobile, setIsMobile] = React.useState(false);
   const [isLandscape, setIsLandscape] = React.useState(false);
+  
+  // Use custom hooks for accessibility
+  useFocusManagement(open, containerRef);
+  useFocusTrap(containerRef, open);
   
   // Handle device orientation and screen size
   useEffect(() => {
@@ -140,19 +178,51 @@ export function TherapistVideoOverlay({
           isMobile && isLandscape ? "h-[calc(var(--vh,1vh)*90)]" : "",
           className
         )}
+        ref={containerRef}
+        tabIndex={-1} // Make container focusable but not in tab order
+        onKeyDown={(e) => {
+          // Close on Escape key
+          if (e.key === 'Escape') {
+            onOpenChange(false);
+          }
+        }}
+        aria-modal="true"
+        aria-labelledby="video-title"
       >
         <div className={cn(
           "w-full overflow-hidden rounded-lg shadow-2xl",
           isMobile ? (isLandscape ? "aspect-video" : "aspect-[9/16]") : "aspect-video"
         )}>
-          <CloudflareStreamPlayer
-            src={videoUrl}
-            poster={posterUrl}
-            title={therapistName}
-            subtitle={therapistRate}
-            onClose={() => onOpenChange(false)}
-            className="w-full h-full"
-          />
+          {/* Explicit close button for better a11y */}
+          <DialogClose asChild>
+            <Button
+              className="absolute top-2 right-2 z-50 bg-black/50 text-white hover:bg-black/70 rounded-full"
+              size="icon"
+              aria-label="Close video"
+            >
+              <X className="h-5 w-5" />
+            </Button>
+          </DialogClose>
+          
+          {/* Video title for screen readers */}
+          <div className="sr-only" id="video-title">
+            {therapistName ? `${therapistName}'s introduction video` : 'Therapist introduction video'}
+          </div>
+          
+          <div ref={videoPlayerRef}>
+            <CloudflareStreamPlayer
+              src={videoUrl}
+              poster={posterUrl}
+              title={therapistName}
+              subtitle={therapistRate}
+              onClose={() => onOpenChange(false)}
+              className="w-full h-full"
+              fallbackImage={therapistName ? `/images/${therapistName.toLowerCase().replace(/\s+/g, '-')}.jpg` : undefined}
+              onError={(error) => {
+                console.error('Video playback error:', error);
+              }}
+            />
+          </div>
         </div>
         
         {/* Desktop Picture-in-Picture Button */}
