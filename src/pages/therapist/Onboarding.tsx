@@ -116,47 +116,10 @@ export default function TherapistOnboarding() {
   // Auto-save progress
   useEffect(() => {
     const timer = setTimeout(() => {
-      // Process profile data for matching algorithm
-      const processedProfileData: typeof profileData & { personality_tags?: string[] } = { ...profileData };
-      
-      // Merge communication style into personality_tags for matching
-      if (profileData.communicationStyle) {
-        // Convert communication style to personality tags format
-        const personalityTags = [];
-        
-        // Map communication style to normalized tags
-        if (profileData.communicationStyle.includes('Empathetic')) {
-          personalityTags.push('empathetic');
-        }
-        if (profileData.communicationStyle.includes('Structured')) {
-          personalityTags.push('structured');
-        }
-        if (profileData.communicationStyle.includes('Flexible')) {
-          personalityTags.push('flexible');
-        }
-        if (profileData.communicationStyle.includes('Calm')) {
-          personalityTags.push('calm');
-        }
-        if (profileData.communicationStyle.includes('goal-oriented')) {
-          personalityTags.push('goal-oriented');
-        }
-        if (profileData.communicationStyle.includes('process-focused')) {
-          personalityTags.push('process-focused');
-        }
-        if (profileData.communicationStyle.includes('adaptable')) {
-          personalityTags.push('adaptable');
-        }
-        if (profileData.communicationStyle.includes('understanding')) {
-          personalityTags.push('understanding');
-        }
-        
-        // Add personality_tags to processed data
-        processedProfileData.personality_tags = personalityTags;
-      }
-      
+      // DO NOT manually generate personality_tags - the database trigger handles this
       localStorage.setItem('therapistOnboarding', JSON.stringify({
         currentStep,
-        profileData: processedProfileData,
+        profileData, // Use original profileData, not processed
         timestamp: Date.now()
       }));
       setSavedProgress(true);

@@ -18,21 +18,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/context/AuthContext";
 
 // Define communication styles options that align with the matching algorithm
 // Using safe IDs for DOM elements but storing the full strings for processing compatibility
 const communicationStyles = [
-  { id: 'empathetic', value: 'Empathetic and understanding', label: 'Empathetic and understanding', description: 'I focus on creating a warm, supportive environment where clients feel heard and validated.' },
-  { id: 'structured', value: 'Structured and goal-oriented', label: 'Structured and goal-oriented', description: 'I help clients set clear goals and work systematically toward measurable outcomes.' },
-  { id: 'flexible', value: 'Flexible and adaptable', label: 'Flexible and adaptable', description: 'I adjust my approach based on each client\'s unique needs and preferences.' },
-  { id: 'calm', value: 'Calm and process-focused', label: 'Calm and process-focused', description: 'I help clients explore their thoughts and feelings at a comfortable pace.' },
+  { id: 'supportive-relational', value: 'Supportive & Relational', label: 'Supportive & Relational', description: 'I focus on creating safety, trust, and emotional validation' },
+  { id: 'motivational-encouraging', value: 'Motivational & Encouraging', label: 'Motivational & Encouraging', description: 'I focus on boosting morale, using encouragement and gentle challenge' },
+  { id: 'pragmatic-problem-solving', value: 'Pragmatic & Problem-solving', label: 'Pragmatic & Problem-solving', description: 'I focus on offering clear, solution-oriented feedback with actionable takeaways' },
+  { id: 'flexible-adaptive', value: 'Flexible & Adaptive', label: 'Flexible & Adaptive', description: 'I am constantly shifting tone/style depending on the client\'s needs in the moment' }
 ];
 
-// Define session format options
+// Define session format options - MUST match database ENUMs exactly
 const sessionFormats = [
-  { id: 'structured', label: 'Structured', description: 'I follow a clear agenda with specific goals for each session.' },
-  { id: 'flexible', label: 'Flexible', description: 'I adapt the session flow based on what emerges in our time together.' },
-  { id: 'balanced', label: 'Balanced', description: 'I balance structure with flexibility, having a general framework while remaining responsive to client needs.' },
+  { id: 'structured-goal', value: 'Structured & Goal-oriented', label: 'Structured & Goal-oriented', description: 'Sessions follow a clear agenda with measurable progress markers' },
+  { id: 'exploratory-insight', value: 'Exploratory & Insight-based', label: 'Exploratory & Insight-based', description: 'Sessions unfold organically, focusing on deep reflection and meaning-making' },
+  { id: 'interactive-dynamic', value: 'Interactive & Dynamic', label: 'Interactive & Dynamic', description: 'I switch it up with various techniques and exercises to keep energy high' },
+  { id: 'calm-process', value: 'Calm & Process-Focused', label: 'Calm & Process-Focused', description: 'My sessions emphasise pacing, safety, and careful exploration of feelings' }
 ];
 
 // Define prides options
@@ -47,6 +49,7 @@ const prides = [
 
 export default function OnboardingApproach() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [modalities, setModalities] = useState<{name: string}[]>([]);
   const [specialities, setSpecialities] = useState<{name: string}[]>([]);
   const [languages, setLanguages] = useState<{name: string}[]>([]);
@@ -88,10 +91,11 @@ export default function OnboardingApproach() {
     }
   }, []);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const saved = localStorage.getItem('therapistOnboarding');
     const existing = saved ? JSON.parse(saved) : { currentStep: 3, profileData: {} };
     
+    // Save to localStorage
     localStorage.setItem('therapistOnboarding', JSON.stringify({
       ...existing,
       currentStep: 3,
@@ -101,10 +105,38 @@ export default function OnboardingApproach() {
       },
       timestamp: Date.now()
     }));
+    
+    // CRITICAL: Save communication_style and session_format to database
+    // The database trigger will auto-generate personality_tags
+    if (user && formData.communicationStyle && formData.sessionFormat) {
+      try {
+        const { error } = await supabase
+          .from('therapist_profiles')
+          .upsert({
+            user_id: user.id,
+            license_number: existing.profileData?.licenseNumber || 'PENDING', // Will be set in credentials step
+            name: existing.profileData?.name || user.email?.split('@')[0] || 'Therapist', // Temporary name
+            communication_style: formData.communicationStyle, // e.g., "Supportive & Relational"
+            session_format: formData.sessionFormat,           // e.g., "Calm & Process-Focused"
+            specialties: formData.specialities || [],
+            modalities: formData.modalities || [],
+            languages: formData.languages || []
+            // DO NOT set personality_tags - trigger will generate them
+          }, {
+            onConflict: 'user_id'
+          });
+          
+        if (error) {
+          console.error('Error saving therapist profile:', error);
+        }
+      } catch (err) {
+        console.error('Failed to save profile:', err);
+      }
+    }
   };
 
-  const handleNext = () => {
-    handleSave();
+  const handleNext = async () => {
+    await handleSave();
     navigate("/t/onboarding/profile");
   };
 
@@ -200,7 +232,11 @@ export default function OnboardingApproach() {
               {/* Session Format */}
               <div className="space-y-3">
                 <Label className="font-bold">In terms of how I format my sessions with clients, I tend to be more... (select one)</Label>
-                <RadioGroup value={formData.sessionFormat} onValueChange={(val) => setFormData(p => ({...p, sessionFormat: val}))}>
+                <RadioGroup value={formData.sessionFormat} onValueChange={(val) => {
+                  // Find the full string value for the selected ID
+                  const selectedFormat = sessionFormats.find(f => f.id === val);
+                  setFormData(p => ({...p, sessionFormat: selectedFormat ? selectedFormat.value : val}));
+                }}>
                   {sessionFormats.map(f => (
                     <div key={f.id} className="flex items-start space-x-2 p-3 rounded-md border">
                       <RadioGroupItem value={f.id} id={`format-${f.id}`} />

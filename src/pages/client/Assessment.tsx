@@ -14,6 +14,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import celebrationIllustration from "@/assets/celebration-illustration.jpg";
 import { DemographicsWarning, HealthDataWarning } from "@/components/legal/data-minimization-warning";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/context/AuthContext";
 
 const assessmentSteps = [
   {
@@ -95,13 +97,19 @@ const assessmentSteps = [
     title: "We all change",
     content: "Update filtering anytime and find new therapists that match your preferences",
     subtitle: "Find the right therapist for you",
-    type: "final-explainer"
+    type: "final"
   }
 ];
 
 export default function Assessment() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
+  const [isMatching, setIsMatching] = useState(false);
+  const [showConsentModal, setShowConsentModal] = useState(false);
+  const [consentType, setConsentType] = useState<'demographics' | 'health' | null>(null);
+  const [demographicsConsent, setDemographicsConsent] = useState(false);
+  const [healthDataConsent, setHealthDataConsent] = useState(false);
   const [responses, setResponses] = useState<Record<number, string[]>>({});
   const [demographicData, setDemographicData] = useState({
     primaryLanguage: "",
@@ -110,9 +118,6 @@ export default function Assessment() {
     ageGroup: "",
     sexualOrientation: ""
   });
-  const [isMatching, setIsMatching] = useState(false);
-  const [healthDataConsent, setHealthDataConsent] = useState(false);
-  const [showConsentModal, setShowConsentModal] = useState(false);
 
   // Language options from PRD
   const languageOptions = [
@@ -121,7 +126,14 @@ export default function Assessment() {
 
   // Smart values options based on demographics
   const getSmartValuesOptions = () => {
-    const options = ["Neurodiversity affirming", "Trauma-informed and gentle"];
+    const options = [
+      "Neurodiversity affirming", 
+      "Trauma-informed and gentle",
+      "Similar age to me",
+      "Same gender as me",
+      "Shares my cultural background",
+      "Speaks my native language"
+    ];
     
     if (demographicData.sexualOrientation && demographicData.sexualOrientation !== "Straight") {
       options.push("LGBTQ+ friendly and affirming");
@@ -131,12 +143,8 @@ export default function Assessment() {
       options.push("Culturally sensitive and aware");
     }
     
-    // Note: "Speaks my native language" removed from identity preferences
-    // Language matching is handled as a hard filter via language_preferences
-    
     return options;
   };
-
   const handleOptionToggle = (stepId: number, option: string) => {
     const currentResponses = responses[stepId] || [];
     const step = assessmentSteps.find(s => s.id === stepId);
@@ -162,7 +170,7 @@ export default function Assessment() {
     });
   };
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
     // Check if we're about to collect health data (step 3 onwards)
     if (currentStep === 2 && !healthDataConsent) {
       setShowConsentModal(true);
@@ -226,6 +234,52 @@ export default function Assessment() {
         version: '2.0'
       };
       localStorage.setItem('assessmentData', JSON.stringify(assessmentData));
+      
+      // CRITICAL: Save to database including identity_preferences and new preference flags
+      if (user) {
+        try {
+          // Parse identity preferences for special matching preferences
+          const prefersSimilarAge = clientAssessment.identity_preferences.includes("Similar age to me");
+          const prefersSameGender = clientAssessment.identity_preferences.includes("Same gender as me");
+          const prefersCulturalMatch = clientAssessment.identity_preferences.includes("Shares my cultural background");
+          
+          // Filter out the special preferences from core identity filters
+          const coreIdentityPreferences = clientAssessment.identity_preferences.filter(pref =>
+            !["Similar age to me", "Same gender as me", "Shares my cultural background"].includes(pref)
+          );
+          
+          const { error } = await supabase
+            .from('client_assessments')
+            .upsert({
+              user_id: user.id,
+              therapy_goals: clientAssessment.therapy_goals,
+              communication_preferences: clientAssessment.communication_preferences,
+              identity_preferences: coreIdentityPreferences,
+              therapy_modalities: clientAssessment.therapy_modalities,
+              language_preferences: clientAssessment.language_preferences,
+              budget_range: clientAssessment.budget_range,
+              preferred_times: clientAssessment.preferred_times,
+              age_group: clientAssessment.age_group,
+              // New preference flags
+              prefers_similar_age: prefersSimilarAge,
+              prefers_same_gender: prefersSameGender,
+              prefers_cultural_background_match: prefersCulturalMatch,
+              // Store demographic data for matching
+              gender_identity: demographicData.genderIdentity || null,
+              cultural_identity: demographicData.culturalIdentity || null,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            }, {
+              onConflict: 'user_id'
+            });
+            
+          if (error) {
+            console.error('Error saving assessment:', error);
+          }
+        } catch (err) {
+          console.error('Failed to save assessment:', err);
+        }
+      }
       
       // Simulate matching process
       setTimeout(() => {

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { TherapistCard, TherapistData } from "@/components/molecules/therapist-card";
 import { TherapistDetailsSheet } from "@/components/discovery/therapist-details-sheet";
-import { FiltersDialog, FilterPreferences } from "@/components/discovery/filters-dialog";
+import { FiltersDialog, FilterPreferences } from "@/components/discovery/filters-dialog-v2";
 import { VideoOverlay } from "@/components/discovery/video-overlay";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useAriaLive } from "@/hooks/use-aria-live";
