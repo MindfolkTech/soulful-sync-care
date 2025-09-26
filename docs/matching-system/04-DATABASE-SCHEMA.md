@@ -3,21 +3,26 @@
 ## Primary Tables
 
 ### `client_assessments`
-**Purpose:** Stores all client preferences and assessment data  
 **RLS:** Enabled - Users can only access their own data
 
 | Column | Type | Default | Constraints | Usage |
 |--------|------|---------|-------------|-------|
 | `id` | uuid | gen_random_uuid() | PRIMARY KEY | Unique identifier |
 | `user_id` | uuid | - | NOT NULL, FK → auth.users | Links to user account |
-| `communication_preferences` | text[] | '{}' | - | 40% weight - personality match |
-| `language_preferences` | text[] | '{}' | - | Hard filter |
-| `identity_preferences` | text[] | '{}' | - | 20% weight - identity match |
-| `therapy_goals` | text[] | '{}' | - | 20% weight - specialty match |
-| `therapy_modalities` | text[] | '{}' | - | 15% weight - modality match |
-| `budget_range` | integer[] | '{0,0}' | - | Hard filter [min, max] |
-| `age_group` | text | NULL | - | For preference boosts |
-| `preferred_times` | text[] | '{}' | - | 5% weight - availability |
+| `therapy_goals` | text[] | What brings them here | 20% |
+| `communication_preferences` | text[] | Therapist style preferences | 40% |
+| `identity_preferences` | text[] | Important therapist attributes | 20% |
+| `therapy_modalities` | text[] | Preferred therapy types | 15% |
+| `preferred_times` | text[] | Session time preferences | 5% |
+| `budget_range` | integer[] | [min, max] budget | Hard filter |
+| `language_preferences` | text[] | Required languages | Hard filter |
+| `experience_preference` | text | Experience level preference | Boost |
+| `age_group` | text | Client's age group | For matching |
+| `gender_identity` | text | Client's gender | For matching |
+| `cultural_identity` | text | Client's culture | For matching |
+| `prefers_similar_age` | boolean | Wants similar age therapist | Filter |
+| `prefers_same_gender` | boolean | Wants same gender therapist | Filter |
+| `prefers_cultural_background_match` | boolean | Wants cultural match | Filter |- availability |
 | `session_frequency` | text | NULL | - | Future use |
 | `previous_therapy` | boolean | false | - | Future use |
 | `crisis_support` | boolean | false | - | Future use |
