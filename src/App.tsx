@@ -113,6 +113,10 @@ import TherapistSetup from "./pages/therapist/Setup";
 // Session pages
 import SessionRoom from "./pages/session/SessionRoom";
 
+// Prototype pages (temporary for testing)
+import { TherapistQuickStart } from "./prototype/therapist-onboarding/QuickStart";
+import { PrototypeRouter } from "./prototype/therapist-workspace/PrototypeRouter";
+
 // Admin pages
 import AdminOverview from "./pages/admin/Overview";
 import AdminUsers from "./pages/admin/Users";
@@ -212,6 +216,10 @@ const AppContent = () => {
 
               {/* Session routes */}
               <Route path="/session/:sessionId" element={<AuthGuard><SessionRoom /></AuthGuard>} />
+
+              {/* PROTOTYPE ROUTES - Testing new onboarding */}
+              <Route path="/prototype/therapist-quickstart" element={<TherapistQuickStart />} />
+              <Route path="/prototype/workspace/*" element={<PrototypeRouter />} />
 
               {/* Admin routes */}
               <Route path="/admin/overview" element={<AuthGuard requiredRole="admin"><AdminOverview /></AuthGuard>} />
