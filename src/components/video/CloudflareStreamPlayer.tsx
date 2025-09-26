@@ -69,6 +69,8 @@ export interface CloudflareVideoProps {
   subtitle?: string; // For therapist rate or additional info
   onClose?: () => void;
   className?: string;
+  onError?: (error: Error) => void;
+  fallbackImage?: string; // Additional fallback image if poster fails
 }
 
 export function CloudflareStreamPlayer({
@@ -77,7 +79,9 @@ export function CloudflareStreamPlayer({
   title,
   subtitle,
   onClose,
-  className
+  className,
+  onError,
+  fallbackImage
 }: CloudflareVideoProps) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = React.useState(false);
@@ -87,6 +91,9 @@ export function CloudflareStreamPlayer({
   const [duration, setDuration] = React.useState(0);
   const [controlsVisible, setControlsVisible] = React.useState(true);
   const controlsTimerRef = React.useRef<number | null>(null);
+  const [loadError, setLoadError] = React.useState<Error | null>(null);
+  const [retryCount, setRetryCount] = React.useState(0);
+  const [currentQuality, setCurrentQuality] = React.useState<'high' | 'medium' | 'low'>('high');
 
   // Handle loading metadata
   const handleLoadedMetadata = () => {
@@ -102,9 +109,36 @@ export function CloudflareStreamPlayer({
     }
   };
 
+  // Handle loading errors
+  const handleVideoError = (event: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+    const error = new Error(`Video loading failed: ${(event.target as HTMLVideoElement).error?.message || 'Unknown error'}`);
+    console.error("Video loading error:", error);
+    
+    setLoadError(error);
+    
+    // Try to recover by lowering quality if we have retry attempts left
+    if (retryCount < 2 && videoSourceType === 'cloudflare') {
+      setRetryCount(prev => prev + 1);
+      
+      // Try lower quality version if available
+      if (currentQuality === 'high') {
+        console.log('Retrying with medium quality...');
+        setCurrentQuality('medium');
+      } else if (currentQuality === 'medium') {
+        console.log('Retrying with low quality...');
+        setCurrentQuality('low');
+      }
+    } else {
+      // Report error to parent component if callback provided
+      if (onError) {
+        onError(error);
+      }
+    }
+  };
+
   // Play/Pause functionality
   const handlePlayPause = () => {
-    if (!videoRef.current) return;
+    if (!videoRef.current || loadError) return;
     
     if (isPlaying) {
       videoRef.current.pause();
@@ -112,6 +146,8 @@ export function CloudflareStreamPlayer({
     } else {
       videoRef.current.play().catch(error => {
         console.error("Playback failed:", error);
+        setLoadError(error);
+        if (onError) onError(error);
       });
       setIsPlaying(true);
       resetControlsTimer();
@@ -381,6 +417,50 @@ export function CloudflareStreamPlayer({
     );
   }
   
+  // Adjust source URL based on quality setting for Cloudflare streams
+  const getQualityAdjustedSrc = React.useMemo(() => {
+    if (videoSourceType !== 'cloudflare' || !src.includes('cloudflarestream.com')) {
+      return src;
+    }
+
+    // Only adjust quality for Cloudflare Stream URLs
+    if (currentQuality === 'high') {
+      return src; // Use original URL for high quality
+    } else if (currentQuality === 'medium') {
+      // Add medium quality parameter
+      return src.includes('?') ? `${src}&quality=720p` : `${src}?quality=720p`;
+    } else {
+      // Low quality
+      return src.includes('?') ? `${src}&quality=480p` : `${src}?quality=480p`;
+    }
+  }, [src, currentQuality, videoSourceType]);
+
+  // Render error message if all retries failed
+  if (loadError && retryCount >= 2) {
+    return (
+      <div className={cn("relative flex flex-col items-center justify-center bg-[#2F353A] text-white p-6", className)}>
+        <div className="text-center">
+          <div className="mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h3 className="text-lg font-semibold mb-2">Video Playback Error</h3>
+          <p className="text-sm mb-4">Sorry, we couldn't load this video. Please try again later.</p>
+          {(poster || fallbackImage) && (
+            <img 
+              src={poster || fallbackImage} 
+              alt={title || "Video thumbnail"}
+              className="max-w-full h-auto rounded mb-4"
+            />
+          )}
+          {title && <p className="font-medium">{title}</p>}
+          {subtitle && <p className="text-sm text-gray-300">{subtitle}</p>}
+        </div>
+      </div>
+    );
+  }
+
   // Default player for Cloudflare and standard video files
   return (
     <div 
@@ -389,7 +469,7 @@ export function CloudflareStreamPlayer({
     >
       <video
         ref={videoRef}
-        src={src}
+        src={getQualityAdjustedSrc}
         poster={poster}
         className="w-full h-full"
         playsInline
@@ -399,6 +479,7 @@ export function CloudflareStreamPlayer({
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
         onClick={() => handlePlayPause()}
+        onError={handleVideoError}
         aria-label={title ? `Video: ${title}` : "Video player"}
       >
         {/* Caption tracks */}

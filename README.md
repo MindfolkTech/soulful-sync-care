@@ -85,6 +85,8 @@ The personality-first matching system weighs:
 - **Modality Preferences** (15%): Treatment approach alignment
 - **Availability Fit** (5%): Schedule compatibility
 
+> 📚 **For complete matching system documentation, see:** `/docs/matching-system/README.md`
+
 ### ✅ Current Status: Fully Integrated
 - **Algorithm**: Implemented with exact tag matching and budget hard filters
 - **UI Integration**: Connected to client assessment and therapist discovery

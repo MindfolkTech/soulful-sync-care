@@ -187,7 +187,7 @@ export const TagCategories: StoryObj = {
           <Label className="font-secondary text-[var(--text-secondary)]">Misc Tags</Label>
           <div className="flex flex-wrap gap-2">
             <Badge className="bg-[var(--tag-misc-bg)] text-[var(--tag-misc-text)]">
-              LGBTQ+ Friendly
+              LGBTQ+ friendly and affirming
             </Badge>
             <Badge className="bg-[var(--tag-misc-bg)] text-[var(--tag-misc-text)]">
               Neurodiversity Affirming

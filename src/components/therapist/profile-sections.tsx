@@ -16,7 +16,7 @@ const SPECIALTIES = {
   "life-stage": ["Young adults", "Career transitions", "Relationship issues", "Parenting", "Midlife challenges", "Senior care"],
   "therapeutic-approach": ["CBT", "DBT", "Psychodynamic", "Humanistic", "EMDR", "Mindfulness-based"],
   "communication-style": ["Empathetic", "Direct", "Collaborative", "Structured", "Flexible"],
-  "cultural-identity": ["LGBTQ+ affirmative", "Cultural competency", "Religious/spiritual", "Multilingual"]
+  "cultural-identity": ["LGBTQ+ friendly and affirming", "Culturally sensitive and aware", "Neurodiversity affirming", "Trauma-informed and gentle"]
 };
 
 // Import the shared TherapistProfile interface
@@ -52,7 +52,6 @@ export function BasicInfoSection({ profile, onUpdate }: BasicInfoSectionProps) {
             />
           </div>
         </div>
-        
         <div className="space-y-2">
           <Label htmlFor="title">Professional Title</Label>
           <Input 
@@ -85,11 +84,10 @@ export function BasicInfoSection({ profile, onUpdate }: BasicInfoSectionProps) {
                 <SelectValue placeholder="Select experience" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="1-2">1-2 years</SelectItem>
-                <SelectItem value="3-5">3-5 years</SelectItem>
-                <SelectItem value="6-10">6-10 years</SelectItem>
-                <SelectItem value="11-15">11-15 years</SelectItem>
-                <SelectItem value="15+">15+ years</SelectItem>
+                <SelectItem value="Less than 2 years">Less than 2 years</SelectItem>
+                <SelectItem value="More than 2 years">More than 2 years</SelectItem>
+                <SelectItem value="More than 5 years">More than 5 years</SelectItem>
+                <SelectItem value="More than 10 years">More than 10 years</SelectItem>
               </SelectContent>
             </Select>
           </div>

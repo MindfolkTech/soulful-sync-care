@@ -1,13 +1,15 @@
-import * as React from "react";
-import { Filter, RotateCcw, ChevronLeft, ChevronRight, X, Heart } from "lucide-react";
-import { BottomNav } from "@/components/ui/bottom-nav";
+import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import { Heart, X, ChevronLeft, ChevronRight, SlidersHorizontal, Loader2, RotateCcw, Undo2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { BottomNav } from "@/components/ui/bottom-nav";
 import { 
   Dialog,
 } from "@/components/ui/dialog";
 import { TherapistCard, TherapistData } from "@/components/molecules/therapist-card";
 import { TherapistDetailsSheet } from "@/components/discovery/therapist-details-sheet";
-import { FiltersDialog } from "@/components/discovery/filters-dialog";
+import { FiltersDialog, FilterPreferences } from "@/components/discovery/filters-dialog-v2";
 import { VideoOverlay } from "@/components/discovery/video-overlay";
 import { useKeyboardNavigation } from "@/hooks/use-keyboard-navigation";
 import { useAriaLive } from "@/hooks/use-aria-live";
@@ -116,11 +118,21 @@ export default function Discover() {
   const [selectedTherapist, setSelectedTherapist] = React.useState<TherapistData | null>(null);
   const [filtersOpen, setFiltersOpen] = React.useState(false);
   const [matchedTherapists, setMatchedTherapists] = React.useState<TherapistData[]>([]);
+  const [lastPassedTherapist, setLastPassedTherapist] = React.useState<TherapistData | null>(null);
+  const [activeFilters, setActiveFilters] = React.useState<FilterPreferences>({
+    specialties: [],
+    modalities: [],
+    budget_range: [20, 150],
+    therapist_gender: "No preference",
+    experience_level: "No preference",
+    preferred_times: []
+  });
   
   // Get current user (real user or impersonated user)
   const { user } = useAuth();
   const { isImpersonating, impersonatedUser } = useImpersonation();
   const { announce, ariaLiveProps } = useAriaLive();
+  const { toast } = useToast();
   
   // Determine the current effective user ID
   const currentUserId = isImpersonating && impersonatedUser ? impersonatedUser.id : user?.id;
@@ -171,8 +183,28 @@ export default function Discover() {
         const therapistProfiles = (supabaseProfiles || []).map(convertSupabaseToTherapistProfile);
         
         if (supabaseAssessment && therapistProfiles.length > 0) {
-          // Use real assessment data
+          // Use real assessment data merged with active filters
           const assessment = convertSupabaseToClientAssessment(supabaseAssessment);
+          
+          // Merge filter preferences into assessment
+          if (activeFilters.specialties.length > 0) {
+            // Note: We keep therapy_goals as the client's original selections
+            // Filter specialties are for refining search, not replacing goals
+            // The matching algorithm will handle specialty filtering separately
+          }
+          if (activeFilters.modalities.length > 0) {
+            assessment.therapy_modalities = activeFilters.modalities;
+          }
+          if (activeFilters.budget_range) {
+            assessment.budget_range = activeFilters.budget_range;
+          }
+          if (activeFilters.therapist_gender !== "No preference") {
+            assessment.therapist_gender_preference = activeFilters.therapist_gender;
+          }
+          if (activeFilters.preferred_times.length > 0) {
+            assessment.preferred_times = activeFilters.preferred_times;
+          }
+          
           const matches = findMatches(assessment, therapistProfiles);
           const therapistData = matches.map(match => {
             const supabaseProfile = supabaseProfiles.find(p => p.id === match.therapist_id);
@@ -207,7 +239,14 @@ export default function Discover() {
     };
 
     loadTherapistData();
-  }, [currentUserId]); // Re-run when the effective user changes
+  }, [currentUserId, activeFilters]); // Re-run when the effective user or filters change
+
+  // Handler for applying filters
+  const handleApplyFilters = (filters: FilterPreferences) => {
+    setActiveFilters(filters);
+    setCurrentIndex(0); // Reset to first therapist when filters change
+    announce("Filters applied. Showing updated matches.");
+  };
 
   const availableTherapists = matchedTherapists.filter(t => !viewedTherapists.has(t.id));
   const currentTherapist = availableTherapists[currentIndex];
@@ -227,10 +266,54 @@ export default function Discover() {
   }, [currentIndex]);
 
   const handlePass = React.useCallback((therapist: TherapistData) => {
+    // Store the passed therapist for potential undo
+    setLastPassedTherapist(therapist);
     setViewedTherapists(prev => new Set([...prev, therapist.id]));
     announce(`Removed ${therapist.name}`);
+    
+    // Show toast with undo option
+    toast({
+      title: `Passed on ${therapist.name}`,
+      description: "You can undo this action",
+      action: (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => handleUndo()}
+          className="gap-2"
+        >
+          <Undo2 className="h-4 w-4" />
+          Undo
+        </Button>
+      ),
+      duration: 5000, // 5 seconds to undo
+    });
+    
     handleNext();
-  }, [announce, handleNext]);
+  }, [announce, handleNext, toast]);
+  
+  const handleUndo = React.useCallback(() => {
+    if (lastPassedTherapist) {
+      // Remove from viewed therapists to show again
+      setViewedTherapists(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(lastPassedTherapist.id);
+        return newSet;
+      });
+      
+      // Reset to show the therapist again
+      setCurrentIndex(0);
+      
+      // Clear the last passed therapist
+      setLastPassedTherapist(null);
+      
+      announce(`Restored ${lastPassedTherapist.name}`);
+      toast({
+        title: `Restored ${lastPassedTherapist.name}`,
+        description: "Therapist is back in your matches",
+      });
+    }
+  }, [lastPassedTherapist, announce, toast]);
 
   const handleSave = React.useCallback(async (therapist: TherapistData) => {
     if (!user) {
@@ -355,7 +438,7 @@ export default function Discover() {
                   aria-label="Open filters"
                   className="w-10 h-10 rounded-full bg-surface-accent flex items-center justify-center"
                 >
-                  <Filter className="w-5 h-5 text-[hsl(var(--garden-green))]" />
+                  <SlidersHorizontal className="w-5 h-5 text-[hsl(var(--garden-green))]" />
                 </Button>
             </header>
 
@@ -496,7 +579,12 @@ export default function Discover() {
               />
             )}
             <ReadyToConnectModal open={connectModalOpen} onOpenChange={handleConnectModalClose} therapist={selectedTherapist} />
-            <FiltersDialog open={filtersOpen} onOpenChange={setFiltersOpen} />
+            <FiltersDialog 
+              open={filtersOpen} 
+              onOpenChange={setFiltersOpen}
+              currentFilters={activeFilters}
+              onApplyFilters={handleApplyFilters}
+            />
             
             <div {...ariaLiveProps} />
         </div>

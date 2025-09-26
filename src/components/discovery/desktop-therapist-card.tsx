@@ -11,37 +11,61 @@ interface DesktopTherapistCardProps {
   onShowVideo: (therapist: TherapistData) => void;
 }
 
+// Custom hook for intersection observer to lazy load content
+const useIntersectionObserver = (ref: React.RefObject<HTMLElement>, options = {}, callback: () => void) => {
+    React.useEffect(() => {
+        if (!ref.current) return;
+        
+        const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                callback();
+                // Once the callback is executed, we can disconnect the observer
+                observer.disconnect();
+            }
+        }, options);
+        
+        observer.observe(ref.current);
+        
+        return () => {
+            observer.disconnect();
+        };
+    }, [ref, options, callback]);
+};
+
 const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) => {
+    // Container ref for intersection observer
+    const containerRef = React.useRef<HTMLDivElement>(null);
+    
+    // State to track whether media should be loaded
+    const [shouldLoadMedia, setShouldLoadMedia] = React.useState(false);
+    const [currentIndex, setCurrentIndex] = React.useState(0);
+    
+    // Set up intersection observer to lazy load media when visible
+    useIntersectionObserver(
+        containerRef,
+        { threshold: 0.1, rootMargin: '200px' },
+        () => setShouldLoadMedia(true)
+    );
+    
     // Sort media to prioritize videos first
     const sortedMedia = React.useMemo(() => {
-        // Make a copy to avoid mutation
-        const mediaItems = [...therapist.media];
-        
-        // If there are both videos and images, make sure videos come first
-        const hasVideo = mediaItems.some(item => item.type === 'video');
-        const hasImages = mediaItems.some(item => item.type === 'image');
-        
-        if (hasVideo && hasImages) {
-            return mediaItems.sort((a, b) => {
-                if (a.type === 'video' && b.type !== 'video') return -1;
-                if (a.type !== 'video' && b.type === 'video') return 1;
-                return 0;
-            });
-        }
-        
-        return mediaItems;
+        const media = therapist.media || [];
+        return [...media].sort((a, b) => {
+            if (a.type === 'video' && b.type !== 'video') return -1;
+            if (b.type === 'video' && a.type !== 'video') return 1;
+            return 0;
+        });
     }, [therapist.media]);
     
-    const [currentIndex, setCurrentIndex] = React.useState(0);
-    const currentMedia = sortedMedia[currentIndex];
-
-    const handlePrevious = (e?: React.MouseEvent) => {
-        e?.stopPropagation(); // Prevent triggering container click
+    // Get current media item
+    const currentMedia = sortedMedia[currentIndex] || { type: 'image', url: '/images/placeholder.svg' };
+    
+    // Navigation handlers
+    const handlePrevious = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? sortedMedia.length - 1 : prevIndex - 1));
     };
-
-    const handleNext = (e?: React.MouseEvent) => {
-        e?.stopPropagation(); // Prevent triggering container click
+    
+    const handleNext = () => {
         setCurrentIndex((prevIndex) => (prevIndex === sortedMedia.length - 1 ? 0 : prevIndex + 1));
     };
     
@@ -51,26 +75,18 @@ const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) =>
             onShowVideo(therapist);
         }
     };
-
+    
     return (
-        <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
-            {/* Media Background */}
-            <div className="absolute inset-0 bg-[#2F353A] z-0"></div>
-            
-            {/* Media Content */}
-            <div
-                className="relative z-10 h-full w-full cursor-pointer"
-                onClick={handleMediaClick}
-                aria-label={currentMedia.type === 'video' ? 'Click to play video' : 'Therapist profile image'}
-            >
+        <div ref={containerRef} className="relative w-full h-80 rounded-xl overflow-hidden bg-[hsl(var(--text-muted))]">
+            <div className="relative w-full h-full">
                 {currentMedia.type === 'image' ? (
                     <img
-                        src={currentMedia.url}
+                        src={shouldLoadMedia ? currentMedia.url : '/images/placeholder.svg'}
                         alt={`${therapist.name} profile`}
                         className="w-full h-full object-cover"
                         loading="lazy"
                     />
-                ) : (
+                ) : shouldLoadMedia ? (
                     <VideoPlayer
                         videoUrl={currentMedia.url}
                         fallbackImageUrl={currentMedia.poster || therapist.media.find(m => m.type === 'image')?.url || '/images/placeholder.svg'}
@@ -78,6 +94,16 @@ const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) =>
                         showControls={false}
                         className="w-full h-full"
                     />
+                ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-[#2F353A]">
+                        <img
+                            src={currentMedia.poster || therapist.media.find(m => m.type === 'image')?.url || '/images/placeholder.svg'}
+                            alt={`${therapist.name} video thumbnail`}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black/20"></div>
+                    </div>
                 )}
             </div>
             
