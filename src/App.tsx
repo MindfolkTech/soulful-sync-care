@@ -92,6 +92,7 @@ import ClientFeedback from "./pages/client/Feedback";
 
 // Therapist pages
 import TherapistSignUp from "./pages/therapist/SignUp";
+import OnboardingRouter from "./pages/therapist/OnboardingRouter";
 import OnboardingWelcome from "./pages/therapist/onboarding/Welcome";
 import OnboardingCredentials from "./pages/therapist/onboarding/Credentials";
 import OnboardingVerification from "./pages/therapist/onboarding/Verification";
@@ -194,7 +195,7 @@ const AppContent = () => {
               <Route path="/client/onboarding/assessment" element={<AuthGuard requiredRole="client"><Assessment /></AuthGuard>} />
 
               {/* Therapist routes */}
-              <Route path="/t/onboarding" element={<AuthGuard requiredRole="therapist"><OnboardingWelcome /></AuthGuard>} />
+              <Route path="/t/onboarding" element={<AuthGuard requiredRole="therapist"><OnboardingRouter /></AuthGuard>} />
               <Route path="/t/onboarding/credentials" element={<AuthGuard requiredRole="therapist"><OnboardingCredentials /></AuthGuard>} />
               <Route path="/t/onboarding/verification" element={<AuthGuard requiredRole="therapist"><OnboardingVerification /></AuthGuard>} />
               <Route path="/t/setup" element={<AuthGuard requiredRole="therapist"><TherapistSetup /></AuthGuard>} />
