@@ -93,14 +93,16 @@ import ClientFeedback from "./pages/client/Feedback";
 // Therapist pages
 import TherapistSignUp from "./pages/therapist/SignUp";
 import OnboardingRouter from "./pages/therapist/OnboardingRouter";
-import OnboardingWelcome from "./pages/therapist/onboarding/Welcome";
-import OnboardingCredentials from "./pages/therapist/onboarding/Credentials";
+// ARCHIVED: Legacy V1 onboarding files moved to archive/legacy-onboarding/
+// import OnboardingWelcome from "./pages/therapist/onboarding/Welcome";
+// import OnboardingCredentials from "./pages/therapist/onboarding/Credentials";
 import OnboardingVerification from "./pages/therapist/onboarding/Verification";
 import TherapistProfile from "./pages/therapist/Profile";
-import PracticeProfile from "./pages/therapist/practice/Profile";
-import PracticeCredentials from "./pages/therapist/practice/Credentials";
-import PracticeServices from "./pages/therapist/practice/Services";
-import PracticePolicies from "./pages/therapist/practice/Policies";
+// ARCHIVED: Practice pages (duplicates) moved to archive/legacy-onboarding/practice/
+// import PracticeProfile from "./pages/therapist/practice/Profile";
+// import PracticeCredentials from "./pages/therapist/practice/Credentials";
+// import PracticeServices from "./pages/therapist/practice/Services";
+// import PracticePolicies from "./pages/therapist/practice/Policies";
 
 import TherapistClients from "./pages/therapist/Clients";
 import TherapistClientTasks from "./pages/therapist/ClientTasks";
@@ -109,14 +111,15 @@ import TherapistBusiness from "./pages/therapist/Business";
 import TherapistSettings from "./pages/therapist/Settings";
 import TherapistDashboard from "./pages/therapist/Dashboard";
 import ClientDetail from "./pages/therapist/ClientDetail";
-import TherapistSetup from "./pages/therapist/Setup";
+// ARCHIVED: Legacy setup flow moved to archive/legacy-onboarding/
+// import TherapistSetup from "./pages/therapist/Setup";
 
 // Session pages
 import SessionRoom from "./pages/session/SessionRoom";
 
-// Prototype pages (temporary for testing)
-import { TherapistQuickStart } from "./prototype/therapist-onboarding/QuickStart";
-import { PrototypeRouter } from "./prototype/therapist-workspace/PrototypeRouter";
+// ARCHIVED: Prototype pages moved to archive/prototype/
+// import { TherapistQuickStart } from "./prototype/therapist-onboarding/QuickStart";
+// import { PrototypeRouter } from "./prototype/therapist-workspace/PrototypeRouter";
 
 // Therapist workspace integration
 import { TherapistWorkspaceProvider } from "@/components/therapist/onboarding/TherapistWorkspaceProvider";
@@ -197,11 +200,18 @@ const AppContent = () => {
               <Route path="/client/onboarding" element={<AuthGuard requiredRole="client"><Assessment /></AuthGuard>} />
               <Route path="/client/onboarding/assessment" element={<AuthGuard requiredRole="client"><Assessment /></AuthGuard>} />
 
-              {/* Therapist routes - wrapped with workspace provider for contextual onboarding */}
+              {/* Therapist routes - V2 onboarding system */}
               <Route path="/t/onboarding" element={<AuthGuard requiredRole="therapist"><OnboardingRouter /></AuthGuard>} />
-              <Route path="/t/onboarding/credentials" element={<AuthGuard requiredRole="therapist"><OnboardingCredentials /></AuthGuard>} />
+              {/* ARCHIVED: Legacy onboarding routes replaced by V2 QuickStart */}
+              <Route path="/t/onboarding/credentials" element={<Navigate to="/t/onboarding" replace />} />
+              <Route path="/t/onboarding/welcome" element={<Navigate to="/t/onboarding" replace />} />
+              <Route path="/t/onboarding/policies" element={<Navigate to="/t/onboarding" replace />} />
+              <Route path="/t/onboarding/profile" element={<Navigate to="/t/onboarding" replace />} />
+              <Route path="/t/onboarding/approach" element={<Navigate to="/t/onboarding" replace />} />
+              <Route path="/t/onboarding/video" element={<Navigate to="/t/onboarding" replace />} />
               <Route path="/t/onboarding/verification" element={<AuthGuard requiredRole="therapist"><OnboardingVerification /></AuthGuard>} />
-              <Route path="/t/setup" element={<AuthGuard requiredRole="therapist"><TherapistSetup /></AuthGuard>} />
+              {/* ARCHIVED: Legacy setup route */}
+              <Route path="/t/setup" element={<Navigate to="/t/onboarding" replace />} />
 
               {/* Main workspace routes with contextual onboarding */}
               <Route path="/t/profile" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><TherapistProfile /></TherapistWorkspaceProvider></AuthGuard>} />
@@ -213,18 +223,19 @@ const AppContent = () => {
               <Route path="/t/business" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><TherapistBusiness /></TherapistWorkspaceProvider></AuthGuard>} />
               <Route path="/t/settings" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><TherapistSettings /></TherapistWorkspaceProvider></AuthGuard>} />
 
-              {/* Practice routes */}
-              <Route path="/t/practice/profile" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><PracticeProfile /></TherapistWorkspaceProvider></AuthGuard>} />
-              <Route path="/t/practice/credentials" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><PracticeCredentials /></TherapistWorkspaceProvider></AuthGuard>} />
-              <Route path="/t/practice/services" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><PracticeServices /></TherapistWorkspaceProvider></AuthGuard>} />
-              <Route path="/t/practice/policies" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><PracticePolicies /></TherapistWorkspaceProvider></AuthGuard>} />
+              {/* ARCHIVED: Practice routes (duplicates of workspace pages) */}
+              <Route path="/t/practice/profile" element={<Navigate to="/t/profile" replace />} />
+              <Route path="/t/practice/credentials" element={<Navigate to="/t/profile" replace />} />
+              <Route path="/t/practice/services" element={<Navigate to="/t/profile" replace />} />
+              <Route path="/t/practice/policies" element={<Navigate to="/t/profile" replace />} />
+              <Route path="/t/practice/*" element={<Navigate to="/t/profile" replace />} />
 
               {/* Session routes */}
               <Route path="/session/:sessionId" element={<AuthGuard><SessionRoom /></AuthGuard>} />
 
-              {/* PROTOTYPE ROUTES - Testing new onboarding */}
-              <Route path="/prototype/therapist-quickstart" element={<TherapistQuickStart />} />
-              <Route path="/prototype/workspace/*" element={<PrototypeRouter />} />
+              {/* ARCHIVED: Prototype routes moved to archive/prototype/ */}
+              {/* <Route path="/prototype/therapist-quickstart" element={<TherapistQuickStart />} /> */}
+              {/* <Route path="/prototype/workspace/*" element={<PrototypeRouter />} /> */}
 
               {/* Admin routes */}
               <Route path="/admin/overview" element={<AuthGuard requiredRole="admin"><AdminOverview /></AuthGuard>} />

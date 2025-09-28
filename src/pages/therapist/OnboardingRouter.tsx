@@ -2,20 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { shouldUseV2Onboarding } from '@/utils/featureFlags';
 import TherapistQuickStart from './QuickStart';
 
-// Import the existing onboarding component
-import OnboardingWelcome from '../therapist/onboarding/Welcome';
-
 interface TherapistProfile {
-  feature_flags?: Record<string, boolean>;
   setup_completed?: boolean;
 }
 
 /**
- * Router component that decides between V1 (legacy) and V2 (QuickStart) onboarding
- * based on feature flags and therapist profile status
+ * Router component for therapist onboarding - always uses V2 QuickStart
+ * V1 legacy onboarding has been archived
  */
 export default function OnboardingRouter() {
   const { user } = useAuth();
@@ -30,15 +25,15 @@ export default function OnboardingRouter() {
       try {
         const { data: profile } = await supabase
           .from('therapist_profiles')
-          .select('feature_flags, setup_completed, profile_strength')
+          .select('setup_completed, profile_strength')
           .eq('user_id', user.id)
           .single();
 
         setTherapistProfile(profile);
 
-        // If setup is already completed, redirect to workspace
+        // If setup is already completed, redirect to dashboard
         if (profile?.setup_completed) {
-          navigate('/t/workspace');
+          navigate('/t/dashboard');
           return;
         }
       } catch (error) {
@@ -62,14 +57,6 @@ export default function OnboardingRouter() {
     );
   }
 
-  // Check if V2 onboarding should be used
-  const useV2 = shouldUseV2Onboarding(therapistProfile);
-
-  if (useV2) {
-    // Use new V2 QuickStart onboarding
-    return <TherapistQuickStart />;
-  } else {
-    // Use legacy V1 onboarding
-    return <OnboardingWelcome />;
-  }
+  // Always use V2 QuickStart onboarding (legacy V1 archived)
+  return <TherapistQuickStart />;
 }
