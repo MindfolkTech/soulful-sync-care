@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useUser } from '@supabase/auth-helpers-react';
+import { useAuth } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { shouldUseV2Onboarding } from '@/utils/featureFlags';
@@ -18,7 +18,7 @@ interface TherapistProfile {
  * based on feature flags and therapist profile status
  */
 export default function OnboardingRouter() {
-  const user = useUser();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [therapistProfile, setTherapistProfile] = useState<TherapistProfile | null>(null);
   const [loading, setLoading] = useState(true);

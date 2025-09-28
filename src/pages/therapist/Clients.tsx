@@ -166,10 +166,10 @@ export default function TherapistClients() {
                 <Stack className="space-y-[--space-lg]">
                   {/* Search and Filter Controls */}
                   <HStack className="justify-between">
-                    <div className="relative flex-1 max-w-md">
+                    <div className="relative flex-1 max-w-md" data-onboarding="client-search">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[hsl(var(--text-secondary))]" />
-                      <Input 
-                        placeholder="Search clients..." 
+                      <Input
+                        placeholder="Search clients..."
                         className="pl-10 min-h-touch-min"
                       />
                     </div>

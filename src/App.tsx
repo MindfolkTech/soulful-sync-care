@@ -118,6 +118,9 @@ import SessionRoom from "./pages/session/SessionRoom";
 import { TherapistQuickStart } from "./prototype/therapist-onboarding/QuickStart";
 import { PrototypeRouter } from "./prototype/therapist-workspace/PrototypeRouter";
 
+// Therapist workspace integration
+import { TherapistWorkspaceProvider } from "@/components/therapist/onboarding/TherapistWorkspaceProvider";
+
 // Admin pages
 import AdminOverview from "./pages/admin/Overview";
 import AdminUsers from "./pages/admin/Users";
@@ -194,26 +197,27 @@ const AppContent = () => {
               <Route path="/client/onboarding" element={<AuthGuard requiredRole="client"><Assessment /></AuthGuard>} />
               <Route path="/client/onboarding/assessment" element={<AuthGuard requiredRole="client"><Assessment /></AuthGuard>} />
 
-              {/* Therapist routes */}
+              {/* Therapist routes - wrapped with workspace provider for contextual onboarding */}
               <Route path="/t/onboarding" element={<AuthGuard requiredRole="therapist"><OnboardingRouter /></AuthGuard>} />
               <Route path="/t/onboarding/credentials" element={<AuthGuard requiredRole="therapist"><OnboardingCredentials /></AuthGuard>} />
               <Route path="/t/onboarding/verification" element={<AuthGuard requiredRole="therapist"><OnboardingVerification /></AuthGuard>} />
               <Route path="/t/setup" element={<AuthGuard requiredRole="therapist"><TherapistSetup /></AuthGuard>} />
-              <Route path="/t/profile" element={<AuthGuard requiredRole="therapist"><TherapistProfile /></AuthGuard>} />
-              
+
+              {/* Main workspace routes with contextual onboarding */}
+              <Route path="/t/profile" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><TherapistProfile /></TherapistWorkspaceProvider></AuthGuard>} />
+              <Route path="/t/clients" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><TherapistClients /></TherapistWorkspaceProvider></AuthGuard>} />
+              <Route path="/t/clients/tasks" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><TherapistClientTasks /></TherapistWorkspaceProvider></AuthGuard>} />
+              <Route path="/t/schedule" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><TherapistSchedule /></TherapistWorkspaceProvider></AuthGuard>} />
+              <Route path="/t/clients/:id" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><ClientDetail /></TherapistWorkspaceProvider></AuthGuard>} />
+              <Route path="/t/dashboard" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><TherapistDashboard /></TherapistWorkspaceProvider></AuthGuard>} />
+              <Route path="/t/business" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><TherapistBusiness /></TherapistWorkspaceProvider></AuthGuard>} />
+              <Route path="/t/settings" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><TherapistSettings /></TherapistWorkspaceProvider></AuthGuard>} />
+
               {/* Practice routes */}
-              <Route path="/t/practice/profile" element={<AuthGuard requiredRole="therapist"><PracticeProfile /></AuthGuard>} />
-              <Route path="/t/practice/credentials" element={<AuthGuard requiredRole="therapist"><PracticeCredentials /></AuthGuard>} />
-              <Route path="/t/practice/services" element={<AuthGuard requiredRole="therapist"><PracticeServices /></AuthGuard>} />
-              <Route path="/t/practice/policies" element={<AuthGuard requiredRole="therapist"><PracticePolicies /></AuthGuard>} />
-              
-              <Route path="/t/clients" element={<AuthGuard requiredRole="therapist"><TherapistClients /></AuthGuard>} />
-              <Route path="/t/clients/tasks" element={<AuthGuard requiredRole="therapist"><TherapistClientTasks /></AuthGuard>} />
-              <Route path="/t/schedule" element={<AuthGuard requiredRole="therapist"><TherapistSchedule /></AuthGuard>} />
-              <Route path="/t/clients/:id" element={<AuthGuard requiredRole="therapist"><ClientDetail /></AuthGuard>} />
-              <Route path="/t/dashboard" element={<AuthGuard requiredRole="therapist"><TherapistDashboard /></AuthGuard>} />
-              <Route path="/t/business" element={<AuthGuard requiredRole="therapist"><TherapistBusiness /></AuthGuard>} />
-              <Route path="/t/settings" element={<AuthGuard requiredRole="therapist"><TherapistSettings /></AuthGuard>} />
+              <Route path="/t/practice/profile" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><PracticeProfile /></TherapistWorkspaceProvider></AuthGuard>} />
+              <Route path="/t/practice/credentials" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><PracticeCredentials /></TherapistWorkspaceProvider></AuthGuard>} />
+              <Route path="/t/practice/services" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><PracticeServices /></TherapistWorkspaceProvider></AuthGuard>} />
+              <Route path="/t/practice/policies" element={<AuthGuard requiredRole="therapist"><TherapistWorkspaceProvider><PracticePolicies /></TherapistWorkspaceProvider></AuthGuard>} />
 
               {/* Session routes */}
               <Route path="/session/:sessionId" element={<AuthGuard><SessionRoom /></AuthGuard>} />

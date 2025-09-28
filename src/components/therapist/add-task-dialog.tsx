@@ -10,9 +10,10 @@ import { TaskItem } from "@/types/tasks";
 
 interface AddTaskDialogProps {
   onAddTask: (task: Omit<TaskItem, 'id'>) => void;
+  'data-onboarding'?: string;
 }
 
-export function AddTaskDialog({ onAddTask }: AddTaskDialogProps) {
+export function AddTaskDialog({ onAddTask, 'data-onboarding': dataOnboarding }: AddTaskDialogProps) {
   const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = React.useState({
     title: "",
@@ -57,7 +58,7 @@ export function AddTaskDialog({ onAddTask }: AddTaskDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="sm" className="text-xs">
+        <Button variant="ghost" size="sm" className="text-xs" data-onboarding={dataOnboarding}>
           <PlusCircle className="w-3 h-3 mr-1" />
           Add Task
         </Button>

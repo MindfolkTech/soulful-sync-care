@@ -31,6 +31,7 @@ import { TherapistLayout } from "@/components/layout/therapist-layout";
 import { Container } from "@/components/ui/container";
 import { useNavigate } from "react-router-dom";
 import { OnboardingChecklist } from "@/components/therapist/setup/OnboardingChecklist";
+import { QuickActionCards } from "@/components/therapist/onboarding";
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
@@ -212,16 +213,35 @@ export default function TherapistDashboard() {
   const weeklyRevenue = getTotalEarnings();
 
   return (
-    <>
     <TherapistLayout>
       <div className="p-4 md:p-6 lg:p-8">
         <Container>
           <div className="space-y-6">
-            <div>
+            <div data-onboarding="dashboard-overview">
               <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Welcome Back, {therapist?.first_name || '...'}!</h1>
               <p className="font-secondary text-[hsl(var(--text-secondary))]">Here's your professional dashboard overview</p>
             </div>
-            
+
+            {/* Quick Actions Section */}
+            <div data-onboarding="quick-actions">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="font-primary text-xl font-semibold text-[hsl(var(--text-primary))]">
+                  Quick Actions
+                </h2>
+                <p className="font-secondary text-sm text-[hsl(var(--text-secondary))]">
+                  Complete these to strengthen your profile
+                </p>
+              </div>
+              <QuickActionCards
+                userId={user?.id || ""}
+                maxCards={4}
+                onActionClick={(actionId) => {
+                  console.log('Quick action clicked:', actionId);
+                  // Could trigger analytics, show hints, etc.
+                }}
+              />
+            </div>
+
             {/* 4-Widget Grid Layout */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         
@@ -290,7 +310,7 @@ export default function TherapistDashboard() {
                       My Tasks
                     </h2>
                     <div className="flex items-center gap-2">
-                      <AddTaskDialog onAddTask={handleAddTask} />
+                      <AddTaskDialog onAddTask={handleAddTask} data-onboarding="add-task-button" />
                       <Button variant="ghost" size="sm" asChild>
                         <Link to="/t/schedule?tab=tasks">
                           VIEW ALL
@@ -300,16 +320,21 @@ export default function TherapistDashboard() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-3">
+                <CardContent className="space-y-3" data-onboarding="tasks-list">
                   {tasks.slice(0, 3).map(task => (
-                      <div key={task.id} className="flex items-center justify-between p-3 sm:p-4 border rounded-lg min-h-[var(--touch-target-comfort)]">
+                      <div key={task.id} className={`flex items-center justify-between p-3 sm:p-4 border rounded-lg min-h-[var(--touch-target-comfort)] task-item ${task.status === 'done' ? 'completed' : ''}`}>
                         <div className="flex items-center gap-3 min-w-0 flex-1">
-                          <CheckCircle2 className={`w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 ${task.status === 'done' ? 'text-[hsl(var(--success-text))]' : 'text-[hsl(var(--text-secondary)))]'}`} />
+                          <CheckCircle2 className={`w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 ${task.status === 'done' ? 'text-[hsl(var(--success-text))]' : 'text-[hsl(var(--text-secondary)))]'}`} data-onboarding="complete-task-button" />
                           <div className="min-w-0 flex-1">
                           <h4 className={`font-secondary text-sm sm:text-base truncate ${task.status === 'done' ? 'line-through text-[hsl(var(--text-secondary))]' : 'text-[hsl(var(--text-primary))]'}`}>{task.title}</h4>
                           <p className="font-secondary text-[hsl(var(--text-secondary))] text-xs sm:text-sm truncate">{task.due ? new Date(task.due).toLocaleDateString() : 'No due date'}</p>
                           </div>
                         </div>
+                        {task.status === 'done' && (
+                          <Button variant="ghost" size="sm" className="text-xs" data-onboarding="undo-button">
+                            Undo
+                          </Button>
+                        )}
                       </div>
                   ))}
                 </CardContent>
@@ -402,7 +427,5 @@ export default function TherapistDashboard() {
         </Container>
       </div>
     </TherapistLayout>
-    <OnboardingChecklist />
-    </>
   );
 }
