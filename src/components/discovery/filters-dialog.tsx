@@ -36,9 +36,12 @@ interface FiltersDialogProps {
   onApplyFilters: (filters: FilterPreferences) => void;
 }
 
-// These options should eventually come from a central source or API
-const specialtyOptions = ["Anxiety", "Depression", "Trauma", "Relationships", "Work Stress", "Identity", "Grief", "ADHD"];
-const modalityOptions = ["CBT", "Psychodynamic", "Humanistic", "EMDR", "DBT", "Mindfulness-based"];
+// Import database specialities and modalities
+import { getSpecialities, getModalities } from '@/data/taxonomy';
+
+// Use database options instead of hardcoded values
+const specialtyOptions = getSpecialities().map(s => s.name);
+const modalityOptions = getModalities().map(m => m.name);
 const personalityOptions = ["Empathetic", "Structured", "Flexible", "Calm", "Direct", "Exploratory"];
 const genderOptions = ["Male", "Female", "Non-binary", "No preference"];
 const experienceOptions = ["No preference", "Under 5 years", "5-10 years", "10+ years"];
