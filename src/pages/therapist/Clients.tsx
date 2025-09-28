@@ -149,7 +149,7 @@ export default function TherapistClients() {
     <TherapistLayout>
       <div className="p-4 md:p-6 lg:p-8">
         <Container>
-          <div className="space-y-6">
+          <div className="space-y-6" data-onboarding="clients-overview">
             <div>
               <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">My Clients</h1>
               <p className="font-secondary text-[hsl(var(--text-secondary))]">Manage your client relationships and session history</p>

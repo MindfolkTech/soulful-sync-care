@@ -90,6 +90,7 @@ const CalendarView = () => {
                             variant="outline"
                             onClick={() => setIsIntegrationModalOpen(true)}
                             className="flex items-center gap-2"
+                            data-onboarding="calendar-integration-button"
                         >
                             <CalendarIcon className="w-4 h-4" />
                             Calendar Integration
@@ -115,12 +116,37 @@ const CalendarView = () => {
                 </div>
             </div>
 
-            <InteractiveCalendar 
-                appointments={bookings} 
-                onAppointmentClick={handleAppointmentClick} 
-                onTimeSlotClick={handleTimeSlotClick} 
-                onAppointmentMove={handleAppointmentMove} 
-            />
+            <div data-onboarding="availability-hours">
+                <InteractiveCalendar 
+                    appointments={bookings} 
+                    onAppointmentClick={handleAppointmentClick} 
+                    onTimeSlotClick={handleTimeSlotClick} 
+                    onAppointmentMove={handleAppointmentMove} 
+                />
+            </div>
+
+            {/* Onboarding Target Sections - Hidden by default */}
+            <div className="mt-6 space-y-4 opacity-0 pointer-events-none" aria-hidden="true">
+                <div data-onboarding="buffer-settings" className="p-4 border rounded-lg">
+                    <h3 className="font-semibold mb-2">Buffer Time Settings</h3>
+                    <p className="text-sm text-gray-600">Add automatic buffer time between appointments</p>
+                </div>
+                
+                <div data-onboarding="auto-accept-settings" className="p-4 border rounded-lg">
+                    <h3 className="font-semibold mb-2">Auto-Accept Rules</h3>
+                    <p className="text-sm text-gray-600" aria-label="Mindfolk will automatically accept new bookings on your behalf. We will send you an email notifying you of your new booking. Please tell us how much notice you require for new bookings. (Note: To ensure your required notice is always respected, clients will not be able to book any available slots that fall within your notice period).">
+                        Set your booking notice requirements
+                    </p>
+                </div>
+                
+                <div data-onboarding="cancellation-agreement" className="p-4 border rounded-lg">
+                    <h3 className="font-semibold mb-2">Cancellation Agreement</h3>
+                    <label className="flex items-center gap-2">
+                        <input type="checkbox" />
+                        <span className="text-sm">I understand that if I don't show up to an appointment without giving the client reasonable notice, or if I cancel an appointment more than 3 times, my account may be suspended.</span>
+                    </label>
+                </div>
+            </div>
             
             <AppointmentDetailsModal 
                 isOpen={isAppointmentModalOpen} 

@@ -6,8 +6,9 @@ import { WorkspaceWrapper } from './WorkspaceWrapper';
 import TherapistDashboard from '@/pages/therapist/Dashboard';
 import TherapistProfile from '@/pages/therapist/Profile';
 import TherapistSettings from '@/pages/therapist/Settings';
-import { TherapistLayout } from '@/components/layout/therapist-layout';
-// Note: Availability page might be at different location or not exist yet
+import TherapistSchedule from '@/pages/therapist/Schedule';
+import TherapistClients from '@/pages/therapist/Clients';
+import TherapistClientTasks from '@/pages/therapist/ClientTasks';
 import TherapistBusiness from '@/pages/therapist/Business';
 
 /**
@@ -19,9 +20,10 @@ import TherapistBusiness from '@/pages/therapist/Business';
  * Access via: http://localhost:8080/prototype/workspace/dashboard
  */
 export function PrototypeRouter() {
-  // Simulate that Quick Start was completed
+  // Debug: Log when router loads
   React.useEffect(() => {
-    // Set this flag to activate the coach
+    console.log('PrototypeRouter mounted');
+    // Simulate that Quick Start was completed
     localStorage.setItem('therapistQuickStartComplete', 'true');
     // Clear this to restart onboarding coach
     localStorage.removeItem('therapistOnboardingComplete');
@@ -29,19 +31,20 @@ export function PrototypeRouter() {
 
   return (
     <WorkspaceWrapper>
-      <TherapistLayout>
         <Routes>
           {/* Mirror the real therapist routes */}
-          <Route path="dashboard" element={<TherapistDashboard />} />
-          <Route path="profile" element={<TherapistProfile />} />
-          <Route path="settings" element={<TherapistSettings />} />
-          <Route path="business" element={<TherapistBusiness />} />
-          {/* Availability would go here when that page exists */}
-          
-          {/* Default redirect */}
-          <Route path="/" element={<Navigate to="dashboard" replace />} />
+          <Route path="/dashboard" element={<TherapistDashboard />} />
+          <Route path="/profile" element={<TherapistProfile />} />
+          <Route path="/settings" element={<TherapistSettings />} />
+          <Route path="/schedule" element={<TherapistSchedule />} />
+          <Route path="/clients" element={<TherapistClients />} />
+          <Route path="/tasks" element={<TherapistClientTasks />} />
+          <Route path="/business" element={<TherapistBusiness />} />
+
+          {/* Handle both root and dashboard */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="" element={<Navigate to="/dashboard" replace />} />
         </Routes>
-      </TherapistLayout>
     </WorkspaceWrapper>
   );
 }

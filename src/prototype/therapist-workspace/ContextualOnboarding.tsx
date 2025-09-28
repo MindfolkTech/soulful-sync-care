@@ -9,70 +9,14 @@ import { cn } from '@/lib/utils';
 
 // Define the onboarding steps with contextual tooltips
 const ONBOARDING_STEPS = [
-  // Profile page steps
+  // Availability setup - first step in workspace
   {
-    id: 'specialties',
-    page: '/prototype/workspace/profile',
-    targetSelector: '[data-onboarding="specialties"]',
-    title: '🎯 Add Your Specialties',
-    content: 'Select at least 3 areas where you have the most experience. This helps match you with the right clients.',
+    id: 'availability-hours',
+    page: '/prototype/workspace/schedule?tab=availability',
+    targetSelector: '[data-onboarding="availability-hours"]',
+    title: '📅 Add Your Weekly Hours',
+    content: 'Add at least 10 hours of availability per week. Peak demand is Tuesday-Thursday, 6-8pm.',
     position: 'bottom' as const,
-    action: {
-      type: 'select' as const,
-      label: 'I\'ve added specialties',
-      validation: () => {
-        // Check if specialties have been selected
-        const specialties = document.querySelectorAll('[data-onboarding="specialties"] .selected');
-        return specialties.length >= 3;
-      }
-    },
-    highlightTarget: true
-  },
-  {
-    id: 'identity',
-    page: '/prototype/workspace/profile', 
-    targetSelector: '[data-onboarding="identity-tags"]',
-    title: '🏳️‍🌈 Select Identity Tags',
-    content: 'Choose tags that reflect your values and help clients find therapists who understand their experience.',
-    position: 'right' as const,
-    action: {
-      type: 'select' as const,
-      label: 'Tags selected',
-      validation: () => {
-        const tags = document.querySelectorAll('[data-onboarding="identity-tags"] .selected');
-        return tags.length > 0;
-      }
-    },
-    highlightTarget: true
-  },
-  
-  // Settings page steps
-  {
-    id: 'rates',
-    page: '/prototype/workspace/settings',
-    targetSelector: '[data-onboarding="session-rate"]',
-    title: '💰 Set Your Session Rate',
-    content: 'Based on your experience, we suggest £80-120 per session. You can always adjust this later.',
-    position: 'bottom' as const,
-    action: {
-      type: 'input' as const,
-      label: 'Rate set',
-      validation: () => {
-        const input = document.querySelector('[data-onboarding="session-rate"] input') as HTMLInputElement;
-        return input && input.value && parseInt(input.value) > 0;
-      }
-    },
-    highlightTarget: true
-  },
-  
-  // Business page steps
-  {
-    id: 'availability',
-    page: '/prototype/workspace/business',
-    targetSelector: '[data-onboarding="availability-calendar"]',
-    title: '📅 Add Your Availability',
-    content: 'Click on the calendar to add your available hours. Peak demand is Tuesday-Thursday, 6-8pm.',
-    position: 'top' as const,
     action: {
       type: 'click' as const,
       label: 'Hours added',
@@ -83,20 +27,227 @@ const ONBOARDING_STEPS = [
     },
     highlightTarget: true
   },
-  
-  // Back to profile for optional video
   {
-    id: 'video',
-    page: '/prototype/workspace/profile',
-    targetSelector: '[data-onboarding="video-upload"]',
-    title: '🎥 Record Your Introduction (Optional)',
-    content: 'Profiles with video get 2.3x more client inquiries. You can skip this for now and add it later.',
+    id: 'calendar-integration',
+    page: '/prototype/workspace/schedule',
+    targetSelector: '[data-onboarding="calendar-integration-button"]',
+    title: '🔗 Connect Your Calendar',
+    content: 'Sync with Google or Outlook to avoid double bookings, or skip this for now.',
+    position: 'top' as const,
+    action: {
+      type: 'click' as const,
+      label: 'Calendar connected',
+      validation: () => {
+        const connected = localStorage.getItem('therapist_calendar_connected');
+        const skipped = localStorage.getItem('therapist_calendar_skipped');
+        return connected === 'true' || skipped === 'true';
+      }
+    },
+    highlightTarget: true,
+    showSkip: true
+  },
+  {
+    id: 'buffer-settings',
+    page: '/prototype/workspace/schedule?tab=availability',
+    targetSelector: '[data-onboarding="buffer-settings"]',
+    title: '⏰ Set Buffer Time',
+    content: 'Add automatic buffer time between appointments for notes and preparation.',
+    position: 'right' as const,
+    action: {
+      type: 'select' as const,
+      label: 'Buffer set',
+      validation: () => {
+        const buffer = localStorage.getItem('therapist_buffer_time');
+        return buffer && parseInt(buffer) > 0;
+      }
+    },
+    highlightTarget: true
+  },
+  {
+    id: 'auto-accept',
+    page: '/prototype/workspace/schedule?tab=availability',
+    targetSelector: '[data-onboarding="auto-accept-settings"]',
+    title: '🤖 Auto-Accept Rules',
+    content: 'Set how much notice you need for new bookings. We\'ll auto-accept bookings that meet your requirements.',
+    position: 'left' as const,
+    action: {
+      type: 'select' as const,
+      label: 'Rules set',
+      validation: () => {
+        const rules = localStorage.getItem('therapist_auto_accept_rules');
+        return rules !== null;
+      }
+    },
+    highlightTarget: true
+  },
+  {
+    id: 'cancellation-agreement',
+    page: '/prototype/workspace/schedule?tab=availability',
+    targetSelector: '[data-onboarding="cancellation-agreement"]',
+    title: '📋 Cancellation Agreement',
+    content: 'Please agree to our cancellation policy to maintain service quality.',
     position: 'bottom' as const,
+    action: {
+      type: 'click' as const,
+      label: 'Agreement signed',
+      validation: () => {
+        const agreed = localStorage.getItem('therapist_cancellation_agreed');
+        return agreed === 'true';
+      }
+    },
+    highlightTarget: true
+  },
+  
+  // Profile setup steps
+  {
+    id: 'profile-intro',
+    page: '/prototype/workspace/profile',
+    targetSelector: '[data-onboarding="profile-intro"]',
+    title: '👤 Your Client-Facing Profile',
+    content: 'This is where you can edit the client-facing aspects of your practice.',
+    position: 'top' as const,
     action: {
       type: 'custom' as const,
       label: 'Continue'
     },
+    highlightTarget: true
+  },
+  {
+    id: 'session-rates',
+    page: '/prototype/workspace/profile',
+    targetSelector: '[data-onboarding="session-rates"]',
+    title: '💰 Set Your Rates',
+    content: 'Let\'s start by setting some rates. Based on your experience, we suggest £80-120 per session.',
+    position: 'bottom' as const,
+    action: {
+      type: 'input' as const,
+      label: 'Rate set',
+      validation: () => {
+        const input = document.querySelector('[data-onboarding="session-rates"] input') as HTMLInputElement;
+        return input && input.value && parseInt(input.value) > 0;
+      }
+    },
+    highlightTarget: true
+  },
+  {
+    id: 'cancellation-policies',
+    page: '/prototype/workspace/profile',
+    targetSelector: '[data-onboarding="cancellation-policies"]',
+    title: '📋 Review Your Policies',
+    content: 'Now let\'s have a look at your policies. You can change these now, later, or leave the default.',
+    position: 'right' as const,
+    action: {
+      type: 'custom' as const,
+      label: 'Policies reviewed'
+    },
+    highlightTarget: true
+  },
+  {
+    id: 'profile-photo',
+    page: '/prototype/workspace/profile',
+    targetSelector: '[data-onboarding="profile-photo"]',
+    title: '📸 Upload Professional Photo',
+    content: 'Please upload a professional picture. You can upload multiple if you\'d like.',
+    position: 'left' as const,
+    action: {
+      type: 'upload' as const,
+      label: 'Photo uploaded',
+      validation: () => {
+        const photos = localStorage.getItem('therapist_profile_photos');
+        return photos && JSON.parse(photos).length > 0;
+      }
+    },
+    highlightTarget: true
+  },
+  {
+    id: 'intro-video',
+    page: '/prototype/workspace/profile',
+    targetSelector: '[data-onboarding="intro-video"]',
+    title: '🎥 Introduction Video',
+    content: 'We strongly recommend all therapists create an introductory video. Upload now, or later if preferred.',
+    position: 'bottom' as const,
+    action: {
+      type: 'upload' as const,
+      label: 'Continue'
+    },
     showSkip: true,
+    highlightTarget: true
+  },
+  
+  // Client management introduction
+  {
+    id: 'clients-overview',
+    page: '/prototype/workspace/clients',
+    targetSelector: '[data-onboarding="clients-overview"]',
+    title: '👥 Client Management',
+    content: 'This is where you will manage your clients, view session notes, and track progress.',
+    position: 'center' as const,
+    action: {
+      type: 'custom' as const,
+      label: 'Got it'
+    },
+    highlightTarget: true
+  },
+  
+  // Tasks system introduction
+  {
+    id: 'tasks-overview',
+    page: '/prototype/workspace/tasks',
+    targetSelector: '[data-onboarding="tasks-list"]',
+    title: '✅ Your Tasks',
+    content: 'This is where your tasks will live. Certain tasks will be added here automatically.',
+    position: 'top' as const,
+    action: {
+      type: 'custom' as const,
+      label: 'Continue'
+    },
+    highlightTarget: true
+  },
+  {
+    id: 'add-task',
+    page: '/prototype/workspace/tasks',
+    targetSelector: '[data-onboarding="add-task-button"]',
+    title: '➕ Add a Task',
+    content: 'You can also add tasks yourself by clicking here. Try adding a task.',
+    position: 'bottom' as const,
+    action: {
+      type: 'click' as const,
+      label: 'Task added',
+      validation: () => {
+        const tasks = localStorage.getItem('therapist_custom_tasks');
+        return tasks && JSON.parse(tasks).length > 0;
+      }
+    },
+    highlightTarget: true
+  },
+  {
+    id: 'complete-task',
+    page: '/prototype/workspace/tasks',
+    targetSelector: '[data-onboarding="complete-task-button"]',
+    title: '✅ Complete Task',
+    content: 'Now try clicking complete.',
+    position: 'right' as const,
+    action: {
+      type: 'click' as const,
+      label: 'Task completed',
+      validation: () => {
+        const completedTasks = localStorage.getItem('therapist_completed_tasks');
+        return completedTasks && JSON.parse(completedTasks).length > 0;
+      }
+    },
+    highlightTarget: true
+  },
+  {
+    id: 'undo-task',
+    page: '/prototype/workspace/tasks',
+    targetSelector: '[data-onboarding="undo-button"]',
+    title: '↩️ Undo Action',
+    content: 'If you complete a task by mistake, you can always click undo to bring it back - easy!',
+    position: 'left' as const,
+    action: {
+      type: 'click' as const,
+      label: 'Understood'
+    },
     highlightTarget: true
   }
 ];
@@ -140,12 +291,11 @@ export function ContextualOnboarding({ onComplete }: ContextualOnboardingProps) 
   };
 
   const handleNext = () => {
-    // Update profile strength
-    const strengthIncrease = currentStepIndex === 0 ? 10 : // Specialties
-                            currentStepIndex === 1 ? 10 : // Identity
-                            currentStepIndex === 2 ? 10 : // Rates
-                            currentStepIndex === 3 ? 10 : // Availability
-                            currentStepIndex === 4 ? 20 : 5; // Video
+    // Update profile strength based on V2 plan
+    const strengthIncrease = currentStepIndex < 5 ? 3 : // Availability steps (5 steps = 15%)
+                            currentStepIndex < 10 ? 3 : // Profile steps (5 steps = 15%)  
+                            currentStepIndex < 11 ? 5 : // Client intro (1 step = 5%)
+                            currentStepIndex < 15 ? 1.25 : 20; // Tasks intro (4 steps = 5%) or Video (20%)
     
     setProfileStrength(prev => Math.min(100, prev + strengthIncrease));
     
