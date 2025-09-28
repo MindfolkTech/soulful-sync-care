@@ -542,7 +542,7 @@ export default function Assessment() {
                   </div>
                 )}
 
-                {currentStepData?.type === "final-explainer" && (
+                {currentStepData?.type === "final" && (
                   <div className="text-center space-y-6">
                     <div className="space-y-4">
                       <div className="text-left space-y-2 max-w-md mx-auto">

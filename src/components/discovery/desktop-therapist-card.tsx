@@ -13,38 +13,49 @@ interface DesktopTherapistCardProps {
 
 // Custom hook for intersection observer to lazy load content
 const useIntersectionObserver = (ref: React.RefObject<HTMLElement>, options = {}, callback: () => void) => {
+    // Memoize the callback to prevent useEffect re-runs
+    const memoizedCallback = React.useCallback(callback, [callback]);
+
+    // Memoize options to prevent re-creating observer on object reference changes
+    const memoizedOptions = React.useMemo(() => options, [JSON.stringify(options)]);
+
     React.useEffect(() => {
         if (!ref.current) return;
-        
+
         const observer = new IntersectionObserver(([entry]) => {
             if (entry.isIntersecting) {
-                callback();
+                memoizedCallback();
                 // Once the callback is executed, we can disconnect the observer
                 observer.disconnect();
             }
-        }, options);
-        
+        }, memoizedOptions);
+
         observer.observe(ref.current);
-        
+
         return () => {
             observer.disconnect();
         };
-    }, [ref, options, callback]);
+    }, [ref, memoizedOptions, memoizedCallback]);
 };
 
 const MediaCarousel = ({ therapist, onShowVideo }: DesktopTherapistCardProps) => {
     // Container ref for intersection observer
     const containerRef = React.useRef<HTMLDivElement>(null);
-    
+
     // State to track whether media should be loaded
     const [shouldLoadMedia, setShouldLoadMedia] = React.useState(false);
     const [currentIndex, setCurrentIndex] = React.useState(0);
-    
+
+    // Memoize the callback to prevent useIntersectionObserver re-runs
+    const handleLoadMedia = React.useCallback(() => {
+        setShouldLoadMedia(true);
+    }, []);
+
     // Set up intersection observer to lazy load media when visible
     useIntersectionObserver(
         containerRef,
         { threshold: 0.1, rootMargin: '200px' },
-        () => setShouldLoadMedia(true)
+        handleLoadMedia
     );
     
     // Sort media to prioritize videos first

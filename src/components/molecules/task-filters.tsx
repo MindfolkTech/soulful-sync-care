@@ -73,7 +73,6 @@ export function TaskFilters({ filters, onFiltersChange, role }: TaskFiltersProps
           onChange={(e) => onFiltersChange({ ...filters, search: e.target.value })}
           className="pl-10 min-h-[--touch-target-min]"
           aria-label="Search through tasks"
-          data-onboarding="add-task-button"
         />
       </div>
 

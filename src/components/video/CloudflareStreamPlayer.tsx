@@ -109,17 +109,20 @@ export function CloudflareStreamPlayer({
     }
   };
 
+  // Determine video source type early to avoid reference errors
+  const videoSourceType = React.useMemo(() => getVideoSourceType(src), [src]);
+
   // Handle loading errors
   const handleVideoError = (event: React.SyntheticEvent<HTMLVideoElement, Event>) => {
     const error = new Error(`Video loading failed: ${(event.target as HTMLVideoElement).error?.message || 'Unknown error'}`);
     console.error("Video loading error:", error);
-    
+
     setLoadError(error);
-    
+
     // Try to recover by lowering quality if we have retry attempts left
     if (retryCount < 2 && videoSourceType === 'cloudflare') {
       setRetryCount(prev => prev + 1);
-      
+
       // Try lower quality version if available
       if (currentQuality === 'high') {
         console.log('Retrying with medium quality...');
@@ -139,18 +142,23 @@ export function CloudflareStreamPlayer({
   // Play/Pause functionality
   const handlePlayPause = () => {
     if (!videoRef.current || loadError) return;
-    
+
     if (isPlaying) {
       videoRef.current.pause();
       setIsPlaying(false);
     } else {
-      videoRef.current.play().catch(error => {
-        console.error("Playback failed:", error);
-        setLoadError(error);
-        if (onError) onError(error);
-      });
-      setIsPlaying(true);
-      resetControlsTimer();
+      videoRef.current.play()
+        .then(() => {
+          // Only set playing state if play() succeeds
+          setIsPlaying(true);
+          resetControlsTimer();
+        })
+        .catch(error => {
+          console.error("Playback failed:", error);
+          setLoadError(error);
+          setIsPlaying(false); // Ensure state stays false on error
+          if (onError) onError(error);
+        });
     }
   };
 
@@ -312,9 +320,36 @@ export function CloudflareStreamPlayer({
     };
   }, [isPlaying]);
 
-  // Determine video source type
-  const videoSourceType = getVideoSourceType(src);
-  
+  // Reload video when quality changes
+  React.useEffect(() => {
+    if (videoRef.current && videoSourceType === 'cloudflare') {
+      const currentTime = videoRef.current.currentTime;
+      const wasPlaying = isPlaying;
+
+      // Force reload by setting src
+      videoRef.current.load();
+
+      // Restore playback position and state
+      const handleLoadedMetadata = () => {
+        if (videoRef.current) {
+          videoRef.current.currentTime = currentTime;
+          if (wasPlaying) {
+            videoRef.current.play().catch(error => {
+              console.error("Failed to resume playback after quality change:", error);
+              setIsPlaying(false);
+            });
+          }
+        }
+      };
+
+      videoRef.current.addEventListener('loadedmetadata', handleLoadedMetadata, { once: true });
+
+      return () => {
+        videoRef.current?.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      };
+    }
+  }, [currentQuality, videoSourceType]);
+
   // Generate caption URL for Cloudflare Stream videos
   const getCaptionUrl = React.useMemo(() => {
     if (!src) return null;

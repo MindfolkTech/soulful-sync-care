@@ -30,7 +30,7 @@ export interface FilterPreferences {
   experience_level: string;
   preferred_times: string[];
   prefers_similar_age?: boolean;
-  prefers_cultural_match?: boolean;
+  prefers_cultural_background_match?: boolean;
   prefers_same_gender?: boolean;
 }
 
@@ -180,12 +180,12 @@ export function FiltersDialog({ open, onOpenChange, currentFilters, onApplyFilte
       identity_filters: coreIdentityFilters,
       language_preferences: languages,
       budget_range: priceRange,
-      therapist_gender: "", // No longer needed - handled by identity preferences
+      therapist_gender: prefersSameGender ? "Same gender as me" : "No preference",
       experience_level: experience,
       preferred_times: preferredTimes,
       prefers_similar_age: prefersSimilarAge,
       prefers_same_gender: prefersSameGender,
-      prefers_cultural_match: prefersCulturalMatch
+      prefers_cultural_background_match: prefersCulturalMatch
     };
 
     // Save to database if user is logged in

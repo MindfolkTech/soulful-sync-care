@@ -65,10 +65,10 @@ function convertSupabaseToClientAssessment(supabaseAssessment: any): ClientAsses
     age_group: supabaseAssessment.age_group || "25–34",
     preferred_times: supabaseAssessment.preferred_times || [],
     experience_preference: supabaseAssessment.experience_preference || "no preference",
-    cultural_identity: supabaseAssessment.cultural_considerations || [],
+    cultural_identity: supabaseAssessment.cultural_identity || [],
     therapist_gender_preference: supabaseAssessment.gender_preferences?.[0],
-    prefers_similar_age: false,
-    prefers_cultural_background_match: false,
+    prefers_similar_age: supabaseAssessment.prefers_similar_age || false,
+    prefers_cultural_background_match: supabaseAssessment.prefers_cultural_background_match || false,
   };
 }
 
@@ -188,9 +188,11 @@ export default function Discover() {
           
           // Merge filter preferences into assessment
           if (activeFilters.specialties.length > 0) {
-            // Note: We keep therapy_goals as the client's original selections
-            // Filter specialties are for refining search, not replacing goals
-            // The matching algorithm will handle specialty filtering separately
+            // Add filter specialties to therapy_goals for matching
+            // This allows users to refine their search beyond initial assessment
+            const existingGoals = assessment.therapy_goals || [];
+            const combinedGoals = [...new Set([...existingGoals, ...activeFilters.specialties])];
+            assessment.therapy_goals = combinedGoals;
           }
           if (activeFilters.modalities.length > 0) {
             assessment.therapy_modalities = activeFilters.modalities;
@@ -199,7 +201,13 @@ export default function Discover() {
             assessment.budget_range = activeFilters.budget_range;
           }
           if (activeFilters.therapist_gender !== "No preference") {
-            assessment.therapist_gender_preference = activeFilters.therapist_gender;
+            // Map "Same gender as me" to client's own gender, or use the specific preference
+            if (activeFilters.therapist_gender === "Same gender as me") {
+              // Use client's gender from assessment if available
+              assessment.therapist_gender_preference = supabaseAssessment.gender_identity || "no preference";
+            } else {
+              assessment.therapist_gender_preference = activeFilters.therapist_gender;
+            }
           }
           if (activeFilters.preferred_times.length > 0) {
             assessment.preferred_times = activeFilters.preferred_times;
