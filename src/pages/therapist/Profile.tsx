@@ -23,7 +23,7 @@ export default function TherapistProfile() {
       <div className="p-4 md:p-6 lg:p-8">
         <Container>
           <div className="space-y-6">
-            <div>
+            <div data-onboarding="profile-intro">
               <h1 className="font-primary text-3xl text-[hsl(var(--text-primary))] mb-2">Your Profile</h1>
               <p className="font-secondary text-[hsl(var(--text-secondary))]">Manage how clients see you</p>
             </div>
@@ -36,7 +36,7 @@ export default function TherapistProfile() {
           <CardContent className="p-4 md:p-5 lg:p-6">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6" id="focus-profile">
               {/* Profile Photo Section */}
-              <div className="space-y-4">
+              <div className="space-y-4" data-onboarding="profile-photo">
                 <Avatar className="w-32 h-32 mx-auto lg:mx-0">
                   <AvatarImage 
                     src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&h=300&fit=crop&crop=face" 
@@ -156,7 +156,7 @@ export default function TherapistProfile() {
         </div>
 
         {/* Video Introduction */}
-        <Card>
+        <Card data-onboarding="intro-video">
           <CardHeader>
             <HStack className="justify-between">
               <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Video Introduction</CardTitle>
@@ -203,7 +203,7 @@ export default function TherapistProfile() {
         </Card>
 
         {/* Session Settings */}
-        <Card id="focus-rates">
+        <Card id="focus-rates" data-onboarding="session-rates">
           <CardHeader>
             <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Session Settings</CardTitle>
           </CardHeader>
@@ -267,6 +267,39 @@ export default function TherapistProfile() {
                   </div>
                   <Switch aria-label="Toggle weekend availability" />
                 </HStack>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Cancellation Policies */}
+        <Card data-onboarding="cancellation-policies">
+          <CardHeader>
+            <CardTitle className="font-primary text-[hsl(var(--jovial-jade))]">Cancellation Policies</CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 md:p-5 lg:p-6">
+            <div className="space-y-4">
+              <div>
+                <Label className="font-secondary text-[hsl(var(--text-primary))]">Cancellation Notice</Label>
+                <p className="text-sm text-[hsl(var(--text-secondary))] mb-2">How much notice do you require for cancellations?</p>
+                <select className="w-full px-3 py-2 border rounded-md bg-background font-secondary text-[hsl(var(--text-primary))] min-h-[--touch-target-min]">
+                  <option>24 hours</option>
+                  <option>48 hours</option>
+                  <option>72 hours</option>
+                  <option>1 week</option>
+                </select>
+              </div>
+              <div>
+                <Label className="font-secondary text-[hsl(var(--text-primary))]">Cancellation Fee</Label>
+                <p className="text-sm text-[hsl(var(--text-secondary))] mb-2">Fee for late cancellations (optional)</p>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[hsl(var(--text-secondary))]">£</span>
+                  <Input 
+                    type="number" 
+                    placeholder="0" 
+                    className="pl-8 min-h-[--touch-target-min]"
+                  />
+                </div>
               </div>
             </div>
           </CardContent>

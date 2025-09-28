@@ -75,7 +75,7 @@ export function TaskHubShell({
 
   return (
     <Container className="py-8">
-      <div className="mb-8">
+      <div className="mb-8" data-onboarding="tasks-list">
         <h1 className={`text-3xl font-bold mb-2 ${roleColors[role]}`}>
           {title}
         </h1>

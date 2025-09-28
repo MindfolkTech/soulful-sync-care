@@ -9,9 +9,9 @@ interface TooltipStep {
   targetSelector: string;
   title: string;
   content: string;
-  position?: 'top' | 'bottom' | 'left' | 'right' | 'auto';
+  position?: 'top' | 'bottom' | 'left' | 'right' | 'auto' | 'center';
   action?: {
-    type: 'click' | 'input' | 'select' | 'custom';
+    type: 'click' | 'input' | 'select' | 'custom' | 'upload';
     validation?: () => boolean;
     label?: string;
   };

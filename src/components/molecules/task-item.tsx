@@ -98,7 +98,13 @@ export function TaskItem({ task, selected, onSelect, showBulkSelect }: TaskItemP
             </p>
           )}
 
-          <Button asChild variant="tertiary" size="sm" className="min-h-[--touch-target-min]">
+          <Button 
+            asChild 
+            variant="tertiary" 
+            size="sm" 
+            className="min-h-[--touch-target-min]"
+            data-onboarding={task.status === 'done' ? "undo-button" : "complete-task-button"}
+          >
             <Link to={task.cta.href} aria-label={`${task.cta.label} for task: ${task.title}`}>
               {task.cta.label}
             </Link>

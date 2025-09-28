@@ -217,7 +217,7 @@ export function EnhancedAvailabilityManager() {
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Working Hours Management */}
         <div className="lg:col-span-2 space-y-6">
-          <Card>
+          <Card data-onboarding="availability-hours">
             <CardHeader>
               <CardTitle className="font-primary">Working Hours</CardTitle>
             </CardHeader>
@@ -277,7 +277,7 @@ export function EnhancedAvailabilityManager() {
               <CardTitle className="font-primary text-lg">Quick Settings</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between" data-onboarding="auto-accept-settings">
                 <div>
                   <p className="font-secondary font-semibold text-[hsl(var(--text-primary))] text-sm">
                     Auto-accept bookings
@@ -286,13 +286,13 @@ export function EnhancedAvailabilityManager() {
                     Automatically approve new sessions
                   </p>
                 </div>
-                <Switch 
+                <Switch
                   checked={quickSettings.autoAccept}
                   onCheckedChange={(checked) => setQuickSettings({...quickSettings, autoAccept: checked})}
                 />
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between" data-onboarding="buffer-settings">
                 <div>
                   <p className="font-secondary font-semibold text-[hsl(var(--text-primary))] text-sm">
                     Buffer between sessions
@@ -301,7 +301,7 @@ export function EnhancedAvailabilityManager() {
                     15-minute break automatically
                   </p>
                 </div>
-                <Switch 
+                <Switch
                   checked={quickSettings.bufferTime}
                   onCheckedChange={(checked) => setQuickSettings({...quickSettings, bufferTime: checked})}
                 />
@@ -316,10 +316,44 @@ export function EnhancedAvailabilityManager() {
                     Accept weekend bookings
                   </p>
                 </div>
-                <Switch 
+                <Switch
                   checked={quickSettings.weekendAvailability}
                   onCheckedChange={(checked) => setQuickSettings({...quickSettings, weekendAvailability: checked})}
                 />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Cancellation Agreement */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="font-primary text-lg">Cancellation Policy</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4" data-onboarding="cancellation-agreement">
+                <div className="p-4 bg-[hsl(var(--surface-accent))] rounded-lg">
+                  <p className="font-secondary text-[hsl(var(--text-primary))] text-sm mb-3">
+                    Please review and agree to our cancellation policy:
+                  </p>
+                  <div className="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      id="cancellation-agreement"
+                      className="mt-1"
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          localStorage.setItem('therapist_cancellation_agreed', 'true');
+                        } else {
+                          localStorage.removeItem('therapist_cancellation_agreed');
+                        }
+                      }}
+                    />
+                    <label htmlFor="cancellation-agreement" className="font-secondary text-[hsl(var(--text-secondary))] text-sm">
+                      I understand that if I don't show up to an appointment without giving the client reasonable notice,
+                      or if I cancel an appointment more than 3 times, my account may be suspended.
+                    </label>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
