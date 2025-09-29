@@ -44,7 +44,7 @@ function convertSupabaseToTherapistProfile(supabaseProfile: any): TherapistProfi
     age_group: supabaseProfile.age_group || '',
     cultural_background: supabaseProfile.cultural_background || [],
     is_verified: supabaseProfile.verified === true,
-    is_active: supabaseProfile.is_active !== false,
+    is_active: supabaseProfile.is_active !== false || supabaseProfile.is_active === undefined, // Default to active if not specified
     
     // UI fields for backward compatibility
     title: supabaseProfile.professional_title || supabaseProfile.title || "Licensed Therapist",

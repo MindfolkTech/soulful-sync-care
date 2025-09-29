@@ -88,7 +88,8 @@ export const MATCHING_WEIGHTS: MatchingWeights = {
 /**
  * Normalize string for exact matching
  */
-function normalize(v: string): string {
+function normalize(v: string | null | undefined): string {
+  if (!v) return '';
   return v.trim().toLowerCase();
 }
 
@@ -114,33 +115,39 @@ function mapTherapyGoalToSpecialties(goal: string): string[] {
  * NEW - Helper function to parse style sentences into keywords.
  * Takes a string like "Structured & Goal-oriented (..." and returns ['structured', 'goal-oriented']
  * IMPORTANT: Preserves hyphenated terms like 'goal-oriented' and 'solution-oriented'
+ * UPDATED: More selective keyword extraction to improve matching accuracy
  */
 function parseStyleSentence(sentence: string): string[] {
   if (!sentence) return [];
-  
+
   // Take the part before the parenthesis
   const mainPart = sentence.split('(')[0].trim();
-  
+
   // Replace '&' and 'and' with spaces, but preserve hyphens
   const cleanedPart = mainPart
     .replace(/\s+&\s+/g, ' ')  // Replace & with space
     .replace(/\s+and\s+/g, ' ') // Replace 'and' with space
     .trim();
-  
+
   // Split by spaces but keep hyphenated terms together
   const words = cleanedPart.split(/\s+/);
-  
+
+  // Filter out common words that don't add matching value
+  const stopWords = new Set(['the', 'a', 'an', 'is', 'are', 'was', 'were', 'been', 'be', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should']);
+
   // Normalize each word (lowercase, trim) but keep hyphens
   return words
     .map(word => word.toLowerCase().trim())
-    .filter(word => word.length > 0);
+    .filter(word => word.length > 2 && !stopWords.has(word)); // Filter short words and stop words
 }
 
 /**
  * Exact, normalized overlap: fraction of client prefs satisfied (0..1)
+ * Returns 1.0 if client has no preferences (no filter = matches everyone)
  */
 function calculateOverlapExact(client: string[], therapist: string[]): number {
-  if (!client?.length || !therapist?.length) return 0;
+  if (!client?.length) return 1; // No client preference = perfect match
+  if (!therapist?.length) return 0; // Client has prefs but therapist has none
   const c = new Set(client.map(normalize));
   const t = new Set(therapist.map(normalize));
   let hits = 0;
@@ -466,7 +473,7 @@ export function findMatches(
     diversityRanking?: boolean;
   } = {}
 ): MatchResult[] {
-  const { minScore = 60, maxResults = 20, diversityRanking = true } = options;
+  const { minScore = 30, maxResults = 20, diversityRanking = true } = options;
 
   // Filter active and verified therapists
   const activeTherapists = therapists.filter(t => t.is_active && t.is_verified);

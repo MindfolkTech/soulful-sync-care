@@ -93,6 +93,7 @@ import ClientFeedback from "./pages/client/Feedback";
 // Therapist pages
 import TherapistSignUp from "./pages/therapist/SignUp";
 import OnboardingRouter from "./pages/therapist/OnboardingRouter";
+import TherapistQuickStart from "./pages/therapist/QuickStart";
 // ARCHIVED: Legacy V1 onboarding files moved to archive/legacy-onboarding/
 // import OnboardingWelcome from "./pages/therapist/onboarding/Welcome";
 // import OnboardingCredentials from "./pages/therapist/onboarding/Credentials";
@@ -201,6 +202,7 @@ const AppContent = () => {
               <Route path="/client/onboarding/assessment" element={<AuthGuard requiredRole="client"><Assessment /></AuthGuard>} />
 
               {/* Therapist routes - V2 onboarding system */}
+              <Route path="/t/quick-start" element={<AuthGuard requiredRole="therapist"><TherapistQuickStart /></AuthGuard>} />
               <Route path="/t/onboarding" element={<AuthGuard requiredRole="therapist"><OnboardingRouter /></AuthGuard>} />
               {/* ARCHIVED: Legacy onboarding routes replaced by V2 QuickStart */}
               <Route path="/t/onboarding/credentials" element={<Navigate to="/t/onboarding" replace />} />

@@ -108,8 +108,8 @@ export default function TherapistQuickStart() {
 
       if (error) throw error;
 
-      // Navigate to workspace with contextual onboarding
-      navigate('/t/workspace');
+      // Navigate to dashboard with contextual onboarding
+      navigate('/t/dashboard');
     } catch (error) {
       console.error('Error saving QuickStart data:', error);
     } finally {

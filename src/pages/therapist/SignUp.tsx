@@ -75,7 +75,7 @@ export default function TherapistSignUp() {
         email: formData.email,
         password: formData.password,
         options: {
-          emailRedirectTo: `${window.location.origin}/t/onboarding`,
+          emailRedirectTo: `${window.location.origin}/t/quick-start`,
           data: {
             first_name: formData.firstName,
             last_name: formData.lastName,
@@ -117,8 +117,8 @@ export default function TherapistSignUp() {
                   We've sent a confirmation link to <strong>{formData.email}</strong>.
                   Please check your inbox (and spam folder!) to continue.
                 </p>
-                <Button onClick={() => navigate("/t/onboarding")} className="mt-6">
-                  Go to Onboarding
+                <Button onClick={() => navigate("/t/quick-start")} className="mt-6">
+                  Start Quick Setup
                 </Button>
               </div>
             </div>
