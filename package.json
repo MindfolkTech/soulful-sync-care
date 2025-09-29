@@ -28,7 +28,8 @@
     "analyze": "node scripts/analyze-screenshots.js",
     "analyze:full": "npm run analyze && npm run screenshots:all",
     "dev:tools": "npm run dev & npm run storybook",
-    "test:port": "node scripts/test-port-detection.js"
+    "test:port": "node scripts/test-port-detection.js",
+    "update-types": "npx supabase gen types --lang=typescript --project-id \"$PROJECT_REF\" > database.types.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
