@@ -1143,7 +1143,7 @@ export type Database = {
           admin_name: string | null
           admin_user_id: string | null
           created_at: string | null
-          decision_outcome: string | null
+          decision_outcome: Json | null
           decision_reason: string | null
           id: string | null
           new_data: Json | null
@@ -1161,12 +1161,14 @@ export type Database = {
           admin_name: string | null
           created_at: string | null
           id: string | null
+          impersonated_user_id: string | null
           impersonation_reason: string | null
           ip_address: string | null
           session_context: Json | null
           target_user_email: string | null
           target_user_name: string | null
           user_agent: string | null
+          user_id: string | null
         }
         Relationships: []
       }
@@ -1197,7 +1199,6 @@ export type Database = {
           id: string | null
           is_active: boolean | null
           name: string | null
-          published: boolean | null
           setup_completed: boolean | null
           setup_steps: Json | null
           updated_at: string | null
@@ -1209,7 +1210,6 @@ export type Database = {
           id?: string | null
           is_active?: boolean | null
           name?: string | null
-          published?: never
           setup_completed?: boolean | null
           setup_steps?: Json | null
           updated_at?: string | null
@@ -1221,7 +1221,6 @@ export type Database = {
           id?: string | null
           is_active?: boolean | null
           name?: string | null
-          published?: never
           setup_completed?: boolean | null
           setup_steps?: Json | null
           updated_at?: string | null
