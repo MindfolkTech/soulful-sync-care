@@ -20,6 +20,7 @@ export interface TherapistData {
   title: string;
   specialties: string[];
   personality: string[];
+  communication_style?: string[];
   languages: string[];
   rate: string;
   rating: number;
@@ -162,7 +163,11 @@ export function TherapistCard({
               onShowVideo={() => onShowVideo?.(therapist)}
               therapistName={therapist.name}
               tags={[
-                  ...therapist.personality.slice(0,3).map(p => ({ label: p, category: 'personality' as const }))
+                  // Show personality and communication style first (up to 4 total)
+                  ...therapist.personality.slice(0, 2).map(p => ({ label: p, category: 'personality' as const })),
+                  ...(therapist.communication_style || []).slice(0, 2).map(c => ({ label: c, category: 'misc' as const })),
+                  // Then specialties if space remains
+                  ...therapist.specialties.slice(0, Math.max(0, 4 - therapist.personality.slice(0, 2).length - (therapist.communication_style || []).slice(0, 2).length)).map(s => ({ label: s, category: 'specialty' as const }))
               ]}
           />
           {/* Progress indicators for media carousel */}

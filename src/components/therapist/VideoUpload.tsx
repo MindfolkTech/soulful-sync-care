@@ -22,8 +22,10 @@ export function VideoUpload({ currentVideoUrl, onVideoUploaded }: VideoUploadPro
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [videoURL, setVideoURL] = useState<string>(currentVideoUrl || "");
-  
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
   const videoRef = useRef<HTMLVideoElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const timerRef = useRef<number | null>(null);
@@ -157,9 +159,58 @@ export function VideoUpload({ currentVideoUrl, onVideoUploaded }: VideoUploadPro
     setSuccess(false);
   };
   
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Define accepted video types
+      const acceptedTypes = [
+        'video/mp4',
+        'video/webm',
+        'video/ogg',
+        'video/quicktime', // .mov files
+        'video/x-msvideo', // .avi files
+        'video/x-ms-wmv'   // .wmv files
+      ];
+
+      // Check file type
+      if (!acceptedTypes.includes(file.type)) {
+        console.log("Rejected file type:", file.type);
+        setError("Please select a valid video file (MP4, WebM, MOV, AVI, or WMV)");
+        return;
+      }
+
+      // Check file size (max 100MB)
+      if (file.size > 100 * 1024 * 1024) {
+        setError("File size must be less than 100MB");
+        return;
+      }
+
+      console.log("File selected:", file.name, file.type, `${(file.size / (1024 * 1024)).toFixed(1)}MB`);
+      setSelectedFile(file);
+      setError(null);
+    }
+  };
+
   const uploadVideo = async () => {
-    if (!recordedBlob || !session?.access_token) {
-      setError("No video recorded or not authenticated");
+    const videoToUpload = selectedFile || recordedBlob;
+    if (!videoToUpload || !session?.access_token) {
+      const error = !videoToUpload ? "No video to upload" : "Not authenticated";
+      console.error("Upload failed:", error);
+      setError(error);
+      return;
+    }
+
+    console.log("Starting video upload:", {
+      fileType: videoToUpload.type || "unknown",
+      fileSize: `${(videoToUpload.size / (1024 * 1024)).toFixed(1)}MB`,
+      hasSession: !!session?.access_token,
+      supabaseUrl: import.meta.env.VITE_SUPABASE_URL
+    });
+
+    // Check if environment variables are configured
+    if (!import.meta.env.VITE_SUPABASE_URL) {
+      setError("Configuration error: Supabase URL not configured");
+      setIsUploading(false);
       return;
     }
     
@@ -170,7 +221,8 @@ export function VideoUpload({ currentVideoUrl, onVideoUploaded }: VideoUploadPro
     try {
       // Create form data for the upload
       const formData = new FormData();
-      formData.append("video", recordedBlob, "intro_video.webm");
+      const fileName = selectedFile ? selectedFile.name : 'intro_video.webm';
+      formData.append("video", videoToUpload, fileName);
       
       // Use XMLHttpRequest for progress tracking
       const xhr = new XMLHttpRequest();
@@ -183,10 +235,13 @@ export function VideoUpload({ currentVideoUrl, onVideoUploaded }: VideoUploadPro
       });
       
       xhr.addEventListener("loadend", () => {
+        console.log("Upload completed with status:", xhr.status);
+        console.log("Response:", xhr.responseText);
+
         if (xhr.status >= 200 && xhr.status < 300) {
           try {
             const response = JSON.parse(xhr.responseText);
-            if (response.success && response.video.url) {
+            if (response.success && response.video && response.video.url) {
               setVideoURL(response.video.url);
               onVideoUploaded(response.video.url);
               setSuccess(true);
@@ -195,41 +250,52 @@ export function VideoUpload({ currentVideoUrl, onVideoUploaded }: VideoUploadPro
                 description: "Your introduction video has been saved.",
               });
             } else {
-              setError("Unexpected response format");
+              console.error("Unexpected response format:", response);
+              setError("Server returned unexpected response format");
             }
           } catch (e) {
-            setError("Failed to parse response");
+            console.error("Failed to parse response:", e, xhr.responseText);
+            setError("Failed to parse server response");
           }
         } else {
           try {
-            const error = JSON.parse(xhr.responseText);
-            setError(error.error || "Upload failed");
+            const errorResponse = JSON.parse(xhr.responseText);
+            console.error("Upload failed with error:", errorResponse);
+            const errorMessage = errorResponse.error || `HTTP ${xhr.status}: ${xhr.statusText}`;
+            setError(errorMessage);
           } catch (e) {
-            setError(`Upload failed: ${xhr.statusText}`);
+            console.error("Failed to parse error response:", e, xhr.responseText);
+            setError(`Upload failed: HTTP ${xhr.status} - ${xhr.statusText}`);
           }
         }
-        
+
         setIsUploading(false);
       });
       
-      xhr.addEventListener("error", () => {
-        setError("Network error occurred");
+      xhr.addEventListener("error", (event) => {
+        console.error("Network error during upload:", event);
+        setError("Network error occurred. Please check your internet connection and try again.");
         setIsUploading(false);
       });
       
       xhr.addEventListener("abort", () => {
-        setError("Upload was aborted");
+        console.log("Upload was aborted by user");
+        setError("Upload was cancelled");
         setIsUploading(false);
       });
       
       // Open and send the request
-      xhr.open("POST", `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/cloudflare-stream`);
+      const uploadUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/cloudflare-stream`;
+      console.log("Upload URL:", uploadUrl);
+      console.log("Authorization header set:", !!session.access_token);
+
+      xhr.open("POST", uploadUrl);
       xhr.setRequestHeader("Authorization", `Bearer ${session.access_token}`);
       xhr.send(formData);
       
     } catch (error) {
       console.error("Upload error:", error);
-      setError("Failed to upload video");
+      setError(`Upload failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
       setIsUploading(false);
     }
   };
@@ -297,14 +363,62 @@ export function VideoUpload({ currentVideoUrl, onVideoUploaded }: VideoUploadPro
                 </Button>
               </>
             ) : (
-              <Button 
-                onClick={startRecording} 
-                variant="primary" 
-                className="w-full"
-              >
-                <Camera className="mr-2 h-4 w-4" />
-                Start Recording
-              </Button>
+              <div className="space-y-3">
+                <Button
+                  onClick={startRecording}
+                  variant="primary"
+                  className="w-full"
+                >
+                  <Camera className="mr-2 h-4 w-4" />
+                  Record Video
+                </Button>
+
+                <div className="relative">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="video/*"
+                    onChange={handleFileSelect}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  />
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                  >
+                    <Upload className="mr-2 h-4 w-4" />
+                    Upload Video File
+                  </Button>
+                </div>
+
+                {selectedFile && (
+                  <div className="p-3 bg-[hsl(var(--surface-accent))] rounded-lg">
+                    <p className="text-sm font-medium">{selectedFile.name}</p>
+                    <p className="text-xs text-[hsl(var(--text-secondary))]">
+                      Size: {(selectedFile.size / (1024 * 1024)).toFixed(1)} MB
+                    </p>
+                    <div className="flex gap-2 mt-2">
+                      <Button
+                        onClick={uploadVideo}
+                        variant="primary"
+                        className="text-xs px-3 py-1 h-8"
+                        disabled={isUploading}
+                      >
+                        <Upload className="mr-1 h-3 w-3" />
+                        {isUploading ? "Uploading..." : "Upload"}
+                      </Button>
+                      <Button
+                        onClick={() => setSelectedFile(null)}
+                        variant="outline"
+                        className="text-xs px-3 py-1 h-8"
+                        disabled={isUploading}
+                      >
+                        <X className="mr-1 h-3 w-3" />
+                        Remove
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
           </>
         )}

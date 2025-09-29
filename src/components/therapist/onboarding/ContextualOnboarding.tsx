@@ -16,19 +16,23 @@ interface OnboardingState {
   skipped_steps: string[];
   current_step?: string;
   contextual_onboarding_started?: boolean;
+  contextual_onboarding_deferred?: boolean;
   last_step_completed_at?: string;
+  deferred_at?: string;
 }
 
 interface ContextualOnboardingProps {
   onComplete?: () => void;
   autoStart?: boolean;
   minimumProfileStrength?: number;
+  forceStart?: boolean; // Allow manual restart of deferred onboarding
 }
 
 export function ContextualOnboarding({
   onComplete,
   autoStart = true,
-  minimumProfileStrength = 70
+  minimumProfileStrength = 70,
+  forceStart = false
 }: ContextualOnboardingProps) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -76,8 +80,15 @@ export function ContextualOnboarding({
         // Check if onboarding should be active
         const isComplete = state.completed_steps?.length >= ONBOARDING_STEPS.length * 0.8; // 80% completion threshold
         const profileNeedsWork = (data.profile_strength || 0) < minimumProfileStrength;
+        const wasDeferred = state.contextual_onboarding_deferred === true;
 
-        if (autoStart && profileNeedsWork && !isComplete) {
+        // Start onboarding if:
+        // 1. Profile needs work and not complete and wasn't deferred (normal autoStart)
+        // 2. OR forceStart is true (manual restart)
+        const shouldStart = (autoStart && profileNeedsWork && !isComplete && !wasDeferred) ||
+                           (forceStart && profileNeedsWork && !isComplete);
+
+        if (shouldStart) {
           setIsActive(true);
           // Find current step based on completed steps
           const nextStepIndex = ONBOARDING_STEPS.findIndex(step =>
@@ -139,6 +150,22 @@ export function ContextualOnboarding({
       navigate(currentStep.page);
     }
   }, [currentStepIndex, isActive, showWelcomeModal, isLoading, location.pathname, navigate]);
+
+  // Function to restart onboarding (clears deferred state)
+  const restartOnboarding = useCallback(async () => {
+    if (!user?.id) return;
+
+    try {
+      // Clear deferred state by starting onboarding
+      await updateOnboardingProgress('welcome', 'start');
+      setIsActive(true);
+      setShowWelcomeModal(true);
+      setCurrentStepIndex(0);
+    } catch (err) {
+      console.error('Error restarting onboarding:', err);
+      setError('Failed to restart onboarding');
+    }
+  }, [user?.id, updateOnboardingProgress]);
 
   const handleStartOnboarding = async () => {
     const firstStep = ONBOARDING_STEPS[0];
@@ -308,7 +335,9 @@ export function ContextualOnboarding({
             <div className="flex gap-3">
               <Button
                 variant="outline"
-                onClick={() => {
+                onClick={async () => {
+                  // Save deferred state to database
+                  await updateOnboardingProgress('welcome', 'defer');
                   setIsActive(false);
                   setShowWelcomeModal(false);
                 }}
@@ -350,4 +379,37 @@ export function ContextualOnboarding({
   }
 
   return null;
+}
+
+// Export the component as default and named export
+export default ContextualOnboarding;
+
+// Hook to access onboarding restart functionality
+export function useOnboardingRestart() {
+  const { user } = useAuth();
+
+  const restart = useCallback(async () => {
+    if (!user?.id) return;
+
+    try {
+      const { data, error } = await supabase.rpc('update_onboarding_progress', {
+        p_user_id: user.id,
+        p_step_id: 'welcome',
+        p_action: 'start'
+      });
+
+      if (error) {
+        console.error('Error restarting onboarding:', error);
+        throw new Error('Failed to restart onboarding');
+      }
+
+      // Reload the page to trigger onboarding
+      window.location.reload();
+    } catch (err) {
+      console.error('Unexpected error restarting onboarding:', err);
+      throw err;
+    }
+  }, [user?.id]);
+
+  return { restartOnboarding: restart };
 }

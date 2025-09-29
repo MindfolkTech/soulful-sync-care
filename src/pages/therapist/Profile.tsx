@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useCoachHint } from "@/hooks/use-coach-hint";
 import { Edit, Upload, Eye, Play } from "lucide-react";
+import { VideoUpload } from "@/components/therapist/VideoUpload";
 import { useScrollToHash } from "@/hooks/use-scroll-to-hash";
 
 export default function TherapistProfile() {
@@ -166,39 +167,14 @@ export default function TherapistProfile() {
             </HStack>
           </CardHeader>
           <CardContent className="p-4 md:p-5 lg:p-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="aspect-video bg-muted rounded-lg flex items-center justify-center border-2 border-dashed border-border">
-                <div className="text-center">
-                  <Play className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
-                  <p className="font-secondary text-muted-foreground">No video uploaded</p>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-primary font-semibold text-[hsl(var(--text-primary))] mb-2">
-                    Why add a video?
-                  </h3>
-                  <ul className="space-y-2 text-sm text-[hsl(var(--text-secondary))]">
-                    <li className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 bg-[hsl(var(--garden-green))] rounded-full mt-2 flex-shrink-0"></span>
-                      Profiles with videos get 3x more bookings
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 bg-[hsl(var(--garden-green))] rounded-full mt-2 flex-shrink-0"></span>
-                      Help clients feel more comfortable
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 bg-[hsl(var(--garden-green))] rounded-full mt-2 flex-shrink-0"></span>
-                      Show your personality and approach
-                    </li>
-                  </ul>
-                </div>
-                <Button variant="primary" className="min-h-[--touch-target-min]" aria-label="Upload introduction video to attract more clients">
-                  <Upload className="w-4 h-4 mr-2" />
-                  Upload Video
-                </Button>
-              </div>
-            </div>
+            <VideoUpload
+              currentVideoUrl=""
+              onVideoUploaded={(videoUrl) => {
+                // Handle video upload success
+                console.log('Video uploaded:', videoUrl);
+                // TODO: Update therapist profile with video URL
+              }}
+            />
           </CardContent>
         </Card>
 

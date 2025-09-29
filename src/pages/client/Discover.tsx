@@ -81,10 +81,21 @@ function convertTherapistProfile(profile: TherapistProfile, matchResult: MatchRe
     // Fallback image
     media.push({ type: 'image', url: '/images/therapist-white-female-40s.png' });
   }
-  
+
   // Add video if available in the therapist profile
   if (supabaseProfile.video_url) {
     media.push({ type: 'video', url: supabaseProfile.video_url, poster: media[0].url });
+  }
+
+  // Parse communication style to extract key words
+  const communicationStyleTags = [];
+  if (supabaseProfile.communication_style) {
+    const styleText = supabaseProfile.communication_style.toLowerCase();
+    // Extract the main style type (before parentheses)
+    const mainStyle = supabaseProfile.communication_style.split('(')[0].replace(/&/g, ',').split(',')[0].trim();
+    if (mainStyle) {
+      communicationStyleTags.push(mainStyle);
+    }
   }
 
   return {
@@ -93,12 +104,13 @@ function convertTherapistProfile(profile: TherapistProfile, matchResult: MatchRe
     title: profile.title || "Licensed Therapist",
     specialties: profile.specialties,
     personality: profile.personality_tags,
+    communication_style: communicationStyleTags,
     languages: profile.languages,
     rate: `£${profile.session_rates?.["60min"] || 100}/session`,
     rating: 4.8 + Math.random() * 0.2,
-    quote: supabaseProfile.quote || 
-      (profile.bio ? 
-        profile.bio.length > 80 ? `${profile.bio.substring(0, 77)}...` : profile.bio 
+    quote: supabaseProfile.quote ||
+      (profile.bio ?
+        profile.bio.length > 80 ? `${profile.bio.substring(0, 77)}...` : profile.bio
         : "I believe in creating a safe space where you can explore your authentic self."),
     media: media,
     location: profile.location || "London, UK",
