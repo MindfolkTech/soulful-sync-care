@@ -1,6 +1,6 @@
 import * as React from "react";
-import { TaskItem } from "@/components/molecules/task-item";
-import { BulkActionsBar } from "@/components/molecules/bulk-actions-bar";
+import { TaskItem } from "@/components/shared/task-item";
+import { BulkActionsBar } from "@/components/shared/bulk-actions-bar";
 import { TaskItem as TaskItemType, TaskFilters } from "@/types/tasks";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";

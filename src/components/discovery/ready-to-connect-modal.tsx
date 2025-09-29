@@ -12,7 +12,7 @@ import {
   DialogOverlay,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { MediaItem, TherapistData } from '@/components/molecules/therapist-card';
+import { MediaItem, TherapistData } from '@/components/discovery/therapist-card';
 
 interface ReadyToConnectModalProps {
   open: boolean;

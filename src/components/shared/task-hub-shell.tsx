@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Container } from "@/components/ui/container";
-import { TaskFilters } from "@/components/molecules/task-filters";
-import { TaskList } from "@/components/organisms/task-list";
+import { TaskFilters } from "@/components/shared/task-filters";
+import { TaskList } from "@/components/shared/task-list";
 import { TaskItem as TaskItemType, TaskFilters as TaskFiltersType, TaskStats } from "@/types/tasks";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";

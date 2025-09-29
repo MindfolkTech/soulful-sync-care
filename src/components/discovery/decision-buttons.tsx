@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { X, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { TherapistData } from '@/components/molecules/therapist-card';
+import { TherapistData } from '@/components/discovery/therapist-card';
 
 interface DecisionButtonsProps {
   therapist: TherapistData;

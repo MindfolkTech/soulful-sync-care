@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
-import { TherapistData, MediaItem } from "@/components/molecules/therapist-card";
+import { TherapistData, MediaItem } from "@/components/discovery/therapist-card";
 
 interface TherapistDetailsSheetProps {
   open: boolean;

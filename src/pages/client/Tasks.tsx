@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TaskHubShell } from "@/components/organisms/task-hub-shell";
+import { TaskHubShell } from "@/components/shared/task-hub-shell";
 import { mockClientTasks } from "@/data/mock-tasks";
 import { TaskStats } from "@/types/tasks";
 

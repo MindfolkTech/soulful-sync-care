@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Play, Check, ChevronLeft, ChevronRight, BadgeCheck, Shield } from "lucide-react";
-import { TherapistData } from "@/components/molecules/therapist-card";
+import { TherapistData } from "@/components/discovery/therapist-card";
 import { Tag } from "@/components/ui/tag";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";

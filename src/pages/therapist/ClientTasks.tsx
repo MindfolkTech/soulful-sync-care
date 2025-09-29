@@ -1,6 +1,6 @@
 import * as React from "react";
 import { TherapistLayout } from "@/components/layout/therapist-layout";
-import { TaskHubShell } from "@/components/organisms/task-hub-shell";
+import { TaskHubShell } from "@/components/shared/task-hub-shell";
 import { mockTherapistTasks } from "@/data/mock-tasks";
 import { TaskStats } from "@/types/tasks";
 

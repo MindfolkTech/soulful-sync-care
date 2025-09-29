@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ImpersonationProvider } from "@/contexts/impersonation-context";
 import { GlobalImpersonationBar } from "@/components/admin/global-impersonation-bar";
 import { RoleSwitchingProvider, useRoleSwitching } from "@/contexts/role-switching-context";
-import ErrorBoundary from "@/components/shared/ErrorBoundary";
+import ErrorBoundary from "@/components/shared/error-boundary";
 import { useAuth, AuthProvider } from "@/contexts/AuthContext";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";

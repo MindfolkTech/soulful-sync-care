@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import type { TherapistData } from "@/components/molecules/therapist-card";
+import type { TherapistData } from "@/components/discovery/therapist-card";
 import { TherapistDetailsSheet } from "@/components/discovery/therapist-details-sheet";
 import { VideoOverlay } from "@/components/discovery/video-overlay";
 import { useAriaLive } from "@/hooks/use-aria-live";
