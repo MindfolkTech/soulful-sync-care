@@ -15,7 +15,7 @@ import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import celebrationIllustration from "@/assets/celebration-illustration.jpg";
 import { DemographicsWarning, HealthDataWarning } from "@/components/legal/data-minimization-warning";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 const assessmentSteps = [
   {

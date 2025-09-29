@@ -32,7 +32,7 @@ import { Container } from "@/components/ui/container";
 import { useNavigate } from "react-router-dom";
 import { OnboardingChecklist } from "@/components/therapist/setup/OnboardingChecklist";
 import { QuickActionCards } from "@/components/therapist/onboarding";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { mockTherapistTasks } from "@/data/mock-tasks";

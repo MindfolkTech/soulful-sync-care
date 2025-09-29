@@ -5,7 +5,7 @@ import { Search, Heart, Calendar, Filter, Loader2, AlertCircle } from "lucide-re
 
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/database.types";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { BottomNav } from "@/components/ui/bottom-nav";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

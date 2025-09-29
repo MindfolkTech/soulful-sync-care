@@ -13,7 +13,7 @@ import { ImpersonationBar } from "@/components/admin/impersonation-bar";
 import { Search, User, Calendar, Shield, Eye, Ban, UserCheck, Loader2, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 // Matches the 'profiles' table and adds a computed status
 interface Profile {

@@ -16,11 +16,11 @@ import { useAriaLive } from "@/hooks/use-aria-live";
 import { findMatches, ClientAssessment, TherapistProfile, MatchResult } from "@/lib/matching";
 import { supabase } from "@/integrations/supabase/client";
 import { useImpersonation } from "@/contexts/impersonation-context";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { DesktopTherapistCard } from "@/components/discovery/desktop-therapist-card";
 import { DecisionButtons } from "@/components/discovery/decision-buttons";
 import { ReadyToConnectModal } from "@/components/discovery/ready-to-connect-modal";
-import ErrorBoundary from "@/components/util/error-boundary";
+import ErrorBoundary from "@/components/shared/error-boundary";
 
 // Helper function to convert Supabase therapist profile to TherapistProfile format
 function convertSupabaseToTherapistProfile(supabaseProfile: any): TherapistProfile {

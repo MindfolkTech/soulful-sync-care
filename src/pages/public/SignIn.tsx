@@ -11,7 +11,7 @@ import { ForgotPasswordDialog } from "@/components/auth/forgot-password-dialog";
 import { AlertCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");

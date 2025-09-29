@@ -70,8 +70,8 @@ export function ScreenshotAnalysis({ className }: { className?: string }) {
 
     try {
       // Import the analysis utility and routes
-      const { ScreenshotAnalyzer } = await import('@/utils/screenshot-analyzer');
-      const { MIND_FOLK_ROUTES } = await import('@/utils/screenshot-capture');
+      const { ScreenshotAnalyzer } = await import('@/lib/screenshot-analyzer');
+      const { MIND_FOLK_ROUTES } = await import('@/lib/screenshot-capture');
       
       const analyzer = new ScreenshotAnalyzer();
       await analyzer.initialize();

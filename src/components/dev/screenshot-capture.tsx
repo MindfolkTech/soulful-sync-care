@@ -51,7 +51,7 @@ export function ScreenshotCapture({ className }: ScreenshotCaptureProps) {
 
     try {
       // Import the screenshot capture utility
-      const { ScreenshotCapture, MIND_FOLK_ROUTES, MOBILE_ROUTES, TABLET_ROUTES } = await import('@/utils/screenshot-capture');
+      const { ScreenshotCapture, MIND_FOLK_ROUTES, MOBILE_ROUTES, TABLET_ROUTES } = await import('@/lib/screenshot-capture');
       
       const capture = new ScreenshotCapture();
       await capture.initialize();

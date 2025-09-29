@@ -5,7 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Stack, HStack } from "@/components/layout/layout-atoms";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { useRoleSwitching } from "@/contexts/role-switching-context";
 import { CheckCircle2, ChevronDown, ChevronUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
