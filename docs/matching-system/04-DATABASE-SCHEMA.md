@@ -20,19 +20,48 @@
 | `age_group` | text | Client's age group | For matching |
 | `gender_identity` | text | Client's gender | For matching |
 | `cultural_identity` | text | Client's culture | For matching |
-| `prefers_similar_age` | boolean | Wants similar age therapist | Filter |
-| `prefers_same_gender` | boolean | Wants same gender therapist | Filter |
-| `prefers_cultural_background_match` | boolean | Wants cultural match | Filter |- availability |
-| `session_frequency` | text | NULL | - | Future use |
+| `prefers_similar_age` | boolean | false | Wants similar age therapist | Preference boost |
+| `prefers_same_gender` | boolean | false | See detailed explanation below | Conditional filter |
+| `prefers_cultural_background_match` | boolean | false | Wants cultural match | Preference boost |
 | `previous_therapy` | boolean | false | - | Future use |
 | `crisis_support` | boolean | false | - | Future use |
-| `cultural_considerations` | text[] | NULL | - | Preference boost |
-| `religious_preferences` | text[] | NULL | - | Preference boost |
-| `gender_preferences` | text[] | NULL | - | Conditional filter |
-| `therapist_age_preference` | text | NULL | - | Maps to experience level |
-| `session_length_preference` | integer | NULL | - | Future use |
 | `created_at` | timestamptz | now() | - | Audit trail |
 | `updated_at` | timestamptz | now() | - | Audit trail |
+
+#### 🔍 Gender Preference Functionality (`prefers_same_gender`)
+
+**How it works:**
+- **Type:** Boolean (true/false)
+- **Default:** false (no gender preference)
+- **When true:** Client wants a therapist of the same gender
+- **Matching logic:**
+  ```sql
+  -- If client.prefers_same_gender = true:
+  -- Only match therapists where:
+  therapist.gender_identity = client.gender_identity
+
+  -- If client.prefers_same_gender = false:
+  -- No gender filtering applied (match all genders)
+  ```
+
+**Example scenarios:**
+| Client Gender | prefers_same_gender | Matches Therapists |
+|---------------|---------------------|-------------------|
+| Female | true | Only Female therapists |
+| Male | true | Only Male therapists |
+| Non-binary | true | Only Non-binary therapists |
+| Female | false | All therapists (any gender) |
+
+**Note:** This is a simplified binary preference. A future `gender_preferences` array column would allow more nuanced preferences (e.g., "Female or Non-binary" or specific exclusions).
+
+#### ⚠️ PLANNED FUTURE COLUMNS (NOT YET IMPLEMENTED)
+The following columns are specified but not yet added to the database:
+- `session_frequency` (text) - For future scheduling features
+- `cultural_considerations` (text[]) - For cultural preference matching
+- `religious_preferences` (text[]) - For religious preference matching
+- `gender_preferences` (text[]) - Would replace `prefers_same_gender` boolean for more flexibility
+- `therapist_age_preference` (text) - For age preference matching
+- `session_length_preference` (integer) - For session duration preferences
 
 ### `therapist_profiles`
 **Purpose:** Stores therapist information for matching  
