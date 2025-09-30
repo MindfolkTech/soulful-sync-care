@@ -72,8 +72,8 @@ graph LR
     end
     
     subgraph "THERAPIST SIDE"
-        D[therapist_profiles.communication_style<br/>One of 4 options:<br/>'Supportive & Relational']
-        E[therapist_profiles.session_format<br/>One of 4 options:<br/>'Calm & Process-Focused']
+        D[therapist_profiles.communication_style<br/>One of 4 options:<br/>'Supportive and Relational']
+        E[therapist_profiles.session_format<br/>One of 4 options:<br/>'Calm and Process-Focused']
         D --> F[Database Trigger:<br/>generate_personality_tags]
         E --> F
         F --> G[therapist_profiles.personality_tags<br/>Auto-generated array:<br/>supportive, empathetic, warm, calm, gentle]
@@ -105,10 +105,10 @@ graph LR
 
 | Communication Style | Session Format | Generated personality_tags |
 |-------------------|----------------|---------------------------|
-| Supportive & Relational | Calm & Process-Focused | `['supportive', 'empathetic', 'warm', 'calm', 'gentle']` |
-| Motivational & Encouraging | Structured & Goal-oriented | `['motivational', 'encouraging', 'positive', 'structured', 'goal-oriented', 'focused']` |
-| Pragmatic & Problem-solving | Interactive & Dynamic | `['pragmatic', 'solution-oriented', 'practical', 'interactive', 'dynamic', 'engaging']` |
-| Flexible & Adaptive | Exploratory & Insight-based | `['flexible', 'adaptive', 'empathetic', 'exploratory', 'insight-based', 'reflective']` |
+| Supportive and Relational | Calm and Process-Focused | `['supportive', 'empathetic', 'warm', 'calm', 'gentle']` |
+| Motivational and Encouraging | Structured and Goal-oriented | `['motivational', 'encouraging', 'positive', 'structured', 'goal-oriented', 'focused']` |
+| Pragmatic and Problem-solving | Interactive and Dynamic | `['pragmatic', 'solution-oriented', 'practical', 'interactive', 'dynamic', 'engaging']` |
+| Flexible and Adaptive | Exploratory and Insight-based | `['flexible', 'adaptive', 'empathetic', 'exploratory', 'insight-based', 'reflective']` |
 
 **Note:** There are 16 possible combinations (4 communication styles × 4 session formats)
 
@@ -168,20 +168,20 @@ Sample data:
 ### `communication_style_enum`
 ```sql
 CREATE TYPE communication_style_enum AS ENUM (
-  'Supportive & Relational',
-  'Motivational & Encouraging',
-  'Pragmatic & Problem-solving',
-  'Flexible & Adaptive'
+  'Supportive and Relational',
+  'Motivational and Encouraging',
+  'Pragmatic and Problem-solving',
+  'Flexible and Adaptive'
 );
 ```
 
 ### `session_format_enum`
 ```sql
 CREATE TYPE session_format_enum AS ENUM (
-  'Structured & Goal-oriented',
-  'Exploratory & Insight-based',
-  'Interactive & Dynamic',
-  'Calm & Process-Focused'
+  'Structured and Goal-oriented',
+  'Exploratory and Insight-based',
+  'Interactive and Dynamic',
+  'Calm and Process-Focused'
 );
 ```
 
