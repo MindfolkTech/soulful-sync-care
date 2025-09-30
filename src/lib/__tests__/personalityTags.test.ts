@@ -57,28 +57,28 @@ describe('Personality Tags and Matching Algorithm', () => {
 
   describe('parseStyleSentence Function', () => {
     it('should preserve hyphenated terms correctly', () => {
-      expect(parseStyleSentence('Structured & Goal-oriented')).toEqual(['structured', 'goal-oriented']);
-      expect(parseStyleSentence('Solution-oriented & practical')).toEqual(['solution-oriented', 'practical']);
-      expect(parseStyleSentence('Warm & empathetic')).toEqual(['warm', 'empathetic']);
+      expect(parseStyleSentence('Structured and Goal-oriented')).toEqual(['structured', 'goal-oriented']);
+      expect(parseStyleSentence('Solution-oriented and practical')).toEqual(['solution-oriented', 'practical']);
+      expect(parseStyleSentence('Warm and empathetic')).toEqual(['warm', 'empathetic']);
     });
 
     it('should handle communication styles from therapist options', () => {
-      expect(parseStyleSentence('Supportive & Relational')).toEqual(['supportive', 'relational']);
-      expect(parseStyleSentence('Motivational & Encouraging')).toEqual(['motivational', 'encouraging']);
-      expect(parseStyleSentence('Pragmatic & Problem-solving')).toEqual(['pragmatic', 'problem-solving']);
-      expect(parseStyleSentence('Flexible & Adaptive')).toEqual(['flexible', 'adaptive']);
+      expect(parseStyleSentence('Supportive and Relational')).toEqual(['supportive', 'relational']);
+      expect(parseStyleSentence('Motivational and Encouraging')).toEqual(['motivational', 'encouraging']);
+      expect(parseStyleSentence('Pragmatic and Problem-solving')).toEqual(['pragmatic', 'problem-solving']);
+      expect(parseStyleSentence('Flexible and Adaptive')).toEqual(['flexible', 'adaptive']);
     });
 
     it('should handle session formats from therapist options', () => {
-      expect(parseStyleSentence('Structured & Goal-oriented')).toEqual(['structured', 'goal-oriented']);
-      expect(parseStyleSentence('Exploratory & Insight-based')).toEqual(['exploratory', 'insight-based']);
-      expect(parseStyleSentence('Interactive & Dynamic')).toEqual(['interactive', 'dynamic']);
-      expect(parseStyleSentence('Calm & Process-Focused')).toEqual(['calm', 'process-focused']);
+      expect(parseStyleSentence('Structured and Goal-oriented')).toEqual(['structured', 'goal-oriented']);
+      expect(parseStyleSentence('Exploratory and Insight-based')).toEqual(['exploratory', 'insight-based']);
+      expect(parseStyleSentence('Interactive and Dynamic')).toEqual(['interactive', 'dynamic']);
+      expect(parseStyleSentence('Calm and Process-Focused')).toEqual(['calm', 'process-focused']);
     });
 
     it('should handle sentences with descriptions in parentheses', () => {
-      expect(parseStyleSentence('Structured & Goal-oriented (Sessions follow a clear agenda)')).toEqual(['structured', 'goal-oriented']);
-      expect(parseStyleSentence('Warm & empathetic (I focus on creating safety)')).toEqual(['warm', 'empathetic']);
+      expect(parseStyleSentence('Structured and Goal-oriented (Sessions follow a clear agenda)')).toEqual(['structured', 'goal-oriented']);
+      expect(parseStyleSentence('Warm and empathetic (I focus on creating safety)')).toEqual(['warm', 'empathetic']);
     });
 
     it('should handle edge cases', () => {
@@ -234,8 +234,8 @@ describe('Personality Tags and Matching Algorithm', () => {
     it('should use new communication_style + session_format approach when available', () => {
       const newTherapist: TherapistProfile = {
         id: '1',
-        communication_style: 'Supportive & Relational', // Generates: ['supportive', 'relational']
-        session_format: 'Structured & Goal-oriented',   // Generates: ['structured', 'goal-oriented']
+        communication_style: 'Supportive and Relational', // Generates: ['supportive', 'relational']
+        session_format: 'Structured and Goal-oriented',   // Generates: ['structured', 'goal-oriented']
         personality_tags: ['old', 'legacy', 'tags'], // Should be ignored
         languages: ['English'],
         identity_tags: [],
@@ -297,8 +297,8 @@ describe('Personality Tags and Matching Algorithm', () => {
     it('should prefer new approach over legacy even when both exist', () => {
       const hybridTherapist: TherapistProfile = {
         id: '1',
-        communication_style: 'Warm & empathetic', // Should be used
-        session_format: 'Structured & Goal-oriented', // Should be used
+        communication_style: 'Warm and empathetic', // Should be used
+        session_format: 'Structured and Goal-oriented', // Should be used
         personality_tags: ['different', 'legacy', 'tags'], // Should be ignored
         languages: ['English'],
         identity_tags: [],
@@ -343,8 +343,8 @@ describe('Personality Tags and Matching Algorithm', () => {
 
       perfectTherapist = {
         id: '1',
-        communication_style: 'Warm & empathetic',
-        session_format: 'Calm & gentle',
+        communication_style: 'Warm and empathetic',
+        session_format: 'Calm and gentle',
         personality_tags: [], // Not used due to new fields
         languages: ['English'],
         identity_tags: ['LGBTQ+ friendly and affirming'],
@@ -495,8 +495,8 @@ describe('Personality Tags and Matching Algorithm', () => {
     const realTherapistProfiles: TherapistProfile[] = [
       {
         id: 'therapist-1',
-        communication_style: 'Pragmatic & Problem-solving',
-        session_format: 'Structured & Goal-oriented',
+        communication_style: 'Pragmatic and Problem-solving',
+        session_format: 'Structured and Goal-oriented',
         personality_tags: ['pragmatic', 'solution-oriented', 'practical', 'structured', 'goal-oriented'],
         languages: ['English', 'Spanish'],
         identity_tags: ['Neurodiversity affirming', 'Trauma-informed and gentle'],
@@ -516,8 +516,8 @@ describe('Personality Tags and Matching Algorithm', () => {
       },
       {
         id: 'therapist-2',
-        communication_style: 'Supportive & Relational',
-        session_format: 'Exploratory & Insight-based',
+        communication_style: 'Supportive and Relational',
+        session_format: 'Exploratory and Insight-based',
         personality_tags: ['supportive', 'empathetic', 'warm', 'exploratory', 'insight-based'],
         languages: ['English'],
         identity_tags: ['Neurodiversity affirming'], // Fixed: Now has overlapping identity preference
@@ -761,8 +761,8 @@ describe('Personality Tags and Matching Algorithm', () => {
       const allActiveTherapists: TherapistProfile[] = [
         {
           id: 'therapist-browse-1',
-          communication_style: 'Supportive & Relational',
-          session_format: 'Structured & Goal-oriented',
+          communication_style: 'Supportive and Relational',
+          session_format: 'Structured and Goal-oriented',
           personality_tags: ['supportive', 'relational', 'structured', 'goal-oriented'],
           languages: ['English'],
           identity_tags: ['LGBTQ+ friendly and affirming'],
@@ -779,8 +779,8 @@ describe('Personality Tags and Matching Algorithm', () => {
         },
         {
           id: 'therapist-browse-2',
-          communication_style: 'Pragmatic & Problem-solving',
-          session_format: 'Exploratory & Insight-based',
+          communication_style: 'Pragmatic and Problem-solving',
+          session_format: 'Exploratory and Insight-based',
           personality_tags: ['pragmatic', 'problem-solving', 'exploratory', 'insight-based'],
           languages: ['Spanish'], // Different language
           identity_tags: ['Neurodiversity affirming'],
@@ -797,8 +797,8 @@ describe('Personality Tags and Matching Algorithm', () => {
         },
         {
           id: 'therapist-browse-3',
-          communication_style: 'Flexible & Adaptive',
-          session_format: 'Calm & Process-Focused',
+          communication_style: 'Flexible and Adaptive',
+          session_format: 'Calm and Process-Focused',
           personality_tags: ['flexible', 'adaptive', 'calm', 'process-focused'],
           languages: ['English', 'French'],
           identity_tags: ['Trauma-informed and gentle'],

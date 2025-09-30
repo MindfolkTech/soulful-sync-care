@@ -12,46 +12,46 @@ interface CommunicationSetupProps {
 
 const communicationStyles = [
   {
-    value: "Supportive & Relational",
-    label: "Supportive & Relational",
+    value: "Supportive and Relational",
+    label: "Supportive and Relational",
     description: "I focus on creating safety, trust, and emotional validation"
   },
   {
-    value: "Motivational & Encouraging",
-    label: "Motivational & Encouraging", 
+    value: "Motivational and Encouraging",
+    label: "Motivational and Encouraging", 
     description: "I focus on boosting morale, using encouragement and gentle challenge"
   },
   {
-    value: "Pragmatic & Problem-solving",
-    label: "Pragmatic & Problem-solving",
+    value: "Pragmatic and Problem-solving",
+    label: "Pragmatic and Problem-solving",
     description: "I focus on offering clear, solution-oriented feedback with actionable takeaways"
   },
   {
-    value: "Flexible & Adaptive",
-    label: "Flexible & Adaptive",
+    value: "Flexible and Adaptive",
+    label: "Flexible and Adaptive",
     description: "I am constantly shifting tone/style depending on the client's needs in the moment"
   }
 ];
 
 const sessionFormats = [
   {
-    value: "Structured & Goal-oriented",
-    label: "Structured & Goal-oriented",
+    value: "Structured and Goal-oriented",
+    label: "Structured and Goal-oriented",
     description: "Sessions follow a clear agenda with measurable progress markers"
   },
   {
-    value: "Exploratory & Insight-based",
-    label: "Exploratory & Insight-based",
+    value: "Exploratory and Insight-based",
+    label: "Exploratory and Insight-based",
     description: "Sessions unfold organically, focusing on deep reflection and meaning-making"
   },
   {
-    value: "Interactive & Dynamic",
-    label: "Interactive & Dynamic",
+    value: "Interactive and Dynamic",
+    label: "Interactive and Dynamic",
     description: "I switch it up with various techniques and exercises to keep energy high"
   },
   {
-    value: "Calm & Process-Focused",
-    label: "Calm & Process-Focused",
+    value: "Calm and Process-Focused",
+    label: "Calm and Process-Focused",
     description: "My sessions emphasise pacing, safety, and careful exploration of feelings"
   }
 ];

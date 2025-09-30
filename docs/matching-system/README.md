@@ -11,15 +11,15 @@
 
 ```
 matching-system/
-├── README.md                    (This file - Overview & Index)
+├── README.md                    (This file - Overview and Index)
 ├── 01-SYSTEM-OVERVIEW.md        (Algorithm weights, flow diagrams)
-├── 02-CLIENT-SELECTIONS.md      (All client options & mappings)
-├── 03-THERAPIST-SELECTIONS.md   (All therapist options & mappings)
+├── 02-CLIENT-SELECTIONS.md      (All client options and mappings)
+├── 03-THERAPIST-SELECTIONS.md   (All therapist options and mappings)
 ├── 04-DATABASE-SCHEMA.md        (Tables, fields, constraints)
-├── 05-MATCHING-ALGORITHM.md     (Detailed calculations & logic)
-├── 06-UI-COMPONENTS.md          (Component specs & data flow)
-├── 07-TESTING-VALIDATION.md     (Test cases & validation rules)
-└── 08-MIGRATIONS.md             (SQL migrations & fixes)
+├── 05-MATCHING-ALGORITHM.md     (Detailed calculations and logic)
+├── 06-UI-COMPONENTS.md          (Component specs and data flow)
+├── 07-TESTING-VALIDATION.md     (Test cases and validation rules)
+└── 08-MIGRATIONS.md             (SQL migrations and fixes)
 ```
 
 ## 🎯 Core Principle
@@ -127,40 +127,40 @@ graph TD
 ## 👨‍⚕️ Complete Therapist Options
 
 ### Communication Styles (choose 1)
-1. **"Supportive & Relational"**
+1. **"Supportive and Relational"**
    - Description: "I focus on creating safety, trust, and emotional validation"
    - Tags: `['supportive', 'empathetic', 'warm']`
 
-2. **"Motivational & Encouraging"**
+2. **"Motivational and Encouraging"**
    - Description: "I focus on boosting morale, using encouragement and gentle challenge"
    - Tags: `['motivational', 'encouraging', 'positive']`
 
-3. **"Pragmatic & Problem-solving"**
+3. **"Pragmatic and Problem-solving"**
    - Description: "I focus on offering clear, solution-oriented feedback with actionable takeaways"
    - Tags: `['pragmatic', 'solution-oriented', 'practical']`
 
-4. **"Flexible & Adaptive"**
+4. **"Flexible and Adaptive"**
    - Description: "I am constantly shifting tone/style depending on the client's needs in the moment"
    - Tags: `['flexible', 'adaptive', 'empathetic']`
 
 ### Session Formats (choose 1)
-1. **"Structured & Goal-oriented"**
+1. **"Structured and Goal-oriented"**
    - Description: "Sessions follow a clear agenda with measurable progress markers"
    - Tags: `['structured', 'goal-oriented', 'focused']`
 
-2. **"Exploratory & Insight-based"**
+2. **"Exploratory and Insight-based"**
    - Description: "Sessions unfold organically, focusing on deep reflection and meaning-making"
    - Tags: `['exploratory', 'insight-based', 'reflective']`
 
-3. **"Interactive & Dynamic"**
+3. **"Interactive and Dynamic"**
    - Description: "I switch it up with various techniques and exercises to keep energy high"
    - Tags: `['interactive', 'dynamic', 'engaging']`
 
-4. **"Calm & Process-Focused"**
+4. **"Calm and Process-Focused"**
    - Description: "My sessions emphasise pacing, safety, and careful exploration of feelings"
    - Tags: `['calm', 'gentle']`
 
-## 🔍 Critical Functions & Their Purposes
+## 🔍 Critical Functions and Their Purposes
 
 ```typescript
 // src/lib/matching.ts - DO NOT MODIFY WITHOUT UNDERSTANDING
@@ -256,13 +256,13 @@ UPDATE therapist_profiles SET personality_tags = '{custom, tags}'
 ```sql
 -- Let the trigger handle it by updating source fields
 UPDATE therapist_profiles 
-SET communication_style = 'Supportive & Relational',
-    session_format = 'Calm & Process-Focused'
+SET communication_style = 'Supportive and Relational',
+    session_format = 'Calm and Process-Focused'
 -- Trigger auto-generates: ['supportive', 'empathetic', 'warm', 'calm', 'gentle']
 ```
 
 ### 4. **Changing Option Text**
-❌ **WRONG:** Change "Warm and empathetic" to "Warm & empathetic"
+❌ **WRONG:** Change "Warm and empathetic" to "Warm and empathetic"
 - Client option text IS the data
 - Changing breaks keyword matching
 - Must update parsing if text changes
@@ -290,16 +290,16 @@ reflective, interactive, dynamic, engaging, calm, gentle
 ```
 
 ### 4 Communication Styles (Therapist)
-1. `"Supportive & Relational"`
-2. `"Motivational & Encouraging"`
-3. `"Pragmatic & Problem-solving"`
-4. `"Flexible & Adaptive"`
+1. `"Supportive and Relational"`
+2. `"Motivational and Encouraging"`
+3. `"Pragmatic and Problem-solving"`
+4. `"Flexible and Adaptive"`
 
 ### 4 Session Formats (Therapist)
-1. `"Structured & Goal-oriented"`
-2. `"Exploratory & Insight-based"`
-3. `"Interactive & Dynamic"`
-4. `"Calm & Process-Focused"`
+1. `"Structured and Goal-oriented"`
+2. `"Exploratory and Insight-based"`
+3. `"Interactive and Dynamic"`
+4. `"Calm and Process-Focused"`
 
 ### 4 Standard Identity Tags
 1. `"LGBTQ+ friendly and affirming"`
@@ -328,8 +328,8 @@ parseStyleSentence("Calm and gentle") → ['calm', 'gentle']
 ```
 
 **Therapist has:** 
-- communication_style = "Supportive & Relational"
-- session_format = "Calm & Process-Focused"
+- communication_style = "Supportive and Relational"
+- session_format = "Calm and Process-Focused"
 ```sql
 -- Trigger generates:
 personality_tags = ['supportive', 'empathetic', 'warm', 'calm', 'gentle']
@@ -348,7 +348,7 @@ score = 4/4 = 1.0 = 100%
 final_contribution = 100% × 0.40 = 40% of total score
 ```
 
-## 🔍 Debugging & Testing
+## 🔍 Debugging and Testing
 
 ### SQL Queries to Verify System
 
@@ -395,7 +395,7 @@ console.log(mapTherapyGoalToSpecialties("Anxiety and everyday worries"))
 // ❌ WRONG: ['anxiety', 'everyday', 'worries']
 ```
 
-## 🐛 Common Issues & Solutions
+## 🐛 Common Issues and Solutions
 
 | Problem | Cause | Solution |
 |---------|-------|----------|

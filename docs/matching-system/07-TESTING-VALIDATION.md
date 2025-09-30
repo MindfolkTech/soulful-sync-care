@@ -1,4 +1,4 @@
-# 🧪 TESTING & VALIDATION - Matching System Quality Assurance
+# 🧪 TESTING and VALIDATION - Matching System Quality Assurance
 
 ## Unit Tests
 
@@ -15,12 +15,12 @@ describe('parseStyleSentence', () => {
   });
   
   test('removes descriptions in parentheses', () => {
-    expect(parseStyleSentence('Supportive & Relational (I focus on safety)'))
+    expect(parseStyleSentence('Supportive and Relational (I focus on safety)'))
       .toEqual(['supportive', 'relational']); // Note: 'relational' removed in DB trigger
   });
   
   test('PRESERVES hyphenated terms', () => {
-    expect(parseStyleSentence('Structured & Goal-oriented'))
+    expect(parseStyleSentence('Structured and Goal-oriented'))
       .toEqual(['structured', 'goal-oriented']); // Keeps hyphen!
     expect(parseStyleSentence('Solution-oriented and practical'))
       .toEqual(['solution-oriented', 'practical']); // Keeps hyphen!
@@ -305,12 +305,12 @@ function generateMockClient(): ClientAssessment {
 ```typescript
 function generateMockTherapist(): TherapistProfile {
   const commStyle = faker.random.arrayElement([
-    'Supportive & Relational',
-    'Pragmatic & Problem-solving'
+    'Supportive and Relational',
+    'Pragmatic and Problem-solving'
   ]);
   const sessionFormat = faker.random.arrayElement([
-    'Structured & Goal-oriented',
-    'Calm & Process-Focused'
+    'Structured and Goal-oriented',
+    'Calm and Process-Focused'
   ]);
   
   return {
@@ -345,7 +345,7 @@ function generateMockTherapist(): TherapistProfile {
 9. ✅ Video overlay plays
 10. ✅ Database trigger fires
 
-## Monitoring & Alerts
+## Monitoring and Alerts
 
 ### Key Metrics to Track
 ```typescript

@@ -16,28 +16,28 @@ import { cn } from '@/lib/utils';
 const COMMUNICATION_STYLES = [
   {
     id: 'supportive',
-    value: 'Supportive & Relational',
+    value: 'Supportive and Relational',
     description: 'I focus on creating safety, trust, and emotional validation',
     icon: Heart,
     color: 'text-[hsl(var(--jovial-jade))]'
   },
   {
     id: 'motivational',
-    value: 'Motivational & Encouraging',
+    value: 'Motivational and Encouraging',
     description: 'I inspire and empower clients to achieve their goals',
     icon: Target,
     color: 'text-[hsl(var(--garden-green))]'
   },
   {
     id: 'pragmatic',
-    value: 'Pragmatic & Problem-solving',
+    value: 'Pragmatic and Problem-solving',
     description: 'I offer practical strategies and solutions for challenges',
     icon: Lightbulb,
     color: 'text-[hsl(var(--success-text))]'
   },
   {
     id: 'flexible',
-    value: 'Flexible & Adaptive',
+    value: 'Flexible and Adaptive',
     description: 'I adjust my approach to match what works best for each client',
     icon: Users,
     color: 'text-[hsl(var(--warning-text))]'
@@ -45,10 +45,10 @@ const COMMUNICATION_STYLES = [
 ];
 
 const SESSION_FORMATS = [
-  { value: 'Structured & Goal-oriented', description: 'Clear agendas with specific outcomes' },
-  { value: 'Exploratory & Insight-based', description: 'Deep reflection and self-discovery' },
-  { value: 'Interactive & Dynamic', description: 'Engaging exercises and activities' },
-  { value: 'Calm & Process-Focused', description: 'Gentle pacing with mindful processing' }
+  { value: 'Structured and Goal-oriented', description: 'Clear agendas with specific outcomes' },
+  { value: 'Exploratory and Insight-based', description: 'Deep reflection and self-discovery' },
+  { value: 'Interactive and Dynamic', description: 'Engaging exercises and activities' },
+  { value: 'Calm and Process-Focused', description: 'Gentle pacing with mindful processing' }
 ];
 
 interface QuickStartData {

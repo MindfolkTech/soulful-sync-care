@@ -1,18 +1,18 @@
-# Therapist Personality Tags - Research & Recommendations
+# Therapist Personality Tags - Research and Recommendations
 
 ## Current Tag System (22 unique tags after changes)
 
 ### Communication Style Tags:
-- **Supportive & Relational**: supportive, empathetic, warm
-- **Motivational & Encouraging**: motivational, encouraging, positive  
-- **Pragmatic & Problem-solving**: pragmatic, solution-oriented, practical
-- **Flexible & Adaptive**: flexible, adaptive, empathetic
+- **Supportive and Relational**: supportive, empathetic, warm
+- **Motivational and Encouraging**: motivational, encouraging, positive  
+- **Pragmatic and Problem-solving**: pragmatic, solution-oriented, practical
+- **Flexible and Adaptive**: flexible, adaptive, empathetic
 
 ### Session Format Tags:
-- **Structured & Goal-oriented**: structured, goal-oriented, focused
-- **Exploratory & Insight-based**: exploratory, insight-based, reflective
-- **Interactive & Dynamic**: interactive, dynamic, engaging
-- **Calm & Process-Focused**: calm, gentle
+- **Structured and Goal-oriented**: structured, goal-oriented, focused
+- **Exploratory and Insight-based**: exploratory, insight-based, reflective
+- **Interactive and Dynamic**: interactive, dynamic, engaging
+- **Calm and Process-Focused**: calm, gentle
 
 ## Research Validation
 
@@ -41,10 +41,10 @@
 ### Option 1: Add Supplementary Tags
 ```sql
 -- Add these to specific combinations:
-WHEN communication_style LIKE 'Supportive & Relational%' THEN 
+WHEN communication_style LIKE 'Supportive and Relational%' THEN 
   ARRAY['supportive', 'empathetic', 'warm', 'collaborative']
   
-WHEN communication_style LIKE 'Pragmatic & Problem-solving%' THEN 
+WHEN communication_style LIKE 'Pragmatic and Problem-solving%' THEN 
   ARRAY['pragmatic', 'solution-oriented', 'practical', 'action-oriented']
 ```
 
@@ -88,9 +88,9 @@ Our tags map well to preferences:
 4. **Balanced** - Both relational and technical factors
 
 ### Implemented Changes:
-1. ✅ Added 'warm' to Supportive & Relational
+1. ✅ Added 'warm' to Supportive and Relational
 2. ✅ Replaced 'problem-solving' with 'solution-oriented'
-3. ✅ Replaced 'versatile' with 'empathetic' in Flexible & Adaptive
+3. ✅ Replaced 'versatile' with 'empathetic' in Flexible and Adaptive
 4. ✅ Removed 'process-focused' from Calm style
 
 ### Overall Rating: 9/10
@@ -99,6 +99,6 @@ The updated 22-tag system is well-designed and research-backed. The changes impr
 ## References
 - Bordin, E. S. (1979). The generalizability of the psychoanalytic concept of the working alliance.
 - Constantino, M. J., et al. (2017). Patient preferences and treatment outcomes.
-- Norcross, J. C., & Wampold, B. E. (2019). Evidence-based therapy relationships.
+- Norcross, J. C., and Wampold, B. E. (2019). Evidence-based therapy relationships.
 - Swift, J. K., et al. (2018). Preferences in psychotherapy.
 - Wampold, B. E. (2015). The great psychotherapy debate.

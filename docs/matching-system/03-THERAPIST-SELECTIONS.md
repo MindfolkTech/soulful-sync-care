@@ -8,10 +8,10 @@
 
 | # | UI Display | Description | Database Value | Generated Tags |
 |---|-----------|-------------|----------------|----------------|
-| 1 | **Supportive & Relational** | "I focus on creating safety, trust, and emotional validation" | `"Supportive & Relational"` | `['supportive', 'empathetic', 'warm']` |
-| 2 | **Motivational & Encouraging** | "I focus on boosting morale, using encouragement and gentle challenge" | `"Motivational & Encouraging"` | `['motivational', 'encouraging', 'positive']` |
-| 3 | **Pragmatic & Problem-solving** | "I focus on offering clear, solution-oriented feedback with actionable takeaways" | `"Pragmatic & Problem-solving"` | `['pragmatic', 'solution-oriented', 'practical']` |
-| 4 | **Flexible & Adaptive** | "I am constantly shifting tone/style depending on the client's needs in the moment" | `"Flexible & Adaptive"` | `['flexible', 'adaptive', 'empathetic']` |
+| 1 | **Supportive and Relational** | "I focus on creating safety, trust, and emotional validation" | `"Supportive and Relational"` | `['supportive', 'empathetic', 'warm']` |
+| 2 | **Motivational and Encouraging** | "I focus on boosting morale, using encouragement and gentle challenge" | `"Motivational and Encouraging"` | `['motivational', 'encouraging', 'positive']` |
+| 3 | **Pragmatic and Problem-solving** | "I focus on offering clear, solution-oriented feedback with actionable takeaways" | `"Pragmatic and Problem-solving"` | `['pragmatic', 'solution-oriented', 'practical']` |
+| 4 | **Flexible and Adaptive** | "I am constantly shifting tone/style depending on the client's needs in the moment" | `"Flexible and Adaptive"` | `['flexible', 'adaptive', 'empathetic']` |
 
 ```mermaid
 graph TD
@@ -29,32 +29,32 @@ graph TD
 
 | # | UI Display | Description | Database Value | Generated Tags |
 |---|-----------|-------------|----------------|----------------|
-| 1 | **Structured & Goal-oriented** | "Sessions follow a clear agenda with measurable progress markers" | `"Structured & Goal-oriented"` | `['structured', 'goal-oriented', 'focused']` |
-| 2 | **Exploratory & Insight-based** | "Sessions unfold organically, focusing on deep reflection and meaning-making" | `"Exploratory & Insight-based"` | `['exploratory', 'insight-based', 'reflective']` |
-| 3 | **Interactive & Dynamic** | "I switch it up with various techniques and exercises to keep energy high" | `"Interactive & Dynamic"` | `['interactive', 'dynamic', 'engaging']` |
-| 4 | **Calm & Process-Focused** | "My sessions emphasise pacing, safety, and careful exploration of feelings" | `"Calm & Process-Focused"` | `['calm', 'gentle']` |
+| 1 | **Structured and Goal-oriented** | "Sessions follow a clear agenda with measurable progress markers" | `"Structured and Goal-oriented"` | `['structured', 'goal-oriented', 'focused']` |
+| 2 | **Exploratory and Insight-based** | "Sessions unfold organically, focusing on deep reflection and meaning-making" | `"Exploratory and Insight-based"` | `['exploratory', 'insight-based', 'reflective']` |
+| 3 | **Interactive and Dynamic** | "I switch it up with various techniques and exercises to keep energy high" | `"Interactive and Dynamic"` | `['interactive', 'dynamic', 'engaging']` |
+| 4 | **Calm and Process-Focused** | "My sessions emphasise pacing, safety, and careful exploration of feelings" | `"Calm and Process-Focused"` | `['calm', 'gentle']` |
 
 ## Complete Personality Tag Combinations
 
 ### All 16 Possible Combinations
 | Communication | Session | Full Tag Array | Total Tags |
 |--------------|---------|----------------|------------|
-| Supportive & Relational | Structured & Goal-oriented | `['supportive', 'empathetic', 'warm', 'structured', 'goal-oriented', 'focused']` | 6 |
-| Supportive & Relational | Exploratory & Insight-based | `['supportive', 'empathetic', 'warm', 'exploratory', 'insight-based', 'reflective']` | 6 |
-| Supportive & Relational | Interactive & Dynamic | `['supportive', 'empathetic', 'warm', 'interactive', 'dynamic', 'engaging']` | 6 |
-| Supportive & Relational | Calm & Process-Focused | `['supportive', 'empathetic', 'warm', 'calm', 'gentle']` | 5 |
-| Motivational & Encouraging | Structured & Goal-oriented | `['motivational', 'encouraging', 'positive', 'structured', 'goal-oriented', 'focused']` | 6 |
-| Motivational & Encouraging | Exploratory & Insight-based | `['motivational', 'encouraging', 'positive', 'exploratory', 'insight-based', 'reflective']` | 6 |
-| Motivational & Encouraging | Interactive & Dynamic | `['motivational', 'encouraging', 'positive', 'interactive', 'dynamic', 'engaging']` | 6 |
-| Motivational & Encouraging | Calm & Process-Focused | `['motivational', 'encouraging', 'positive', 'calm', 'gentle']` | 5 |
-| Pragmatic & Problem-solving | Structured & Goal-oriented | `['pragmatic', 'solution-oriented', 'practical', 'structured', 'goal-oriented', 'focused']` | 6 |
-| Pragmatic & Problem-solving | Exploratory & Insight-based | `['pragmatic', 'solution-oriented', 'practical', 'exploratory', 'insight-based', 'reflective']` | 6 |
-| Pragmatic & Problem-solving | Interactive & Dynamic | `['pragmatic', 'solution-oriented', 'practical', 'interactive', 'dynamic', 'engaging']` | 6 |
-| Pragmatic & Problem-solving | Calm & Process-Focused | `['pragmatic', 'solution-oriented', 'practical', 'calm', 'gentle']` | 5 |
-| Flexible & Adaptive | Structured & Goal-oriented | `['flexible', 'adaptive', 'empathetic', 'structured', 'goal-oriented', 'focused']` | 6 |
-| Flexible & Adaptive | Exploratory & Insight-based | `['flexible', 'adaptive', 'empathetic', 'exploratory', 'insight-based', 'reflective']` | 6 |
-| Flexible & Adaptive | Interactive & Dynamic | `['flexible', 'adaptive', 'empathetic', 'interactive', 'dynamic', 'engaging']` | 6 |
-| Flexible & Adaptive | Calm & Process-Focused | `['flexible', 'adaptive', 'empathetic', 'calm', 'gentle']` | 5 |
+| Supportive and Relational | Structured and Goal-oriented | `['supportive', 'empathetic', 'warm', 'structured', 'goal-oriented', 'focused']` | 6 |
+| Supportive and Relational | Exploratory and Insight-based | `['supportive', 'empathetic', 'warm', 'exploratory', 'insight-based', 'reflective']` | 6 |
+| Supportive and Relational | Interactive and Dynamic | `['supportive', 'empathetic', 'warm', 'interactive', 'dynamic', 'engaging']` | 6 |
+| Supportive and Relational | Calm and Process-Focused | `['supportive', 'empathetic', 'warm', 'calm', 'gentle']` | 5 |
+| Motivational and Encouraging | Structured and Goal-oriented | `['motivational', 'encouraging', 'positive', 'structured', 'goal-oriented', 'focused']` | 6 |
+| Motivational and Encouraging | Exploratory and Insight-based | `['motivational', 'encouraging', 'positive', 'exploratory', 'insight-based', 'reflective']` | 6 |
+| Motivational and Encouraging | Interactive and Dynamic | `['motivational', 'encouraging', 'positive', 'interactive', 'dynamic', 'engaging']` | 6 |
+| Motivational and Encouraging | Calm and Process-Focused | `['motivational', 'encouraging', 'positive', 'calm', 'gentle']` | 5 |
+| Pragmatic and Problem-solving | Structured and Goal-oriented | `['pragmatic', 'solution-oriented', 'practical', 'structured', 'goal-oriented', 'focused']` | 6 |
+| Pragmatic and Problem-solving | Exploratory and Insight-based | `['pragmatic', 'solution-oriented', 'practical', 'exploratory', 'insight-based', 'reflective']` | 6 |
+| Pragmatic and Problem-solving | Interactive and Dynamic | `['pragmatic', 'solution-oriented', 'practical', 'interactive', 'dynamic', 'engaging']` | 6 |
+| Pragmatic and Problem-solving | Calm and Process-Focused | `['pragmatic', 'solution-oriented', 'practical', 'calm', 'gentle']` | 5 |
+| Flexible and Adaptive | Structured and Goal-oriented | `['flexible', 'adaptive', 'empathetic', 'structured', 'goal-oriented', 'focused']` | 6 |
+| Flexible and Adaptive | Exploratory and Insight-based | `['flexible', 'adaptive', 'empathetic', 'exploratory', 'insight-based', 'reflective']` | 6 |
+| Flexible and Adaptive | Interactive and Dynamic | `['flexible', 'adaptive', 'empathetic', 'interactive', 'dynamic', 'engaging']` | 6 |
+| Flexible and Adaptive | Calm and Process-Focused | `['flexible', 'adaptive', 'empathetic', 'calm', 'gentle']` | 5 |
 
 ## Specialties (Multi-Select)
 **Component:** Therapist profile setup  
@@ -251,8 +251,8 @@ graph LR
 
 ```json
 {
-  "communication_style": "Supportive & Relational (I focus on creating safety, trust, and emotional validation)",
-  "session_format": "Calm & Process-Focused (My sessions emphasise pacing, safety, and careful exploration of feelings)",
+  "communication_style": "Supportive and Relational (I focus on creating safety, trust, and emotional validation)",
+  "session_format": "Calm and Process-Focused (My sessions emphasise pacing, safety, and careful exploration of feelings)",
   "personality_tags": ["supportive", "empathetic", "warm", "calm", "gentle"],
   "specialties": ["Anxiety", "Depression", "Trauma and abuse"],
   "modalities": ["CBT", "EMDR Therapy", "Mindfulness-based Therapy (MBCT)"],

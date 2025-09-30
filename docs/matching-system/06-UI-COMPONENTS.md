@@ -169,8 +169,8 @@ interface CommunicationSetupProps {
 
 const communicationStyles = [
   {
-    value: "Supportive & Relational",
-    label: "Supportive & Relational",
+    value: "Supportive and Relational",
+    label: "Supportive and Relational",
     description: "I focus on creating safety, trust, and emotional validation"
   },
   // ... 3 more options
@@ -178,8 +178,8 @@ const communicationStyles = [
 
 const sessionFormats = [
   {
-    value: "Structured & Goal-oriented",
-    label: "Structured & Goal-oriented",
+    value: "Structured and Goal-oriented",
+    label: "Structured and Goal-oriented",
     description: "Sessions follow a clear agenda with measurable progress markers"
   },
   // ... 3 more options
