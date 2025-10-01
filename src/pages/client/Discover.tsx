@@ -21,6 +21,7 @@ import { DesktopTherapistCard } from "@/components/discovery/desktop-therapist-c
 import { DecisionButtons } from "@/components/discovery/decision-buttons";
 import { ReadyToConnectModal } from "@/components/discovery/ready-to-connect-modal";
 import ErrorBoundary from "@/components/shared/error-boundary";
+import { parseStyleForDisplay } from "@/lib/display-format-utils";
 
 // Helper function to convert Supabase therapist profile to TherapistProfile format
 function convertSupabaseToTherapistProfile(supabaseProfile: any): TherapistProfile {
@@ -87,16 +88,12 @@ function convertTherapistProfile(profile: TherapistProfile, matchResult: MatchRe
     media.push({ type: 'video', url: supabaseProfile.video_url, poster: media[0].url });
   }
 
-  // Parse communication style to extract key words
-  const communicationStyleTags = [];
-  if (supabaseProfile.communication_style) {
-    const styleText = supabaseProfile.communication_style.toLowerCase();
-    // Extract the main style type (before parentheses)
-    const mainStyle = supabaseProfile.communication_style.split('(')[0].replace(/&/g, ',').split(',')[0].trim();
-    if (mainStyle) {
-      communicationStyleTags.push(mainStyle);
-    }
-  }
+  // Parse communication_style and session_format for UI display
+  // NOTE: These are parsed for UI display only. The matching algorithm uses the raw database values.
+  // Database format: "Label & Text (Description)"
+  // UI format: { label: "Label and Text", description: "Description" }
+  const communicationStyle = parseStyleForDisplay(supabaseProfile.communication_style);
+  const sessionFormat = parseStyleForDisplay(supabaseProfile.session_format);
 
   return {
     id: profile.id,
@@ -104,7 +101,8 @@ function convertTherapistProfile(profile: TherapistProfile, matchResult: MatchRe
     title: profile.title || "Licensed Therapist",
     specialties: profile.specialties,
     personality: profile.personality_tags,
-    communication_style: communicationStyleTags,
+    communication_style: communicationStyle,
+    session_format: sessionFormat,
     languages: profile.languages,
     rate: `£${profile.session_rates?.["60min"] || 100}/session`,
     rating: 4.8 + Math.random() * 0.2,

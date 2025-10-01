@@ -1,16 +1,17 @@
 import * as React from "react";
 import { X, Heart, Flag, ChevronDown, BadgeCheck } from "lucide-react";
-import { 
-  Sheet, 
-  SheetContent, 
-  SheetHeader, 
-  SheetTitle, 
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
   SheetDescription,
-  SheetClose 
+  SheetClose
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
 import { TherapistData, MediaItem } from "@/components/discovery/therapist-card";
+import { ExpandableStyleSection } from "@/components/discovery/expandable-style-section";
 
 interface TherapistDetailsSheetProps {
   open: boolean;
@@ -87,7 +88,29 @@ export function TherapistDetailsSheet({
                 <h3 className="text-xl font-semibold text-text-primary mb-3 font-secondary">Personality</h3>
                 <TagGroup tags={therapist.personality} category="personality" />
             </div>
-            
+
+            {/* Communication Style - Expandable Section */}
+            {therapist.communication_style && (
+              <div className="px-4 py-4 border-b border-border">
+                <ExpandableStyleSection
+                  title="Communication Style"
+                  label={therapist.communication_style.label}
+                  description={therapist.communication_style.description}
+                />
+              </div>
+            )}
+
+            {/* Session Format - Expandable Section */}
+            {therapist.session_format && (
+              <div className="px-4 py-4 border-b border-border">
+                <ExpandableStyleSection
+                  title="Session Format"
+                  label={therapist.session_format.label}
+                  description={therapist.session_format.description}
+                />
+              </div>
+            )}
+
             <div className="px-4 py-4 border-b border-border">
                 <h3 className="text-xl font-semibold text-text-primary mb-3 font-secondary">Languages</h3>
                 <TagGroup tags={therapist.languages} category="language" />

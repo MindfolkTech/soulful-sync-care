@@ -12,6 +12,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { getSpecialities, getModalities } from '@/data/taxonomy';
 import { cn } from '@/lib/utils';
 import { toDbFormat } from '@/lib/formatMapping';
+import MindfolkLogo from '/images/Mindfolk logo primary text colour (300 x 80 px) (5).svg';
 
 // Communication styles - UI labels use "and", database values use "&"
 const COMMUNICATION_STYLES = [
@@ -250,6 +251,7 @@ export default function TherapistQuickStart() {
                     value={formData.firstName}
                     onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                     placeholder="Jane"
+                    className="placeholder:text-[hsl(var(--text-muted))]"
                   />
                 </div>
                 <div>
@@ -259,6 +261,7 @@ export default function TherapistQuickStart() {
                     value={formData.lastName}
                     onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                     placeholder="Smith"
+                    className="placeholder:text-[hsl(var(--text-muted))]"
                   />
                 </div>
               </div>
@@ -271,6 +274,7 @@ export default function TherapistQuickStart() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="jane.smith@example.com"
+                  className="placeholder:text-[hsl(var(--text-muted))]"
                 />
               </div>
 
@@ -280,10 +284,10 @@ export default function TherapistQuickStart() {
                   <div className="flex gap-2">
                     <Input
                       id="title"
-                      placeholder="Enter your professional title"
+                      placeholder="e.g., Clinical Psychologist"
                       value={formData.customTitle}
                       onChange={(e) => setFormData({ ...formData, customTitle: e.target.value })}
-                      className="flex-1"
+                      className="flex-1 placeholder:text-[hsl(var(--text-muted))]"
                     />
                     <Button
                       type="button"
@@ -319,10 +323,10 @@ export default function TherapistQuickStart() {
                     <div className="flex gap-1">
                       <Input
                         id="registrationBody"
-                        placeholder="Enter body name"
+                        placeholder="e.g., British Psychological Society"
                         value={formData.customRegistrationBody || ''}
                         onChange={(e) => setFormData({ ...formData, customRegistrationBody: e.target.value })}
-                        className="flex-1"
+                        className="flex-1 placeholder:text-[hsl(var(--text-muted))]"
                       />
                       <Button
                         type="button"
@@ -359,6 +363,7 @@ export default function TherapistQuickStart() {
                     value={formData.licenseNumber}
                     onChange={(e) => setFormData({ ...formData, licenseNumber: e.target.value })}
                     placeholder="e.g., 12345"
+                    className="placeholder:text-[hsl(var(--text-muted))]"
                   />
                 </div>
               </div>
@@ -401,7 +406,7 @@ export default function TherapistQuickStart() {
               <CardContent className="space-y-6">
                 <div>
                   <Label className="text-base font-semibold mb-3 block">
-                    How would you describe your communication style?
+                  "When working with a client, my communication style tends to be more..."
                   </Label>
                   <div className="grid gap-3">
                     {COMMUNICATION_STYLES.map((style) => (
@@ -465,7 +470,7 @@ export default function TherapistQuickStart() {
               <CardContent className="space-y-6">
                 <div>
                   <Label className="text-base font-semibold mb-3 block">
-                    How do you structure your sessions?
+                    "When working with a client, I prefer my sessions to be..."
                   </Label>
                   <div className="grid gap-3">
                     {SESSION_FORMATS.map((format) => (
@@ -525,7 +530,7 @@ export default function TherapistQuickStart() {
                 Select Your Specialities
               </CardTitle>
               <CardDescription className="font-secondary">
-                Choose the areas where you have the most experience and expertise. This affects 20% of your client matching score.
+                Choose the areas where you have the most experience and expertise.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -641,7 +646,7 @@ export default function TherapistQuickStart() {
                 Select Your Modalities
               </CardTitle>
               <CardDescription className="font-secondary">
-                Choose the therapeutic approaches you use. This affects 15% of your client matching score.
+                Choose the therapeutic approaches you use.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -737,8 +742,8 @@ export default function TherapistQuickStart() {
                   <Sparkles className="h-8 w-8 text-yellow-500 absolute -top-2 -right-2" />
                 </div>
               </div>
-              <CardTitle className="text-2xl font-primary">
-                Welcome to Mindfolk, {formData.firstName}!
+              <CardTitle className="text-2xl font-primary flex items-baseline justify-center gap-2 flex-wrap">
+                Welcome to <img src={MindfolkLogo} alt="Mindfolk" className="h-[0.9em] w-auto inline-block align-baseline translate-y-[0.04em]" style={{objectFit: 'contain'}} />, {formData.firstName}!
               </CardTitle>
               <CardDescription className="text-base mt-2 font-secondary">
                 Your account is created and we're verifying your credentials in the background
@@ -746,19 +751,19 @@ export default function TherapistQuickStart() {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="bg-[hsl(var(--surface-accent))] rounded-lg p-4">
-                <h3 className="font-primary font-semibold mb-2">Your personality tags have been generated:</h3>
+                <h3 className="font-primary font-semibold mb-2">We are loving getting to know you already. You are:</h3>
                 <div className="flex flex-wrap gap-2 justify-center">
                   {[
                     ...(COMMUNICATION_STYLES.find(s => s.label === formData.communicationStyle)?.tags || []),
                     ...(SESSION_FORMATS.find(f => f.label === formData.sessionFormat)?.tags || [])
                   ].map(tag => (
-                    <Badge key={tag} className="bg-[hsl(var(--tag-personality-bg))] text-[hsl(var(--tag-personality-text))]">
+                    <Badge key={tag} variant="outline" className="border-[hsl(var(--tag-personality-text))] text-[hsl(var(--tag-personality-text))]">
                       {tag}
                     </Badge>
                   ))}
                 </div>
                 <p className="text-xs text-[hsl(var(--text-muted))] mt-2">
-                  These help us match you with compatible clients
+                  This information will help us match you with compatible clients
                 </p>
               </div>
 
@@ -804,8 +809,8 @@ export default function TherapistQuickStart() {
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-primary font-bold text-[hsl(var(--text-primary))]">
-              Welcome to Mindfolk
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-primary font-bold text-[hsl(var(--text-primary))] flex items-baseline gap-2">
+              Welcome to <img src={MindfolkLogo} alt="Mindfolk" className="h-[0.95em] w-auto inline-block align-baseline translate-y-[0.04em]" style={{objectFit: 'contain'}} />
             </h1>
             <span className="text-sm text-[hsl(var(--text-muted))]">
               Step {currentStep} of 5

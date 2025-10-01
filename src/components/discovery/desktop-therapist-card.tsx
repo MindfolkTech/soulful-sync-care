@@ -5,6 +5,7 @@ import { Tag } from "@/components/ui/tag";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { VideoPlayer } from "@/components/discovery/VideoPlayer";
+import { ExpandableStyleSection } from "@/components/discovery/expandable-style-section";
 
 interface DesktopTherapistCardProps {
   therapist: TherapistData;
@@ -278,30 +279,29 @@ export function DesktopTherapistCard({ therapist, onShowVideo }: DesktopTherapis
             category="modality" 
           />
           
-          <TagGroup 
-            title="Personality:" 
-            tags={therapist.personality} 
-            category="personality" 
+          <TagGroup
+            title="Personality:"
+            tags={therapist.personality}
+            category="personality"
           />
-          
-          {/* Communication Style tags - using personality tags if available */}
-          <TagGroup 
-            title="Communication Style:" 
-            tags={therapist.personality.filter(tag => 
-              tag.toLowerCase().includes('direct') || 
-              tag.toLowerCase().includes('supportive') || 
-              tag.toLowerCase().includes('collaborative') || 
-              tag.toLowerCase().includes('warm')
-            ).length > 0 ? 
-              therapist.personality.filter(tag => 
-                tag.toLowerCase().includes('direct') || 
-                tag.toLowerCase().includes('supportive') || 
-                tag.toLowerCase().includes('collaborative') || 
-                tag.toLowerCase().includes('warm')
-              ) : 
-              ['Direct', 'Supportive']} 
-            category="personality" 
-          />
+
+          {/* Communication Style - Expandable Section */}
+          {therapist.communication_style && (
+            <ExpandableStyleSection
+              title="Communication Style:"
+              label={therapist.communication_style.label}
+              description={therapist.communication_style.description}
+            />
+          )}
+
+          {/* Session Format - Expandable Section */}
+          {therapist.session_format && (
+            <ExpandableStyleSection
+              title="Session Format:"
+              label={therapist.session_format.label}
+              description={therapist.session_format.description}
+            />
+          )}
         </div>
       </div>
     </div>
