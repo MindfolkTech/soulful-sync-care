@@ -199,13 +199,14 @@ export default function TherapistSignUp() {
                 <div className="space-y-2">
                   <Label htmlFor="password">Password</Label>
                   <div className="relative">
-                    <Input 
-                      id="password" 
+                    <Input
+                      id="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="Create a password"
                       className="min-h-[--touch-target-min] pr-12"
                       value={formData.password}
                       onChange={(e) => handleInputChange("password", e.target.value)}
+                      autoComplete="new-password"
                       required
                       aria-describedby="password-requirements"
                     />
@@ -231,13 +232,14 @@ export default function TherapistSignUp() {
                 
                 <div className="space-y-2">
                   <Label htmlFor="confirmPassword">Confirm Password</Label>
-                  <Input 
-                    id="confirmPassword" 
+                  <Input
+                    id="confirmPassword"
                     type="password"
                     placeholder="Confirm your password"
                     className="min-h-[--touch-target-min]"
                     value={formData.confirmPassword}
                     onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
+                    autoComplete="new-password"
                     required
                     aria-describedby="confirmPassword-match"
                   />

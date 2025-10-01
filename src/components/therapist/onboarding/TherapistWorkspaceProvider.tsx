@@ -67,7 +67,7 @@ export function TherapistWorkspaceProvider({ children }: TherapistWorkspaceProvi
           session_format,
           years_experience,
           session_rates,
-          profile_photo_url,
+          avatar_url,
           intro_video_url,
           onboarding_state
         `)
@@ -101,7 +101,7 @@ export function TherapistWorkspaceProvider({ children }: TherapistWorkspaceProvi
 
       // Media (20%)
       let mediaScore = 0;
-      if (profile.profile_photo_url) mediaScore += 10;
+      if (profile.avatar_url) mediaScore += 10;
       if (profile.intro_video_url) mediaScore += 10;
       strength += mediaScore;
 
