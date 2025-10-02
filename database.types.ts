@@ -1355,6 +1355,10 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: boolean
       }
+      is_valid_communication_preferences: {
+        Args: { prefs: string[] }
+        Returns: boolean
+      }
       log_admin_decision: {
         Args: {
           decision_data?: Json
