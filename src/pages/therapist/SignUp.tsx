@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Container } from "@/components/ui/container";
@@ -12,6 +12,52 @@ import { AlertCircle, Eye, EyeOff, UserCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { Stack } from "@/components/layout/layout-atoms";
+import { toDbFormat } from "@/lib/formatMapping";
+
+// localStorage keys
+const STORAGE_KEYS = {
+  QUICK_START_PROGRESS: 'quickStartProgress',
+  QUICK_START_COMPLETE: 'quickStartComplete',
+  CONSENT_ASKED: 'consentAsked',
+  USER_CONSENT_PREFERENCES: 'user-consent-preferences',
+} as const;
+
+// Type definitions
+interface QuickStartData {
+  formData?: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    licenseNumber?: string;
+    yearsExperience?: string;
+    communicationStyle?: string;
+    sessionFormat?: string;
+    specialties?: string[];
+    modalities?: string[];
+  };
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  licenseNumber?: string;
+  yearsExperience?: string;
+  communicationStyle?: string;
+  sessionFormat?: string;
+  specialties?: string[];
+  modalities?: string[];
+}
+
+interface ConsentPreferences {
+  essential: boolean;
+  analytics: boolean;
+  marketing: boolean;
+  therapyData: boolean;
+  professionalData: boolean;
+}
+
+function isQuickStartData(data: unknown): data is QuickStartData {
+  if (typeof data !== 'object' || data === null) return false;
+  return true; // Basic validation - could be more strict
+}
 
 export default function TherapistSignUp() {
   const [formData, setFormData] = useState({
@@ -26,7 +72,7 @@ export default function TherapistSignUp() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
-  const [consentPreferences, setConsentPreferences] = useState({
+  const [consentPreferences, setConsentPreferences] = useState<ConsentPreferences>({
     essential: true, // Always required
     analytics: false,
     marketing: false,
@@ -38,50 +84,77 @@ export default function TherapistSignUp() {
   const [signupSuccess, setSignupSuccess] = useState(false);
   const navigate = useNavigate();
 
-  const handleInputChange = (field: string, value: string) => {
+  // Pre-fill form from Quick Start localStorage data
+  useEffect(() => {
+    const quickStartData = localStorage.getItem(STORAGE_KEYS.QUICK_START_PROGRESS);
+    if (quickStartData) {
+      try {
+        const parsed: unknown = JSON.parse(quickStartData);
+        if (!isQuickStartData(parsed)) {
+          console.error('Invalid Quick Start data format');
+          return;
+        }
+        const data = parsed.formData || parsed;
+
+        setFormData(prev => ({
+          ...prev,
+          firstName: data.firstName || '',
+          lastName: data.lastName || '',
+          email: data.email || ''
+        }));
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.error('Error loading Quick Start data:', error.message);
+        }
+      }
+    }
+  }, []);
+
+  const handleInputChange = (field: string, value: string): void => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     setError("");
-    
+
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords don't match");
       return;
     }
-    
+
     if (!agreedToTerms) {
       setError("Please agree to the Terms of Service and Privacy Policy");
       return;
     }
-    
+
     if (!consentPreferences.therapyData || !consentPreferences.professionalData) {
       setError("Professional data processing consent is required for therapist accounts");
       return;
     }
-    
+
     setIsLoading(true);
-    
+
     try {
       // Save consent preferences
-      localStorage.setItem('user-consent-preferences', JSON.stringify({
+      localStorage.setItem(STORAGE_KEYS.USER_CONSENT_PREFERENCES, JSON.stringify({
         ...consentPreferences,
         timestamp: new Date().toISOString(),
         version: '2.0'
       }));
-      
-      const { error } = await supabase.auth.signUp({
+
+      // Create auth user
+      const { data: authData, error: authError } = await supabase.auth.signUp({
         email: formData.email,
         password: formData.password,
         options: {
-          emailRedirectTo: `${window.location.origin}/t/quick-start`,
+          emailRedirectTo: `${window.location.origin}/t/dashboard`,
           data: {
             first_name: formData.firstName,
             last_name: formData.lastName,
             role: 'therapist',
-            roles: ['therapist'], // <--- THIS IS THE FIX
-            user_type: 'therapist', // Mark this as a therapist sign-up
+            roles: ['therapist'],
+            user_type: 'therapist',
             notify_email: !!formData.notifyEmail,
             notify_sms: !!formData.notifySMS,
             mfa_enroll_on_first_login: !!formData.enable2FA,
@@ -89,14 +162,81 @@ export default function TherapistSignUp() {
         },
       });
 
-      if (error) {
-        setError(error.message);
-      } else {
-        // Redirect to onboarding for therapists
-        // navigate("/t/onboarding");
-        setSignupSuccess(true);
+      if (authError) {
+        setError(authError.message);
+        return;
       }
-    } catch (err) {
+
+      if (!authData.user) {
+        setError('Account created but user data unavailable. Please try signing in.');
+        return;
+      }
+
+      // Get Quick Start data from localStorage with type safety
+      let qsData: QuickStartData = {};
+      const quickStartDataStr = localStorage.getItem(STORAGE_KEYS.QUICK_START_PROGRESS);
+      if (quickStartDataStr) {
+        try {
+          const parsed: unknown = JSON.parse(quickStartDataStr);
+          if (isQuickStartData(parsed)) {
+            qsData = parsed.formData || parsed;
+          }
+        } catch (parseError: unknown) {
+          console.error('Error parsing Quick Start data:', parseError);
+        }
+      }
+
+      // Create therapist profile with Quick Start data
+      const { error: profileError } = await supabase
+        .from('therapist_profiles')
+        .insert({
+          user_id: authData.user.id,
+          name: `${formData.firstName} ${formData.lastName}`,
+          license_number: qsData.licenseNumber || '',
+          years_experience: qsData.yearsExperience,
+          communication_style: typeof qsData.communicationStyle === 'string' && qsData.communicationStyle
+            ? toDbFormat(qsData.communicationStyle)
+            : null,
+          session_format: typeof qsData.sessionFormat === 'string' && qsData.sessionFormat
+            ? toDbFormat(qsData.sessionFormat)
+            : null,
+          specialties: Array.isArray(qsData.specialties) ? qsData.specialties : [],
+          modalities: Array.isArray(qsData.modalities) ? qsData.modalities : [],
+          verified: false,
+          accepts_new_clients: false,
+          setup_completed: false,
+          // personality_tags will be auto-generated by database trigger
+        });
+
+      if (profileError) {
+        console.error('Error creating therapist profile:', profileError);
+        setError('Account created but profile setup failed. Please contact support.');
+        return;
+      }
+
+      // Mark lead as converted if they came from Quick Start with marketing consent
+      if (qsData.email && formData.email) {
+        try {
+          await supabase.rpc('mark_lead_as_converted', {
+            lead_email: formData.email
+          });
+        } catch (convertError: unknown) {
+          // Non-blocking - just log the error
+          console.error('Error marking lead as converted:', convertError);
+        }
+      }
+
+      // Clear localStorage
+      localStorage.removeItem(STORAGE_KEYS.QUICK_START_PROGRESS);
+      localStorage.removeItem(STORAGE_KEYS.QUICK_START_COMPLETE);
+      localStorage.removeItem(STORAGE_KEYS.CONSENT_ASKED);
+
+      // Show success screen
+      setSignupSuccess(true);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error('Signup error:', err.message);
+      }
       setError("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
@@ -112,13 +252,13 @@ export default function TherapistSignUp() {
             <div className="mx-auto max-w-lg text-center">
               <div className="p-8 border rounded-lg shadow-lg bg-card text-card-foreground">
                 <UserCheck className="w-16 h-16 mx-auto text-green-500" />
-                <h1 className="text-3xl font-bold mt-4">Confirm your email</h1>
+                <h1 className="text-3xl font-bold mt-4">Welcome to Mindfolk!</h1>
                 <p className="text-muted-foreground mt-2">
-                  We've sent a confirmation link to <strong>{formData.email}</strong>.
-                  Please check your inbox (and spam folder!) to continue.
+                  Your account has been created! We've sent a verification link to <strong>{formData.email}</strong>.
+                  You can start building your profile now - email verification can be completed anytime before publishing.
                 </p>
-                <Button onClick={() => navigate("/t/quick-start")} className="mt-6">
-                  Start Quick Setup
+                <Button onClick={() => navigate("/t/dashboard")} className="mt-6">
+                  Go to Dashboard
                 </Button>
               </div>
             </div>
