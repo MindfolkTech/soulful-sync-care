@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,6 +13,7 @@ import { getSpecialities, getModalities } from '@/data/taxonomy';
 import { cn } from '@/lib/utils';
 import { toDbFormat } from '@/lib/formatMapping';
 import MindfolkLogo from '/images/Mindfolk logo primary text colour (300 x 80 px) (5).svg';
+import { MarketingConsentModal } from '@/components/therapist/MarketingConsentModal';
 
 // Communication styles - UI labels use "and", database values use "&"
 const COMMUNICATION_STYLES = [
@@ -109,6 +110,9 @@ export default function TherapistQuickStart() {
   const [currentSubStep, setCurrentSubStep] = useState('communication');
   const [loading, setLoading] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [showConsentModal, setShowConsentModal] = useState(false);
+  const [marketingConsent, setMarketingConsent] = useState(false);
+  const [pendingNavigation, setPendingNavigation] = useState(false);
   const [formData, setFormData] = useState<QuickStartData>({
     firstName: '',
     lastName: '',
@@ -129,6 +133,41 @@ export default function TherapistQuickStart() {
   const modalities = getModalities();
   const progress = (currentStep / 5) * 100;
 
+  // Load from localStorage on mount (for anonymous Quick Start flow)
+  useEffect(() => {
+    const savedProgress = localStorage.getItem('quickStartProgress');
+    if (savedProgress) {
+      try {
+        const parsed = JSON.parse(savedProgress);
+        setFormData(parsed.formData || parsed);
+        setCurrentStep(parsed.currentStep || 1);
+        setCurrentSubStep(parsed.currentSubStep || 'communication');
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+        console.error('Error loading Quick Start progress:', errorMessage);
+        setSubmitError('Unable to restore your previous session. Please start again.');
+      }
+    }
+  }, []);
+
+  // Save to localStorage whenever formData or step changes
+  useEffect(() => {
+    if (formData.firstName || formData.email) {
+      try {
+        localStorage.setItem('quickStartProgress', JSON.stringify({
+          formData,
+          currentStep,
+          currentSubStep,
+          savedAt: new Date().toISOString()
+        }));
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+        console.error('Error saving Quick Start progress:', errorMessage);
+        setSubmitError('Unable to save your progress. Please try again.');
+      }
+    }
+  }, [formData, currentStep, currentSubStep]);
+
   // Create specialty categories for grouping
   const SPECIALTY_CATEGORIES = {
     'Mental Health': ['Anxiety', 'Bipolar disorder', 'Depression', 'OCD', 'PTSD', 'Trauma and abuse'],
@@ -139,9 +178,16 @@ export default function TherapistQuickStart() {
     'Health': ['Autism', 'Chronic illness', 'Tourettes syndrome']
   };
 
-  const handleNext = async () => {
+  const handleNext = async (): Promise<void> => {
     try {
       console.log('HandleNext called - Current step:', currentStep, 'SubStep:', currentSubStep);
+
+      // Show consent modal when leaving Screen 1 (only first time)
+      if (currentStep === 1 && !marketingConsent && !localStorage.getItem('consentAsked')) {
+        setShowConsentModal(true);
+        setPendingNavigation(true);
+        return;
+      }
 
       if (currentStep === 2 && currentSubStep === 'communication') {
         // Move to session format within step 2
@@ -156,11 +202,13 @@ export default function TherapistQuickStart() {
         await handleSubmit();
       }
     } catch (error) {
-      console.error('Error in handleNext:', error);
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+      console.error('Error in handleNext:', errorMessage);
+      setSubmitError('Unable to proceed. Please try again.');
     }
   };
 
-  const handleBack = () => {
+  const handleBack = (): void => {
     if (currentStep === 2 && currentSubStep === 'session') {
       // Go back to communication sub-step
       setCurrentSubStep('communication');
@@ -171,51 +219,74 @@ export default function TherapistQuickStart() {
     }
   };
 
-  const handleSubmit = async () => {
-    if (!user) return;
-
+  const handleSubmit = async (): Promise<void> => {
+    // New flow: Quick Start is anonymous, save to localStorage and navigate to sign-up
     setLoading(true);
     setSubmitError(null);
+
     try {
-      // Convert UI labels to database format (& instead of and)
-      const dbCommunicationStyle = toDbFormat(formData.communicationStyle);
-      const dbSessionFormat = toDbFormat(formData.sessionFormat);
+      // Mark Quick Start as complete in localStorage
+      localStorage.setItem('quickStartComplete', 'true');
 
-      // Update therapist profile with QuickStart data
-      const { error } = await supabase
-        .from('therapist_profiles')
-        .update({
-          license_number: formData.licenseNumber,
-          specialties: formData.specialties,
-          modalities: formData.modalities,
-          communication_style: dbCommunicationStyle,
-          session_format: dbSessionFormat,
-          setup_completed: true,
-          updated_at: new Date().toISOString()
-        })
-        .eq('user_id', user.id);
-
-      if (error) throw error;
-
-      // Navigate to dashboard with contextual onboarding
-      navigate('/t/dashboard');
+      // Navigate to sign-up page (form data already in localStorage)
+      navigate('/t/signup');
     } catch (error) {
-      console.error('Error saving QuickStart data:', error);
-      setSubmitError('Unable to save your profile. Please try again or contact support if the problem persists.');
+      const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+      console.error('Error completing Quick Start:', errorMessage);
+      setSubmitError('Unable to proceed. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
-  const isStepValid = () => {
+  const handleConsentResponse = async (consented: boolean): Promise<void> => {
+    setMarketingConsent(consented);
+    localStorage.setItem('consentAsked', 'true');
+
+    if (consented) {
+      // Save to therapist_leads table for email follow-ups
+      try {
+        const { data, error } = await supabase
+          .from('therapist_leads')
+          .upsert({
+            email: formData.email,
+            first_name: formData.firstName,
+            marketing_consent: true,
+            consent_timestamp: new Date().toISOString(),
+            quick_start_data: formData,
+            source: 'quick_start',
+            status: 'in_progress'
+          }, {
+            onConflict: 'email'
+          });
+
+        if (error) {
+          console.error('Error saving lead data:', error.message);
+          // Don't block user flow if this fails
+        }
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'An error occurred';
+        console.error('Error saving lead data:', errorMessage);
+        // Don't block user flow if this fails
+      }
+    }
+
+    // Continue with pending navigation
+    if (pendingNavigation) {
+      setPendingNavigation(false);
+      setCurrentStep(2);
+    }
+  };
+
+  const isStepValid = (): boolean => {
     switch (currentStep) {
       case 1:
-        return formData.firstName && formData.email && formData.licenseNumber;
+        return Boolean(formData.firstName && formData.email && formData.licenseNumber);
       case 2:
         if (currentSubStep === 'communication') {
-          return formData.communicationStyle;
+          return Boolean(formData.communicationStyle);
         } else {
-          return formData.sessionFormat;
+          return Boolean(formData.sessionFormat);
         }
       case 3:
         return formData.specialties.length >= 3;
@@ -228,7 +299,7 @@ export default function TherapistQuickStart() {
     }
   };
 
-  const renderStep = () => {
+  const renderStep = (): JSX.Element | null => {
     switch (currentStep) {
       case 1:
         return (
@@ -855,13 +926,22 @@ export default function TherapistQuickStart() {
               </>
             ) : (
               <>
-                {currentStep === 5 ? 'Enter Your Workspace' : 'Continue'}
+                {currentStep === 5 ? 'Create Your Account' : 'Continue'}
                 <ArrowRight className="h-4 w-4" />
               </>
             )}
           </Button>
         </div>
       </div>
+
+      {/* Marketing Consent Modal */}
+      <MarketingConsentModal
+        open={showConsentModal}
+        onOpenChange={setShowConsentModal}
+        onConsent={handleConsentResponse}
+        email={formData.email}
+        firstName={formData.firstName}
+      />
     </div>
   );
 }
