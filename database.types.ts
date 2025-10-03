@@ -970,6 +970,60 @@ export type Database = {
           },
         ]
       }
+      therapist_leads: {
+        Row: {
+          consent_timestamp: string | null
+          converted_at: string | null
+          created_at: string
+          email: string
+          email_sequence_step: number | null
+          first_name: string | null
+          id: string
+          last_email_sent_at: string | null
+          marketing_consent: boolean
+          quick_start_data: Json | null
+          source: string
+          status: string
+          unsubscribed: boolean
+          unsubscribed_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          consent_timestamp?: string | null
+          converted_at?: string | null
+          created_at?: string
+          email: string
+          email_sequence_step?: number | null
+          first_name?: string | null
+          id?: string
+          last_email_sent_at?: string | null
+          marketing_consent?: boolean
+          quick_start_data?: Json | null
+          source?: string
+          status?: string
+          unsubscribed?: boolean
+          unsubscribed_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          consent_timestamp?: string | null
+          converted_at?: string | null
+          created_at?: string
+          email?: string
+          email_sequence_step?: number | null
+          first_name?: string | null
+          id?: string
+          last_email_sent_at?: string | null
+          marketing_consent?: boolean
+          quick_start_data?: Json | null
+          source?: string
+          status?: string
+          unsubscribed?: boolean
+          unsubscribed_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       therapist_profiles: {
         Row: {
           accepts_new_clients: boolean
@@ -1330,20 +1384,13 @@ export type Database = {
       }
     }
     Functions: {
-      calculate_profile_strength: {
+      calculate_onboarding_progress: {
         Args: {
-          p_avatar_url: string
-          p_bio: string
-          p_cancellation_policy: string
           p_communication_style: string
-          p_license_number: string
           p_modalities: string[]
-          p_name: string
-          p_quote: string
-          p_rescheduling_policy: string
+          p_onboarding_state: Json
           p_session_format: string
           p_specialties: string[]
-          p_video_url: string
         }
         Returns: number
       }
@@ -1377,9 +1424,29 @@ export type Database = {
         Args: { event_type: string; target_user_id: string }
         Returns: undefined
       }
+      mark_lead_as_converted: {
+        Args: { lead_email: string }
+        Returns: undefined
+      }
+      unsubscribe_lead: {
+        Args: { lead_email: string }
+        Returns: undefined
+      }
       update_onboarding_progress: {
         Args: { p_action: string; p_step_id: string; p_user_id: string }
         Returns: Json
+      }
+      upsert_therapist_lead: {
+        Args: {
+          p_email: string
+          p_first_name: string
+          p_marketing_consent: boolean
+          p_quick_start_data: Json
+        }
+        Returns: {
+          lead_id: string
+          was_created: boolean
+        }[]
       }
     }
     Enums: {
