@@ -1034,6 +1034,9 @@ export type Database = {
           availability_hours: Json | null
           avatar_url: string | null
           bio: string | null
+          buffer_enabled: boolean | null
+          buffer_time_minutes: number | null
+          cancellation_agreement_signed: boolean | null
           cancellation_notice: string | null
           cancellation_policy: string | null
           communication_policy: string | null
@@ -1085,6 +1088,9 @@ export type Database = {
           availability_hours?: Json | null
           avatar_url?: string | null
           bio?: string | null
+          buffer_enabled?: boolean | null
+          buffer_time_minutes?: number | null
+          cancellation_agreement_signed?: boolean | null
           cancellation_notice?: string | null
           cancellation_policy?: string | null
           communication_policy?: string | null
@@ -1136,6 +1142,9 @@ export type Database = {
           availability_hours?: Json | null
           avatar_url?: string | null
           bio?: string | null
+          buffer_enabled?: boolean | null
+          buffer_time_minutes?: number | null
+          cancellation_agreement_signed?: boolean | null
           cancellation_notice?: string | null
           cancellation_policy?: string | null
           communication_policy?: string | null
@@ -1384,16 +1393,6 @@ export type Database = {
       }
     }
     Functions: {
-      calculate_onboarding_progress: {
-        Args: {
-          p_communication_style: string
-          p_modalities: string[]
-          p_onboarding_state: Json
-          p_session_format: string
-          p_specialties: string[]
-        }
-        Returns: number
-      }
       get_current_user_role: {
         Args: Record<PropertyKey, never>
         Returns: Database["public"]["Enums"]["app_role"]
